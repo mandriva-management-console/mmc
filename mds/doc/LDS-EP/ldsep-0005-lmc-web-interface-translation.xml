@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>How to translate the LMC web interface</title>
+
+  <subtitle>Informational / Draft</subtitle>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Cédric Delfosse - Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>lmc-web-base, lmc-web-samba, lmc-web-ox, lmc-web-proxy</productname>
+    <productnumber>1.x</productnumber>
+
+    <abstract>
+      <para>This document explains how to help the LDS project to make the LMC support more languages</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>How to translate the LMC</title>
+    
+    <para>
+      The LMC web interface uses the PHP gettext library to provide a multilanguage experience.
+    </para>
+    <para>
+      If you want to do some translation works:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>
+	  Tell us you want to do it ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Export the SVN repository of the interface part you want to translate ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Rebuild the template file that contains all the translation ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Translate the po file with a dedicated application (kbabel, poedit ...) ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Test it, and send us the translated file (.po file).
+	</para>
+      </listitem>      
+    </itemizedlist>
+
+    <para>
+      For example, you want to translate lmc-web-base into Spanish:
+    </para>
+
+    <screen>
+      $ cd /tmp
+      $ svn export http://lds.linbox.org/svn/lmc-web-base/trunk
+      $ cd trunk
+      $ make build_pot # Will build the translation template
+      $ mkdir -p modules/base/locale/es_ES.utf8/LC_MESSAGES
+      $ cp modules/base/locale/base.pot modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
+      # use your favorite editor to translate modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
+      $ kbabel modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
+      # Compile the .mo file and copy it to your running LMC
+      $ make build_mo
+      $ cp -r modules/base/locale/es_ES.utf8 /usr/share/lmc/modules/base/locale
+      # Your apache2 must be restarted to use the new .mo file
+      $ /etc/init.d/apache2 restart
+    </screen>
+    
+    <para>
+      Now if you point your navigator to the LMC login page, your newly translated language should be available.
+    </para>
+
+  </section>
+
+</article>
