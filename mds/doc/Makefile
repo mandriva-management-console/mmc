@@ -6,7 +6,7 @@ html:
 		echo $$f; \
 		xmlto -o `dirname $$f` xhtml-nochunks $$f; \
 		rm -f $$f; \
-		tidy $${f%.xml}.html > $${f%.xml}.prehtml; \
+		tidy -utf8 $${f%.xml}.html > $${f%.xml}.prehtml; \
 		./linboxify $${f%.xml}.prehtml $${f%.xml}.html; \
 		rm -f $${f%.xml}.prehtml; \
 	done
