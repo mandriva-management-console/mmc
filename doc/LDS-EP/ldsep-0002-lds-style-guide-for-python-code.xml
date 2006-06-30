@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LDS Style Guide for Python Code</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Cédric Delfosse - Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>LDS components written in Python</productname>
+    <productnumber>All LDS component version</productnumber>
+
+    <abstract>
+      <para>Coding conventions for the Python code of all LDS components</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>A lot of LDS components are written in Python, among them the LMC agent and its Python plugin.</para>
+
+    <para>This document sets the coding conventions for the Python code of all LDS components.</para>
+
+    <para>This document is totally based on Guido Van Rossum "Style Guide for Python Code" document (see http://www.python.org/dev/peps/pep-0008/): you must read it too. This document only emphases on important coding conventions.</para>
+
+  </section>
+
+  <section>
+
+    <title>Code layout</title>
+    
+    <para>
+      Indentation: use 4 spaces per indentation level, no tabs allowed. It's ok with Emacs Python mode.
+    </para>
+    <para>
+      Encoding: the source code must always use the UTF-8 encoding.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Whitespace in Expressions and Statements</title>
+    
+    <screen>
+      Yes: spam(ham[1], {eggs: 2})
+      No:  spam( ham[ 1 ], { eggs: 2 } )
+
+      Yes: if x == 4: print x, y; x, y = y, x
+      No:  if (x == 4): print x, y; x, y = y, x
+      No:  if x == 4 : print x , y ; x , y = y , x
+
+      
+      Yes: spam(1)
+      No:  spam (1)
+      
+      Yes: dict['key'] = list[index]
+      No:  dict ['key'] = list [index]
+      
+      Yes:      
+      x = 1
+      y = 2
+      long_variable = 3
+      
+      No:
+      x             = 1
+      y             = 2
+      long_variable = 3
+    </screen>
+
+  </section>
+
+  <section>
+
+    <title>Comments</title>
+    
+    <para>
+      They are written in english.
+    </para>
+    <para>
+      They always start with a capitalized first word.
+    </para>
+    <para>
+      There is always a space between the # and the begin of the comment.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Docstrings</title>
+    
+    <para>
+      All functions and classes must have a docstring.
+    </para>
+    <para>
+      The docstring must be written in the Epytext Markup Language format. We use epydoc to generate the API documentation. See http://epydoc.sourceforge.net/epytext.html and http://epydoc.sourceforge.net/fields.html for more information.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Naming conventions</title>
+    
+    <para>
+      Module name: short, lowercase names, without underscores
+    </para>
+    <para>
+      Class Names: CapitalizedWords
+    </para>
+    <para>
+      Functions Names: mixedCase for instance method, lower_case_with_underscores for other.
+    </para>
+
+  </section>
+
+</article>

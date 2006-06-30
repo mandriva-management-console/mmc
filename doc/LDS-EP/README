@@ -1,0 +1,3 @@
+Don't forget to run on each file that are added to the repository.
+
+$ svn propset svn:keywords "Date Author Revision" ldsep-name.xml
