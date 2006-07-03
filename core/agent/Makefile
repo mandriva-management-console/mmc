@@ -120,7 +120,7 @@ docs:
 
 test:
 	PYTHONPATH=. python tests/testldap.py
-	PYTHONPATH=. python tests/testprinters.py
+	#PYTHONPATH=. python tests/testprinters.py
 	PYTHONPATH=. python tests/testsamba.py
 	PYTHONPATH=. python tests/testproxy.py
 
