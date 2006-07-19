@@ -45,7 +45,9 @@
     <title>How to translate the LMC</title>
     
     <para>
-      The LMC web interface uses the PHP gettext library to provide a multilanguage experience.
+    The LMC web interface uses the PHP gettext library to provide a multilanguage experience.</para>
+    <para>
+      Please note that gettext requires the locales you want to use to be installed on your system. For example, to have the french locale working, you must install the "fr_FR.UTF-8" locale.
     </para>
     <para>
       If you want to do some translation works:
@@ -94,6 +96,7 @@
       # Compile the .mo file and copy it to your running LMC
       $ make build_mo
       $ cp -r modules/base/locale/es_ES.utf8 /usr/share/lmc/modules/base/locale
+      # Install the spanish es_ES.UTF-8 on your system
       # Your apache2 must be restarted to use the new .mo file
       $ /etc/init.d/apache2 restart
     </screen>
