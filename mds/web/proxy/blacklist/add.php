@@ -44,7 +44,7 @@ if (isset($_POST["bcreate"]))
   $blacklistGroup = $_POST["group"];
   $permAll = $_POST["permAll"];
 
-  if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9\._-]$/", $blacklistName)))
+  if (!(preg_match("/^(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/", $blacklistName)))
   {
     $error =  _T("Invalid domain name");
   }
