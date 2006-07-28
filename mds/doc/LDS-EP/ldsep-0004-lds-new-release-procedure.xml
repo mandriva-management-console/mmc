@@ -235,7 +235,7 @@
       <title>Releasing lmc-doc</title>
       
       <para>
-      The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
       </para>
       <para>
 	The lmc-doc SVN repository is tagged according to the version number of the release. The tag format is LMC_x_y_z. For example, if the version we release is 1.2.3, the tag is LMC_1_2_3.
@@ -259,9 +259,40 @@
       The tarballs are put in the public download place.
     </para>
     <para>
+      The debian packages repository is updated.
+    </para>
+    <para>
       A mail is sent to the lmc-announce mailing list.
     </para>
+    <para>
+      The freshmeat entry is updated.
+    </para>
 
+  </section>
+  
+  <section>
+
+    <title>Trac update</title>
+
+    <para>
+      Via trac-admin, a new version number must be added to the project, associated with a release date.
+    </para>
+    <screen>
+      # trac-admin .
+      # version add 1.0.1 "Jul 27, 2006"
+      # quit
+    </screen>
+
+    <para>
+      If this release adds a new component, it must be added to the project.
+    </para>
+
+    <screen>
+      # trac-admin .
+      # component add lmc-component-name 
+      # quit
+    </screen>
+    
   </section>
   
 </article>
