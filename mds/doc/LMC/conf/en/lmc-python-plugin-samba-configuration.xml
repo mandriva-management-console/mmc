@@ -9,8 +9,8 @@
     
     <author>
       <firstname>Cédric</firstname>
-      <surname>Name</surname>
-      <email>email</email>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
     </author>
 
     <affiliation>
@@ -77,7 +77,7 @@
       <title>
 	samba.ini available sections
       </title>
-      <tgroup cols="4">
+      <tgroup cols="3">
 	<thead>
 	  <row>
 	    <entry>Section name</entry>
