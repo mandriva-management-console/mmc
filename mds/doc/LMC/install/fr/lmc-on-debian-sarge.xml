@@ -5,9 +5,6 @@
   <title>Installation et configuration de la LMC sur Debian Sarge</title>
 
   <articleinfo>
-    <graphic align="right"
-             fileref="/home/lefebvre/Documentation/OpenXChange/logo_linboxfas.png"
-             format="PNG" valign="top" xreflabel="" />
 
     <author>
       <firstname>Cédric</firstname>
@@ -37,23 +34,11 @@
       <para></para>
     </legalnotice>
 
-    <revhistory>
-      <revision revisionflag="off">
-        <revnumber>1.0</revnumber>
-
-        <date>2005-10-13</date>
-
-        <authorinitials>CD</authorinitials>
-
-        <revdescription>
-          <para>Première version</para>
-        </revdescription>
-      </revision>
-
+    <revhistory>      
       <revision>
-        <revnumber>1.1</revnumber>
-
-        <date>2006-06-14</date>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
       </revision>
     </revhistory>
 
@@ -101,7 +86,7 @@
 
       <screen>
 # apt-get update
-linbox:~/lmc# apt-get install lmc-agent
+# apt-get install lmc-agent
 Lecture des listes de paquets... Fait
 Construction de l'arbre des dépendances... Fait
 Les paquets supplémentaires suivants seront installés&nbsp;:
@@ -244,7 +229,7 @@ failed.
 
       <para>Si la LMC gère un serveur SAMBA :</para>
 
-      <screen>linbox:~/lmc# apt-get install python-lmc-samba
+      <screen># apt-get install python-lmc-samba
 Lecture des listes de paquets... Fait
 Construction de l'arbre des dépendances... Fait
 Les paquets supplémentaires suivants seront installés&nbsp;:
@@ -569,7 +554,7 @@ Successfully granted rights.
     les requêtes LDAP.</para>
 
     <screen>
-	# cp /usr/share/doc/lmc-agent/contrib/ldap/nsswitch.conf /etc/nsswitch.conf
+	# cp /usr/share/doc/python-lmc-base/contrib/ldap/nsswitch.conf /etc/nsswitch.conf
       </screen>
   </section>
 
@@ -608,7 +593,7 @@ Successfully granted rights.
     <para>Une fois configuré, taper ceci pour lancer l'agent:</para>
 
     <screen>
-linbox:~/lmc# /etc/init.d/lmc-agent start
+# /etc/init.d/lmc-agent start
 Starting Linbox Management Console XML-RPC Agent: lmc-agent starting...
 Plugin base loaded, API version: 1:0:0 build(462)
 Plugin samba loaded, API version: 1:0:0 build(451)
