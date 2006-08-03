@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LMC base plugin configuration file</title>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Name</surname>
+      <email>email</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Cédric Delfosse- Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the LMC base plugin configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+    
+    <para>
+      The « base » plugin is the main plugin of the LMC Python API. It features base operations like LDAP management (users, groups, etc).
+    </para>
+    <para>
+      The plugin configuration file is <filename>/etc/lmc/plugins/base.ini</filename>.
+    </para>
+    <para>
+      Like all LMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+    </para>
+    <para>
+      For example:
+
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Configuration file sections</title>
+
+    <para>
+      Here are all the base.ini available sections
+    </para>
+    
+    <table>
+      <title>
+	base.ini available sections
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>ldap</entry>
+	    <entry>LDAP access definition</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>backup-tools</entry>
+	    <entry>Backup tools configuration</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>hooks</entry>
+	    <entry>Hooks for scripts that interacts with the LMC</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>userdefault</entry>
+	    <entry>Attributes and Objectclass values that are added or deleted when adding a new user into the LDAP</entry>
+	    <entry>yes</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+  
+  <section>
+
+    <title>Section « ldap »</title>
+
+    <para>
+      This section defines how the main LDAP is accessed, where are located the users organization units, etc.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "ldap" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>host</entry>
+	    <entry>IP address or hostname of the LDAP server</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>baseDN</entry>
+	    <entry>LDAP base Distinguished Name (DN)</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+
+	  <row>
+	    <entry>rootName</entry>
+	    <entry>LDAP administrator DN</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>password</entry>
+	    <entry>LDAP administrator password</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+
+	  <row>
+	    <entry>baseUsersDN</entry>
+	    <entry>LDAP organisational unit DN where the users are located</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>baseGroupsDN</entry>
+	    <entry>LDAP organisational unit DN where the groups are located</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>gpoDN</entry>
+	    <entry>LDAP organisational unit DN where the GPO are located</entry>
+	    <entry>yes</entry>
+	    <entry>ou=System,baseDN </entry>
+	  </row>
+	  <row>
+	    <entry>userHomeAction</entry>
+	    <entry>If set to 1, create and delete user directory when creating/deleting one</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>defaultUserGroup</entry>
+	    <entry>When creating an user, set this group as the primary user group</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>skelDir</entry>
+	    <entry>Use the specified directory when creating a user home directory</entry>
+	    <entry>yes</entry>
+	    <entry>/etc/skel</entry>
+	  </row>
+	  <row>
+	    <entry>defaultHomeDir</entry>
+	    <entry>Use this directory as a base directory when creating a user without specifying a home directory. If the creater user is called "foo", his/her homeDirectory will be "defaultHomeDir/foo"</entry>
+	    <entry>yes</entry>
+	    <entry>/home</entry>
+	  </row>
+	  <row>
+	    <entry>authorizedHomeDir</entry>
+	    <entry>a list of directory where user home directory can be put</entry>
+	    <entry>yes</entry>
+	    <entry>defaultHomeDir</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+    
+  </section>
+
+  <section>
+
+    <title>Section « backup-tools »</title>
+
+    <para>
+      This section defines where are located the backup tools. The backup tools are used when backuping a home directory or a SAMBA share from the LMC.
+    </para>
+    
+    <table>
+      <title>
+	Available options for the "backup-tools" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>path</entry>
+	    <entry>Where are located the executable needed by the backup tools</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>destpath</entry>
+	    <entry>Where the backup are located once done</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>  
+
+
+  <section>
+    
+    <title>Section « hooks »</title>
+    
+    <para>
+      The hooks system allow you to run external script when doing some operations with the LMC.
+    </para>
+    <para>
+      The script will be run as root user, with as only argument the full LDIF of the LDAP user. For the å adduser » hook, the LDIF file will contains the userPassword attributes in cleartext.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "hooks" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>adduser</entry>
+	    <entry>path to the script launched when a user has been added into the LDAP directory</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>deluser</entry>
+	    <entry>path to the script launched when a user is going to be removed from the LDAP directory</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+    
+  </section>
+
+  <section>
+
+    <title>Section « userdefault »</title>
+
+    <para>
+      This section allows to set default attributes to a user, or remove them
+    </para>
+    <para>
+      Each option of this section is corresponding to the attribute you want to act on.
+    </para>
+    <para>
+      If you want to remove the « displayName » attribute of each newly added user:
+    </para>
+    <screen>
+      [userdefault]
+      displayName = DELETE
+    </screen>
+    <para>
+      Substitution is done on the value of an option if a string between '%' is found. For example, if you want that all new user have a default email address containing their uid:
+    </para>
+    <screen>
+      [userdefault]
+      mail = %uid%@linbox.com
+    </screen>
+    <para>
+      If you want to add a value to a multi-valuated LDAP attribute, do this:
+    </para>
+    <screen>
+      [userdefault]
+      objectClass = +corporateUser
+    </screen>
+
+  </section>
+  
+
+</article>
