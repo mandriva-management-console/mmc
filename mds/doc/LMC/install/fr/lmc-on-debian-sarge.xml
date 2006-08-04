@@ -313,7 +313,8 @@ Après dépaquetage, 5825ko d'espace disque supplémentaires seront utilisés.
         <para>Modifier <filename>/etc/samba/smb.conf</filename> pour les
         options workgroup, netbiosname, ldap suffix et ldap admin dn.</para>
 
-        <para>Donnons au serveur SAMBA le mot de passe de l'admin LDAP:</para>
+	<para>Donnons au serveur SAMBA le mot de passe de l'admin LDAP.</para>
+	<para>Il s'agit du même mot de passe que l'administrateur du LDAP que vous avez renseigné lors de l'installation du paquet Debian slapd.</para>
 
         <screen>
 	  # smbpasswd -w s3cr3t
@@ -467,8 +468,8 @@ masterPw="votrepass"
         <para>Ensuite, on lance ldapmodify sur le fichier:</para>
 
         <screen>
-	  # ldapmodify -x -D "cn=Manager,dc=emtechno,dc=fr" -w "s3cr3t" &lt; /tmp/entrymods
-	  modifying entry "sambaDomainName=LINBOX,dc=linbox,dc=fr"
+	  # ldapmodify -x -D "cn=admin,dc=linbox,dc=com" -w "s3cr3t" &lt; /tmp/entrymods
+	  modifying entry "sambaDomainName=LINBOX,dc=linbox,dc=com"
 
 	</screen>
 
