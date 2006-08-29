@@ -10,6 +10,12 @@
 
       <email>&lt;adam.cecile@linbox.com&gt;</email>
     </author>
+    <author>
+      <firstname>Kevin Denis</firstname>
+
+      <email>&lt;kevin.denis@linbox.com&gt;</email>
+    </author>
+
 
     <affiliation>
       <orgname>Linbox / Free &amp; ALter Soft</orgname>
@@ -31,11 +37,19 @@
 
         <date>2006-06-19</date>
 
-        <authorinitials>NR</authorinitials>
+        <authorinitials>AC</authorinitials>
 
         <revdescription>
           <para>Première version</para>
         </revdescription>
+      </revision>
+      <revision>
+       <revnumber>1.1</revnumber>
+       <date>2006-07-08</date>
+       <authorinitials>KD</authorinitials>
+       <revdescription>
+         <para>Correction orthographique</para>
+       </revdescription>
       </revision>
     </revhistory>
 
@@ -47,8 +61,8 @@
   <section>
     <title>Introduction</title>
 
-    <para>La Linbox Management Console est un outils puissant d'administration
-    centralisée qui se base sur un annuaire LDAP.</para>
+    <para>La Linbox Management Console est un outil puissant d'administration
+    centralisé qui se base sur un annuaire LDAP.</para>
 
     <para>Elle est découpée en deux parties :</para>
 
@@ -61,15 +75,15 @@
 
     <itemizedlist>
       <listitem>
-        <para>une interface d'administration PHP, qui permettra de configuré
-        tout les serveurs possedant l'agent.</para>
+        <para>une interface d'administration PHP, qui permettra de configurer
+        tous les serveurs possédant l'agent.</para>
       </listitem>
     </itemizedlist>
 
     <para>Ces deux modules communiquent via XML/RPC.</para>
 
-    <para>Ce document a été réaliser sur une Mandriva 2006 fraichement
-    installée de façon minimale. Le niveau de sécurité à été définit à
+    <para>Ce document a été réalisé sur une Mandriva 2006 fraîchement
+    installée de façon minimale. Le niveau de sécurité a été défini à
     "élevé".</para>
   </section>
 
@@ -79,22 +93,22 @@
     <section>
       <title>Préparation du système pour l'agent LMC</title>
 
-      <para>L'agent LMC est écris en python et utilise le framewok
+      <para>L'agent LMC est écrit en python et utilise le framework
       python-twisted. Nous allons donc tout d'abord procéder à l'installation
-      de tous les modules python nécéssaires à l'installation de l'agent de
+      de tous les modules python nécessaires à l'installation de l'agent de
       base, et de son module Samba.</para>
 
       <section>
         <title>Installation des modules python</title>
 
-        <para>Mandriva contient toutes les dépendance python requise sur les
+        <para>Mandriva contient toutes les dépendances python requises sur les
         repository officiels. Il suffit donc de configurer urpmi correctement
         :</para>
 
         <screen>urpmq --list-media</screen>
 
         <para>Cette commande va vous retourner la liste des sources
-        actuellement utilisées par Mandriva. Nous allons supprimées les
+        actuellement utilisées par Mandriva. Nous allons supprimer les
         entrées existantes et ajouter le repository officiel.</para>
 
         <para>Voici un exemple d'entrées :</para>
@@ -110,7 +124,7 @@ Installation Free CD2 (cdrom2)</screen>
 
         <screen>urpmi.addmedia --distrib official ftp://ftp.free.fr/pub/Distributions_Linux/MandrivaLinux/official/2006.0/i586</screen>
 
-        <para>On vérifie que les repos ont été correctement ajoutés :</para>
+        <para>On vérifie que les repository ont été correctement ajoutés :</para>
 
         <screen>[root@mandriva-01 ~]# urpmq --list-media
 Main (official1)
@@ -159,7 +173,7 @@ urpmi python-psycopg</screen>
 cd lmc-agent-1.0.0
 make install</screen>
 
-      <para>Vous pouvez maintenant efféctuer un premier test : la commande
+      <para>Vous pouvez maintenant effectuer un premier test : la commande
       "lmc-agent" devrait retourner :</para>
 
       <screen>  File "/usr/lib/python2.3/site-packages/ldap/ldapobject.py", line 94, in _ldap_call
@@ -167,8 +181,8 @@ make install</screen>
 SERVER_DOWN: {'desc': "Can't contact LDAP server"}
 LMC agent can't run without the base plugin. Exiting.</screen>
 
-      <para>Cette erreur est aboslument normal car l'agent tente de contacter
-      un serveur LDAP, or nous n'avons pas encore procéder à son installation.
+      <para>Cette erreur est absolument normale car l'agent tente de contacter
+      un serveur LDAP, or nous n'avons pas encore procédé à son installation.
       Si vous obtenez un message similaire, c'est que tout c'est bien passé
       pour l'instant et que le lmc-agent est fonctionnel.</para>
     </section>
@@ -176,8 +190,8 @@ LMC agent can't run without the base plugin. Exiting.</screen>
     <section>
       <title>Installation du serveur OpenLDAP</title>
 
-      <para>Note : Cette section peut être facultative si vous posséder déjà
-      un serveur LDAP corrèctement configuré ou si vous souhaiter utiliser une
+      <para>Note : Cette section peut être facultative si vous possédez déjà
+      un serveur LDAP correctement configuré ou si vous souhaiter utiliser une
       autre machine comme serveur LDAP.</para>
 
       <para>OpenLDAP est présent dans les paquets de base de Mandriva 2006
@@ -229,7 +243,7 @@ rootpw          {SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
       <section>
         <title>Remplissage initial de l'annuaire LDAP</title>
 
-        <para>On ajout le dc et l'administrateur LDAP dans l'annuaire. Crée un
+        <para>On ajoute le dc et l'administrateur LDAP dans l'annuaire. Créez un
         fichier /tmp/lmc-initial.ldif et remplissez le ainsi :</para>
 
         <screen>dn: dc=linbox,dc=com
@@ -247,7 +261,7 @@ description: LDAP Administrator
 userPassword: gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
 
         <para>Notez que le champ userPassword doit être rempli avec ce que la
-        commande slappasswd vous a retourné précédemment mais sans le suffix
+        commande slappasswd vous a retourné précédemment mais sans le suffixe
         "{SSHA}".</para>
 
         <para>On peut maintenant injecter ce fichier ldif dans notre annuaire
@@ -256,8 +270,8 @@ userPassword: gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
         <screen>ldapadd -x -w "LiNBoX" -D "cn=admin,dc=linbox,dc=com" -f /tmp/lmc-initial.ldif</screen>
 
         <para>Le mot de passe spécifié pour -w correspond évidemment à celui
-        qui a utilisé pour générer un mot de passe hashé SSHA avec
-        slappassd.</para>
+        qui a été utilisé pour générer un mot de passe hashé SSHA avec
+        slappasswd.</para>
 
         <para>On peut maintenant vérifier que l'utilisateur admin fonctionne
         bien :</para>
@@ -268,9 +282,9 @@ dn:cn=admin,dc=linbox,dc=com
 Result: Success (0)</screen>
 
         <para>Si ldapwhoami renvoit "ldap_bind: Invalid credentials" c'est que
-        l'utilisateur n'est pas présent ou qu'il n'a pas été créé correctement
-        ce n'est pas la même d'aller plus loin... Recommencez cette étape en
-        vérifiant bien que vous n'avez pas fais une erreur de frappe par
+        l'utilisateur n'est pas présent ou qu'il n'a pas été créé correctement.
+        Ce n'est pas la peine d'aller plus loin... Recommencez cette étape en
+        vérifiant bien que vous n'avez pas fait une erreur de frappe par
         exemple.</para>
       </section>
     </section>
@@ -292,7 +306,7 @@ Lancement de slapd (ldap + ldaps) :                             [  OK  ]</screen
       <para>Mandriva inclut un firewall par défaut, via Shorewall.</para>
 
       <para>Nous allons donc autoriser l'agent LMC (tcp/7080). Editez
-      /etc/shorewall/rules et ajouter la ligne suivant dans le fichier (avant
+      /etc/shorewall/rules et ajoutez la ligne suivant dans le fichier (avant
       la dernière ligne) :</para>
 
       <screen>ACCEPT net fw tcp 7080</screen>
@@ -303,7 +317,7 @@ Lancement de slapd (ldap + ldaps) :                             [  OK  ]</screen
 
       <para>Un script d'init a été installé, cependant nous ne l'utiliserons
       pas pour ce tutorial puisque qu'il masque certaines informations qui
-      pourrait nous être utiles pour debugguer l'installation.</para>
+      pourraient nous être utiles pour débugguer l'installation.</para>
 
       <para>Une fois que tout fonctionne bien, vous DEVEZ utiliser le script
       pour lancer ou arrêter l'agent LMC.</para>
@@ -319,7 +333,7 @@ Lancement de slapd (ldap + ldaps) :                             [  OK  ]</screen
     <title>Installation de l'interface LMC</title>
 
     <para>Nous allons maintenant procéder à l'installation de l'interface Web
-    utilisateurs. Cette étape est facultative si vous posséder déjà une
+    utilisateurs. Cette étape est facultative si vous possédez déjà une
     interface LMC installée sur un de vos serveurs Web.</para>
 
     <section>
@@ -335,7 +349,7 @@ Lancement de slapd (ldap + ldaps) :                             [  OK  ]</screen
       <title>Installation de l'interface</title>
 
       <para>On peut maintenant procéder à l'installation de l'interface.
-      Récupérez l'archive lmc-base, décompressez la puis lancez l'installation
+      Récupérez l'archive lmc-base, décompressez-là puis lancez l'installation
       :</para>
 
       <screen>tar xvzpf lmc-web-base-1.0.0.tar.gz
@@ -347,7 +361,7 @@ make install HTTPDUSER=apache</screen>
       <screen>cp debian/apache.conf /etc/httpd/conf.d/lmc.conf</screen>
 
       <para>Editez /etc/httpd/conf.d/lmc.conf pour l'ajuster à nos chemins. Si
-      vous n'avez pas modifier le prefix, voila comment le fichier doit être
+      vous n'avez pas modifié le prefix, voila comment le fichier doit être
       modifié :</para>
 
       <para>De même il faut autoriser l'accès au répertoire contenant la lmc
@@ -372,7 +386,7 @@ make install HTTPDUSER=apache</screen>
 
       <screen>/etc/init.d/shorewall restart</screen>
 
-      <para>Il ne reste plus qu'a relancé le serveur web :</para>
+      <para>Il ne reste plus qu'à relancer le serveur web :</para>
 
       <screen>/etc/init.d/httpd restart</screen>
 
@@ -395,8 +409,8 @@ make install HTTPDUSER=apache</screen>
     <section>
       <title>Installation &amp; configuration du module Samba</title>
 
-      <para>L'agent lmc contient déjà le module Samba. Cependant étant que
-      Samba n'etait pas présent lors de son lancement, le plugin a été
+      <para>L'agent lmc contient déjà le module Samba. Cependant puisque
+      Samba n'était pas présent lors de son lancement, le plugin a été
       desactivé. Nous reviendrons plus tard sur ce point.</para>
 
       <para>La première chose qui va être abordée dans cette section est
@@ -442,11 +456,11 @@ make install</screen>
 
         <screen>cp contrib/samba/smb.conf /etc/samba/smb.conf</screen>
 
-        <para>Vous pouvez maintenant eventuellement modifier les champs
+        <para>Vous pouvez maintenant éventuellement modifier les champs
         "workgroup", "ldap admin dn" et "ldap suffix" pour les adapter à votre
         configuration.</para>
 
-        <para>Pour la suite de cette documentation nous utiliseront les
+        <para>Pour la suite de cette documentation nous utiliserons les
         valeurs fournies dans l'exemple.</para>
 
         <para>Samba doit connaitre les mot de passe de l'administrateur du
@@ -460,7 +474,7 @@ Setting stored password for "cn=admin,dc=linbox,dc=com" in secrets.tdb</screen>
       <section>
         <title>Configuration du serveur LDAP pour Samba</title>
 
-        <para>La configuration d'OpenLDAP inclus déjà un serveur Samba, il
+        <para>La configuration d'OpenLDAP inclut déjà un serveur Samba, il
         n'est donc pas nécessaire d'inclure celui donné en exemple dans les
         sources de l'agent.</para>
 
@@ -507,7 +521,7 @@ SID for domain LINBOX is: S-1-5-21-128599351-419866736-2079179792</screen>
         d'IDEALX</title>
 
         <para>Maintenant que notre domaine Samba est présent dans le LDAP,
-        nous allons y ajouter l'ensemble des ou utilisées dans un domaine
+        nous allons y ajouter l'ensemble des OU (Organization Unit) utilisées dans un domaine
         Active Directory. Cette opération va être effectuer par des outils
         appelés smbldap-tools.</para>
 
@@ -517,10 +531,10 @@ SID for domain LINBOX is: S-1-5-21-128599351-419866736-2079179792</screen>
 
         <para>Installez les dépendances requises puis le rpm :</para>
 
-        <screen>urpi perl-Digest-SHA1 perl-LDAP perl-Crypt-SmbHash perl-Unicode-MapUTF8 perl-IO-Socket-SSL
+        <screen>urpmi perl-Digest-SHA1 perl-LDAP perl-Crypt-SmbHash perl-Unicode-MapUTF8 perl-IO-Socket-SSL
 rpm -i smbldap-tools-0.9.2-1.noarch.rpm</screen>
 
-        <para>Il faut maintenant configuré ces outils pour notre arborescence
+        <para>Il faut maintenant configurer ces outils pour notre arborescence
         LDAP. Commencez par éditer
         "/etc/opt/IDEALX/smbldap-tools/smbldap_bind.conf" et remplissez-le
         ainsi :</para>
@@ -587,7 +601,7 @@ account policy value for maximum password age is 4294967295</screen>
         <para>Les utilisateurs créés par l'interface Web lmc devraient être
         automatiquement ajoutés a l'ou "Domain users". On peut activer cette
         fonctionnalité en éditant "/etc/lmc/plugins/base.ini" puis en
-        decommentant la ligne :</para>
+        décommentant la ligne :</para>
 
         <screen>defaultUserGroup = Domain users</screen>
 
