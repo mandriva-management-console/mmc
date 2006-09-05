@@ -27,8 +27,9 @@
          * module declaration
          */
         $mod = new Module("proxy");
-        $mod->setVersion("1.0.1");
+        $mod->setVersion("1.0.0");
         $mod->setRevision("$Rev$");
+        $mod->setDescription(_T("Web proxy"),"proxy");
         $mod->setAPIVersion('1:0:0');
 
         /**
@@ -37,7 +38,7 @@
 
         $submod = new SubModule("blacklist");
         $submod->setDescription(_T("Proxy","proxy"));
-        $submod->setImg('img/navbar/pref');
+        $submod->setImg('img/navbar/proxy');
         $submod->setDefaultPage("proxy/blacklist/statut");
         $submod->setPriority(300);
 
@@ -46,13 +47,14 @@
         $submod->addPage($page);
 
         $page = new Page("delete",_T("Remove a domain in the blacklist","proxy"));
-        $page->setOptions( array ("noHeader" => True));
+        $page->setOptions( array ("noHeader" => True,"visible"=>False));
         $submod->addPage($page);
 
         $page = new Page("add",_T("Add a domain in the blacklist","proxy"));
         $submod->addPage($page);
 
         $page = new Page("restart",_T("Restart proxy web service","proxy"));
+        $page->setOptions(array("visible"=>False));
         $submod->addPage($page);
 
         $page = new Page("statut",_T("Proxy status page","proxy"));
