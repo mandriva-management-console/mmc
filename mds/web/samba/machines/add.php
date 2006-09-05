@@ -54,7 +54,7 @@ if (isset($_POST["baddmach"]))
   $machine = $_POST["machine"];
   $comment = $_POST["comment"];
 
-  if (!preg_match("/^[a-z][a-z-0-9]*$/", $machine))
+  if (!preg_match("/^[A-Za-z][A-Za-z-0-9]*$/", $machine))
     {
       $error = "Nom de machine invalide !";
     }

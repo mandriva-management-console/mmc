@@ -27,6 +27,6 @@ $sidebar = array("class" => "machines",
                                     "text" => _T("Computers management"),
                                     "link" => "main.php?module=samba&submod=machines&action=index"),
                               array("id" => "addMachine",
-                                    "text" => _T("add a computer"),
+                                    "text" => _T("Add a computer"),
                                     "link" => "main.php?module=samba&submod=machines&action=add")));
 ?>

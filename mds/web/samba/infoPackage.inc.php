@@ -26,9 +26,12 @@
          * module declaration
          */
         $mod = new Module("samba");
-        $mod->setVersion("1.0.1");
+        $mod->setVersion("1.1.0");
         $mod->setRevision("$Rev$");
-        $mod->setAPIVersion('1:0:0');
+        $mod->setDescription(_T("SAMBA service"),"samba");
+        $mod->setAPIVersion('2:0:1');
+
+        $mod->setPriority(10);
 
         /**
          * shares submod definition
@@ -46,14 +49,15 @@
         $submod->addPage($page);
 
         $page = new Page("backup",_T("Backup a share","samba"));
-        $page->setOptions( array ("noHeader" => True));
+        $page->setOptions( array ("noHeader" => True,"visible" => False));
         $submod->addPage($page);
 
         $page = new Page("delete",_T("Remove a share","samba"));
-        $page->setOptions( array ("noHeader" => True));
+        $page->setOptions( array ("noHeader" => True,"visible" => False));
         $submod->addPage($page);
 
         $page = new Page("details",_T("Share details","samba"));
+        $page->setOptions( array ("visible" => False));
         $submod->addPage($page);
 
         $mod->addSubmod($submod);
@@ -64,6 +68,7 @@
          */
         $submod = new SubModule("machines");
         $submod->setVisibility(False);
+        $submod->setImg('img/navbar/computer');
         $submod->setDefaultPage("samba/machines/index");
         $submod->setDescription(_T("Machines"),"samba");
 
@@ -74,7 +79,7 @@
         $submod->addPage($page);
 
         $page = new Page("delete",_T("Delete a computer","samba"));
-        $page->setOptions( array ("noHeader" => True));
+        $page->setOptions( array ("noHeader" => True,"visible"=>False));
         $submod->addPage($page);
 
         $mod->addSubmod($submod);
@@ -85,6 +90,7 @@
          */
         $submod = new SubModule("config");
         $submod->setDefaultPage("samba/config/index");
+        $submod->setImg('img/navbar/pref');
         $submod->setDescription(_T("Configuration"),"samba");
         $submod->setVisibility(False);
         $submod->setAlias('shares');
@@ -93,7 +99,8 @@
         $page = new Page("index",_T("SAMBA configuration","samba"));
         $submod->addPage($page);
 
-        $page = new Page("restart",_T("SAMBA configuration","restart"));
+        $page = new Page("restart",_T("restart SAMBA service","samba"));
+        $page->setOptions(array("visible"=>False));
         $submod->addPage($page);
 
         $mod->addSubmod($submod);
@@ -107,6 +114,17 @@
 
         $LMCApp =&LMCApp::getInstance();
         $LMCApp->addModule($mod);
+
+
+        //add status page
+        $base = &$LMCApp->getModule('base');
+        $status = &$base->getSubmod('status');
+
+        $page = new Page("sambastatus",_T("SAMBA status","samba"));
+        $page->setFile("modules/samba/status/index.php");
+        $status->addPage($page);
+
+
 
 
 

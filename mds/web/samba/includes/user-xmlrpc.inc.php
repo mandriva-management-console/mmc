@@ -63,5 +63,13 @@ function smbUnlockUser($uid) {
         return xmlCall("samba.unlockUser",array($uid));
 }
 
+function getSmbStatus() {
+        return xmlCall("samba.getSmbStatus",array());
+}
+
+function getConnected() {
+        return xmlCall("samba.getConnected",array());
+}
+
 
 ?>

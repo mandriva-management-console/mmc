@@ -157,11 +157,11 @@ function _samba_baseEdit($ldapArr,$postArr) {
             $displayType= "none";
         }
     }
-
-    print "<br/><h3>"._T("Samba user properties","samba")."</h3>\n";
+    print "<div class=\"formblock\" style=\"background-color: #EFE;\">";
+    print "<h3>"._T("Samba user properties","samba")."</h3>\n";
     print '<table cellspacing="0">';
 
-    $test = new TrFormElement(_T("Samba access, if checked","samba"), new CheckboxTpl("isSamba"));
+    $test = new TrFormElement(_T("SAMBA access","samba"), new CheckboxTpl("isSamba"));
     $test->setCssError("accesSmb");
     $param = array("value"=>$checked,
                    "extraArg"=>'onclick="toggleVisibility(\'smbtable\');"');
@@ -176,8 +176,10 @@ function _samba_baseEdit($ldapArr,$postArr) {
 
     print '<table>'."\n";
 
+    $checked = "";
 
-    $smbuser = hasSmbAttr($ldapArr["uid"][0]);
+    if ($ldapArr["uid"][0]) {
+        $smbuser = hasSmbAttr($ldapArr["uid"][0]);
 
     if ($smbuser) {
         if (!isEnabledUser($uid)) {
@@ -187,6 +189,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
         }
     } else {
         $checked = "";
+    }
     }
     $param = array ("value" => $checked);
 
@@ -239,6 +242,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
     }
 
     print '</table>'."\n";
+    print "</div>"."\n";
     print "</div>"."\n";
     print "</div>"."\n";
 
