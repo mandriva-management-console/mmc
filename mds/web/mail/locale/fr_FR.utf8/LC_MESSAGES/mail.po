@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-21 09:41+0200\n"
+"PO-Revision-Date: 2006-08-04 09:57+0200\n"
+"Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: mail/includes/publicFunc.php:12
+msgid "Mail plugin"
+msgstr "Messagerie électronique"
+
+#: mail/includes/publicFunc.php:29 mail/infoPackage.inc.php:14
+msgid "Mail access"
+msgstr "Accès au service de messagerie"
+
+#: mail/includes/publicFunc.php:54
+msgid "Mail delivery is disabled, if checked"
+msgstr "Livraison d'email arrêtée, si cochée"
+
+#: mail/includes/publicFunc.php:59 mail/infoPackage.inc.php:13
+msgid "Mail address"
+msgstr "Adresse de messagerie (email)"
+
+#: mail/includes/publicFunc.php:66 mail/includes/publicFunc.php:69
+#: mail/infoPackage.inc.php:16
+msgid "Mail drop"
+msgstr "Utilisateur interne destinataire (maildrop)"
+
+#: mail/includes/publicFunc.php:73 mail/includes/publicFunc.php:76
+msgid "Mail alias"
+msgstr "Alias de messagerie"
+
+#: mail/includes/publicFunc.php:119
+#, php-format
+msgid "%s is not a valid mail alias."
+msgstr "%s n'est pas un alias de messagerie valide."
+
+#: mail/infoPackage.inc.php:8
+msgid "Mail service"
+msgstr "Accès au service de messagerie"
+
+#: mail/infoPackage.inc.php:15
+msgid "Disable mail delivery"
+msgstr "Arrêt de la livraison d'email"
+
+#: mail/infoPackage.inc.php:17
+msgid "Mail aliases"
+msgstr "Alias de messagerie"
