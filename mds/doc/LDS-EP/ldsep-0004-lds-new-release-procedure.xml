@@ -156,10 +156,10 @@
 	Please check the requirements in this order.
       </para>
       <para>
-	The __version variable variable contained in each infoPackage.inc.php file from each lmc-web-* component must be updated to the version we release.
+	The version attribute contained in each infoPackage.inc.php file from each lmc-web-* component must be updated to the version we release, thanks to the setVersion method.
       </para>
       <para>
-	Each lmc-web-* must be able to interact with their corresponding plugin we are going to release. For example, lmc-web-base must be compatible with the base plugin of the lmc-agent. __apiversion variable contained in each infoPackage.inc.php file from each lmc-web-* must be equal to the APIVERSION attribute of the corresponding lmc-agent Python plugin.
+	Each lmc-web-* must be able to interact with their corresponding plugin we are going to release. For example, lmc-web-base must be compatible with the base plugin of the lmc-agent. The APIVersion variable contained in each infoPackage.inc.php file from each lmc-web-* must be equal to the APIVERSION attribute of the corresponding lmc-agent Python plugin. This is done thanks to the setAPIVersion method.
       </para>
       <para>
 	The web selenium tests are successful with the lmc-agent revision we are going to release and that met the release requirement.
@@ -180,10 +180,10 @@
       All the installation/configuration manuals must be updated and checked.
     </para>
     <para>
-      The Python API documentation must be regenerated.
+      The Python API documentation must be regenerated. This is done automatically every day.
     </para>
     <para>
-      The PHP API documentation must be regenerated.
+      The PHP API documentation must be regenerated. This is done automatically every day.
     </para>
     
   </section>
@@ -197,7 +197,7 @@
       <title>Releasing lmc-agent</title>
       
       <para>
-      The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
       </para>
       <para>
 	The lmc-agent SVN repository is tagged according to the version number of the release. The tag format is LMC_x_y_z. For example, if the version we release is 1.2.3, the tag is LMC_1_2_3.
