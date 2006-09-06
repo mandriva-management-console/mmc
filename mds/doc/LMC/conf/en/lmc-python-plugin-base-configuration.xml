@@ -303,7 +303,7 @@
     <title>Section « userdefault »</title>
 
     <para>
-      This section allows to set default attributes to a user, or remove them
+      This section allows to set default attributes to a user, or remove them, only at user creation.
     </para>
     <para>
       Each option of this section is corresponding to the attribute you want to act on.
@@ -328,6 +328,48 @@
     <screen>
       [userdefault]
       objectClass = +corporateUser
+    </screen>
+    <para>
+      Since version 1.1.0, you can add modifiers that interact with the substitution.
+      This modifiers are put between square bracket at the beginning os the string to substitute.
+    </para>
+
+    <table>
+      <title>
+	Available modifiers for substitution
+      </title>
+      <tgroup cols="2">
+	<thead>
+	  <row>
+	    <entry>modifier character</entry>
+	    <entry>Description</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>/</entry>
+	    <entry>Remove diacritics (accents mark) from the substitution string</entry>
+	  </row>
+	  <row>
+	    <entry>_</entry>
+	    <entry>Set substitution string to lower case</entry>
+	  </row>
+	  <row>
+	    <entry>|</entry>
+	    <entry>Set substitution string to upper case</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      For example, you want that all new created users have a default mail address made this way: « firstname.lastname@linbox.com ».
+      But your user firstname/lastname have accent marks, that are forbidden for email address. You do it like this:
+    </para>
+
+    <screen>
+      [userdefault]
+      mail = [_/]%givenName%.%sn%@linbox.com
     </screen>
 
   </section>
