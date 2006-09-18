@@ -45,22 +45,29 @@
 
         <date>12 aout 2005</date>
       </revision>
+
       <revision>
         <revnumber>1.5</revnumber>
 
         <date>14 juin 2006</date>
       </revision>
+
+      <revision>
+        <revnumber>1.6</revnumber>
+
+        <date>01 septembre 2006</date>
+      </revision>
     </revhistory>
 
     <abstract>
-
       <para>Documentation Linbox Management Console.</para>
 
       <para>LMC est un logiciel visant à plus simplement configurer un serveur
       ou un ensemble de serveur sous GNU/Linux. Il est principalement séparé
-      en deux parties distinctes. Une partie dite cliente, lmc-web-base qui gère
-      les graphismes et l'accès au(x) serveur(s), écrite en PHP. Une partie
-      serveur qui effectue les commandes XMLRPC, écrite en Python.</para>
+      en deux parties distinctes. Une partie dite cliente, lmc-web-base qui
+      gère les graphismes et l'accès au(x) serveur(s), écrite en PHP. Une
+      partie serveur qui effectue les commandes XMLRPC, écrite en
+      Python.</para>
     </abstract>
   </articleinfo>
 
@@ -130,9 +137,9 @@
         </variablelist>
 
         <warning>
-          <para>lmc-web-base est la base de l'interface web. Même si lmc-base est
-          requis pour tout autre modules, il n'en reste pas moins un module
-          lui même, il est donc normal d'avoir un modules "base" après
+          <para>lmc-web-base est la base de l'interface web. Même si lmc-base
+          est requis pour tout autre modules, il n'en reste pas moins un
+          module lui même, il est donc normal d'avoir un modules "base" après
           l'installation dans le répertoire
           <filename>"modules/</filename>".</para>
         </warning>
@@ -339,15 +346,6 @@
               etc...)</para>
             </listitem>
           </varlistentry>
-
-          <varlistentry>
-            <term>localNavbar.php</term>
-
-            <listitem>
-              <para>Définit l'onglet du module à rajouter dans l'application
-              dans la navbar (menu d'onglet en haut).</para>
-            </listitem>
-          </varlistentry>
         </variablelist>
 
         <caution>
@@ -370,80 +368,166 @@
 
         <para>Le fichier se présente sous la forme suivante :</para>
 
-        <programlisting>&lt;?php
-global $redirArray;
-global $descArray;
+        <programlisting>&lt;?
 
-        $redirArray["base"]["main"]["default"]="main_content.php";
-        $descArray["base"]["main"]["default"]="Page d'index de lmc";
-        
-        $redirArray["base"]["users"]["index"]="modules/base/users/index.php";
-        $descArray["base"]["users"]["index"]="Index des utilisateurs";
-        
-        $redirArray["base"]["users"]["edit"]="modules/base/users/edit.php";
-        $descArray["base"]["users"]["edit"]="Ajout/édition d'un utilisateur";
-        
-        $redirArray["base"]["users"]["editacl"]="modules/base/users/editacl.php";
-        $descArray["base"]["users"]["editacl"]="Edition des acl d'un utilisateur";
+        /**
+         * module declaration
+         */
+        $mod = new Module("proxy");
+        $mod-&gt;setVersion("1.0.0");
+        $mod-&gt;setRevision("$Rev: 63 $");
+        $mod-&gt;setDescription(_T("Web proxy"),"proxy");
+        $mod-&gt;setAPIVersion('1:0:0');
 
+        /**
+         * user submod definition
+         */
 
-global $aclArray;
-        
-        $aclArray["base"]["nlogin"]="Identifiant de l'utilisateur";
-        $aclArray["base"]["name"]="Nom de l'utilisateur";
-        $aclArray["base"]["firstname"]="Prénom de l'utilisateur";
+        $submod = new SubModule("blacklist");
+        $submod-&gt;setDescription(_T("Proxy","proxy"));
+        $submod-&gt;setImg('img/navbar/proxy');
+        $submod-&gt;setDefaultPage("proxy/blacklist/statut");
+        $submod-&gt;setPriority(300);
 
 
-        $noheaderArray["base"]["users"]["ajaxAutocompleteGroup"] = 1;
-        $redirAjaxArray["base"]["users"]["ajaxAutocompleteGroup"]="modules/base/users/ajaxAutocompleteGroup.php";
+        $page = new Page("index",_T("Blacklist","proxy"));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("delete",_T("Remove a domain in the blacklist","proxy"));
+        $page-&gt;setOptions( array ("noHeader" =&gt; True,"visible"=&gt;False));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("add",_T("Add a domain in the blacklist","proxy"));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("restart",_T("Restart proxy web service","proxy"));
+        $page-&gt;setOptions(array("visible"=&gt;False));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("statut",_T("Proxy status page","proxy"));
+        $submod-&gt;addPage($page);
+
+        $mod-&gt;addSubmod($submod);
+
+        $LMCApp =&amp;LMCApp::getInstance();
+        $LMCApp-&gt;addModule(&amp;$mod);
 ?&gt;</programlisting>
 
         <para>Le fichier "main.php" charge automatiquement les fichiers
         contenus dans chaque package.</para>
 
-        <para>Le fichier "infoPackage.inc.php" définit les inclusions à faire
-        en fonction des paramètres donnés. Il est très simple de le
-        comprendre.</para>
+        <para>Le fichier "infoPackage.inc.php" définit depuis la version 1.0.0
+        de la lmc les inclusions à faire en fonction des paramètres donnés
+        mais aussi toutes les informations relatives aux modules.</para>
 
-        <para>$redirArray["proxy"]["blacklist"]["index"] définit le fichier a
-        inclure en cas d'appelle de l'url
-        "main.php?module=proxy&amp;submod=blacklist&amp;action=index".</para>
+        <para>Chaque modules est composé de sous modules et chaque sous
+        modules est composé de page.</para>
 
-        <para>$descArray donne un descriptif à la page (utilisé pour la
-        description des pages dans l'édition des ACL)</para>
+        <para>Mettons nous en situation l'url
+        "http://192.168.0.247/lmc/main.php?module=proxy&amp;submod=blacklist&amp;action=statut"
+        appelle le sous module blacklist du module proxy avec comme action
+        "status".</para>
 
-        <para>$aclArray définit quand à lui, les champs de formulaire qui sont
-        soumis aux réglages des ACL.</para>
+        <para>Par défaut, sans précision, le fichier est
+        "modules/[module_name]/[submod_name]/[action_name].php", on peut
+        toutefois le préciser de cette manière</para>
 
-        <caution>
-          <para>Ce fichier <emphasis role="bold">DOIT</emphasis> être présent,
-          même si il ne contient aucune information.</para>
-        </caution>
+        <programlisting>      $page = new Page("index",_("Default status page"));
+      $page-&gt;setFile("modules/base/status/index.php");
+      $page-&gt;setOptions(array("visible"=&gt;False,"AJAX" =&gt;True))
 
-        <warning>
-          <para>Même si la variable s'appelle $redirArray... ce n'est en aucun
-          cas une redirection mais belle et bien une inclusion de fichier. Il
-          est très important de le retenir surtout au niveau des chemins de
-          fichier</para>
-        </warning>
+      $submod-&gt;addPage($page);</programlisting>
 
-        <para></para>
-      </section>
+        <para>Une page peut avoir des options comme:</para>
 
-      <section>
-        <title>Le fichier "localNavbar.php"</title>
+        <itemizedlist>
+          <listitem>
+            <para>"visible": Afficher ou non sur la page principale (tout
+            actions d'édition/suppresion demandant un paramètre, elles ne sont
+            pas visible sur la page d'accueil. "True" par défaut.</para>
+          </listitem>
 
-        <para>Ce fichier qui est à la racine de chaque module définit le menu
-        navbar (menu en haut).</para>
+          <listitem>
+            <para>"noHeader": N'affiche pas les headers/footer (pour l'ajax
+            entre autre). "False" par défaut.</para>
+          </listitem>
 
-        <para>Pour information, le module proxy contient juste cette ligne
-        dans son "localNavbar.php"</para>
+          <listitem>
+            <para>"noACL": La page n'a pas d'acl. "False" par défaut.</para>
+          </listitem>
 
-        <para><programlisting>&lt;li id="proxy"&gt;&lt;a href="&lt;?php echo $root; ?&gt;main.php?module=proxy
-&amp;submod=blacklist&amp;action=index" target="_self"&gt;Proxy&lt;/a&gt;&lt;/li&gt;</programlisting></para>
+          <listitem>
+            <para>"AJAX": equivaut à noHeader/noAcl à True. "False" par
+            défaut.</para>
+          </listitem>
+        </itemizedlist>
 
-        <para>L'identifiant "id" a son importance car il est utile pour le
-        design CSS.</para>
+        <para>Ensuite on ajoute le module à un sous module.</para>
+
+        <para>Un sous module définit concretement la séparation de
+        fonctionnalités entre un module mais aussi les onglets en haut de la
+        barre de navigation. Par exemple le module base à 3 sous modules
+        "User", "Group" et "Status".</para>
+
+        <programlisting>        $submod = new SubModule("status");
+        $submod-&gt;setVisibility(True);
+        $submod-&gt;setDescription(_("Status"));
+        $submod-&gt;setImg('img/navbar/load');
+        $submod-&gt;setDefaultPage("base/status/index");
+        $submod-&gt;setPriority(10000);
+        
+        $mod-&gt;addSubmod($submod);</programlisting>
+
+        <para>On peut définir dans un sous module:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Sa visibilité. Si l'icone en haut de page est visible ou
+            non</para>
+          </listitem>
+
+          <listitem>
+            <para>Son icone (image). "img/navbar/load" implique d'aller
+            chercher "img/navbar/load.png" en apparence normale
+            "load_select.png" si selectionné et "load_hover.png" lorsque
+            l'utilisateur passe son curseur au dessus.</para>
+          </listitem>
+
+          <listitem>
+            <para>SetDefaultPage indique la page par defaut pour le sous
+            module lorsque l'on clique dessus.</para>
+          </listitem>
+
+          <listitem>
+            <para>Setpriority définit la priorité dans la barre de navigation,
+            1 (premier éléments) à 10 000 (derniers élements).</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Finallement on définit le module</para>
+
+        <programlisting>        /**
+         * module declaration
+         */
+        $mod = new Module("base");
+        $mod-&gt;setVersion("1.0.0");
+        $mod-&gt;setRevision("$Rev: 427 $");
+        $mod-&gt;setAPIVersion('1:0:0');
+        $mod-&gt;setDescription(_("User and group"));
+        $mod-&gt;setPriority(1);
+
+        $mod-&gt;addACL("isBaseDesactive",_("Enable/Disable user account"));</programlisting>
+
+        <para>Définition de numéro de version, revision etc..., le seul
+        élement à noté est la priorité qui là définit l'ordre de charge des
+        modules sur une page contenant plusieurs fonctions partagés (editions
+        d'utilisateurs).</para>
+
+        <programlisting>        $LMCApp =&amp; LMCApp::getInstance();
+        $LMCApp-&gt;addModule($mod);</programlisting>
+
+        <para>Le module est ensuite ajouter au singleton qui gère la totalité
+        de la LMC.</para>
       </section>
     </section>
 
@@ -456,16 +540,15 @@ global $aclArray;
         <para>PageGenerator est un ensemble de classes crées dans le but de
         simplifier et d'uniformiser la création de page pour lmc.</para>
 
-        <para>Toutes ces classes se trouvent dans le fichier "PageGenerator.php"
-        qui se trouve dans le répertoire include du package "lmc-base". Nous
-        allons donc voir brièvement l'ensemble de ces classes.</para>
+        <para>Toutes ces classes se trouvent dans le fichier
+        "PageGenerator.php" qui se trouve dans le répertoire include du
+        package "lmc-base". Nous allons donc voir brièvement l'ensemble de ces
+        classes.</para>
 
         <figure>
           <title>Schéma d'une page lmc</title>
 
           <screenshot>
-            <screeninfo></screeninfo>
-
             <mediaobject>
               <imageobject>
                 <imagedata align="center" fileref="images/schema.png"
@@ -794,6 +877,16 @@ $n-&gt;add($str);</programlisting>
 &lt;/div&gt;</programlisting>
       </section>
     </section>
+
+    <section>
+      <title>Thèmes personnalisés</title>
+
+      <para>Vous pouvez personnaliser le thème de la LMC. Pour personnaliser
+      la LMC, vous pouvez modifier les fichiers "graph/header.inc.php",
+      "graph/footer.inc.php" pour modifier les en têtes et pieds de pages
+      ainsi que le fichier "graph/navbar.inc.php" pour modifier la barre de
+      navigation en haut de chaque pages.</para>
+    </section>
   </section>
 
   <section>
@@ -801,9 +894,9 @@ $n-&gt;add($str);</programlisting>
 
     <para>Il pourrait être intéressant qu'un module ne crée pas une
     arborescence propre à lui mais modifie des pages déjà existantes.
-    L'exemple le plus simple est l'édition d'un utilisateur. Le module lmc-web-ox
-    ne crée pas de nouvel onglet, il modifie principalement l'apparence de la
-    page d'ajout/édition d'un utilisateur.</para>
+    L'exemple le plus simple est l'édition d'un utilisateur. Le module
+    lmc-web-ox ne crée pas de nouvel onglet, il modifie principalement
+    l'apparence de la page d'ajout/édition d'un utilisateur.</para>
 
     <section>
       <title>Les fonctions publiques.</title>
@@ -880,8 +973,8 @@ function _ox_delUser($uid) {
       <para>La lmc doit être installé sur un serveur apache2 supportant
       gettext et avec une version de PHP qui supporte gettext elle aussi
       (apparemment sans problème avec les packages Debian). Il faut toutefois
-      noter que les fichiers d'internationalisation ne sont pas
-      pris en compte avant le redémarrage d'apache2.</para>
+      noter que les fichiers d'internationalisation ne sont pas pris en compte
+      avant le redémarrage d'apache2.</para>
     </section>
 
     <section>
@@ -962,137 +1055,122 @@ _T("hello world","monModule")
   </section>
 
   <section>
-
     <title>L'API Python LMC</title>
 
     <section>
-      
       <title>Introduction</title>
-      
-      <para>
-	Cette API est au coeur de la LMC et du LDS. Elle permet de simplifier énormément les opérations de gestion LDAP, SAMBA, etc.
-      </para>
-      <para>
-	Cette API est modulaire. Un système de plugin permet de lui rajouter des fonctionnalité très simplement.
-      </para>
-      <para>
-	Cette API est servie à des machines distantes grâce l'agent LMC, ce qui permet d'interagir à distance avec une machine.
-      </para>
-      
+
+      <para>Cette API est au coeur de la LMC et du LDS. Elle permet de
+      simplifier énormément les opérations de gestion LDAP, SAMBA, etc.</para>
+
+      <para>Cette API est modulaire. Un système de plugin permet de lui
+      rajouter des fonctionnalité très simplement.</para>
+
+      <para>Cette API est servie à des machines distantes grâce l'agent LMC,
+      ce qui permet d'interagir à distance avec une machine.</para>
     </section>
-    
+
     <section>
-      
       <title>Implémentation</title>
-      
-      <para>
-	L'API Python de la LMC s'installe généralement dans /usr/lib/pythonX.Y/site-packages/lmc.
-      </para>
-      
-      <para>
-	Voici une description des principaux module Python:
-      </para>
+
+      <para>L'API Python de la LMC s'installe généralement dans
+      /usr/lib/pythonX.Y/site-packages/lmc.</para>
+
+      <para>Voici une description des principaux module Python:</para>
 
       <itemizedlist>
-	<listitem>
-	  <para>
-	    lmc.plugins.base: module essentiel dont dépend certains autres modules. Il permet toutes les opérations LDAP de base: gestion des utilisateurs et des groupes, etc...
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    lmc.plugins.samba: module de gestion des utilisateurs SAMBA, des partages SAMBA, etc ...
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    lmc.plugins.ox: module de gestion des utilisateurs Open-Xchange.
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    lmc.plugins.proxy: module de gestion de blacklist squidGuard.
-	  </para>
-	</listitem>
+        <listitem>
+          <para>lmc.plugins.base: module essentiel dont dépend certains autres
+          modules. Il permet toutes les opérations LDAP de base: gestion des
+          utilisateurs et des groupes, etc...</para>
+        </listitem>
+
+        <listitem>
+          <para>lmc.plugins.samba: module de gestion des utilisateurs SAMBA,
+          des partages SAMBA, etc ...</para>
+        </listitem>
+
+        <listitem>
+          <para>lmc.plugins.ox: module de gestion des utilisateurs
+          Open-Xchange.</para>
+        </listitem>
+
+        <listitem>
+          <para>lmc.plugins.proxy: module de gestion de blacklist
+          squidGuard.</para>
+        </listitem>
       </itemizedlist>
 
-      <para>
-	L'agent LMC ne servira que les modules disponibles dans lmc.plugins.
-      </para>
-      
+      <para>L'agent LMC ne servira que les modules disponibles dans
+      lmc.plugins.</para>
     </section>
 
     <section>
-      
       <title>Créer un plugin</title>
 
-      <para>
-	Pour créer un nouveau plugin, il suffit de créer un nouveau module dans le répertoire <filename>/usr/lib/pythonX.Y/site-packages/lmc/plugins</filename>.
-      </para>
-      <para>
-	Cela se traduit dans les fait par la création d'un répertoire ayant le nom du module dans <filename>/usr/lib/pythonX.Y/site-packages/lmc/plugins</filename>, et la création dans ce répertoire d'un fichier <filename>__init__.py</filename>
-      </para>
-      <para>
-	Par exemple, nous allons créer un module hello dont la méthode helloWorld renvoie un message:
-      </para>
+      <para>Pour créer un nouveau plugin, il suffit de créer un nouveau module
+      dans le répertoire
+      <filename>/usr/lib/pythonX.Y/site-packages/lmc/plugins</filename>.</para>
+
+      <para>Cela se traduit dans les fait par la création d'un répertoire
+      ayant le nom du module dans
+      <filename>/usr/lib/pythonX.Y/site-packages/lmc/plugins</filename>, et la
+      création dans ce répertoire d'un fichier
+      <filename>__init__.py</filename></para>
+
+      <para>Par exemple, nous allons créer un module hello dont la méthode
+      helloWorld renvoie un message:</para>
+
       <screen>
 	# mkdir /usr/lib/python2.3/site-packages/lmc/plugins/hello
-	# cat > /usr/lib/python2.3/site-packages/lmc/plugins/hello/__init__.py
-	> def helloWorld():
-	>     return "Hello world"
-	> EOF
+	# cat &gt; /usr/lib/python2.3/site-packages/lmc/plugins/hello/__init__.py
+	&gt; def helloWorld():
+	&gt;     return "Hello world"
+	&gt; EOF
       </screen>
-      <para>
-	Pour essayer interactivement ce nouveau module:
-      </para>
+
+      <para>Pour essayer interactivement ce nouveau module:</para>
+
       <screen>
 	# python	
-	>>> import lmc.plugins.hello
-	>>> lmc.plugins.hello.helloWorld()
+	&gt;&gt;&gt; import lmc.plugins.hello
+	&gt;&gt;&gt; lmc.plugins.hello.helloWorld()
 	'Hello world'
       </screen>
-      
-      <para>
-	Pour que l'agent LMC utilise ce module, il doit savoir si il peut activer ou pas. Pour cela, le module doit avoir une fonction "activate" qui renvoie "True". Dans notre cas, en restant très simple:
-      </para>
+
+      <para>Pour que l'agent LMC utilise ce module, il doit savoir si il peut
+      activer ou pas. Pour cela, le module doit avoir une fonction "activate"
+      qui renvoie "True". Dans notre cas, en restant très simple:</para>
 
       <screen>
-	# cat > /usr/lib/python2.3/site-packages/lmc/plugins/hello/__init__.py
-	> def activate():
-	>     return True
-	>
-	> def helloWorld():
-	>     return "Hello world"
-	> EOF
+	# cat &gt; /usr/lib/python2.3/site-packages/lmc/plugins/hello/__init__.py
+	&gt; def activate():
+	&gt;     return True
+	&gt;
+	&gt; def helloWorld():
+	&gt;     return "Hello world"
+	&gt; EOF
       </screen>
 
-      <para>
-	L'agent LMC exportera alors ce module via XMLRPC.
-      </para>
+      <para>L'agent LMC exportera alors ce module via XMLRPC.</para>
 
-      <para>La fonction définie dans ce module sera accessible
-      via l'appel XMLRPC <function>hello.helloWorld</function>.
-      </para>
-      
+      <para>La fonction définie dans ce module sera accessible via l'appel
+      XMLRPC <function>hello.helloWorld</function>.</para>
     </section>
-
   </section>
 
   <section>
-
     <title>LMC-Agent (coté serveur)</title>
 
     <section>
       <title>Présentation</title>
 
-      <para>
-	L'agent LMC permet d'intéragir à distance avec l'API Python LMC.
-      </para>
+      <para>L'agent LMC permet d'intéragir à distance avec l'API Python
+      LMC.</para>
 
       <para>Le LMC-Agent est un serveur XML-RPC écrit en python qui utilise le
       framework twisted (<ulink
-      url="http://twistedmatrix.com/">http://twistedmatrix.com/</ulink>).
-      </para>
+      url="http://twistedmatrix.com/">http://twistedmatrix.com/</ulink>).</para>
 
       <para>Le framework twisted est très souple et supporte de nombreux
       protocoles. A l'heure actuel, le LMC-Agent ne supporte que les requètes
@@ -1100,19 +1178,19 @@ _T("hello world","monModule")
       SOAP, ou encore de rajouter des fonctionnalités tel que des
       avertissements mail/irc ou autres.</para>
 
-      <para>Le framework Twisted offre donc une grande
-      souplesse dans son développement, d'autant plus que de nouveaux protocoles
-      non implémentés dans Twisted, sont simples à réaliser.</para>
+      <para>Le framework Twisted offre donc une grande souplesse dans son
+      développement, d'autant plus que de nouveaux protocoles non implémentés
+      dans Twisted, sont simples à réaliser.</para>
     </section>
 
     <section>
-
       <title>Le daemon</title>
 
-      <para>LMC-Agent se lance en daemon (service UNIX). Il utilise la technique du double
-      fork. Un script pour lancer, arrêter le daemon et fournit au moment de
-      l'installation dans <filename>"/etc/init.d/lmc-agent/"</filename>. Il
-      utilise les commandes standards "start|stop|restart".</para>
+      <para>LMC-Agent se lance en daemon (service UNIX). Il utilise la
+      technique du double fork. Un script pour lancer, arrêter le daemon et
+      fournit au moment de l'installation dans
+      <filename>"/etc/init.d/lmc-agent/"</filename>. Il utilise les commandes
+      standards "start|stop|restart".</para>
     </section>
 
     <section>
@@ -1134,12 +1212,12 @@ _T("hello world","monModule")
       <title>modules/plugins</title>
 
       <para>La totalité des modules sont dans le répertoire
-      "/usr/lib/python2.3/site-packages/lmc/plugins/". Si un module Python est présent dans ce
-      répertoire, alors il est automatiquement pris en considération. Pour
-      qu'un fonctionne il faudra toutefois lui ajouter une fonction "activate"
-      qui retournera un booléen "<returnvalue>True</returnvalue>" ou
-      "<returnvalue>False</returnvalue>" pour savoir si le module pourra être
-      activé ou non.</para>
+      "/usr/lib/python2.3/site-packages/lmc/plugins/". Si un module Python est
+      présent dans ce répertoire, alors il est automatiquement pris en
+      considération. Pour qu'un fonctionne il faudra toutefois lui ajouter une
+      fonction "activate" qui retournera un booléen
+      "<returnvalue>True</returnvalue>" ou "<returnvalue>False</returnvalue>"
+      pour savoir si le module pourra être activé ou non.</para>
     </section>
   </section>
 
@@ -2342,12 +2420,28 @@ global $aclArray;
 
                 <entry>Drop down box</entry>
               </row>
+
+              <row>
+                <entry>MultipleInputTpl</entry>
+
+                <entry>Champ multiple</entry>
+              </row>
             </tbody>
           </tgroup>
         </informaltable>
 
         <para>Il est évident que tout les types possibles dans un formulaire
-        ne sont pas présent à l'heure où j'écrit ces lignes.</para>
+        ne sont pas présent à l'heure où j'écrit ces lignes.*</para>
+
+        <para>Une expression regulière peut être ajouter pour verifier la
+        validité de l'entrée:</para>
+
+        <programlisting>  new InputTpl("mail",'/^([A-Za-z0-9._%-]+@[A-Za-z0-9.-]+){0,1}$/')</programlisting>
+
+        <para>ou alors de cette manière</para>
+
+        <programlisting>  $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
+  $m-&gt;setRegexp('/^([0-9a-zA-Z@.])+$/');</programlisting>
 
         <tip>
           <para>Si vous désirez ajouter vos propres Objets, n'oubliez pas de
