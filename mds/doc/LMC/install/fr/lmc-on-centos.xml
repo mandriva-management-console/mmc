@@ -43,6 +43,14 @@
         </revdescription>
       </revision>
       <revision>
+       <revnumber>1.2</revnumber>
+       <date>2006-09-18</date>
+       <authorinitials>CD</authorinitials>
+       <revdescription>
+         <para>Ajout conf nss_ldap</para>
+       </revdescription>
+      </revision>
+      <revision>
        <revnumber>1.1</revnumber>
        <date>2006-07-08</date>
        <authorinitials>KD</authorinitials>
@@ -171,7 +179,7 @@ LMC agent can't run without the base plugin. Exiting.</screen>
       <para>OpenLDAP est présent dans les paquets de base de CentOS 4.3
       :</para>
 
-      <screen>yum install openldap-servers openldap-clients</screen>
+      <screen>yum install openldap-servers openldap-clients nss_ldap</screen>
 
       <section>
         <title>Configuration de slapd.conf</title>
@@ -300,6 +308,47 @@ visibles :</para>
 
       <screen>chkconfig --del ldap; chkconfig --add ldap</screen>
     </section>
+   
+    <section>
+
+      <title>Configuration de NSS</title>
+
+      <para>
+	Le système d'exploitation doit utiliser l'annuaire LDAP pour récupérer les utilisateurs et les groupes.
+	Pour cela, les fichiers <filename>/etc/nsswitch.conf</filename> et <filename>/etc/ldap.conf</filename> doivent être configurés.
+      </para>
+      <para>
+	Voilà à quoi doit ressembler le fichier <filename>/etc/nsswitch.conf</filename>:
+      </para>
+      <screen>
+passwd:     files ldap
+shadow:     files ldap
+group:      files ldap
+
+hosts:      files dns
+
+bootparams: files
+ethers:     files
+netmasks:   files
+networks:   files
+protocols:  files
+rpc:        files
+services:   files
+netgroup:   files
+publickey:  files
+automount:  files
+aliases:    files
+      </screen>
+      <para>
+	Et le fichier <filename>/etc/ldap.conf</filename>:
+      </para>
+      <screen>
+host 127.0.0.1
+base dc=linbox,dc=com
+      </screen>
+
+    </section>
+
   </section>
 
   <section>
