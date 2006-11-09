@@ -33,7 +33,6 @@
         $mod->setAPIVersion('1:0:0');
         $mod->setPriority(600);
 
-        $mod->addACL("mail", _T("Mail address","mail"));
         $mod->addACL("mailaccess", _T("Mail access","mail"));
         $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
         $mod->addACL("maildrop", _T("Mail drop","mail"));
