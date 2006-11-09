@@ -33,24 +33,20 @@ function cleanup_arr($array) {
     return $res;
 }
 
-function changeMail($login,$mail) {
-  return xmlCall("mail.changeMail",array($login,$mail));
-}
-
 function changeMailEnable($login,$boolean) {
-  return xmlCall("mail.changeMailEnable",array($login,$boolean));
+    return xmlCall("mail.changeMailEnable",array($login,$boolean));
 }
 
 function changeMaildrop($login,$droplist) {
-  $arr = cleanup_arr($droplist);
-  if (count($arr)==0) {
-     return; //if no maildrop specified
-  }
-  return xmlCall("mail.changeMaildrop",array($login,$arr));
+    $arr = cleanup_arr($droplist);
+    if (count($arr)==0) {
+	return; //if no maildrop specified
+    }
+    return xmlCall("mail.changeMaildrop",array($login,$arr));
 }
 
 function changeMailalias($login,$aliaslist) {
-  return xmlCall("mail.changeMailalias",array($login,cleanup_arr($aliaslist)));
+    return xmlCall("mail.changeMailalias",array($login,cleanup_arr($aliaslist)));
 }
 
 function removeMail($login) {

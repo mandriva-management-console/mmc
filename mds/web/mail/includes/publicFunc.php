@@ -78,12 +78,6 @@ function _mail_baseEdit($ldapArr,$postArr) {
   $test->setCssError("mailenable");
   $param=array("value"=>$checkedMail);
   $test->display($param);
-
-  $test = new TrFormElement(_T("Mail address","mail"),new InputTpl("mail",'/^([A-Za-z0-9._%-]+@[A-Za-z0-9.-]+){0,1}$/'));
-  $test->setCssError("mail");
-  $param=array("value"=>$ldapArr['mail'][0]);
-  $test->display($param);
-
   print "</table>";
 
   $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
@@ -155,7 +149,6 @@ function _mail_changeUser($postArr) {
     if ($postArr["mailaccess"]) {
             changeMaildrop($postArr["nlogin"],$postArr['maildrop']);
             changeMailalias($postArr["nlogin"],$postArr['mailalias']);
-            changeMail($postArr["nlogin"],$postArr['mail']);
         if (!$postArr["maildisable"]) {
             changeMailEnable($postArr["nlogin"],True);
 
