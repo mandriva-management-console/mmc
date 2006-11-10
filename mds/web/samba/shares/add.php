@@ -78,7 +78,7 @@ if (isset($_POST["bcreate"]))
 
 ?>
 
-<h2><?= _T("add a share")?></h2>
+<h2><?= _T("Add a share")?></h2>
 
 <div class="fixheight"></div>
 

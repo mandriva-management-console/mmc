@@ -154,5 +154,5 @@ if (isset($_POST["bsave"]))
 
 <form method="post" action="main.php?module=samba&submod=config&action=restart">
 <input name="goto" type="hidden" value="<?php echo $root; ?>main.php" />
-<input name="brestart" type="submit" class="btnPrimary" value="<?= _T("restart SAMBA"); ?>" />
+<input name="brestart" type="submit" class="btnPrimary" value="<?= _T("Restart SAMBA"); ?>" />
 </form>
