@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-04 14:59+0200\n"
-"PO-Revision-Date: 2006-08-04 15:00+0200\n"
+"POT-Creation-Date: 2006-11-10 17:31+0100\n"
+"PO-Revision-Date: 2006-11-10 17:32+0100\n"
 "Last-Translator: Jérome Wax <jerome.wax@linbox.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -143,8 +143,8 @@ msgid "Confirm"
 msgstr "Valider"
 
 #: samba/config/index.php:157
-msgid "restart SAMBA"
-msgstr "redémarrer SAMBA"
+msgid "Restart SAMBA"
+msgstr "Redémarrer SAMBA"
 
 #: samba/shares/delete.php:61
 msgid "Del a share"
@@ -195,7 +195,7 @@ msgid "Shares management"
 msgstr "Gestion des partages"
 
 #: samba/shares/localSidebar.php:30 samba/shares/add.php:47
-#: samba/mainSidebar.php:35 samba/mainSidebar.php:54
+#: samba/shares/add.php:81 samba/mainSidebar.php:35 samba/mainSidebar.php:54
 #: samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr "Ajouter un partage"
@@ -205,9 +205,9 @@ msgstr "Ajouter un partage"
 msgid "Computers management"
 msgstr "Gestion des machines"
 
-#: samba/shares/localSidebar.php:36 samba/machines/add.php:47
-#: samba/machines/add.php:65 samba/mainSidebar.php:41
-#: samba/infoPackage.inc.php:78 samba/machines/localSidebar.php:30
+#: samba/shares/localSidebar.php:36 samba/machines/localSidebar.php:30
+#: samba/machines/add.php:47 samba/machines/add.php:65
+#: samba/mainSidebar.php:41 samba/infoPackage.inc.php:78
 msgid "Add a computer"
 msgstr "Ajouter une machine"
 
@@ -319,10 +319,6 @@ msgstr "Archive"
 msgid "invalid share name"
 msgstr "nom de partage invalide"
 
-#: samba/shares/add.php:81
-msgid "add a share"
-msgstr "ajouter un partage"
-
 #: samba/shares/add.php:86
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
@@ -370,6 +366,10 @@ msgstr "Nom de lecteur réseau invalide."
 #: samba/includes/publicFunc.php:161
 msgid "Samba user properties"
 msgstr "Propriétés Samba de l'utilisateur"
+
+#: samba/includes/publicFunc.php:164
+msgid "SAMBA access"
+msgstr "Accès SAMBA"
 
 #: samba/includes/publicFunc.php:196
 msgid "User is disabled, if checked"
@@ -468,10 +468,6 @@ msgstr "L'ordinateur <b>%s</b> a été supprimé"
 #, php-format
 msgid "You will delete <strong>%s</strong>."
 msgstr "Vous allez supprimer <b>%s</b>."
-
-#: samba/machines/localSidebar.php:30
-msgid "add a computer"
-msgstr "Ajouter un ordinateur"
 
 #: samba/machines/add.php:69
 msgid ""
@@ -573,7 +569,3 @@ msgstr "Verrouillage/Déverrouillage du compte"
 #: samba/infoPackage.inc.php:123
 msgid "SAMBA status"
 msgstr "Statut SAMBA"
-
-#: samba/includes/publicFunc.php:164
-msgid "SAMBA access"
-msgstr "Accès SAMBA"
