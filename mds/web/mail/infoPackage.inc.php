@@ -27,10 +27,10 @@
          * module declaration
          */
         $mod = new Module("mail");
-        $mod->setVersion("1.1.0");
+        $mod->setVersion("1.1.1");
         $mod->setRevision("$Rev$");
         $mod->setDescription(_T("Mail service"),"mail");
-        $mod->setAPIVersion('1:0:0');
+        $mod->setAPIVersion('2:0:0');
         $mod->setPriority(600);
 
         $mod->addACL("mailaccess", _T("Mail access","mail"));
