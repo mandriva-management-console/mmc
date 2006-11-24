@@ -47,6 +47,11 @@ function _samba_changeUserPasswd($paramsArr) {
     if (hasSmbAttr($paramsArr[0])) return xmlCall("samba.changeUserPasswd", $paramsArr);
 }
 
+function _samba_changeUserPrimaryGroup($uid, $group) {
+    xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
+}
+ 
+
 function _samba_changeUser($postArr) {
     global $error;
 
