@@ -106,14 +106,12 @@ function _mail_baseEdit($ldapArr,$postArr) {
   print '</div>';
   print '</div>';
 
-  if ($_GET['action'] == 'add') { //suggest only on add user
+  if (($_GET['action'] == 'add') && (!hasVDomainSupport())) { //suggest only on add user
   ?>
   <script type="text/javascript" language="javascript">
      function autoCreate() {
         var firstname = $('firstname').value.toLowerCase()
         firstname = firstname.replace(/( |"|')/g,'')
-
-
         $('maildrop[0]').value = $('nlogin').value.toLowerCase();
      }
 
