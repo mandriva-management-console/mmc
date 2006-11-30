@@ -24,20 +24,23 @@
 
 
 /**
-         * module declaration
-         */
-        $mod = new Module("mail");
-        $mod->setVersion("1.1.1");
-        $mod->setRevision("$Rev$");
-        $mod->setDescription(_T("Mail service"),"mail");
-        $mod->setAPIVersion('2:0:0');
-        $mod->setPriority(600);
+ * module declaration
+ */
 
-        $mod->addACL("mailaccess", _T("Mail access","mail"));
-        $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
-        $mod->addACL("maildrop", _T("Mail drop","mail"));
-        $mod->addACL("mailalias", _T("Mail aliases","mail"));
+$mod = new Module("mail");
+$mod->setVersion("1.1.1");
+$mod->setRevision("$Rev$");
+$mod->setDescription(_T("Mail service"),"mail");
+$mod->setAPIVersion('2:0:0');
+$mod->setPriority(600);
 
-        $LMCApp =& LMCApp::getInstance();
-        $LMCApp->addModule($mod);
+$mod->addACL("mailaccess", _T("Mail access","mail"));
+$mod->addACL("maildisable", _T("Disable mail delivery","mail"));
+$mod->addACL("maildrop", _T("Mail drop","mail"));
+$mod->addACL("mailalias", _T("Mail aliases","mail"));
+$mod->addACL("mailbox", _T("Mail delivery directory","mail"));
+
+$LMCApp =& LMCApp::getInstance();
+$LMCApp->addModule($mod);
+
 ?>
