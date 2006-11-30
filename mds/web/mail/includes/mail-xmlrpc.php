@@ -39,8 +39,8 @@ function changeMailEnable($login,$boolean) {
 
 function changeMaildrop($login,$droplist) {
     $arr = cleanup_arr($droplist);
-    if (count($arr)==0) {
-	return; //if no maildrop specified
+    if ((count($arr) == 0) && !hasVDomainSupport()) {
+      return; //if no maildrop specified
     }
     return xmlCall("mail.changeMaildrop",array($login,$arr));
 }
