@@ -49,12 +49,21 @@ function changeMailalias($login,$aliaslist) {
     return xmlCall("mail.changeMailalias",array($login,cleanup_arr($aliaslist)));
 }
 
+function changeMailbox($login, $mailbox) {
+    return xmlCall("mail.changeMailbox", array($login, $mailbox));
+}
+
+
 function removeMail($login) {
     return xmlCall("mail.removeMail",array($login));
 }
 
 function hasMailObjectClass($login) {
     return xmlCall("mail.hasMailObjectClass",array($login));
+}
+
+function hasVDomainSupport() {
+    return xmlCall("mail.hasVDomainSupport", array(null));
 }
 
 ?>
