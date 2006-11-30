@@ -80,8 +80,12 @@ function _mail_baseEdit($ldapArr,$postArr) {
   print "</table>";
 
   $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
-  $m->setRegexp('/^([0-9a-zA-Z@.])+$/');
-
+  if (hasVDomainSupport()) {
+      /* In virtual domain mode, maildrop must be an email address */
+      $m->setRegexp('/^[0-9a-zA-Z.]+@[0-9a-zA-Z.]+$/');
+  } else {
+      $m->setRegexp('/^([0-9a-zA-Z@.])+$/');
+  }
   $test = new FormElement(_T("Mail drop","mail"),$m);
   $test->setCssError("maildrop");
   $test->display($ldapArr['maildrop']);
@@ -129,11 +133,8 @@ function _mail_baseEdit($ldapArr,$postArr) {
  * @param $postArr $_POST array of the page
  */
 function _mail_verifInfo($postArr) {
-
-if ($postArr["mailenable"]) {
-
-            $ereg='/^([0-9a-zA-Z@.])*$/';
-
+    if ($postArr["mailenable"]) {
+        $ereg='/^([0-9a-zA-Z@.])*$/';
         foreach ($postArr['mailalias'] as $key => $value) {
             if (!preg_match($ereg, $postArr["mailalias"][$key]))  {
                 global $error;
@@ -141,8 +142,6 @@ if ($postArr["mailenable"]) {
                 $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
             }
         }
-
-
     }
 }
 
