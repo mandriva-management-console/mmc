@@ -98,7 +98,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
 <div id="expertMode" <?displayExpertCss();?>>
 <table cellspacing="0">
 <?
-    $mailbox = new TrFormElement(_T("Mail delivery directory", "mail"),new InputTpl("mailbox"));
+    $mailbox = new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox"));
     $mailbox->display(array("value" => $ldapArr["mailbox"][0]));
   }
 ?> </table></div> <?
