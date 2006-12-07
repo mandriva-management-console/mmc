@@ -49,7 +49,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
 
 
   print "<table>";
-  $test = new TrFormElement(_T("Mail access","ox"),new CheckboxTpl("mailaccess"));
+  $test = new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess"));
   $test->setCssError("accesMail");
   $param=array("value"=>$hasMail,
                "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"');
