@@ -45,11 +45,11 @@ if (isset($_POST["bconfirm"])) {
 ?>
 
 <p>
-<?= _("You will delete the virtual mail domain "); ?> <strong><?php echo $domainname; ?></strong>.
+<?= _T("You will delete the virtual mail domain "); ?> <strong><?php echo $domainname; ?></strong>.
 </p>
 
 <form action="main.php?module=mail&submod=mail&action=delete" method="post">
 <input type="hidden" name="domainname" value="<?php echo $domainname; ?>" />
-<input type="submit" name="bconfirm" class="btnPrimary" value="<?= _("Delete domain"); ?>" />
+<input type="submit" name="bconfirm" class="btnPrimary" value="<?= _T("Delete domain"); ?>" />
 <input type="submit" name="bback" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
 </form>

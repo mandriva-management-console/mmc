@@ -32,19 +32,20 @@ require_once("modules/mail/includes/mail-xmlrpc.php");
 $mod = new Module("mail");
 $mod->setVersion("1.1.1");
 $mod->setRevision("$Rev$");
-$mod->setDescription(_T("Mail service"),"mail");
+$mod->setDescription(_T("Mail service","mail"));
 $mod->setAPIVersion('2:0:0');
 $mod->setPriority(600);
 
 $mod->addACL("mailaccess", _T("Mail access","mail"));
 $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
-$mod->addACL("maildrop", _T("Mail drop","mail"));
 $mod->addACL("mailalias", _T("Mail aliases","mail"));
 $mod->addACL("mailbox", _T("Mail delivery path","mail"));
 
 if (hasVDomainSupport()) {
+    $mod->addACL("maildrop", _T("Forward to","mail"));
+
     $submod = new SubModule("mail");
-    $submod->setDescription(_T("Mail service", "mail"));
+    $submod->setDescription(_T("Mail", "mail"));
     $submod->setImg('img/navbar/pref');
     $submod->setDefaultPage("mail/mail/index");
 
@@ -55,6 +56,7 @@ if (hasVDomainSupport()) {
     $submod->addPage($page);
 
     $page = new Page("edit",_T("Edit a domain","mail"));
+    $page->setOptions(array("visible"=>False));
     $submod->addPage($page);
 
     $page = new Page("delete",_("Delete a mail domain"));
@@ -64,6 +66,8 @@ if (hasVDomainSupport()) {
     $submod->addPage($page);
 
     $mod->addSubmod($submod);
+} else {
+    $mod->addACL("maildrop", _T("Mail drop","mail"));
 }
 
 $LMCApp =& LMCApp::getInstance();

@@ -75,7 +75,7 @@ if ($_GET["action"] == "edit") {
 <form name="domainform" method="post" action="<? echo $PHP_SELF; ?>">
 <table cellspacing="0">
 <tr>
-<td width="40%" style="text-align:right;"><?= _("Mail domain")?></td>
+<td width="40%" style="text-align:right;"><?= _T("Mail domain")?></td>
 
 <? if ($_GET["action"] == "add") { ?>
     <td><input id="domainname" name="domainname" type="text" class="textfield" size="30" value="<?php if (isset($error)){echo $domainname;} ?>" /></td>
@@ -85,7 +85,7 @@ if ($_GET["action"] == "edit") {
 
 </tr>
 <tr>
-<td style="text-align:right;"><?= _("Description")?></td>
+<td style="text-align:right;"><?= _T("Description")?></td>
 <? if ($_GET["action"] == "add") { ?>
     <td><input id="description" name="description" type="text" class="textfield" size="30" value="<?php if (isset($error)){echo $description;} ?>" /></td>
 <? } else { ?>
