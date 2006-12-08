@@ -147,7 +147,7 @@ function _mail_verifInfo($postArr) {
         if (!preg_match($mailreg, $postArr["mail"])) {
             global $error;
             setFormError("mail");
-            $error.= _T("You must specify a valid mail adress to enable mail delivery.","mail")."<br />";
+            $error.= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
         }
     }
 }

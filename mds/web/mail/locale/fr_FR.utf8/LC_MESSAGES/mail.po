@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-07 15:40+0100\n"
-"PO-Revision-Date: 2006-12-07 15:34+0100\n"
+"POT-Creation-Date: 2006-12-08 10:08+0100\n"
+"PO-Revision-Date: 2006-12-08 10:10+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,6 +47,10 @@ msgstr "Répertoire de livraison des emails"
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s n'est pas un alias de messagerie valide."
+
+#: mail/includes/publicFunc.php:150
+msgid "You must specify a valid mail address to enable mail delivery."
+msgstr "Une adresse email valide doit être renseignée pour activer la messagerie de l'utilisateur."
 
 #: mail/infoPackage.inc.php:35
 msgid "Mail service"
