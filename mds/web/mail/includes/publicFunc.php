@@ -134,7 +134,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
  * @param $postArr $_POST array of the page
  */
 function _mail_verifInfo($postArr) {
-    if ($postArr["mailenable"]) {
+    if ($postArr["mailaccess"]) {
         $ereg='/^([0-9a-zA-Z@.])*$/';
         foreach ($postArr['mailalias'] as $key => $value) {
             if (!preg_match($ereg, $postArr["mailalias"][$key]))  {
@@ -142,6 +142,12 @@ function _mail_verifInfo($postArr) {
                 setFormError("mailalias[$key]");
                 $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
             }
+        }
+        $mailreg='/^([0-9a-zA-Z@.])+$/';
+        if (!preg_match($mailreg, $postArr["mail"])) {
+            global $error;
+            setFormError("mail");
+            $error.= _T("You must specify a valid mail adress to enable mail delivery.","mail")."<br />";
         }
     }
 }
