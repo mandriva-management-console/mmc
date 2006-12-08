@@ -38,11 +38,18 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
     $machine = array();
     $ip =array();
 
+    $connections = array();
     foreach (getConnected() as $item) {
-        $pid[] = $item['pid'];
-        $user[] = $item['useruid'];
-        $machine[] = $item['machine'];
-        $ip[] = $item['ip'];
+        $connections[$item['useruid']][] = array($item['pid'], $item['machine'], $item['ip']);
+    }
+    ksort($connections);
+    foreach($connections as $uid => $infos) {
+        foreach($infos as $info) {
+        $user[] = $uid;
+        $pid[] = $info[0];
+        $machine[] = $info[1];
+        $ip[] = $info[2];
+        }
     }
     ?>
     <h3><?= _T("Opened sessions","samba"); ?>(<?= count($user); ?>):</h3>
@@ -56,6 +63,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
         $n = new ListInfos($user,_T("Users","samba"));
         $n->addExtraInfo($machine,_T("Computers","samba"),"33%");
         $n->addExtraInfo($ip,_T("IP","samba"),"33%");
+        $n->end = 1000; /* FIXME ! */
         $n->display(0,0);
 
         print '</div>';
@@ -71,25 +79,33 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
     if (count($status)!=0) {
         foreach ($status as $sharename => $connects) {
                 $link = '<a href="'.urlStr('samba/shares/details',array('share'=>$sharename)).'">'.$sharename.'</a>';
-                print '<div style="background-color: #EEE; -moz-border-radius: 0.5em; margin: 0.5em; padding:0.5em;">';            print "<h3>"._T("Share","samba")." $link(".count($connects)."):</h3>";
+                print '<div style="background-color: #EEE; -moz-border-radius: 0.5em; margin: 0.5em; padding:0.5em;">';
+                print "<h3>"._T("Share","samba")." $link(".count($connects)."):</h3>";
                 print '<div style="background-color: #E5E5E5; -moz-border-radius: 0.5em; margin: 0.5em; padding:0.5em;">';
+                $connections = array();
+                foreach ($connects as $connect) {
+                    if ($connect['ip']) {
+                        $cip = $connect['ip'];
+                    } else {
+                        $cip = "n/a";
+                    }
+                    $tstamp = strftime("%a, %d %b %Y %H:%M:%S",$connect['lastConnect']);
+                    $connections[$connect['useruid']][] = array($connect['machine'], $cip, $tstamp);
+                }
+                ksort($connections);
                 $user = array();
                 $machine = array();
-                $ip =array();
-
+                $ip = array();
                 $timestamp = array();
-                foreach ($connects as $connect) {
-                    $user[] = $connect['useruid'];
-                    $machine[] = $connect['machine'];
-                    if ($connect['ip']) {
-                        $ip[] = $connect['ip'];
-                    } else {
-                        $ip[] = "n/a";
+                foreach($connections as $uid => $infos) {
+                        foreach($infos as $info) {
+                            $user[] = $uid;
+                            $machine[] = $info[0];
+                            $ip[] = $info[1];
+                            $timestamp[] = $info[2];
                     }
-
-                    $timestamp[] = strftime("%a, %d %b %Y %H:%M:%S",$connect['lastConnect']);
-
-                }
+                 }
+               
                 /**
                     * Creation de la liste
                     */
@@ -97,6 +113,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
                     $n->addExtraInfo($machine,_T("Computers","samba"),"25%");
                     $n->addExtraInfo($ip,_T("IP","samba"),"25%");
                     $n->addExtraInfo($timestamp,_T("Connected at","samba"),"25%");
+                    $n->end = 1000;
                     $n->display(0,0);
                 print "</div>";
                 print '</div>';
