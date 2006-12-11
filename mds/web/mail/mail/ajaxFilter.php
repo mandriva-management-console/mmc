@@ -74,10 +74,10 @@ if (isset($_GET["start"])) {
 
 print_ajax_nav($start, $end, $uids, $filter);
 
-$n = new ListInfos(array_keys($uids), _T("Login"), "&mail=$domain");
+$n = new ListInfos(array_keys($uids), _("Login"), "&mail=$domain");
 $n->setCssClass("userName");
-$n->addExtraInfo($names, _T("Name"));
-$n->addExtraInfo($mails, _T("Mail address"));
+$n->addExtraInfo($names, _("Name"));
+$n->addExtraInfo($mails, _("Mail address"));
 $n->addActionItem(new ActionItem(_("Edit"),"edit","edit","user", "base", "users"));
 $n->display(0);
 
