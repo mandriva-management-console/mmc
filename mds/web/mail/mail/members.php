@@ -1,4 +1,31 @@
-<?
+<?php
+
+/**
+ * (c) 2004-2006 Linbox / Free&ALter Soft, http://linbox.com
+ *
+ * $Id: infoPackage.inc.php 8 2006-11-13 11:08:22Z cedric $
+ *
+ * This file is part of LMC.
+ *
+ * LMC is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * LMC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LMC; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+
+/**
+ * module declaration
+ */
 
 $path = array(array("name" => _T("Home"),
                     "link" => "main.php"),
@@ -6,6 +33,12 @@ $path = array(array("name" => _T("Home"),
 	      
 require("localSidebar.php");
 require("graph/navbar.inc.php");
+
+$domain = $_GET["mail"];
+?>
+
+
+<?
 
 $p = new PageGenerator();
 $p->setSideMenu($sidemenu);
@@ -35,7 +68,7 @@ $p->displaySideMenu();
             launch--;
 
                 if (launch==0) {
-                    new Ajax.Updater('container','modules/mail/mail/ajaxDomainFilter.php?filter='+document.Form.param.value, { asynchronous:true, evalScripts: true});
+                    new Ajax.Updater('container','modules/mail/mail/ajaxFilter.php?mail=<?=$domain?>&filter='+document.Form.param.value, { asynchronous:true, evalScripts: true});
                 }
             }
 
@@ -44,7 +77,7 @@ $p->displaySideMenu();
         */
 
         function updateSearchParam(filter, start, end) {
-            new Ajax.Updater('container','modules/mail/mail/ajaxDomainFilter.php?filter='+filter+'&start='+start+'&end='+end, { asynchronous:true, evalScripts: true});
+            new Ajax.Updater('container','modules/mail/mail/ajaxFilter.php?mail=<?=$domain?>&filter='+filter+'&start='+start+'&end='+end, { asynchronous:true, evalScripts: true});
             }
 
         /**
@@ -62,9 +95,10 @@ $p->displaySideMenu();
 
 </form>
 
-<h2><?= _T("Mail domain list"); ?></h2>
+<h2><?= _T("Members of ") . " " . $domain; ?></h2>
 
 <div class="fixheight"></div>
+
 
 <div id="container">
 </div>

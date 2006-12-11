@@ -63,7 +63,39 @@ function hasMailObjectClass($login) {
 }
 
 function hasVDomainSupport() {
-    return xmlCall("mail.hasVDomainSupport", array(null));
+    if (!isset($_SESSION["hasVDomainSupport"])) {
+        $_SESSION["hasVDomainSupport"] = xmlCall("mail.hasVDomainSupport", null);
+    }
+    return $_SESSION["hasVDomainSupport"];
 }
+
+function addVDomain($domain) {
+    xmlCall("mail.addVDomain", array($domain));
+}
+
+function delVDomain($domain) {
+    xmlCall("mail.delVDomain", array($domain));
+}
+
+function setVDomainDescription($domain, $description) {
+    xmlCall("mail.setVDomainDescription", array($domain, $description));
+}
+
+function getVDomain($domain) {
+    return xmlCall("mail.getVDomain", array($domain));
+}
+
+function getVDomains($filter) {
+    return xmlCall("mail.getVDomains", array($filter));
+}
+
+function getVDomainUsersCount($domain) {
+    return xmlCall("mail.getVDomainUsersCount", array($domain));
+}
+
+function getVDomainUsers($domain, $filter) {
+    return xmlCall("mail.getVDomainUsers", array($domain, $filter));
+}
+
 
 ?>

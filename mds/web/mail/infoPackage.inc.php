@@ -59,9 +59,25 @@ if (hasVDomainSupport()) {
     $page->setOptions(array("visible"=>False));
     $submod->addPage($page);
 
+    $page = new Page("members",_T("View members","mail"));
+    $page->setOptions(array("visible"=>False));
+    $submod->addPage($page);
+
     $page = new Page("delete",_("Delete a mail domain"));
     $page->setFile("modules/mail/mail/delete.php",
 		   array("noHeader"=>True, "visible"=>False)
+		   );
+    $submod->addPage($page);
+
+    $page = new Page("ajaxFilter");
+    $page->setFile("modules/mail/mail/ajaxFilter.php",
+		   array("AJAX" =>True,"visible"=>False)
+		   );
+    $submod->addPage($page);
+
+    $page = new Page("ajaxDomainFilter");
+    $page->setFile("modules/mail/mail/ajaxDomainFilter.php",
+		   array("AJAX" =>True,"visible"=>False)
 		   );
     $submod->addPage($page);
 

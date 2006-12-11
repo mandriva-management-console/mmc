@@ -1,0 +1,21 @@
+td.domainName {
+	color: #666;
+	font-weight: bold;
+	background-repeat: no-repeat;
+}
+
+td.domainName a {
+	color: #666;
+	font-weight: bold;
+	text-decoration: none;
+}
+td.domainName a:link {
+	color: #666;
+	font-weight: bold;
+	text-decoration: none;
+}
+td.domainName a:visited {
+	color: #666;
+	font-weight: bold;
+	text-decoration: none;
+}
