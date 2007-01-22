@@ -143,7 +143,7 @@ function _mail_verifInfo($postArr) {
                 $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
             }
         }
-        $mailreg='/^([0-9a-zA-Z@.])+$/';
+        $mailreg='/^([A-Za-z0-9_.-]+@[A-Za-z0-9.-]+)$/';
         if (!preg_match($mailreg, $postArr["mail"])) {
             global $error;
             setFormError("mail");
