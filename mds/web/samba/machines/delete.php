@@ -24,17 +24,7 @@
 <?php
 /* $Id$ */
 
-
-$root = $conf["global"]["root"];
-
 require("modules/samba/includes/machines.inc.php");
-
-if (isset($_POST["bback"]))
-{
-  header("Location: index.php");
-  exit;
-}
-
 ?>
 
 
@@ -82,7 +72,7 @@ if (isset($_POST["bdelmach"]))
     $n = new NotifyWidget();
     $n->add($str);
 
-    header( "location: ".urlStr('samba/machines/index'));
+    header("location: " . urlStrRedirect('samba/machines/index'));
 }
 else
 {
@@ -97,7 +87,7 @@ printf(_T("You will delete <strong>%s</strong>."),$machine);
 
 <input name="machine" type="hidden" value="<?php echo $machine; ?>" />
 <input name="bdelmach" type="submit" class="btnPrimary" value="<?= _T("Delete"); ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;"/>
+<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;"/>
 </form>
 
 <?php
