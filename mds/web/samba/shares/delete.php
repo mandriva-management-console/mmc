@@ -26,22 +26,10 @@
 
 require("modules/samba/includes/shares.inc.php");
 
-if (isset($_POST["bback"]))
-{
-  header("Location: main.php?module=samba&submod=shares&action=index");
-  exit;
-}
-else if (isset($_POST["brestart"]))
-{
-  header("Location: main.php?module=samba&submod=config&action=restart");
-  exit;
-}
-else if (isset($_POST["bdelshare"]))
-{
-  del_share($error, $_POST["share"], $_POST["delFiles"]);
+if (isset($_POST["bdelshare"])) {
+    del_share($error, $_POST["share"], $_POST["delFiles"]);
 }
 ?>
-
 
 <style type="text/css">
 <!--
@@ -61,13 +49,6 @@ $path = array(array("name" => _T("Home"),
               array("name" => _T("Del a share")));
 
 require("modules/samba/mainSidebar.php");
-
-//require("graph/navbar.inc.php");
-
-if (isset($_GET["share"]))
-{
-
-}
 
 ?>
 
@@ -97,7 +78,7 @@ if (isset($_GET["share"]))
 
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
 <input name="bdelshare" type="submit" class="btnPrimary" value="<?= _T("Delete "); ?> <?php echo $share; ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _T("Back"); ?>" />
+<input name="bback" type="submit" class="btnSecondary" value="<?= _T("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
 </form>
 
 <?php
@@ -127,7 +108,8 @@ else if (isset($_POST["bdelshare"]))
     $n = new NotifyWidget();
     $n->add($str);
 
-    header( "location: ".urlStr('samba/shares/index'));    }
+    header( "location: " . urlStrRedirect('samba/shares/index'));
+  }
 }
 else
 {
@@ -138,7 +120,7 @@ else
 </p>
 
 <form action="<? echo "main.php?module=samba&submod=shares&action=index"; ?> " method="post">
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;"/>
+<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;"/>
 </form>
 
 <?php
