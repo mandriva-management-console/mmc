@@ -23,7 +23,7 @@
 ?>
 
     <tr><td width="40%" style="text-align: right; vertical-align: top;"><?= _("Groups"); ?> </td><td>
-        <select multiple size="10" class="list" name="groupsselected[]" id="select">
+        <select multiple size="10" class="list" name="<?= $autocomplete; ?>groupsselected[]" id="auto<?= $autocomplete; ?>select">
             <?php
             $sorted = $tpl_groups;
 
@@ -35,46 +35,34 @@
             }
             ?>
         </select>
-        <input name="buser" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="delEltInSelectBox(); return false;"/>
-
-    </td>
-    <tr><td style="text-align: right;"><?= _T("Add a new group"); ?></td><td>
-
-    <input type="text" id="autocomplete" name="autocomplete" class="textfield" size="23" onkeypress="return validOnEnter(this,event);" />
-    <div id="autocomplete_choices" class="autocomplete">
-        <ul>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-    <input name="buser" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="addElt($F('autocomplete')); return false;"/>
-    </td></tr>
 
     <script type="text/javascript">
 
-        var groups = new Array();
+    <!--
+
+        function auto<?= $autocomplete; ?>() {
+            this.select = document.getElementById('auto<?= $autocomplete; ?>select');
+            this.groups = new Array();
         <?php
             foreach (get_groups($error) as $group)
             {
-                echo "groups.push('$group[0]');\n";
+                echo "this.groups.push('$group[0]');\n";
             }
         ?>
+        }
 
-        new Ajax.Autocompleter('autocomplete','autocomplete_choices','modules/base/users/ajaxAutocompleteGroup.php', {paramName: "value"});
-
-        function validOnEnter(field,event) {
+        auto<?= $autocomplete; ?>.prototype.validOnEnter = function(field,event) {
             if (event.keyCode==13) {
                 return false;
-
             }
             return true;
         }
 
         //add an element in selectbox
-        function addElt(elt) {
-            if (eltInArr(elt,groups)) {
-                addEltInSelectBox(elt);
-                $('autocomplete').value = '';
+        auto<?= $autocomplete; ?>.prototype.addElt = function(elt) {
+            if (this.eltInArr(elt, this.groups)) {
+                this.addEltInSelectBox(elt);
+                $('auto<?= $autocomplete; ?>').value = '';
 
             }
             else {
@@ -83,47 +71,74 @@
         }
 
         //verify if an element is in an array
-        function eltInArr(elt,array) {
+        auto<?= $autocomplete; ?>.prototype.eltInArr = function(elt,array) {
             for(var i =0; i<array.length; i++) {
                 if (array[i] == elt) return true;
             }
             return false;
         }
 
-        function addEltInSelectBox(elt) {
+        auto<?= $autocomplete; ?>.prototype.addEltInSelectBox = function(elt) {
             var tmp = new Array();
-            var len = document.getElementById('select').options.length;
+            var len = this.select.options.length;
             for(var i =0; i<len; i++) {
-                    tmp.push(document.getElementById('select').options[0].value);
+                    tmp.push(this.select.options[0].value);
                     //window.alert(document.getElementById('select').options[0].value);
-                    document.getElementById('select').options[0] = null;
+                    this.select.options[0] = null;
 
             }
-            if (!eltInArr(elt,tmp)) {
+            if (!this.eltInArr(elt,tmp)) {
                 tmp.push(elt);
             }
 
             tmp.sort();
 
             for(var i = 0; i<tmp.length; i++) {
-                document.getElementById('select').options[i] = new Option(tmp[i],tmp[i]);
+                this.select.options[i] = new Option(tmp[i],tmp[i]);
             }
 
         }
 
-        function delEltInSelectBox() {
-            var len = document.getElementById('select').options.length;
+        auto<?= $autocomplete; ?>.prototype.delEltInSelectBox = function() {
+            var len = this.select.options.length;
             for(var i =len-1; i>=0; i--) {
-                if (document.getElementById('select').options[i].selected) {
-                    document.getElementById('select').options[i] = null;
+                if (this.select.options[i].selected) {
+                    this.select.options[i] = null;
                 }
             }
         }
 
-       function selectAll() {
-            var len = document.getElementById('select').options.length;
+       auto<?= $autocomplete; ?>.prototype.selectAll = function() {
+            var len = this.select.options.length;
             for(var i = 0 ; i<len; i++) {
-                document.getElementById('select').options[i].selected = true;
+                this.select.options[i].selected = true;
             }
        }
+ 
+       auto<?= $autocomplete; ?>Obj = new auto<?= $autocomplete; ?>();
+
+    -->
+
+    </script>
+
+    <input name="buser" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
+
+    </td>
+    </tr>
+    <tr><td style="text-align: right;"><?= _T("Add a new group"); ?></td><td>
+
+    <input type="text" id="auto<?= $autocomplete; ?>" name="auto<?= $autocomplete; ?>" class="textfield" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
+    <div id="auto<?= $autocomplete; ?>_choices" class="autocomplete">
+        <ul>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <input name="buser<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
+    </td></tr>
+
+    <script type="text/javascript">
+    <!--
+        new Ajax.Autocompleter('auto<?= $autocomplete; ?>','auto<?= $autocomplete; ?>_choices','modules/base/users/ajaxAutocompleteGroup.php', {paramName: "value"});
+    -->
     </script>

@@ -24,36 +24,26 @@
 <?php
 /* $Id$ */
 
-function
-add_share($error, $name, $comment, $group, $permAll, $av =0)
+function add_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0)
 {
-  global $conf;
-  $smbconf = $conf["global"]["smbconf"];
-
-  $name = trim($name);
-
-  $reserved = array("homes", "print$", "printers");
-
-  foreach ($reserved as $res)
-    {
-      if ($name == $res)
-	{
-	  $error = "$name est un nom réservé";
-	  return;
+    $name = trim($name);
+    # FIXME !
+    $reserved = array("homes", "print$", "printers");
+    foreach ($reserved as $res) {
+        if ($name == $res) {
+	    $error = "$name est un nom réservé";
+	    return;
 	}
     }
-
- $param = array($name, $comment, $group, $permAll,$av);
-  return xmlCall("samba.addShare", $param);
+    $param = array($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
+    return xmlCall("samba.addShare", $param);
 }
 
-function
-get_shares()
+function get_shares()
 {
-  $shares = xmlCall("samba.getDetailedShares",null);
-  foreach ($shares as $key=>$value)
-      $resArray[]=$key;
-  return $resArray;
+    $shares = xmlCall("samba.getDetailedShares", null);
+    foreach ($shares as $key=>$value) $resArray[]=$key;
+    return $resArray;
 }
 
 function hasClamAv() {
@@ -63,6 +53,11 @@ function hasClamAv() {
 function getACLOnShare($name) {
     return xmlCall('samba.getACLOnShare',array($name));
 }
+
+function getAdminUsersOnShare($name) {
+    return xmlCall('samba.getAdminUsersOnShare', array($name));
+}
+
 
 function
 get_shares_detailed()
@@ -93,26 +88,25 @@ function share_infos($error, $share)
   return $result;
 }
 
-function
-mod_share($error, $share, $comment, $group, $permAll,$av=0)
+function mod_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0)
 {
-  del_share($errdel, $share, false);
-
-  if (isset($errdel))
-    {
-      $error = $errdel;
-      return;
+    # FIXME
+    del_share($errdel, $name, false);
+    if (isset($errdel)) {
+        $error = $errdel;
+	return;
     }
-
-  add_share($erradd, $share, $comment, $group, $permAll, $av);
-
-  if (isset($erradd))
+    add_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
+    if (isset($erradd))
     {
-      $error = $erradd;
-      return;
+        $error = $erradd;
+        return;
     }
+    return "Partage $share modifié";
+}
 
-  return "Partage $share modifié";
+function getDomainAdminsGroup() {
+    return xmlCall("samba.getDomainAdminsGroup", null);
 }
 
 ?>

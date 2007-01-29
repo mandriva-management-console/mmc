@@ -20,7 +20,7 @@ $errItem->setAdvice(_T("Verify specified share exist."));
 $errObj->add($errItem);
 
 
-$errItem = new ErrorHandlingItem('This share already exist');
+$errItem = new ErrorHandlingItem('This share already exists');
 $errItem->setMsg(_T("This share already exist"));
 $errItem->setAdvice(_T("<ul>
                            <li>Delete this share before recreate it.</li>

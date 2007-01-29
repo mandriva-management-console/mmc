@@ -21,27 +21,18 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
+
 <?php
-/* $Id$ */
-
-
 require("modules/samba/includes/shares.inc.php");
 require("modules/base/includes/groups.inc.php");
-
-if (isset($_POST["bback"]))
-{
-  header("Location: main.php?module=samba&submod=shares&action=index");
-  exit;
-}
-
-require("graph/header.inc.php");
 ?>
 
 <style type="text/css">
 <!--
 
 <?php
-require("modules/samba/graph/shares/index.css");
+if ($_GET["action"] == "add") require("modules/samba/graph/shares/add.css");
+else require("modules/samba/graph/shares/index.css");
 ?>
 
 -->
@@ -52,115 +43,160 @@ $path = array(array("name" => _T("Home"),
                     "link" => "main.php"),
               array("name" => _T("Shares"),
                     "link" => "main.php?module=samba&submod=shares&action=index"),
-              array("name" => _T("Details")));
+              array("name" => _T("Add a share")));
 
 require("modules/samba/mainSidebar.php");
 
 require("graph/navbar.inc.php");
 
-if (isset($_GET["share"]))
+if (isset($_POST["bcreate"]))
 {
-  $share = urldecode($_GET["share"]);
-}
-if (isset($_POST["share"]))
-{
-  $share = $_POST["share"];
+    $shareName = $_POST["shareName"];
+    $shareDesc = $_POST["shareDesc"];
+    $shareGroup = $_POST["usergroupsselected"];
+    $adminGroups = $_POST["admingroupsselected"];
+    $permAll = $_POST["permAll"];
+    if ($_POST["hasClamAv"]) $av = 1;
+    else $av = 0;
+    if ($_POST["browseable"]) $browseable = 1;
+    else $browseable = 0;
+    
+    if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9]*$/", $shareName))) {
+        $error = _T("Invalid share name");
+	$n = new NotifyWidget();
+	$n->flush();
+	$n->add("<div id=\"errorCode\">$error</div>");
+	$n->setLevel(4);
+	$n->setSize(600);    
+    } else {
+        add_share($shareName, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+	if (!isXMLRPCError()) {
+	    $n = new NotifyWidget();
+	    $n->add(sprintf("share %s sucessfully added",$shareName));
+	    header("Location: main.php?module=samba&submod=shares&action=index");
+	}
+    }
 }
 
 if (isset($_POST["bmodify"]))
 {
-  $shareDesc = $_POST["shareDesc"];
-  $shareGroup = $_POST['groupsselected'];
-  $permAll = $_POST["permAll"];
-  if ($_POST["hasClamAv"]) {
-    $av = 1;
-  } else {
-    $av = 0;
-  }
+    $share = $_POST["share"];
+    $shareDesc = $_POST["shareDesc"];
+    $shareGroup = $_POST["usergroupsselected"];
+    $adminGroups = $_POST["admingroupsselected"];
+    $permAll = $_POST["permAll"];
+    if ($_POST["hasClamAv"]) $av = 1;
+    else $av = 0;
+    if ($_POST["browseable"]) $browseable = 1;
+    else $browseable = 0;
+    mod_share($share, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+    if (!isXMLRPCError()) {
+        $n = new NotifyWidget();
+        $n->add(sprintf("share %s sucessfully modified", $share));
+    }
+}
 
-  $result = mod_share($error, $share, $shareDesc, $shareGroup, $permAll,$av);
+if ($_GET["action"] == "add") $title = _T("Add a share");
+else {
+    $share = urldecode($_GET["share"]);
+    $title = _T("Properties of share $share");
+    $permAll = False;
+    $av = False;
+    $browseable = True;
 }
 
 if ($share != "homes")
 {
-  $shareInfos = share_infos($error, $share);
-
-  if (!isset($error))
-    {
-      $shareDesc = $shareInfos["desc"];
-      $shareGroup = $shareInfos["group"];
-      $permAll = $shareInfos["permAll"];
+    $shareInfos = share_infos($error, $share);
+    if (!isset($error)) {
+        $shareDesc = $shareInfos["desc"];
+        $shareGroup = $shareInfos["group"];
+        $permAll = $shareInfos["permAll"];
+	$av = $shareInfos["antivirus"];
+	$browseable = $shareInfos["browseable"];
     }
 }
+
 ?>
 
-<h2><?= _T("Properties of share ");?><?php echo $share; ?></h2>
+<h2><?= $title; ?></h2>
 
 <div class="fixheight"></div>
 
-<?php
-
-if ($share == "homes")
-{
-?>
-
+<? if ($_GET["action"] == "add")  { ?>
 <p>
-<?= _T("You cannot modify properties on share <b>homes</b>.");?>
+<?= _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
 </p>
 
-<form action="<? echo "main.php?module=samba&submod=shares&action=index"; ?>" method="post">
-<input type="submit" name="bback" class="btnPrimary" value="<?= _T("Back");?>" />
-</form>
-
-<?php
+<?
 }
-else
-{
 ?>
 
-<form method="post" action="<? echo "main.php?module=samba&submod=shares&action=details"; ?>" onSubmit="selectAll();">
+<form method="post" action="<? echo $PHP_SELF; ?>" onSubmit="autouserObj.selectAll(); autoadminObj.selectAll();">
 
 <table cellspacing="0">
-<tr><td><?= _T("Description");?></td>
-    <td><input name="shareDesc" type="text" class="textfield" size="23" value="<?php echo $shareDesc; ?>" /></td></tr>
-
-
-
+<tr><td style="text-align: right;width :40%"><?= _T("Name"); ?></td>
+    <td>
+<? if ($_GET["action"] == "add")  { ?>
+    <input name="shareName" type="text" class="textfield" size="23" value="<?php if (isset($error)) {echo $shareName;} ?>" />
+<? } else {
+    echo $share;
+} ?>
+    </td>
+</tr>
+<tr><td style="text-align: right;width :40%"><?= _T("Comment"); ?></td>
+    <td><input name="shareDesc" type="text" class="textfield" size="23" value="<?php
+if ($_GET["action"] == "add") {    
+    if (isset($error)) echo $shareDesc;
+} else {
+    echo $shareDesc;
+}
+?>" /></td></tr>
 
 <?php
     if (hasClamAv()) {
-
-        if ($shareInfos["antivirus"]) {
-            $checked = "checked";
-        } else {
-            $checked = "";
-        }
+        $checked = "";
+	if ($shareInfos["antivirus"]) {
+	    $checked = "checked";
+	}
         $param = array ("value" => $checked);
-
-        $test = new TrFormElement( _T("Antivirus is enabled"), new CheckboxTpl("hasClamAv"));
+        $test = new TrFormElement(_T("AntiVirus on this share"), new CheckboxTpl("hasClamAv"));
         $test->setCssError("hasClamAv");
         $test->display($param);
-
     }
+
+?>
+</table>
+
+<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<table cellspacing="0">
+
+<?php
+if ($browseable) $param = array("value" => "CHECKED");
+else $param = array("value" => "");
+
+$test = new TrFormElement(_T("This share is visible on the domain"), new CheckboxTpl("browseable"));
+$test->setCssError("browseable");
+$test->display($param);
 ?>
 
-
 </table>
+</div>
 
 <table>
     <tr>
     <td>
     </td>
     <td>
-        Permissions
+        <?= _T("Permissions"); ?>
     </td>
     </tr>
         <?php
-            if ($permAll) {
-                $checked = "checked";
-            } else {
-                $checked = "";
-            }
+        if ($permAll) {
+	    $checked = "checked";
+	} else {
+	    $checked = "";
+	}
 
         $param =array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
 
@@ -168,11 +204,6 @@ else
         $test->setCssError("permAll");
         $test->display($param);
          ?>
-    </td>
-</tr>
-
-
-
 </table>
 
 <?php
@@ -185,33 +216,52 @@ if ($permAll) {
 ?>
 <table>
 <?php
-
+if ($_GET["action"] == "add") $tpl_groups = array();
+else {
     $tpl_groups = getACLOnShare($share);
-    if ($shareGroup!='root') {
+    if ($shareGroup != 'root') {
         $tpl_groups[] = $shareGroup;
-    }
-    setVar('tpl_groups',$tpl_groups);
-    renderTPL("groups");
+    }    
+}
+setVar("tpl_groups", $tpl_groups);
+global $__TPLref;
+$__TPLref["autocomplete"] = "user";
+renderTPL("groups");
 ?>
 </table>
 </div>
 
-<input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bmodify" type="submit" class="btnPrimary" value="<?= _T("Confirm");?>" />
-<input type="submit" name="bback" class="btnSecondary" value="<?= _T("Back");?>" />
+<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<table cellspacing="0">
+    <tr>
+    <td>
+    </td>
+    <td>
+        <?= _T("Administrator groups for this share"); ?>
+    </td>
+   </tr>
+
 <?php
-if (isset($_POST["bmodify"]) && (!isset($error)))
-{
-  echo $result;
-}
-if (isset($error))
-{
-  echo $error;
-}
+    if ($_GET["action"] == "add") {
+      $domadmin = getDomainAdminsGroup();
+      setVar("tpl_groups", array($domadmin["cn"][0]));
+    } else setVar("tpl_groups", getAdminUsersOnShare($share));
+
+    global $__TPLref;
+    $__TPLref["autocomplete"] = "admin";
+    renderTPL("groups");
+?>
+
+</table>
+</div>
+
+<? if ($_GET["action"] == "add")  { ?>
+<input name="bcreate" type="submit" class="btnPrimary" value="<?= _T("Create"); ?>" />
+<? } else { ?>
+<input name="share" type="hidden" value="<?php echo $share; ?>" />
+<input name="bmodify" type="submit" class="btnPrimary" value="<?= _T("Confirm");?>" /> 
+<? }
+
 ?>
 
 </form>
-
-<?php
-}
-?>
