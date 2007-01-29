@@ -73,7 +73,6 @@ else
 
 ?>
 
-
 <h2><?= _T("Restart server"); ?></h2>
 
 <?php
@@ -82,10 +81,6 @@ else
   echo "</pre>";
 
   $n = new NotifyWidget();
-  $n->add(_T("Your Samba server is being restarted... You can see progress on the home page."));
-  redirectTo(urlstr("samba/config/index"));
+  $n->add(_T("Your Samba server is being restarted... You can see progress on the default status page."));
+  redirectTo(urlStrRedirect("samba/config/index"));
 ?>
-
-<form method="post" action="main.php?module=samba&submod=shares&action=index">
-<input name="bback" type="submit" class="btnPrimary" value="<?= _T("Back"); ?>" />
-</form>
