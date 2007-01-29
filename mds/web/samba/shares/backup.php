@@ -26,18 +26,12 @@ $root = $conf["global"]["root"];
 
 require("modules/samba/includes/shares.inc.php");
 
-function
-sched_backup($share, $media)
+function sched_backup($share, $media)
 {
   $param = array($share,$media,$_SESSION["login"]);
   return xmlCall("samba.backupShare",$param);
 }
 
-if (isset($_POST["bback"]))
-{
-  header("Location: index.php");
-  exit;
-}
 ?>
 
 
@@ -86,7 +80,7 @@ if (isset($_POST["bgo"]))
       $str .= "<p>".$ret."</p>";
       $n = new NotifyWidget();
       $n->add($str);
-      header("Location: ".urlStr("samba/shares/index"));
+      header("Location: ".urlStrRedirect("samba/shares/index"));
     }
   else
     {
@@ -109,7 +103,7 @@ $str.="</p>";
 $n = new NotifyWidget();
 $n->add($str);
 
-header("Location: ".urlStr("samba/shares/index"));
+header("Location: ".urlStrRedirect("samba/shares/index"));
 
     }
 }
@@ -137,7 +131,7 @@ echo _("Please select media size. If you data exceed volume size, several files 
 <br><br>
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
 <input name="bgo" type="submit" class="btnPrimary" value="<?= _("Launch backup"); ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Return"); ?>" />
+<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
 </form>
 
 <?php
