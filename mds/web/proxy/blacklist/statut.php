@@ -25,15 +25,7 @@
 /* $Id$ */
 require("modules/proxy/includes/config.inc.php");
 require("modules/proxy/includes/proxy.inc.php");
-?>
-
-<?php
-$path = array(array("name" => _("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Proxy management")));
-
 require("localSidebar.php");
-
 require("graph/navbar.inc.php");
 ?>
 
@@ -42,42 +34,26 @@ require("graph/navbar.inc.php");
 <div class="fixheight"></div>
 
 <?
-  global $conf;
-  $file = $conf["proxy"]["squidguard"];
-
 $arrayTMP = getStatutProxy();
 
-foreach($arrayTMP as $key => $value)
-    {
-        $info[]=$key;
-        if ($value) {
-            $extraInfo[]=_T("enable");
-        }
-        else {
-            $extraInfo[]=_T("disable");
-        }
-    }
+foreach($arrayTMP as $key => $value) {
+    $info[]=$key;
+    if ($value) $extraInfo[]=_T("enable");
+    else $extraInfo[]=_T("disable");
+}
 
 $p = new PageGenerator();
-
-/**
- * Affichage du menu
- */
-$p->setSideMenu($sidemenu); //$sidemenu inclus dans localSideBar.php
+$p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
-/**
- * Creation de la liste
- */
 $n = new ListInfos($info,_T("Services"));
 $n->setName(_T("Proxy status"));
 $n->addExtraInfo($extraInfo,_T("Status"));
 $n->display(0);
 
 ?>
-</form>
 
-<form method="post" action="main.php?module=proxy&submod=blacklist&action=restart">
+<form method="post" action="main.php?module=proxy&amp;submod=blacklist&amp;action=restart">
 <input name="goto" type="hidden" value="<?php echo $root; ?>main.php" />
 <input name="brestart" type="submit" class="btnPrimary" value="<?= _T('Restart service');?>" />
 </form>

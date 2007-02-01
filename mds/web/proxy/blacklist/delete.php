@@ -27,47 +27,10 @@
 require("modules/proxy/includes/proxy.inc.php");
 require("modules/proxy/includes/config.inc.php");
 
-if (isset($_POST["bback"]))
-{
-  header("Location: main.php?module=proxy&submod=blacklist&action=index");
-  exit;
-}
-else if (isset($_POST["brestart"]))
-{
-  header("Location: main.php?module=proxy&submod=blacklist&action=restart");
-  exit;
-}
-else if (isset($_POST["bdelblacklist"]))
-{
-  $arrB=get_blacklist();
-  delElementInBlackList($_POST["blacklist"],$arrB);
-  save_blacklist($arrB);
-}
-
-
-?>
-
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/proxy/graph/blacklist/index.css");
-?>
-
--->
-</style>
-
-<?php
-$path = array(array("name" => _("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Proxy management"),
-                    "link" => "main.php?module=proxy&submod=blacklist&action=index"),
-              array("name" => _T("Remove an entry in blacklist")));
-
-if (isset($_GET["blacklist"]))
-{
-
+if (isset($_POST["bdelblacklist"])) {
+    $arrB=get_blacklist();
+    delElementInBlackList($_POST["blacklist"],$arrB);
+    save_blacklist($arrB);
 }
 
 ?>
@@ -77,14 +40,13 @@ if (isset($_GET["blacklist"]))
 <div class="fixheight"></div>
 
 <?php
-if (isset($_GET["blacklist"]))
-{
-  $blacklist = urldecode($_GET["blacklist"]);
+if (isset($_GET["blacklist"])) {
+    $blacklist = urldecode($_GET["blacklist"]);
 ?>
 
-<form action="<? echo "main.php?module=proxy&submod=blacklist&action=delete";?>" method="post">
+<form action="<? echo urlStr("proxy/blacklist/delete"); ?>" method="post">
 <p>
-<?php printf(_T("You will remove <b>%s</b> entry"),$blacklist); ?>
+<?php printf(_T("You will remove <b>%s</b> entry"), $blacklist); ?>
 </p>
 
 <br>
@@ -94,44 +56,18 @@ if (isset($_GET["blacklist"]))
 
 <input name="blacklist" type="hidden" value="<?php echo $blacklist; ?>" />
 <input name="bdelblacklist" type="submit" class="btnPrimary" value="<?= _("Delete"); ?> <?php echo $blacklist; ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Back"); ?>" />
+<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
 </form>
 
 <?php
 }
 else if (isset($_POST["bdelblacklist"]))
 {
-  $n = new NotifyWidget();
-  $blacklist = $_POST["blacklist"];
-
-  if (isset($error))
-    {
-$str = sprintf(_T("An error has occured during removal of domain %s"),$blacklist);
-$str.="<br/>";
-$str.= $error;
-    }
-  else
-    {
-        $str = sprintf(_T("Domain %s has been removed"),$blacklist);
-    }
-$n->add($str);
-
-redirectTo(urlstr('proxy/blacklist/index'));
-
-}
-else
-{
-?>
-
-<p>
-<?= _T("You must select a domain in blacklist entries"); ?>
-</p>
-
-<form action="<? echo "main.php?module=proxy&submod=blacklist&action=index"; ?> " method="post">
-<input name="bback" type="submit" class="btnPrimary" value="<?= _("Back"); ?>" />
-</form>
-
-<?php
+    $n = new NotifyWidget();
+    $blacklist = $_POST["blacklist"];
+    if (!isXMLRPCError()) $str = sprintf(_T("Domain %s has been removed"), $blacklist);
+    $n->add($str);
+    redirectTo(urlStrRedirect('proxy/blacklist/index'));
 }
 
 ?>

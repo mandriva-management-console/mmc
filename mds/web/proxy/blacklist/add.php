@@ -26,35 +26,32 @@
 
 require("modules/proxy/includes/proxy.inc.php");
 require("modules/proxy/includes/config.inc.php");
-
-$path = array(array("name" => _("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Blacklist"),
-                    "link" => "maint.php?module=proxy&submod=blacklist&action=add"),
-              array("name" => _T("Add a domain in the blacklist")));
-
 require("localSidebar.php");
-
 require("graph/navbar.inc.php");
 
-if (isset($_POST["bcreate"]))
-{
-  $blacklistName = $_POST["blacklistName"];
-  $blacklistDesc = $_POST["blacklistDesc"];
-  $blacklistGroup = $_POST["group"];
-  $permAll = $_POST["permAll"];
+if (isset($_POST["bcreate"])) {
+    $blacklistName = $_POST["blacklistName"];
+    $blacklistDesc = $_POST["blacklistDesc"];
+    $blacklistGroup = $_POST["group"];
+    $permAll = $_POST["permAll"];
 
-  if (!(preg_match("/^(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/", $blacklistName)))
-  {
-    $error =  _T("Invalid domain name");
-  }
-  else
-  {
-    $arrB=get_blacklist();
-    addElementInBlackList($blacklistName,$arrB);
-    save_blacklist($arrB);
-  }
+    if (!(preg_match("/^(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/", $blacklistName))) {
+        $error = _T("Invalid domain name");
+    } else  {
+        $arrB = get_blacklist();
+	addElementInBlackList($blacklistName, $arrB);
+	save_blacklist($arrB);
+	if (!isXMLRPCError()) {
+	    $n = new NotifyWidget();
+	    $n->add(sprintf(_T("Domain %s successfully added"), $blacklistName));
+	    header("Location: " . urlStrRedirect("proxy/blacklist/index"));
+	}
+    }
 }
+
+$p = new PageGenerator();
+$p->setSideMenu($sidemenu);
+$p->displaySideMenu();
 
 ?>
 
@@ -69,20 +66,19 @@ if (isset($_POST["bcreate"]))
 <form method="post" action="<? echo $PHP_SELF; ?>">
 
 <table cellspacing="0">
-<tr><td><?= _T("Name"); ?></td>
-    <td><input name="blacklistName" type="text" class="textfield" size="23" value="<?php if (isset($error)) {echo $blacklistName;} ?>" /></td></tr>
+ <tr>
+  <td><?= _T("Name"); ?></td>
+  <td><input name="blacklistName" type="text" class="textfield" size="23" value="<?php if (isset($error)) {echo $blacklistName;} ?>" /></td>
+ </tr>
 </table>
 
 <input name="bcreate" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
+</form>
+
 <?php
-if (isset($_POST["bcreate"]) && (!isset($error)))
-{
-  echo $result;
-}
-if (isset($error))
-{
-  $n = new NotifyWidget();
-  $n->add($error);
+if (isset($error)) {
+    $n = new NotifyWidget();
+    $n->add($error);
 }
 ?>
-</form>
+

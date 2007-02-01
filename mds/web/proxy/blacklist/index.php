@@ -25,15 +25,7 @@
 /* $Id$ */
 require("modules/proxy/includes/config.inc.php");
 require("modules/proxy/includes/proxy.inc.php");
-?>
-
-<?php
-$path = array(array("name" => _("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Proxy management")));
-
 require("localSidebar.php");
-
 require("graph/navbar.inc.php");
 ?>
 
@@ -42,31 +34,21 @@ require("graph/navbar.inc.php");
 <div class="fixheight"></div>
 
 <?
-  global $conf;
-  $file = $conf["proxy"]["squidguard"];
-
 $arrB = get_nonIndexBlackList();
 
 $p = new PageGenerator();
-
-/**
- * Affichage du menu
- */
-$p->setSideMenu($sidemenu); //$sidemenu inclus dans localSideBar.php
+$p->setSideMenu($sidemenu);
 $p->displaySideMenu();
-
-/**
- * Création de la liste
- */
 $n = new ListInfos($arrB);
-//$n->addActionItem(new ActionItem("Ajouter","add","ajouter","id") );
 $n->addActionItem(new ActionPopupItem(_("Delete"),"delete","supprimer","blacklist") );
 $n->setName(_T("Blacklist entries"));
 $n->display();
 ?>
 
 </form>
-<form method="post" action="main.php?module=proxy&submod=blacklist&action=restart">
+</form>
+
+<form method="post" action="main.php?module=proxy&amp;submod=blacklist&amp;action=restart">
 <input name="goto" type="hidden" value="<?php echo $root; ?>main.php" />
 <input name="brestart" type="submit" class="btnPrimary" value="<?= _T("Restart service"); ?>" />
 </form>

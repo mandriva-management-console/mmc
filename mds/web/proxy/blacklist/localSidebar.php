@@ -20,36 +20,12 @@
  * along with LMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<style type="text/css">
-<!--
-
-<?php
-printSidebarCss($_GET["submod"],$_GET["action"]);
-
-?>
-
--->
-</style>
-
-<?
-
-$sidebar = array("class" => "blacklist",
-                 "content" => array(array("id" => "status","text" => _T("Proxy status"),
-                                    "link" => "main.php?module=proxy&submod=blacklist&action=statut"),
-				    array("id" => "index","text" => _T("Blacklist management"),
-                                    "link" => "main.php?module=proxy&submod=blacklist&action=index"),
-				    array("id" => "add","text" => _T("Add an entry in blacklist"),
-                                    "link" => "main.php?module=proxy&submod=blacklist&action=add")));
 
 $sidemenu= new SideMenu();
-
 $sidemenu->setClass("blacklist");
 $sidemenu->addSideMenuItem(new SideMenuItem(_T("Proxy status"),"proxy","blacklist","statut"));
 $sidemenu->addSideMenuItem(new SideMenuItem(_T("Blacklist management"),"proxy","blacklist","index"));
 $sidemenu->addSideMenuItem(new SideMenuItem(_T("Add an entry in blacklist"),"proxy","blacklist","add"));
-
-
 
 ?>
 
