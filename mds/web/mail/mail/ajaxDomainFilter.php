@@ -25,7 +25,7 @@ function print_ajax_nav($curstart, $curend, $items, $filter)
     {
       $start = $curstart - $max;
       $end = $curstart - 1;
-      echo "<li class=\"previousList\"><a href=\"#\" onClick=\"updateSearchParam('$filter','$start','$end'); return false\";>"._("Previous")."</a></li>\n";
+      echo "<li class=\"previousList\"><a href=\"#\" onclick=\"updateSearchParam('$filter','$start','$end'); return false\";>"._("Previous")."</a></li>\n";
     }
 
   if (($curend + 1) >= count($items))
@@ -36,7 +36,7 @@ function print_ajax_nav($curstart, $curend, $items, $filter)
     {
       $start = $curend + 1;
       $end = $curend + $max;
-      echo "<li class=\"nextList\"><a href=\"#\" onClick=\"updateSearchParam('$filter','$start','$end'); return false\";>"._("Next")."</a></li>\n";
+      echo "<li class=\"nextList\"><a href=\"#\" onclick=\"updateSearchParam('$filter','$start','$end'); return false\";>"._("Next")."</a></li>\n";
     }
 
   echo "</ul>\n";
