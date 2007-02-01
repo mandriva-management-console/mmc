@@ -23,13 +23,13 @@
 
 
 function cleanup_arr($array) {
+    /* FIXME: Do we need this function ? */
     $res = array();
     foreach ($array as $item) {
-        if ((preg_match("/^([0-9a-zA-Z@.]){1,}$/",$item))&&(array_search($item,$res)===False)) {
+        if ((preg_match("/^([0-9a-zA-Z@.-]){1,}$/",$item))&&(array_search($item,$res)===False)) {
             $res[] = $item;
         }
     }
-
     return $res;
 }
 
@@ -46,7 +46,7 @@ function changeMaildrop($login,$droplist) {
 }
 
 function changeMailalias($login,$aliaslist) {
-    return xmlCall("mail.changeMailalias",array($login,cleanup_arr($aliaslist)));
+    return xmlCall("mail.changeMailalias",array($login, cleanup_arr($aliaslist)));
 }
 
 function changeMailbox($login, $mailbox) {
@@ -58,8 +58,28 @@ function removeMail($login) {
     return xmlCall("mail.removeMail",array($login));
 }
 
+function removeMailGroup($group) {
+    return xmlCall("mail.removeMailGroup",array($group));
+}
+
+function addMailGroup($group, $mail) {
+    return xmlCall("mail.addMailGroup",array($group, $mail));
+}
+
+function deleteMailGroupAliases($group) {
+    xmlCall("mail.deleteMailGroupAliases", array($group));
+}
+
+function syncMailGroupAliases($group, $foruser = "*") {
+    xmlCall("mail.syncMailGroupAliases", array($group, $foruser));
+}
+
 function hasMailObjectClass($login) {
     return xmlCall("mail.hasMailObjectClass",array($login));
+}
+
+function hasGroupMailObjectClass($group) {
+    return xmlCall("mail.hasMailGroupObjectClass", array($group));
 }
 
 function hasVDomainSupport() {
@@ -97,5 +117,8 @@ function getVDomainUsers($domain, $filter) {
     return xmlCall("mail.getVDomainUsers", array($domain, $filter));
 }
 
+function computeMailGroupAlias($group) {
+    return xmlCall("mail.computeMailGroupAlias", array($group));
+}
 
 ?>

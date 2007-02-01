@@ -41,6 +41,8 @@ $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
 $mod->addACL("mailalias", _T("Mail aliases","mail"));
 $mod->addACL("mailbox", _T("Mail delivery path","mail"));
 
+$mod->addACL("mailgroupaccess", _T("Mail group alias access", "mail"));
+
 if (hasVDomainSupport()) {
     $mod->addACL("maildrop", _T("Forward to","mail"));
 
@@ -77,6 +79,12 @@ if (hasVDomainSupport()) {
 
     $page = new Page("ajaxDomainFilter");
     $page->setFile("modules/mail/mail/ajaxDomainFilter.php",
+		   array("AJAX" =>True,"visible"=>False)
+		   );
+    $submod->addPage($page);
+
+    $page = new Page("ajaxMailDomainFilter");
+    $page->setFile("modules/mail/mail/ajaxMailDomainFilter.php",
 		   array("AJAX" =>True,"visible"=>False)
 		   );
     $submod->addPage($page);
