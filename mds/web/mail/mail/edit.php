@@ -46,6 +46,7 @@ if (isset($_POST["badd"])) {
 	$n->add("<div id=\"validCode\">$result</div>");
 	$n->setLevel(0);
 	$n->setSize(600);
+	header("Location: " . urlStrRedirect("mail/mail/index"));
     }
 }
 
