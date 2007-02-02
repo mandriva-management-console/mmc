@@ -22,11 +22,6 @@
  */
 ?>
 
-<?php
-require("modules/samba/includes/shares.inc.php");
-require("modules/base/includes/groups.inc.php");
-?>
-
 <style type="text/css">
 <!--
 
@@ -39,14 +34,9 @@ else require("modules/samba/graph/shares/index.css");
 </style>
 
 <?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Shares"),
-                    "link" => "main.php?module=samba&submod=shares&action=index"),
-              array("name" => _T("Add a share")));
-
+require("modules/samba/includes/shares.inc.php");
+require("modules/base/includes/groups.inc.php");
 require("modules/samba/mainSidebar.php");
-
 require("graph/navbar.inc.php");
 
 if (isset($_POST["bcreate"]))
@@ -72,7 +62,7 @@ if (isset($_POST["bcreate"]))
         add_share($shareName, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
 	if (!isXMLRPCError()) {
 	    $n = new NotifyWidget();
-	    $n->add(sprintf("share %s sucessfully added",$shareName));
+	    $n->add(sprintf(_T("Share %s successfully added"), $shareName));
 	    header("Location: main.php?module=samba&submod=shares&action=index");
 	}
     }
@@ -92,7 +82,7 @@ if (isset($_POST["bmodify"]))
     mod_share($share, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
     if (!isXMLRPCError()) {
         $n = new NotifyWidget();
-        $n->add(sprintf("share %s sucessfully modified", $share));
+        $n->add(sprintf(_T("Share %s successfully modified"), $share));
     }
 }
 

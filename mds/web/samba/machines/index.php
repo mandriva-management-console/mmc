@@ -26,7 +26,6 @@
 
 require("modules/samba/includes/machines.inc.php");
 
-require("graph/header.inc.php");
 ?>
 
 <style type="text/css">
@@ -40,18 +39,11 @@ require("modules/samba/graph/machines/index.css");
 </style>
 
 <?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Computers"),
-                    "link" => "main.php?module=samba&submod=machines&action=index"),
-              array("name" => _T("Computers management")));
-
 require("modules/samba/mainSidebar.php");
 
 require("graph/navbar.inc.php");
 
-if (!isset($_GET["items"]))
-{
+if (!isset($_GET["items"])) {
   $machines = get_machines($error);
   $start = 0;
 
@@ -81,13 +73,13 @@ $end = $_GET["end"];
     <div id="loader"><img id="loadimg" src="<?php echo $root; ?>img/common/loader.gif" alt="loader" class="loader"/></div>
 
     <div id="searchSpan" class="searchbox" style="float: right;">
-    <img src="graph/search.gif" style="position:relative; top: 2px; float: left;" alt="search" /> <span class="searchfield"><input type="text" class="searchfieldreal" name="param" id="param" onKeyUp="pushSearch(); return false;">
+    <img src="graph/search.gif" style="position:relative; top: 2px; float: left;" alt="search" /> <span class="searchfield"><input type="text" class="searchfieldreal" name="param" id="param" onkeyup="pushSearch(); return false;">
     <img src="graph/croix.gif" alt="suppression" style="position:relative; top : 3px;"
-    onClick="document.getElementById('param').value =''; pushSearch(); return false;">
+    onclick="document.getElementById('param').value =''; pushSearch(); return false;" />
     </span>
     </div>
 
-    <script>
+    <script type="text/javascript">
         document.getElementById('param').focus();
 
 
@@ -107,7 +99,7 @@ $end = $_GET["end"];
         */
 
         function updateSearchParam(filter, start, end) {
-            new Ajax.Updater('container','modules/samba/machines/ajaxFilter.php?filter='+filter+'&start='+start+'&end='+end, { asynchronous:true, evalScripts: true});
+            new Ajax.Updater('container','modules/samba/machines/ajaxFilter.php?filter='+filter+'&amp;start='+start+'&amp;end='+end, { asynchronous:true, evalScripts: true});
             }
 
         /**
@@ -183,7 +175,6 @@ for ($idx = $start;
   echo "<td class=\"Name\">".$machines[$idx][1]."</td>";
   echo "<td class=\"machineAction\">";
   echo "<ul class=\"action\">";
-  //echo "<li class=\"supprimer\"><a title=\""._T("delete")."\" href=\"main.php?module=samba&submod=machines&action=delete&machine=".urlencode($machines[$idx][0])."\">.</a></li>";
   $a = new ActionPopupItem(_T("Delete"),"delete","supprimer","machine");
   $a->display(urlencode($machines[$idx][0]));
   echo "</ul></td>";

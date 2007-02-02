@@ -21,12 +21,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
-<?php
-/* $Id$ */
-
-require("modules/samba/includes/machines.inc.php");
-?>
-
 
 <style type="text/css">
 <!--
@@ -39,43 +33,32 @@ require("modules/samba/graph/machines/index.css");
 </style>
 
 <?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Computers"),
-                    "link" => "main.php?module=samba&submod=machines&action=index"),
-              array("name" => _T("Del a computer")));
 
+require("modules/samba/includes/machines.inc.php");
 require("modules/samba/mainSidebar.php");
-
-//require("graph/navbar.inc.php");
 
 ?>
 
-<h2><?= _T("Del a computer"); ?></h2>
+<h2><?= _T("Delete a computer"); ?></h2>
 
 <div class="fixheight"></div>
 
 <?php
-if (isset($_GET["machine"]))
-{
+if (isset($_GET["machine"])) {
   $machine = urldecode($_GET["machine"]);
 }
-if (isset($_POST["machine"]))
-{
+if (isset($_POST["machine"])) {
   $machine = $_POST["machine"];
 }
 
-if (isset($_POST["bdelmach"]))
-{
-  del_machine($machine);
+if (isset($_POST["bdelmach"])) {
+    del_machine($machine);
     $str = sprintf(_T("Computer <strong>%s</strong> deleted."),$machine);
     $n = new NotifyWidget();
     $n->add($str);
-
     header("location: " . urlStrRedirect('samba/machines/index'));
 }
-else
-{
+
 ?>
 
 <form action="<? echo "main.php?module=samba&submod=machines&action=delete"; ?>" method="post">
@@ -89,7 +72,3 @@ printf(_T("You will delete <strong>%s</strong>."),$machine);
 <input name="bdelmach" type="submit" class="btnPrimary" value="<?= _T("Delete"); ?>" />
 <input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;"/>
 </form>
-
-<?php
-}
-?>

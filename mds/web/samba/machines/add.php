@@ -26,7 +26,6 @@
 
 require("modules/samba/includes/machines.inc.php");
 
-require("graph/header.inc.php");
 ?>
 
 <style type="text/css">
@@ -40,23 +39,27 @@ require("modules/samba/graph/machines/add.css");
 </style>
 
 <?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Computers"),
-                    "link" => "main.php?module=samba&submod=machines&action=index"),
-              array("name" => _T("Add a computer")));
-
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-if (isset($_POST["baddmach"]))
-{
-  $machine = $_POST["machine"];
-  $comment = $_POST["comment"];
+if (isset($_POST["baddmach"])) {
+    $machine = $_POST["machine"];
+    $comment = $_POST["comment"];
 
-  if (!preg_match("/^[A-Za-z][A-Za-z-0-9]*$/", $machine))
-    {
-      $error = "Nom de machine invalide !";
+    if (!preg_match("/^[A-Za-z][A-Za-z-0-9]*$/", $machine)) {
+        $error = _T("Invalid computer name");
+        $n = new NotifyWidget();
+        $n->flush();
+        $n->add("<div id=\"errorCode\">$error</div>");
+        $n->setLevel(4);
+        $n->setSize(600);    
+    } else {
+        add_machine($machine, $comment);
+	if (!isXMLRPCError()) {
+            $n = new NotifyWidget();
+	    $n->add(sprintf("Computer %s successfully added", $machine));
+	    header("Location: " . urlStrRedirect("samba/machines/index"));
+	}
     }
 }
 
@@ -70,25 +73,11 @@ if (isset($_POST["baddmach"]))
 
 <form method="post" action="<? echo "main.php?module=samba&submod=machines&action=add"; ?>">
 <table cellspacing="0">
-<tr><td><?= _T("Computer name"); ?></td>
+<tr><td style="text-align: right;width :40%"><?= _T("Computer name"); ?></td>
     <td><input name="machine" type="text" class="textfield" size="23" value="<?php if (isset($error)){echo $machine;} ?>" /></td></tr>
-<tr><td><?= _T("Comment"); ?></td>
+<tr><td style="text-align: right;width :40%"><?= _T("Comment"); ?></td>
     <td><input name="comment" type="text" class="textfield" size="23" value="<?php if (isset($error)){echo $comment;} ?>" /></td></tr>
 </table>
 
 <input name="baddmach" type="submit" class="btnPrimary" value="<?= _T("Add"); ?>" />
-<input name="breset" type="reset" class="btnSecondary" value="<?= _T("Clear"); ?>" />
-<?php
-if (isset($_POST["baddmach"]) && (!$error))
-{
-  $result = add_machine($machine, $comment);
-  if ($result==0) {
-  echo _("Computer added");
-  }
-}
-if (isset($error))
-{
-  echo $error;
-}
-?>
 </form>
