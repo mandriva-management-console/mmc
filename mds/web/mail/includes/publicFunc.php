@@ -49,7 +49,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
     }
 
     if (($hasMail == "") && ($mail == "")) {
-          print "No mail alias can be set for this group";
+      print _T("No mail alias can be set for this group", "mail");
     } else {
       print "<table>";
       $test = new TrFormElement(_T("Enable mail alias for users of this group ","mail"), new CheckboxTpl("mailgroupaccess"));
@@ -64,7 +64,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
       print '<div id="maildiv" '.$style.'>';
       print "<table>";
       if (!hasVDomainSupport()) {
-          $m = new TrFormElement(_T("Mail alias", "mailgroupalias"), new InputTpl("mailgroupalias"));
+          $m = new TrFormElement(_T("Mail alias", "mail"), new InputTpl("mailgroupalias"));
 	  $m->displayRo(array("value" => $mail));
       } else {
           print '<tr><td width="40%" style="text-align: right;">Mail alias</td><td>' . $mail . '<input  type="hidden" value="' . $mail . '" name="mailgroupalias">&nbsp;@&nbsp;';
