@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-06 15:55+0100\n"
+"POT-Creation-Date: 2007-02-06 16:11+0100\n"
 "PO-Revision-Date: 2007-02-06 15:56+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +131,7 @@ msgid "Enable mail alias for users of this group "
 msgstr "Activer l'alias de messagerie pour les membres de ce groupe"
 
 #: mail/includes/publicFunc.php:67 mail/includes/publicFunc.php:184
-#: mail/includes/publicFunc.php:187
+#: mail/includes/publicFunc.php:187 mail/includes/publicFunc.php:70
 msgid "Mail alias"
 msgstr "Alias de messagerie"
 
