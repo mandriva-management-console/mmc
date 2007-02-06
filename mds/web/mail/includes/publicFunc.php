@@ -67,7 +67,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
           $m = new TrFormElement(_T("Mail alias", "mail"), new InputTpl("mailgroupalias"));
 	  $m->displayRo(array("value" => $mail));
       } else {
-          print '<tr><td width="40%" style="text-align: right;">' . _T("Mail alias", "mail") . </td><td>' . $mail . '<input  type="hidden" value="' . $mail . '" name="mailgroupalias">&nbsp;@&nbsp;';
+          print '<tr><td width="40%" style="text-align: right;">' . _T("Mail alias", "mail") . '</td><td>' . $mail . '<input  type="hidden" value="' . $mail . '" name="mailgroupalias">&nbsp;@&nbsp;';
 	  print '<input type="text" id="autocomplete" name="maildomain" value="' . $maildomain . '" /><div id="autocomplete_choices" class="autocomplete"></div>';
 	  print '<script type="text/javascript">new Ajax.Autocompleter("autocomplete", "autocomplete_choices", "modules/mail/mail/ajaxMailDomainFilter.php", {paramName: "value"});</script>';
 	  print '</td></tr>';
