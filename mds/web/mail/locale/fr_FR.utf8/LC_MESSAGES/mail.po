@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-06 14:36+0100\n"
-"PO-Revision-Date: 2007-02-06 14:38+0100\n"
+"POT-Creation-Date: 2007-02-06 15:55+0100\n"
+"PO-Revision-Date: 2007-02-06 15:56+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,6 +121,10 @@ msgstr "Valider"
 #: mail/includes/publicFunc.php:31 mail/includes/publicFunc.php:125
 msgid "Mail plugin"
 msgstr "Messagerie électronique"
+
+#: mail/includes/publicFunc.php:52
+msgid "No mail alias can be set for this group"
+msgstr "Aucun alias de messagerie ne peut être positionné pour ce groupe"
 
 #: mail/includes/publicFunc.php:55
 msgid "Enable mail alias for users of this group "
