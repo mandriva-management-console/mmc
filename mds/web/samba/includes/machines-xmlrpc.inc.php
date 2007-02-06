@@ -24,32 +24,22 @@
 <?php
 /* $Id$ */
 
-function
-get_machines($error)
-{
-  $param = null;
-  return xmlCall("base.getMachinesLdap",$param);
+function get_machines() {
+    return xmlCall("samba.getMachinesLdap", null);
 }
 
-function
-add_machine($machine, $comment)
-{
-  $param= array($machine,$comment);
-  return xmlCall("base.addMachine",$param);
+function add_machine($machine, $comment) {
+    $param= array($machine,$comment);
+    return xmlCall("samba.addMachine",$param);
 }
 
-function
-del_machine($machine)
-{
-  return xmlCall("base.delMachine",$machine);
+function del_machine($machine) {
+    return xmlCall("samba.delMachine",$machine);
 }
 
-function
-search_machines($filter = null) {
-
-  if ($filter == "") $filter = null;
-  else $filter = "*".$filter . "*";
-
+function search_machines($filter = null) {
+    if ($filter == "") $filter = null;
+    else $filter = "*".$filter . "*";
     return xmlCall("base.getMachinesLdap",$filter);
 }
 
