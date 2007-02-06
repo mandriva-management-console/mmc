@@ -40,7 +40,7 @@ function del_machine($machine) {
 function search_machines($filter = null) {
     if ($filter == "") $filter = null;
     else $filter = "*".$filter . "*";
-    return xmlCall("base.getMachinesLdap",$filter);
+    return xmlCall("samba.getMachinesLdap",$filter);
 }
 
 ?>
