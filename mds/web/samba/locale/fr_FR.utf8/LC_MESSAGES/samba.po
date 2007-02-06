@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-06 14:32+0100\n"
-"PO-Revision-Date: 2007-02-06 14:32+0100\n"
+"PO-Revision-Date: 2007-02-06 15:44+0100\n"
 "Last-Translator: Jérome Wax <jerome.wax@linbox.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -293,7 +293,7 @@ msgstr "Antivirus sur ce partage"
 
 #: samba/shares/details.php:168
 msgid "This share is visible on the domain"
-msgstr "The partage est visible sur le domaine"
+msgstr "Le partage est visible sur le domaine"
 
 #: samba/shares/details.php:181
 msgid "Permissions"
