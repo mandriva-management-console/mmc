@@ -208,6 +208,24 @@
 	    <entry>yes</entry>
 	    <entry>defaultHomeDir</entry>
 	  </row>
+	  <row>
+	    <entry>uidStart</entry>
+	    <entry>starting uid number for user accounts</entry>
+	    <entry>yes</entry>
+	    <entry>10000</entry>
+	  </row>
+	  <row>
+	    <entry>gidStart</entry>
+	    <entry>starting gid number for groups</entry>
+	    <entry>yes</entry>
+	    <entry>10000</entry>
+	  </row>
+	  <row>
+	    <entry>logfile</entry>
+	    <entry>LDAP log file path</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
 	</tbody>
       </tgroup>
     </table>
