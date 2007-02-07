@@ -48,7 +48,7 @@ if (hasVDomainSupport()) {
 
     $submod = new SubModule("mail");
     $submod->setDescription(_T("Mail", "mail"));
-    $submod->setImg('img/navbar/pref');
+    $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/mail/index");
 
     $page = new Page("index",_T("Mail domain list","mail"));
