@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-06 14:32+0100\n"
-"PO-Revision-Date: 2007-02-06 15:44+0100\n"
+"POT-Creation-Date: 2007-02-07 15:42+0100\n"
+"PO-Revision-Date: 2007-02-07 15:46+0100\n"
 "Last-Translator: Jérome Wax <jerome.wax@linbox.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -548,3 +548,34 @@ msgstr "Verrouillage/Déverrouillage du compte"
 #: samba/infoPackage.inc.php:123
 msgid "SAMBA status"
 msgstr "Statut SAMBA"
+
+#: samba/shares/backup.php:59 samba/shares/backup.php:89
+msgid "Share backup"
+msgstr "Sauvegarde d'un partage"
+
+#: samba/shares/backup.php:92
+#, php-format
+msgid "Backup of share <b>%s</b> has been launched as a background job."
+msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
+
+#: samba/shares/backup.php:96
+#, php-format
+msgid ""
+"The ISO file that contains this backup will be stored into the directory <b>%"
+"s</b>."
+msgstr "L'image ISO qui contiendra la sauvegarde sera enregistrée dans le répertoire <b>%s</b>."
+
+#: samba/shares/backup.php:99
+msgid "This operation will last according to the amount of data to backup."
+msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
+
+#: samba/shares/backup.php:117
+#, php-format
+msgid "The share %s will be archived."
+msgstr "Le partage %s va être archivé."
+
+#: samba/shares/backup.php:122
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created"
+msgstr "Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le volume des données dépasse la taille du médium choisi, un jeu de média sera créé."
