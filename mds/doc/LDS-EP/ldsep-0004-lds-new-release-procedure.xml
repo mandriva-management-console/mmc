@@ -259,10 +259,13 @@
       The tarballs are put in the public download place.
     </para>
     <para>
-      The debian packages repository is updated.
+      The debian packages repository is updated, for Sarge and Etch
     </para>
     <para>
-      A mail is sent to the lmc-announce mailing list.
+      The VMware image is updated thanks to the debian packages. The LDS version in the GRUB splash screen is updated.
+    </para>
+    <para>
+      A mail is sent to the lds-announce mailing list.
     </para>
     <para>
       The freshmeat entry is updated.
