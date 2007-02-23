@@ -176,6 +176,9 @@
       To connect to the LMC agent, the client (for example the LMC web interface) must do a HTTP Basic authentication, using the configured login and password.
     </para>
     <para>
+      You must change the login and password in the configuration file, because if you keep using the default configuration, anybody can connect to your LMC agent.  LMC agent issue a warning if you use the default login and password.
+    </para>
+    <para>
       When using SSL, the LMC agent doesn't check the client public certificate (if it gives one). SSL is only used to encrypt the connection.
     </para>
 
