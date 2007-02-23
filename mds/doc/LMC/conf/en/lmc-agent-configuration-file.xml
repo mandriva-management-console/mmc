@@ -65,7 +65,6 @@
 
     </para>
 
-
   </section>
 
   <section>
@@ -258,7 +257,6 @@
 
   </section>
 
-
   <section>
     
     <title>How to enable full debug in LMC agent</title>
@@ -267,7 +265,7 @@
       Just set level=DEBUG in hand01 handler (see previous section), and restart the LMC agent.
     </para>
     <para>
-      All the remote function calls and responses zre now recorded in LMC log file.
+      All the remote function calls and responses are now recorded in LMC log file.
     </para>
 
   </section>

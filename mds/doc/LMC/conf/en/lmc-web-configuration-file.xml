@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LMC web configuration file</title>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007 Cédric Delfosse- Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision: 18 $</revnumber>
+        <date>$Date: 2007-02-07 17:30:04 +0100 (mer, 07 fév 2007) $</date>
+        <authorinitials>$Author: cedric $</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the LMC web configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>
+      The LMC web interface communicates with LMC agents to manage LDAP directories, services and ressources.
+    </para>
+
+    <para>
+      Its configuration file is <filename>/etc/lmc/lmc.ini</filename>.
+      This file must be readable only by root, as it contains the login and password required to connect to LMC agents.
+    </para>
+
+    <para>
+      Like all LMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+    </para>
+    <para>
+      For example:
+
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+
+    </para>    
+    
+  </section>
+
+  <section>
+
+    <title>Configuration file sections</title>
+
+    <table>
+      <title>
+	/etc/lmc/lmc.ini available sections
+      </title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>global</entry>
+	    <entry>LMC web interface global options</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>debug</entry>
+	    <entry>debug options</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>server_x</entry>
+	    <entry>LMC agent XMLRPC server connection options</entry>
+	    <entry>no</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « global »</title>
+
+    <table>
+      <title>
+	Available options for the « global » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>backend</entry>
+	    <entry>Which RPC backend to use. Only xmlrpc backend is available.</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>login</entry>
+	    <entry>credential to authenticate with the LMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>password</entry>
+	    <entry>credential to authenticate with the LMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>root</entry>
+	    <entry>Root URL where the LMC web pages are installed</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>rootfsmodules</entry>
+	    <entry>Filesystem path where the LMC web modules are installed</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>maxperpage</entry>
+	    <entry>Number of items (users, groups, ...) in displayed lists on the web interface</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>	   
+
+  </section>
+  
+  <section>
+
+    <title>Section « debug »</title>
+
+    <table>
+      <title>
+	Available options for the « debug » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>level</entry>
+	    <entry>Wanted debug level. 0 to disable debug. 1 to enable debug.</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « server_x »</title>
+
+    <para>
+      You can set multiple sections called « server_01 », « server_02 » ... to specify a list of LMC agents to connect to.
+    </para>
+    <para>
+      On the LMC login web page, all the specified LMC agents will be displayed, and you will be able to select the one you want to be connected to.
+    </para>
+
+    <table>
+      <title>
+	Available options for the « server_x » sections
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>description</entry>
+	    <entry>label to display on the LMC login web page</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>url</entry>
+	    <entry>How to connect the XMLRPC server of this LMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      For example, to define a local LMC agent:
+    </para>
+    
+    <screen>
+      [server_01]
+      description = Local LMC agent
+      url = http://127.0.0.1:7080
+    </screen>
+    
+    <para>
+      To use SSL between the web interface and the LMC agent (SSL must be enabled on the LMC agent):
+    </para>
+
+    <screen>
+      [server_01]
+      description = Local LMC agent
+      url = https://127.0.0.1:7080
+    </screen>
+
+  </section>
+
+</article>
