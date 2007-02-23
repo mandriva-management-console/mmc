@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LMC agent configuration file</title>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007 Cédric Delfosse- Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision: 18 $</revnumber>
+        <date>$Date: 2007-02-07 17:30:04 +0100 (mer, 07 fév 2007) $</date>
+        <authorinitials>$Author: cedric $</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the LMC agent configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+    
+    <para>
+      The LMC agent is a XMLRPC server that exports to the network the API provided by the LMC python plugins.
+    </para>
+    <para>
+      Its configuration file is <filename>/etc/lmc/agent/config.ini</filename>.
+      This file must be readable only by root, as it contains the login and password required to connect to the LMC agent.
+    </para>
+
+    <para>
+      Like all LMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+    </para>
+    <para>
+      For example:
+
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+
+    </para>
+
+
+  </section>
+
+  <section>
+
+    <title>Configuration file sections</title>
+
+    <table>
+      <title>
+	/etc/lmc/agent/config.ini available sections
+      </title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>main</entry>
+	    <entry>LMC agent main option</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>log</entry>
+	    <entry>other LMC agent option (to be removed)</entry>
+	    <entry>no</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      All the other sections (loggers, handlers, ...) are related to Python language logging framework. See http://docs.python.org/lib/logging-config-fileformat.html. 
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Section « main »</title>
+
+    <table>
+      <title>
+	Available options for the "main" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>enablessl</entry>
+	    <entry>Enable SSL for XMLRPC communication. If disabled enabled, the XMLRPC traffic is not encrypted.</entry>
+	    <entry>yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>privkey</entry>
+	    <entry>Give the name of a file containing a private key.</entry>
+	    <entry>If enablessl=0, yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>certfile</entry>
+	    <entry>Give the name of a file containing a certificate.</entry>
+	    <entry>If enablessl=0, yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>host</entry>
+	    <entry>IP where we listen for incoming connections</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>port</entry>
+	    <entry>TCP/IP port where we listen for incoming connections</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>login</entry>
+	    <entry>login to connect to the lmc-agent</entry>
+	    <entry>No</entry>
+	    <entry>lmc</entry>
+	  </row>
+	  <row>
+	    <entry>password</entry>
+	    <entry>password to connect to the lmc-agent</entry>
+	    <entry>No</entry>
+	    <entry>s3cr3t</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      If host=127.0.0.1, the LMC agent will only listen for local incoming connection. You can use host=0.0.0.0 to make it listen on all available network interfaces.
+    </para>
+    <para>
+      To connect to the LMC agent, the client (for example the LMC web interface) must do a HTTP Basic authentication, using the configured login and password.
+    </para>
+    <para>
+      When using SSL, the LMC agent doesn't check the client public certificate (if it gives one). SSL is only used to encrypt the connection.
+    </para>
+
+  </section>  
+
+  <section>
+    
+    <title>Section « log »</title>
+
+    <para>
+      This section will be deprecated soon.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "log" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>name</entry>
+	    <entry>Name of the LMC agent daemon</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>pidfile</entry>
+	    <entry>Give the name of a file containing the PID of the LMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Sections related to the Python logging module</title>
+
+    <para>
+      See http://docs.python.org/lib/logging-config-fileformat.html.      
+    </para>
+
+    <para>
+      In the default LMC agent configuration, two handlers are configured:
+    </para>
+    
+    <screen>
+      [handler_hand01]
+      class=FileHandler
+      level=INFO
+      formatter=form01
+      args=("/var/log/lmc/lmc-agent.log",)
+      
+      [handler_hand02]
+      class=StreamHandler
+      level=DEBUG
+      args=(sys.stderr,)
+    </screen>
+
+    <para>
+      The handler hand01 records all logs emitted by the LMC agent (and its activated plugins) in the file <filename>/var/log/lmc/lmc-agent.log</filename>.
+    </para>
+    <para>
+      The handler hand02 is used by the LMC agent only when it starts to display startup messages, then it is closed.
+    </para>
+
+  </section>
+
+
+  <section>
+    
+    <title>How to enable full debug in LMC agent</title>
+
+    <para>
+      Just set level=DEBUG in hand01 handler (see previous section), and restart the LMC agent.
+    </para>
+    <para>
+      All the remote function calls and responses zre now recorded in LMC log file.
+    </para>
+
+  </section>
+  
+</article>
