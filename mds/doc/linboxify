@@ -210,8 +210,30 @@ input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
 }
 
 .screen {
- background-color: #E5E5E5;
+ background-color: #FFEEDD;
  padding: 2em;
+ -moz-border-radius: 8px;
+ -khtml-border-radius: 8px;
+ border-radius: 8px;
+}
+
+.note {
+  background-color: #DDEEFF;
+  margin: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80% !important;
+  min-height: 40px;
+  clear: both;
+  text-align: justify;
+  vertical-align: middle;
+  border-collapse: collapse;
+  padding: 0.5em 1em 0.5em 36px;
+  background-position: 5px 0.5em;
+  background-repeat: no-repeat;
+  -moz-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
 }
 
 </style>
