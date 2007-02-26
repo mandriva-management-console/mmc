@@ -5,4 +5,10 @@
 <xsl:param name="chunk.section.depth" select="0"/>
 <xsl:param name="use.svg" select="0"/>
 <xsl:param name="section.label.includes.component.label" select="1"/>
+
+<xsl:param name="admon.graphics" select="1"></xsl:param>
+<xsl:param name="admon.textlabel" select="0"></xsl:param>
+<xsl:param name="admon.graphics.path">/content/images/docbook</xsl:param>
+
+
 </xsl:stylesheet>
