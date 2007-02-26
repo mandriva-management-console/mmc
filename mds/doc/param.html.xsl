@@ -8,7 +8,7 @@
 
 <xsl:param name="admon.graphics" select="1"></xsl:param>
 <xsl:param name="admon.textlabel" select="0"></xsl:param>
-<xsl:param name="admon.graphics.path">/content/images/docbook</xsl:param>
+<xsl:param name="admon.graphics.path">/content/images/docbook/</xsl:param>
 
 
 </xsl:stylesheet>
