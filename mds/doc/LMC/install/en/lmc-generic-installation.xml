@@ -30,9 +30,9 @@
 
     <revhistory>      
       <revision>
-        <revnumber>$Revision: 12 $</revnumber>
-        <date>$Date: 2006-08-04 18:32:51 +0200 (ven, 04 aoû 2006) $</date>
-        <authorinitials>$Author: cedric $</authorinitials>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
       </revision>
     </revhistory>
 
