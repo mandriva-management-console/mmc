@@ -37,7 +37,7 @@
     </revhistory>
 
     <abstract>
-      <para>Howto install the LMC (Linbox Management Console) on a Linux distribution</para>
+      <para>How to install the LMC (Linbox Management Console) on a Linux distribution</para>
     </abstract>
   </articleinfo>
 
@@ -107,6 +107,11 @@
 	</listitem>
 	<listitem>
 	  <para>
+	    python-lmc-plugins-tools: helpers for some plugin 
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
 	    python-lmc-PLUGIN: LMC agent plugin
 	  </para>
 	</listitem>
@@ -136,19 +141,11 @@
     <title>LDAP server configuration</title>
 
     <para>
-      Since version 1.1.2, the LMC supports OpenLDAP or Fedora Directory Server.
+      Since version 1.1.2, the LMC supports both OpenLDAP and Fedora Directory Server.
     </para>
     
     <para>
-      Your LDAP server must be configured according to the plugin you want to enable in the LMC.
-    </para>
-    <para>
-      For example, if you want SAMBA support, the corresponding schema must be loaded in your LDAP directory.
-    </para>
-    <para>
       One LDAP schema called LMC schema is mandatory.
-    </para>
-    <para>
       This schema and others are available in the lmc-agent tarball, in the directory <filename>contrib/ldap/</filename>.
     </para>
 
@@ -157,16 +154,16 @@
       <title>OpenLDAP configuration</title>
 
       <note>
-	<title>Already existing directory</title>
+	<title>OpenLDAP example configuration</title>
 	<para>
-	  If you already have an OpenLDAP directory, all you need to do is to include the lmc.schema file.
+	  You will find an example of OpenLDAP configuration in the directory <filename>contrib/ldap/</filename> of the lmc-agent tarball.
 	</para>
       </note>
 
       <note>
-	<title>OpenLDAP example configuration</title>
+	<title>Already existing directory</title>
 	<para>
-	  You will find an example of OpenLDAP configuration in the directory <filename>contrib/ldap/</filename> of the lmc-agent tarball.
+	  If you already have an OpenLDAP directory, all you need to do is to include the lmc.schema file.
 	</para>
       </note>
 
@@ -181,7 +178,7 @@
       </note>
 
       <para>
-	Get the file <filename>lmc.schema</filename> from the lmc-agent tarball, and copy it in <filename>/etc/openldap/schema/</filename> (or maybe <filename>/etc/ldap/schema/</filename>).
+	Get the file <filename>lmc.schema</filename> from the lmc-agent tarball, and copy it to <filename>/etc/openldap/schema/</filename> (or maybe <filename>/etc/ldap/schema/</filename>).
       </para>
       <para>
 	Include this schema in the OpenLDAP configuration, in <filename>/etc/ldap/slapd.conf</filename> (or maybe <filename>/etc/openldap/slapd.conf</filename>):
@@ -252,13 +249,16 @@
     <section>
 
       <title>Fedora Directory Server configuration</title>
-
+      
+      <para>
+	This section need to be updated.
+      </para>
       <para>
 	Install FDS according to the FDS documentation.
       </para>
       <para>
 	The LDAP schemas we prodide must be converted and then imported into FDS.
-      </para>
+      </para>	
 
     </section>
     
@@ -405,7 +405,7 @@
       <title>LMC agent and Python plugins inter-dependencies</title>
 
       <para>
-	When the LMC agent starts, it looks up all the installed plugins, and tries to activate them.
+	When the LMC agent starts, it looks for all the installed plugins, and tries to activate them.
 	Each plugin has a self-test function to check if it can be activated or not. For example, if the « base » plugin can't contact the LDAP, it won't be activated. It the SAMBA schema is not available in the LDAP, the « samba » plugin won't start.
       </para>
       <para>	
@@ -526,7 +526,7 @@
       </screen>
 
       <para>
-	The base plugin can't bind to LDAP, because the credentials we used to contact the LDAP server are wrong.
+	The base plugin can't bind to LDAP, because the credentials we used to connect to the LDAP server are wrong.
 	As the base plugin must be activated to use the LMC agent, the LMC agent exits.
       </para>
 
@@ -785,7 +785,7 @@
       Basically, you need to do a classic SAMBA/LDAP setup, SAMBA running as a PDC.
     </para>
     <para>
-      A slapd.conf for OpenLDAP and a smb.conf for SAMBA are included into the LMC agent tarball: <filename>contrib/ldap/slapd.conf.samba</filename> and <filename>contrib/samba/smb.conf</filename>. Please use theses files as templates for your own configuration.
+      A slapd.conf for OpenLDAP and a smb.conf for SAMBA are included into the LMC agent tarball: <filename>contrib/ldap/slapd.conf.samba</filename> and <filename>contrib/samba/smb.conf</filename>. Please use these files as templates for your own configuration.
       If you aren't familiar with SAMBA/LDAP installation, read the <ulink url="http://www.idealx.com/downloads/samba3-ldap-howto.pdf">SAMBA LDAP HOWTO</ulink>. SAMBA LDAP setup is not easy.
     </para>
 
@@ -849,7 +849,7 @@
 
     <section>
 
-      <title>LDAP directory SAMBA init</title>
+      <title>LDAP directory for SAMBA init</title>
 
       <para>
 	The LDAP directory needs to be populated so that SAMBA can use it. We use the <command>smbldap-populate</command> command from smbldap-tools.
@@ -967,7 +967,7 @@
       <title>User password expiration</title>
 
       <para>
-	By default, the password age of a SAMBA user is 42 days. Then the user will need to change its password.	
+	By default, the maximum password age of a SAMBA user is 42 days. Then the user will need to change his/her password.	
       </para>
       <para>
 	If you don't want password to expire, type:
@@ -1028,6 +1028,9 @@
 	You need to import our mail schema into the LDAP directory.
 	The schema file is provided into the LMC agent tarball: <filename>contrib/ldap/mail.schema</filename>.
       </para>
+      <para>
+	Once this schema is imported, you will be able to manage mail delivery attributes thanks to the LMC.
+      </para>
       
     </section>
    
@@ -1060,6 +1063,9 @@
       
       <title>NSS LDAP configuration</title>
 
+      <para>
+	NSS LDAP configuration is needed to deliver mails with the right UIDs/GIDs.
+      </para>
       <para>
 	See <xref linkend="NSS_LDAP"/>.
       </para>
