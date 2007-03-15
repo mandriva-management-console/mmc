@@ -24,11 +24,14 @@ $p->displaySideMenu();
 if (isset($_POST["badd"])) {
     $domainname = $_POST["domainname"];
     $description = $_POST["description"];
+    $mailuserquota = $_POST["mailuserquota"];
     if (!preg_match("/^[a-z][0-9\-a-zA-Z\.]+$/", $domainname)) {
         $error = _("Invalid domain name");
     } else {
         addVDomain($domainname);
 	setVDomainDescription($domainname, $description);
+	if (strlen($mailuserquota) == 0) $mailuserquota = "0";
+	setVDomainQuota($domainname, $mailuserquota);
         $result = _T("The mail domain has been added.");
     }
     // Display error message
@@ -53,7 +56,9 @@ if (isset($_POST["badd"])) {
 if (isset($_POST["bedit"])) {
     $domainname = $_GET["mail"];
     $description = $_POST["description"];
-    setVDomainDescription($domainname, $description);    
+    $mailuserquota = $_POST["mailuserquota"];
+    setVDomainDescription($domainname, $description);
+    if (strlen($mailuserquota)) setVDomainQuota($domainname, $mailuserquota);
     $result = _T("The mail domain has been modified.");
     // Display result message
     if (isset($result)&&!isXMLRPCError()) {
@@ -69,30 +74,33 @@ if ($_GET["action"] == "edit") {
     $domainname = $_GET["mail"];
     $domain = getVDomain($domainname);
     $description = $domain[0][1]["virtualdomaindescription"][0];
+    $mailuserquota = $domain[0][1]["mailuserquota"][0];
 }
 
 
 ?>
-<form name="domainform" method="post" action="<? echo $PHP_SELF; ?>">
+<form name="domainform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();">
 <table cellspacing="0">
-<tr>
-<td width="40%" style="text-align:right;"><?= _T("Mail domain")?></td>
 
-<? if ($_GET["action"] == "add") { ?>
-    <td><input id="domainname" name="domainname" type="text" class="textfield" size="30" value="<?php if (isset($error)){echo $domainname;} ?>" /></td>
-<? } else { ?>
-    <td><?php echo $domainname; ?></td>
-<? } ?>
+<?
 
-</tr>
-<tr>
-<td style="text-align:right;"><?= _T("Description")?></td>
-<? if ($_GET["action"] == "add") { ?>
-    <td><input id="description" name="description" type="text" class="textfield" size="30" value="<?php if (isset($error)){echo $description;} ?>" /></td>
-<? } else { ?>
-    <td><input id="description" name="description" type="text" class="textfield" size="30" value="<?php echo $description; ?>" /></td>
-<? } ?>
-</tr>
+if ($_GET["action"] == "add") {
+    $elt1 = new InputTpl("domainname");
+} else {
+    $elt1 = new HiddenTpl("domainname");
+}
+
+$tr = new TrFormElement(_T("Mail domain"), $elt1);
+$tr->display(array("value" => $domainname));
+
+$tr = new TrFormElement(_T("Description"), new InputTpl("description"));
+$tr->display(array("value" => $description));
+
+$tr = new TrFormElement(_T("Default mail quota for users created in this domain (in KB)"), new InputTpl("mailuserquota", '/^[0-9]*$/'));
+$tr->display(array("value" => $mailuserquota));
+
+?>
+
 </table>
 <? if ($_GET["action"] == "add") { ?>
     <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />

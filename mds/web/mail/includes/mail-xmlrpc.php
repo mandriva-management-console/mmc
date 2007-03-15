@@ -101,6 +101,10 @@ function setVDomainDescription($domain, $description) {
     xmlCall("mail.setVDomainDescription", array($domain, $description));
 }
 
+function setVDomainQuota($domain, $quota) {
+    xmlCall("mail.setVDomainQuota", array($domain, $quota));
+}
+
 function getVDomain($domain) {
     return xmlCall("mail.getVDomain", array($domain));
 }

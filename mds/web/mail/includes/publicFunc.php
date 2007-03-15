@@ -167,6 +167,9 @@ function _mail_baseEdit($ldapArr,$postArr) {
   $test->setCssError("mailenable");
   $param=array("value"=>$checkedMail);
   $test->display($param);
+
+  $tr = new TrFormElement(_T("Mail quota (in kB)", "mail"), new InputTpl("mailuserquota", '/^[0-9]*$/'));
+  $tr->display(array("value" => $ldapArr["mailuserquota"][0]));
   print "</table>";
 
   if (hasVDomainSupport()) {
@@ -248,8 +251,10 @@ function _mail_verifInfo($postArr) {
  */
 function _mail_changeUser($postArr) {
     if ($postArr["mailaccess"]) {
-        if (hasMailObjectClass($postArr["nlogin"])) $syncmailgroupalias = False;
-        else $syncmailgroupalias = True;
+        if (hasMailObjectClass($postArr["nlogin"])) {
+            $syncmailgroupalias = False;
+            if (strlen($postArr["mailuserquota"])) changeUserAttributes($postArr["nlogin"], "mailuserquota", $postArr["mailuserquota"]);
+        } else $syncmailgroupalias = True;
         changeMaildrop($postArr["nlogin"],$postArr['maildrop']);
         changeMailalias($postArr["nlogin"],$postArr['mailalias']);
         if (isset($postArr["mailbox"])) {

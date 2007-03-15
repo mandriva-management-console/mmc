@@ -40,6 +40,7 @@ $mod->addACL("mailaccess", _T("Mail access","mail"));
 $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
 $mod->addACL("mailalias", _T("Mail aliases","mail"));
 $mod->addACL("mailbox", _T("Mail delivery path","mail"));
+$mod->addACL("mailuserquota", _T("Mail user quota","mail"));
 
 $mod->addACL("mailgroupaccess", _T("Mail group alias access", "mail"));
 
