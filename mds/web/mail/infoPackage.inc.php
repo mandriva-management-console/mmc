@@ -33,7 +33,7 @@ $mod = new Module("mail");
 $mod->setVersion("1.1.3");
 $mod->setRevision("$Rev$");
 $mod->setDescription(_T("Mail service","mail"));
-$mod->setAPIVersion("3:0:1");
+$mod->setAPIVersion("4:0:2");
 $mod->setPriority(600);
 
 $mod->addACL("mailaccess", _T("Mail access","mail"));
