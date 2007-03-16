@@ -51,9 +51,7 @@ if (isset($_POST["badd"])) {
 	$n->setSize(600);
 	header("Location: " . urlStrRedirect("mail/mail/index"));
     }
-}
-
-if (isset($_POST["bedit"])) {
+} else if (isset($_POST["bedit"])) {
     $domainname = $_GET["mail"];
     $description = $_POST["description"];
     $mailuserquota = $_POST["mailuserquota"];
@@ -68,6 +66,9 @@ if (isset($_POST["bedit"])) {
 	$n->setLevel(0);
 	$n->setSize(600);
     }
+} else if (isset($_POST["breset"])) {
+    $domainname = $_POST["domainname"];
+    resetUsersVDomainQuota($domainname);
 }
 
 if ($_GET["action"] == "edit") {
@@ -96,7 +97,7 @@ $tr->display(array("value" => $domainname));
 $tr = new TrFormElement(_T("Description"), new InputTpl("description"));
 $tr->display(array("value" => $description));
 
-$tr = new TrFormElement(_T("Default mail quota for users created in this domain (in KB)"), new InputTpl("mailuserquota", '/^[0-9]*$/'));
+$tr = new TrFormElement(_T("Default mail quota for users created in this domain (in kB)"), new InputTpl("mailuserquota", '/^[0-9]*$/'));
 $tr->display(array("value" => $mailuserquota));
 
 ?>
@@ -105,6 +106,7 @@ $tr->display(array("value" => $mailuserquota));
 <? if ($_GET["action"] == "add") { ?>
     <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
 <? } else { ?>
+    <div id="expertMode" <?displayExpertCss();?>><input name="breset" type="submit" class="btnPrimary" value="<?= _("Reset users quota to default"); ?>" /></div>
     <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
 <? } ?>
 

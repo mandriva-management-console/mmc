@@ -105,6 +105,10 @@ function setVDomainQuota($domain, $quota) {
     xmlCall("mail.setVDomainQuota", array($domain, $quota));
 }
 
+function resetUsersVDomainQuota($domain) {
+    xmlCall("mail.resetUsersVDomainQuota", array($domain));
+}
+
 function getVDomain($domain) {
     return xmlCall("mail.getVDomain", array($domain));
 }
