@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-06 16:11+0100\n"
-"PO-Revision-Date: 2007-02-06 15:56+0100\n"
+"POT-Creation-Date: 2007-03-16 12:06+0100\n"
+"PO-Revision-Date: 2007-03-16 12:11+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgid "Home"
 msgstr "Page principale"
 
 #: mail/mail/members.php:32 mail/mail/localSidebar.php:6 mail/mail/edit.php:5
-#: mail/mail/index.php:5 mail/mail/index.php:65 mail/infoPackage.inc.php:54
+#: mail/mail/index.php:5 mail/mail/index.php:65 mail/infoPackage.inc.php:55
 msgid "Mail domain list"
 msgstr "Liste des domaines de messagerie"
 
@@ -54,11 +54,11 @@ msgid "Members of "
 msgstr "Membre de "
 
 #: mail/mail/ajaxDomainFilter.php:72 mail/mail/ajaxDomainFilter.php:77
-#: mail/mail/edit.php:79
+#: mail/mail/edit.php:94
 msgid "Mail domain"
 msgstr "Domaine de messagerie"
 
-#: mail/mail/ajaxDomainFilter.php:76 mail/mail/edit.php:89
+#: mail/mail/ajaxDomainFilter.php:76 mail/mail/edit.php:97
 msgid "Description"
 msgstr "Description"
 
@@ -86,7 +86,7 @@ msgstr "Vous allez supprimer le domaine de messagerie "
 msgid "Cancel"
 msgstr "Annuler"
 
-#: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:57
+#: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:58
 msgid "Add a domain"
 msgstr "Ajouter un domaine"
 
@@ -98,23 +98,31 @@ msgstr "Ajouter un domaine de messagerie"
 msgid "Edit mail domain"
 msgstr "Éditer le domaine de messagerie"
 
-#: mail/mail/edit.php:28
+#: mail/mail/edit.php:29
 msgid "Invalid domain name"
 msgstr "Nom de domaine de messagerie invalide"
 
-#: mail/mail/edit.php:32
+#: mail/mail/edit.php:35
 msgid "The mail domain has been added."
 msgstr "Le domaine de messagerie a été ajouté."
 
-#: mail/mail/edit.php:57
+#: mail/mail/edit.php:60
 msgid "The mail domain has been modified."
 msgstr "Le domaine de messagerie a été modifié."
 
-#: mail/mail/edit.php:98
+#: mail/mail/edit.php:100
+msgid "Default mail quota for users created in this domain (in kB)"
+msgstr "Quota de messagerie par défaut pour les utilisateurs créés dans ce domaine (en ko)"
+
+#: mail/mail/edit.php:107
 msgid "Create"
 msgstr "Créer"
 
-#: mail/mail/edit.php:100
+#: mail/mail/edit.php:109
+msgid "Reset users quota to default"
+msgstr "Remettre à la valeur par défaut les quotas des utilisateurs"
+
+#: mail/mail/edit.php:110
 msgid "Confirm"
 msgstr "Valider"
 
@@ -130,8 +138,8 @@ msgstr "Aucun alias de messagerie ne peut être positionné pour ce groupe"
 msgid "Enable mail alias for users of this group "
 msgstr "Activer l'alias de messagerie pour les membres de ce groupe"
 
-#: mail/includes/publicFunc.php:67 mail/includes/publicFunc.php:184
-#: mail/includes/publicFunc.php:187 mail/includes/publicFunc.php:70
+#: mail/includes/publicFunc.php:67 mail/includes/publicFunc.php:70
+#: mail/includes/publicFunc.php:187 mail/includes/publicFunc.php:190
 msgid "Mail alias"
 msgstr "Alias de messagerie"
 
@@ -143,25 +151,29 @@ msgstr "Accès au service de messagerie"
 msgid "Mail delivery is disabled, if checked"
 msgstr "Livraison d'email arrêtée, si cochée"
 
-#: mail/includes/publicFunc.php:173 mail/infoPackage.inc.php:47
+#: mail/includes/publicFunc.php:171
+msgid "Mail quota (in kB)"
+msgstr "Quota de messagerie (en ko)"
+
+#: mail/includes/publicFunc.php:176 mail/infoPackage.inc.php:48
 msgid "Forward to"
 msgstr "Faire suivre à"
 
-#: mail/includes/publicFunc.php:177 mail/includes/publicFunc.php:180
-#: mail/infoPackage.inc.php:94
+#: mail/includes/publicFunc.php:180 mail/includes/publicFunc.php:183
+#: mail/infoPackage.inc.php:95
 msgid "Mail drop"
 msgstr "Utilisateur interne destinataire (maildrop)"
 
-#: mail/includes/publicFunc.php:196 mail/infoPackage.inc.php:42
+#: mail/includes/publicFunc.php:199 mail/infoPackage.inc.php:42
 msgid "Mail delivery path"
 msgstr "Répertoire de livraison des emails"
 
-#: mail/includes/publicFunc.php:233
+#: mail/includes/publicFunc.php:236
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s n'est pas un alias de messagerie valide."
 
-#: mail/includes/publicFunc.php:240
+#: mail/includes/publicFunc.php:243
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
 "Une adresse email valide doit être renseignée pour activer la messagerie de "
@@ -179,22 +191,26 @@ msgstr "Arrêt de la livraison d'email"
 msgid "Mail aliases"
 msgstr "Alias de messagerie"
 
-#: mail/infoPackage.inc.php:44
+#: mail/infoPackage.inc.php:43
+msgid "Mail user quota"
+msgstr "Quota de messagerie de l'utilisateur"
+
+#: mail/infoPackage.inc.php:45
 msgid "Mail group alias access"
 msgstr "Accès aux alias de messagerie pour groupes"
 
-#: mail/infoPackage.inc.php:50
+#: mail/infoPackage.inc.php:51
 msgid "Mail"
 msgstr "Messagerie"
 
-#: mail/infoPackage.inc.php:60
+#: mail/infoPackage.inc.php:61
 msgid "Edit a domain"
 msgstr "Éditer un domaine"
 
-#: mail/infoPackage.inc.php:64
+#: mail/infoPackage.inc.php:65
 msgid "View members"
 msgstr "Voir les membres"
 
-#: mail/infoPackage.inc.php:68
+#: mail/infoPackage.inc.php:69
 msgid "Delete a mail domain"
 msgstr "Supprimer un domaine"
