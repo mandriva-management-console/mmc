@@ -26,7 +26,7 @@ if (isset($_POST["badd"])) {
     $description = $_POST["description"];
     $mailuserquota = $_POST["mailuserquota"];
     if (!preg_match("/^[a-z][0-9\-a-zA-Z\.]+$/", $domainname)) {
-        $error = _("Invalid domain name");
+        $error = _T("Invalid domain name");
     } else {
         addVDomain($domainname);
 	setVDomainDescription($domainname, $description);
@@ -51,13 +51,17 @@ if (isset($_POST["badd"])) {
 	$n->setSize(600);
 	header("Location: " . urlStrRedirect("mail/mail/index"));
     }
-} else if (isset($_POST["bedit"])) {
-    $domainname = $_GET["mail"];
+} else if (isset($_POST["bedit"]) || isset($_POST["breset"])) {
+    $domainname = $_POST["domainname"];
     $description = $_POST["description"];
     $mailuserquota = $_POST["mailuserquota"];
     setVDomainDescription($domainname, $description);
     if (strlen($mailuserquota)) setVDomainQuota($domainname, $mailuserquota);
     $result = _T("The mail domain has been modified.");
+    if (isset($_POST["breset"])) {
+        resetUsersVDomainQuota($domainname);
+        $result .= " " . _T(" The quota of all users of this mail domain have been reset.");
+    }
     // Display result message
     if (isset($result)&&!isXMLRPCError()) {
         $n = new NotifyWidget();
@@ -66,9 +70,6 @@ if (isset($_POST["badd"])) {
 	$n->setLevel(0);
 	$n->setSize(600);
     }
-} else if (isset($_POST["breset"])) {
-    $domainname = $_POST["domainname"];
-    resetUsersVDomainQuota($domainname);
 }
 
 if ($_GET["action"] == "edit") {
@@ -106,7 +107,7 @@ $tr->display(array("value" => $mailuserquota));
 <? if ($_GET["action"] == "add") { ?>
     <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
 <? } else { ?>
-    <div id="expertMode" <?displayExpertCss();?>><input name="breset" type="submit" class="btnPrimary" value="<?= _("Reset users quota to default"); ?>" /></div>
+    <div id="expertMode" <?displayExpertCss();?>><input name="breset" type="submit" class="btnPrimary" value="<?= _T("Reset users quota to default"); ?>" /></div>
     <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
 <? } ?>
 

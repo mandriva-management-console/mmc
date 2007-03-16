@@ -24,6 +24,38 @@
 
 require_once("mail-xmlrpc.php");
 
+class QuotaTpl extends InputTpl {
+
+    function QuotaTpl($name, $regexp="/.*/") {
+        $this->name = $name;
+        $this->regexp = $regexp;        
+    }
+    
+    function Display($arrParam) {
+        if ($arrParam["value"] === "0") {
+            $checked = "CHECKED";
+            $disabled = "1";
+        } else {
+            $checked = "";
+            $disabled = "0";
+        }
+        parent::display($arrParam);
+        print "&nbsp;" . _T("Unlimited quota", "mail") . '<input type="checkbox" id="unlimitedquota" name="unlimitedquota" ' . $checked . ' onclick="unlimitedquotaclick();">';
+        print '<script type="text/javascript">
+$("mailuserquota").disabled = ' . $disabled . ';
+function unlimitedquotaclick() {
+    $("mailuserquota").disabled = !$("mailuserquota").disabled;
+}
+</script>';
+    }
+
+    function displayRo($arrParam) {
+        if ($arrParam["value"] === "0") print _T("Unlimited quota", "mail");
+        else print $arrParam["value"];
+    }
+
+}
+
 function _mail_baseGroupEdit($ldapArr, $postArr) {
     if (!isset($ldapArr["cn"][0])) return;
 
@@ -168,7 +200,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
   $param=array("value"=>$checkedMail);
   $test->display($param);
 
-  $tr = new TrFormElement(_T("Mail quota (in kB)", "mail"), new InputTpl("mailuserquota", '/^[0-9]*$/'));
+  $tr = new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/'));
   $tr->display(array("value" => $ldapArr["mailuserquota"][0]));
   print "</table>";
 
@@ -253,6 +285,7 @@ function _mail_changeUser($postArr) {
     if ($postArr["mailaccess"]) {
         if (hasMailObjectClass($postArr["nlogin"])) {
             $syncmailgroupalias = False;
+            if (isset($postArr["unlimitedquota"])) $postArr["mailuserquota"] = "0";
             if (strlen($postArr["mailuserquota"])) changeUserAttributes($postArr["nlogin"], "mailuserquota", $postArr["mailuserquota"]);
         } else $syncmailgroupalias = True;
         changeMaildrop($postArr["nlogin"],$postArr['maildrop']);
