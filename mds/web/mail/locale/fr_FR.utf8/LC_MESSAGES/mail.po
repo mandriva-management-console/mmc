@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 12:06+0100\n"
-"PO-Revision-Date: 2007-03-16 12:11+0100\n"
+"POT-Creation-Date: 2007-03-16 16:42+0100\n"
+"PO-Revision-Date: 2007-03-16 16:44+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,11 +54,12 @@ msgid "Members of "
 msgstr "Membre de "
 
 #: mail/mail/ajaxDomainFilter.php:72 mail/mail/ajaxDomainFilter.php:77
-#: mail/mail/edit.php:94
+#: mail/mail/edit.php:94 mail/mail/edit.php:95
 msgid "Mail domain"
 msgstr "Domaine de messagerie"
 
 #: mail/mail/ajaxDomainFilter.php:76 mail/mail/edit.php:97
+#: mail/mail/edit.php:98
 msgid "Description"
 msgstr "Description"
 
@@ -110,70 +111,79 @@ msgstr "Le domaine de messagerie a été ajouté."
 msgid "The mail domain has been modified."
 msgstr "Le domaine de messagerie a été modifié."
 
-#: mail/mail/edit.php:100
+#: mail/mail/edit.php:100 mail/mail/edit.php:101
 msgid "Default mail quota for users created in this domain (in kB)"
-msgstr "Quota de messagerie par défaut pour les utilisateurs créés dans ce domaine (en ko)"
+msgstr ""
+"Quota de messagerie par défaut pour les utilisateurs créés dans ce domaine "
+"(en ko)"
 
-#: mail/mail/edit.php:107
+#: mail/mail/edit.php:107 mail/mail/edit.php:108
 msgid "Create"
 msgstr "Créer"
 
-#: mail/mail/edit.php:109
+#: mail/mail/edit.php:109 mail/mail/edit.php:110
 msgid "Reset users quota to default"
 msgstr "Remettre à la valeur par défaut les quotas des utilisateurs"
 
-#: mail/mail/edit.php:110
+#: mail/mail/edit.php:110 mail/mail/edit.php:111
 msgid "Confirm"
 msgstr "Valider"
 
 #: mail/includes/publicFunc.php:31 mail/includes/publicFunc.php:125
+#: mail/includes/publicFunc.php:63 mail/includes/publicFunc.php:157
 msgid "Mail plugin"
 msgstr "Messagerie électronique"
 
-#: mail/includes/publicFunc.php:52
+#: mail/includes/publicFunc.php:52 mail/includes/publicFunc.php:84
 msgid "No mail alias can be set for this group"
 msgstr "Aucun alias de messagerie ne peut être positionné pour ce groupe"
 
-#: mail/includes/publicFunc.php:55
+#: mail/includes/publicFunc.php:55 mail/includes/publicFunc.php:87
 msgid "Enable mail alias for users of this group "
 msgstr "Activer l'alias de messagerie pour les membres de ce groupe"
 
 #: mail/includes/publicFunc.php:67 mail/includes/publicFunc.php:70
 #: mail/includes/publicFunc.php:187 mail/includes/publicFunc.php:190
+#: mail/includes/publicFunc.php:99 mail/includes/publicFunc.php:102
+#: mail/includes/publicFunc.php:219 mail/includes/publicFunc.php:222
 msgid "Mail alias"
 msgstr "Alias de messagerie"
 
 #: mail/includes/publicFunc.php:142 mail/infoPackage.inc.php:39
+#: mail/includes/publicFunc.php:174
 msgid "Mail access"
 msgstr "Accès au service de messagerie"
 
-#: mail/includes/publicFunc.php:166
+#: mail/includes/publicFunc.php:166 mail/includes/publicFunc.php:198
 msgid "Mail delivery is disabled, if checked"
 msgstr "Livraison d'email arrêtée, si cochée"
 
-#: mail/includes/publicFunc.php:171
+#: mail/includes/publicFunc.php:171 mail/includes/publicFunc.php:203
 msgid "Mail quota (in kB)"
 msgstr "Quota de messagerie (en ko)"
 
 #: mail/includes/publicFunc.php:176 mail/infoPackage.inc.php:48
+#: mail/includes/publicFunc.php:208
 msgid "Forward to"
 msgstr "Faire suivre à"
 
 #: mail/includes/publicFunc.php:180 mail/includes/publicFunc.php:183
-#: mail/infoPackage.inc.php:95
+#: mail/infoPackage.inc.php:95 mail/includes/publicFunc.php:212
+#: mail/includes/publicFunc.php:215
 msgid "Mail drop"
 msgstr "Utilisateur interne destinataire (maildrop)"
 
 #: mail/includes/publicFunc.php:199 mail/infoPackage.inc.php:42
+#: mail/includes/publicFunc.php:231
 msgid "Mail delivery path"
 msgstr "Répertoire de livraison des emails"
 
-#: mail/includes/publicFunc.php:236
+#: mail/includes/publicFunc.php:236 mail/includes/publicFunc.php:268
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s n'est pas un alias de messagerie valide."
 
-#: mail/includes/publicFunc.php:243
+#: mail/includes/publicFunc.php:243 mail/includes/publicFunc.php:275
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
 "Une adresse email valide doit être renseignée pour activer la messagerie de "
@@ -214,3 +224,11 @@ msgstr "Voir les membres"
 #: mail/infoPackage.inc.php:69
 msgid "Delete a mail domain"
 msgstr "Supprimer un domaine"
+
+#: mail/mail/edit.php:63
+msgid " The quota of all users of this mail domain have been reset."
+msgstr " Le quota de tous les utilisateurs du domaine de messagerie a été mis jour."
+
+#: mail/includes/publicFunc.php:43 mail/includes/publicFunc.php:53
+msgid "Unlimited quota"
+msgstr "Quota illimité"
