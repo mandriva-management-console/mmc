@@ -24,15 +24,15 @@
 <?php
 
 function hasSmbAttr($uid) {
-  return xmlCall("samba.isSmbUser",array($uid));
+    return xmlCall("samba.isSmbUser",array($uid));
 }
 
-function addSmbAttr($uid,$passwd) {
-  return xmlCall("samba.addSmbAttr", array($uid,$passwd));
+function addSmbAttr($uid, $passwd) {
+    return xmlCall("samba.addSmbAttr", array($uid, prepare_string($passwd)));
 }
 
 function rmSmbAttr($uid) {
-  return xmlCall("samba.delSmbAttr", array($uid));
+    return xmlCall("samba.delSmbAttr", array($uid));
 }
 
 function changeSmbAttr($uid, $array) {
@@ -40,35 +40,39 @@ function changeSmbAttr($uid, $array) {
 }
 
 function isEnabledUser($uid) {
-  return xmlCall("samba.isEnabledUser",array($uid));
+    return xmlCall("samba.isEnabledUser",array($uid));
 }
 
 function isLockedUser($uid) {
-  return xmlCall("samba.isLockedUser",array($uid));
+    return xmlCall("samba.isLockedUser",array($uid));
+}
+
+function userPasswdHasExpired($uid) {
+    return xmlCall("samba.userPasswdHasExpired", array($uid));
 }
 
 function smbEnableUser($uid) {
-        return xmlCall("samba.enableUser",array($uid));
+    return xmlCall("samba.enableUser",array($uid));
 }
 
 function smbDisableUser($uid) {
-        return xmlCall("samba.disableUser",array($uid));
+    return xmlCall("samba.disableUser",array($uid));
 }
 
 function smbLockUser($uid) {
-        return xmlCall("samba.lockUser",array($uid));
+    return xmlCall("samba.lockUser",array($uid));
 }
 
 function smbUnlockUser($uid) {
-        return xmlCall("samba.unlockUser",array($uid));
+    return xmlCall("samba.unlockUser",array($uid));
 }
 
 function getSmbStatus() {
-        return xmlCall("samba.getSmbStatus",array());
+    return xmlCall("samba.getSmbStatus",array());
 }
 
 function getConnected() {
-        return xmlCall("samba.getConnected",array());
+    return xmlCall("samba.getConnected",array());
 }
 
 

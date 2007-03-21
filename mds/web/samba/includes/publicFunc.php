@@ -65,10 +65,14 @@ function _samba_changeUser($postArr) {
             $result .= _T("Samba attributes deleted.","samba")."<br />";
         } else {
             // Change SAMBA attributes
+            /*
+             * Remove passwords from the $_POST array coming from the add/edit user page
+             * because we don't want to send them again via RPC.
+             */
+            unset($postArr["pass"]);
+            unset($postArr["confpass"]);
+
             changeSmbAttr($postArr["nlogin"], $postArr);
-
-
-            //ENABLE/DISABLE USER #############################
             if (isEnabledUser($postArr["nlogin"])) {
                 if ($_POST['isSmbDesactive']) {
                     smbDisableUser($postArr["nlogin"]);
@@ -88,12 +92,6 @@ function _samba_changeUser($postArr) {
                     smbLockUser($postArr["nlogin"]);
                 }
             }
-
-
-            //END OF ENABLE DISABLE USER
-
-
-
         }
     }
     else { //if not have smb attributes
@@ -196,6 +194,15 @@ function _samba_baseEdit($ldapArr,$postArr) {
         $checked = "";
     }
     }
+
+    if ($smbuser) {
+      if (userPasswdHasExpired($uid)) {
+	$formElt = new HiddenTpl("userPasswdHasExpired");
+	$test = new TrFormElement(_("WARNING"), $formElt);
+	$test->display(array("value" => _T("The user password has expired", "samba")));
+      }
+    }
+
     $param = array ("value" => $checked);
 
     $test = new TrFormElement(_T("User is disabled, if checked","samba"), new CheckboxTpl("isSmbDesactive"),
@@ -220,8 +227,6 @@ function _samba_baseEdit($ldapArr,$postArr) {
     $test->setCssError("isSmbLocked");
     $test->display($param);
 
-
-
     print '</table>'."\n";
 
 
@@ -237,9 +242,6 @@ function _samba_baseEdit($ldapArr,$postArr) {
 
 
     foreach ($d as $description => $field) {
-
-
-
         $test = new TrFormElement($description,
                                   new InputTpl($field));
         $test->setCssError($field);
