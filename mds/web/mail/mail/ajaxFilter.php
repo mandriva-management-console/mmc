@@ -49,7 +49,9 @@ $filter = $_GET["filter"];
 
 $uids = array();
 foreach(getVDomainUsers($domain, $filter) as $dn => $entries) {
-    $uids[$entries[1]["uid"][0]] = array($entries[1]["givenName"][0] . " " . $entries[1]["sn"][0], $entries[1]["mail"][0]);
+    $mail = htmlentities($entries[1]["mail"][0]);
+    $uids[$entries[1]["uid"][0]] = array($entries[1]["givenName"][0] . " " . $entries[1]["sn"][0],
+                                         '<a href="' . "mailto:" . $mail . '">' . $mail . "</a>");
 }
 ksort($uids);
 
