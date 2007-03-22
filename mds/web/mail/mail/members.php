@@ -22,28 +22,15 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
-/**
- * module declaration
- */
-
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-	      array("name" => _T("Mail domain list")));
-	      
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$domain = $_GET["mail"];
-?>
-
-
-<?
-
 $p = new PageGenerator();
+$sidemenu->forceActiveItem("index");
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
+$domain = $_GET["mail"];
 ?>
 
 <form name="Form" id="Form" action="#">
