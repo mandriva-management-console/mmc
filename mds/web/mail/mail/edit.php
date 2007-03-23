@@ -107,14 +107,16 @@ if ($_GET["action"] == "edit") {
 
 <?
 
+$arrDomain = array("value" => $domainname);
 if ($_GET["action"] == "add") {
-    $elt1 = new InputTpl("domainname");
+    $elt1 = new DomainInputTpl("domainname");
+    $arrDomain["required"] = true;
 } else {
     $elt1 = new HiddenTpl("domainname");
 }
 
 $tr = new TrFormElement(_T("Mail domain"), $elt1);
-$tr->display(array("value" => $domainname));
+$tr->display($arrDomain);
 
 $tr = new TrFormElement(_T("Description"), new InputTpl("description"));
 $tr->display(array("value" => $description));
