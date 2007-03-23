@@ -83,7 +83,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
     if (($hasMail == "") && ($mail == "")) {
       print _T("No mail alias can be set for this group", "mail");
     } else {
-      print "<table>";
+      print '<table cellspacing="0">';
       $test = new TrFormElement(_T("Enable mail alias for users of this group ","mail"), new CheckboxTpl("mailgroupaccess"));
       $param = array("value" => $hasMail,
 		     "extraArg" => 'onclick="toggleVisibility(\'maildiv\');"');
@@ -94,7 +94,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
       }
 
       print '<div id="maildiv" '.$style.'>';
-      print "<table>";
+      print '<table cellspacing="0">';
       if (!hasVDomainSupport()) {
           $m = new TrFormElement(_T("Mail alias", "mail"), new InputTpl("mailgroupalias"));
 	  $m->displayRo(array("value" => $mail));
@@ -170,7 +170,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
 
 
 
-  print "<table>";
+  print '<table cellspacing="0">';
   $test = new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess"));
   $test->setCssError("accesMail");
   $param=array("value"=>$hasMail,
@@ -194,7 +194,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
 
   print '<div id="maildiv" '.$style.'>';
 
-  print "<table>";
+  print '<table cellspacing="0">';
   $test = new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable"));
   $test->setCssError("mailenable");
   $param=array("value"=>$checkedMail);
