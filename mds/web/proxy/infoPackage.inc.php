@@ -20,48 +20,46 @@
  * along with LMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?
 
-        /**
-         * module declaration
-         */
-        $mod = new Module("proxy");
-        $mod->setVersion("1.1.3");
-        $mod->setRevision("$Rev$");
-        $mod->setDescription(_T("Web proxy"),"proxy");
-        $mod->setAPIVersion('1:0:0');
+/**
+ * module declaration
+ */
+$mod = new Module("proxy");
+$mod->setVersion("1.1.4");
+$mod->setRevision("$Rev$");
+$mod->setDescription(_T("Web proxy"),"proxy");
+$mod->setAPIVersion('1:0:0');
 
-        /**
-         * user submod definition
-         */
-
-        $submod = new SubModule("blacklist");
-        $submod->setDescription(_T("Proxy","proxy"));
-        $submod->setImg('img/navbar/proxy');
-        $submod->setDefaultPage("proxy/blacklist/statut");
-        $submod->setPriority(300);
+/**
+ * user submod definition
+ */
+$submod = new SubModule("blacklist");
+$submod->setDescription(_T("Proxy","proxy"));
+$submod->setImg('img/navbar/proxy');
+$submod->setDefaultPage("proxy/blacklist/statut");
+$submod->setPriority(300);
 
 
-        $page = new Page("index",_T("Blacklist","proxy"));
-        $submod->addPage($page);
+$page = new Page("index",_T("Blacklist","proxy"));
+$submod->addPage($page);
 
-        $page = new Page("delete",_T("Remove a domain in the blacklist","proxy"));
-        $page->setOptions( array ("noHeader" => True,"visible"=>False));
-        $submod->addPage($page);
+$page = new Page("delete",_T("Remove a domain in the blacklist","proxy"));
+$page->setOptions( array ("noHeader" => True,"visible"=>False));
+$submod->addPage($page);
 
-        $page = new Page("add",_T("Add a domain in the blacklist","proxy"));
-        $submod->addPage($page);
+$page = new Page("add",_T("Add a domain in the blacklist","proxy"));
+$submod->addPage($page);
 
-        $page = new Page("restart",_T("Restart proxy web service","proxy"));
-        $page->setOptions(array("visible"=>False));
-        $submod->addPage($page);
+$page = new Page("restart",_T("Restart proxy web service","proxy"));
+$page->setOptions(array("visible"=>False));
+$submod->addPage($page);
 
-        $page = new Page("statut",_T("Proxy status page","proxy"));
-        $submod->addPage($page);
+$page = new Page("statut",_T("Proxy status page","proxy"));
+$submod->addPage($page);
 
-        $mod->addSubmod($submod);
+$mod->addSubmod($submod);
 
-        $LMCApp =&LMCApp::getInstance();
-        $LMCApp->addModule(&$mod);
+$LMCApp =&LMCApp::getInstance();
+$LMCApp->addModule(&$mod);
+
 ?>
