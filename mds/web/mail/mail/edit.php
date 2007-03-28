@@ -1,7 +1,7 @@
 <?
 
 /**
- * (c) 2004-2006 Linbox / Free&ALter Soft, http://linbox.com
+ * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  *
  * $Id: infoPackage.inc.php 8 2006-11-13 11:08:22Z cedric $
  *

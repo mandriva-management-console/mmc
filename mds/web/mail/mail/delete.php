@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) 2004-2006 Linbox / Free&ALter Soft, http://linbox.com
+ * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  *
  * $Id: delete.php 1 2006-07-04 20:34:28Z cedric $
  *
