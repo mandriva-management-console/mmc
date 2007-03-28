@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: traducción módulo samba LDS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-07 15:42+0100\n"
-"PO-Revision-Date: 2007-03-27 13:44+0100\n"
+"PO-Revision-Date: 2007-03-27 22:16+0100\n"
 "Last-Translator: Alejandro Escobar <alejandro.escobar@aitire.es>\n"
 "Language-Team: Aitire <info@aitire.es>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "IP"
 
 #: samba/status/index.php:71
 msgid "No opened sessions"
-msgstr "Sesiones no abiertas"
+msgstr "No hay sesiones"
 
 #: samba/status/index.php:76
 msgid "Connections on shares"
@@ -61,7 +61,7 @@ msgstr "Conectado a"
 
 #: samba/status/index.php:122
 msgid "No connections"
-msgstr "Sin conexiones"
+msgstr "No hay conexiones"
 
 #: samba/config/restart.php:55
 #: samba/config/restart.php:76
@@ -331,7 +331,11 @@ msgid ""
 "to <strong>%s</strong>\n"
 "on a total of <strong>%s</strong>\n"
 "(page %s on "
-msgstr "Recursos <b>%s a <b>%s de un total de <b>%s</b> (página %s de"
+msgstr ""
+"Recursos <strong>%s</strong>\n"
+"a <strong>%s</strong>\n"
+"de un total de <strong>%s</strong>\n"
+"(página %s de "
 
 #: samba/shares/index.php:147
 #: samba/machines/ajaxFilter.php:171
@@ -343,7 +347,7 @@ msgstr "Eliminar"
 
 #: samba/shares/index.php:151
 msgid "Archive"
-msgstr "Archivo"
+msgstr "Copia de seguridad"
 
 #: samba/includes/publicFunc.php:65
 msgid "Samba attributes deleted."
