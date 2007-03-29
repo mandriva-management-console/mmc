@@ -63,8 +63,8 @@ $tr->display($a);
 $tr = new TrFormElement(_T("Network address"), new IPInputTpl("address"));
 if ($_GET["action"] == "addhost") {
     $zoneaddress = getZoneNetworkAddress($zone);
-    if ($zoneaddress === 0) $network = "";
-    else $network = $zoneaddress . ".";
+    if (!count($zoneaddress)) $network = "";
+    else $network = $zoneaddress[0] . ".";
     $tr->display(array("value"=>$network, "required" => True));
 } else {
     $tr->display(array("value"=>$address, "required" => True));

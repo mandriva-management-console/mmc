@@ -37,6 +37,16 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     setHostStatement($hostname, "filename", $filename);
     setHostHWAddress($hostname, $macaddress);
     setHostStatement($hostname, "fixed-address", $ipaddress);
+    // Display result message
+    if (!isXMLRPCError() && isset($_POST["badd"])) {
+        $result .= _T("Host successfully added.");
+        $n = new NotifyWidget();
+	$n->flush();
+	$n->add("<div id=\"validCode\">$result</div>");
+	$n->setLevel(0);
+	$n->setSize(600);
+	header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => "192.168.0.0")));
+    }
 }
 
 if ($_GET["action"] == "subnetedithost") {

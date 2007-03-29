@@ -106,6 +106,10 @@ $page = new Page("subnetedithost",_T("Edit a host from a DHCP subnet", "network"
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("subnetdeletehost",_T("Delete a host from a subnet", "network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False));
+$submod->addPage($page);
+
 $page = new Page("subnetmembers",_T("Members of a DHCP subnet", "network"));
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);

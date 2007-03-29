@@ -49,9 +49,9 @@ $count = array();
 foreach(getZones($filter) as $dn => $entry) {
     $zonename = $entry[1]["zoneName"][0];
     $zones[$zonename] = array();
+    $zones[$zonename]["description"] = "";
     foreach($entry[1]["tXTRecord"] as $value) {
-      if (strpos($value, "Reverse:") === False) $zones[$zonename]["description"] = $value;
-      else $zones[$zonename]["reverse"] = $value;
+        $zones[$zonename]["description"] .= $value . " ";
     }
 }
 
@@ -63,13 +63,9 @@ foreach($zones as $zone => $infos) {
     $count[] = '<span style="font-weight: normal;">(' . getZoneObjectsCount($zone) . ')</span>';
     $descriptions[] = $infos["description"];
     $reverse = getZoneNetworkAddress($zone);
-    if (!$reverse) $reverse = "None";
-    $reverses[] = $reverse;
+    if (!$reverse) $reverses[] = "None";
+    else $reverses[] = $reverse[0];
 }
-
-/*foreach($domains as $domain => $info) {
-    $count[] = '<span style="font-weight: normal;">(' . getVDomainUsersCount($domain) . ')</span>';
-*/
 
 if (isset($_GET["start"])) {
     $start = $_GET["start"];
@@ -88,7 +84,6 @@ print_ajax_nav($start, $end, $zones, $filter);
 $n = new ListInfos(array_keys($zones), _T("DNS zones", "network"));
 $n->setAdditionalInfo($count);
 $n->first_elt_padding = 1;
-//$n->setCssClass("domainName");
 $n->addExtraInfo($reverses, _T("Network address", "network"));
 $n->addExtraInfo($descriptions, _T("Description", "network"));
 $n->setName(_T("DNS zones", "network"));
