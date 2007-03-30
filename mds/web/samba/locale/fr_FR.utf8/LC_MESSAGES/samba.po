@@ -1,16 +1,13 @@
 # translation of samba.po to français
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Jérome Wax <jerome.wax@lo2k.net>, 2006.
-# Jérome Wax <jerome.wax@linbox.com>, 2006.
+# This file is distributed under the GPL license.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 15:42+0100\n"
-"PO-Revision-Date: 2007-02-07 15:46+0100\n"
-"Last-Translator: Jérome Wax <jerome.wax@linbox.com>\n"
+"POT-Creation-Date: 2007-03-30 09:22+0200\n"
+"PO-Revision-Date: 2007-03-30 09:23+0200\n"
+"Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +82,7 @@ msgstr "Page principale"
 
 #: samba/config/index.php:84 samba/shares/delete.php:47
 #: samba/shares/backup.php:51 samba/shares/index.php:48
-#: samba/shares/index.php:86 samba/infoPackage.inc.php:41
+#: samba/shares/index.php:86 samba/infoPackage.inc.php:40
 msgid "Shares"
 msgstr "Partages"
 
@@ -110,19 +107,19 @@ msgstr "Nom du domaine"
 msgid "Server name"
 msgstr "Nom du serveur"
 
-#: samba/config/index.php:128 samba/includes/publicFunc.php:233
+#: samba/config/index.php:128 samba/includes/publicFunc.php:238
 msgid "User profile path"
 msgstr "Chemin du profil utilisateur"
 
-#: samba/config/index.php:129 samba/includes/publicFunc.php:234
+#: samba/config/index.php:129 samba/includes/publicFunc.php:239
 msgid "Opening script session"
 msgstr "Script d'ouverture de session"
 
-#: samba/config/index.php:130 samba/includes/publicFunc.php:235
+#: samba/config/index.php:130 samba/includes/publicFunc.php:240
 msgid "Base directory path"
 msgstr "Chemin du répertoire de base"
 
-#: samba/config/index.php:131 samba/includes/publicFunc.php:236
+#: samba/config/index.php:131 samba/includes/publicFunc.php:241
 msgid "Connect base directory on network drive"
 msgstr "Connexion du répertoire de base sur le lecteur réseau"
 
@@ -189,7 +186,7 @@ msgstr "Gestion des partages"
 
 #: samba/shares/localSidebar.php:30 samba/shares/details.php:89
 #: samba/mainSidebar.php:35 samba/mainSidebar.php:54
-#: samba/infoPackage.inc.php:48
+#: samba/infoPackage.inc.php:47
 msgid "Add a share"
 msgstr "Ajouter un partage"
 
@@ -200,7 +197,7 @@ msgstr "Gestion des machines"
 
 #: samba/shares/localSidebar.php:36 samba/machines/localSidebar.php:30
 #: samba/machines/add.php:68 samba/mainSidebar.php:41
-#: samba/infoPackage.inc.php:78
+#: samba/infoPackage.inc.php:77
 msgid "Add a computer"
 msgstr "Ajouter une machine"
 
@@ -209,8 +206,8 @@ msgid "Backup this share"
 msgstr "Sauvegarder ce partage"
 
 #: samba/shares/backup.php:59 samba/shares/backup.php:89
-msgid "Backup a share directory"
-msgstr "Sauvegarder un répertoire partagé"
+msgid "Share backup"
+msgstr "Sauvegarde d'un partage"
 
 #: samba/shares/backup.php:79
 msgid "Error during backup process"
@@ -218,32 +215,31 @@ msgstr "Erreur pendant le processus de sauvegarde"
 
 #: samba/shares/backup.php:92
 #, php-format
-msgid "Backup of %s share is launched in background"
-msgstr "La sauvegarde du partage %s a été lancée en arrière plan"
+msgid "Backup of share <b>%s</b> has been launched as a background job."
+msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
 
-#: samba/shares/backup.php:95
+#: samba/shares/backup.php:96
 #, php-format
-msgid "Your files will be store in"
-msgstr "Vos fichiers seront stockés dans"
+msgid ""
+"The ISO file that contains this backup will be stored into the directory <b>%"
+"s</b>."
+msgstr ""
+"L'image ISO qui contiendra la sauvegarde sera enregistrée dans le répertoire "
+"<b>%s</b>."
 
-#: samba/shares/backup.php:97
-#, php-format
-msgid "file on share %s at the end of the process"
-msgstr "fichier sur le partage %s à la fin du processus"
-
-#: samba/shares/backup.php:100
-msgid "Operation duration depand of volume of data"
-msgstr "La durée des opérations dépend du volume d'informations à traiter."
+#: samba/shares/backup.php:99
+msgid "This operation will last according to the amount of data to backup."
+msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
 
 #: samba/shares/backup.php:117
 #, php-format
-msgid "The share %s will be archive."
+msgid "The share %s will be archived."
 msgstr "Le partage %s va être archivé."
 
 #: samba/shares/backup.php:122
 msgid ""
-"Please select media size. If you data exceed volume size, several files with "
-"your media size will be created"
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created"
 msgstr ""
 "Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le "
 "volume des données dépasse la taille du médium choisi, un jeu de média sera "
@@ -338,39 +334,47 @@ msgstr "Archive"
 msgid "Samba attributes deleted."
 msgstr "Attributs Samba supprimés."
 
-#: samba/includes/publicFunc.php:102
+#: samba/includes/publicFunc.php:100
 msgid "Samba attributes added."
 msgstr "Attributs Samba ajoutés."
 
-#: samba/includes/publicFunc.php:115
+#: samba/includes/publicFunc.php:113
 msgid "You must reenter your password."
 msgstr "Vous devez entrer à nouveau votre mot de passe."
 
-#: samba/includes/publicFunc.php:130
+#: samba/includes/publicFunc.php:128
 msgid "Invalid network drive."
 msgstr "Nom de lecteur réseau invalide."
 
-#: samba/includes/publicFunc.php:166
+#: samba/includes/publicFunc.php:164
 msgid "Samba user properties"
 msgstr "Propriétés Samba de l'utilisateur"
 
-#: samba/includes/publicFunc.php:169
+#: samba/includes/publicFunc.php:167
 msgid "SAMBA access"
 msgstr "Accès SAMBA"
 
 #: samba/includes/publicFunc.php:201
+msgid "WARNING"
+msgstr "ATTENTION"
+
+#: samba/includes/publicFunc.php:202
+msgid "The user password has expired"
+msgstr "Le mot de passe de l'utilisateur a expiré."
+
+#: samba/includes/publicFunc.php:208
 msgid "User is disabled, if checked"
 msgstr "Utilisateur désactivé, si cochée"
 
-#: samba/includes/publicFunc.php:203
+#: samba/includes/publicFunc.php:210
 msgid "Disable samba user account"
 msgstr "Désactivation du compte samba"
 
-#: samba/includes/publicFunc.php:216
+#: samba/includes/publicFunc.php:223
 msgid "User is locked, if checked"
 msgstr "Utilisateur verrouillé, si cochée"
 
-#: samba/includes/publicFunc.php:218
+#: samba/includes/publicFunc.php:225
 msgid ""
 "Lock samba user access\n"
 "                        <p>User can be locked after too many failed log.</p>"
@@ -442,7 +446,7 @@ msgstr ""
 "Ordinateurs <strong>%s</strong> à <strong>%s</strong> sur un total de "
 "<strong>%s</strong> (page <b>%s</b> sur"
 
-#: samba/machines/delete.php:42 samba/infoPackage.inc.php:81
+#: samba/machines/delete.php:42 samba/infoPackage.inc.php:80
 msgid "Delete a computer"
 msgstr "Supprimer une machine"
 
@@ -489,7 +493,7 @@ msgid "Add a new group"
 msgstr "Ajouter un nouveau groupe"
 
 #: samba/mainSidebar.php:32 samba/mainSidebar.php:51
-#: samba/infoPackage.inc.php:45
+#: samba/infoPackage.inc.php:44
 msgid "List shares"
 msgstr "Liste des partages"
 
@@ -497,85 +501,54 @@ msgstr "Liste des partages"
 msgid "List computers"
 msgstr "Liste des machines"
 
-#: samba/infoPackage.inc.php:31
+#: samba/infoPackage.inc.php:30
 msgid "SAMBA service"
 msgstr "Redémarrer le service SAMBA"
 
-#: samba/infoPackage.inc.php:51
+#: samba/infoPackage.inc.php:50
 msgid "Backup a share"
 msgstr "Sauvegarder un partage"
 
-#: samba/infoPackage.inc.php:55
+#: samba/infoPackage.inc.php:54
 msgid "Remove a share"
 msgstr "Suppression d'un partage"
 
-#: samba/infoPackage.inc.php:59
+#: samba/infoPackage.inc.php:58
 msgid "Share details"
 msgstr "Détails des partages"
 
-#: samba/infoPackage.inc.php:73
+#: samba/infoPackage.inc.php:72
 msgid "Machines"
 msgstr "Machines"
 
-#: samba/infoPackage.inc.php:75
+#: samba/infoPackage.inc.php:74
 msgid "Computer list"
 msgstr "Liste des machines"
 
-#: samba/infoPackage.inc.php:94
+#: samba/infoPackage.inc.php:93
 msgid "Configuration"
 msgstr "Configuration"
 
-#: samba/infoPackage.inc.php:99
+#: samba/infoPackage.inc.php:98
 msgid "SAMBA configuration"
 msgstr "Configuration de SAMBA"
 
-#: samba/infoPackage.inc.php:102
+#: samba/infoPackage.inc.php:101
 msgid "restart SAMBA service"
 msgstr "Redémarrer le service SAMBA"
 
-#: samba/infoPackage.inc.php:111
+#: samba/infoPackage.inc.php:110
 msgid "Add/delete SAMBA's attributes"
 msgstr "Ajout/Suppression des attributs SAMBA"
 
-#: samba/infoPackage.inc.php:112
+#: samba/infoPackage.inc.php:111
 msgid "Enable/Disable account"
 msgstr "Activation/Désactivation du compte"
 
-#: samba/infoPackage.inc.php:113
+#: samba/infoPackage.inc.php:112
 msgid "Lock/Unlock account"
 msgstr "Verrouillage/Déverrouillage du compte"
 
-#: samba/infoPackage.inc.php:123
+#: samba/infoPackage.inc.php:122
 msgid "SAMBA status"
 msgstr "Statut SAMBA"
-
-#: samba/shares/backup.php:59 samba/shares/backup.php:89
-msgid "Share backup"
-msgstr "Sauvegarde d'un partage"
-
-#: samba/shares/backup.php:92
-#, php-format
-msgid "Backup of share <b>%s</b> has been launched as a background job."
-msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
-
-#: samba/shares/backup.php:96
-#, php-format
-msgid ""
-"The ISO file that contains this backup will be stored into the directory <b>%"
-"s</b>."
-msgstr "L'image ISO qui contiendra la sauvegarde sera enregistrée dans le répertoire <b>%s</b>."
-
-#: samba/shares/backup.php:99
-msgid "This operation will last according to the amount of data to backup."
-msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
-
-#: samba/shares/backup.php:117
-#, php-format
-msgid "The share %s will be archived."
-msgstr "Le partage %s va être archivé."
-
-#: samba/shares/backup.php:122
-msgid ""
-"Please select media size. If your data exceed volume size, several files "
-"with your media size will be created"
-msgstr "Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le volume des données dépasse la taille du médium choisi, un jeu de média sera créé."
