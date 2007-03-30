@@ -67,7 +67,7 @@ $subnet = $_GET["subnet"];
         */
 
         function updateSearchParam(filter, start, end) {
-            new Ajax.Updater('container','modules/network/network/ajaxSubnetMembersFilter.php?subnet=<?=$subnet?>&filter='+filter+'&amp;start='+start+'&amp;end='+end, { asynchronous:true, evalScripts: true});
+            new Ajax.Updater('container','modules/network/network/ajaxSubnetMembersFilter.php?subnet=<?=$subnet?>&filter='+filter+'&start='+start+'&end='+end, { asynchronous:true, evalScripts: true});
             }
 
         /**

@@ -64,7 +64,7 @@ $p->displaySideMenu();
         */
 
         function updateSearchParam(filter, start, end) {
-            new Ajax.Updater('container','modules/network/network/ajaxZoneFilter.php?filter='+filter+'&amp;start='+start+'&amp;end='+end, { asynchronous:true, evalScripts: true});
+            new Ajax.Updater('container','modules/network/network/ajaxZoneFilter.php?filter='+filter+'&start='+start+'&end='+end, { asynchronous:true, evalScripts: true});
             }
 
         /**

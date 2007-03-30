@@ -77,19 +77,18 @@ if (isset($_GET["start"])) {
     $end = $_GET["end"];
 } else {
     $start = 0;
-    if (count($domains) > 0) {
+    if (count($subnets) > 0) {
         $end = $conf["global"]["maxperpage"] - 1;
     } else {
         $end = 0;
     }
 }
 
-print_ajax_nav($start, $end, $zones, $filter);
+print_ajax_nav($start, $end, $subnets, $filter);
 
 $n = new ListInfos(array_keys($subnets), _T("DHCP subnets", "network"));
 $n->setAdditionalInfo($count);
 $n->first_elt_padding = 1;
-//$n->setCssClass("domainName");
 $n->addExtraInfo($netmasks, _T("Netmask", "network"));
 $n->addExtraInfo($names, _T("Description", "network"));
 $n->addExtraInfo($ranges, _T("Dynamic pool range", "network"));
@@ -102,6 +101,6 @@ $n->addActionItem(new ActionPopupItem(_T("Delete zone", "network"),"subnetdelete
 
 $n->display(0);
 
-print_ajax_nav($start, $end, $domains, $filter);
+print_ajax_nav($start, $end, $subnets, $filter);
 
 ?>

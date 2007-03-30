@@ -72,7 +72,7 @@ if (isset($_GET["start"])) {
     $end = $_GET["end"];
 } else {
     $start = 0;
-    if (count($domains) > 0) {
+    if (count($zones) > 0) {
         $end = $conf["global"]["maxperpage"] - 1;
     } else {
         $end = 0;
@@ -95,6 +95,6 @@ $n->addActionItem(new ActionPopupItem(_T("Delete zone", "network"),"delete","sup
 
 $n->display(0);
 
-print_ajax_nav($start, $end, $domains, $filter);
+print_ajax_nav($start, $end, $zones, $filter);
 
 ?>

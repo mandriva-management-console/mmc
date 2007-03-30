@@ -68,14 +68,14 @@ if (isset($_GET["start"])) {
     $end = $_GET["end"];
 } else {
     $start = 0;
-    if (count($domains) > 0) {
+    if (count($hosts) > 0) {
         $end = $conf["global"]["maxperpage"] - 1;
     } else {
         $end = 0;
     }
 }
 
-print_ajax_nav($start, $end, $zones, $filter);
+print_ajax_nav($start, $end, $hosts, $filter);
 
 $n = new ListInfos(array_keys($hosts), _T("Host", "network"));
 $n->setTableHeaderPadding(1);
@@ -86,6 +86,6 @@ $n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"deletehost",
 
 $n->display(0);
 
-print_ajax_nav($start, $end, $domains, $filter);
+print_ajax_nav($start, $end, $hosts, $filter);
 
 ?>
