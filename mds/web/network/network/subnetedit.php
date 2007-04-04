@@ -19,8 +19,9 @@ $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
 if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
-    $subnet = $_GET["subnet"];
-    setSubnetNetmask($subnet, $_POST["netmask"]);
+    $subnet = $_POST["subnet"];
+    $netmask = $_POST["netmask"];
+    setSubnetNetmask($subnet, $netmask);
     setSubnetDescription($subnet, $_POST["description"]);
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path");
     foreach($names as $name) {
@@ -41,11 +42,17 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $pool = getPool($subnet);
 
     if (isset($_POST["subnetpool"])) {
-        if (count($pool)) setPoolRange($subnet, $_POST["ipstart"], $_POST["ipend"]);
-	else {
-	    /* The pool needs to be created */
-            addPool($subnet, $subnet, $_POST["ipstart"], $_POST["ipend"]);            
-	}
+        if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
+            $ipstart = $_POST["ipstart"];
+            $ipend = $_POST["ipend"];
+            if (ipLowerThan($ipstart, $ipend) && ipInNetwork($ipstart, $subnet, $netmask) && ipInNetwork($ipend, $subnet, $netmask)) {
+                if (count($pool)) setPoolRange($subnet, $ipstart, $ipend);
+                else {
+                    /* The pool needs to be created */
+                    addPool($subnet, $subnet, $ipstart, $ipend);
+                }
+            }
+        }
     } else {
         if (count($pool)) delPool($subnet);
     }
