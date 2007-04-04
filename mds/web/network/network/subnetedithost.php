@@ -5,8 +5,15 @@ require("modules/network/includes/network.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-if ($_GET["action"] == "subnetaddhost") $title =  _T("Add a DHCP host");
-else $title =  _T("Edit DHCP host");;
+$subnet = $_GET["subnet"];
+$subnetInfos = getSubnet($_GET["subnet"]);
+if (count($subnetInfos) == 0) {
+    header("Location: " . urlStrRedirect("network/network/subnetindex"));
+    exit;
+}
+$netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
+if ($_GET["action"] == "subnetaddhost") $title =  sprintf(_T("Add a DHCP host to subnet %s / %s"), $subnet, $netmask);
+else $title = sprintf(_T("Edit DHCP host of subnet %s"), $subnet);
 ?>
 
 <h2><?= $title; ?></h2>
@@ -14,8 +21,6 @@ else $title =  _T("Edit DHCP host");;
 <div class="fixheight"></div>
 
 <?
-
-$subnet = $_GET["subnet"];
 
 if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $hostname = $_POST["hostname"];
@@ -25,6 +30,11 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     if (strlen($filename)) $filename = '"' . $filename . '"';
     $rootpath = trim($_POST["rootpath"]);
     if (strlen($rootpath)) $rootpath = '"' . $rootpath . '"';
+
+    if (!ipInNetwork($ipaddress, $subnet, $netmask)) {
+        $error = _T("The specified IP address does not belong to the subnet.");
+    }
+
     if (isset($_POST["badd"])) {
         addHostToSubnet($subnet, $hostname);
 	setHostOption($hostname, "host-name", $hostname);
@@ -45,7 +55,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
 	$n->add("<div id=\"validCode\">$result</div>");
 	$n->setLevel(0);
 	$n->setSize(600);
-	header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => "192.168.0.0")));
+	header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => $subnet)));
     }
 }
 
@@ -97,7 +107,7 @@ $tr->display(array("value" => $ipaddress, "required" => True));
 
 ?>
 </table>
-<table>
+<table cellspacing="0">
 <?
 $tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
 $tr->display(array());
