@@ -35,6 +35,33 @@ class SimpleNetmaskInputTpl extends InputTpl {
 
 }
 
+/* IP functions */
+
+/**
+ * Return True if an IP is in a network
+ */
+function ipInNetwork($ip, $network, $mask) {
+    $ip = ip2long($ip);
+    $network = ip2long($network);
+    $mask = intval($mask);
+    $ret = True;
+    for ($i = 0 ; $i < $mask ; $i++) {
+        $n = pow(2, 31 - $i) ;
+        if (($n & $ip) != ($n & $network)) {
+            $ret = False;
+            break;
+        }
+    }    
+    return $ret;
+}
+
+/**
+ * Return True if IP A is lower than IP B
+ */
+function ipLowerThan($ipa, $ipb) {
+    return ip2long($ipa) < ip2long($ipb);
+}
+
 /* Some common used utility functions */
 
 function getSubnetOptions($subnet) {
