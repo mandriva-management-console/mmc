@@ -15,14 +15,20 @@ else $title =  _T("Edit DHCP subnet");;
 <?
 
 $p = new PageGenerator();
+if ($_GET["action"] == "subnetedit") $sidemenu->forceActiveItem("subnetindex");
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
 if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
-    setSubnetNetmask($subnet, $netmask);
-    setSubnetDescription($subnet, $_POST["description"]);
+    $description = $_POST["description"];
+    if (isset($_POST["badd"])) {
+        addSubnet($subnet, $netmask, $description);
+    } else {
+        setSubnetNetmask($subnet, $netmask);
+        setSubnetDescription($subnet, $description);
+    }
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
@@ -39,7 +45,8 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             $value = '"' . $value . '"';
         setSubnetStatement($subnet, $name, $value);
     }
-    $pool = getPool($subnet);
+    if (isset($_POST["badd"])) $pool = array();
+    else $pool = getPool($subnet);
 
     if (isset($_POST["subnetpool"])) {
         if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
@@ -55,6 +62,14 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         }
     } else {
         if (count($pool)) delPool($subnet);
+    }
+    if (!isXMLRPCError()) {
+        if (isset($_POST["badd"])) {
+            new NotifyWidgetSuccess(_T("Subnet successfully added. You must restart the DHCP service."));
+            header("Location: " . urlStrRedirect("network/network/subnetindex"));
+        } else if (isset($_POST["bedit"])) {
+            new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
+        }
     }
 }
 
