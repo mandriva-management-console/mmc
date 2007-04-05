@@ -3,8 +3,9 @@ require("../../../includes/config.inc.php");
 require("../../../includes/i18n.inc.php");
 require("../../../includes/acl.inc.php");
 require("../../../includes/session.inc.php");
-require("../../../modules/network/includes/network-xmlrpc.inc.php");
 require ("../../../includes/PageGenerator.php");
+require("../../../modules/network/includes/network.inc.php");
+require("../../../modules/network/includes/network-xmlrpc.inc.php");
 
 
 function print_ajax_nav($curstart, $curend, $items, $filter)
@@ -80,13 +81,15 @@ foreach(getSubnetHosts($subnet, "") as $dn => $entry) {
 
 /* Get current DHCP leases info to display dynamically assigned IP addresses */
 $leases = getDhcpLeases();
-//print_r($leases);
 foreach($leases as $ipaddress => $infos) {
     if ($infos["state"] == "active") {
-        $address = ip2long($ipaddress);
-        $lines[$address]["type"] = _T("Dynamic", "network");
-        $lines[$address]["macaddress"] = strtoupper($infos["hardware"]);
-        $lines[$address]["hostname"] = $infos["hostname"];
+        if (ipInNetwork($ipaddress, $subnet, $netmask)) {
+            /* Only display lease of the current subnet */
+            $address = ip2long($ipaddress);
+            $lines[$address]["type"] = _T("Dynamic", "network");
+            $lines[$address]["macaddress"] = strtoupper($infos["hardware"]);
+            $lines[$address]["hostname"] = $infos["hostname"];
+        }
     }
 }
 
