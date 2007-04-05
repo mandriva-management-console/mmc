@@ -152,6 +152,11 @@ function setHostHWAddress($host, $address) {
     xmlCall("network.setHostHWAddress", array($host, $address));
 }
 
+/* DHCP leases */
+function getDhcpLeases() {
+    return xmlCall("network.getDhcpLeases");
+}
+
 /* Service management RPCs */
 
 function dhcpService($command) {
