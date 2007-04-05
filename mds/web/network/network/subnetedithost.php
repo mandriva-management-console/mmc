@@ -77,6 +77,9 @@ if ($_GET["action"] == "subnetedithost") {
     $ipaddress = $statements["fixed-address"];
     $filename = $statements["filename"];
     $rootpath = $options["root-path"];
+} else if ($_GET["action"] == "subnetaddhost") {
+    $hostname = $_GET["host"];
+    $macaddress = $_GET["macaddress"];
 }
 
 $p = new PageGenerator();
