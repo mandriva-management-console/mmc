@@ -44,36 +44,83 @@ function print_ajax_nav($curstart, $curend, $items, $filter)
 
 $filter = $_GET["filter"];
 $subnet = $_GET["subnet"];
-$hosts = array();
+$subnetInfos = getSubnet($subnet);
+$netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
+$lines = array();
 
 foreach(getSubnetHosts($subnet, "") as $dn => $entry) {
     $hostname = $entry[1]["cn"][0];
+    $ipaddress = null;
     foreach($entry[1]["dhcpStatements"] as $statements) {
         list($name, $value) = explode(" ", $statements, 2);
 	if ($name == "fixed-address") {
-            $hosts[$hostname]["ipaddress"] = $value;
+	    /* Convert to long for easy sorting */
+	    $ipaddress = ip2long($value);
+	    $lines[$ipaddress]["hostname"] =  $hostname;
             break;
         }
     }
-    list($tmp, $hosts[$hostname]["macaddress"]) = explode(" ", $entry[1]["dhcpHWAddress"][0]);
+    if (!$ipaddress) {      
+        unset($lines[$ipaddress]);
+        continue; /* We don't support displaying DHCP host with no fixed IP address */
+    }
+    list($tmp, $lines[$ipaddress]["macaddress"]) = explode(" ", strtoupper($entry[1]["dhcpHWAddress"][0]));
+    $lines[$ipaddress]["type"] = _T("Static", "network");
     if ($filter) {
         /* Don't display a host if filtered */
         if (
             (strpos($hostname, $filter) === False)
-            && (strpos($hosts[$hostname]["ipaddress"], $filter) === False)
-            && (strpos($hosts[$hostname]["macaddress"], $filter) === False)
+            && (strpos($ipaddress, $filter) === False)
+            && (strpos($lines[$ipaddress]["macaddress"], $filter) === False)
             ) {
-            unset($hosts[$hostname]);
+	    unset($lines[$ipaddress]);
         }
     }
 }
 
-ksort($hosts);
+/* Get current DHCP leases info to display dynamically assigned IP addresses */
+$leases = getDhcpLeases();
+//print_r($leases);
+foreach($leases as $ipaddress => $infos) {
+    if ($infos["state"] == "active") {
+        $address = ip2long($ipaddress);
+        $lines[$address]["type"] = _T("Dynamic", "network");
+        $lines[$address]["macaddress"] = strtoupper($infos["hardware"]);
+        $lines[$address]["hostname"] = $infos["hostname"];
+    }
+}
+
+ksort($lines);
+$hosts = array();
 $ipaddresses = array();
 $macaddresses = array();
-foreach($hosts as $host => $infos) {
-    $ipaddresses[] = $infos["ipaddress"];
+$types = array();
+$ends = array();
+$params = array();
+$actionsAdd = array();
+$actionsEdit = array();
+$actionsDel = array();
+$deleteAction = new ActionPopupItem(_T("Delete host", "network"),"subnetdeletehost","supprimer","ipaddress", "network", "network");
+$addAction = new ActionItem(_T("Add static host", "network"),"subnetaddhost","addhost","ipaddress", "network", "network");
+$editAction = new ActionItem(_T("edit static host", "network"),"subnetedithost","edit","ipaddress", "network", "network");
+$emptyAction = new EmptyActionItem();
+foreach($lines as $ipaddress => $infos) {
+    $hosts[] = $infos["hostname"];
+    $ipaddresses[] = long2ip($ipaddress);
     $macaddresses[] = $infos["macaddress"];
+    $types[] = $infos["type"];
+    $params[] = array("host" => $infos["hostname"],
+                      "macaddress" => $infos["macaddress"],
+                      "subnet" => $subnet);
+    if ($infos["type"] == _T("Static", "network")) {
+        $actionsAdd[] = $emptyAction;
+        $actionsDel[] = $deleteAction;
+        $actionsEdit[] = $editAction;
+    } else {
+        $actionsAdd[] = $addAction;
+        $actionsDel[] = $emptyAction;
+        $actionsEdit[] = $emptyAction;
+    }
 }
 
 if (isset($_GET["start"])) {
@@ -81,26 +128,28 @@ if (isset($_GET["start"])) {
     $end = $_GET["end"];
 } else {
     $start = 0;
-    if (count($hosts) > 0) {
+    if (count($lines) > 0) {
         $end = $conf["global"]["maxperpage"] - 1;
     } else {
         $end = 0;
     }
 }
 
-print_ajax_nav($start, $end, $hosts, $filter);
+print_ajax_nav($start, $end, $lines, $filter);
 
-$n = new ListInfos(array_keys($hosts), _T("Host", "network"));
+$n = new ListInfos($ipaddresses, _T("IP address", "network"));
+$n->disableFirstColumnActionLink();
 $n->setTableHeaderPadding(1);
-$n->addExtraInfo($ipaddresses, _T("IP address", "network"));
+$n->addExtraInfo($hosts, _T("Host name", "network"));
 $n->addExtraInfo($macaddresses, _T("MAC address", "network"));
+$n->addExtraInfo($types, _T("Type", "network"));
 $n->setName(_T("Host", "network"));
-
-$n->addActionItem(new ActionItem(_T("Edit host", "network"),"subnetedithost", "edit", "subnet=$subnet&amp;host", "network", "network"));
-$n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"subnetdeletehost","supprimer","subnet=$subnet&amp;host", "network", "network"));
-
+$n->setParamInfo($params);
+$n->addActionItemArray($actionsAdd);
+$n->addActionItemArray($actionsEdit);
+$n->addActionItemArray($actionsDel);
 $n->display(0);
 
-print_ajax_nav($start, $end, $hosts, $filter);
+print_ajax_nav($start, $end, $lines, $filter);
 
 ?>
