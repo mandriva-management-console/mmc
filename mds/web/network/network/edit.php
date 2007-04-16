@@ -86,22 +86,20 @@ if ($_GET["action"] == "edit") {
 $arrNetwork = array("value" => $network, "required" => True);
 if ($_GET["action"]=="add") {
     $formElt1 = new DomainInputTpl("zonename");
-    $formElt2 = new IPInputTpl("netaddress"); // '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){1,3}$/');
-    $formElt3 = new HostnameInputTpl("nameserver");
+    $formElt2 = new HostnameInputTpl("nameserver");
     $nameserver = "ns";
 } else {
     $formElt1 = new HiddenTpl("zonename");
-    $formElt2 = new HiddenTpl("netaddress");
-    $formElt3 = new DomainInputTpl("nameserver");
+    $formElt2 = new DomainInputTpl("nameserver");
 }
 
 $tr = new TrFormElement(_T("DNS zone"), $formElt1);
 $tr->display(array("value" => $zonename, "required" => True));
 
-$tr = new TrFormElement(_T("Description"),new InputTpl("description"));
+$tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
 $tr->display(array("value" => $description));
 
-$tr = new TrFormElement(_T("Name server host name"), $formElt3);
+$tr = new TrFormElement(_T("Name server host name"), $formElt2);
 $tr->display(array("value" => $nameserver, "required" => True));
 
 if ($_GET["action"] == "add") {    

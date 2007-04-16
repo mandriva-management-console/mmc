@@ -106,7 +106,7 @@ $tr->display(array("value" => $cn, "required" => True));
 $tr = new TrFormElement(_T("Netmask"),new NetmaskInputTpl("netmask"));
 $tr->display(array("value" => $netmask, "required" => True, "extra" => "(e.g. 24 for a /24 network)"));
 
-$tr = new TrFormElement(_T("Description"),new InputTpl("description"));
+$tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
 $tr->display(array("value" => $description));
 ?>
 </table>
