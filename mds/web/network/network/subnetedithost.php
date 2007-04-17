@@ -22,6 +22,8 @@ else $title = sprintf(_T("Edit DHCP host of subnet %s"), $subnet);
 
 <?
 
+global $error;
+
 if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $hostname = $_POST["hostname"];
     $macaddress = $_POST["macaddress"];
@@ -33,30 +35,29 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
 
     if (!ipInNetwork($ipaddress, $subnet, $netmask)) {
         $error = _T("The specified IP address does not belong to the subnet.");
+        setFormError("ipaddress");
     }
-
-    if (isset($_POST["badd"])) {
-        addHostToSubnet($subnet, $hostname);
-	setHostOption($hostname, "host-name", $hostname);
-        if (isset($_POST["dnsrecord"])) {
-            $options = getSubnetOptions(getSubnet($subnet));
-            if (isset($options["domain-name"])) addRecordA($hostname, $ipaddress, $options["domain-name"]);
+    if (!isset($error)) {
+        if (isset($_POST["badd"])) {
+            addHostToSubnet($subnet, $hostname);
+            setHostOption($hostname, "host-name", $hostname);
+            if (isset($_POST["dnsrecord"])) {
+                $options = getSubnetOptions(getSubnet($subnet));
+                if (isset($options["domain-name"])) addRecordA($hostname, $ipaddress, $options["domain-name"]);
+            }
+        }
+        setHostOption($hostname, "root-path", $rootpath);
+        setHostStatement($hostname, "filename", $filename);
+        setHostHWAddress($hostname, $macaddress);
+        setHostStatement($hostname, "fixed-address", $ipaddress);
+        // Display result message
+        if (!isXMLRPCError() && isset($_POST["badd"])) {
+            $result .= _T("Host successfully added.");
+            new NotifyWidgetSuccess($result);
+            header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => $subnet)));
         }
     }
-    setHostOption($hostname, "root-path", $rootpath);
-    setHostStatement($hostname, "filename", $filename);
-    setHostHWAddress($hostname, $macaddress);
-    setHostStatement($hostname, "fixed-address", $ipaddress);
-    // Display result message
-    if (!isXMLRPCError() && isset($_POST["badd"])) {
-        $result .= _T("Host successfully added.");
-        $n = new NotifyWidget();
-	$n->flush();
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
-	header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => $subnet)));
-    }
+    if (isset($error)) new NotifyWidgetFailure($error);
 }
 
 if ($_GET["action"] == "subnetedithost") {
@@ -78,8 +79,11 @@ if ($_GET["action"] == "subnetedithost") {
     $filename = $statements["filename"];
     $rootpath = $options["root-path"];
 } else if ($_GET["action"] == "subnetaddhost") {
-    $hostname = $_GET["host"];
-    $macaddress = $_GET["macaddress"];
+    if (!isset($error)) {
+        /* Reset the field only if no error where found */
+        $hostname = $_GET["host"];
+        $macaddress = $_GET["macaddress"];
+    }
 }
 
 $p = new PageGenerator();
@@ -106,6 +110,7 @@ $tr = new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress"));
 $tr->display(array("value" => $macaddress, "required" => True));
 
 $tr = new TrFormElement(_T("IP address"),new IPInputTpl("ipaddress"));
+$tr->setCssError("ipaddress");
 $tr->display(array("value" => $ipaddress, "required" => True));
 
 ?>
@@ -115,10 +120,10 @@ $tr->display(array("value" => $ipaddress, "required" => True));
 $tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
 $tr->display(array());
 
-$tr = new TrFormElement(_T("Initial boot file name"),new InputTpl("filename"));
+$tr = new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename"));
 $tr->display(array("value"=>$filename));
 
-$tr = new TrFormElement(_T("Path to the root filesystem"),new InputTpl("rootpath"));
+$tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("rootpath"));
 $tr->display(array("value"=>$rootpath));
 ?>
 </table>
@@ -129,7 +134,8 @@ $tr->display(array("value"=>$rootpath));
 <?
 $options = getSubnetOptions(getSubnet($subnet));
 if (isset($options["domain-name"])) {
-    /* if the DHCP domain name option is set, and corresponds to an existing DNS zone
+    /*
+       If the DHCP domain name option is set, and corresponds to an existing DNS zone
        we ask the user if she/he wants to record the machine in the DNS zone too.
     */
     $domain = $options["domain-name"];
