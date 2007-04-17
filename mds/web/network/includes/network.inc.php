@@ -1,7 +1,7 @@
 <?
 
 /**
- * Input with a check for host name validity in a DNS zone
+ * Input with a check for host name validity in a DNS zone. No dot allowed !
  */
 class HostnameInputTpl extends InputTpl {
 
@@ -9,6 +9,19 @@ class HostnameInputTpl extends InputTpl {
         $this->name = $name;
         $this->regexp = '/^[a-z][a-z0-9-]*[a-z0-9]$/';
     }
+
+}
+
+/**
+ * Input with a basic check for a colon separated list of host name and/or IP
+ */
+class HostIpListInputTpl extends InputTpl {
+    
+    function HostIpListInputTpl($name) {
+        $this->name = $name;
+        $this->regexp = '/^[0-9a-z,.-]*$/';
+    }
+
 }
 
 /**
