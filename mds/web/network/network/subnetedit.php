@@ -22,13 +22,15 @@ $p->displaySideMenu();
 if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
-    $description = $_POST["description"];
+    $description = stripslashes($_POST["description"]);
+    /* Create or edit the subnet */
     if (isset($_POST["badd"])) {
         addSubnet($subnet, $netmask, $description);
     } else {
         setSubnetNetmask($subnet, $netmask);
         setSubnetDescription($subnet, $description);
     }
+    /* Update the DHCP options */
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
@@ -38,16 +40,19 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             $value = str_replace(" ", ",", $value);
         setSubnetOption($subnet, $name, $value);
     }
+    /* Update the DHCP statements */
     $names = array("filename");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
-	if (in_array($name, array("filename")))
-            $value = '"' . $value . '"';
+        if (strlen($value)) {
+            if (in_array($name, array("filename")))
+                $value = '"' . $value . '"';
+        }
         setSubnetStatement($subnet, $name, $value);
     }
+    /* Create or update the DHCP pool */
     if (isset($_POST["badd"])) $pool = array();
     else $pool = getPool($subnet);
-
     if (isset($_POST["subnetpool"])) {
         if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
             $ipstart = $_POST["ipstart"];
@@ -61,6 +66,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             }
         }
     } else {
+        /* Dynamic pool managememt is not checked */
         if (count($pool)) delPool($subnet);
     }
     if (!isXMLRPCError()) {
@@ -121,13 +127,13 @@ $tr->display(array("value"=>$options["broadcast-address"]));
 $tr = new TrFormElement(_T("Domain name"),new DomainInputTpl("domain-name"));
 $tr->display(array("value"=>$options["domain-name"]));
 
-$tr = new TrFormElement(_T("Routers"),new InputTpl("routers"));
+$tr = new TrFormElement(_T("Routers"),new HostIpListInputTpl("routers"));
 $tr->display(array("value"=>$options["routers"]));
 
-$tr = new TrFormElement(_T("Domain name servers"),new InputTpl("domain-name-servers"));
+$tr = new TrFormElement(_T("Domain name servers"),new HostIpListInputTpl("domain-name-servers"));
 $tr->display(array("value"=>$options["domain-name-servers"]));
 
-$tr = new TrFormElement(_T("NTP servers"),new InputTpl("ntp-servers"));
+$tr = new TrFormElement(_T("NTP servers"),new HostIpListInputTpl("ntp-servers"));
 $tr->display(array("value"=>$options["ntp-servers"]));
 ?>
 </table>
@@ -136,10 +142,10 @@ $tr->display(array("value"=>$options["ntp-servers"]));
 $tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
 $tr->display(array());
 
-$tr = new TrFormElement(_T("Initial boot file name"),new InputTpl("filename"));
+$tr = new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename"));
 $tr->display(array("value"=>$statements["filename"]));
 
-$tr = new TrFormElement(_T("Path to the root filesystem"),new InputTpl("root-path"));
+$tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("root-path"));
 $tr->display(array("value"=>$options["root-path"]));
 ?>
 </table>
