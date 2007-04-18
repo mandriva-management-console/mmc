@@ -33,9 +33,20 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $rootpath = trim($_POST["rootpath"]);
     if (strlen($rootpath)) $rootpath = '"' . $rootpath . '"';
 
+    /* Check that the given IP address is in the subnet */
     if (!ipInNetwork($ipaddress, $subnet, $netmask)) {
         $error = _T("The specified IP address does not belong to the subnet.");
         setFormError("ipaddress");
+    }
+    /* Check that the given address is not in the dynamic pool range */
+    $pool = getPool($subnet);
+    if (count($pool)) {
+        $range = $pool[0][1]["dhcpRange"][0];
+        list($ipstart, $ipend) = explode(" ", $range);
+        if (ipInRange($ipaddress, $ipstart, $ipend)) {
+            $error .= _T("The specified IP address belongs to the dynamic pool range of the subnet.");
+            setFormError("ipaddress");
+        }
     }
     if (!isset($error)) {
         if (isset($_POST["badd"])) {

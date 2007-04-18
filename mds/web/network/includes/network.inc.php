@@ -75,6 +75,13 @@ function ipLowerThan($ipa, $ipb) {
     return ip2long($ipa) < ip2long($ipb);
 }
 
+/**
+ * Return True if IP is into a IP range
+ */
+function ipInRange($ip, $ipa, $ipb) {
+    return (ip2long($ipa) <= ip2long($ip)) and (ip2long($ip) <= ip2long($ipb));
+}
+
 /* Some common used utility functions */
 
 function getSubnetOptions($subnet) {
