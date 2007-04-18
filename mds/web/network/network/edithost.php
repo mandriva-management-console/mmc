@@ -21,21 +21,30 @@ $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
 $zone = $_GET["zone"];
-
+global $error;
 if (isset($_POST["badd"])) {
     $hostname = $_POST["hostname"];
     $address = $_POST["address"];
-    addRecordA($hostname, $address, $zone);        
-    // Display result message
-    if (!isXMLRPCError()) {
-        $result = _T("Host successfully added.");
-        $n = new NotifyWidget();
-	$n->flush();
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
-	header("Location: " . urlStrRedirect("network/network/index"));
+    
+    /* Basic checks */
+    if (hostExists($zone, $hostname)) {
+        $error = _T("The specified hostname has been already recorded in this zone.") . " ";
+        setFormError("hostname");
+        $hostname = "";
     }
+    if (ipExists($zone, $address)) {
+        $error .= _T("The specified IP address has been already recorded in this zone");
+        setFormError("address");
+    } else $keepaddress = True;
+    
+    if (!isset($error)) {
+        addRecordA($hostname, $address, $zone);        
+        if (!isXMLRPCError()) {
+            new NotifyWidgetSuccess(_T("Host successfully added."));
+            header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
+        }
+    } else new NotifyWidgetFailure($error);
+
 }
 
 if ($_GET["action"] == "edit") {
@@ -58,13 +67,19 @@ if ($_GET["action"] == "addhost") {
 }
 
 $tr = new TrFormElement(_T("Host name"), $formElt);
+$tr->setCssError("hostname");
 $tr->display($a);
 
 $tr = new TrFormElement(_T("Network address"), new IPInputTpl("address"));
+$tr->setCssError("address");
 if ($_GET["action"] == "addhost") {
-    $zoneaddress = getZoneNetworkAddress($zone);
-    if (!count($zoneaddress)) $network = "";
-    else $network = $zoneaddress[0] . ".";
+    if (isset($error) && isset($keepaddress))
+        $network = $address;
+    else {
+        $zoneaddress = getZoneNetworkAddress($zone);
+        if (!count($zoneaddress)) $network = "";
+        else $network = $zoneaddress[0] . ".";
+    }
     $tr->display(array("value"=>$network, "required" => True));
 } else {
     $tr->display(array("value"=>$address, "required" => True));

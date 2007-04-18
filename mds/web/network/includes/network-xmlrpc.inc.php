@@ -60,6 +60,14 @@ function setZoneDescription($zone, $description) {
     xmlCall("network.setZoneDescription", array($zone, $description));
 }
 
+function hostExists($zone, $hostname) {
+    return xmlCall("network.hostExists", array($zone, $hostname));
+}
+
+function ipExists($zone, $ip) {
+    return xmlCall("network.ipExists", array($zone, $ip));
+}
+
 /* DHCP RPCs */
 
 /* Subnet */
