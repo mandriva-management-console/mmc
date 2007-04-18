@@ -66,7 +66,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             }
         }
     } else {
-        /* Dynamic pool managememt is not checked */
+        /* Dynamic pool management is not checked */
         if (count($pool)) delPool($subnet);
     }
     if (!isXMLRPCError()) {
@@ -94,12 +94,14 @@ if ($_GET["action"] == "subnetedit") {
     } else $hasSubnetPool = "";
 }
 
+$f = new Form();
 ?>
 
 <form id="edit" name="subnetform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();">
-<table cellspacing="0">
 
 <?
+$f->beginTable();
+
 if ($_GET["action"]=="subnetadd") {
     $formElt = new IPInputTpl("subnet");
 } else {
@@ -114,10 +116,10 @@ $tr->display(array("value" => $netmask, "required" => True, "extra" => "(e.g. 24
 
 $tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
 $tr->display(array("value" => $description));
-?>
-</table>
-<table>
-<?
+
+$f->endTable();
+$f->beginTable();
+
 $tr = new TrFormElement(_("DHCP options related to clients network parameters"), new HiddenTpl(""));
 $tr->display(array());
 
@@ -135,10 +137,10 @@ $tr->display(array("value"=>$options["domain-name-servers"]));
 
 $tr = new TrFormElement(_T("NTP servers"),new HostIpListInputTpl("ntp-servers"));
 $tr->display(array("value"=>$options["ntp-servers"]));
-?>
-</table>
-<table>
-<?
+
+$f->endTable();
+$f->beginTable();
+
 $tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
 $tr->display(array());
 
@@ -147,21 +149,22 @@ $tr->display(array("value"=>$statements["filename"]));
 
 $tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("root-path"));
 $tr->display(array("value"=>$options["root-path"]));
-?>
-</table>
 
-<?
-print "<table>";
+$f->endTable();
+$f->beginTable();
+
 $tr = new TrFormElement(_T("Dynamic pool for non-registered DHCP clients", "network"),new CheckboxTpl("subnetpool"));
 $param=array("value"=>$hasSubnetPool,
 	     "extraArg"=>'onclick="toggleVisibility(\'pooldiv\');"');
 $tr->display($param);
 
-print "</table>";
+$f->endTable();
+
 if (!$hasSubnetPool) $style = 'style =" display: none;"';
 else $style = "";
 print '<div id="pooldiv" '.$style.'>';
-print "<table>";
+
+$f->beginTable();
 
 $tr = new TrFormElement(_T("IP range start"), new IPInputTpl("ipstart"));
 $tr->display(array("value"=>$ipstart));
@@ -169,9 +172,10 @@ $tr->display(array("value"=>$ipstart));
 $tr = new TrFormElement(_T("IP range end"), new IPInputTpl("ipend"));
 $tr->display(array("value"=>$ipend));
 
+$f->endTable();
+
 ?>
 
-</table>
 </div>
 
 <? if ($_GET["action"] == "subnetadd") { ?>
