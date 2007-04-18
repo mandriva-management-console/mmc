@@ -35,7 +35,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
 
     /* Check that the given IP address is in the subnet */
     if (!ipInNetwork($ipaddress, $subnet, $netmask)) {
-        $error = _T("The specified IP address does not belong to the subnet.");
+        $error = _T("The specified IP address does not belong to the subnet.") . " ";
         setFormError("ipaddress");
     }
     /* Check that the given address is not in the dynamic pool range */
@@ -44,8 +44,25 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         $range = $pool[0][1]["dhcpRange"][0];
         list($ipstart, $ipend) = explode(" ", $range);
         if (ipInRange($ipaddress, $ipstart, $ipend)) {
-            $error .= _T("The specified IP address belongs to the dynamic pool range of the subnet.");
+            $error .= _T("The specified IP address belongs to the dynamic pool range of the subnet.") . " ";
             setFormError("ipaddress");
+        }
+    }
+    if (isset($_POST["dnsrecord"])) {
+        /* Check that no hostname and reverse for this IP address exist in the DNS zone */
+        $options = getSubnetOptions(getSubnet($subnet));
+        if (isset($options["domain-name"])) {
+            $zone = $options["domain-name"];
+            if (hostExists($zone, $hostname)) {
+                $error .= sprintf(_T("The specified hostname has been already registered in zone %s."), $zone) . " ";
+                setFormError("hostname");
+                $hostname = "";
+            }
+            if (ipExists($zone, $ipaddress)) {
+                $error .= sprintf(_T("The specified IP address has been already registered in zone %s."), $zone) . " ";
+                setFormError("ipaddress");
+                $ipaddress = "";
+            }          
         }
     }
     if (!isset($error)) {
@@ -115,6 +132,7 @@ if ($_GET["action"]=="subnetaddhost") {
 }
 
 $tr = new TrFormElement(_T("Host name"), $formElt);
+$tr->setCssError("hostname");
 $tr->display(array("value" => $hostname, "required" => True));
 
 $tr = new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress"));
