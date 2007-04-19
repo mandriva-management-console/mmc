@@ -44,48 +44,53 @@ function print_ajax_nav($curstart, $curend, $items, $filter)
 
 $filter = $_GET["filter"];
 $zone = $_GET["zone"];
-$network = getZoneNetworkAddress($zone);
-$hosts = array();
+$addresses = array();
 
 foreach(getZoneObjects($zone, "") as $dn => $entry) {
     $hostname = $entry[1]["relativeDomainName"][0];
-    $hosts[$hostname] = $entry[1]["aRecord"][0];
+    $address = ip2long($entry[1]["aRecord"][0]); 
+    $addresses[$address] = $hostname;
     if ($filter) {
         /* Don't display a host if filtered */
         if (
             (strpos($hostname, $filter) === False)
-            && (strpos($hosts[$hostname], $filter) === False)
+            && (strpos($entry[1]["aRecord"][0], $filter) === False)
             ) {
-            unset($hosts[$hostname]);
+            unset($addresses[$address]);
         }        
     }
 }
 
-ksort($hosts);
+ksort($addresses);
+$sorted = array();
+foreach(array_keys($addresses) as $ip) $sorted[] = long2ip($ip);
 
 if (isset($_GET["start"])) {
     $start = $_GET["start"];
     $end = $_GET["end"];
 } else {
     $start = 0;
-    if (count($hosts) > 0) {
+    if (count($addresses) > 0) {
         $end = $conf["global"]["maxperpage"] - 1;
     } else {
         $end = 0;
     }
 }
 
-print_ajax_nav($start, $end, $hosts, $filter);
+print_ajax_nav($start, $end, $addresses, $filter);
 
-$n = new ListInfos(array_keys($hosts), _T("Host", "network"));
+$n = new ListInfos($sorted, _T("IP address", "network"));
 $n->setTableHeaderPadding(1);
-$n->addExtraInfo(array_values($hosts), _T("IP address", "network"));
+$n->addExtraInfo(array_values($addresses), _T("Host name", "network"));
 $n->setName(_T("Host", "network"));
+$n->disableFirstColumnActionLink();
 
 $n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"deletehost","supprimer","zone=$zone&amp;host", "network", "network"));
 
 $n->display(0);
 
-print_ajax_nav($start, $end, $hosts, $filter);
+print_ajax_nav($start, $end, $addresses, $filter);
 
 ?>
+
+<input type="button" value="<?= _T("Add a host"); ?>" onclick="location.href='main.php?module=network&submod=network&action=addhost&zone=<?= $zone; ?>';"/>
