@@ -160,6 +160,15 @@ function setHostHWAddress($host, $address) {
     xmlCall("network.setHostHWAddress", array($host, $address));
 }
 
+function hostExistsInSubnet($zone, $hostname) {
+    return xmlCall("network.hostExistsInSubnet", array($zone, $hostname));
+}
+
+function ipExistsInSubnet($zone, $ip) {
+    return xmlCall("network.ipExistsInSubnet", array($zone, $ip));
+}
+
+
 /* DHCP leases */
 function getDhcpLeases() {
     return xmlCall("network.getDhcpLeases");

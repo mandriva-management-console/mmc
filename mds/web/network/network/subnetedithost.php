@@ -48,7 +48,18 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             setFormError("ipaddress");
         }
     }
-    if (isset($_POST["dnsrecord"])) {
+    /* Check that this hostname or IP address has been already registered in the DHCP subnet */
+    if (hostExistsInSubnet($subnet, $hostname)) {
+        $error .= _T("The specified hostname has been already registered in this DHCP subnet.") . " ";
+        setFormError("hostname");
+        $hostname = "";        
+    }
+    if (ipExistsInSubnet($subnet, $ipaddress)) {
+        $error .= _T("The specified IP address has been already registered in this DHCP subnet.") . " ";
+        setFormError("ipaddress");
+        $ipaddress = "";       
+    }
+    if (isset($_POST["dnsrecord"]) && !isset($error)) {
         /* Check that no hostname and reverse for this IP address exist in the DNS zone */
         $options = getSubnetOptions(getSubnet($subnet));
         if (isset($options["domain-name"])) {
