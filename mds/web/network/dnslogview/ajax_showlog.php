@@ -14,9 +14,19 @@ exit(6);
 $extra = array();
 $date = array();
 
+$errStrings = array("file not found", "could not find NS and/or SOA records", "has no NS records", "has 0 SOA records");
+
 foreach (xmlCall("network.getDnsLog",array($_SESSION['ajax']['filter'])) as $line) {
     if (is_array($line)) {
-        $extra[] = $line["extra"];
+        $found = False;
+        foreach($errStrings as $err) {
+            if (strpos($line["extra"], $err) !== False) {
+                $extra[] = '<div class="error">' . $line["extra"] . "</div>";
+                $found = True;
+                break;
+            }
+        }
+        if (!$found) $extra[] = $line["extra"];
         $dateparsed = strftime('%b %d %H:%M:%S',$line["time"]);
         $date[] = str_replace(" ", "&nbsp;", $dateparsed);
     } else {
