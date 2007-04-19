@@ -44,7 +44,6 @@ $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
 if (isset($_POST["badd"])) {
-    print_r($_POST);
     $zonename = $_POST["zonename"];
     $netaddress = $_POST["netaddress"];
     $netmask = $_POST["netmask"];
@@ -62,14 +61,9 @@ if (isset($_POST["badd"])) {
     } else {
         addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
     }
-    // Display result message
+
     if (!isXMLRPCError()) {
-        $result .= _T("DNS zone successfully added.");
-        $n = new NotifyWidget();
-	$n->flush();
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
+        new NotifyWidgetSuccess(_T("DNS zone successfully added."));
 	header("Location: " . urlStrRedirect("network/network/index"));
     }
 } else if (isset($_POST["bedit"])) {
@@ -78,23 +72,15 @@ if (isset($_POST["badd"])) {
     $description = $_POST["description"];
     setNSRecord($zonename, $nameserver . ".");
     setZoneDescription($zonename, $description);
+    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
 }
 
 if ($_GET["action"] == "edit") {
     $zonename = $_GET["zone"];
     $soa = getSOARecord($zonename);
     $nameserver = trim($soa["nameserver"], ".");
-    $zones = getZones($zone);
-    foreach($zones[0][1]["tXTRecord"] as $value) {
-        if (strpos($value, "Reverse:") === False) $description = $value;
-        else {
-            $network = str_replace("Reverse: ", "", $value);
-            $network = str_replace(".in-addr.arpa", "", $network);
-            $elements = explode(".", $network);
-            $elements = array_reverse($elements);
-            $network = implode($elements, ".");
-        }
-    }
+    $zones = getZones($zonename);
+    $description = $zones[0][1]["tXTRecord"][0];
 }
 
 ?>
@@ -113,7 +99,7 @@ if ($_GET["action"]=="add") {
     $formElt2 = new DomainInputTpl("nameserver");
 }
 
-$tr = new TrFormElement(_T("DNS zone"), $formElt1);
+$tr = new TrFormElement(_T("DNS zone FQDN"), $formElt1);
 $tr->display(array("value" => $zonename, "required" => True));
 
 $tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
@@ -129,7 +115,7 @@ if ($_GET["action"] == "add") {
     print "</table";
     print '<table cellspacing="0">';
     
-    $tr = new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet "), new HiddenTpl(""));
+    $tr = new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl(""));
     $tr->display(array());
 
     $tr = new TrFormElement(_T("Network address"), new IPInputTpl("netaddress"));
