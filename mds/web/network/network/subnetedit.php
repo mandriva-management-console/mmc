@@ -108,7 +108,7 @@ if ($_GET["action"]=="subnetadd") {
     $formElt = new HiddenTpl("subnet");
 }
 
-$tr = new TrFormElement(_T("DHCP subnet"), $formElt);
+$tr = new TrFormElement(_T("DHCP subnet address"), $formElt);
 $tr->display(array("value" => $cn, "required" => True));
 
 $tr = new TrFormElement(_T("Netmask"),new NetmaskInputTpl("netmask"));
