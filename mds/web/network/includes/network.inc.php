@@ -52,11 +52,18 @@ class SimpleNetmaskInputTpl extends InputTpl {
 
 /**
  * Return True if an IP is in a network
+ * 
+ * If $acceptBoundaries is True, the base network address and the broadcast address are accepted
  */
-function ipInNetwork($ip, $network, $mask) {
+function ipInNetwork($ip, $network, $mask, $acceptBoundaries = False) {
     $ip = ip2long($ip);
     $network = ip2long($network);
     $mask = intval($mask);
+    if (!$acceptBoundaries) {
+        if ($ip == $network) return False; /* Network address */
+        $ipmask = ip2long("255.255.255.255") << (32 - $mask);
+        if ($ip == ($network | (~$ipmask))) return False; /* Broadcast address */
+    }
     $ret = True;
     for ($i = 0 ; $i < $mask ; $i++) {
         $n = pow(2, 31 - $i) ;
