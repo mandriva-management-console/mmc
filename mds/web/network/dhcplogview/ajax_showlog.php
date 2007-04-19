@@ -15,9 +15,19 @@ $extra = array();
 $date = array();
 $op = array();
 
+$errStrings = array("no free leases", "Error", "error");
+
 foreach (xmlCall("network.getDhcpLog",array($_SESSION['ajax']['filter'])) as $line) {
     if (is_array($line)) {
-        $extra[] = $line["extra"];
+        $found = False;
+        foreach($errStrings as $err) {
+            if (strpos($line["extra"], $err) !== False) {
+                $extra[] = '<div class="error">' . $line["extra"] . "</div>";
+                $found = True;
+                break;
+            }
+        }
+        if (!$found) $extra[] = $line["extra"];
 	$op[] = '<a href="#" onClick="$(\'param\').value=\''.$line["op"].'\'; pushSearch(); return false">'.$line["op"].'</a>';
         $dateparsed = strftime('%b %d %H:%M:%S',$line["time"]);
         $date[] = str_replace(" ", "&nbsp;", $dateparsed);
