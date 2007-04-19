@@ -15,7 +15,7 @@ $extra = array();
 $date = array();
 $op = array();
 
-$errStrings = array("no free leases", "Error", "error");
+$errStrings = array("no free leases", "Error", "error", "Not configured to listen on any interfaces!", "Can't");
 
 foreach (xmlCall("network.getDhcpLog",array($_SESSION['ajax']['filter'])) as $line) {
     if (is_array($line)) {
