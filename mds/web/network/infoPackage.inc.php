@@ -36,7 +36,7 @@ $mod->setAPIVersion('0:0:0');
 
 $submod = new ExpertSubModule("network");
 $submod->setDescription(_T("Network management","network"));
-$submod->setImg('img/navbar/proxy');
+$submod->setImg('modules/network/graph/img/network');
 $submod->setDefaultPage("network/network/index");
 $submod->setPriority(300);
 
