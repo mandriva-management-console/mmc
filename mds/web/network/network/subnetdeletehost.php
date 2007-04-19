@@ -26,7 +26,7 @@ require("modules/network/includes/network-xmlrpc.inc.php");
 if (isset($_POST["bconfirm"])) {
     $subnet = $_POST["subnet"];
     $host = $_POST["host"];
-    delHost($host, $zone);
+    delHost($host);
     if (!isXMLRPCError()) {
         $n = new NotifyWidget();
 	$n->flush();
@@ -48,7 +48,7 @@ if (isset($_POST["bconfirm"])) {
 
 <form action="main.php?module=network&submod=network&action=subnetdeletehost" method="post">
 <input type="hidden" name="host" value="<?php echo $host; ?>" />
-<input type="hidden" name="zone" value="<?php echo $zone; ?>" />
+<input type="hidden" name="subnet" value="<?php echo $subnet; ?>" />
 <input type="submit" name="bconfirm" class="btnPrimary" value="<?= _T("Delete host"); ?>" />
 <input type="submit" name="bback" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
 </form>
