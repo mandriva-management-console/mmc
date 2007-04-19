@@ -50,8 +50,12 @@ if (isset($_GET["command"]) && isset($_GET["service"])) {
         exit;
     }
     if (!isXMLRPCError()) {
-        $result = _T("The service has been asked to") . "&nbsp;" . $command . ".";
-        new NotifyWidgetSuccess($result);
+        $result = array(
+                        "start" => _T("The service has been asked to start"),
+                        "stop" => _T("The service has been asked to stop"),
+                        "reload" => _T("The service has been asked to reload")                        
+                        );
+        new NotifyWidgetSuccess($result[$command]);
     }
 }
 
