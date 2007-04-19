@@ -54,15 +54,15 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         if (isset($options["domain-name"])) {
             $zone = $options["domain-name"];
             if (hostExists($zone, $hostname)) {
-                $error .= sprintf(_T("The specified hostname has been already registered in zone %s."), $zone) . " ";
+                $error .= sprintf(_T("The specified hostname has been already registered in DNS zone %s."), $zone) . " ";
                 setFormError("hostname");
                 $hostname = "";
             }
             if (ipExists($zone, $ipaddress)) {
-                $error .= sprintf(_T("The specified IP address has been already registered in zone %s."), $zone) . " ";
+                $error .= sprintf(_T("The specified IP address has been already registered in DNS zone %s."), $zone) . " ";
                 setFormError("ipaddress");
                 $ipaddress = "";
-            }          
+            }
         }
     }
     if (!isset($error)) {
