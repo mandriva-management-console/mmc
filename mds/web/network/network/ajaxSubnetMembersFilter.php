@@ -156,3 +156,5 @@ $n->display(0);
 print_ajax_nav($start, $end, $lines, $filter);
 
 ?>
+
+<input type="button" value="<?= _T("Add a static host"); ?>" onclick="location.href='main.php?module=network&submod=network&action=subnetaddhost&subnet=<?= $subnet; ?>';"/>
