@@ -63,7 +63,11 @@ foreach(getZoneObjects($zone, "") as $dn => $entry) {
 
 ksort($addresses);
 $sorted = array();
-foreach(array_keys($addresses) as $ip) $sorted[] = long2ip($ip);
+$params = array();
+foreach($addresses as $ip => $host) {
+    $sorted[] = long2ip($ip);
+    $params[] = array("host" => $host);
+}
 
 if (isset($_GET["start"])) {
     $start = $_GET["start"];
@@ -83,9 +87,10 @@ $n = new ListInfos($sorted, _T("IP address", "network"));
 $n->setTableHeaderPadding(1);
 $n->addExtraInfo(array_values($addresses), _T("Host name", "network"));
 $n->setName(_T("Host", "network"));
+$n->setParamInfo($params);
 $n->disableFirstColumnActionLink();
 
-$n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"deletehost","supprimer","zone=$zone&amp;host", "network", "network"));
+$n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"deletehost","supprimer","zone=$zone&address", "network", "network"));
 
 $n->display(0);
 
