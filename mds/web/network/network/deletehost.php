@@ -27,14 +27,7 @@ if (isset($_POST["bconfirm"])) {
     $host = $_POST["host"];
     $zone = $_POST["zone"];
     delRecord($host, $zone);
-    if (!isXMLRPCError()) {
-        $n = new NotifyWidget();
-	$n->flush();
-	$result = _T("The host has been deleted.");
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
-    }
+    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The host has been deleted."));
     header("Location: main.php?module=network&submod=network&action=zonemembers&zone=$zone");
 } else {
     $host = urldecode($_GET["host"]);
