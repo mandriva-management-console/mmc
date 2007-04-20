@@ -47,7 +47,7 @@ $subnets = array();
 $count = array();
 
 foreach(getSubnets($filter) as $dn => $entry) {
-    $subnet = $entry[1]["cn"][0]; // . "/" . $entry[1]["dhcpNetMask"][0];
+    $subnet = $entry[1]["cn"][0];
     $subnets[$subnet] = array();
     $subnets[$subnet]["name"] = $entry[1]["dhcpComments"][0];
     $subnets[$subnet]["netmask"] = $entry[1]["dhcpNetMask"][0];
