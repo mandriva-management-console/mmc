@@ -43,6 +43,7 @@ $p = new PageGenerator();
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
+global $error;
 if (isset($_POST["badd"])) {
     $zonename = $_POST["zonename"];
     $netaddress = $_POST["netaddress"];
@@ -50,22 +51,58 @@ if (isset($_POST["badd"])) {
     $description = $_POST["description"];
     $nameserver = $_POST["nameserver"];
     $nameserverip = $_POST["nameserverip"];
-        
-    $reverse = isset($_POST["reverse"]) && (strlen($_POST["netaddress"]) > 0) && (strlen($_POST["netmask"]) > 0);
-    $dhcpsubnet = isset($_POST["dhcpsubnet"]) && (strlen($_POST["netaddress"]) > 0) && (strlen($_POST["netmask"]) > 0);
-    
-    $result = "";
-    if ($dhcpsubnet) {
-        addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
-        $result .= _T("DHCP subnet successfully added.") . "&nbsp;";
-    } else {
-        addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
+
+    $hasnetaddress = strlen($_POST["netaddress"]) > 0;
+    $hasnetmask = strlen($_POST["netmask"]) > 0;
+
+    /* Check that network address and mask are filled if reverse of DHCP subnet are wanted */
+    $reverse = False;
+    if (isset($_POST["reverse"])) {
+        if ($hasnetaddress & $hasnetmask) $reverse = True;
+        else {
+            $error = _T("The network address and the network mask field must be filled in if you also want to create a reverse zone.");
+            if (!$hasnetaddress) setFormError("netaddress");
+            if (!$hasnetmask) setFormError("netmask");
+        }
+    }
+    $dhcpsubnet = False;
+    if (isset($_POST["dhcpsubnet"])) {
+        if ($hasnetaddress & $hasnetmask) $dhcpsubnet = True;
+        else {
+            $error .= " " . _T("The network address and the network mask field must be filled in if you also want to create a DHCP subnet.");
+            if (!$hasnetaddress) setFormError("netaddress");
+            if (!$hasnetmask) setFormError("netmask");
+        }
     }
 
-    if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(_T("DNS zone successfully added."));
-	header("Location: " . urlStrRedirect("network/network/index"));
+    /* Check that the given subnet is not contained into an existing subnet */
+    if ($dhcpsubnet) {
+        foreach(getSubnets("") as $dn => $entry) {
+            $subnet = $entry[1]["cn"][0];
+            $mask = $entry[1]["dhcpNetMask"][0];
+            if (ipInNetwork($netaddress, $subnet, $mask, True)) {
+                $error .= " " . sprintf(_T("The given network address belongs to the already existing DHCP subnet %s / %s."), $subnet, $mask);
+                break;
+            }
+        }
     }
+        
+    if (!isset($error)) {
+        $result = "";
+        if ($dhcpsubnet) {
+            addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
+            $result .= _T("DHCP subnet successfully added.");
+        } else {
+            addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
+        }
+        
+        if (!isXMLRPCError()) {
+            $result .= " " . _T("DNS zone successfully added.")
+            new NotifyWidgetSuccess($result);
+            header("Location: " . urlStrRedirect("network/network/index"));
+        }
+    } else
+        new NotifyWidgetFailure($error);
 } else if (isset($_POST["bedit"])) {
     $zonename = $_POST["zonename"];
     $nameserver = $_POST["nameserver"];
@@ -119,10 +156,12 @@ if ($_GET["action"] == "add") {
     $tr->display(array());
 
     $tr = new TrFormElement(_T("Network address"), new IPInputTpl("netaddress"));
-    $tr->display(array("value" => ""));
+    $tr->setCssError("netaddress");
+    $tr->display(array("value" => $netaddress));
 
     $tr = new TrFormElement(_T("Network mask"), new SimpleNetmaskInputTpl("netmask"));
-    $tr->display(array("value" => "", "extra" => _T("Only 8, 16 or 24 is allowed")));
+    $tr->setCssError("netmask");
+    $tr->display(array("value" => $netmask, "extra" => _T("Only 8, 16 or 24 is allowed")));
 
     $tr = new TrFormElement(_T("Also manage a reverse zone"), new CheckboxTpl("reverse"));
     $tr->display(array("value" => "CHECKED"));
