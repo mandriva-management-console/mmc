@@ -22,31 +22,50 @@
  */
 
 require("modules/network/includes/network-xmlrpc.inc.php");
+require("modules/network/includes/network.inc.php");
 
 if (isset($_POST["bconfirm"])) {
     $subnet = $_POST["subnet"];
     $host = $_POST["host"];
     delHost($host);
-    if (!isXMLRPCError()) {
-        $n = new NotifyWidget();
-	$n->flush();
-	$result = _T("The host has been deleted.");
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
+    $result = _T("The host has been deleted.");
+    if (isset($_POST["updatedns"]) & isset($_POST["zone"])) {
+        delRecord($host, $_POST["zone"]);
+        $result .= " " . _T("The DNS record has been deleted.");
     }
-    header( "Location: main.php?module=network&submod=network&action=subnetmembers&subnet=$subnet");
+    if (!isXMLRPCError()) new NotifyWidgetSuccess($result);
+    header("Location: main.php?module=network&submod=network&action=subnetmembers&subnet=$subnet");
 } else {
     $subnet = urldecode($_GET["subnet"]);
     $host = urldecode($_GET["host"]);
+    $askupdatedns = False;
+    $domain = "";
+    $options = getSubnetOptions(getSubnet($subnet));
+    if (isset($options["domain-name"])) {
+        /*
+           If the DHCP domain name option is set, and corresponds to an existing DNS zone
+           we ask the user if she/he wants to remove the A record in the DNS zone too.
+        */
+        $domain = $options["domain-name"];
+        if (zoneExists($domain)) {
+            if (hostExists($domain, $host)) $askupdatedns = True;
+        }
+    }
 }
 ?>
 
 <p>
-<?= _T("You will delete the host"); ?> <strong><?php echo " $host"; ?></strong>.
+<?= sprintf(_T("You will delete the host %s from the DHCP subnet."), "<strong>$host</strong>"); ?>
 </p>
 
+
 <form action="main.php?module=network&submod=network&action=subnetdeletehost" method="post">
+
+<? if ($askupdatedns) { ?>
+    <p><input type="checkbox" name="updatedns" CHECKED /> <?= sprintf(_("Also unregister this host from DNS zone %s"), $domain); ?></p>
+    <input type="hidden" name="zone" value="<?php echo $domain; ?>" />
+<? } ?>
+
 <input type="hidden" name="host" value="<?php echo $host; ?>" />
 <input type="hidden" name="subnet" value="<?php echo $subnet; ?>" />
 <input type="submit" name="bconfirm" class="btnPrimary" value="<?= _T("Delete host"); ?>" />
