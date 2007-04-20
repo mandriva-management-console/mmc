@@ -34,7 +34,7 @@ $mod->setAPIVersion('0:0:0');
  * user submod definition
  */
 
-$submod = new ExpertSubModule("network");
+$submod = new SubModule("network");
 $submod->setDescription(_T("Network management","network"));
 $submod->setImg('modules/network/graph/img/network');
 $submod->setDefaultPage("network/network/index");
