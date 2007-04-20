@@ -97,8 +97,7 @@ if (isset($_POST["badd"])) {
         }
         
         if (!isXMLRPCError()) {
-            $result .= " " . _T("DNS zone successfully added.")
-            new NotifyWidgetSuccess($result);
+             new NotifyWidgetSuccess($result);
             header("Location: " . urlStrRedirect("network/network/index"));
         }
     } else
