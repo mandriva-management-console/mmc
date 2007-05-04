@@ -37,28 +37,6 @@ $p = new PageGenerator();
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
-if (isset($_GET["command"]) && isset($_GET["service"])) {
-    $command = $_GET["command"];
-    $service = $_GET["service"];
-    if (in_array($command, array("start", "stop", "reload"))) {
-        if ($service == "DNS") dnsService($command);
-        else if ($service == "DHCP") dhcpService($command);
-    } else if ($command == "logview") {
-        /* Redirect to corresponding log page */
-        if ($service == "DHCP") header("Location: " . urlStrRedirect("base/logview/dhcpindex"));
-        else if ($service == "DNS") header("Location: " . urlStrRedirect("base/logview/dnsindex"));
-        exit;
-    }
-    if (!isXMLRPCError()) {
-        $result = array(
-                        "start" => _T("The service has been asked to start"),
-                        "stop" => _T("The service has been asked to stop"),
-                        "reload" => _T("The service has been asked to reload")                        
-                        );
-        new NotifyWidgetSuccess($result[$command]);
-    }
-}
-
 /* Set the available action items according to the service status */
 $params = array();
 $actionsStart = array();
@@ -66,10 +44,10 @@ $actionsStop = array();
 $actionsReload = array();
 $actionsLog = array();
 
-$startAction = new ActionItem(_T("Start service"),"services","start","command=start&amp;service");
-$stopAction = new ActionItem(_T("Stop service"),"services","stop","command=stop&amp;service");
-$reloadAction = new ActionItem(_T("Reload service"),"services","reload","command=reload&amp;service");
-$logAction = new ActionItem(_T("View log"),"services","afficher","command=logview&amp;service");
+$startAction = new ActionItem(_T("Start service"),"servicestart","start", "");
+$stopAction = new ActionItem(_T("Stop service"),"servicestop","stop","");
+$reloadAction = new ActionItem(_T("Reload service"),"servicereload","reload","");
+$logAction = new ActionItem(_T("View log"),"servicelog","afficher","");
 $emptyAction = new EmptyActionItem();
 
 $status = array();
@@ -101,7 +79,7 @@ if (dnsService("status")) {
 $l = new ListInfos(array("DHCP", "DNS"), _T("Services"));
 $l->setName(_T("Network services status"));
 $l->addExtraInfo($status, _T("Status"));
-$l->setParamInfo(array());
+$l->setParamInfo(array(array("service" => "DHCP"), array("service" => "DNS")));
 $l->setTableHeaderPadding(1);
 $l->disableFirstColumnActionLink();
 

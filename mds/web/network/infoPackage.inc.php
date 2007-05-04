@@ -117,6 +117,23 @@ $submod->addPage($page);
 $page = new Page("services",_T("Network services management","network"));
 $submod->addPage($page);
 
+$page = new Page("servicelog",_T("Network services management","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False));
+$submod->addPage($page);
+
+$page = new Page("servicestart",_T("Network services management","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False));
+$submod->addPage($page);
+
+$page = new Page("servicestop",_T("Network services management","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False));
+$submod->addPage($page);
+
+$page = new Page("servicereload",_T("Network services management","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False));
+$submod->addPage($page);
+
+
 
 $mod->addSubmod($submod);
 
