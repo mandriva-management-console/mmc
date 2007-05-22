@@ -19,17 +19,71 @@ if ($_GET["action"] == "subnetedit") $sidemenu->forceActiveItem("subnetindex");
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
-if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
+function checkSubnet() {
+    /* Check that the given subnet is not contained into an existing subnet */
+    $subnet = $_POST["subnet"];
+    $netmask = $_POST["netmask"];
+    foreach(getSubnets("") as $dn => $entry) {
+        $sub = $entry[1]["cn"][0];
+        $mask = $entry[1]["dhcpNetMask"][0];
+        if (ipInNetwork($subnet, $sub, $mask, True)) {
+            $error = sprintf(_T("The given network address belongs to the already existing DHCP subnet %s / %s."), $sub, $mask);
+            setFormError("subnet");
+            setFormError("netmask");
+            break;
+        }
+    }
+    if (isset($error)) {
+        $_POST["subnet"] = "";
+        $_POST["netmask"] = "";
+    }
+    return array(isset($error), $error);
+}
+
+function checkPool() {
+    /* Check that the given pool range is valid */
+    $subnet = $_POST["subnet"];
+    $netmask = $_POST["netmask"];
+
+    if (isset($_POST["badd"])) $pool = array();
+    else $pool = getPool($subnet);
+    if (isset($_POST["subnetpool"])) {
+        if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
+            $ipstart = $_POST["ipstart"];
+            $ipend = $_POST["ipend"];
+            if (!(ipLowerThan($ipstart, $ipend) && ipInNetwork($ipstart, $subnet, $netmask) && ipInNetwork($ipend, $subnet, $netmask)))
+                $error .= _T("The specified dynamic pool IP range is not valid.");
+        } else $error.= _T("No dynamic pool IP range specified.");
+    }
+    return array(isset($error), $error);
+}
+
+if (isset($_POST["badd"])) $checks = array("checkSubnet", "checkPool");
+if (isset($_POST["bedit"])) $checks = array("checkPool");
+
+
+if (isset($_POST["badd"]) | isset($_POST["bedit"])) {
+    foreach($checks as $check) {
+        list($result, $error) = call_user_func($check);
+        if ($result) break;
+    }
+    print $subnet . " " . $netmask;
+}
+    
+if (!isset($error)
+     & (isset($_POST["badd"]) || (isset($_POST["bedit"])))) {
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
     $description = stripslashes($_POST["description"]);
-    /* Create or edit the subnet */
+    
+    /* edit the subnet */
     if (isset($_POST["badd"])) {
-        addSubnet($subnet, $netmask, $description);
+        addSubnet($subnet, $netmask, $description);        
     } else {
         setSubnetNetmask($subnet, $netmask);
         setSubnetDescription($subnet, $description);
     }
+
     /* Update the DHCP options */
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path");
     foreach($names as $name) {
@@ -40,6 +94,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             $value = str_replace(" ", ",", $value);
         setSubnetOption($subnet, $name, $value);
     }
+
     /* Update the DHCP statements */
     $names = array("filename");
     foreach($names as $name) {
@@ -50,6 +105,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         }
         setSubnetStatement($subnet, $name, $value);
     }
+    
     /* Create or update the DHCP pool */
     if (isset($_POST["badd"])) $pool = array();
     else $pool = getPool($subnet);
@@ -57,18 +113,17 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
             $ipstart = $_POST["ipstart"];
             $ipend = $_POST["ipend"];
-            if (ipLowerThan($ipstart, $ipend) && ipInNetwork($ipstart, $subnet, $netmask) && ipInNetwork($ipend, $subnet, $netmask)) {
-                if (count($pool)) setPoolRange($subnet, $ipstart, $ipend);
-                else {
-                    /* The pool needs to be created */
-                    addPool($subnet, $subnet, $ipstart, $ipend);
-                }
+            if (count($pool)) setPoolRange($subnet, $ipstart, $ipend);
+            else {
+                /* The pool needs to be created */
+                addPool($subnet, $subnet, $ipstart, $ipend);
             }
         }
     } else {
         /* Dynamic pool management is not checked */
         if (count($pool)) delPool($subnet);
     }
+    
     if (!isXMLRPCError()) {
         if (isset($_POST["badd"])) {
             new NotifyWidgetSuccess(_T("Subnet successfully added. You must restart the DHCP service."));
@@ -76,17 +131,26 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         } else if (isset($_POST["bedit"])) {
             new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
         }
-    }
+    }    
 }
 
+if (isset($error)) {
+    new NotifyWidgetFailure($error);
+    $subnet = $_POST["subnet"];
+    $netmask = $_POST["netmask"];
+    if (isset($_POST["subnetpool"])) $hasSubnetPool = "checked";
+    else $hasSubnetPool = "";    
+}
+
+
 if ($_GET["action"] == "subnetedit") {
-    $subnet = getSubnet($_GET["subnet"]);
-    $cn = $subnet[0][1]["cn"][0];
-    $netmask = $subnet[0][1]["dhcpNetMask"][0];
-    $description = $subnet[0][1]["dhcpComments"][0];
-    $options = getSubnetOptions($subnet);
-    $statements = getSubnetStatements($subnet);
-    $pool = getPool($cn);
+    $subnetInfos = getSubnet($_GET["subnet"]);
+    $subnet = $subnetInfos[0][1]["cn"][0];
+    $netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
+    $description = $subnetInfos[0][1]["dhcpComments"][0];
+    $options = getSubnetOptions($subnetInfos);
+    $statements = getSubnetStatements($subnetInfos);
+    $pool = getPool($_GET["subnet"]);
     if (count($pool)) {
         $hasSubnetPool = "checked";
         $range = $pool[0][1]["dhcpRange"][0];
@@ -109,9 +173,11 @@ if ($_GET["action"]=="subnetadd") {
 }
 
 $tr = new TrFormElement(_T("DHCP subnet address"), $formElt);
-$tr->display(array("value" => $cn, "required" => True));
+$tr->setCssError("subnet");
+$tr->display(array("value" => $subnet, "required" => True));
 
 $tr = new TrFormElement(_T("Netmask"),new NetmaskInputTpl("netmask"));
+$tr->setCssError("netmask");
 $tr->display(array("value" => $netmask, "required" => True, "extra" => "(e.g. 24 for a /24 network)"));
 
 $tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
