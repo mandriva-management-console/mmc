@@ -71,7 +71,7 @@ foreach(getSubnetHosts($subnet, "") as $dn => $entry) {
         /* Don't display a host if filtered */
         if (
             (strpos($hostname, $filter) === False)
-            && (strpos($ipaddress, $filter) === False)
+            && (strpos(long2ip($ipaddress), $filter) === False)
             && (strpos($lines[$ipaddress]["macaddress"], $filter) === False)
             ) {
 	    unset($lines[$ipaddress]);
