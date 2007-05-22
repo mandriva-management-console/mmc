@@ -151,10 +151,11 @@ function _mail_delUserFromGroup($user, $group) {
  * @param $postArr $_POST array of the page
  * @param $ldapArr ldap array return by getDetailedUser xmlrpc function
  */
-function _mail_baseEdit($ldapArr,$postArr) {
+function _mail_baseEdit($ldapArr, $postArr) {
+  $f = new Form();
 
-  print "<div class=\"formblock\" style=\"background-color: #FFD;\">";
-  print "<h3>"._T("Mail plugin","mail")."</h3>\n";
+  $df = new DivForm(_T("Mail plugin","mail"), "#FFD");
+  $df->begin();
 
   if ($ldapArr['mailenable'][0]=='NONE') {
     $checkedMail = "checked";
@@ -168,18 +169,15 @@ function _mail_baseEdit($ldapArr,$postArr) {
         $hasMail = "checked";
   }
 
-
-
-  print '<table cellspacing="0">';
+  $f->beginTable();
   $test = new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess"));
   $test->setCssError("accesMail");
   $param=array("value"=>$hasMail,
                "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"');
   $test->display($param);
+  $f->endTable();
 
-  print "</table>";
-
-  //set default value
+  // Set default value
   if (!isset($ldapArr['maildrop'])) {
     $ldapArr['maildrop'] = array('');
   }
@@ -188,53 +186,49 @@ function _mail_baseEdit($ldapArr,$postArr) {
     $ldapArr['mailalias'] = array('');
   }
 
-  if (!$hasMail) {
-    $style = 'style =" display: none;"';
-  }
+  $maildiv = new Div("maildiv", $hasMail);
+  $maildiv->begin();
 
-  print '<div id="maildiv" '.$style.'>';
-
-  print '<table cellspacing="0">';
+  $f->beginTable();
   $test = new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable"));
   $test->setCssError("mailenable");
   $param=array("value"=>$checkedMail);
   $test->display($param);
-
   $tr = new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/'));
   $tr->display(array("value" => $ldapArr["mailuserquota"][0]));
-  print "</table>";
+  $f->endTable();
 
   if (hasVDomainSupport()) {
       $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
       /* In virtual domain mode, maildrop must be an email address */
-      $m->setRegexp('/^[0-9a-zA-Z.]+@[0-9a-zA-Z.]+$/');
+      $m->setRegexp('/^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.]+$/');
   } else {
       $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
-      $m->setRegexp('/^([0-9a-zA-Z@.])+$/');
+      $m->setRegexp('/^([0-9a-zA-Z_.-@.])+$/');
   }
   $test = new FormElement(_T("Mail drop","mail"),$m);
   $test->setCssError("maildrop");
   $test->display($ldapArr['maildrop']);
 
   $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
-  $m->setRegexp('/^([0-9a-zA-Z@.-])+$/');
+  $m->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
 
   $test = new FormElement(_T("Mail alias","mail"),$m);
   $test->setCssError("mailalias");
   $test->display($ldapArr['mailalias']);
 
   if (hasVDomainSupport()) {
-?>
-<div id="expertMode" <?displayExpertCss();?>>
-<table cellspacing="0">
-<?
+    $expertdiv = new DivExpertMode();
+    $expertdiv->begin();
+    $f->beginTable();
     $mailbox = new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox"));
     $mailbox->display(array("value" => $ldapArr["mailbox"][0]));
+    $f->endTable();
+    $expertdiv->end();
   }
-?> </table></div> <?
 
-  print '</div>';
-  print '</div>';
+  $maildiv->end();
+  $df->end();
 
   if (($_GET['action'] == 'add') && (!hasVDomainSupport())) { //suggest only on add user
   ?>
@@ -260,7 +254,7 @@ function _mail_baseEdit($ldapArr,$postArr) {
  */
 function _mail_verifInfo($postArr) {
     if ($postArr["mailaccess"]) {
-        $ereg='/^([0-9a-zA-Z@.-])*$/';
+        $ereg='/^([0-9a-zA-Z@._-])*$/';
         foreach ($postArr['mailalias'] as $key => $value) {
             if (!preg_match($ereg, $postArr["mailalias"][$key]))  {
                 global $error;
@@ -268,7 +262,7 @@ function _mail_verifInfo($postArr) {
                 $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
             }
         }
-        $mailreg='/^([A-Za-z0-9_.-]+@[A-Za-z0-9.-]+)$/';
+        $mailreg='/^([A-Za-z0-9._-]+@[A-Za-z0-9.-]+)$/';
         if (!preg_match($mailreg, $postArr["mail"])) {
             global $error;
             setFormError("mail");
