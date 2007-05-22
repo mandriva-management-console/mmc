@@ -6,18 +6,11 @@ require("graph/navbar.inc.php");
 
 if ($_GET["action"] == "subnetadd") $title =  _T("Add a DHCP subnet");
 else $title =  _T("Edit DHCP subnet");;
-?>
 
-<h2><?= $title; ?></h2>
-
-<div class="fixheight"></div>
-
-<?
-
-$p = new PageGenerator();
+$p = new PageGenerator($title);
 if ($_GET["action"] == "subnetedit") $sidemenu->forceActiveItem("subnetindex");
 $p->setSideMenu($sidemenu);
-$p->displaySideMenu();
+$p->display();
 
 function checkSubnet() {
     /* Check that the given subnet is not contained into an existing subnet */
@@ -95,7 +88,7 @@ if (!isset($error)
     }
 
     /* Update the DHCP statements */
-    $names = array("filename");
+    $names = array("filename", "min-lease-time", "default-lease-time", "max-lease-time");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
         if (strlen($value)) {
@@ -183,8 +176,8 @@ $tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
 $tr->display(array("value" => $description));
 
 $f->endTable();
-$f->beginTable();
 
+$f->beginTable();
 $tr = new TrFormElement(_("DHCP options related to clients network parameters"), new HiddenTpl(""));
 $tr->display(array());
 
@@ -202,10 +195,9 @@ $tr->display(array("value"=>$options["domain-name-servers"]));
 
 $tr = new TrFormElement(_T("NTP servers"),new HostIpListInputTpl("ntp-servers"));
 $tr->display(array("value"=>$options["ntp-servers"]));
-
 $f->endTable();
-$f->beginTable();
 
+$f->beginTable();
 $tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
 $tr->display(array());
 
@@ -214,34 +206,42 @@ $tr->display(array("value"=>$statements["filename"]));
 
 $tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("root-path"));
 $tr->display(array("value"=>$options["root-path"]));
-
 $f->endTable();
-$f->beginTable();
 
+$f->beginTable();
+$tr = new TrFormElement(_T("DHCP client lease time (in seconds)"), new HiddenTpl(""));
+$tr->display(array());
+
+$tr = new TrFormElement(_T("Minimum lease time"),new NumericInputTpl("min-lease-time"));
+$tr->display(array("value"=>$statements["min-lease-time"]));
+
+$tr = new TrFormElement(_T("Default lease time"),new NumericInputTpl("default-lease-time"));
+$tr->display(array("value"=>$statements["default-lease-time"]));
+
+$tr = new TrFormElement(_T("Maximum lease time"),new NumericInputTpl("max-lease-time"));
+$tr->display(array("value"=>$statements["max-lease-time"]));
+$f->endTable();
+
+
+$f->beginTable();
 $tr = new TrFormElement(_T("Dynamic pool for non-registered DHCP clients", "network"),new CheckboxTpl("subnetpool"));
 $param=array("value"=>$hasSubnetPool,
 	     "extraArg"=>'onclick="toggleVisibility(\'pooldiv\');"');
 $tr->display($param);
-
 $f->endTable();
 
-if (!$hasSubnetPool) $style = 'style =" display: none;"';
-else $style = "";
-print '<div id="pooldiv" '.$style.'>';
-
+$pooldiv = new Div("pooldiv", $hasSubnetPool);
+$pooldiv->begin();
 $f->beginTable();
-
 $tr = new TrFormElement(_T("IP range start"), new IPInputTpl("ipstart"));
 $tr->display(array("value"=>$ipstart));
 
 $tr = new TrFormElement(_T("IP range end"), new IPInputTpl("ipend"));
 $tr->display(array("value"=>$ipend));
-
 $f->endTable();
+$pooldiv->end();
 
 ?>
-
-</div>
 
 <? if ($_GET["action"] == "subnetadd") { ?>
     <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
