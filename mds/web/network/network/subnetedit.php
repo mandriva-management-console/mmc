@@ -67,7 +67,6 @@ if (isset($_POST["badd"]) | isset($_POST["bedit"])) {
         list($result, $error) = call_user_func($check);
         if ($result) break;
     }
-    print $subnet . " " . $netmask;
 }
     
 if (!isset($error)
