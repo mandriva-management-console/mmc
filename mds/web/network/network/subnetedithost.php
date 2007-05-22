@@ -130,12 +130,13 @@ $sidemenu->forceActiveItem("subnetindex");
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 
+$f = new Form();
 ?>
 
 <form id="edit" name="subnetedithostform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();" >
-<table cellspacing="0">
 
 <?
+$f->beginTable();
 if ($_GET["action"]=="subnetaddhost") {
     $formElt = new HostnameInputTpl("hostname");
 } else {
@@ -153,10 +154,38 @@ $tr = new TrFormElement(_T("IP address"),new IPInputTpl("ipaddress"));
 $tr->setCssError("ipaddress");
 $tr->display(array("value" => $ipaddress, "required" => True));
 
-?>
-</table>
-<table cellspacing="0">
-<?
+$f->endTable();
+
+$options = getSubnetOptions(getSubnet($subnet));
+if (isset($options["domain-name"])) {
+    /*
+        If the DHCP domain name option is set, and corresponds to an existing DNS zone
+        we ask the user if she/he wants to record the machine in the DNS zone too.
+    */
+    $domain = $options["domain-name"];
+    if (zoneExists($domain)) {
+        $f->beginTable();
+        if ($_GET["action"] == "subnetaddhost") {            
+            $tr = new TrFormElement(_T("Also records this machine into DNS zone") . "&nbsp;" . $domain, new CheckboxTpl("dnsrecord"));
+            $tr->display(array("value" => "CHECKED"));
+        } else {
+            $domainurl = urlStr("network/network/zonemembers", array("zone" => "localnet"));
+            $domainlink = '<a href="' . $domainurl . "\">$domain</a>";
+            if (hostExists($domain, $hostname)) {
+                $tr = new TrFormElement(sprintf(_T("This host is registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
+                $tr->display(array());            
+            } else {
+                $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
+                $tr = new TrFormElement($warn, new HiddenTpl(""));
+                $tr->display(array());
+            }            
+        }
+        $f->endTable();
+    }
+}
+
+$f->beginTable();
+
 $tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
 $tr->display(array());
 
@@ -165,36 +194,17 @@ $tr->display(array("value"=>$filename));
 
 $tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("rootpath"));
 $tr->display(array("value"=>$rootpath));
-?>
-</table>
 
-<? if ($_GET["action"] == "subnetaddhost") { ?>
+$f->endTable();
 
-<table>
-<?
-$options = getSubnetOptions(getSubnet($subnet));
-if (isset($options["domain-name"])) {
-    /*
-       If the DHCP domain name option is set, and corresponds to an existing DNS zone
-       we ask the user if she/he wants to record the machine in the DNS zone too.
-    */
-    $domain = $options["domain-name"];
-    if (zoneExists($domain)) {
-        $tr = new TrFormElement(_T("Also records this machine into DNS zone") . "&nbsp;" . $domain, new CheckboxTpl("dnsrecord"));
-        $tr->display(array("value" => "CHECKED"));
-    }
-}
-?>
-</table >
-<? } ?>
-
-<? if ($_GET["action"] == "subnetaddhost") { ?>
+if ($_GET["action"] == "subnetaddhost") { ?>
     <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
 <? } else { ?>
     <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
-<? } ?>
+<? }
 
-</form>
+$f->end();
+?>
 
 <script>
 document.body.onLoad = document.subnetedithostform.hostname.focus();
