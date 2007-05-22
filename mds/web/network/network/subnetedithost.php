@@ -14,13 +14,11 @@ if (count($subnetInfos) == 0) {
 $netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
 if ($_GET["action"] == "subnetaddhost") $title =  sprintf(_T("Add a DHCP host to subnet %s / %s"), $subnet, $netmask);
 else $title = sprintf(_T("Edit DHCP host of subnet %s"), $subnet);
-?>
 
-<h2><?= $title; ?></h2>
-
-<div class="fixheight"></div>
-
-<?
+$p = new PageGenerator($title);
+$sidemenu->forceActiveItem("subnetindex");
+$p->setSideMenu($sidemenu);
+$p->display();
 
 global $error;
 
@@ -48,31 +46,34 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             setFormError("ipaddress");
         }
     }
-    /* Check that this hostname or IP address has been already registered in the DHCP subnet */
-    if (hostExistsInSubnet($subnet, $hostname)) {
-        $error .= _T("The specified hostname has been already registered in this DHCP subnet.") . " ";
-        setFormError("hostname");
-        $hostname = "";        
-    }
-    if (ipExistsInSubnet($subnet, $ipaddress)) {
-        $error .= _T("The specified IP address has been already registered in this DHCP subnet.") . " ";
-        setFormError("ipaddress");
-        $ipaddress = "";       
-    }
-    if (isset($_POST["dnsrecord"]) && !isset($error)) {
-        /* Check that no hostname and reverse for this IP address exist in the DNS zone */
-        $options = getSubnetOptions(getSubnet($subnet));
-        if (isset($options["domain-name"])) {
-            $zone = $options["domain-name"];
-            if (hostExists($zone, $hostname)) {
-                $error .= sprintf(_T("The specified hostname has been already registered in DNS zone %s."), $zone) . " ";
-                setFormError("hostname");
-                $hostname = "";
-            }
-            if (ipExists($zone, $ipaddress)) {
-                $error .= sprintf(_T("The specified IP address has been already registered in DNS zone %s."), $zone) . " ";
-                setFormError("ipaddress");
-                $ipaddress = "";
+
+    if (isset($_POST["badd"])) {
+        /* Check that this hostname or IP address has been already registered in the DHCP subnet */
+        if (hostExistsInSubnet($subnet, $hostname)) {
+            $error .= _T("The specified hostname has been already registered in this DHCP subnet.") . " ";
+            setFormError("hostname");
+            $hostname = "";        
+        }
+        if (ipExistsInSubnet($subnet, $ipaddress)) {
+            $error .= _T("The specified IP address has been already registered in this DHCP subnet.") . " ";
+            setFormError("ipaddress");
+            $ipaddress = "";       
+        }
+        if (isset($_POST["dnsrecord"]) && !isset($error)) {
+            /* Check that no hostname and reverse for this IP address exist in the DNS zone */
+            $options = getSubnetOptions(getSubnet($subnet));
+            if (isset($options["domain-name"])) {
+                $zone = $options["domain-name"];
+                if (hostExists($zone, $hostname)) {
+                    $error .= sprintf(_T("The specified hostname has been already registered in DNS zone %s."), $zone) . " ";
+                    setFormError("hostname");
+                    $hostname = "";
+                }
+                if (ipExists($zone, $ipaddress)) {
+                    $error .= sprintf(_T("The specified IP address has been already registered in DNS zone %s."), $zone) . " ";
+                    setFormError("ipaddress");
+                    $ipaddress = "";
+                }
             }
         }
     }
@@ -125,11 +126,6 @@ if ($_GET["action"] == "subnetedithost") {
     }
 }
 
-$p = new PageGenerator();
-$sidemenu->forceActiveItem("subnetindex");
-$p->setSideMenu($sidemenu);
-$p->displaySideMenu();
-
 $f = new Form();
 ?>
 
@@ -139,40 +135,42 @@ $f = new Form();
 $f->beginTable();
 if ($_GET["action"]=="subnetaddhost") {
     $formElt = new HostnameInputTpl("hostname");
+    $formEltIp = new IPInputTpl("ipaddress");
 } else {
     $formElt = new HiddenTpl("hostname");
+    $formEltIp = new HiddenTpl("ipaddress");
 }
 
 $tr = new TrFormElement(_T("Host name"), $formElt);
 $tr->setCssError("hostname");
 $tr->display(array("value" => $hostname, "required" => True));
 
-$tr = new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress"));
-$tr->display(array("value" => $macaddress, "required" => True));
-
-$tr = new TrFormElement(_T("IP address"),new IPInputTpl("ipaddress"));
+$tr = new TrFormElement(_T("IP address"), $formEltIp);
 $tr->setCssError("ipaddress");
 $tr->display(array("value" => $ipaddress, "required" => True));
+
+$tr = new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress"));
+$tr->display(array("value" => $macaddress, "required" => True));
 
 $f->endTable();
 
 $options = getSubnetOptions(getSubnet($subnet));
 if (isset($options["domain-name"])) {
-    /*
-        If the DHCP domain name option is set, and corresponds to an existing DNS zone
-        we ask the user if she/he wants to record the machine in the DNS zone too.
-    */
     $domain = $options["domain-name"];
     if (zoneExists($domain)) {
         $f->beginTable();
-        if ($_GET["action"] == "subnetaddhost") {            
+        if ($_GET["action"] == "subnetaddhost") {
+            /*
+                If the DHCP domain name option is set, and corresponds to an existing DNS zone
+                we ask the user if she/he wants to record the machine in the DNS zone too.
+            */
             $tr = new TrFormElement(_T("Also records this machine into DNS zone") . "&nbsp;" . $domain, new CheckboxTpl("dnsrecord"));
             $tr->display(array("value" => "CHECKED"));
         } else {
             $domainurl = urlStr("network/network/zonemembers", array("zone" => "localnet"));
             $domainlink = '<a href="' . $domainurl . "\">$domain</a>";
             if (hostExists($domain, $hostname)) {
-                $tr = new TrFormElement(sprintf(_T("This host is registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
+                $tr = new TrFormElement(sprintf(_T("This host is also registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
                 $tr->display(array());            
             } else {
                 $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
