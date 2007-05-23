@@ -23,9 +23,12 @@ $p->display();
 global $error;
 
 if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
+    $updatednsrecord = False;
+    $zone = "";
     $hostname = $_POST["hostname"];
     $macaddress = $_POST["macaddress"];
     $ipaddress = $_POST["ipaddress"];
+    $oldip = $_POST["oldip"];
     $filename = trim($_POST["filename"]);
     if (strlen($filename)) $filename = '"' . $filename . '"';
     $rootpath = trim($_POST["rootpath"]);
@@ -46,6 +49,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             setFormError("ipaddress");
         }
     }
+
 
     if (isset($_POST["badd"])) {
         /* Check that this hostname or IP address has been already registered in the DHCP subnet */
@@ -76,6 +80,30 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
                 }
             }
         }
+    } else if (isset($_POST["bedit"])) {
+        if ($_POST["oldip"] != $ipaddress) {
+            /* The static IP must be changed */
+            if (ipExistsInSubnet($subnet, $ipaddress)) {
+                $error .= _T("The specified IP address has been already registered in this DHCP subnet.") . " ";
+                setFormError("ipaddress");
+            }
+            $options = getSubnetOptions(getSubnet($subnet));
+            if (isset($options["domain-name"])) {
+                /* If a DNS record exists for this machine, we need to update it too */
+                $zone = $options["domain-name"];
+                if (hostExists($zone, $hostname) && ipExists($zone, $oldip)) {
+                    /* a record exists, can we update it ? */
+                    if (ipExists($zone, $ipaddress)) {
+                        /* The new IP already exists */
+                        /* If the current hostname doesn't resolve to this already existing IP, we can't register it */
+                        if (resolve($zone, $hostname) != $ipaddress) {
+                            $error .= sprintf(_T("The IP address %s is already registered in DNS zone %s"), $ipaddress, $zone);
+                            setFormError("ipaddress");
+                        } /* else there is no need to update the DNS record, it is already set to the good value */
+                    } else $updatednsrecord = True;
+                } 
+            }
+        }
     }
     if (!isset($error)) {
         if (isset($_POST["badd"])) {
@@ -83,21 +111,23 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             setHostOption($hostname, "host-name", $hostname);
             if (isset($_POST["dnsrecord"])) {
                 $options = getSubnetOptions(getSubnet($subnet));
-                if (isset($options["domain-name"])) addRecordA($hostname, $ipaddress, $options["domain-name"]);
+                if (isset($options["domain-name"])) addRecordA($options["domain-name"], $hostname, $ipaddress);
             }
         }
         setHostOption($hostname, "root-path", $rootpath);
         setHostStatement($hostname, "filename", $filename);
         setHostHWAddress($hostname, $macaddress);
         setHostStatement($hostname, "fixed-address", $ipaddress);
+        if ($updatednsrecord) modifyRecord($zone, $hostname, $ipaddress);
         // Display result message
-        if (!isXMLRPCError() && isset($_POST["badd"])) {
-            $result .= _T("Host successfully added.");
+        if (!isXMLRPCError()) {
+            if (isset($_POST["badd"])) $result .= _T("Host successfully added.");
+            else $result .= _T("Host successfully modified.");
+            if ($updatednsrecord) $result .= "<br>" . _T("DNS record successfully modified");
             new NotifyWidgetSuccess($result);
             header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => $subnet)));
         }
-    }
-    if (isset($error)) new NotifyWidgetFailure($error);
+    } else new NotifyWidgetFailure($error);
 }
 
 if ($_GET["action"] == "subnetedithost") {
@@ -135,17 +165,18 @@ $f = new Form();
 $f->beginTable();
 if ($_GET["action"]=="subnetaddhost") {
     $formElt = new HostnameInputTpl("hostname");
-    $formEltIp = new IPInputTpl("ipaddress");
 } else {
     $formElt = new HiddenTpl("hostname");
-    $formEltIp = new HiddenTpl("ipaddress");
+    /* Keep the old IP in the page to detect that the user want to change the machine IP */
+    $oldIp = new HiddenTpl("oldip");
+    $oldIp->display(array("value" => $ipaddress, "hide" => True));
 }
 
 $tr = new TrFormElement(_T("Host name"), $formElt);
 $tr->setCssError("hostname");
 $tr->display(array("value" => $hostname, "required" => True));
 
-$tr = new TrFormElement(_T("IP address"), $formEltIp);
+$tr = new TrFormElement(_T("IP address"), new IPInputTpl("ipaddress"));
 $tr->setCssError("ipaddress");
 $tr->display(array("value" => $ipaddress, "required" => True));
 
@@ -168,7 +199,7 @@ if (isset($options["domain-name"])) {
             $tr->display(array("value" => "CHECKED"));
         } else {
             $domainurl = urlStr("network/network/zonemembers", array("zone" => "localnet"));
-            $domainlink = '<a href="' . $domainurl . "\">$domain</a>";            
+            $domainlink = '<a href="' . $domainurl . "\">$domain</a>";
             if (hostExists($domain, $hostname)) {
                 $tr = new TrFormElement(sprintf(_T("This host name is also registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
                 $tr->display(array());
@@ -182,7 +213,7 @@ if (isset($options["domain-name"])) {
                 $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
                 $tr = new TrFormElement($warn, new HiddenTpl(""));
                 $tr->display(array());
-                $newhosturl = urlStr("network/network/addhost", array("zone" => "localnet", "host" => $hostname, "ipaddress" => $ipaddress));
+                $newhosturl = urlStr("network/network/addhost", array("zone" => "localnet", "host" => $hostname, "ipaddress" => $ipaddress, "gobackto" => rawurlencode($_SERVER["QUERY_STRING"])));
                 $newhostlink = '<a href="' . $newhosturl . '">' . _T("Click here to add it") . "</a>";
                 $tr = new TrFormElement($newhostlink, new HiddenTpl(""));
                 $tr->display(array());                
