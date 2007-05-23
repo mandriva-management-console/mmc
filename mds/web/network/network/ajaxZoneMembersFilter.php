@@ -66,7 +66,7 @@ $sorted = array();
 $params = array();
 foreach($addresses as $ip => $host) {
     $sorted[] = long2ip($ip);
-    $params[] = array("host" => $host);
+    $params[] = array("host" => $host, "zone" => $zone);
 }
 
 if (isset($_GET["start"])) {
@@ -90,7 +90,7 @@ $n->setName(_T("Host", "network"));
 $n->setParamInfo($params);
 $n->disableFirstColumnActionLink();
 
-$n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"deletehost","supprimer","zone=$zone&address", "network", "network"));
+$n->addActionItem(new ActionPopupItem(_T("Delete host", "network"),"deletehost","supprimer","", "network", "network"));
 
 $n->display(0);
 
