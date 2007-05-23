@@ -182,6 +182,10 @@ if (isset($options["domain-name"])) {
                 $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
                 $tr = new TrFormElement($warn, new HiddenTpl(""));
                 $tr->display(array());
+                $newhosturl = urlStr("network/network/addhost", array("zone" => "localnet", "host" => $hostname, "ipaddress" => $ipaddress));
+                $newhostlink = '<a href="' . $newhosturl . '">' . _T("Click here to add it") . "</a>";
+                $tr = new TrFormElement($newhostlink, new HiddenTpl(""));
+                $tr->display(array());                
             }            
         }
         $f->endTable();
