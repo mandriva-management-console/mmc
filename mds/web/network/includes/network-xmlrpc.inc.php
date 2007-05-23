@@ -32,12 +32,16 @@ function getZoneNetworkAddress($zone) {
     return xmlCall("network.getZoneNetworkAddress", array($zone));
 }
 
-function addRecordA($hostname, $ip, $zone) {
-    xmlCall("network.addRecordA", array($hostname, $ip, $zone));
+function addRecordA($zone, $hostname, $ip) {
+    xmlCall("network.addRecordA", array($zone, $hostname, $ip));
 }
 
-function delRecord($hostname, $zone) {
-    xmlCall("network.delRecord", array($hostname, $zone));
+function delRecord($zone, $hostname) {
+    xmlCall("network.delRecord", array($zone, $hostname));
+}
+
+function modifyRecord($zone, $hostname, $ip) {
+    xmlCall("network.modifyRecord", array($zone, $hostname, $ip));
 }
 
 function getZoneObjectsCount($zone) {
