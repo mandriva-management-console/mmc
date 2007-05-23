@@ -7,18 +7,11 @@ require("graph/navbar.inc.php");
 
 if ($_GET["action"] == "addhost") $title =  _T("Add a host");
 else $title =  _T("Edit host");;
-?>
 
-<h2><?= $title; ?></h2>
-
-<div class="fixheight"></div>
-
-<?
-
-$p = new PageGenerator();
+$p = new PageGenerator($title);
 $sidemenu->forceActiveItem("index");
 $p->setSideMenu($sidemenu);
-$p->displaySideMenu();
+$p->display();
 
 $zone = $_GET["zone"];
 global $error;
@@ -33,15 +26,18 @@ if (isset($_POST["badd"])) {
         $hostname = "";
     }
     if (ipExists($zone, $address)) {
-        $error .= _T("The specified IP address has been already recorded in this zone");
+        $error .= _T("The specified IP address has been already recorded in this zone.");
         setFormError("address");
     } else $keepaddress = True;
     
     if (!isset($error)) {
-        addRecordA($hostname, $address, $zone);        
+        addRecordA($zone, $hostname, $address);
         if (!isXMLRPCError()) {
             new NotifyWidgetSuccess(_T("Host successfully added."));
-            header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
+            if (isset($_GET["gobackto"]))
+                header("Location: " . $_SERVER["PHP_SELF"] . "?" . rawurldecode($_GET["gobackto"]));
+            else
+                header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
         }
     } else new NotifyWidgetFailure($error);
 

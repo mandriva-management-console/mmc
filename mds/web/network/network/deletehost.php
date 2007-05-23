@@ -26,7 +26,7 @@ require("modules/network/includes/network-xmlrpc.inc.php");
 if (isset($_POST["bconfirm"])) {
     $host = $_POST["host"];
     $zone = $_POST["zone"];
-    delRecord($host, $zone);
+    delRecord($zone, $host);
     if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The host has been deleted."));
     header("Location: main.php?module=network&submod=network&action=zonemembers&zone=$zone");
 } else {

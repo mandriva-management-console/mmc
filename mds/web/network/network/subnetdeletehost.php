@@ -30,7 +30,7 @@ if (isset($_POST["bconfirm"])) {
     delHost($host);
     $result = _T("The host has been deleted.");
     if (isset($_POST["updatedns"]) & isset($_POST["zone"])) {
-        delRecord($host, $_POST["zone"]);
+        delRecord($_POST["zone"], $host);
         $result .= " " . _T("The DNS record has been deleted.");
     }
     if (!isXMLRPCError()) new NotifyWidgetSuccess($result);
