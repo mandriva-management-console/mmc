@@ -61,7 +61,8 @@ if ($_GET["action"] == "edit") {
 $a = array("value" => $hostname, "extra" => "." . $zone);
 if ($_GET["action"] == "addhost") {
     $formElt = new HostnameInputTpl("hostname");
-    $a["required"] = True;
+    $a["required"] = True;    
+    if (isset($_GET["host"])) $a["value"] = $_GET["host"]; /* pre-fill hostname field when adding a host */
 } else {
     $formElt = new HiddenTpl("hostname");
 }
@@ -73,12 +74,15 @@ $tr->display($a);
 $tr = new TrFormElement(_T("Network address"), new IPInputTpl("address"));
 $tr->setCssError("address");
 if ($_GET["action"] == "addhost") {
-    if (isset($error) && isset($keepaddress))
-        $network = $address;
+    if (isset($_GET["ipaddress"])) $network = $_GET["ipaddress"]; /* pre-fill IP address field when adding a host */
     else {
-        $zoneaddress = getZoneNetworkAddress($zone);
-        if (!count($zoneaddress)) $network = "";
-        else $network = $zoneaddress[0] . ".";
+        if (isset($error) && isset($keepaddress))
+            $network = $address;
+        else {
+            $zoneaddress = getZoneNetworkAddress($zone);
+            if (!count($zoneaddress)) $network = "";
+            else $network = $zoneaddress[0] . ".";
+        }
     }
     $tr->display(array("value"=>$network, "required" => True));
 } else {
