@@ -68,6 +68,10 @@ function ipExists($zone, $ip) {
     return xmlCall("network.ipExists", array($zone, $ip));
 }
 
+function resolve($zone, $hostname) {
+    return xmlCall("network.resolve", array($zone, $hostname));
+}
+
 /* DHCP RPCs */
 
 /* Subnet */
