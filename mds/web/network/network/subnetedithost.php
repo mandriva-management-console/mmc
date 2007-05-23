@@ -168,10 +168,16 @@ if (isset($options["domain-name"])) {
             $tr->display(array("value" => "CHECKED"));
         } else {
             $domainurl = urlStr("network/network/zonemembers", array("zone" => "localnet"));
-            $domainlink = '<a href="' . $domainurl . "\">$domain</a>";
+            $domainlink = '<a href="' . $domainurl . "\">$domain</a>";            
             if (hostExists($domain, $hostname)) {
-                $tr = new TrFormElement(sprintf(_T("This host is also registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
-                $tr->display(array());            
+                $tr = new TrFormElement(sprintf(_T("This host name is also registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
+                $tr->display(array());
+                $resolvedip = resolve($domain, $hostname);
+                if ((strlen($resolvedip) > 0) && ($ipaddress != $resolvedip)) {
+                    $warn = '<div class="error">' . sprintf(_T("but with another IP address (%s)"), $resolvedip) . '</div>';
+                    $tr = new TrFormElement($warn, new HiddenTpl(""));
+                    $tr->display(array());                    
+                }
             } else {
                 $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
                 $tr = new TrFormElement($warn, new HiddenTpl(""));
