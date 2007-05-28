@@ -77,10 +77,10 @@ if (!isset($error)
     }
 
     /* Update the DHCP options */
-    $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path");
+    $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path", "tftp-server-name");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
-	if (in_array($name, array("domain-name", "root-path")))
+	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
             $value = '"' . $value . '"';
 	if (in_array($name, array("domain-name-servers", "ntp-servers")))
             $value = str_replace(" ", ",", $value);
@@ -206,6 +206,9 @@ $tr->display(array("value"=>$statements["filename"]));
 
 $tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("root-path"));
 $tr->display(array("value"=>$options["root-path"]));
+
+$tr = new TrFormElement(_T("TFTP server name"),new IA5InputTpl("tftp-server-name"));
+$tr->display(array("value"=>$options["tftp-server-name"]));
 $f->endTable();
 
 $f->beginTable();
