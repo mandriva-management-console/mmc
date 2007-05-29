@@ -25,17 +25,9 @@ require("modules/network/includes/network-xmlrpc.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-?>
-
-<h2><?= _T("Network services management"); ?></h2>
-
-<div class="fixheight"></div>
-
-<?
-
-$p = new PageGenerator();
+$p = new PageGenerator(_T("Network services management"));
 $p->setSideMenu($sidemenu);
-$p->displaySideMenu();
+$p->display();
 
 /* Set the available action items according to the service status */
 $params = array();

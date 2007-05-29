@@ -26,22 +26,15 @@ require("modules/network/includes/network.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
+$p = new PageGenerator();
 if ($_GET["action"] == "add") $title =  _T("Add a DNS zone");
 else {
     $title =  _T("Edit DNS zone");;
     $sidemenu->forceActiveItem("index");
 }
-?>
-
-<h2><?= $title; ?></h2>
-
-<div class="fixheight"></div>
-
-<?
-
-$p = new PageGenerator();
+$p->setTitle($title);
 $p->setSideMenu($sidemenu);
-$p->displaySideMenu();
+$p->display();
 
 global $error;
 if (isset($_POST["badd"])) {
@@ -119,12 +112,9 @@ if ($_GET["action"] == "edit") {
     $description = $zones[0][1]["tXTRecord"][0];
 }
 
-?>
+$f = new ValidatingForm();
+$f->push(new Table());
 
-<form name="zoneform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();">
-<table cellspacing="0">
-
-<?
 $arrNetwork = array("value" => $network, "required" => True);
 if ($_GET["action"]=="add") {
     $formElt1 = new DomainInputTpl("zonename");
@@ -134,51 +124,53 @@ if ($_GET["action"]=="add") {
     $formElt1 = new HiddenTpl("zonename");
     $formElt2 = new DomainInputTpl("nameserver");
 }
-
-$tr = new TrFormElement(_T("DNS zone FQDN"), $formElt1);
-$tr->display(array("value" => $zonename, "required" => True));
-
-$tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
-$tr->display(array("value" => $description));
-
-$tr = new TrFormElement(_T("Name server host name"), $formElt2);
-$tr->display(array("value" => $nameserver, "required" => True));
-
+$f->add(
+        new TrFormElement(_T("DNS zone FQDN"), $formElt1),
+        array("value" => $zonename, "required" => True)
+        );
+$f->add(
+        new TrFormElement(_T("Description"),new IA5InputTpl("description")),
+        array("value" => $description)
+        );
+$f->add(
+        new TrFormElement(_T("Name server host name"), $formElt2),
+        array("value" => $nameserver, "required" => True)
+        );
+                
 if ($_GET["action"] == "add") {    
-    $tr = new TrFormElement(_T("Name server IP"),new IPInputTpl("nameserverip"));
-    $tr->display(array("value" => ""));
+    $f->add(
+            new TrFormElement(_T("Name server IP"),new IPInputTpl("nameserverip")),
+            array("value" => "")
+            );
+    $f->pop();
 
-    print "</table";
-    print '<table cellspacing="0">';
-    
-    $tr = new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl(""));
-    $tr->display(array());
-
-    $tr = new TrFormElement(_T("Network address"), new IPInputTpl("netaddress"));
-    $tr->setCssError("netaddress");
-    $tr->display(array("value" => $netaddress));
-
-    $tr = new TrFormElement(_T("Network mask"), new SimpleNetmaskInputTpl("netmask"));
-    $tr->setCssError("netmask");
-    $tr->display(array("value" => $netmask, "extra" => _T("Only 8, 16 or 24 is allowed")));
-
-    $tr = new TrFormElement(_T("Also manage a reverse zone"), new CheckboxTpl("reverse"));
-    $tr->display(array("value" => "CHECKED"));
-
-    $tr = new TrFormElement(_T("Also create a related DHCP subnet"), new CheckboxTpl("dhcpsubnet"));
-    $tr->display(array("value" => "CHECKED"));
+    $f->push(new Table());
+    $f->add(new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl("")));            
+    $f->add(
+            new TrFormElement(_T("Network address"), new IPInputTpl("netaddress")),
+            array("value" => $netaddress)
+            );
+    $f->add(
+            new TrFormElement(_T("Network mask"), new SimpleNetmaskInputTpl("netmask")),
+            array("value" => $netmask, "extra" => _T("Only 8, 16 or 24 is allowed"))
+            );    
+    $f->add(
+            new TrFormElement(_T("Also manage a reverse zone"), new CheckboxTpl("reverse")),
+            array("value" => "CHECKED")
+            );
+    $f->add(
+            new TrFormElement(_T("Also create a related DHCP subnet"), new CheckboxTpl("dhcpsubnet")),
+            array("value" => "CHECKED")
+            );
 }
+
+$f->pop();
+if ($_GET["action"] == "add") {
+    $f->addButton("badd", _("Create"));
+} else {
+    $f->addButton("bedit", _("Confirm"));    
+}
+$f->pop();
+$f->display();
+
 ?>
-
-</table>
-<? if ($_GET["action"] == "add") { ?>
-    <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
-<? } else { ?>
-    <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
-<? } ?>
-
-</form>
-
-<script>
-document.body.onLoad = document.zoneform.zonename.focus();
-</script>

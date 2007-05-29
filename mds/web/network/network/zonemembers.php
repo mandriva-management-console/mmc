@@ -20,20 +20,12 @@
  * along with LMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
-/* $Id$ */
+
 require("modules/network/includes/network-xmlrpc.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$p = new PageGenerator();
-$sidemenu->forceActiveItem("index");
-$p->setSideMenu($sidemenu);
-$p->displaySideMenu();
-
 $zone = $_GET["zone"];
-
 ?>
 
 <form name="Form" id="Form" action="#">
@@ -85,10 +77,12 @@ $zone = $_GET["zone"];
 
 </form>
 
-
-<h2><?= _T("Members of zone") . "&nbsp;" . $zone; ?></h2>
-
-<div class="fixheight"></div>
+<?
+$p = new PageGenerator(_T("Members of zone") . "&nbsp;" . $zone);
+$sidemenu->forceActiveItem("index");
+$p->setSideMenu($sidemenu);
+$p->display();
+?>
 
 <div id="container">
 </div>
