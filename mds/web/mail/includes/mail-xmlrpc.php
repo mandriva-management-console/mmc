@@ -26,7 +26,7 @@ function cleanup_arr($array) {
     /* FIXME: Do we need this function ? */
     $res = array();
     foreach ($array as $item) {
-        if ((preg_match("/^([0-9a-zA-Z@.-]){1,}$/",$item))&&(array_search($item,$res)===False)) {
+        if ((preg_match("/^([0-9a-zA-Z@._-]){1,}$/",$item))&&(array_search($item,$res)===False)) {
             $res[] = $item;
         }
     }
@@ -37,7 +37,7 @@ function changeMailEnable($login,$boolean) {
     return xmlCall("mail.changeMailEnable",array($login,$boolean));
 }
 
-function changeMaildrop($login,$droplist) {
+function changeMaildrop($login, $droplist) {
     $arr = cleanup_arr($droplist);
     if ((count($arr) == 0) && !hasVDomainSupport()) {
       return; //if no maildrop specified
