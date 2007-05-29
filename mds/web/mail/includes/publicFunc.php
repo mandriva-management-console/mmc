@@ -152,10 +152,7 @@ function _mail_delUserFromGroup($user, $group) {
  * @param $ldapArr ldap array return by getDetailedUser xmlrpc function
  */
 function _mail_baseEdit($ldapArr, $postArr) {
-  $f = new Form();
-
-  $df = new DivForm(_T("Mail plugin","mail"), "#FFD");
-  $df->begin();
+  $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
 
   if ($ldapArr['mailenable'][0]=='NONE') {
     $checkedMail = "checked";
@@ -169,13 +166,13 @@ function _mail_baseEdit($ldapArr, $postArr) {
         $hasMail = "checked";
   }
 
-  $f->beginTable();
-  $test = new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess"));
-  $test->setCssError("accesMail");
-  $param=array("value"=>$hasMail,
-               "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"');
-  $test->display($param);
-  $f->endTable();
+  $f->push(new Table());
+  $f->add(
+          new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess")),
+          array("value"=>$hasMail, "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"')
+          );
+  
+  $f->pop();
 
   // Set default value
   if (!isset($ldapArr['maildrop'])) {
@@ -186,17 +183,19 @@ function _mail_baseEdit($ldapArr, $postArr) {
     $ldapArr['mailalias'] = array('');
   }
 
-  $maildiv = new Div("maildiv", $hasMail);
-  $maildiv->begin();
-
-  $f->beginTable();
-  $test = new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable"));
-  $test->setCssError("mailenable");
-  $param=array("value"=>$checkedMail);
-  $test->display($param);
-  $tr = new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/'));
-  $tr->display(array("value" => $ldapArr["mailuserquota"][0]));
-  $f->endTable();
+  $maildiv = new Div(array("id" => "maildiv"));
+  $maildiv->setVisibility($hasMail);  
+  $f->push($maildiv);
+  $f->push(new Table());  
+  $f->add(
+          new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable")),
+          array("value"=>$checkedMail)
+          );
+  $f->add(          
+          new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/')),
+          array("value" => $ldapArr["mailuserquota"][0])
+          );
+  $f->pop();
 
   if (hasVDomainSupport()) {
       $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
@@ -206,29 +205,31 @@ function _mail_baseEdit($ldapArr, $postArr) {
       $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
       $m->setRegexp('/^([0-9a-zA-Z_.-@.])+$/');
   }
-  $test = new FormElement(_T("Mail drop","mail"),$m);
-  $test->setCssError("maildrop");
-  $test->display($ldapArr['maildrop']);
-
+  $f->add(
+          new FormElement(_T("Mail drop","mail"), $m),
+          $ldapArr['maildrop']
+          );  
   $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
   $m->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
-
-  $test = new FormElement(_T("Mail alias","mail"),$m);
-  $test->setCssError("mailalias");
-  $test->display($ldapArr['mailalias']);
+  $f->add(
+          new FormElement(_T("Mail alias","mail"), $m),
+          $ldapArr['mailalias']
+          );
 
   if (hasVDomainSupport()) {
-    $expertdiv = new DivExpertMode();
-    $expertdiv->begin();
-    $f->beginTable();
-    $mailbox = new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox"));
-    $mailbox->display(array("value" => $ldapArr["mailbox"][0]));
-    $f->endTable();
-    $expertdiv->end();
+      $f->push(new DivExpertMode());
+      $f->push(new Table());
+      $f->add(
+              new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox")),
+              array("value" => $ldapArr["mailbox"][0])
+              );
+      $f->pop();
+      $f->pop();
   }
 
-  $maildiv->end();
-  $df->end();
+  $f->pop();
+
+  $f->display();
 
   if (($_GET['action'] == 'add') && (!hasVDomainSupport())) { //suggest only on add user
   ?>
