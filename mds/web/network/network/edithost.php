@@ -47,12 +47,8 @@ if ($_GET["action"] == "edit") {
     $hostname = $_GET["host"];
 }
 
-?>
-
-<form name="hostform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();">
-<table cellspacing="0">
-
-<?
+$f = new ValidatingForm();
+$f->push(new Table());
 
 $a = array("value" => $hostname, "extra" => "." . $zone);
 if ($_GET["action"] == "addhost") {
@@ -63,12 +59,8 @@ if ($_GET["action"] == "addhost") {
     $formElt = new HiddenTpl("hostname");
 }
 
-$tr = new TrFormElement(_T("Host name"), $formElt);
-$tr->setCssError("hostname");
-$tr->display($a);
+$f->add(new TrFormElement(_T("Host name"), $formElt), $a);
 
-$tr = new TrFormElement(_T("Network address"), new IPInputTpl("address"));
-$tr->setCssError("address");
 if ($_GET["action"] == "addhost") {
     if (isset($_GET["ipaddress"])) $network = $_GET["ipaddress"]; /* pre-fill IP address field when adding a host */
     else {
@@ -80,23 +72,18 @@ if ($_GET["action"] == "addhost") {
             else $network = $zoneaddress[0] . ".";
         }
     }
-    $tr->display(array("value"=>$network, "required" => True));
+    $a = array("value"=>$network, "required" => True);
 } else {
-    $tr->display(array("value"=>$address, "required" => True));
+    $a = array("value"=>$address, "required" => True);
 }
+$f->add(new TrFormElement(_T("Network address"), new IPInputTpl("address")), $a);
+$f->pop();
+
+if ($_GET["action"] == "addhost") {
+    $f->addButton("badd", _("Create"));
+} else {
+    $f->addButton("badd", _("Confirm"));
+}
+$f->display();
 
 ?>
-
-</table>
-
-<? if ($_GET["action"] == "addhost") { ?>
-    <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
-<? } else { ?>
-    <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
-<? } ?>
-
-</form>
-
-<script>
-document.body.onLoad = document.hostform.hostname.focus();
-</script>

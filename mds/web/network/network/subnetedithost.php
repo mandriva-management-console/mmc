@@ -28,6 +28,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $hostname = $_POST["hostname"];
     $macaddress = $_POST["macaddress"];
     $ipaddress = $_POST["ipaddress"];
+    $tftpservername = $_POST["tftp-server-name"];
     $oldip = $_POST["oldip"];
     $filename = trim($_POST["filename"]);
     if (strlen($filename)) $filename = '"' . $filename . '"';
@@ -115,6 +116,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             }
         }
         setHostOption($hostname, "root-path", $rootpath);
+        setHostOption($hostname, "tftp-server-name", $tftpservername);
         setHostStatement($hostname, "filename", $filename);
         setHostHWAddress($hostname, $macaddress);
         setHostStatement($hostname, "fixed-address", $ipaddress);
@@ -148,6 +150,7 @@ if ($_GET["action"] == "subnetedithost") {
     $ipaddress = $statements["fixed-address"];
     $filename = $statements["filename"];
     $rootpath = $options["root-path"];
+    $tftpservername = $options["tftp-server-name"];
 } else if ($_GET["action"] == "subnetaddhost") {
     if (!isset($error)) {
         /* Reset the field only if no error where found */
@@ -156,13 +159,9 @@ if ($_GET["action"] == "subnetedithost") {
     }
 }
 
-$f = new Form();
-?>
+$f = new ValidatingForm();
+$f->push(new Table());
 
-<form id="edit" name="subnetedithostform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();" >
-
-<?
-$f->beginTable();
 if ($_GET["action"]=="subnetaddhost") {
     $formElt = new HostnameInputTpl("hostname");
 } else {
@@ -174,77 +173,78 @@ if ($_GET["action"]=="subnetaddhost") {
 
 $tr = new TrFormElement(_T("Host name"), $formElt);
 $tr->setCssError("hostname");
-$tr->display(array("value" => $hostname, "required" => True));
+$f->add($tr, array("value" => $hostname, "required" => True));
 
 $tr = new TrFormElement(_T("IP address"), new IPInputTpl("ipaddress"));
 $tr->setCssError("ipaddress");
-$tr->display(array("value" => $ipaddress, "required" => True));
+$f->add($tr, array("value" => $ipaddress, "required" => True));
 
-$tr = new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress"));
-$tr->display(array("value" => $macaddress, "required" => True));
-
-$f->endTable();
+$f->add(
+        new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress")),
+        array("value" => $macaddress, "required" => True)
+        );
+$f->pop();
 
 $options = getSubnetOptions(getSubnet($subnet));
 if (isset($options["domain-name"])) {
     $domain = $options["domain-name"];
     if (zoneExists($domain)) {
-        $f->beginTable();
+        $f->push(new Table());
         if ($_GET["action"] == "subnetaddhost") {
             /*
                 If the DHCP domain name option is set, and corresponds to an existing DNS zone
                 we ask the user if she/he wants to record the machine in the DNS zone too.
             */
-            $tr = new TrFormElement(_T("Also records this machine into DNS zone") . "&nbsp;" . $domain, new CheckboxTpl("dnsrecord"));
-            $tr->display(array("value" => "CHECKED"));
+            $f->add(
+                    new TrFormElement(_T("Also records this machine into DNS zone") . "&nbsp;" . $domain, new CheckboxTpl("dnsrecord")),
+                    array("value" => "CHECKED")
+                    );
         } else {
             $domainurl = urlStr("network/network/zonemembers", array("zone" => "localnet"));
             $domainlink = '<a href="' . $domainurl . "\">$domain</a>";
             if (hostExists($domain, $hostname)) {
-                $tr = new TrFormElement(sprintf(_T("This host name is also registered in DNS zone %s"), $domainlink), new HiddenTpl(""));
-                $tr->display(array());
+                $f->add(new TrFormElement(sprintf(_T("This host name is also registered in DNS zone %s"), $domainlink), new HiddenTpl("")));
                 $resolvedip = resolve($domain, $hostname);
                 if ((strlen($resolvedip) > 0) && ($ipaddress != $resolvedip)) {
                     $warn = '<div class="error">' . sprintf(_T("but with another IP address (%s)"), $resolvedip) . '</div>';
-                    $tr = new TrFormElement($warn, new HiddenTpl(""));
-                    $tr->display(array());                    
+                    $f->add(new TrFormElement($warn, new HiddenTpl("")));
                 }
             } else {
                 $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
-                $tr = new TrFormElement($warn, new HiddenTpl(""));
-                $tr->display(array());
+                $f->add(new TrFormElement($warn, new HiddenTpl("")));
                 $newhosturl = urlStr("network/network/addhost", array("zone" => "localnet", "host" => $hostname, "ipaddress" => $ipaddress, "gobackto" => rawurlencode($_SERVER["QUERY_STRING"])));
                 $newhostlink = '<a href="' . $newhosturl . '">' . _T("Click here to add it") . "</a>";
-                $tr = new TrFormElement($newhostlink, new HiddenTpl(""));
-                $tr->display(array());                
+                $f->add(new TrFormElement($newhostlink, new HiddenTpl("")));
             }            
         }
-        $f->endTable();
+        $f->pop();
     }
 }
 
-$f->beginTable();
+$f->push(new Table());
+$f->add(new TrFormElement(_T("Other DHCP options"), new HiddenTpl("")));
+$f->add(
+        new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename")),
+        array("value"=>$filename)
+        );
+$f->add(
+        new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("rootpath")),
+        array("value"=>$rootpath)
+        );
+$f->add(
+        new TrFormElement(_T("TFTP server name"),new IA5InputTpl("tftp-server-name")),
+        array("value"=>$tftpservername)
+        );
+$f->pop();
 
-$tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
-$tr->display(array());
+$f->pop();
 
-$tr = new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename"));
-$tr->display(array("value"=>$filename));
+if ($_GET["action"] == "subnetaddhost") {
+    $f->addButton("badd", _("Create"));
+} else {
+    $f->addButton("badd", _("Confirm"));
+}
 
-$tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("rootpath"));
-$tr->display(array("value"=>$rootpath));
+$f->display();
 
-$f->endTable();
-
-if ($_GET["action"] == "subnetaddhost") { ?>
-    <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
-<? } else { ?>
-    <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
-<? }
-
-$f->end();
 ?>
-
-<script>
-document.body.onLoad = document.subnetedithostform.hostname.focus();
-</script>

@@ -150,110 +150,115 @@ if ($_GET["action"] == "subnetedit") {
     } else $hasSubnetPool = "";
 }
 
-$f = new Form();
-?>
-
-<form id="edit" name="subnetform" method="post" action="<? echo $PHP_SELF; ?>" onsubmit="return validateForm();">
-
-<?
-$f->beginTable();
-
 if ($_GET["action"]=="subnetadd") {
     $formElt = new IPInputTpl("subnet");
 } else {
     $formElt = new HiddenTpl("subnet");
 }
 
-$tr = new TrFormElement(_T("DHCP subnet address"), $formElt);
-$tr->setCssError("subnet");
-$tr->display(array("value" => $subnet, "required" => True));
+$f = new ValidatingForm();
 
-$tr = new TrFormElement(_T("Netmask"),new NetmaskInputTpl("netmask"));
-$tr->setCssError("netmask");
-$tr->display(array("value" => $netmask, "required" => True, "extra" => "(e.g. 24 for a /24 network)"));
+$f->push(new Table());
+$f->add(
+        new TrFormElement(_T("DHCP subnet address"), $formElt),
+        array("value" => $subnet, "required" => True)
+        );
+$f->add(
+        new TrFormElement(_T("Netmask"),new NetmaskInputTpl("netmask")),
+        array("value" => $netmask, "required" => True, "extra" => "(e.g. 24 for a /24 network)")
+        );
+$f->add(
+        new TrFormElement(_T("Description"),new IA5InputTpl("description")),
+        array("value" => $description)
+        );
+$f->pop();
 
-$tr = new TrFormElement(_T("Description"),new IA5InputTpl("description"));
-$tr->display(array("value" => $description));
+$f->push(new Table());
+$f->add(new TrFormElement(_("DHCP options related to clients network parameters"), new HiddenTpl("")));
+$f->add(
+        new TrFormElement(_T("Broadcast address"), new IPInputTpl("broadcast-address")),
+        array("value"=>$options["broadcast-address"])
+        );
+$f->add(
+        new TrFormElement(_T("Domain name"),new DomainInputTpl("domain-name")),
+        array("value"=>$options["domain-name"])
+        );
+$f->add(
+        new TrFormElement(_T("Routers"),new HostIpListInputTpl("routers")),
+        array("value"=>$options["routers"])
+        );
+$f->add(
+        new TrFormElement(_T("Domain name servers"),new HostIpListInputTpl("domain-name-servers")),
+        array("value"=>$options["domain-name-servers"])
+        );
+$f->add(
+        new TrFormElement(_T("NTP servers"),new HostIpListInputTpl("ntp-servers")),
+        array("value"=>$options["ntp-servers"])
+        );
+$f->pop();
 
-$f->endTable();
+$f->push(new Table());
+$f->add(new TrFormElement(_T("Other DHCP options"), new HiddenTpl("")));
+$f->add(
+        new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename")),
+        array("value"=>$statements["filename"])
+        );
+$f->add(
+        new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("root-path")),
+        array("value"=>$options["root-path"])                     
+        );
+$f->add(
+        new TrFormElement(_T("TFTP server name"),new IA5InputTpl("tftp-server-name")),
+        array("value"=>$options["tftp-server-name"])   
+        );
+$f->pop();
 
-$f->beginTable();
-$tr = new TrFormElement(_("DHCP options related to clients network parameters"), new HiddenTpl(""));
-$tr->display(array());
+$f->push(new Table());
+$f->add(new TrFormElement(_T("DHCP client lease time (in seconds)"), new HiddenTpl("")));
+$f->add(
+        new TrFormElement(_T("Minimum lease time"),new NumericInputTpl("min-lease-time")),
+        array("value"=>$statements["min-lease-time"])
+        );
+$f->add(
+        new TrFormElement(_T("Default lease time"),new NumericInputTpl("default-lease-time")),
+        array("value"=>$statements["default-lease-time"])
+        );
+$f->add(
+        new TrFormElement(_T("Maximum lease time"),new NumericInputTpl("max-lease-time")),
+        array("value"=>$statements["max-lease-time"])
+        );
+$f->pop();
 
-$tr = new TrFormElement(_T("Broadcast address"), new IPInputTpl("broadcast-address"));
-$tr->display(array("value"=>$options["broadcast-address"]));
+$f->push(new Table());
+$f->add(
+        new TrFormElement(_T("Dynamic pool for non-registered DHCP clients", "network"),new CheckboxTpl("subnetpool")),
+        array("value"=>$hasSubnetPool, "extraArg"=>'onclick="toggleVisibility(\'pooldiv\');"')
+        );
 
-$tr = new TrFormElement(_T("Domain name"),new DomainInputTpl("domain-name"));
-$tr->display(array("value"=>$options["domain-name"]));
+$f->pop();
 
-$tr = new TrFormElement(_T("Routers"),new HostIpListInputTpl("routers"));
-$tr->display(array("value"=>$options["routers"]));
+$pooldiv = new Div(array("id" => "pooldiv"));
+$pooldiv->setVisibility($hasSubnetPool);
+$f->push($pooldiv);
+$f->push(new Table());
+$f->add(
+        new TrFormElement(_T("IP range start"), new IPInputTpl("ipstart")),
+        array("value" => $ipstart)
+        );
+$f->add(
+        new TrFormElement(_T("IP range end"), new IPInputTpl("ipend")),
+        array("value" => $ipend)
+        );
+$f->pop();
+$f->pop();
 
-$tr = new TrFormElement(_T("Domain name servers"),new HostIpListInputTpl("domain-name-servers"));
-$tr->display(array("value"=>$options["domain-name-servers"]));
+$f->pop(); // pop the form
 
-$tr = new TrFormElement(_T("NTP servers"),new HostIpListInputTpl("ntp-servers"));
-$tr->display(array("value"=>$options["ntp-servers"]));
-$f->endTable();
-
-$f->beginTable();
-$tr = new TrFormElement(_T("Other DHCP options"), new HiddenTpl(""));
-$tr->display(array());
-
-$tr = new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename"));
-$tr->display(array("value"=>$statements["filename"]));
-
-$tr = new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("root-path"));
-$tr->display(array("value"=>$options["root-path"]));
-
-$tr = new TrFormElement(_T("TFTP server name"),new IA5InputTpl("tftp-server-name"));
-$tr->display(array("value"=>$options["tftp-server-name"]));
-$f->endTable();
-
-$f->beginTable();
-$tr = new TrFormElement(_T("DHCP client lease time (in seconds)"), new HiddenTpl(""));
-$tr->display(array());
-
-$tr = new TrFormElement(_T("Minimum lease time"),new NumericInputTpl("min-lease-time"));
-$tr->display(array("value"=>$statements["min-lease-time"]));
-
-$tr = new TrFormElement(_T("Default lease time"),new NumericInputTpl("default-lease-time"));
-$tr->display(array("value"=>$statements["default-lease-time"]));
-
-$tr = new TrFormElement(_T("Maximum lease time"),new NumericInputTpl("max-lease-time"));
-$tr->display(array("value"=>$statements["max-lease-time"]));
-$f->endTable();
-
-
-$f->beginTable();
-$tr = new TrFormElement(_T("Dynamic pool for non-registered DHCP clients", "network"),new CheckboxTpl("subnetpool"));
-$param=array("value"=>$hasSubnetPool,
-	     "extraArg"=>'onclick="toggleVisibility(\'pooldiv\');"');
-$tr->display($param);
-$f->endTable();
-
-$pooldiv = new Div("pooldiv", $hasSubnetPool);
-$pooldiv->begin();
-$f->beginTable();
-$tr = new TrFormElement(_T("IP range start"), new IPInputTpl("ipstart"));
-$tr->display(array("value"=>$ipstart));
-
-$tr = new TrFormElement(_T("IP range end"), new IPInputTpl("ipend"));
-$tr->display(array("value"=>$ipend));
-$f->endTable();
-$pooldiv->end();
+if ($_GET["action"] == "subnetadd") {
+    $f->addButton("badd", _("Create"));
+} else {
+    $f->addButton("bedit", _("Confirm"));
+}
+$f->display();
 
 ?>
-
-<? if ($_GET["action"] == "subnetadd") { ?>
-    <input name="badd" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
-<? } else { ?>
-    <input name="bedit" type="submit" class="btnPrimary" value="<?= _("Confirm"); ?>" />
-<? } ?>
-
-</form>
-
-<script>
-document.body.onLoad = document.subnetform.subnet.focus();
-</script>
