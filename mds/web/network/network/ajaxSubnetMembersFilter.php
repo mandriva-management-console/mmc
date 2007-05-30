@@ -89,6 +89,16 @@ foreach($leases as $ipaddress => $infos) {
             $lines[$address]["type"] = _T("Dynamic", "network");
             $lines[$address]["macaddress"] = strtoupper($infos["hardware"]);
             $lines[$address]["hostname"] = $infos["hostname"];
+            if ($filter) {
+                /* Don't display a host if filtered */
+                if (
+                    (strpos($lines[$address]["hostname"], $filter) === False)
+                    && (strpos(long2ip($address), $filter) === False)
+                    && (strpos($lines[$address]["macaddress"], $filter) === False)
+                    ) {
+                    unset($lines[$address]);
+                }
+            }            
         }
     }
 }
