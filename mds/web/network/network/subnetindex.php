@@ -20,17 +20,10 @@
  * along with LMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
-/* $Id$ */
+
 require("modules/network/includes/network-xmlrpc.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
-
-$p = new PageGenerator();
-$p->setSideMenu($sidemenu);
-$p->displaySideMenu();
-
 ?>
 
 <form name="Form" id="Form" action="#">
@@ -82,10 +75,11 @@ $p->displaySideMenu();
 
 </form>
 
-
-<h2><?= _T("DHCP subnets management"); ?></h2>
-
-<div class="fixheight"></div>
+<?
+$p = new PageGenerator(_T("DHCP subnets management"));
+$p->setSideMenu($sidemenu);
+$p->display();
+?>
 
 <div id="container">
 </div>

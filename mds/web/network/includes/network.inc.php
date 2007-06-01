@@ -48,7 +48,32 @@ class SimpleNetmaskInputTpl extends InputTpl {
 
 }
 
-/* IP functions */
+
+class GetFreeIPInputTpl extends IPInputTpl {
+
+    function display($arrParam) {
+        parent::display($arrParam);
+        $zone = $arrParam["zone"];
+        print '
+
+<script type="text/javascript">
+
+function setZoneFreeAddress(t) {
+    $("address").value = t.responseText;
+    if (! ($("address").validate()) ) $("address").value = "";
+    new Effect.Highlight("address",
+    { duration: 1.0 });
+}
+
+</script>
+
+<input type="button" onclick="new Ajax.Request(\'main.php?module=network&submod=network&action=ajaxDnsGetZoneFreeIp\', {method: \'get\', parameters: \'zone=' . $zone . '&current=\' + $F(\'address\'), onSuccess:setZoneFreeAddress});" value="Get next free IP address">
+';
+
+    }
+}
+
+/* Ip functions */
 
 /**
  * Return True if an IP is in a network

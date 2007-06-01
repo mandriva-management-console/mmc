@@ -176,6 +176,10 @@ function ipExistsInSubnet($zone, $ip) {
     return xmlCall("network.ipExistsInSubnet", array($zone, $ip));
 }
 
+function getZoneFreeIp($zone, $ipstart = null) {
+    return xmlCall("network.getZoneFreeIp", array($zone, $ipstart));
+}
+
 
 /* DHCP leases */
 function getDhcpLeases() {

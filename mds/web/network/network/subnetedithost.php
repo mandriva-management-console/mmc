@@ -200,7 +200,10 @@ if (isset($options["domain-name"])) {
                     array("value" => "CHECKED")
                     );
         } else {
-            $domainurl = urlStr("network/network/zonemembers", array("zone" => "localnet"));
+            /*
+                When editing the host, we display a status about the host registration in the DNS.
+             */
+            $domainurl = urlStr("network/network/zonemembers", array("zone" => $domain));
             $domainlink = '<a href="' . $domainurl . "\">$domain</a>";
             if (hostExists($domain, $hostname)) {
                 $f->add(new TrFormElement(sprintf(_T("This host name is also registered in DNS zone %s"), $domainlink), new HiddenTpl("")));
@@ -212,7 +215,7 @@ if (isset($options["domain-name"])) {
             } else {
                 $warn = '<div class="error">' . sprintf(_T("This host is not registered in DNS zone %s"), $domainlink) . '</div>';
                 $f->add(new TrFormElement($warn, new HiddenTpl("")));
-                $newhosturl = urlStr("network/network/addhost", array("zone" => "localnet", "host" => $hostname, "ipaddress" => $ipaddress, "gobackto" => rawurlencode($_SERVER["QUERY_STRING"])));
+                $newhosturl = urlStr("network/network/addhost", array("zone" => $domain, "host" => $hostname, "ipaddress" => $ipaddress, "gobackto" => rawurlencode($_SERVER["QUERY_STRING"])));
                 $newhostlink = '<a href="' . $newhosturl . '">' . _T("Click here to add it") . "</a>";
                 $f->add(new TrFormElement($newhostlink, new HiddenTpl("")));
             }            

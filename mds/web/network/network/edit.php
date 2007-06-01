@@ -84,9 +84,10 @@ if (isset($_POST["badd"])) {
         $result = "";
         if ($dhcpsubnet) {
             addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
-            $result .= _T("DHCP subnet successfully added.");
+            $result .= _T("DHCP subnet and DNS zone successfully added.");
         } else {
             addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
+            $result .= _T("DNS zone successfully added.");
         }
         
         if (!isXMLRPCError()) {
