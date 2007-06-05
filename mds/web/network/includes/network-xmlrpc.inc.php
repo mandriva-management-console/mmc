@@ -6,6 +6,10 @@ function addZoneWithSubnet($zonename, $network, $netmask, $description, $nameser
     xmlCall("network.addZoneWithSubnet", array($zonename, $network, $netmask, $description, $nameserver, $nameserverip, $reverse));
 }
 
+function getSubnetAndZoneFreeIp($subnet, $zone, $current = null) {
+    return xmlCall("network.getSubnetAndZoneFreeIp", array($subnet, $zone, $current));
+}
+
 /* DNS RPCs */
 
 function getZones($filter) {
@@ -33,7 +37,7 @@ function getZoneNetworkAddress($zone) {
 }
 
 function addRecordA($zone, $hostname, $ip) {
-    xmlCall("network.addRecordA", array($zone, $hostname, $ip));
+    return xmlCall("network.addRecordA", array($zone, $hostname, $ip));
 }
 
 function delRecord($zone, $hostname) {
@@ -74,6 +78,10 @@ function ipExists($zone, $ip) {
 
 function resolve($zone, $hostname) {
     return xmlCall("network.resolve", array($zone, $hostname));
+}
+
+function getZoneFreeIp($zone, $ipstart = null) {
+    return xmlCall("network.getZoneFreeIp", array($zone, $ipstart));
 }
 
 /* DHCP RPCs */
@@ -176,8 +184,8 @@ function ipExistsInSubnet($zone, $ip) {
     return xmlCall("network.ipExistsInSubnet", array($zone, $ip));
 }
 
-function getZoneFreeIp($zone, $ipstart = null) {
-    return xmlCall("network.getZoneFreeIp", array($zone, $ipstart));
+function getSubnetFreeIp($subnet, $ipstart = null) {
+    return xmlCall("network.getSubnetFreeIp", array($subnet, $ipstart));
 }
 
 
