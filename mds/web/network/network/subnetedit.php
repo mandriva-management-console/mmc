@@ -208,7 +208,7 @@ $f->add(
                                                 If the domain name is a registered DNS domain, the subnet will be associated to the DNS domain.")
                                 )
                           ),
-        array("value"=>$options["domain-name"])
+        array("value"=>$options["domain-name"], "extra" => _T("Links the subnet to a DNS zone"))
         );
 $f->add(
         new TrFormElement(_T("Routers"), new HostIpListInputTpl("routers"),
