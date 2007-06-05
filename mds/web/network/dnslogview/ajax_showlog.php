@@ -14,7 +14,7 @@ exit(6);
 $extra = array();
 $date = array();
 
-$errStrings = array("file not found", "could not find NS and/or SOA records", "has no NS records", "has 0 SOA records");
+$errStrings = array("file not found", "could not find NS and/or SOA records", "has no NS records", "has 0 SOA records", "bad zone transfer request");
 
 foreach (xmlCall("network.getDnsLog",array($_SESSION['ajax']['filter'])) as $line) {
     if (is_array($line)) {
