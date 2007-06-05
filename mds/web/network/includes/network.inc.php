@@ -51,23 +51,29 @@ class SimpleNetmaskInputTpl extends InputTpl {
 
 class GetFreeIPInputTpl extends IPInputTpl {
 
+    function getFreeIPInputTpl() {
+        parent::IPInputTpl("ipaddress");        
+    }
+
     function display($arrParam) {
         parent::display($arrParam);
         $zone = $arrParam["zone"];
+        $subnet = $arrParam["subnet"];
+        $ajaxurl = $arrParam["ajaxurl"];
         print '
 
 <script type="text/javascript">
 
 function setZoneFreeAddress(t) {
-    $("address").value = t.responseText;
-    if (! ($("address").validate()) ) $("address").value = "";
-    new Effect.Highlight("address",
+    $("ipaddress").value = t.responseText;
+    if (! ($("ipaddress").validate()) ) $("ipaddress").value = "";
+    new Effect.Highlight("ipaddress",
     { duration: 1.0 });
 }
 
 </script>
 
-<input type="button" onclick="new Ajax.Request(\'main.php?module=network&submod=network&action=ajaxDnsGetZoneFreeIp\', {method: \'get\', parameters: \'zone=' . $zone . '&current=\' + $F(\'address\'), onSuccess:setZoneFreeAddress});" value="Get next free IP address">
+<input type="button" class="btnPrimary" onclick="new Ajax.Request(\'main.php?module=network&submod=network&action=' . $ajaxurl . '\', {method: \'get\', parameters: \'zone=' . $zone . '&subnet=' . $subnet . '&current=\' + $F(\'ipaddress\'), onSuccess:setZoneFreeAddress});" value="Get next free IP address">
 ';
 
     }
