@@ -67,6 +67,12 @@ $page->setFile("modules/network/network/ajaxDnsGetZoneFreeIp.php",
 	       );
 $submod->addPage($page);
 
+$page = new Page("ajaxDhcpGetSubnetFreeIp");
+$page->setFile("modules/network/network/ajaxDhcpGetSubnetFreeIp.php",
+	       array("AJAX" =>True,"visible"=>False)
+	       );
+$submod->addPage($page);
+
 $page = new Page("delete",_T("Delete a DNS zone","network"));
 $page->setOptions( array ("noHeader" => True,"visible"=>False));
 $submod->addPage($page);
