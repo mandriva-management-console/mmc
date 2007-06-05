@@ -48,12 +48,18 @@ if (isset($_POST["badd"])) {
     $hasnetaddress = strlen($_POST["netaddress"]) > 0;
     $hasnetmask = strlen($_POST["netmask"]) > 0;
 
+    /* Check that the zone name does not already exists */
+    if (zoneexists($zonename)) {        
+        $error .= " " . _T("This zone already exists.");
+        setFormError("zonename");
+    }
+
     /* Check that network address and mask are filled if reverse of DHCP subnet are wanted */
     $reverse = False;
     if (isset($_POST["reverse"])) {
         if ($hasnetaddress & $hasnetmask) $reverse = True;
         else {
-            $error = _T("The network address and the network mask field must be filled in if you also want to create a reverse zone.");
+            $error .= " " . _T("The network address and the network mask field must be filled in if you also want to create a reverse zone.");
             if (!$hasnetaddress) setFormError("netaddress");
             if (!$hasnetmask) setFormError("netmask");
         }
@@ -84,14 +90,14 @@ if (isset($_POST["badd"])) {
         $result = "";
         if ($dhcpsubnet) {
             addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
-            $result .= _T("DHCP subnet and DNS zone successfully added.");
+            $result .= _T("DHCP subnet and DNS zone successfully added. The DHCP service must be restarted.");
         } else {
             addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
             $result .= _T("DNS zone successfully added.");
         }
-        
+        $result .= " " . _T("The DNS service must be reloaded.");
         if (!isXMLRPCError()) {
-             new NotifyWidgetSuccess($result);
+            new NotifyWidgetSuccess($result);
             header("Location: " . urlStrRedirect("network/network/index"));
         }
     } else
@@ -102,7 +108,10 @@ if (isset($_POST["badd"])) {
     $description = $_POST["description"];
     setNSRecord($zonename, $nameserver . ".");
     setZoneDescription($zonename, $description);
-    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
+    if (!isXMLRPCError()) {
+        new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
+        header("Location: " . urlStrRedirect("network/network/index"));
+    }
 }
 
 if ($_GET["action"] == "edit") {
