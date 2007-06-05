@@ -38,7 +38,7 @@ $zone = $_GET["zone"];
 global $error;
 if (isset($_POST["badd"])) {
     $hostname = $_POST["hostname"];
-    $address = $_POST["address"];
+    $ipaddress = $_POST["ipaddress"];
     
     /* Basic checks */
     if (hostExists($zone, $hostname)) {
@@ -46,15 +46,17 @@ if (isset($_POST["badd"])) {
         setFormError("hostname");
         $hostname = "";
     }
-    if (ipExists($zone, $address)) {
+    if (ipExists($zone, $ipaddress)) {
         $error .= _T("The specified IP address has been already recorded in this zone.");
         setFormError("address");
     } else $keepaddress = True;
     
     if (!isset($error)) {
-        addRecordA($zone, $hostname, $address);
+        $ret = addRecordA($zone, $hostname, $ipaddress);
         if (!isXMLRPCError()) {
-            new NotifyWidgetSuccess(_T("Host successfully added."));
+            if ($ret === 1) $msg = _T("Host successfully added to DNS zone.");
+            else $msg = _T("Host successfully added to DNS zone and corresponding reverse zone.");
+            new NotifyWidgetSuccess($msg);
             if (isset($_GET["gobackto"]))
                 header("Location: " . $_SERVER["PHP_SELF"] . "?" . rawurldecode($_GET["gobackto"]));
             else
@@ -89,7 +91,7 @@ if ($_GET["action"] == "addhost") {
     if (isset($_GET["ipaddress"])) $network = $_GET["ipaddress"]; /* pre-fill IP address field when adding a host */
     else {
         if (isset($error) && isset($keepaddress))
-            $network = $address;
+            $network = $ipaddress;
         else {            
             if (!count($zoneaddress)) $network = "";
             else $network = getZoneFreeIp($zone);
@@ -98,10 +100,11 @@ if ($_GET["action"] == "addhost") {
     }
     $a = array("value"=>$network, "required" => True);
 } else {
-    $a = array("value"=>$address, "required" => True);
+    $a = array("value"=>$ipaddress, "required" => True);
 }
 $a["zone"] = $zone;
-$f->add(new TrFormElement(_T("Network address"), new GetFreeIPInputTpl("address")), $a);
+$a["ajaxurl"] = "ajaxDnsGetZoneFreeIp";
+$f->add(new TrFormElement(_T("Network address"), new GetFreeIPInputTpl()), $a);
 $f->pop();
 
 if ($_GET["action"] == "addhost") {
