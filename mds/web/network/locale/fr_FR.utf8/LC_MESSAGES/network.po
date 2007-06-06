@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-06 16:48+0200\n"
-"PO-Revision-Date: 2007-06-06 16:49+0200\n"
+"PO-Revision-Date: 2007-06-06 16:53+0200\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -459,9 +459,7 @@ msgstr "L'hôte a été ajouté avec succès dans la zone DNS."
 
 #: network/network/edithost.php:59
 msgid "Host successfully added to DNS zone and corresponding reverse zone."
-msgstr ""
-"L'hôte a été ajouté avec succès dans la zone DNS et la zone DNS reverse "
-"correspondante."
+msgstr "L'hôte a été ajouté avec succès dans la zone DNS et la zone DNS inverse correspondante."
 
 #: network/network/edithost.php:78
 msgid "A reverse DNS record will be automatically created for this host."
@@ -557,9 +555,7 @@ msgstr "Cette zone existe déjà."
 msgid ""
 "The network address and the network mask field must be filled in if you also "
 "want to create a reverse zone."
-msgstr ""
-"Les champs adresse réseau et masque réseau doivent être renseignés si vous "
-"voulez aussi créer une zone reverse."
+msgstr "Les champs adresse réseau et masque réseau doivent être renseignés si vous voulez aussi créer une zone inverse."
 
 #: network/network/edit.php:71
 msgid ""
@@ -758,9 +754,7 @@ msgstr "Vous allez supprimer le sous-réseau DHCP %s."
 msgid ""
 "The network address and the network mask fields must be filled in if you "
 "also want to create a reverse zone."
-msgstr ""
-"Les champs adresse réseau et masque réseau doivent être renseignés si vous "
-"voulez aussi créer une zone reverse."
+msgstr "Les champs adresse réseau et masque réseau doivent être renseignés si vous voulez aussi créer une zone inverse."
 
 #: network/network/edit.php:71
 msgid ""
