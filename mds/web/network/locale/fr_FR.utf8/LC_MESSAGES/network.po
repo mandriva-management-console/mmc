@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-06 16:40+0200\n"
-"PO-Revision-Date: 2007-06-06 16:41+0200\n"
+"POT-Creation-Date: 2007-06-06 16:48+0200\n"
+"PO-Revision-Date: 2007-06-06 16:49+0200\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -777,3 +777,7 @@ msgstr "Gérer aussi une zone DNS inverse"
 #: network/infoPackage.inc.php:38
 msgid "Network"
 msgstr "Réseau"
+
+#: network/includes/network.inc.php:76
+msgid "Get next free IP address"
+msgstr "Adresse IP libre suivante"
