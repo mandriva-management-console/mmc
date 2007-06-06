@@ -31,7 +31,7 @@ displayInputLiveSearch(urlStrRedirect('base/logview/dnssetsearch')); ?>
 </div>
 
 
-<h2><?= _T("DNS service log view"); ?></h2>
+<h2><?= _T("DNS service log view", "network"); ?></h2>
 
 
 <div class="fixheight"></div>
