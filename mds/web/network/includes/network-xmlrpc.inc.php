@@ -152,36 +152,36 @@ function addHostToSubnet($subnet, $hostname) {
     xmlCall("network.addHostToSubnet", array($subnet, $hostname));
 }
 
-function delHost($hostname) {
-    xmlCall("network.delHost", array($hostname));
+function delHost($subnet, $hostname) {
+    xmlCall("network.delHost", array($subnet, $hostname));
 }
 
-function setHostOption($host, $option, $value) {
-    xmlCall("network.setHostOption", array($host, $option, $value));
+function setHostOption($subnet, $host, $option, $value) {
+    xmlCall("network.setHostOption", array($subnet, $host, $option, $value));
 }
 
-function setHostStatement($host, $option, $value) {
-    xmlCall("network.setHostStatement", array($host, $option, $value));
+function setHostStatement($subnet, $host, $option, $value) {
+    xmlCall("network.setHostStatement", array($subnet, $host, $option, $value));
 }
 
-function getHost($host) {
-    return xmlCall("network.getHost", array($host));
+function getHost($subnet, $host) {
+    return xmlCall("network.getHost", array($subnet, $host));
 }
 
-function getHostHWAddress($host) {
-    return xmlCall("network.getHostHWAddress", array($host));
+function getHostHWAddress($subnet, $host) {
+    return xmlCall("network.getHostHWAddress", array($subnet, $host));
 }
 
-function setHostHWAddress($host, $address) {
-    xmlCall("network.setHostHWAddress", array($host, $address));
+function setHostHWAddress($subnet, $host, $address) {
+    xmlCall("network.setHostHWAddress", array($subnet, $host, $address));
 }
 
-function hostExistsInSubnet($zone, $hostname) {
-    return xmlCall("network.hostExistsInSubnet", array($zone, $hostname));
+function hostExistsInSubnet($subnet, $hostname) {
+    return xmlCall("network.hostExistsInSubnet", array($subnet, $hostname));
 }
 
-function ipExistsInSubnet($zone, $ip) {
-    return xmlCall("network.ipExistsInSubnet", array($zone, $ip));
+function ipExistsInSubnet($subnet, $ip) {
+    return xmlCall("network.ipExistsInSubnet", array($subnet, $ip));
 }
 
 function getSubnetFreeIp($subnet, $ipstart = null) {

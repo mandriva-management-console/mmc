@@ -7,10 +7,18 @@ require("graph/navbar.inc.php");
 
 $subnet = $_GET["subnet"];
 $subnetInfos = getSubnet($_GET["subnet"]);
+
 if (count($subnetInfos) == 0) {
     header("Location: " . urlStrRedirect("network/network/subnetindex"));
     exit;
 }
+
+$subnetOptions = getSubnetOptions(getSubnet($subnet));
+if (isset($subnetOptions["domain-name"])) {
+    $domain = $subnetOptions["domain-name"];
+    $domainexist = zoneExists($domain);
+} else $domainexist = False;
+
 $netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
 if ($_GET["action"] == "subnetaddhost") $title =  sprintf(_T("Add a DHCP host to subnet %s / %s"), $subnet, $netmask);
 else $title = sprintf(_T("Edit DHCP host of subnet %s"), $subnet);
@@ -89,7 +97,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
                 setFormError("ipaddress");
             }
             $options = getSubnetOptions(getSubnet($subnet));
-            if (isset($options["domain-name"])) {
+            if ($domainexist) {
                 /* If a DNS record exists for this machine, we need to update it too */
                 $zone = $options["domain-name"];
                 if (hostExists($zone, $hostname) && ipExists($zone, $oldip)) {
@@ -109,23 +117,23 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     if (!isset($error)) {
         if (isset($_POST["badd"])) {
             addHostToSubnet($subnet, $hostname);
-            setHostOption($hostname, "host-name", $hostname);
+            setHostOption($subnet, $hostname, "host-name", $hostname);
             if (isset($_POST["dnsrecord"])) {
                 $options = getSubnetOptions(getSubnet($subnet));
                 if (isset($options["domain-name"])) addRecordA($options["domain-name"], $hostname, $ipaddress);
             }
         }
-        setHostOption($hostname, "root-path", $rootpath);
-        setHostOption($hostname, "tftp-server-name", $tftpservername);
-        setHostStatement($hostname, "filename", $filename);
-        setHostHWAddress($hostname, $macaddress);
-        setHostStatement($hostname, "fixed-address", $ipaddress);
+        setHostOption($subnet, $hostname, "root-path", $rootpath);
+        setHostOption($subnet, $hostname, "tftp-server-name", $tftpservername);
+        setHostStatement($subnet, $hostname, "filename", $filename);
+        setHostHWAddress($subnet, $hostname, $macaddress);
+        setHostStatement($subnet, $hostname, "fixed-address", $ipaddress);
         if ($updatednsrecord) modifyRecord($zone, $hostname, $ipaddress);
         // Display result message
         if (!isXMLRPCError()) {
             if (isset($_POST["badd"])) $result .= _T("Host successfully added.");
             else $result .= _T("Host successfully modified.");
-            if ($updatednsrecord) $result .= "<br>" . _T("DNS record successfully modified");
+            if ($updatednsrecord) $result .= "<br>" . _T("DNS record successfully modified.");
             new NotifyWidgetSuccess($result);
             header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => $subnet)));
         }
@@ -134,7 +142,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
 
 if ($_GET["action"] == "subnetedithost") {
     $hostname = $_GET["host"];
-    $host = getHost($hostname);
+    $host = getHost($subnet, $hostname);
     $options = array();
     foreach($host[0][1]["dhcpOption"] as $option) {
         list($name, $value) = explode(" ", $option, 2);
@@ -162,32 +170,38 @@ if ($_GET["action"] == "subnetedithost") {
 $f = new ValidatingForm();
 $f->push(new Table());
 
-if ($_GET["action"]=="subnetaddhost") {
+if ($_GET["action"] == "subnetaddhost") {
     $formElt = new HostnameInputTpl("hostname");
+    if ($domainexist)
+        $ipaddress = getSubnetAndZoneFreeIp($subnet, $subnetOptions["domain-name"]);
+    else 
+        $ipaddress = getSubnetFreeIp($subnet);
 } else {
     $formElt = new HiddenTpl("hostname");
-    /* Keep the old IP in the page to detect that the user want to change the machine IP */
-    $oldIp = new HiddenTpl("oldip");
-    $oldIp->display(array("value" => $ipaddress, "hide" => True));
 }
 
 $f->add(
         new TrFormElement(_T("Host name"), $formElt),
         array("value" => $hostname, "required" => True)
         );
+$a = array("value" => $ipaddress, "required" => True, "ajaxurl" => "ajaxDhcpGetSubnetFreeIp", "subnet" => $subnet);
+if ($domainexist) $a["zone"] = $domain;
 $f->add(
-        new TrFormElement(_T("IP address"), new IPInputTpl("ipaddress")),
-        array("value" => $ipaddress, "required" => True)
+        new TrFormElement(_T("IP address"), new GetFreeIPInputTpl()),
+        $a
         );
+/* Keep the old IP in the page to detect that the user want to change the machine IP */
+$f->add(new HiddenTpl("oldip"), array("value" => $ipaddress, "hide" => True));
+
 $f->add(
         new TrFormElement(_T("MAC address"),new MACInputTpl("macaddress")),
         array("value" => $macaddress, "required" => True)
         );
 $f->pop();
 
-$options = getSubnetOptions(getSubnet($subnet));
-if (isset($options["domain-name"])) {
-    $domain = $options["domain-name"];
+
+if (isset($subnetOptions["domain-name"])) {
+    $domain = $subnetOptions["domain-name"];
     if (zoneExists($domain)) {
         $f->push(new Table());
         if ($_GET["action"] == "subnetaddhost") {
@@ -261,7 +275,7 @@ $f->pop();
 if ($_GET["action"] == "subnetaddhost") {
     $f->addButton("badd", _("Create"));
 } else {
-    $f->addButton("badd", _("Confirm"));
+    $f->addButton("bedit", _("Confirm"));
 }
 
 $f->display();

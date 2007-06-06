@@ -27,7 +27,7 @@ require("modules/network/includes/network.inc.php");
 if (isset($_POST["bconfirm"])) {
     $subnet = $_POST["subnet"];
     $host = $_POST["host"];
-    delHost($host);
+    delHost($subnet, $host);
     $result = _T("The host has been deleted.");
     if (isset($_POST["updatedns"]) & isset($_POST["zone"])) {
         delRecord($_POST["zone"], $host);
