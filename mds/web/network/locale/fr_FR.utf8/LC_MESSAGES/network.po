@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-06 16:22+0200\n"
-"PO-Revision-Date: 2007-06-06 16:23+0200\n"
+"POT-Creation-Date: 2007-06-06 16:33+0200\n"
+"PO-Revision-Date: 2007-06-06 16:34+0200\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Suivant"
 #: network/network/subnetedithost.php:190
 #: network/network/ajaxSubnetMembersFilter.php:153
 msgid "IP address"
-msgstr ""
+msgstr "Adresse IP"
 
 #: network/network/ajaxZoneMembersFilter.php:88
 #: network/network/subnetedithost.php:184 network/network/edithost.php:89
@@ -573,7 +573,7 @@ msgstr ""
 msgid ""
 "DHCP subnet and DNS zone successfully added. The DHCP service must be "
 "restarted."
-msgstr ""
+msgstr "Le sous-réseau DHCP et la zone DNS ont été ajoutés avec succès. Le service DHCP doit être re-démarré."
 
 #: network/network/edit.php:96
 msgid "DNS zone successfully added."
