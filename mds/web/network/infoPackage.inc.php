@@ -27,7 +27,7 @@
 $mod = new Module("network");
 $mod->setVersion("1.1.3");
 $mod->setRevision("$Rev$");
-$mod->setDescription(_T("Network management"),"network");
+$mod->setDescription(_T("Network management", "network"));
 $mod->setAPIVersion('0:0:0');
 
 /**
@@ -35,7 +35,7 @@ $mod->setAPIVersion('0:0:0');
  */
 
 $submod = new SubModule("network");
-$submod->setDescription(_T("Network management","network"));
+$submod->setDescription(_T("Network", "network"));
 $submod->setImg('modules/network/graph/img/network');
 $submod->setDefaultPage("network/network/index");
 $submod->setPriority(300);
