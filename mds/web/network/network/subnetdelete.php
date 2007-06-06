@@ -27,12 +27,7 @@ if (isset($_POST["bconfirm"])) {
     $subnet = $_POST["subnet"];
     delSubnet($subnet);
     if (!isXMLRPCError()) {
-        $n = new NotifyWidget();
-	$n->flush();
-	$result = _T("The DHCP subnet has been deleted. You must restart the DHCP service.");
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
+        $n = new NotifyWidgetSuccess(_T("The DHCP subnet has been deleted. You must restart the DHCP service."));
     }
     header("Location: main.php?module=network&submod=network&action=subnetindex");
 } else {
@@ -41,7 +36,7 @@ if (isset($_POST["bconfirm"])) {
 ?>
 
 <p>
-<?= _T("You will delete the DHCP subnet"); ?> <strong><?php echo $subnet; ?></strong>.
+<?= sprintf(_T("You will delete the DHCP subnet %s."), "<strong>$subnet</strong>"); ?>
 </p>
 
 <form action="main.php?module=network&submod=network&action=subnetdelete" method="post">

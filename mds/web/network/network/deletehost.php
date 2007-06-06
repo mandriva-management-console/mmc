@@ -36,7 +36,7 @@ if (isset($_POST["bconfirm"])) {
 ?>
 
 <p>
-<?= _T("You will delete the host"); ?> <strong><?php echo " $host"; ?></strong>.
+<?= sprintf(_T("You will delete the host %s."), "<strong>$host</strong>"); ?>
 </p>
 
 <form action="main.php?module=network&submod=network&action=deletehost" method="post">

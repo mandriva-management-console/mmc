@@ -210,7 +210,7 @@ if (isset($subnetOptions["domain-name"])) {
                 we ask the user if she/he wants to record the machine in the DNS zone too.
             */
             $f->add(
-                    new TrFormElement(_T("Also records this machine into DNS zone") . "&nbsp;" . $domain, new CheckboxTpl("dnsrecord")),
+                    new TrFormElement(sprintf(_T("Also records this machine into DNS zone %s"), $domain), new CheckboxTpl("dnsrecord")),
                     array("value" => "CHECKED")
                     );
         } else {

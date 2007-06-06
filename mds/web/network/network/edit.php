@@ -59,7 +59,7 @@ if (isset($_POST["badd"])) {
     if (isset($_POST["reverse"])) {
         if ($hasnetaddress & $hasnetmask) $reverse = True;
         else {
-            $error .= " " . _T("The network address and the network mask field must be filled in if you also want to create a reverse zone.");
+            $error .= " " . _T("The network address and the network mask fields must be filled in if you also want to create a reverse zone.");
             if (!$hasnetaddress) setFormError("netaddress");
             if (!$hasnetmask) setFormError("netmask");
         }
@@ -68,7 +68,7 @@ if (isset($_POST["badd"])) {
     if (isset($_POST["dhcpsubnet"])) {
         if ($hasnetaddress & $hasnetmask) $dhcpsubnet = True;
         else {
-            $error .= " " . _T("The network address and the network mask field must be filled in if you also want to create a DHCP subnet.");
+            $error .= " " . _T("The network address and the network mask fields must be filled in if you also want to create a DHCP subnet.");
             if (!$hasnetaddress) setFormError("netaddress");
             if (!$hasnetmask) setFormError("netmask");
         }
@@ -165,7 +165,7 @@ if ($_GET["action"] == "add") {
             array("value" => $netmask, "extra" => _T("Only 8, 16 or 24 is allowed"))
             );    
     $f->add(
-            new TrFormElement(_T("Also manage a reverse zone"), new CheckboxTpl("reverse")),
+            new TrFormElement(_T("Also manage a reverse DNS zone"), new CheckboxTpl("reverse")),
             array("value" => "CHECKED")
             );
     $f->add(

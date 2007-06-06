@@ -27,12 +27,7 @@ if (isset($_POST["bconfirm"])) {
     $zone = $_POST["zone"];
     delZone($zone);
     if (!isXMLRPCError()) {
-        $n = new NotifyWidget();
-	$n->flush();
-	$result = _T("The DNS zone has been deleted.");
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
+        $n = new NotifyWidgetSuccess(_T("The DNS zone has been deleted."));
     }
     header("Location: main.php?module=network&submod=network&action=index");
 } else {
@@ -41,7 +36,7 @@ if (isset($_POST["bconfirm"])) {
 ?>
 
 <p>
-<?= _T("You will delete the DNS zone "); ?> <strong><?php echo $zone; ?></strong>.
+<?= sprintf(_T("You will delete the DNS zone %s."), "<strong>$zone</strong>"); ?>
 </p>
 
 <form action="main.php?module=network&submod=network&action=delete" method="post">
