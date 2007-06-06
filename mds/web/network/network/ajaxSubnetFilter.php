@@ -94,9 +94,9 @@ $n->addExtraInfo($names, _T("Description", "network"));
 $n->addExtraInfo($ranges, _T("Dynamic pool range", "network"));
 $n->setName(_T("DHCP subnets", "network"));
 
-$n->addActionItem(new ActionItem(_T("View DHCP fixed host", "network"),"subnetmembers","afficher","subnet", "network", "network"));
+$n->addActionItem(new ActionItem(_T("View DHCP static host", "network"),"subnetmembers","afficher","subnet", "network", "network"));
 $n->addActionItem(new ActionItem(_T("Edit subnet", "network"),"subnetedit","edit","subnet", "network", "network"));
-$n->addActionItem(new ActionItem(_T("Add fixed host to subnet", "network"),"subnetaddhost","addhost","subnet", "network", "network"));
+$n->addActionItem(new ActionItem(_T("Add static host to subnet", "network"),"subnetaddhost","addhost","subnet", "network", "network"));
 $n->addActionItem(new ActionPopupItem(_T("Delete zone", "network"),"subnetdelete","supprimer","subnet", "network", "network"));
 
 $n->display(0);
