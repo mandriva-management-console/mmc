@@ -37,9 +37,9 @@ foreach (xmlCall("network.getDhcpLog",array($_SESSION['ajax']['filter'])) as $li
     }
 }
 
-$n = new ListInfos($date, _("Date"),"1px");
-$n->addExtraInfo($op, _("Operations"));
-$n->addExtraInfo($extra, _("Informations"));
+$n = new ListInfos($date, _T("Date"),"1px");
+$n->addExtraInfo($op, _T("Operations"));
+$n->addExtraInfo($extra, _T("Informations"));
 $n->end = 200;
 $n->setTableHeaderPadding(1);
 $n->display(0,0);

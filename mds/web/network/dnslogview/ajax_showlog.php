@@ -35,8 +35,8 @@ foreach (xmlCall("network.getDnsLog",array($_SESSION['ajax']['filter'])) as $lin
     }
 }
 
-$n = new ListInfos($date,_("Date"),"1px");
-$n->addExtraInfo($extra,_("Informations"));
+$n = new ListInfos($date,_T("Date"),"1px");
+$n->addExtraInfo($extra,_T("Informations"));
 $n->end = 200;
 $n->setTableHeaderPadding(1);
 $n->display(0,0);

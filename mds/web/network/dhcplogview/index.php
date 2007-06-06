@@ -32,7 +32,7 @@ displayInputLiveSearch(urlStrRedirect('base/logview/dhcpsetsearch'));
 </div>
 
 
-<h2><?= _("DHCP service log view"); ?></h2>
+<h2><?= _T("DHCP service log view"); ?></h2>
 
 
 <div class="fixheight"></div>
