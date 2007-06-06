@@ -26,7 +26,9 @@ require("modules/network/includes/network.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-if ($_GET["action"] == "addhost") $title =  _T("Add a host");
+$zone = $_GET["zone"];
+
+if ($_GET["action"] == "addhost") $title =  sprintf(_T("Add a host to zone %s"), $zone);
 else $title =  _T("Edit host");;
 
 $p = new PageGenerator($title);
@@ -34,7 +36,6 @@ $sidemenu->forceActiveItem("index");
 $p->setSideMenu($sidemenu);
 $p->display();
 
-$zone = $_GET["zone"];
 global $error;
 if (isset($_POST["badd"])) {
     $hostname = $_POST["hostname"];
