@@ -73,7 +73,7 @@ function setZoneFreeAddress(t) {
 
 </script>
 
-<input type="button" class="btnPrimary" onclick="new Ajax.Request(\'main.php?module=network&submod=network&action=' . $ajaxurl . '\', {method: \'get\', parameters: \'zone=' . $zone . '&subnet=' . $subnet . '&current=\' + $F(\'ipaddress\'), onSuccess:setZoneFreeAddress});" value="Get next free IP address">
+<input type="button" class="btnPrimary" onclick="new Ajax.Request(\'main.php?module=network&submod=network&action=' . $ajaxurl . '\', {method: \'get\', parameters: \'zone=' . $zone . '&subnet=' . $subnet . '&current=\' + $F(\'ipaddress\'), onSuccess:setZoneFreeAddress});" value="' . _T("Get next free IP address") . '">
 ';
 
     }
