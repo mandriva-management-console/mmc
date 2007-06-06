@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-06 14:45+0200\n"
-"PO-Revision-Date: 2007-06-06 15:53+0200\n"
+"POT-Creation-Date: 2007-06-06 16:22+0200\n"
+"PO-Revision-Date: 2007-06-06 16:23+0200\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,7 @@ msgstr "Suppression de l'hôte"
 
 #: network/network/deletehost.php:46 network/network/delete.php:50
 #: network/network/subnetdeletehost.php:72 network/network/subnetdelete.php:50
+#: network/network/delete.php:45 network/network/subnetdelete.php:45
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -90,7 +91,7 @@ msgstr "Hôte"
 msgid "Add a host"
 msgstr "Ajouter un hôte"
 
-#: network/network/delete.php:32
+#: network/network/delete.php:32 network/network/delete.php:30
 msgid "The DNS zone has been deleted."
 msgstr "La zone DNS a été supprimée."
 
@@ -99,7 +100,7 @@ msgid "You will delete the DNS zone "
 msgstr "Vous allez supprimer la zone DNS "
 
 #: network/network/delete.php:49 network/network/ajaxSubnetFilter.php:100
-#: network/network/ajaxZoneFilter.php:94
+#: network/network/ajaxZoneFilter.php:94 network/network/delete.php:44
 msgid "Delete zone"
 msgstr "Suppression de la zone"
 
@@ -120,7 +121,9 @@ msgstr "L'adresse IP spécifiée n'appartient pas au sous-réseau."
 #: network/network/subnetedithost.php:57
 msgid ""
 "The specified IP address belongs to the dynamic pool range of the subnet."
-msgstr "L'adresse IP spécifiée appartient à la plage d'adresse dynamique du sous-réseau."
+msgstr ""
+"L'adresse IP spécifiée appartient à la plage d'adresse dynamique du sous-"
+"réseau."
 
 #: network/network/subnetedithost.php:66
 msgid "The specified hostname has been already registered in this DHCP subnet."
@@ -129,7 +132,8 @@ msgstr "Le nom d'hôte spécifié a déjà été enregistré dans ce sous-résea
 #: network/network/subnetedithost.php:71 network/network/subnetedithost.php:96
 msgid ""
 "The specified IP address has been already registered in this DHCP subnet."
-msgstr "L'adresse IP spécifiée a déjà été enregistrée dans le sous-réseau DHCP."
+msgstr ""
+"L'adresse IP spécifiée a déjà été enregistrée dans le sous-réseau DHCP."
 
 #: network/network/subnetedithost.php:81
 #, php-format
@@ -252,7 +256,8 @@ msgstr "Édition d'un sous-réseau DHCP"
 msgid ""
 "The given network address belongs to the already existing DHCP subnet %s / %"
 "s."
-msgstr "L'adresse réseau spécifiée appartient au sous-réseau DHCP existant %s / %s."
+msgstr ""
+"L'adresse réseau spécifiée appartient au sous-réseau DHCP existant %s / %s."
 
 #: network/network/subnetedit.php:70
 msgid "The specified dynamic pool IP range is not valid."
@@ -264,11 +269,15 @@ msgstr "Aucune plage d'adresse IP dynamique."
 
 #: network/network/subnetedit.php:143
 msgid "Subnet successfully added. You must restart the DHCP service."
-msgstr "Le sous-réseau a été ajouté avec succès. Vous devez re-démarrer le service DHCP."
+msgstr ""
+"Le sous-réseau a été ajouté avec succès. Vous devez re-démarrer le service "
+"DHCP."
 
 #: network/network/subnetedit.php:145
 msgid "Subnet successfully modified. You must restart the DHCP service."
-msgstr "Le sous-réseau a été modifié avec succès. Vous devez re-démarrer le service DHCP."
+msgstr ""
+"Le sous-réseau a été modifié avec succès. Vous devez re-démarrer le service "
+"DHCP."
 
 #: network/network/subnetedit.php:185
 msgid "DHCP subnet address"
@@ -351,7 +360,9 @@ msgstr "Durée de bail DHCP par défaut"
 msgid ""
 "Lengh in seconds that will be assigned to a lease if the client requesting "
 "the lease does not ask for a specific expiration time."
-msgstr "Durée en secondes qui sera assignée à un bail si le client qui réclame le bail ne demande pas une durée d'expiration précise."
+msgstr ""
+"Durée en secondes qui sera assignée à un bail si le client qui réclame le "
+"bail ne demande pas une durée d'expiration précise."
 
 #: network/network/subnetedit.php:290
 msgid "Maximum lease time"
@@ -448,7 +459,9 @@ msgstr "L'hôte a été ajouté avec succès dans la zone DNS."
 
 #: network/network/edithost.php:59
 msgid "Host successfully added to DNS zone and corresponding reverse zone."
-msgstr "L'hôte a été ajouté avec succès dans la zone DNS et la zone DNS reverse correspondante."
+msgstr ""
+"L'hôte a été ajouté avec succès dans la zone DNS et la zone DNS reverse "
+"correspondante."
 
 #: network/network/edithost.php:78
 msgid "A reverse DNS record will be automatically created for this host."
@@ -502,15 +515,16 @@ msgstr "État des services réseau"
 msgid "Status"
 msgstr "État"
 
-#: network/network/subnetdelete.php:32
+#: network/network/subnetdelete.php:32 network/network/subnetdelete.php:30
 msgid "The DHCP subnet has been deleted. You must restart the DHCP service."
-msgstr "Le sous-réseau DHCP a été supprimé. Vous devez re-démarrer le service DHCP."
+msgstr ""
+"Le sous-réseau DHCP a été supprimé. Vous devez re-démarrer le service DHCP."
 
 #: network/network/subnetdelete.php:44
 msgid "You will delete the DHCP subnet"
 msgstr "Vous allez supprimer le sous-réseau DHCP"
 
-#: network/network/subnetdelete.php:49
+#: network/network/subnetdelete.php:49 network/network/subnetdelete.php:44
 msgid "Delete subnet"
 msgstr "Supprimer le sous-réseau"
 
@@ -543,13 +557,17 @@ msgstr "Cette zone existe déjà."
 msgid ""
 "The network address and the network mask field must be filled in if you also "
 "want to create a reverse zone."
-msgstr "Les champs adresse réseau et masque réseau doivent être renseignés si vous voulez aussi créer une zone reverse."
+msgstr ""
+"Les champs adresse réseau et masque réseau doivent être renseignés si vous "
+"voulez aussi créer une zone reverse."
 
 #: network/network/edit.php:71
 msgid ""
 "The network address and the network mask field must be filled in if you also "
 "want to create a DHCP subnet."
-msgstr "Les champs adresse réseau et masque réseau doivent être renseignés si vous voulez aussi créer un sous-réseau DHCP."
+msgstr ""
+"Les champs adresse réseau et masque réseau doivent être renseignés si vous "
+"voulez aussi créer un sous-réseau DHCP."
 
 #: network/network/edit.php:93
 msgid ""
@@ -585,7 +603,9 @@ msgstr "IP du serveur de nom"
 msgid ""
 "The network address and mask fields must be filled in if you also want to "
 "create a reverse zone or a DHCP subnet linked to this DNS zone."
-msgstr "Les champs adresse réseau et masque doivent être renseignés si vous voulez aussi créer une zone DNS inverse ou un sous-réseau DHCP lié à cette zone DNS."
+msgstr ""
+"Les champs adresse réseau et masque doivent être renseignés si vous voulez "
+"aussi créer une zone DNS inverse ou un sous-réseau DHCP lié à cette zone DNS."
 
 #: network/network/edit.php:164
 msgid "Network mask"
@@ -711,3 +731,47 @@ msgstr "Journal du service DHCP"
 #: network/infoPackage.inc.php:177
 msgid "DNS service log"
 msgstr "Journal du service DNS"
+
+#: network/network/deletehost.php:39
+#, php-format
+msgid "You will delete the host %s."
+msgstr "Vous allez supprimer l'hôte %s."
+
+#: network/network/delete.php:39
+#, php-format
+msgid "You will delete the DNS zone %s."
+msgstr "Vous allez supprimer la zone DNS %s."
+
+#: network/network/subnetedithost.php:213
+#, php-format
+msgid "Also records this machine into DNS zone %s"
+msgstr "Enregistrer aussi cette machine dans la zone DNS %s"
+
+#: network/network/subnetdelete.php:39
+#, php-format
+msgid "You will delete the DHCP subnet %s."
+msgstr "Vous allez supprimer le sous-réseau DHCP %s."
+
+#: network/network/edit.php:62
+msgid ""
+"The network address and the network mask fields must be filled in if you "
+"also want to create a reverse zone."
+msgstr ""
+"Les champs adresse réseau et masque réseau doivent être renseignés si vous "
+"voulez aussi créer une zone reverse."
+
+#: network/network/edit.php:71
+msgid ""
+"The network address and the network mask fields must be filled in if you "
+"also want to create a DHCP subnet."
+msgstr ""
+"Les champs adresse réseau et masque réseau doivent être renseignés si vous "
+"voulez aussi créer un sous-réseau DHCP."
+
+#: network/network/edit.php:168
+msgid "Also manage a reverse DNS zone"
+msgstr "Gérer aussi une zone DNS inverse"
+
+#: network/infoPackage.inc.php:38
+msgid "Network"
+msgstr "Réseau"
