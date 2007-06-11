@@ -23,11 +23,11 @@
 
 $sidemenu= new SideMenu();
 $sidemenu->setClass("network");
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("DNS zones"),"network","network","index"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Add DNS zone"),"network","network","add"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("DHCP subnets"),"network","network","subnetindex"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Add DHCP subnet"),"network","network","subnetadd"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Network services management"),"network","network","services"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("DNS zones"),"network","network","index", "modules/network/graph/img/network_active.png", "modules/network/graph/img/network_inactive.png"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Add DNS zone"),"network","network","add", "modules/network/graph/img/networkadd_active.png", "modules/network/graph/img/networkadd_inactive.png"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("DHCP subnets"),"network","network","subnetindex", "modules/network/graph/img/network_active.png", "modules/network/graph/img/network_inactive.png"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Add DHCP subnet"),"network","network","subnetadd", "modules/network/graph/img/networkadd_active.png", "modules/network/graph/img/networkadd_inactive.png"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Network services management"),"network","network","services", "modules/network/graph/img/network_active.png", "modules/network/graph/img/network_inactive.png"));
 
 ?>
 
