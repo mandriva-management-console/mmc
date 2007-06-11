@@ -67,8 +67,8 @@ foreach($subnets as $subnet => $infos) {
         $hasSubnetPool = "checked";
         $range = $pool[0][1]["dhcpRange"][0];
         list($ipstart, $ipend) = explode(" ", $range);
-	$ranges[] = "$ipstart to $ipend";
-    } else $ranges[] = _T("No dynamic address pool");
+	$ranges[] = "$ipstart -> $ipend";
+    } else $ranges[] = _T("No dynamic address pool", "network");
 
 }
 
