@@ -49,9 +49,11 @@ $count = array();
 foreach(getZones($filter) as $dn => $entry) {
     $zonename = $entry[1]["zoneName"][0];
     $zones[$zonename] = array();
-    $zones[$zonename]["description"] = "";
-    foreach($entry[1]["tXTRecord"] as $value) {
-        $zones[$zonename]["description"] .= $value . " ";
+    $zones[$zonename]["description"] = "";    
+    if (isset($entry[1]["tXTRecord"])) {
+        foreach($entry[1]["tXTRecord"] as $value) {
+            $zones[$zonename]["description"] .= $value . " ";
+        }
     }
 }
 
@@ -64,7 +66,7 @@ foreach($zones as $zone => $infos) {
     $descriptions[] = $infos["description"];
     $reverse = getZoneNetworkAddress($zone);
     if (!$reverse) $reverses[] = "None";
-    else $reverses[] = $reverse[0];
+    else $reverses[] = $reverse[0] . ".";
 }
 
 if (isset($_GET["start"])) {
@@ -84,7 +86,7 @@ print_ajax_nav($start, $end, $zones, $filter);
 $n = new ListInfos(array_keys($zones), _T("DNS zones", "network"));
 $n->setAdditionalInfo($count);
 $n->first_elt_padding = 1;
-$n->addExtraInfo($reverses, _T("Network address", "network"));
+$n->addExtraInfo($reverses, _T("Network prefix", "network"));
 $n->addExtraInfo($descriptions, _T("Description", "network"));
 $n->setName(_T("DNS zones", "network"));
 
