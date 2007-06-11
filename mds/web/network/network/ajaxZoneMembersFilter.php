@@ -98,4 +98,4 @@ print_ajax_nav($start, $end, $addresses, $filter);
 
 ?>
 
-<input type="button" class="btnPrimary" value="<?= _T("Add a host"); ?>" onclick="location.href='main.php?module=network&submod=network&action=addhost&zone=<?= $zone; ?>';"/>
+<input type="button" class="btnPrimary" value="<?= _T("Add a host", "network"); ?>" onclick="location.href='main.php?module=network&submod=network&action=addhost&zone=<?= $zone; ?>';"/>
