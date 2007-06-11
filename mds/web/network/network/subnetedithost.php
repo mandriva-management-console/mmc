@@ -243,9 +243,9 @@ $f->add(new TrFormElement(_T("Other DHCP options"), new HiddenTpl("")));
 $f->add(
         new TrFormElement(_T("Initial boot file name"),new IA5InputTpl("filename"),
                           array(
-                                "tooltip" => _T("Specify the name of the initial boot file which is to be loaded by a client.<br/>
-                                                 The filename should be a filename recognizable to whatever file transfer protocol the client can be expected to use to load the file.<br/>
-                                                 (DHCP option number 67)")
+                                "tooltip" => _T("Specify the name of the initial boot file which is to be loaded by a client.") . "<br/>" 
+                                . _T("The filename should be a filename recognizable to whatever file transfer protocol the client can be expected to use to load the file.") . "<br/>"
+                                . _T("(DHCP option number 67)")
                                 )
                           ),
         array("value"=>$filename)
@@ -253,8 +253,8 @@ $f->add(
 $f->add(
         new TrFormElement(_T("Path to the root filesystem"),new IA5InputTpl("rootpath"),
                           array(
-                                "tooltip" => _T("Path-name that contains the client's root disk.<br/>
-                                                 (DHCP option number 17)")
+                                "tooltip" => _T("Path-name that contains the client's root disk.") . "<br/>"
+                                . _T("(DHCP option number 17)")
                                 )
                           ),
         array("value"=>$rootpath)
@@ -262,8 +262,8 @@ $f->add(
 $f->add(
         new TrFormElement(_T("TFTP server name"),new IA5InputTpl("tftp-server-name"),
                           array(
-                                "tooltip" => _T("Trivial File Transfer Protocol server name from which the client is booting.<br/>
-                                                (DHCP option number 66)")
+                                "tooltip" => _T("Trivial File Transfer Protocol server name from which the client is booting.") . "<br/>"
+                                . _T("(DHCP option number 66)")
                                 )                          
                           ),
         array("value"=>$tftpservername)
