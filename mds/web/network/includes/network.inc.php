@@ -123,17 +123,23 @@ function ipInRange($ip, $ipa, $ipb) {
 /* Some common used utility functions */
 
 function getSubnetOptions($subnet) {
-    foreach($subnet[0][1]["dhcpOption"] as $option) {
-        list($name, $value) = explode(" ", $option, 2);
-        $options[$name] = trim($value, '"');
+    $options = array();
+    if (isset($subnet[0][1]["dhcpOption"])) {
+        foreach($subnet[0][1]["dhcpOption"] as $option) {
+            list($name, $value) = explode(" ", $option, 2);
+            $options[$name] = trim($value, '"');
+        }
     }
     return $options;
 }
 
 function getSubnetStatements($subnet) {
-    foreach($subnet[0][1]["dhcpStatements"] as $statement) {
-        list($name, $value) = explode(" ", $statement, 2);
-        $statements[$name] = trim($value, '"');
+    $statements = array();
+    if (isset($subnet[0][1]["dhcpStatements"])) {
+        foreach($subnet[0][1]["dhcpStatements"] as $statement) {
+            list($name, $value) = explode(" ", $statement, 2);
+            $statements[$name] = trim($value, '"');
+        }
     }
     return $statements;
 }
