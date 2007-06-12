@@ -87,6 +87,11 @@
 	</thead>
 	<tbody>
 	  <row>
+	    <entry>main</entry>
+	    <entry>global network plugin configuration</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
 	    <entry>dns</entry>
 	    <entry>DNS related configuration</entry>
 	    <entry>no</entry>
@@ -100,6 +105,39 @@
       </tgroup>
     </table>
 
+  </section>
+
+  <section>
+
+    <title>Section « main »</title>
+
+    <para>
+      This sections defines the global options of the network plugin.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "main" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>disable</entry>
+	    <entry>Is the plugin disabled</entry>
+	    <entry>yes</entry>
+	    <entry>1</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
   </section>
   
   <section>
