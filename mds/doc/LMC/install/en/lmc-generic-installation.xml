@@ -73,7 +73,7 @@
 
   </section>
 
-  <section>
+  <section id="LDS_DEBIAN">
 
     <title>Debian users are lucky</title>
 
@@ -257,7 +257,7 @@
 	Install FDS according to the FDS documentation.
       </para>
       <para>
-	The LDAP schemas we prodide must be converted and then imported into FDS.
+	The LDAP schemas we provide must be converted and then imported into FDS.
       </para>	
 
     </section>
@@ -478,6 +478,20 @@
     </section>
 
     <section>
+      
+      <title>LMC « network » plugin configuration</title>
+
+      <para>
+	You can find a full description of the LMC network plugin configuration file <ulink url="http://lds.linbox.org/content/LMC/conf/en/lmc-python-plugin-network-configuration.html">there</ulink>.
+      </para>
+      <para>
+	This plugin won't be activated if your LDAP directory does not include special schemas. See the section <xref linkend="LDS_NETWORK" />.
+      </para>
+      
+    </section>
+
+
+    <section>
 
       <title>Using LMC agent</title>
 
@@ -609,10 +623,10 @@
 	  <para>lmc-web-mail: mail delivery and mail virtual domains management</para>
 	</listitem>
 	<listitem>
-	  <para>lmc-web-ox: Open-Xchange users management</para>
+	  <para>lmc-web-proxy: blacklist management for squidGuard</para>
 	</listitem>
 	<listitem>
-	  <para>lmc-web-proxy: blacklist management for squidGuard</para>
+	  <para>lmc-web-network: DNS/DHCP management</para>
 	</listitem>
       </itemizedlist>
       
@@ -1073,6 +1087,133 @@
     </section>    
     
   </section>
-  
+
+  <section id="LDS_NETWORK">
+
+    <title>LDS network plugin configuration for integrated DNS/DHCP</title>
+
+    <section>
+
+      <title>Introduction</title>
+
+      <para>
+	This plugin allows to store in a LDAP directory:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    DNS zones declarations and related DNS records as needed for a standard LAN;
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    DHCP server configuration with DHCP subnet, dynamic pool and static host declarations.
+	  </para>
+	</listitem>
+      </itemizedlist>
+      
+      <para>
+	The LMC web interface allows to easily manage the DNS and DHCP services.
+      </para>
+
+      <para>
+	The network plugin relies on patched version of ISC DHCP 3 and ISC BIND 9:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    ISC BIND: a patch featuring a LDAP sdb backend must be applied to your BIND installation.
+	    With this patch BIND will be able to read DNS zone declarations from a LDAP directory.
+	    This patch is available <ulink url="http://www.venaas.no/ldap/bind-sdb/">there</ulink>. 
+	    The stable release of this patch (version 1.0) works fine.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    ISC DHCP: the patch <ulink url="http://home.ntelos.net/~masneyb/">on this page</ulink> allows to store 
+	    into a LDAP the DHCP service configuration (instead of using <filename>/etc/dhcp3/dhcpd.conf</filename>.
+	  </para>
+	</listitem>
+      </itemizedlist>
+      
+    </section>
+
+    <section>
+
+      <title>Debian packages for patched versions of BIND and DHCP</title>
+
+      <para>
+	We provide Debian (Sarge/Etch) packages for LDAP patched versions of BIND and DHCP.
+      </para>
+      <para>
+	Configure your APT repository as in <xref linkend="LDS_DEBIAN" />, and type:
+      </para>
+      <screen>
+	# apt-get update
+	# apt-get install dhcp3-server
+	# apt-get install dhcp3-server-ldap
+	# apt-get install bind9
+      </screen>
+      
+    </section>
+    
+    <section>
+
+      <title>DNS service configuration (ISC BIND)</title>
+
+      <para>
+	When managing the DNS zones, the LMC agent will create files into the BIND configuration directory (located in <filename>/etc/bind/</filename>). These files must be included in the main BIND configuration file so that the corresponding zones are loaded from the LDAP directory.
+      </para>
+      <para>
+	All the DNS zones are defined in the file <filename>named.conf.ldap</filename>. This file must be included in the main BIND configuration file <filename>named.conf</filename>.	Adding this line at the end of BIND <filename>named.conf</filename> should be sufficient:
+      </para>
+      <screen>
+	include "/etc/bind/named.conf.ldap";
+      </screen>      
+
+      <para>
+	An example of <filename>named.conf</filename> filename for Debian based system is available in the directory <filename>contrib/bind/</filename> of the lmc-agent tarball.
+      </para>
+      
+    </section>
+    
+    <section>
+
+      <title>DHCP service configuration (ISC DHCP)</title>
+      
+      <para>
+	The DHCP server needs to know how to load its configuration from LDAP.
+	Here is a typical <filename>/etc/dhcp3/dhcpd.conf</filename>:
+      </para>
+      <screen>
+	ldap-server "localhost";
+	ldap-port 389;
+	ldap-username "cn=admin, dc=linbox, dc=com";
+	ldap-password "LiNBoX";
+	ldap-base-dn "dc=linbox, dc=com";
+	ldap-method dynamic;
+	ldap-debug-file "/var/log/dhcp-ldap-startup.log";
+      </screen>
+
+      <para>
+	An example of <filename>dhcpd.conf</filename> filename is available in the directory <filename>contrib/dhcpd/</filename> of the lmc-agent tarball.
+      </para>
+      
+    </section>
+
+    <section>
+
+      <title>LDAP Schemas</title>
+
+      <para>
+	Two new LDAP schemas must be imported into your LDAP directory: dnszone.schema and dhcp.schema.
+      </para>
+      <para>
+	Both are available in the directory <filename>contrib/ldap</filename> of the lmc-agent tarball.
+      </para>
+
+    </section>    
+
+  </section>  
 
 </article>
