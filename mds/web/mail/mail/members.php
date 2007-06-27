@@ -25,11 +25,6 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$p = new PageGenerator();
-$sidemenu->forceActiveItem("index");
-$p->setSideMenu($sidemenu);
-$p->displaySideMenu();
-
 $domain = $_GET["mail"];
 ?>
 
@@ -82,10 +77,14 @@ $domain = $_GET["mail"];
 
 </form>
 
-<h2><?= _T("Members of ") . " " . $domain; ?></h2>
+<?
 
-<div class="fixheight"></div>
+$p = new PageGenerator(_T("Members of ") . " " . $domain);
+$sidemenu->forceActiveItem("index");
+$p->setSideMenu($sidemenu);
+$p->display();
 
+?>
 
 <div id="container">
 </div>
