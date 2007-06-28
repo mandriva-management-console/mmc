@@ -112,7 +112,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
 }
 
 /**
- * function call when you submit while editing a group
+ * function called when you submit while editing a group
  * @param $postArr $_POST array of the page
  */
 function _mail_changeGroup($postArr) {
@@ -145,6 +145,14 @@ function _mail_addUserToGroup($user, $group) {
 function _mail_delUserFromGroup($user, $group) {
     syncMailGroupAliases($group, $user);
 }
+
+function _mail_delGroup($group) {
+    /** 
+     * When deleting a user group, also delete all mail aliases associated to this group
+     */
+    deleteMailGroupAliases($group);
+}
+
 
 /**
  * display normal edit
