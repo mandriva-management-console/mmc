@@ -27,102 +27,25 @@
 require("modules/samba/includes/shares.inc.php");
 
 if (isset($_POST["bdelshare"])) {
-    del_share($error, $_POST["share"], $_POST["delFiles"]);
-}
-?>
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/samba/graph/shares/index.css");
-?>
-
--->
-</style>
-
-<?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Shares"),
-                    "link" => "main.php?module=samba&submod=shares&action=index"),
-              array("name" => _T("Del a share")));
-
-require("modules/samba/mainSidebar.php");
-
-?>
-
-<h2><?= _T("Delete a share"); ?></h2>
-
-<div class="fixheight"></div>
-
-<?php
-if (isset($_GET["share"]))
-{
-  $share = urldecode($_GET["share"]);
-?>
-
-<form action="<? echo "main.php?module=samba&submod=shares&action=delete";?>" method="post">
-<p>
-<?php
-   printf(_T("You will delete the share <b>%s</b>"),$share);
-?>
-</p>
-
-<input type="checkbox" name="delFiles" /><?= _T("Delete all data"); ?>
-<br>
-<br>
-<p>
-<?= _T("Are you sure ?"); ?>
-</p>
-
-<input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bdelshare" type="submit" class="btnPrimary" value="<?= _T("Delete "); ?> <?php echo $share; ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _T("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
-</form>
-
-<?php
-}
-else if (isset($_POST["bdelshare"]))
-{
-  $share = $_POST["share"];
-
-  if (isset($error))
-    {
-?>
-
-<p>
-    <?= _T("An error has occured during delete process on %s:<br/>",$share); ?>
-</p>
-
-<?php
-      echo $error;
+    del_share($_POST["share"], $_POST["delFiles"]);
+    if (!isXMLRPCError()) {
+        $str = sprintf(_T("Share %s deleted"), $share);
+        new NotifyWidgetSuccess($str);
+    } else {
+        $str = sprintf(_T("An error has occured during delete process on %s", $share));
+        new NotifyWidgetFailure($str);
     }
-  else
-    {
-?>
-
-<p>
-<?php
-    $str = sprintf(_T("Share %s deleted"),$share);
-    $n = new NotifyWidget();
-    $n->add($str);
-
-    header( "location: " . urlStrRedirect('samba/shares/index'));
-  }
-}
-else
-{
-?>
-
-<p>
-<?= _T("You must select a share into the list of shares"); ?>
-</p>
-
-<form action="<? echo "main.php?module=samba&submod=shares&action=index"; ?> " method="post">
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;"/>
-</form>
-
-<?php
+    header("location: " . urlStrRedirect('samba/shares/index'));
+} else {
+    $share = urldecode($_GET["share"]);
+    $f = new PopupForm(_T("Delete a share"));
+    $f->addText(sprintf(_T("You will delete the share <b>%s</b>"), $share));
+    $cb = new CheckboxTpl("delFiles", _T("Delete all data"));
+    $f->add($cb, array("value" => ""));
+    $hidden = new HiddenTpl("share");
+    $f->add($hidden, array("value" => $share, "hide" => True));
+    $f->addValidateButton("bdelshare");
+    $f->addCancelButton("bback");
+    $f->display();
 }
 ?>

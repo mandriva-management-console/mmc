@@ -74,8 +74,7 @@ function share_path($share, $error)
   $shares = xmlCall("samba.getSharePath",$param);
 }
 
-function del_share($error, $share, $files)
-{
+function del_share($share, $files) {
   $param = array($share, $files);
   return xmlCall("samba.delShare", $param);
 }
