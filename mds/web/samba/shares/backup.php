@@ -22,94 +22,39 @@
  */
 ?>
 <?php
-$root = $conf["global"]["root"];
 
 require("modules/samba/includes/shares.inc.php");
 
-function sched_backup($share, $media)
-{
-  $param = array($share,$media,$_SESSION["login"]);
-  return xmlCall("samba.backupShare",$param);
-}
-
-?>
-
-<h2><?= _T("Share backup"); ?></h2>
-
-<?php
-if (isset($_GET["share"]))
-{
-  $share = urldecode($_GET["share"]);
-}
-if (isset($_POST["share"]))
-{
-  $share = $_POST["share"];
-}
-
-if (isset($_POST["bgo"]))
-{
-  $ret = sched_backup($share, $_POST["media"]);
-
-  if ($ret)
-    {
-      $str =  "<p>"._T("Error during backup process")."</p>";
-      $str .= "<p>".$ret."</p>";
-      $n = new NotifyWidget();
-      $n->add($str);
-      header("Location: ".urlStrRedirect("samba/shares/index"));
+if (isset($_POST["bgo"])) {
+    $share = $_POST["share"];
+    sched_backup($share, $_POST["media"]);
+    if (!isXMLRPCError()) {
+        $str = "<h2>"._T("Share backup")."</h2>";
+        $str .= '<p>';
+        $str .= sprintf(_T("Backup of share <b>%s</b> has been launched as a background job."), $share);
+        $str .= "</p><p>";
+        $str .= "Please go to the status page to see the operation completion.";
+        $str .= "</p><p>";
+        $str .= _T("This operation will last according to the amount of data to backup.");
+        $str .= "</p>";
+        new NotifyWidgetSuccess($str);
+    } else {
+        new NotifyWidgetFailure(_T("Can't launch backup"));
     }
-  else
-    {
-
-
-$str = "<h2>"._T("Share backup")."</h2>";
-$str .=  '
-<p>';
-$str.=sprintf(_T("Backup of share <b>%s</b> has been launched as a background job."),$share);
-$str.="</p>
-<p>";
-$archive = $_SESSION["login"]."-".$share."-".date("Ymd");
-$str.=sprintf(_T("The ISO file that contains this backup will be stored into the directory <b>%s</b>."), $archive);
-$str.="</p>
-<p>";
-$str.=_T("This operation will last according to the amount of data to backup.");
-$str.="</p>";
-
-$n = new NotifyWidget();
-$n->setSize(400);
-$n->add($str);
-
-header("Location: ".urlStrRedirect("samba/shares/index"));
-
-    }
-}
-else
-{
-?>
-
-<form action="main.php?module=samba&submod=shares&action=backup" method="post">
-<p>
-<?php
-    printf(_T("The share %s will be archived."),$share);
-?>
-</p>
-<p>
-<?php
-echo _T("Please select media size. If your data exceed volume size, several files with your media size will be created");
-?>
-</p>
-
-<?= _T("Media size"); ?>
-<select name="media" />
-<option value="600">CD (650 Mo)</option>
-<option value="4200">DVD (4.7 Go)</option>
-</select>
-<br><br>
-<input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bgo" type="submit" class="btnPrimary" value="<?= _("Launch backup"); ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
-</form>
-
-<?php
+    header("Location: ".urlStrRedirect("samba/shares/index"));
+} else {
+    $share = urldecode($_GET["share"]);
+    $f = new PopupForm(_T("Share backup"));
+    $f->addText(sprintf(_T("The share %s will be archived."), $share));
+    $f->addText(_T("Please select media size. If your data exceed volume size, several files with your media size will be created."));
+    $select = new SelectItem("media");
+    $select->setElements(array("CD (650 Mo)", "DVD (4.7 Go)"));
+    $select->setElementsVal(array(600, 4200));
+    $f->add($select);
+    $hidden = new HiddenTpl("share");
+    $f->add($hidden, array("value" => $share, "hide" => True));
+    $f->addValidateButton("bgo");
+    $f->addCancelButton("bback");
+    $f->display();
 }
 ?>

@@ -104,6 +104,11 @@ function mod_share($name, $comment, $usergroups, $permAll, $admingroups, $browse
     return "Partage $share modifié";
 }
 
+function sched_backup($share, $media) {
+    $param = array($share, $media, $_SESSION["login"]);
+    xmlCall("samba.backupShare", $param);
+}
+
 function getDomainAdminsGroup() {
     return xmlCall("samba.getDomainAdminsGroup", null);
 }
