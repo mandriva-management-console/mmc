@@ -41,8 +41,6 @@ require("modules/samba/mainSidebar.php");
 
 <h2><?= _T("Delete a computer"); ?></h2>
 
-<div class="fixheight"></div>
-
 <?php
 if (isset($_GET["machine"])) {
   $machine = urldecode($_GET["machine"]);

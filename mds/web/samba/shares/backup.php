@@ -34,31 +34,7 @@ function sched_backup($share, $media)
 
 ?>
 
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/samba/graph/shares/index.css");
-?>
-
--->
-</style>
-
-<?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Shares"),
-                    "link" => "main.php?module=samba&submod=shares&action=index"),
-              array("name" => _T("Backup this share")));
-
-require("modules/samba/mainSidebar.php");
-
-?>
-
 <h2><?= _T("Share backup"); ?></h2>
-
-<div class="fixheight"></div>
 
 <?php
 if (isset($_GET["share"]))
