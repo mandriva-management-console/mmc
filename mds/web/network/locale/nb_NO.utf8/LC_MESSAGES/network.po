@@ -1,0 +1,758 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Linbox LDS Network Plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2007-07-24 18:06+0100\n"
+"Last-Translator: Atle Johansen <atle@laluna.no>\n"
+"Language-Team:  <atle@laluna.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Norwegian Bokmal\n"
+"X-Poedit-Country: NORWAY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: network/dnslogview/ajax_showlog.php:38
+#: network/dhcplogview/ajax_showlog.php:40
+msgid "Date"
+msgstr "Dato"
+
+#: network/dnslogview/ajax_showlog.php:39
+#: network/dhcplogview/ajax_showlog.php:42
+msgid "Informations"
+msgstr "Informasjon"
+
+#: network/dnslogview/index.php:34
+msgid "DNS service log view"
+msgstr "DNS loggvisning"
+
+#: network/network/localSidebar.php:26
+#: network/network/ajaxZoneFilter.php:86
+#: network/network/ajaxZoneFilter.php:91
+#: network/infoPackage.inc.php:43
+msgid "DNS zones"
+msgstr "DNS soner"
+
+#: network/network/localSidebar.php:27
+msgid "Add DNS zone"
+msgstr "Opprett DNS sone"
+
+#: network/network/localSidebar.php:28
+#: network/network/ajaxSubnetFilter.php:89
+#: network/network/ajaxSubnetFilter.php:95
+#: network/infoPackage.inc.php:106
+msgid "DHCP subnets"
+msgstr "DHCP subnett"
+
+#: network/network/localSidebar.php:29
+msgid "Add DHCP subnet"
+msgstr "Opprett DHCP subnett"
+
+#: network/network/localSidebar.php:30
+#: network/network/services.php:28
+#: network/infoPackage.inc.php:129
+#: network/infoPackage.inc.php:132
+#: network/infoPackage.inc.php:136
+#: network/infoPackage.inc.php:140
+#: network/infoPackage.inc.php:144
+msgid "Network services management"
+msgstr "Netverkstjenester"
+
+#: network/network/servicestop.php:31
+msgid "The service has been asked to stop."
+msgstr "Tjenesten har blitt bedt om å stoppe."
+
+#: network/network/servicereload.php:31
+msgid "The service has been asked to reload."
+msgstr "Tjenesten har blitt bedt om å laste på nytt."
+
+#: network/network/subnetedithost.php:23
+#, php-format
+msgid "Add a DHCP host to subnet %s / %s"
+msgstr "Legg til en DHCP vert til subnett %s / %s"
+
+#: network/network/subnetedithost.php:24
+#, php-format
+msgid "Edit DHCP host of subnet %s"
+msgstr "Rediger DHCP vert til subnett %s"
+
+#: network/network/subnetedithost.php:48
+msgid "The specified IP address does not belong to the subnet."
+msgstr "Den oppgitte IP adressen hører ikke til subnettet."
+
+#: network/network/subnetedithost.php:57
+msgid "The specified IP address belongs to the dynamic pool range of the subnet."
+msgstr "Den oppgitte IP adressen tilhører det dynamiske adresseområdet for subnettet."
+
+#: network/network/subnetedithost.php:66
+msgid "The specified hostname has been already registered in this DHCP subnet."
+msgstr "Det oppgitte vertsnavnet er allerede registrert i DHCP subnettet."
+
+#: network/network/subnetedithost.php:71
+#: network/network/subnetedithost.php:96
+msgid "The specified IP address has been already registered in this DHCP subnet."
+msgstr "Den oppgitte IP adressen er allerede registrert i DHCP subnettet."
+
+#: network/network/subnetedithost.php:81
+#, php-format
+msgid "The specified hostname has been already registered in DNS zone %s."
+msgstr "Det oppgitte vertsnavnet er allerede registrert i DNS sonen %s."
+
+#: network/network/subnetedithost.php:86
+#, php-format
+msgid "The specified IP address has been already registered in DNS zone %s."
+msgstr "Den oppgitte IP adressen er allerede registrert i DNS sonen %s."
+
+#: network/network/subnetedithost.php:109
+#, php-format
+msgid "The IP address %s is already registered in DNS zone %s"
+msgstr "IP adressen %s er allerede registrert i DNS sonen %s"
+
+#: network/network/subnetedithost.php:134
+msgid "Host successfully added."
+msgstr "Verten ble lagt til."
+
+#: network/network/subnetedithost.php:135
+msgid "Host successfully modified."
+msgstr "Verten ble endret."
+
+#: network/network/subnetedithost.php:136
+msgid "DNS record successfully modified."
+msgstr "DNS sonen ble endret."
+
+#: network/network/subnetedithost.php:184
+#: network/network/edithost.php:89
+#: network/network/ajaxSubnetMembersFilter.php:156
+#: network/network/ajaxZoneMembersFilter.php:88
+msgid "Host name"
+msgstr "Vertsnavn"
+
+#: network/network/subnetedithost.php:190
+#: network/network/ajaxSubnetMembersFilter.php:153
+#: network/network/ajaxZoneMembersFilter.php:86
+msgid "IP address"
+msgstr "IP adresse"
+
+#: network/network/subnetedithost.php:197
+#: network/network/ajaxSubnetMembersFilter.php:157
+msgid "MAC address"
+msgstr "MAC adresse"
+
+#: network/network/subnetedithost.php:213
+#, php-format
+msgid "Also records this machine into DNS zone %s"
+msgstr "Også meld denne maskinen inn i DNS sonen %s"
+
+#: network/network/subnetedithost.php:223
+#, php-format
+msgid "This host name is also registered in DNS zone %s"
+msgstr "Dette vertsnavnet er også registrert i DNS sonen %s"
+
+#: network/network/subnetedithost.php:226
+#, php-format
+msgid "but with another IP address (%s)"
+msgstr "men med en annen IP adresse (%s)"
+
+#: network/network/subnetedithost.php:230
+#, php-format
+msgid "This host is not registered in DNS zone %s"
+msgstr "Dette vertsnavnet er ikke registrert i DNS sonen %s"
+
+#: network/network/subnetedithost.php:233
+msgid "Click here to add it"
+msgstr "Klikk her for å legge det til"
+
+#: network/network/subnetedithost.php:242
+#: network/network/subnetedit.php:240
+msgid "Other DHCP options"
+msgstr "Andre DHCP innstillinger"
+
+#: network/network/subnetedithost.php:243
+#: network/network/subnetedit.php:241
+msgid "Specify the name of the initial boot file which is to be loaded by a client."
+msgstr "Spesifiser navnet på oppstartsfilen som skal lastes av klienter."
+
+#: network/network/subnetedithost.php:245
+#: network/network/subnetedit.php:243
+msgid "The filename should be a filename recognizable to whatever file transfer protocol the client can be expected to use to load the file."
+msgstr "Filnavnet bør være gjenkjennelig for den filoverføringsprotokollen som klienter kan forventes å bruke til å laste filen."
+
+#: network/network/subnetedithost.php:247
+#: network/network/subnetedit.php:245
+msgid "(DHCP option number 67)"
+msgstr "(DHCP valg nummer 67)"
+
+#: network/network/subnetedithost.php:250
+#: network/network/subnetedit.php:248
+msgid "Initial boot file name"
+msgstr "Oppstartsfilnavn"
+
+#: network/network/subnetedithost.php:255
+#: network/network/subnetedit.php:253
+msgid "Path-name that contains the client's root disk."
+msgstr "Stinavn som inneholder klientens root disk."
+
+#: network/network/subnetedithost.php:257
+#: network/network/subnetedit.php:255
+msgid "(DHCP option number 17)"
+msgstr "(DHCP valg nummer 17)"
+
+#: network/network/subnetedithost.php:260
+#: network/network/subnetedit.php:258
+msgid "Path to the root filesystem"
+msgstr "Stil til root filsystemet"
+
+#: network/network/subnetedithost.php:265
+#: network/network/subnetedit.php:263
+msgid "Trivial File Transfer Protocol server name from which the client is booting."
+msgstr "Trivial File Transfer Protocol servernavn som klienten starter fra."
+
+#: network/network/subnetedithost.php:267
+#: network/network/subnetedit.php:265
+msgid "(DHCP option number 66)"
+msgstr "(DHCP valg nummer 66)"
+
+#: network/network/subnetedithost.php:270
+#: network/network/subnetedit.php:268
+msgid "TFTP server name"
+msgstr "TFTP servernavn"
+
+#: network/network/subnetedithost.php:280
+#: network/network/subnetedit.php:329
+#: network/network/edithost.php:112
+#: network/network/edit.php:179
+msgid "Create"
+msgstr "Opprett"
+
+#: network/network/subnetedithost.php:282
+#: network/network/subnetedit.php:331
+#: network/network/edithost.php:114
+#: network/network/edit.php:181
+msgid "Confirm"
+msgstr "Bekreft"
+
+#: network/network/subnetindex.php:79
+msgid "DHCP subnets management"
+msgstr "DHCP subnett administrasjon"
+
+#: network/network/deletehost.php:30
+#: network/network/subnetdeletehost.php:31
+msgid "The host has been deleted."
+msgstr "Verten har blitt slettet."
+
+#: network/network/deletehost.php:39
+#, php-format
+msgid "You will delete the host %s."
+msgstr "Du sletter verten %s."
+
+#: network/network/deletehost.php:45
+#: network/network/subnetdeletehost.php:71
+#: network/network/ajaxSubnetMembersFilter.php:116
+#: network/network/ajaxZoneMembersFilter.php:93
+msgid "Delete host"
+msgstr "Slett vert"
+
+#: network/network/deletehost.php:46
+#: network/network/subnetdelete.php:45
+#: network/network/delete.php:45
+#: network/network/subnetdeletehost.php:72
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: network/network/ajaxZoneFilter.php:22
+#: network/network/ajaxZoneFilter.php:28
+#: network/network/ajaxSubnetFilter.php:22
+#: network/network/ajaxSubnetFilter.php:28
+#: network/network/ajaxSubnetMembersFilter.php:23
+#: network/network/ajaxSubnetMembersFilter.php:29
+#: network/network/ajaxZoneMembersFilter.php:22
+#: network/network/ajaxZoneMembersFilter.php:28
+msgid "Previous"
+msgstr "Forrige"
+
+#: network/network/ajaxZoneFilter.php:33
+#: network/network/ajaxZoneFilter.php:39
+#: network/network/ajaxSubnetFilter.php:33
+#: network/network/ajaxSubnetFilter.php:39
+#: network/network/ajaxSubnetMembersFilter.php:34
+#: network/network/ajaxSubnetMembersFilter.php:40
+#: network/network/ajaxZoneMembersFilter.php:33
+#: network/network/ajaxZoneMembersFilter.php:39
+msgid "Next"
+msgstr "Neste"
+
+#: network/network/ajaxZoneFilter.php:89
+msgid "Network prefix"
+msgstr "Netverksprefiks"
+
+#: network/network/ajaxZoneFilter.php:90
+#: network/network/ajaxSubnetFilter.php:93
+#: network/network/subnetedit.php:193
+#: network/network/edit.php:142
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: network/network/ajaxZoneFilter.php:93
+msgid "View zone records"
+msgstr "Se soneoppføringer"
+
+#: network/network/ajaxZoneFilter.php:94
+msgid "Edit zone"
+msgstr "Rediger sone"
+
+#: network/network/ajaxZoneFilter.php:95
+msgid "Add host"
+msgstr "Legg til vert"
+
+#: network/network/ajaxZoneFilter.php:96
+#: network/network/ajaxSubnetFilter.php:100
+#: network/network/delete.php:44
+msgid "Delete zone"
+msgstr "Slett sone"
+
+#: network/network/subnetmembers.php:80
+msgid "Members of DHCP subnet"
+msgstr "Medlemmer av DHCP subnett"
+
+#: network/network/subnetdelete.php:30
+msgid "The DHCP subnet has been deleted. You must restart the DHCP service."
+msgstr "DHCP subnettet har blitt slettet. Du må restarte DHCP tjenesten."
+
+#: network/network/subnetdelete.php:39
+#, php-format
+msgid "You will delete the DHCP subnet %s."
+msgstr "Du sletter DHCP subnettet %s."
+
+#: network/network/subnetdelete.php:44
+msgid "Delete subnet"
+msgstr "Slett subnett"
+
+#: network/network/services.php:39
+msgid "Start service"
+msgstr "Start tjeneste"
+
+#: network/network/services.php:40
+msgid "Stop service"
+msgstr "Stopp tjeneste"
+
+#: network/network/services.php:41
+msgid "Reload service"
+msgstr "Omlaste tjeneste"
+
+#: network/network/services.php:42
+msgid "View log"
+msgstr "Se logg"
+
+#: network/network/services.php:50
+#: network/network/services.php:62
+msgid "Started"
+msgstr "Startet"
+
+#: network/network/services.php:54
+#: network/network/services.php:66
+msgid "Stopped"
+msgstr "Stoppet"
+
+#: network/network/services.php:71
+msgid "Services"
+msgstr "Tjenester"
+
+#: network/network/services.php:72
+msgid "Network services status"
+msgstr "Nettverkstjenestestatus"
+
+#: network/network/services.php:73
+msgid "Status"
+msgstr "Status"
+
+#: network/network/ajaxSubnetFilter.php:71
+msgid "No dynamic address pool"
+msgstr "Ingen dynamisk adresseområde"
+
+#: network/network/ajaxSubnetFilter.php:92
+#: network/network/subnetedit.php:189
+msgid "Netmask"
+msgstr "Nettmaske"
+
+#: network/network/ajaxSubnetFilter.php:94
+msgid "Dynamic pool range"
+msgstr "Dymamsik adresseområde"
+
+#: network/network/ajaxSubnetFilter.php:97
+msgid "View DHCP static host"
+msgstr "Vis DHCP statsk vert"
+
+#: network/network/ajaxSubnetFilter.php:98
+msgid "Edit subnet"
+msgstr "Rediger subnett"
+
+#: network/network/ajaxSubnetFilter.php:99
+msgid "Add static host to subnet"
+msgstr "Legg til statisk vert til subnett"
+
+#: network/network/zonemembers.php:81
+msgid "Members of zone"
+msgstr "Medlemmer av sone"
+
+#: network/network/index.php:79
+msgid "DNS zones management"
+msgstr "DNS sone administrasjon"
+
+#: network/network/delete.php:30
+msgid "The DNS zone has been deleted."
+msgstr "DNS sonen har blitt slettet."
+
+#: network/network/delete.php:39
+#, php-format
+msgid "You will delete the DNS zone %s."
+msgstr "Du sletter DNS sonen %s."
+
+#: network/network/subnetedit.php:29
+#: network/infoPackage.inc.php:99
+msgid "Add a DHCP subnet"
+msgstr "Opprett et DHCP subnett"
+
+#: network/network/subnetedit.php:30
+#: network/infoPackage.inc.php:102
+msgid "Edit DHCP subnet"
+msgstr "Rediger DHCP subnett"
+
+#: network/network/subnetedit.php:45
+#: network/network/edit.php:83
+#, php-format
+msgid "The given network address belongs to the already existing DHCP subnet %s / %s."
+msgstr "Oppgitt nettverksadresse tilhører allerede eksisterende DHCP subnett %s / %s."
+
+#: network/network/subnetedit.php:70
+msgid "The specified dynamic pool IP range is not valid."
+msgstr "Oppgitt dynamisk adresseområde er ugyldig."
+
+#: network/network/subnetedit.php:71
+msgid "No dynamic pool IP range specified."
+msgstr "Dynamisk adresseområde ikke oppgitt."
+
+#: network/network/subnetedit.php:143
+msgid "Subnet successfully added. You must restart the DHCP service."
+msgstr "Subnettet ble opprettet. Du må restarte DHCP tjenesten."
+
+#: network/network/subnetedit.php:145
+msgid "Subnet successfully modified. You must restart the DHCP service."
+msgstr "Subnettet ble endret. Du må restarte DHCP tjenesten."
+
+#: network/network/subnetedit.php:185
+msgid "DHCP subnet address"
+msgstr "DHCP subnett adresse"
+
+#: network/network/subnetedit.php:199
+msgid "DHCP options related to clients network parameters"
+msgstr "DHCP valg relatert til klients nettverksparametre"
+
+#: network/network/subnetedit.php:201
+msgid "Broadcast address"
+msgstr "Kringkastingsadresse"
+
+#: network/network/subnetedit.php:205
+msgid "Domain name"
+msgstr "Domenenavn"
+
+#: network/network/subnetedit.php:207
+msgid "Domain name that will be appended to the client's hostname to form a fully-qualified domain-name (FQDN)."
+msgstr "Domenenavnet vil bli lagt til klienters vertsnavn for å danne et fullstendig domenenavn (FQDN)."
+
+#: network/network/subnetedit.php:208
+msgid "If the domain name is a registered DNS domain, the subnet will be associated to the DNS domain."
+msgstr "Hvis domenenavnet er et registrert DNS domene, vil subnettet bli assosiert til DNS domenet."
+
+#: network/network/subnetedit.php:211
+msgid "Links the subnet to a DNS zone"
+msgstr "Kobler subnettet til en DNS sone"
+
+#: network/network/subnetedit.php:214
+msgid "Routers"
+msgstr "Rutere"
+
+#: network/network/subnetedit.php:216
+msgid "List of routers (gateways) on client's subnet."
+msgstr "Liste over rutere (gateways) på klientens subnett."
+
+#: network/network/subnetedit.php:222
+msgid "Domain name servers"
+msgstr "Navnetjenere"
+
+#: network/network/subnetedit.php:224
+msgid "DNS name servers available to the client."
+msgstr "DNS navnetjenere tilgjengelig for klienten."
+
+#: network/network/subnetedit.php:230
+msgid "NTP servers"
+msgstr "NTP tjenere"
+
+#: network/network/subnetedit.php:232
+msgid "Network Time Protocol servers available to the client."
+msgstr "Network Time Protocol tjenere tilgjengelig for klienten."
+
+#: network/network/subnetedit.php:276
+msgid "DHCP client lease time (in seconds)"
+msgstr "DHCP-klient leasingavtalevarighet (i sekunder)"
+
+#: network/network/subnetedit.php:278
+msgid "Minimum lease time"
+msgstr "Minimum leasingavtalevarighet"
+
+#: network/network/subnetedit.php:280
+msgid "Minimum length in seconds that will be assigned to a lease."
+msgstr "Minimum varighet i sekunder som kan bli tildelt en leasingavtale."
+
+#: network/network/subnetedit.php:286
+msgid "Default lease time"
+msgstr "Standard leasingavtalevarighet"
+
+#: network/network/subnetedit.php:288
+msgid "Lengh in seconds that will be assigned to a lease if the client requesting the lease does not ask for a specific expiration time."
+msgstr "Varighet i sekunder som vil bli tildelt en leasingavtale hvis klienten som ber om leasingavtalen ikke oppgir en spesifikk utløpsdato."
+
+#: network/network/subnetedit.php:294
+msgid "Maximum lease time"
+msgstr "Maksimum leasingavtalevarighet"
+
+#: network/network/subnetedit.php:296
+msgid "Maximum length in seconds that will be assigned to a lease."
+msgstr "Maksimum varighet i sekunder som kan bli tildelt en leasingavtale."
+
+#: network/network/subnetedit.php:305
+msgid "Dynamic pool for non-registered DHCP clients"
+msgstr "Dynamisk adresseområde for ikke-registrerte DHCP klienter"
+
+#: network/network/subnetedit.php:316
+msgid "IP range start"
+msgstr "IP adresseområde start"
+
+#: network/network/subnetedit.php:320
+msgid "IP range end"
+msgstr "IP adresseområde slutt"
+
+#: network/network/edithost.php:31
+#, php-format
+msgid "Add a host to zone %s"
+msgstr "Legg til en vert til sonen %s"
+
+#: network/network/edithost.php:32
+msgid "Edit host"
+msgstr "Rediger vert"
+
+#: network/network/edithost.php:46
+msgid "The specified hostname has been already recorded in this zone."
+msgstr "Det oppgitte vertsnavnet er allerede registrert i denne sonen."
+
+#: network/network/edithost.php:51
+msgid "The specified IP address has been already recorded in this zone."
+msgstr "Den oppgitte IP adressen er allerede registrert i denne sonen."
+
+#: network/network/edithost.php:58
+msgid "Host successfully added to DNS zone."
+msgstr "Verten ble lagt til i DNS sonen."
+
+#: network/network/edithost.php:59
+msgid "Host successfully added to DNS zone and corresponding reverse zone."
+msgstr "Verten ble lagt til i DNS sonen og den samsvarende reverse sonen."
+
+#: network/network/edithost.php:78
+msgid "A reverse DNS record will be automatically created for this host."
+msgstr "En revers DNS oppføring vil bli opprettet automtisk for denne verten."
+
+#: network/network/edithost.php:108
+#: network/network/edit.php:160
+msgid "Network address"
+msgstr "Nettverksadresse"
+
+#: network/network/subnetdeletehost.php:34
+msgid "The DNS record has been deleted."
+msgstr "DNS oppføringen har blitt slettet."
+
+#: network/network/subnetdeletehost.php:58
+#, php-format
+msgid "You will delete the host %s from the DHCP subnet."
+msgstr "Du sletter verten %s fra DHCP subnettet."
+
+#: network/network/subnetdeletehost.php:65
+#, php-format
+msgid "Also unregister this host from DNS zone %s"
+msgstr "Også fjern registrerting av vert fra DNS sonen %s"
+
+#: network/network/ajaxSubnetMembersFilter.php:69
+#: network/network/ajaxSubnetMembersFilter.php:128
+msgid "Static"
+msgstr "Statisk"
+
+#: network/network/ajaxSubnetMembersFilter.php:89
+msgid "Dynamic"
+msgstr "Dynamisk"
+
+#: network/network/ajaxSubnetMembersFilter.php:117
+msgid "Add static host"
+msgstr "Legg til statisk vert"
+
+#: network/network/ajaxSubnetMembersFilter.php:118
+msgid "edit static host"
+msgstr "Rediger statisk vert"
+
+#: network/network/ajaxSubnetMembersFilter.php:158
+msgid "Type"
+msgstr "Type"
+
+#: network/network/ajaxSubnetMembersFilter.php:159
+#: network/network/ajaxZoneMembersFilter.php:89
+msgid "Host"
+msgstr "Vert"
+
+#: network/network/ajaxSubnetMembersFilter.php:170
+msgid "Add a static host"
+msgstr "Legg til en statisk vert"
+
+#: network/network/edit.php:30
+#: network/infoPackage.inc.php:84
+msgid "Add a DNS zone"
+msgstr "Opprett DNS sone"
+
+#: network/network/edit.php:32
+msgid "Edit DNS zone"
+msgstr "Rediger DNS sone"
+
+#: network/network/edit.php:53
+msgid "This zone already exists."
+msgstr "Denne sonen finnes allerede."
+
+#: network/network/edit.php:62
+msgid "The network address and the network mask fields must be filled in if you also want to create a reverse zone."
+msgstr "Nettverksadresse og nettverksmaskefeltene må fylles ut hvis du også vil opprette en revers sone."
+
+#: network/network/edit.php:71
+msgid "The network address and the network mask fields must be filled in if you also want to create a DHCP subnet."
+msgstr "Nettverksadresse og nettverksmaskefeltene må fylles ut hvis du også vil opprette et DHCP subnett."
+
+#: network/network/edit.php:93
+msgid "DHCP subnet and DNS zone successfully added. The DHCP service must be restarted."
+msgstr "DHCP subnett og DNS sone ble opprettet. DHCP tjenesten må restartes."
+
+#: network/network/edit.php:96
+msgid "DNS zone successfully added."
+msgstr "DNS sone ble opprettet."
+
+#: network/network/edit.php:98
+msgid "The DNS service must be reloaded."
+msgstr "DNS tjenesten må omlastes."
+
+#: network/network/edit.php:112
+msgid "DNS zone successfully modified."
+msgstr "DNS sonen ble endret."
+
+#: network/network/edit.php:138
+msgid "DNS zone FQDN"
+msgstr "DNS sone FQDN"
+
+#: network/network/edit.php:146
+msgid "Name server host name"
+msgstr "Navnetjeners vertsnavn"
+
+#: network/network/edit.php:152
+msgid "Name server IP"
+msgstr "Navnetjeners IP"
+
+#: network/network/edit.php:158
+msgid "The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."
+msgstr "Nettverksadresse og nettverksmaskefeltene må fylles ut hvis du også vil opprette en revers sone eller et DHCP subnett koblet til denne DNS sonen."
+
+#: network/network/edit.php:164
+msgid "Network mask"
+msgstr "Nettverksmaske"
+
+#: network/network/edit.php:165
+msgid "Only 8, 16 or 24 is allowed"
+msgstr "Bare 8, 16 eller 24 er gyldig"
+
+#: network/network/edit.php:168
+msgid "Also manage a reverse DNS zone"
+msgstr "Også forvalt en revers DNS sone"
+
+#: network/network/edit.php:172
+msgid "Also create a related DHCP subnet"
+msgstr "Også opprett et relatert DHCP subnett"
+
+#: network/network/servicestart.php:31
+msgid "The service has been asked to start."
+msgstr "Tjenesten har blitt bedt om å starte."
+
+#: network/network/ajaxZoneMembersFilter.php:101
+msgid "Add a host"
+msgstr "Legg til vert"
+
+#: network/infoPackage.inc.php:30
+msgid "Network management"
+msgstr "Nettverksadministrasjon"
+
+#: network/infoPackage.inc.php:38
+msgid "Network"
+msgstr "Nettverk"
+
+#: network/infoPackage.inc.php:76
+msgid "Delete a DNS zone"
+msgstr "Slett en DNS sone"
+
+#: network/infoPackage.inc.php:80
+msgid "Delete a host"
+msgstr "Slett en vert"
+
+#: network/infoPackage.inc.php:87
+msgid "Edit a DNS zone"
+msgstr "Rediger en DNS sone"
+
+#: network/infoPackage.inc.php:91
+msgid "Add a host to a zone"
+msgstr "Legg en vert til en sone"
+
+#: network/infoPackage.inc.php:95
+msgid "Members of a zone"
+msgstr "Medlemmer av en sone"
+
+#: network/infoPackage.inc.php:109
+msgid "Delete a subnet"
+msgstr "Slett et subnett"
+
+#: network/infoPackage.inc.php:113
+msgid "Add a host to a DHCP subnet"
+msgstr "Lett en vert til et DHCP subnett "
+
+#: network/infoPackage.inc.php:117
+msgid "Edit a host from a DHCP subnet"
+msgstr "Rediger en vert i et DHCP subnett"
+
+#: network/infoPackage.inc.php:121
+msgid "Delete a host from a subnet"
+msgstr "Slett en vert fra et subnett"
+
+#: network/infoPackage.inc.php:125
+msgid "Members of a DHCP subnet"
+msgstr "Medlemmer av et DHCP subnett"
+
+#: network/infoPackage.inc.php:159
+msgid "DHCP service log"
+msgstr "DHCP tjeneste logg"
+
+#: network/infoPackage.inc.php:177
+msgid "DNS service log"
+msgstr "DNS tjeneste logg"
+
+#: network/dhcplogview/ajax_showlog.php:41
+msgid "Operations"
+msgstr "Operasjoner"
+
+#: network/dhcplogview/index.php:35
+msgid "DHCP service log view"
+msgstr "DHCP loggvisning"
+
+#: network/includes/network.inc.php:76
+msgid "Get next free IP address"
+msgstr "Hent neste ledige IP adresse"
+
+
