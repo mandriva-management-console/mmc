@@ -1,0 +1,571 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LMC Samba Plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2007-07-24 16:27+0100\n"
+"Last-Translator: Atle Johansen <atle@laluna.no>\n"
+"Language-Team:  <atle@laluna.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Norwegian Bokmal\n"
+"X-Poedit-Country: NORWAY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: samba/views/groups.tpl.php:25
+msgid "Groups"
+msgstr "Grupper"
+
+#: samba/views/groups.tpl.php:69
+msgid "This group doesn't exist"
+msgstr "Denne gruppen eksisterer ikke"
+
+#: samba/views/groups.tpl.php:124
+#: samba/machines/ajaxFilter.php:171
+#: samba/machines/index.php:178
+#: samba/machines/delete.php:72
+#: samba/shares/index.php:147
+msgid "Delete"
+msgstr "Slett"
+
+#: samba/views/groups.tpl.php:128
+msgid "Add a new group"
+msgstr "Legg til ny gruppe"
+
+#: samba/views/groups.tpl.php:137
+#: samba/machines/add.php:82
+msgid "Add"
+msgstr "Legg til"
+
+#: samba/machines/ajaxFilter.php:81
+#: samba/machines/ajaxFilter.php:87
+msgid "Previous"
+msgstr "Forrige"
+
+#: samba/machines/ajaxFilter.php:92
+#: samba/machines/ajaxFilter.php:100
+msgid "Next"
+msgstr "Neste"
+
+#: samba/machines/ajaxFilter.php:119
+#: samba/machines/index.php:129
+#, php-format
+msgid ""
+"Computers <strong>%s</strong>\n"
+"to <strong>%s</strong>\n"
+"on a total of <strong>%s</strong>\n"
+"(page %s on"
+msgstr ""
+"Maskiner <strong>%s</strong>\n"
+"til <strong>%s</strong>\n"
+"av totalt <strong>%s</strong>\n"
+"(side %s on"
+
+#: samba/machines/index.php:118
+#: samba/machines/localSidebar.php:27
+#: samba/shares/localSidebar.php:33
+msgid "Computers management"
+msgstr "Maskinadministrasjon"
+
+#: samba/machines/add.php:50
+msgid "Invalid computer name"
+msgstr "Ugyldig maskinnavn"
+
+#: samba/machines/add.php:68
+#: samba/machines/localSidebar.php:30
+#: samba/infoPackage.inc.php:77
+#: samba/mainSidebar.php:41
+#: samba/shares/localSidebar.php:36
+msgid "Add a computer"
+msgstr "Legg til maskin"
+
+#: samba/machines/add.php:72
+msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
+msgstr "Maskinnavnet kan bare inneholde små bokstaver og tall, og må begynne med en bokstav."
+
+#: samba/machines/add.php:76
+msgid "Computer name"
+msgstr "Maskinnavn"
+
+#: samba/machines/add.php:78
+#: samba/shares/details.php:137
+msgid "Comment"
+msgstr "Kommentar"
+
+#: samba/machines/delete.php:42
+#: samba/infoPackage.inc.php:80
+msgid "Delete a computer"
+msgstr "Slett en maskin"
+
+#: samba/machines/delete.php:56
+#, php-format
+msgid "Computer <strong>%s</strong> deleted."
+msgstr "Maskin <strong>%s</strong> slettet."
+
+#: samba/machines/delete.php:67
+#, php-format
+msgid "You will delete <strong>%s</strong>."
+msgstr "Du sletter <strong>%s</strong>."
+
+#: samba/machines/delete.php:73
+#: samba/shares/backup.php:134
+#: samba/shares/delete.php:81
+#: samba/shares/delete.php:123
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: samba/infoPackage.inc.php:30
+msgid "SAMBA service"
+msgstr "SAMBA tjeneste"
+
+#: samba/infoPackage.inc.php:40
+#: samba/config/index.php:84
+#: samba/shares/backup.php:51
+#: samba/shares/index.php:48
+#: samba/shares/index.php:86
+#: samba/shares/delete.php:47
+msgid "Shares"
+msgstr "Delte mapper"
+
+#: samba/infoPackage.inc.php:44
+#: samba/mainSidebar.php:32
+#: samba/mainSidebar.php:51
+msgid "List shares"
+msgstr "Vis delte mapper"
+
+#: samba/infoPackage.inc.php:47
+#: samba/mainSidebar.php:35
+#: samba/mainSidebar.php:54
+#: samba/shares/details.php:89
+#: samba/shares/localSidebar.php:30
+msgid "Add a share"
+msgstr "Legg til en delt mappe"
+
+#: samba/infoPackage.inc.php:50
+msgid "Backup a share"
+msgstr "Sikkerhetskopier en delt mappe"
+
+#: samba/infoPackage.inc.php:54
+msgid "Remove a share"
+msgstr "Fjern en delt mappe"
+
+#: samba/infoPackage.inc.php:58
+msgid "Share details"
+msgstr "Detaljer om delt mappe"
+
+#: samba/infoPackage.inc.php:72
+msgid "Machines"
+msgstr "Maskiner"
+
+#: samba/infoPackage.inc.php:74
+msgid "Computer list"
+msgstr "Maskinliste"
+
+#: samba/infoPackage.inc.php:93
+msgid "Configuration"
+msgstr "Konfigurasjon"
+
+#: samba/infoPackage.inc.php:98
+msgid "SAMBA configuration"
+msgstr "SAMBA konfigurasjon"
+
+#: samba/infoPackage.inc.php:101
+msgid "restart SAMBA service"
+msgstr "Start SAMBA tjeneste på nytt"
+
+#: samba/infoPackage.inc.php:110
+msgid "Add/delete SAMBA's attributes"
+msgstr "Legg til/fjern SAMBA-attributter"
+
+#: samba/infoPackage.inc.php:111
+msgid "Enable/Disable account"
+msgstr "Aktivér/Deaktivér konto"
+
+#: samba/infoPackage.inc.php:112
+msgid "Lock/Unlock account"
+msgstr "Lås/Lås opp konto"
+
+#: samba/infoPackage.inc.php:122
+msgid "SAMBA status"
+msgstr "SAMBA status"
+
+#: samba/config/restart.php:55
+#: samba/config/restart.php:76
+msgid "Restart server"
+msgstr "Start server på nytt"
+
+#: samba/config/restart.php:84
+msgid "Your Samba server is being restarted... You can see progress on the default status page."
+msgstr "Sambaserveren blir startet på nytt... Du kan se fremdrift på standard statussiden"
+
+#: samba/config/index.php:55
+msgid "Configuration saved"
+msgstr "Konfigurasjon lagret"
+
+#: samba/config/index.php:82
+#: samba/shares/backup.php:49
+#: samba/shares/index.php:46
+#: samba/shares/delete.php:45
+msgid "Home"
+msgstr "Hjem"
+
+#: samba/config/index.php:86
+#: samba/config/index.php:92
+#: samba/mainSidebar.php:44
+#: samba/mainSidebar.php:57
+msgid "General options"
+msgstr "Generelle alternativer"
+
+#: samba/config/index.php:114
+msgid "This server is a PDC"
+msgstr "Denne serveren er en PDC"
+
+#: samba/config/index.php:116
+msgid "Share user's homes"
+msgstr "Del brukere sine hjemmemapper"
+
+#: samba/config/index.php:118
+msgid "Domain name"
+msgstr "Domenenavn"
+
+#: samba/config/index.php:120
+msgid "Server name"
+msgstr "Servernavn"
+
+#: samba/config/index.php:128
+#: samba/includes/publicFunc.php:238
+msgid "User profile path"
+msgstr "Sti til brukerprofiler"
+
+#: samba/config/index.php:129
+#: samba/includes/publicFunc.php:239
+msgid "Opening script session"
+msgstr "Åpner skriptsesjon"
+
+#: samba/config/index.php:130
+#: samba/includes/publicFunc.php:240
+msgid "Base directory path"
+msgstr "Sti til basismappe"
+
+#: samba/config/index.php:131
+#: samba/includes/publicFunc.php:241
+msgid "Connect base directory on network drive"
+msgstr "Koble basismappe til nettverkstasjon"
+
+#: samba/config/index.php:143
+#: samba/shares/details.php:252
+msgid "Confirm"
+msgstr "Bekreft"
+
+#: samba/config/index.php:144
+msgid "Back"
+msgstr "Tilbake"
+
+#: samba/config/index.php:157
+msgid "Restart SAMBA"
+msgstr "Start SAMBA på nytt"
+
+#: samba/mainSidebar.php:38
+msgid "List computers"
+msgstr "Vis maskiner"
+
+#: samba/shares/details.php:55
+msgid "Invalid share name"
+msgstr "Ugyldig delt mappenavn"
+
+#: samba/shares/details.php:65
+#, php-format
+msgid "Share %s successfully added"
+msgstr "Delt mappe %s opprettet"
+
+#: samba/shares/details.php:85
+#, php-format
+msgid "Share %s successfully modified"
+msgstr "Delt mappe %s endret"
+
+#: samba/shares/details.php:118
+msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
+msgstr "Delt mappenavn kan kun inneholde bokstaver (små eller store) og tall, og må begynne med en bokstav."
+
+#: samba/shares/details.php:128
+msgid "Name"
+msgstr "Navn"
+
+#: samba/shares/details.php:153
+msgid "AntiVirus on this share"
+msgstr "Antivirus på denne delte mappen"
+
+#: samba/shares/details.php:168
+msgid "This share is visible on the domain"
+msgstr "Den delte mappen er synlig på domenet"
+
+#: samba/shares/details.php:181
+msgid "Permissions"
+msgstr "Rettigheter"
+
+#: samba/shares/details.php:193
+msgid "Access for all"
+msgstr "Tilgang for alle"
+
+#: samba/shares/details.php:230
+msgid "Administrator groups for this share"
+msgstr "Administratorgrupper for denne delte mappen"
+
+#: samba/shares/details.php:249
+msgid "Create"
+msgstr "Opprett"
+
+#: samba/shares/backup.php:53
+msgid "Backup this share"
+msgstr "Sikkerhetskopier denne delte mappen"
+
+#: samba/shares/backup.php:59
+#: samba/shares/backup.php:89
+msgid "Share backup"
+msgstr "Sikkerhetskopier delt mappe"
+
+#: samba/shares/backup.php:79
+msgid "Error during backup process"
+msgstr "Feil under sikkerhetskopieringen"
+
+#: samba/shares/backup.php:92
+#, php-format
+msgid "Backup of share <b>%s</b> has been launched as a background job."
+msgstr "Sikkerhetskopi av delt mappe <b>%s</b> har blitt startet som en bakgrunnsjobb."
+
+#: samba/shares/backup.php:96
+#, php-format
+msgid "The ISO file that contains this backup will be stored into the directory <b>%s</b>."
+msgstr "ISO filen som inneholder sikkerhetskopien vil bli lagret i mappen  <b>%s</b>."
+
+#: samba/shares/backup.php:99
+msgid "This operation will last according to the amount of data to backup."
+msgstr "Denne operasjonens varighet vil variere med mengden data som skal sikkerhetskopieres."
+
+#: samba/shares/backup.php:117
+#, php-format
+msgid "The share %s will be archived."
+msgstr "Den delte mappen %s vil bli arkivert."
+
+#: samba/shares/backup.php:122
+msgid "Please select media size. If your data exceed volume size, several files with your media size will be created"
+msgstr "Vennligst velg størrelsen på media. Hvis datamengden overstiger volumstørreslen, vil flere filer på størrelse med valgt medie opprettes."
+
+#: samba/shares/backup.php:126
+msgid "Media size"
+msgstr "Mediestørrelse"
+
+#: samba/shares/backup.php:133
+msgid "Launch backup"
+msgstr "Start sikkerhetskopiering"
+
+#: samba/shares/index.php:50
+msgid "Management"
+msgstr "Administrasjon"
+
+#: samba/shares/index.php:100
+#, php-format
+msgid ""
+"Shares <strong>%s</strong>\n"
+"to <strong>%s</strong>\n"
+"on a total of <strong>%s</strong>\n"
+"(page %s on "
+msgstr ""
+"Delte mapper <strong>%s</strong>\n"
+"til <strong>%s</strong>\n"
+"av total <strong>%s</strong>\n"
+"(side %s on "
+
+#: samba/shares/index.php:151
+msgid "Archive"
+msgstr "Arkivér"
+
+#: samba/shares/delete.php:49
+msgid "Del a share"
+msgstr "Fjern delt mappe"
+
+#: samba/shares/delete.php:55
+msgid "Delete a share"
+msgstr "Fjern en delt mappe"
+
+#: samba/shares/delete.php:68
+#, php-format
+msgid "You will delete the share <b>%s</b>"
+msgstr "Du fjerner delt mappe <b>%s</b>"
+
+#: samba/shares/delete.php:72
+msgid "Delete all data"
+msgstr "Slett alle data"
+
+#: samba/shares/delete.php:76
+msgid "Are you sure ?"
+msgstr "Er du sikker ?"
+
+#: samba/shares/delete.php:80
+msgid "Delete "
+msgstr "Slett"
+
+#: samba/shares/delete.php:95
+#, php-format
+msgid "An error has occured during delete process on %s:<br/>"
+msgstr "En feil oppsto under fjerning av %s:<br/>"
+
+#: samba/shares/delete.php:107
+#, php-format
+msgid "Share %s deleted"
+msgstr "Delt mappe %s fjernet"
+
+#: samba/shares/delete.php:119
+msgid "You must select a share into the list of shares"
+msgstr "Du må velge en delt mappe i listen"
+
+#: samba/shares/localSidebar.php:27
+msgid "Shares management"
+msgstr "Delt mappe administrasjon"
+
+#: samba/status/index.php:29
+msgid "Samba status"
+msgstr "Samba status"
+
+#: samba/status/index.php:55
+msgid "Opened sessions"
+msgstr "Åpne sesjoner"
+
+#: samba/status/index.php:63
+msgid "Users"
+msgstr "Brukere"
+
+#: samba/status/index.php:64
+#: samba/status/index.php:113
+msgid "Computers"
+msgstr "Maskiner"
+
+#: samba/status/index.php:65
+#: samba/status/index.php:114
+msgid "IP"
+msgstr "IP"
+
+#: samba/status/index.php:71
+msgid "No opened sessions"
+msgstr "Ingen åpne sesjoner"
+
+#: samba/status/index.php:76
+msgid "Connections on shares"
+msgstr "Tilkoblinger til delte mapper "
+
+#: samba/status/index.php:83
+msgid "Share"
+msgstr "Delt mappe"
+
+#: samba/status/index.php:112
+msgid "User"
+msgstr "Bruker"
+
+#: samba/status/index.php:115
+msgid "Connected at"
+msgstr "Koblet til "
+
+#: samba/status/index.php:122
+msgid "No connections"
+msgstr "Ingen tilkoblinger"
+
+#: samba/includes/errorHandling.php:5
+msgid "ACLs are not supported in your partition containing /home/samba/"
+msgstr "ACL er ikke støttet på partisjonen som inneholder /home/samba/"
+
+#: samba/includes/errorHandling.php:6
+msgid ""
+"Try to remount your partition with ACLs support\n"
+"\t\t\t<ul>\n"
+"\t\t\t<li>You could use XFS which support ACLs natively</li>\n"
+"\t\t\t<li>For ext3 filesystem, add \"acl\" to mount options in /etc/fstab<br/>\n"
+"\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
+"\t\t\t</ul>\n"
+"\t\t\t"
+msgstr ""
+"Prøv å remontere partisjonen med ACLs støtte\n"
+"\t\t\t<ul>\n"
+"\t\t\t<li>Du kan bruke XFS som støtter ACLs opprinnelig</li>\n"
+"\t\t\t<li>For ext3 filsystem, legg til \"acl\" i moteringsalternativene i /etc/fstab<br/>\n"
+"\t\t\t    <pre>f.eks: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
+"\t\t\t</ul>\n"
+"\t\t\t"
+
+#: samba/includes/errorHandling.php:17
+msgid "This share does not exist"
+msgstr "Den delte mappen eksisterer ikke"
+
+#: samba/includes/errorHandling.php:18
+msgid "Verify specified share exist."
+msgstr "Sjekk at den delte mappen finnes."
+
+#: samba/includes/errorHandling.php:24
+msgid "This share already exist"
+msgstr "Den delte mappen finnes allerede"
+
+#: samba/includes/errorHandling.php:25
+msgid ""
+"<ul>\n"
+"                           <li>Delete this share before recreate it.</li>\n"
+"                           <li>Choose another share name</li>\n"
+"                        </ul>"
+msgstr ""
+"<ul>\n"
+"                           <li>Slett den delte mappen før den opprettes på nytt.</li>\n"
+"                           <li>Velg et annet delt mappenavn</li>\n"
+"                        </ul>"
+
+#: samba/includes/publicFunc.php:65
+msgid "Samba attributes deleted."
+msgstr "Samba attributter slettet."
+
+#: samba/includes/publicFunc.php:100
+msgid "Samba attributes added."
+msgstr "Samba attributter opprettet."
+
+#: samba/includes/publicFunc.php:113
+msgid "You must reenter your password."
+msgstr "Du må skrive inn passordet på nytt."
+
+#: samba/includes/publicFunc.php:128
+msgid "Invalid network drive."
+msgstr "Ugyldig nettverkstasjon."
+
+#: samba/includes/publicFunc.php:164
+msgid "Samba user properties"
+msgstr "Samba brukeralternativer"
+
+#: samba/includes/publicFunc.php:167
+msgid "SAMBA access"
+msgstr "SAMBA tilgang"
+
+#: samba/includes/publicFunc.php:201
+msgid "WARNING"
+msgstr "ADVARSEL"
+
+#: samba/includes/publicFunc.php:202
+msgid "The user password has expired"
+msgstr "Brukerens passord har utgått på dato"
+
+#: samba/includes/publicFunc.php:208
+msgid "User is disabled, if checked"
+msgstr "Brukeren er deaktivert hvis hukket av"
+
+#: samba/includes/publicFunc.php:210
+msgid "Disable samba user account"
+msgstr "Deaktivér samba brukerkonto"
+
+#: samba/includes/publicFunc.php:223
+msgid "User is locked, if checked"
+msgstr "Brukeren er låst, hvis hukket av"
+
+#: samba/includes/publicFunc.php:225
+msgid ""
+"Lock samba user access\n"
+"                        <p>User can be locked after too many failed log.</p>"
+msgstr ""
+"Lås samba brukertilgang\n"
+"                        <p>Brukeren kan være låst etter for mange mislykkede pålogginger.</p>"
+
+
