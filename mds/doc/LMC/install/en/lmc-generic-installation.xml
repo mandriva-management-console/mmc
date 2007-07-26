@@ -1211,6 +1211,16 @@
       <para>
 	Both are available in the directory <filename>contrib/ldap</filename> of the lmc-agent tarball.
       </para>
+      <para>
+	To speed up LDAP search, you can index these attributes: zoneName, relativeDomainName, dhcpHWAddress, dhcpClassData.
+      </para>
+      <para>
+	For OpenLDAP <filename>slapd.conf</filename> configuration file, you will add:	
+      </para>
+      <screen>
+	index zoneName,relativeDomainName eq 
+	index dhcpHWAddress,dhcpClassData eq
+      </screen>
 
     </section>    
 
