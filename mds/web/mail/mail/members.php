@@ -26,65 +26,13 @@ require("localSidebar.php");
 require("graph/navbar.inc.php");
 
 $domain = $_GET["mail"];
-?>
-
-<form name="Form" id="Form" action="#">
-
-    <div id="loader"><img id="loadimg" src="<?php echo $root; ?>img/common/loader.gif" alt="loader" class="loader"/></div>
-
-    <div id="searchSpan" class="searchbox" style="float: right;">
-    <img src="graph/search.gif" style="position:relative; top: 2px; float: left;" alt="search" /> <span class="searchfield"><input type="text" class="searchfieldreal" name="param" id="param" onKeyUp="pushSearch(); return false;">
-    <img src="graph/croix.gif" alt="suppression" style="position:relative; top : 3px;"
-    onClick="document.getElementById('param').value =''; pushSearch(); return false;">
-    </span>
-    </div>
-
-    <script>
-        document.getElementById('param').focus();
-
-
-                /**
-        * update div with user
-        */
-        function updateSearch() {
-            launch--;
-
-                if (launch==0) {
-                    new Ajax.Updater('container','modules/mail/mail/ajaxFilter.php?mail=<?=$domain?>&filter='+document.Form.param.value, { asynchronous:true, evalScripts: true});
-                }
-            }
-
-        /**
-        * provide navigation in ajax for user
-        */
-
-        function updateSearchParam(filter, start, end) {
-            new Ajax.Updater('container','modules/mail/mail/ajaxFilter.php?mail=<?=$domain?>&filter='+filter+'&start='+start+'&end='+end, { asynchronous:true, evalScripts: true});
-            }
-
-        /**
-        * wait 500ms and update search
-        */
-
-        function pushSearch() {
-            launch++;
-            setTimeout("updateSearch()",500);
-        }
-         
-        pushSearch();
-    </script>
-
-
-</form>
-
-<?
+$ajax = new AjaxFilter("modules/mail/mail/ajaxFilter.php?mail=$domain");
+$ajax->display();
 
 $p = new PageGenerator(_T("Members of ") . " " . $domain);
 $sidemenu->forceActiveItem("index");
 $p->setSideMenu($sidemenu);
 $p->display();
 
+$ajax->displayDivToUpdate();
 ?>
-
-<div id="container">
-</div>
