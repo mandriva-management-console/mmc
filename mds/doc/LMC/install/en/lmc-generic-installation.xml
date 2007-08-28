@@ -872,7 +872,7 @@
 	This command populates the LDAP with the OUs (Organizational Unit), users and groups needed by SAMBA.
       </para>
       <para>
-	A RPM package of smbldap-tools is available at: http://www.idealx.com/downloads/smbldap-tools-0.9.2-1.noarch.rpm
+	A RPM package of smbldap-tools is available at: http://download.gna.org/smbldap-tools/packages/smbldap-tools-0.9.3-1.noarch.rpm
       </para>
 
       <para>
