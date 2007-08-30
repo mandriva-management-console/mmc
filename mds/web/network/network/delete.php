@@ -26,9 +26,7 @@ require("modules/network/includes/network-xmlrpc.inc.php");
 if (isset($_POST["bconfirm"])) {
     $zone = $_POST["zone"];
     delZone($zone);
-    if (!isXMLRPCError()) {
-        $n = new NotifyWidgetSuccess(_T("The DNS zone has been deleted."));
-    }
+    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The DNS zone has been deleted."));
     header("Location: main.php?module=network&submod=network&action=index");
 } else {
     $zone = urldecode($_GET["zone"]);
