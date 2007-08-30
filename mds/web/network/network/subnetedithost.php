@@ -161,8 +161,8 @@ if ($_GET["action"] == "subnetedithost") {
     $tftpservername = $options["tftp-server-name"];
 } else if ($_GET["action"] == "subnetaddhost") {
     if (!isset($error)) {
-        /* Reset the field only if no error where found */
-        $hostname = $_GET["host"];
+        /* Reset the field only if no error were found */
+        $hostname = strtolower($_GET["host"]);
         $macaddress = $_GET["macaddress"];
     }
 }
