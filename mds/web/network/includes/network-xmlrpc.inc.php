@@ -84,6 +84,18 @@ function getZoneFreeIp($zone, $ipstart = null) {
     return xmlCall("network.getZoneFreeIp", array($zone, $ipstart));
 }
 
+function getResourceRecord($zone, $rr) {
+    return xmlCall("network.getResourceRecord", array($zone, $rr));
+}
+
+function getCNAMEs($zone, $host) {
+    return xmlCall("network.getCNAMEs", array($zone, $host));
+}
+
+function delCNAMEs($zone, $host) {
+    xmlCall("network.delCNAMEs", array($zone, $host));
+}
+
 /* DHCP RPCs */
 
 /* Subnet */
