@@ -27,21 +27,31 @@ if (isset($_POST["bconfirm"])) {
     $host = $_POST["host"];
     $zone = $_POST["zone"];
     delRecord($zone, $host);
-    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The host has been deleted."));
+    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The record has been deleted."));
     header("Location: main.php?module=network&submod=network&action=zonemembers&zone=$zone");
 } else {
     $host = urldecode($_GET["host"]);
     $zone = urldecode($_GET["zone"]);
+    $rr = getResourceRecord($zone, $host);
+    $f = new PopupForm(_T("Delete a DNS record"));
+    $f->addText(sprintf(_T("You will delete the %s record"), "<strong>$host</strong>"));
+    /* If the deleted record is a A record, CNAME may be linked to it */
+    if (isset($rr[0][1]["aRecord"])) {
+        $cnames = getCNAMEs($zone, $host);
+        if (!empty($cnames)) {
+            $msg = _T("The linked CNAME records will also be deleted:");
+            foreach($cnames as $cname) {
+                $msg .= " <strong>" . $cname[1]["relativeDomainName"][0] . "</strong>";
+            }
+            $f->addText($msg);
+        }
+    }
+    $hidden1 = new HiddenTpl("host");
+    $hidden2 = new HiddenTpl("zone");
+    $f->add($hidden1, array("value" => $host, "hide" => True));
+    $f->add($hidden2, array("value" => $zone, "hide" => True));
+    $f->addValidateButton("bconfirm");
+    $f->addCancelButton("bback");
+    $f->display();
 }
 ?>
-
-<p>
-<?= sprintf(_T("You will delete the host %s."), "<strong>$host</strong>"); ?>
-</p>
-
-<form action="main.php?module=network&submod=network&action=deletehost" method="post">
-<input type="hidden" name="host" value="<?php echo $host; ?>" />
-<input type="hidden" name="zone" value="<?php echo $zone; ?>" />
-<input type="submit" name="bconfirm" class="btnPrimary" value="<?= _T("Delete host"); ?>" />
-<input type="submit" name="bback" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
-</form>
