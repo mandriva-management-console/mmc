@@ -36,4 +36,9 @@ $p->setSideMenu($sidemenu);
 $p->display();
 
 $ajax->displayDivToUpdate();
+
+$f = new Form();
+$f->addOnClickButton(_T("Add a static host"), urlStr("network/network/subnetaddhost", array("subnet" => $subnet)));
+$f->display();
+
 ?>
