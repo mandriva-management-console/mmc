@@ -96,6 +96,15 @@ function delCNAMEs($zone, $host) {
     xmlCall("network.delCNAMEs", array($zone, $host));
 }
 
+function addRecordCNAME($zone, $alias, $cname) {
+    xmlCall("network.addRecordCNAME", array($zone, $alias, $cname));
+}
+
+function setHostAliases($zone, $host, $aliases) {
+    if ($aliases == array("")) $aliases = array();
+    xmlCall("network.setHostAliases", array($zone, $host, $aliases));
+}
+
 /* DHCP RPCs */
 
 /* Subnet */
