@@ -6,42 +6,6 @@ require("../../../includes/session.inc.php");
 require("../../../modules/network/includes/network-xmlrpc.inc.php");
 require ("../../../includes/PageGenerator.php");
 
-
-function print_ajax_nav($curstart, $curend, $items, $filter)
-{
-  $_GET["action"] = "index";
-  global $conf;
-
-  $max = $conf["global"]["maxperpage"];
-
-  echo '<form method="post" action="' . $PHP_SELF . '">';
-  echo "<ul class=\"navList\">\n";
-
-  if ($curstart == 0)
-    {
-      echo "<li class=\"previousListInactive\">"._("Previous")."</li>\n";
-    }
-  else
-    {
-      $start = $curstart - $max;
-      $end = $curstart - 1;
-      echo "<li class=\"previousList\"><a href=\"#\" onclick=\"updateSearchParam('$filter','$start','$end'); return false\";>"._("Previous")."</a></li>\n";
-    }
-
-  if (($curend + 1) >= count($items))
-    {
-      echo "<li class=\"nextListInactive\">"._("Next")."</li>\n";
-    }
-  else
-    {
-      $start = $curend + 1;
-      $end = $curend + $max;
-      echo "<li class=\"nextList\"><a href=\"#\" onclick=\"updateSearchParam('$filter','$start','$end'); return false\";>"._("Next")."</a></li>\n";
-    }
-
-  echo "</ul>\n";
-}
-
 $filter = $_GET["filter"];
 $subnets = array();
 $count = array();
@@ -72,21 +36,8 @@ foreach($subnets as $subnet => $infos) {
 
 }
 
-if (isset($_GET["start"])) {
-    $start = $_GET["start"];
-    $end = $_GET["end"];
-} else {
-    $start = 0;
-    if (count($subnets) > 0) {
-        $end = $conf["global"]["maxperpage"] - 1;
-    } else {
-        $end = 0;
-    }
-}
-
-print_ajax_nav($start, $end, $subnets, $filter);
-
 $n = new ListInfos(array_keys($subnets), _T("DHCP subnets", "network"));
+$n->setNavBar(new AjaxNavBar(count($subnets), $filter));
 $n->setAdditionalInfo($count);
 $n->first_elt_padding = 1;
 $n->addExtraInfo($netmasks, _T("Netmask", "network"));
@@ -99,8 +50,6 @@ $n->addActionItem(new ActionItem(_T("Edit subnet", "network"),"subnetedit","edit
 $n->addActionItem(new ActionItem(_T("Add static host to subnet", "network"),"subnetaddhost","addhost","subnet", "network", "network"));
 $n->addActionItem(new ActionPopupItem(_T("Delete zone", "network"),"subnetdelete","supprimer","subnet", "network", "network"));
 
-$n->display(0);
-
-print_ajax_nav($start, $end, $subnets, $filter);
+$n->display();
 
 ?>
