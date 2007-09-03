@@ -69,8 +69,19 @@ if (isset($_POST["badd"])) {
 
 /* Editing a record */
 if (isset($_POST["bedit"])) {
-    setHostAliases($zone, $_POST["hostname"], $_POST["hostalias"]);
-    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("Aliases successfully set."));
+    $aliases = $_POST["hostalias"];
+    
+    $ret = setHostAliases($zone, $_POST["hostname"], $aliases);
+    if (!isXMLRPCError()) {
+        if (empty($ret))
+            new NotifyWidgetSuccess(_T("Aliases successfully set."));
+        else {
+            $msg = _T("The following aliases have not been set because a DNS record with the same name already exists:");
+            foreach($ret as $alias)
+                $msg .= " $alias";
+            new NotifyWidgetFailure($msg);
+        }
+    }
 }
 
 
