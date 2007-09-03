@@ -37,6 +37,7 @@ $p->setSideMenu($sidemenu);
 $p->display();
 
 global $error;
+/* Adding a new record */
 if (isset($_POST["badd"])) {
     $hostname = $_POST["hostname"];
     $ipaddress = $_POST["ipaddress"];
@@ -64,18 +65,40 @@ if (isset($_POST["badd"])) {
                 header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
         }
     } else new NotifyWidgetFailure($error);
-
 }
 
-if ($_GET["action"] == "edit") {
+/* Editing a record */
+if (isset($_POST["bedit"])) {
+    setHostAliases($zone, $_POST["hostname"], $_POST["hostalias"]);
+    if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("Aliases successfully set."));
+}
+
+
+if ($_GET["action"] == "edithost") {
     $hostname = $_GET["host"];
+    $data = getResourceRecord($zone, $hostname);
+    if (empty($data)) die("Record $hostname does not exist.");
+    else if (isset($data[0][1]["aRecord"])) {
+        $ipaddress = $data[0][1]["aRecord"][0];
+        /* Lookup host alias */
+        $cnames = array();
+        foreach(getCNAMEs($zone, $hostname) as $dn => $cname) {
+            $cnames[] = $cname[1]["relativeDomainName"][0];
+        }        
+    } else {
+        die("Only A record edition is supported.");
+    }
+
 }
 
 $f = new ValidatingForm();
 $f->push(new Table());
 
-$zoneaddress = getZoneNetworkAddress($zone);
-if (count($zoneaddress)) $f->add(new TrFormElement(_T("A reverse DNS record will be automatically created for this host."), new HiddenTpl("")));
+/* Prepare hostname input field content */
+if ($_GET["action"] == "addhost") {
+    $zoneaddress = getZoneNetworkAddress($zone);
+    if (count($zoneaddress)) $f->add(new TrFormElement(_T("A reverse DNS record will be automatically created for this host."), new HiddenTpl("")));
+}
 
 $a = array("value" => $hostname, "extra" => "." . $zone);
 if ($_GET["action"] == "addhost") {
@@ -88,6 +111,7 @@ if ($_GET["action"] == "addhost") {
 
 $f->add(new TrFormElement(_T("Host name"), $formElt), $a);
 
+/* Prepare IP address input field content */
 if ($_GET["action"] == "addhost") {
     if (isset($_GET["ipaddress"])) $network = $_GET["ipaddress"]; /* pre-fill IP address field when adding a host */
     else {
@@ -95,23 +119,31 @@ if ($_GET["action"] == "addhost") {
             $network = $ipaddress;
         else {            
             if (!count($zoneaddress)) $network = "";
-            else $network = getZoneFreeIp($zone);
-            
+            else $network = getZoneFreeIp($zone);            
         }
     }
     $a = array("value"=>$network, "required" => True);
+    $a["zone"] = $zone;
+    $a["ajaxurl"] = "ajaxDnsGetZoneFreeIp";
+    $formElt = new GetFreeIPInputTpl();
 } else {
-    $a = array("value"=>$ipaddress, "required" => True);
+    $a = array("value"=>$ipaddress);
+    $formElt = new HiddenTpl("ipaddress");
 }
-$a["zone"] = $zone;
-$a["ajaxurl"] = "ajaxDnsGetZoneFreeIp";
-$f->add(new TrFormElement(_T("Network address"), new GetFreeIPInputTpl()), $a);
+$f->add(new TrFormElement(_T("Network address"), $formElt), $a);
 $f->pop();
 
 if ($_GET["action"] == "addhost") {
     $f->addButton("badd", _("Create"));
 } else {
-    $f->addButton("badd", _("Confirm"));
+    /* On edit mode, the user can setup host aliases */
+    $m = new MultipleInputTpl("hostalias",_T("Hostname alias"));
+    $m->setRegexp('/^[a-z][a-z0-9-]*[a-z0-9]$/');
+    $f->add(
+            new FormElement(_T("Hostname alias"), $m),
+            $cnames
+            );    
+    $f->addValidateButton("bedit");
 }
 $f->display();
 
