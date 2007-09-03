@@ -58,8 +58,8 @@ foreach($records as $host => $ip) {
         $ips[] = $ipstr;
         $params[] = array("host" => $host, "zone" => $zone);
         if (in_array($host, array_keys($cnames))) {
-            $host = "$host (CNAME " . $cnames[$host] . ")";
-            $actionsMod[] = $emptyAction;            
+            $host = "$host (alias of " . $cnames[$host] . ")";
+            $actionsMod[] = $emptyAction;
             $actionsDel[] = $delAliasAction;
         } else {
             $actionsMod[] = $editAction;
