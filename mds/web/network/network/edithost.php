@@ -73,9 +73,10 @@ if (isset($_POST["bedit"])) {
     
     $ret = setHostAliases($zone, $_POST["hostname"], $aliases);
     if (!isXMLRPCError()) {
-        if (empty($ret))
-            new NotifyWidgetSuccess(_T("Aliases successfully set."));
-        else {
+        if (empty($ret)) {
+            new NotifyWidgetSuccess(_T("DNS record successfully modified."));
+            header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
+        }else {
             $msg = _T("The following aliases have not been set because a DNS record with the same name already exists:");
             foreach($ret as $alias)
                 $msg .= " $alias";
@@ -95,7 +96,7 @@ if ($_GET["action"] == "edithost") {
         $cnames = array();
         foreach(getCNAMEs($zone, $hostname) as $dn => $cname) {
             $cnames[] = $cname[1]["relativeDomainName"][0];
-        }        
+        }
     } else {
         die("Only A record edition is supported.");
     }
@@ -150,6 +151,7 @@ if ($_GET["action"] == "addhost") {
     /* On edit mode, the user can setup host aliases */
     $m = new MultipleInputTpl("hostalias",_T("Hostname alias"));
     $m->setRegexp('/^[a-z][a-z0-9-]*[a-z0-9]$/');
+    if (empty($cnames)) $cnames = array("");        
     $f->add(
             new FormElement(_T("Hostname alias"), $m),
             $cnames
