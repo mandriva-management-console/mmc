@@ -81,6 +81,10 @@ $page = new Page("deletehost",_T("Delete a host","network"));
 $page->setOptions( array ("noHeader" => True,"visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("edithost",_T("Edit a DNS record","network"));
+$page->setOptions( array ("visible"=>False));
+$submod->addPage($page);
+
 $page = new Page("add",_T("Add a DNS zone", "network"));
 $submod->addPage($page);
 
