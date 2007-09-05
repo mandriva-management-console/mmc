@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>Mandriva Management Console Development</title>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision: 33 $</revnumber>
+        <date>$Date: 2007-06-12 14:48:02 +0200 (mar, 12 jun 2007) $</date>
+        <authorinitials>$Author: cedric $</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains how to develop new module for the Mandriva Management Console (MMC).</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>How to write a Python module for the MMC agent</title>
+
+    <section>
+
+      <title>Related documentations</title>
+    
+      <para>
+	<ulink url="http://lds.linbox.org/content/epydoc/">Full MMC Python API documentation</ulink>.
+      </para>
+
+      <para>
+	<ulink url="http://lds.linbox.org/content/LDS-EP/ldsep-0002-lds-style-guide-for-python-code.html">MMC Python style guidelines</ulink>.
+      </para>
+      
+      <para>
+	<ulink url="http://python-ldap.sourceforge.net/doc/python-ldap/index.html">Some basic Python / LDAP bindings documentation</ulink>.
+      </para>
+
+    </section>
+
+    <section>
+      
+      <title>Creating a Python module</title>
+    
+      <para>
+	Each MMC agent module must be located in the <filename>$PYTHONPATH/site-packages/mmc/plugins</filename>.
+      </para>
+      <para>
+	When the MMC agent starts, it looks for all Python modules in this path, and tries to activate them.
+      </para>
+      <para>
+	Each MMC Python module must declare a function call "activate". This function should make all needed tests that ensures the module will works. This function returns True if all the tests are OK, else False. In the later case, the MMC agent will give up on this module, and won't export it on the network.
+      </para>
+      <para>
+	The following method must also be implemented
+	<itemizedlist>
+	  <listitem>
+	    <para>getVersion: must return the MMC version of the Python module, which is the same then the MDS version number</para>
+	  </listitem>
+	  <listitem>
+	    <para>getApiVersion: must return the Python module API number</para>
+	  </listitem>
+	  <listitem>
+	    <para>getApiRevision: must return the SVN revision number</para>
+	  </listitem>
+	</itemizedlist>
+      </para>
+      <para>
+	Here is a MMC Python module skeleton. For example <filename>/usr/lib/python2.3/site-packages/mmc/plugins/modulename/__init__.py</filename>:
+      </para>
+      <screen>
+	VERSION = "2.0.0"
+	APIVERSION = "4:1:3"
+	REVISION = int("$Rev: 169 $".split(':')[1].strip(' $'))
+	
+	def getVersion(): return VERSION
+	def getApiVersion(): return APIVERSION
+	def getRevision(): return REVISION
+
+	def activate():
+	    return True
+      </screen>
+
+      <para>
+	A MMC Python module is in the Python language terminology a "package". So making a __init__.py file is required to make Python treat a directory as containing a package. Please read <ulink url="http://docs.python.org/tut/node8.html#SECTION008400000000000000000">this section</ulink> to know more about Python packages system.
+      </para>
+
+    </section>
+
+    <section>
+
+      <title>Python module configuration file</title>
+
+      <para>
+	The module configuration file must be located into the <filename>/etc/mmc/plugins/module_name.ini</filename> file.
+      </para>
+      <para>
+	The configuration file should be read using a PluginConfig class instance. This class inherits from the <ulink url="http://docs.python.org/lib/module-ConfigParser.html">ConfigParser class</ulink>.
+      </para>
+      <para>
+	This configuration file must at least contains a "main" section with the "disable" option, telling if the module is disabled or not:
+      </para>
+      <screen>
+	[main]
+	disable = 0
+      </screen>
+      <para>
+	If the configuration file doesn't exist, or doesn't have the "disable" option, the module is by default considered as disabled.
+      </para>
+
+      <screen>
+	from lmc.support.config import PluginConfig, ConfigException
+	
+	class ModulenamePluginConfig(PluginConfig):
+
+            def setDefault(self):
+	        """
+		Set good default for the module if a parameter is missing the
+		configuration file.
+		This function is called in the class constructor, so what you
+		set here will be overwritten by the readConf method.
+		"""
+		PluginConfig.setDefault(self)
+                self.confOption = "option1"
+		# ...
+
+	    def readConf(self):
+                """
+                Read the configuration file using the ConfigParser API.
+
+		The PluginConfig.readConf reads the "disable" option of the
+		"main" section.
+                """
+	        PluginConfig.readConf(self)
+		self.confOption = self.get("sectionname", "optionname")
+		# ...
+	
+	    def check(self):
+	        """
+		Check the values set in the configuration file.
+		Must be implemented by the subclass. ConfigException is raised
+		with a corresponding error string if a check fails.
+                """
+		if not self.confOption: raise ConfigException("Conf error")
+      </screen>
+      
+    </section>
+
+    <section>
+      
+      <title>Exporting Python module API</title>
+      
+      <para>
+	All methods defined in the Python module are exported by the MMC agent, and can be directy called using XML-RPC.
+      </para>
+      <para>
+	For example:
+      </para>
+      <screen>
+	# ...
+
+	def activate():
+	    return True
+
+        # Module attribute can't be exported with XML-RPC
+	value = 1234
+	
+        # This method will be exported
+	def func1(arg1A, arg1B):
+            # ...
+            return SomeClass().func1(arg1A, arg1B)
+
+        # This method will be exported too
+        def func2(arg2A, arg2B):
+            # ...
+            return SomeClass().func2(arg2A, arg2B)
+
+        # Class can't be exported with XML-RPC !
+        class SomeClass:
+
+            def func1(self, argA, argB):
+                # ...
+                return "xxx"
+
+            def func2(self, argA, argB):
+                # ...
+                return "zzz"
+
+      </screen>
+      
+    </section>
+    
+  </section>
+  
+  <section>
+
+    <title>How to write a PHP module for the MMC web interface</title>
+
+    <section>
+
+      <title>Related documentations</title>
+    
+      <para>
+	<ulink url="http://lds.linbox.org/content/doxygen/html/">Full MMC PHP web interface documentation</ulink>.
+      </para>
+
+      <para>
+	<ulink url="http://lds.linbox.org/content/LDS-EP/ldsep-0003-lds-style-guide-for-php-code.html">MMC PHP style guidelines</ulink>.
+      </para>
+
+    </section>
+
+    <section>
+
+      <title>MMC Page format</title>
+
+      <para>
+	A MMC page is made of 5 elements:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    page header: expert mode button, disconnect button
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    page footer: displays MMC components version
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    top navigation bar: shows all available MMC sub-modules. A MMC module can offer more than on sub-modules. For example, the "base" module display the "Users" and "Groups" pane.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    left sidebar: shows all available actions inside a sub-modules.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    content: HTML content that allows a user to make an action (forms, buttin, etc.)
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	Here is a simple schema:
+      </para>
+      <screen>
+/-------------------------\
+|         HEADER          |
+\-------------------------/
+/-------------------------\
+|                         |
+|      NAVIGATION BAR     |
+|                         |
+\-------------------------/
+/-----\/------------------\
+| L S ||                  |
+| E I ||                  |
+| F D ||                  |
+| T E ||      CONTENT     |
+|   B ||                  |
+|   A ||                  |
+|   R ||                  |
+|     ||                  |
+\-----/\------------------/
+/-------------------------\
+|         FOOTER          |
+\-------------------------/
+
+      </screen>
+
+      <para>
+	When writing a MMC web module, you can:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    defines new sub-modules (new panes) into the navigation bar
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    defines new actions into the left sidebar
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Set a content for each action
+	  </para>
+	</listitem>
+
+      </itemizedlist>
+      
+    </section>
+
+    <section>
+
+      <title>How MMC pages are displayed</title>
+
+      <para>
+	The <filename>/usr/share/mmc/main.php</filename> file is the key.
+      </para>
+      <para>
+	Called without argument (e.g. http://127.0.0.1/mmc/main.php), the MMC portal page is displayed. When a user login into the interface, this is the first page that is displayed.
+      </para>
+      <para>
+	To display a page, the following parameters must be given to this PHP scipt:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    module: the name of the module (top navigation bar pane) where the page is located
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    submod: the name of the sub-module (left navigation bar pane) where the page is located
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    action: the base name of the PHP script that displays the page
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	For example: http://127.0.0.1/mmc/main.php&amp;module=base&amp;submod=users&amp;action=add will call the "add.php" script of the "users" sub-module of the "base" module.
+      </para>
+
+    </section>
+    
+    <section>
+
+      <title>PHP module components</title>
+
+      <para>
+	A PHP module of the MMC web interface is fully contained into the <filename>/usr/share/mmc/modules/[module_name]</filename> directory of a MMC installation.
+      </para>
+      <para>
+	This directory should looks like this:
+      </para>
+      <screen>
+.
+|-- graph
+|   |-- img
+|   |   |-- ...
+|   `-- mail
+|       `-- index.css
+|-- includes
+|   |-- module-xmlrpc.php
+|   |-- publicFunc.php
+|-- infoPackage.inc.php
+|-- submodule1
+|   |-- page1.php
+|   |-- page2.php
+|   |-- page3.php
+|   |-- ...
+|   |-- localSidebar.php
+|-- submodule2
+|   |-- localSidebar.php
+|   |-- ...
+|-- locale
+    |-- fr_FR.utf8
+    |   `-- LC_MESSAGES
+    |       `-- module.po
+    |-- nb_NO.utf8
+    |   `-- LC_MESSAGES
+    |       `-- module.po
+    |-- ...
+
+      </screen>
+
+      <section>
+
+	<title>Mapping between main.php arguments and modules</title>
+
+	<para>
+	  These arguments are directly related to modules directory organization.
+	</para>
+	<para>
+	  For example, when calling http://127.0.0.1/mmc/main.php&amp;module=base&amp;submod=users&amp;action=add, the file <filename>/usr/share/mmc/modules/base/users/add.php</filename> is executed.
+	</para>
+
+      </section>
+
+      <section>
+
+	<title>Module declaration: infoPackage.inc.php</title>
+
+	<para>
+	  
+	</para>
+
+      </section>
+
+
+    </section>
+    
+  </section>
+
+</article>  
