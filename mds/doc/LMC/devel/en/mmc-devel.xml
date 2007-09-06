@@ -62,7 +62,7 @@
       <title>Creating a Python module</title>
     
       <para>
-	Each MMC agent module must be located in the <filename>$PYTHONPATH/site-packages/mmc/plugins</filename>.
+	Each MMC agent module must be located in the <filename>$PYTHONPATH/site-packages/mmc/plugins</filename> directory.
       </para>
       <para>
 	When the MMC agent starts, it looks for all Python modules in this path, and tries to activate them.
@@ -101,7 +101,7 @@
       </screen>
 
       <para>
-	A MMC Python module is in the Python language terminology a "package". So making a __init__.py file is required to make Python treat a directory as containing a package. Please read <ulink url="http://docs.python.org/tut/node8.html#SECTION008400000000000000000">this section</ulink> to know more about Python packages system.
+	A MMC Python module is in the Python language terminology a "package". So making a __init__.py file is required to make Python treats a directory as containing a package. Please read <ulink url="http://docs.python.org/tut/node8.html#SECTION008400000000000000000">this section</ulink> from the Python language tutorial to know more about Python packages system.
       </para>
 
     </section>
@@ -130,7 +130,7 @@
       <screen>
 	from lmc.support.config import PluginConfig, ConfigException
 	
-	class ModulenamePluginConfig(PluginConfig):
+	class ModulenameConfig(PluginConfig):
 
             def setDefault(self):
 	        """
@@ -161,6 +161,13 @@
 		with a corresponding error string if a check fails.
                 """
 		if not self.confOption: raise ConfigException("Conf error")
+
+        def activate():
+	    # Get module config from "/etc/mmc/plugins/module_name.ini"
+	    config = ModulenameConfig("module_name")
+	    ...
+            return True
+
       </screen>
       
     </section>
@@ -259,7 +266,7 @@
 	</listitem>
 	<listitem>
 	  <para>
-	    content: HTML content that allows a user to make an action (forms, buttin, etc.)
+	    content: HTML content that allows a user to make an action (forms, button, etc.)
 	  </para>
 	</listitem>
       </itemizedlist>
@@ -327,7 +334,7 @@
 	Called without argument (e.g. http://127.0.0.1/mmc/main.php), the MMC portal page is displayed. When a user login into the interface, this is the first page that is displayed.
       </para>
       <para>
-	To display a page, the following parameters must be given to this PHP scipt:
+	To display other pages, the following parameters must be given to this PHP scipt:
       </para>
       <itemizedlist>
 	<listitem>
@@ -355,7 +362,7 @@
     
     <section>
 
-      <title>PHP module components</title>
+      <title>PHP module structure</title>
 
       <para>
 	A PHP module of the MMC web interface is fully contained into the <filename>/usr/share/mmc/modules/[module_name]</filename> directory of a MMC installation.
@@ -368,7 +375,7 @@
 |-- graph
 |   |-- img
 |   |   |-- ...
-|   `-- mail
+|   `-- submodule1
 |       `-- index.css
 |-- includes
 |   |-- module-xmlrpc.php
@@ -391,34 +398,714 @@
     |   `-- LC_MESSAGES
     |       `-- module.po
     |-- ...
-
       </screen>
 
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    infoPackage.inc.php: module declaration. See the section <xref linkend="infoPackage" />
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    includes: where should be put module include files: module widgets, module XMLRPC calls, etc.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    includes/publicFunc.php: this file included by various MMC pages. For example, if the module allows to manage user LDAP fields, his file can be used when rendering the user edit page.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    graph: where should be stored all graphical elements: images (in graĥ/img), extra CSS, etc.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    submoduleN: owns all the pages of a submodule
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    submoduleN/localSidebar: left sidebar of a submodule when displaying sub-module pages
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    locale: owns the i18n internationalization files of the module, used by gettext.
+	  </para>
+	</listitem>
+      </itemizedlist>
+      
       <section>
 
 	<title>Mapping between main.php arguments and modules</title>
 
 	<para>
-	  These arguments are directly related to modules directory organization.
+	  The main.php arguments are directly related to modules directory organization.
 	</para>
 	<para>
 	  For example, when calling http://127.0.0.1/mmc/main.php&amp;module=base&amp;submod=users&amp;action=add, the file <filename>/usr/share/mmc/modules/base/users/add.php</filename> is executed.
 	</para>
 
       </section>
+      
+    </section>
+
+    <section id="infoPackage">
+
+      <title>Module declaration: infoPackage.inc.php</title>
+
+      <para>
+	This mandatory file defines:
+      </para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    The module name and description
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    The sub-modules name, description, and their corresponding icons into the top navigation bar
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    all the available module web pages, their names and their options
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    form input fields that are protected by the ACL system
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	These informations are also used by the MMC home page to display the module summary.
+      </para>
+
+      <para>
+	Commented example:
+      </para>
+
+      <screen>
+	/* Register a new module called "module1" */
+	$mod = new Module("module1");
+	/* MMC module version, should follow MDS version release */
+	$mod->setVersion("2.0.0");
+	/* SVN revision bumber */
+	$mod->setRevision("$Rev: 51 $");
+	/* module description. The _T("") syntax will be explained later */
+	$mod->setDescription(_T("Module 1 service"),"module1");
+	/*
+	    Module API version this version can use.
+	    The MMC agent Python module and the web interface PHP module
+	    API version must match.
+	*/
+	$mod->setAPIVersion("4:1:3");
+
+
+	/* Register a new sub-module */
+	$submod = new SubModule("submodule1");
+	/* Set submodule description */
+	$submod->setDescription(_T("Sub module 1", "module1"));
+	/*
+	    Icons to use in the top navigation bar for this sub-module.
+	    The following images will be displayed:
+	    - /usr/share/mmc/modules/module1/graph/img/submodule1.png: sub-module not selected
+	    - .../submodule1_hl.png: mouse hover on the sub-module icon (the icon is highlighted)
+	    - .../submodule1_select: the sub-module is selected
+	*/
+	$submod->setImg("modules/module1/graph/img/submodule1");
+	/*
+	The page to load when selecting the sub-module
+	e.g.: main.php?submod=module1&amp;submod=submodule1&amp;action=index
+	*/
+	$submod->setDefaultPage("module1/submodule1/index");	
+	/* Sub-module priority in the top navigation bar */
+	$submod->setPriority(300);
+
+	/* Register pages in this sub-module */
+	/*
+            This new page will be displayed when using this URL:
+	    e.g.: main.php?submod=module1&amp;submod=submodule1&amp;action=index
+	    The corresponding PHP file will be: /usr/share/mmc/modules/module1/submodule1/index.php
+	    A page must be registered to be displayed.
+	*/	  
+	$page = new Page("index", _T("Sub-module index page", "module1"));
+	/* Add this page to the sub-module */
+	$submod->addPage($page);
+	/* Another page */
+	$page = new Page("edit",_T("Sub-module edit page", "module1"));
+	/*
+	    Options can be set on pages.
+	    If "visible" is set to False, the page won't be displayed in the sub-module summary on the MMC home page.
+	*/	     
+	$page->setOptions(array("visible"=>False));
+	$submod->addPage($page);
+
+	
+	/* Add the sub-module to the module */
+	$mod->addSubmod($submod);
+
+	/* Defines other submodules and pages */
+	$submod = new SubModule("submodule2");
+	...
+	...
+
+	/* And put the module into MMC application */
+	$MMCApp = &amp;MMCApp::getInstance();
+	$MMCApp->addModule(&amp;$mod);	  
+      </screen>
+
+      <para>
+	The following options can be set on a page:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    visible: if "visible" is set to False, the page won't be displayed in the sub-module summary on the MMC home page. Always True by default.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    visible: if set to False, the page won't be displayed in the sub-module summary on the MMC home page. Always True by default.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    noHeader: If set to True, the header and the footer won't be inserted automatically when rendering the page. This option is useful for popup page and AJAX related pages. False by default.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    noACL: If set to True, no ACL entry is linked to this page. False by default.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    AJAX: same as setting noACL to True and noHeader to true. Always use this for URL that will be called by scriptaculous Ajax.Updater objects. False by default.
+	  </para>
+	</listitem>
+
+      </itemizedlist>
+
+    </section>
+
+    <section>
+
+      <title>How to render a page</title>
+      
+      <para>
+	Once a page is registered into the infoPackage.php file, it can be rendered. The main.php script take care of this:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    It checks that the current user has the rights to see the page. If not, the user is redirected to the MMC home page
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If page noHeader option is set to False, the MMC header is rendered
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    The registered PHP script corresponding to the page is executed
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If page noHeader option is set to False, the MMC footer is rendered
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	Notice that only the header and the footer can be rendered automatically. The top navigation bar, the left sidebar and the page content must be provided by the registered PHP script.
+      </para>
+      <para>
+	Notice that for special page like the popup, there is no need of header, footer and bars, only a content should be provide.
+      </para>
+     
+      <section>
+	
+	<title>The PageGenerator class</title>
+
+	<para>
+	  This class allows to easily creates a page with the top navigation bar and the left sidebar. Here is a commented example of a simple MMC page:
+	</para>
+	
+	<screen>
+	  /* localSidebar.php contains the left sidebar elements of all the pages sub-module. See next section. */
+	  require("localSidebar.php");
+	  /*
+	     Display the top navigation bar, and prepare the page rendering.
+	     The current sub-module pane is automatically selected.
+	  */
+	  require("graph/navbar.inc.php");
+	  	  
+	  /*
+	      Create a page with a title
+              The title will be displayed as a H2
+          /*
+	  $p = new PageGenerator(_T("Simple page example"));
+	  /*
+	      $sidemenu has been defined in the localSidebar.php file
+	      We set it as the page left side bar
+	  */
+	  $p->setSideMenu($sidemenu);
+	  /*
+	      We ask to the PageGenerator instance to render.
+	      The page title and the left sidebar are displayed.
+	      The current page corresponding pane is automatically selected in the left side bar.
+	  */
+	  $p->display();
+
+	  /* Fill the page with content */
+	  ...
+	</screen>
+	
+      </section>
 
       <section>
 
-	<title>Module declaration: infoPackage.inc.php</title>
+	<title>The SideMenu and SideMenuItem classes</title>
 
 	<para>
-	  
+	  The SideMenu class allows to build the left sidebar menu of a page. Here is an example, that could have been the content of the "localSidebar.php" of the previous section.
 	</para>
+
+	<screen>
+	  $sidemenu= new SideMenu();
+	  /*
+	     CSS class name to use when rendering the sidebar.
+	     You should use the sub-module name
+	  */
+
+	  $sidemenu->setClass("submodule1");
+	  /*
+	     Register new SideMenuItem objects in the menu.
+	     Each item is a menu pane.
+	  */
+	  $sidemenu->addSideMenuItem(new SideMenuItem(_T("Simple page"),"module1","submodule1","index", "modules/module1/graph/img/module1_active.png", "modules/module1/graph/img/module1_inactive.png"));
+	  $sidemenu->addSideMenuItem(new SideMenuItem(_T("Another page"),"module1","submodule1","add", "modules/module1/graph/img/module1_active.png", "modules/module1/graph/img/module1_inactive.png"));
+	</screen>
+
+	<para>
+	  The SideMenuItem constructor arguments are
+	</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      the item label
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      the next three arguments are needed to create the URL link so that clicking on the menu item loads the right page. They corresponds to a module name ("module1"), a sub-module name ("submodule1"), and a registered page ("index").
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      the last two optional arguments allow to define an icon to use when the sidemenu item is selected, and when not selected. If not specified, no icon will be used.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+      </section>
+                  
+    </section>
+
+    <section>
+
+      <title>The MMC widget framework</title>
+
+      <para>
+	The MMC widget framework is a set of classes that allows to wrap HTML code into PHP classes. The goal of this very simple framework is:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    Separate HTML code and PHP code
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Factorize HTML and PHP code
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Use the same set of widgets accross all the module interface, for a better user experience
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	There are two kinds of widgets: widgets that contains other widgets, widgets that doesn't contain other widgets.
+      </para>
+      <para>
+	MMC widgets that are containers inherits from the HtmlContainer class, and the other widgets inherits from the HtmlElement.
+      </para>
+      <para>
+	Every MMC pages have been built using instances of these classes. Here is a little example:
+      </para>
+      <screen>
+	/* Build a new validating form */
+	$f = new ValidatingForm();
+
+	/* Push a table into the form, and go to the table level */
+	$f->push(new Table());
+	/* Add two TR to the table */
+	/* Ask for a given name */
+	$f->add(
+            new TrFormElement(_T("Given name"), new InputTpl("givenName"),
+	    array("value" => "", "required" => True)
+	);
+	/* Ask for a family name */
+	$f->add(
+            new TrFormElement(_T("Family name"), new InputTpl("name"),
+	    array("value" => "", "required" => True)
+	);
+	/* Go back to the validating form level
+	$f->pop();
+
+	/* Add a button to the form */
+	$f->addButton("bvalid", _T("Validate"));
+
+	/* Close the form */
+	$f->pop();
+
+	/* Render all the form and the objects it contains */
+	$f->display();
+      </screen>
+      
+      <para>
+	This example renders a HTML form, with two input fields asking for a given name and a family name.
+      </para>
+      <para>
+	In this example, ValidatingForm and Table are two HtmlContainer sub-classes. TrFormElement and InputTpl are two HtmlElement sub-classes.
+      </para>
+
+      <section>
+
+	<title>HtmlContainer objects</title>
+
+	<para>
+	  A HtmlContainer object owns an ordered list of elements. An element is either an instance from a HtmlContainer sub-class, either an instance from a HtmlElement sub-class.
+	</para>
+	<para>
+	  This list of elements is either opened (new elements can be added to the list), either closed (no more elements can be added).
+	</para>
+	<para>
+	  When adding a HtmlElement or a HtmlContainer object to a HtmlContainer, the object is added to the last added HtmlContainer which does not have a closed element list. 
+	</para>
+
+	<para>
+	  The HtmlContainer class main methods are:
+	</para>
+	
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      push($newHtmlContainer): recursively push into the widget element list a new container
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      pop(): pop the last pushed HtmlContainer with an opened element list, and close the list.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      add(NewHtmlElement): recursively add into the widget element list a new element
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      display(): recursively render HTML code. The display method is called on each element of the list.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+	
+	<para>
+	  Here is an example. The indentation helps to show which container is used:
+	</para>
+
+	<screen>
+	  $o = new HtmlContainer;
+	      $o->add(HtmlElement());
+	      $o->push(HtmlContainer());
+	          /* The HtmlElement are added to the latest added and open HtmlContainer */
+	          $o->add(HtmlElement());
+		  $o->push(HtmlContainer());
+	              /* The HtmlElement are added to the latest added and open HtmlContainer */
+		      $o->add(HtmlElement());
+		      $o->add(HtmlElement());
+		  /* closing the element list of the latest HtmlContainer */
+                  $o->pop();
+		  /* falling back to the previous HtmlContainer */
+	          $o->add(HtmlElement());
+              /* closing the element list of the latest HtmlContainer */
+              $o->pop();
+	      $o->add(HtmlElement());
+	  /* Popping the root container */
+	  $o->pop();
+	  /* Display the HTML code */
+	  $o->display();
+	</screen>
+
+	<para>
+	  To render HTML code, a HtmContainer subclass needs only to implement these two functions:
+	</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      begin: before recursivelly calling display() on each element of its list, the container must put its starting HTML tag. This method returns the HTML tag as a string.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      end: After recursivelly calling display() on each element of its list, the container must put its ending HTML tag. This method returns the HTML tag as a string.
+
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+	<para>
+	  Here is an example of a HtmlContainer subclass that wraps a HTML table:
+	</para>
+
+	<screen>  
+	  class Table extends HtmlContainer {
+	  
+              function Table() {
+	          $this->HtmlContainer();
+              }
+	  
+	      function begin() {
+	          return "&lt;table&gt;";
+	      }
+	  
+	      function end() {
+	          return "&lt;/table&gt;";
+	      }
+
+	  }
+	</screen>
+
+      </section>
+
+      <section>
+
+	<title>HtmlElement objects</title>
+
+	<para>
+	  These objects are very simple PHP class wrapper around HTML code, and can be stored into a HtmlContainer object.
+	</para>
+	<para>
+	  To render HTML code, a HtmElement subclass needs only to implement the display() function. This function just prints the HTML code implementing the widget. For example:
+	</para>
+	<screen>
+	  class Title Extends HtmlElement {
+	  
+	      function Title($text) {
+	          $this->$text = $text
+	      }
+
+	      function display() {
+	          print "&lt;H1&gt;" . $this->text . "&lt;/H1&gt;";
+	      }
+
+	  }
+	</screen>
+
+      </section>
+
+    </section>
+
+    <section>
+      
+      <title>Useful MMC widgets</title>
+      
+      <para>
+	The following widgets are defined in the <filename>includes/PageGenerator.php</filename> file.
+      </para>
+
+      <section>
+	
+	<title>The ListInfos class</title>
+	
+	<para>
+	  The ListInfos class allows to create a paged multi-column table with a navigation bar, and to link each row to a set of actions. For example, the MMC user list is implemented using a ListInfos widget.
+	</para>
+
+	<para>
+	  Here is an example. We create a table with two columns: the first is a fruit, the second is a quantity.
+	</para>
+
+	<screen>
+	  require ("includes/PageGenerator.php");
+	  $fruits = array("apple", "banana", "lemon", "papaya", "fig", "olive", "clementine", "orange", "mandarin", "grapes", "kumquat");
+	  $stock = array("5", "8", "40", "12", "40", "51", "12", "7", "9", "15", "21");
+	  
+	  /*
+	      Create the widget.
+	      The first column will be labeled "Fruit name", and each cell will contain an item of the $fruits array.
+          */
+	  $l = new ListInfos($fruits, _T("Fruit name"));
+	  /* Add the second column */
+	  $l->addExtraInfo($stock, _T("Quantity"));
+	  /*
+	      Set the item counter label.
+	      The counter is displayed just above the table:
+	      Fruits 1 to 10 - Total 11 (page 1/2)
+	  */
+	  $l->setName(_T("Fruits"));
+	  /* Display the widget */
+	  $l->display();	  
+	</screen>
+
+	<para>
+	  The item counter label is displayed just above the table. In our example, it shows: Fruits 1 to 10 - Total 11 (page 1/2). It means:
+	</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Fruits 1 to 10: from all table rows, the row #1 to row #10 are displayed. By default, the ListInfos widget is configured to display only 10 rows. This setting is set into the "maxperpage" option of the <filename>/etc/mmc/mmc.ini</filename> file.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Total 11: the total table rows number
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      (page 1/2): the first page, that corresponds to the first 10 rows of the table, is displayed. If you click on the "Next" button, the second page will be displayed, with the single row #11.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+	<para>
+	  Now we are going to add some action items to each rows:
+	</para>
+	<screen>
+	  require ("includes/PageGenerator.php");
+	  $l = new ListInfos($fruits, _T("Fruit name"));
+	  $l->addExtraInfo($stock, _T("Quantity"));
+	  $l->setName(_T("Fruits"));
+	  /* Add actions */
+	  $l->addActionItem(new ActionItem(_T("View fruit"), "view", "afficher", "fruit"));
+	  $l->addActionItem(new ActionPopupItem(_T("Delete fruit"), "view", "supprimer", "fruit"));
+	  $l->display();	  
+	</screen>
+	
+	<para>
+	  Thanks to addActionItem, we add to each row two actions: view the fruit, and delete the fruit.
+	</para>
+	<para>
+	  ActionItem constructor arguments are:
+	</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      action label ("View fruit"), displayed when the mouse hover on the action icon
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      the web page ("view") of the current sub-module to use to perform the action
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      the CSS class ("afficher") is the French for "display") to use to set the action icons
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      the URL parameter name ("fruit") used to give to the web page that will perform the action the object. The content of the first row is always used as the parameter value.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+	<para>
+	  In our example, the URL link for the first row will be: "main.php?module=module1&amp;submod=submodule1&amp;action=view&amp;fruit=apple". For the second row, "...&amp;fruit=banana", etc.
+	</para>
+
+	<para>
+	  ActionPopupItem displays a little popup page when clicked. This is useful for actions that just need an extra validation to be performed.
+	</para>
+
+	<para>
+	  When there are actions, the first column cells are automatically linked to the first action. But this can be disabled with:
+	</para>
+	<screen>
+	  $l->disableFirstColumnActionLink();
+	</screen>
+
+      </section>
+
+      <section>
+
+	<title>The PopupForm widget</title>
+
+	<para>
+	  This widget allows to build a MMC popup form triggered by a ActionPopupItem very quickly. For example:
+	</para>
+	  
+	<screen>
+	  if (isset(_POST["bdel"])) {
+	      /* action to remove the fruit */
+	      ...
+	  } else {
+	      $fruit = urldecode($_GET["fruit"]);
+	      /* Create the form and set its title */
+	      $f = new PopupForm(_T("Delete a fruit"));
+	      /* Add a little description text */
+	      $f->addText(_T("This action will delete all the fruit"));
+	      /*
+	          Put a hidden input field into the form.
+		  The HiddenTpl is explained later in this document
+              */
+	      $hidden = new HiddenTpl("fruit");
+	      /* Add this field to the form */
+	      $f->add($hidden, array("value" => $fruit, "hide" => True));
+	      /* Add validation and cancel buttons */
+	      $f->addValidateButton("bdel");
+	      $f->addCancelButton("bback");
+	      $f->display();
+	  }
+	</screen>
+
+      </section>
+
+      <section>
+
+	<title>The NotifyWidgetSuccess and NotifyWidgetFailure class</title>
+
+	<para>
+	  These two widgets displays a javascrip popup with a message, with a OK button.
+	</para>
+	<screen>
+	  /* Error message popup */
+	  new NotifyWidgetFailure(_T("Error ! /o\"));
+	  /* Success */
+	  new NotifyWidgetSuccess(_T("Reboot was successful ! \o/"));
+	</screen>
 
       </section>
 
 
-    </section>
+    </section>       
     
   </section>
 
