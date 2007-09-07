@@ -568,11 +568,6 @@
       <itemizedlist>
 	<listitem>
 	  <para>
-	    visible: if "visible" is set to False, the page won't be displayed in the sub-module summary on the MMC home page. Always True by default.
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
 	    visible: if set to False, the page won't be displayed in the sub-module summary on the MMC home page. Always True by default.
 	  </para>
 	</listitem>
@@ -1050,6 +1045,93 @@
 	</para>
 	<screen>
 	  $l->disableFirstColumnActionLink();
+	</screen>
+
+      </section>
+
+      <section>
+
+	<title>Ajaxified ListInfos</title>
+
+	<para>
+	  A ListInfos widget content can be dynamically filtered.
+	</para>
+	<para>
+	  First, we write the page that render the ListInfos widget. This page gets the filter to apply to the ListInfos widget as a GET parameter. Here is the code of <filename>/usr/share/mmc/modules/module1/submodule1/ajaxFruits.php</filename>:
+	</para>
+	<screen>
+	  /* Get MMC includes */
+	  require("../../../includes/config.inc.php");
+	  require("../../../includes/i18n.inc.php");
+	  require("../../../includes/acl.inc.php");
+	  require("../../../includes/session.inc.php");
+	  require("../../../includes/PageGenerator.php");
+
+	  $filter = $_GET("filter");
+	  $fruits = array("apple", "banana", "lemon", "papaya", "fig", "olive", "clementine", "orange", "mandarin", "grapes", "kumquat");
+	  
+	  /* Make a fruit list using the filter */
+	  $filtered = array();
+	  foreach($fruits as $fruit) {
+	      if (!(strpos($fruit, $filtered) === False))
+	          $filtered[] = $fruit;
+	  }
+
+	  $l = new ListInfos($filtered, _T("Fruit name"));
+	  /*
+	      Instead of using the standard widget navigation bar, use the AJAX version.
+	      This version allows to keeps the filter when clicking on previous / next.
+	  */
+	  $l->setNavBar(new AjaxNavBar(count($filtered), $filter));
+	  $l->setName(_T("Fruits"));
+	  $l->display();
+	</screen>
+
+	<para>
+	  This PHP code just displays a ListInfos widget where the elements are filtered.
+	</para>
+	<para>
+	  Now we create a page where the ListInfos widget is automatically updated using a filter. Here is the code of <filename>/usr/share/mmc/modules/module1/submodule1/index.php</filename>:
+	</para>
+
+	<screen>
+	  require("localSidebar.php");
+	  require("graph/navbar.inc.php");
+
+	  /*
+	      Create the filtering form with a input field, and bind this input field to an AJAX updater that will use the specified URL to dynamically fill in a DIV (see below) container.
+	  */
+	      
+	  $ajax = new AjaxFilter("modules/module1/submodule1/ajaxFruits.php");
+	  $ajax->display();
+
+	  /* Set page title and left side bar */
+	  $p = new PageGenerator(sprintf(_T("Fruits"), "module1"));
+	  $p->setSideMenu($sidemenu);
+	  $p->display();
+	  
+	  /* Display the DIV container that will be updated */
+	  $ajax->displayDivToUpdate();
+	</screen>
+
+	<para>
+	  In <filename>infoPackage.inc.php</filename>, these two PHP script should be registered like this:
+	</para>
+	<screen>
+	  $mod = new Module("module1");
+	  ...
+	  $submod = new SubModule("submodule1");
+	  ...
+	  /* Register the first page */
+	  $page = new Page("index", _T("Fruit list", "module1"));
+	  $submod->addPage($page);	  
+	  /* Register the page called using the AJAX DIV updater */
+	  $page = new Page("ajaxFruit");
+	  $page->setFile("modules/module1/submodule1/ajaxFruits.php",
+	                 array("AJAX" => True, "visible" => False)
+	  );
+	  $submod->addPage($page);
+	  ...
 	</screen>
 
       </section>
