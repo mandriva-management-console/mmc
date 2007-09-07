@@ -1134,8 +1134,81 @@
 	  ...
 	</screen>
 
-      </section>
+      </section>      
 
+      <section>
+
+	<title>The ValidatingForm widget</title>
+
+	<para>
+	  This widget (a subclass of HtmlContainer) is a HTML form with input fields validation. The form can't be validated (POSTed) if some required fields are not filled in, or if their values don't match a given regex.
+	</para>
+	<para>
+	  A lot of MMC pages display a HTML form, containing a HTML table with multiple rows of a single labeled input field. Here is an example
+	</para>
+	<screen>
+	  /* Build a new validating form */
+	  $f = new ValidatingForm();
+
+	  /* Push a table into the form, and go to the table level */
+	  $f->push(new Table());
+	  /* Add two TR to the table */
+ 	  /* Ask for a given name */
+	  $f->add(
+  	      new TrFormElement(_T("Given name"), new InputTpl("givenName"),
+	      array("value" => "", "required" => True)
+	  );
+	  /* Ask for a family name */
+	  $f->add(
+	  new TrFormElement(_T("Family name"), new InputTpl("name"),
+	      array("value" => "", "required" => True)
+	  );
+	  /* Go back to the validating form level
+	  $f->pop();
+
+	  /* Add a button to the form */
+	  $f->addButton("bvalid", _T("Validate"));
+
+	  /* Close the form */
+	  $f->pop();
+
+	  /* Render all the form and the objects it contains */
+	  $f->display();
+	</screen>
+	
+	<para>
+	  The TrFormElement class creates objects that will render a HTML row (a TR) with two columns (two TDs). The first column contains a describing label, and the second column an input field. In the example:
+	</para>
+	<screen>
+ 	  /* Ask for a given name */
+	  $f->add(
+  	      new TrFormElement(_T("Given name"), new InputTpl("givenName"),
+	      array("value" => "", "required" => True)
+	  );
+	</screen>
+	<para>
+	  TrFormElement takes three argument:
+	</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      "Given name" is the label of the input field.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      InputTpl("givenName") is a standard HTML input field, with "givenName" as the HTML "name" attribute
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      array("value" => "", "required" => True) is an array of option for the InputTpl object. "value" => "" means the HTML "value" attribute of the input field is empty. "required" => True means that the form can't be posted if the input field is empty.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+	  
+      </section>
+      
       <section>
 
 	<title>The PopupForm widget</title>
