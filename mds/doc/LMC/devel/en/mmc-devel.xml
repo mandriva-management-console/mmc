@@ -323,7 +323,7 @@
       
     </section>
 
-    <section>
+    <section id="MMC_page_display">
 
       <title>How MMC pages are displayed</title>
 
@@ -1104,8 +1104,44 @@
 
       </section>
 
+    </section>
 
-    </section>       
+    <section>
+
+      <title>Internationalization and localization</title>
+
+      <para>
+	The MMC uses the GNU gettext system to produce multi-lingual messages. If you are not famliar with GNU gettext, please read <ulink url="http://www.gnu.org/software/gettext/manual/gettext.html"> the GNU gettext manual</ulink>.
+      </para>
+      <para>
+	Two special PHP methods are needed to translate the interface:
+      </para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    _($msg): the underscore is a PHP alias for the gettext($msg) method. The gettext method looks up a message in the current text domain. The default text domain is the one from the MMC "base" module. In other words, the _("$msg") method can be only used to translate strings from the MMC "base" module.
+	  </para>
+	  <para>
+	  _T($msg, $module): this function looks up a message for a given module. So if you create MMC web module called "module1", to translate a message you write:
+	  </para>
+	  <screen>
+	    echo _T("This is a message to translate", "module1");
+	  </screen>
+	  <para>
+	    As the module name is already in the URL to be displayed (see <xref linkend="MMC_page_display"/>, if you don't specify a module name it can be automatically guessed.
+	  </para>
+	</listitem>	
+      </itemizedlist>
+
+      <para>
+	The gettext .po and .mo files must be put in the <filename>locale</filename> directory of a module, using this pattern: <filename>/usr/share/mmc/modules/modulename/locale/&lt;language_code&gt;.utf8/LC_MESSAGES/modulename.[pm]o</filename>.
+      </para>
+      <para>
+	<ulink url="http://lds.linbox.org/content/LDS-EP/ldsep-0005-lmc-web-interface-translation.html">Here is another document explaining how to translate the MMC web interface modules</ulink>. It explains how to produce the .po and the .mo files.
+      </para>
+
+    </section>
     
   </section>
 
