@@ -215,6 +215,33 @@
       </screen>
       
     </section>
+
+    <section>
+
+      <title>How to launch shell commands inside a Python module</title>
+
+      <para>
+	As the MMC agent is written on top of Python Twisted, you can't use the dedicated standard Python modules (like commands or popen) to run shell commands. You must use the Twisted API, and write <ulink url="http://twistedmatrix.com/projects/core/documentation/howto/process.html">ProcessProtocol classes</ulink>.
+      </para>
+      <para>
+	But we provide a simple ProcessProtocol based function to run a process, and get its outputs. Here is an example:
+      </para>
+      <screen>	
+	# Import the shLaunch method
+	from mmc.support.mmctools import shLaunch
+	
+	# Run "ls -l"
+	proc = shLaunch("ls -l")
+	
+	# Return shell command exit code
+	print proc.exitCode
+	# Return shell command stdout
+	print proc.out
+	# Return shell command stderr
+	print proc.err	
+      </screen>
+
+    </section>
     
   </section>
   
