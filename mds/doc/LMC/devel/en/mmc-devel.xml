@@ -1197,7 +1197,7 @@
 	  </listitem>
 	  <listitem>
 	    <para>
-	      InputTpl("givenName") is a standard HTML input field, with "givenName" as the HTML "name" attribute
+	      InputTpl("givenName") is a standard HTML input field, with "givenName" as the HTML "name" attribute.
 	    </para>
 	  </listitem>
 	  <listitem>
@@ -1207,6 +1207,74 @@
 	  </listitem>
 	</itemizedlist>
 	  
+	<para>
+	  See next section about all the InputTpl widget options.
+	</para>
+
+      </section>
+
+      <section>
+
+	<title>The InputTpl based widgets</title>
+
+	<para>
+	  The InputTpl class allows to render a standard HTML input field.
+	  The constructor takes two arguments:
+	</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      $name: the value of the "name" attribute of the INPUT HTML field
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      $regexp: a regexp that must be matched by the input field, else the HTML form won't be posted. The regexp is used only if the input field is inserted into a ValidatingForm object. If not given, the default regexp is "/.+/".
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+	<para>
+	  When rendering the widget, additional options can be given to the "display" method thanks to an array:
+	</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      "value": an empty string by default. That's the input field value.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      "required": False by default. If set to true and the InputTpl object is inside a ValidatingForm object, the form can't be posted if the field is empty
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+	<para>
+	  A lots of class that inherits from InputTpl have been written. For example: MACInputTpl is an HTML input field that only accepts MAC address, NumericInputTpl only accepts numeric value. Theses kind of classes are very easy to write: 
+	</para>
+	<screen>
+	  class NumericInputTpl extends InputTpl {
+	  
+	      function NumericInputTpl($name) {
+	          $this->name = $name;
+		  $this->regexp = '/^[0-9]*$/';
+	      }
+
+	  }
+
+	  class MACInputTpl extends InputTpl {
+	      
+	      function MACInputTpl($name) {
+	          $this->name = $name;
+		  $this->regexp = '/^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i';
+	      }
+	      
+	  }
+	</screen>
+	
       </section>
       
       <section>
