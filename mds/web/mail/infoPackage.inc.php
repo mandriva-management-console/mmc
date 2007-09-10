@@ -31,7 +31,7 @@
 require_once("modules/mail/includes/mail-xmlrpc.php");
 
 $mod = new Module("mail");
-$mod->setVersion("2.0.0");
+$mod->setVersion("3.0.0");
 $mod->setRevision("$Rev$");
 $mod->setDescription(_T("Mail service","mail"));
 $mod->setAPIVersion("5:1:3");
