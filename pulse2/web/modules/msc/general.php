@@ -24,28 +24,28 @@
 
 require("localSidebar.php");
 require("graph/navbar.inc.php");
-require("modules/lsc/includes/tmpl.inc.php");
-require("modules/lsc/includes/path.inc.php");
-require("modules/lsc/includes/system.inc.php");
-require("modules/lsc/includes/ssh.inc.php");
-require("modules/lsc/includes/widget.inc.php");
+require("modules/msc/includes/tmpl.inc.php");
+require("modules/msc/includes/path.inc.php");
+require("modules/msc/includes/system.inc.php");
+require("modules/msc/includes/ssh.inc.php");
+require("modules/msc/includes/widget.inc.php");
 
-require_once("modules/lsc/includes/xmlrpc.php");
+require_once("modules/msc/includes/xmlrpc.php");
 
 $p = new PageGenerator(_T("General informations"));
 $p->setSideMenu($sidemenu);
 $p->display(); 
 
 if ($_GET['mac'] != '') {
-	require("modules/lsc/includes/open_session.inc.php");
+	require("modules/msc/includes/open_session.inc.php");
 
 	/*
 	 * Control action
 	 */
 	if ($_POST["action"] != "") {
-		$script_list = lsc_script_list_file();
+		$script_list = msc_script_list_file();
 	        if (array_key_exists($_POST["action"], $script_list)) {
-			require_once("modules/lsc/includes/scheduler.php");
+			require_once("modules/msc/includes/scheduler.php");
 			
 			$id_command = scheduler_add_command_quick(
 				$script_list[ $_POST["action"] ][ "command" ],
@@ -56,7 +56,7 @@ if ($_GET['mac'] != '') {
 			$id_command_on_host = scheduler_get_id_command_on_host($id_command);
 				
 			print("<html><head><meta http-equiv=\"refresh\" content=\"0;url=" .
-				urlStr("lsc/lsc/cmd_state", array(
+				urlStr("msc/msc/cmd_state", array(
 							'mac'=>$_GET["mac"],
 							'group'=>$_GET["profile"],
 							'profile'=>$_GET["group"],
@@ -71,12 +71,12 @@ if ($_GET['mac'] != '') {
 	/*
 	 * Initialise template engine
 	 */
-	$template = new LSC_Tmpl(array("home_page" => "home_one_host_page.tpl" ));
+	$template = new MSC_Tmpl(array("home_page" => "home_one_host_page.tpl" ));
 
 	/*                      
 	 * Test ping            
 	 */                     
-	if (LSC_sysPing($session->ip)==0) {
+	if (MSC_sysPing($session->ip)==0) {
 		// Host reachable
 		$host_reachable = true;
 	} else {
@@ -111,16 +111,16 @@ if ($_GET['mac'] != '') {
 		$template->set_var("HOST_INFO_REACHABLE", _("failed"));
 	}               
 
-	$template->set_var("SCRIPT_PROFILE_URL", urlStr("lsc/lsc/general", array('profile'=>$session->profile)));
-	$template->set_var("SCRIPT_GROUP_URL", urlStr("lsc/lsc/general", array('group'=>$session->group)));
+	$template->set_var("SCRIPT_PROFILE_URL", urlStr("msc/msc/general", array('profile'=>$session->profile)));
+	$template->set_var("SCRIPT_GROUP_URL", urlStr("msc/msc/general", array('group'=>$session->group)));
 } else {
 	/*
 	 * Control action
 	 */
 	if ($_POST["action"]!="") {
-		$script_list = lsc_script_list_file();
+		$script_list = msc_script_list_file();
 	        if (array_key_exists($_POST["action"], $script_list)) {
-			require_once("modules/lsc/includes/scheduler.php");
+			require_once("modules/msc/includes/scheduler.php");
 			
 			$id_command = scheduler_add_command_quick(
 				$script_list[ $_POST["action"] ][ "command" ],
@@ -131,7 +131,7 @@ if ($_GET['mac'] != '') {
 			$id_command_on_host = scheduler_get_id_command_on_host($id_command);
 			
 			print("<html><head><meta http-equiv=\"refresh\" content=\"0;url=" .
-				urlStr("lsc/lsc/cmd_state", array(
+				urlStr("msc/msc/cmd_state", array(
 							'mac'=>$_GET["mac"],
 							'group'=>$_GET["profile"],
 							'profile'=>$_GET["group"],
@@ -146,12 +146,12 @@ if ($_GET['mac'] != '') {
 	/*
 	 * Initialise template engine
 	 */ 
-	$template = new LSC_Tmpl(array("home_page" => "home_group_and_profile_page.tpl" ));
+	$template = new MSC_Tmpl(array("home_page" => "home_group_and_profile_page.tpl" ));
 
 	/*      
 	 * Get host list of group or profile
 	 */     
-	$path = new LSC_Path($_GET["profile"].":".$_GET["group"]."/");
+	$path = new MSC_Path($_GET["profile"].":".$_GET["group"]."/");
 
 	$hosts_array = $path->get_hosts_list();
 
@@ -173,7 +173,7 @@ if ($_GET['mac'] != '') {
 			$template->set_var("IP", $host["ip"]);
 			$template->set_var("MAC", $host["mac"]);
 			$template->set_var("MAC_AND_DOT", urlencode($host["mac"]));
-			$template->set_var("LINK", urlStr("lsc/lsc/general", array('mac'=>$host["mac"])));
+			$template->set_var("LINK", urlStr("msc/msc/general", array('mac'=>$host["mac"])));
 
 			$template->parse("rows", "HOSTS_LIST_ROW", true);
 			/*
@@ -194,15 +194,15 @@ if ($_GET['mac'] != '') {
 	 */             
 	$template->set_var("PROFILE", $_GET["profile"]);
 	$template->set_var("GROUP", $_GET["group"]);
-	$template->set_var("SCRIPT_NAME", urlStr("lsc/lsc/general", array()));
+	$template->set_var("SCRIPT_NAME", urlStr("msc/msc/general", array()));
 
 
-LSC_Widget_standard_host_actions($template, lsc_script_list_file());
+MSC_Widget_standard_host_actions($template, msc_script_list_file());
 
 /*
  * Display
  */
-$template->set_var('IMAGE_PATH', '/lmc/modules/lsc/graph/images/');
+$template->set_var('IMAGE_PATH', '/lmc/modules/msc/graph/images/');
 $template->pparse("out", "home_page", "home_page");
 
 

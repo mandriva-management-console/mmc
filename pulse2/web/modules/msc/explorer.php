@@ -24,7 +24,7 @@
 
 require("localSidebar.php");
 require("graph/navbar.inc.php");
-require("modules/lsc/includes/mimetypes.inc.php ");
+require("modules/msc/includes/mimetypes.inc.php ");
 
 $p = new PageGenerator(_T("Explorer"));
 $p->setSideMenu($sidemenu);
@@ -70,14 +70,14 @@ $exticonsfile = EXTICONSFILE;
 $mime_type_icons_data = array();
 $mime_types_data = array();
 
-LSC_load_mime_types($exticonsfile, $mime_type_icons_data, $mime_types_data);
+MSC_load_mime_types($exticonsfile, $mime_type_icons_data, $mime_types_data);
         
 /*              
  * explorer active ?
  */             
 if ($config['explorer'] == 0) {
-        $template = new LSC_Tmpl(array("dis" => "dis.tpl" ));
-        $template->header_param = array("lsc explorer", $text{'explorer_title'});
+        $template = new MSC_Tmpl(array("dis" => "dis.tpl" ));
+        $template->header_param = array("msc explorer", $text{'explorer_title'});
         $template->pparse("out", "dis", "dis");
         exit;
 }
@@ -86,7 +86,7 @@ if ($config['explorer'] == 0) {
  * Open the session
  */
 
-include("modules/lsc/includes/open_session.inc.php"); // set $session instance
+include("modules/msc/includes/open_session.inc.php"); // set $session instance
 
 
 

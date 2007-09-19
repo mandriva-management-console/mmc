@@ -18,15 +18,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
  */
 
-require_once("modules/lsc/includes/tmpl.inc.php"); /**< Use LSC_Tmpl class */
-require_once("modules/lsc/includes/debug.inc.php"); /**< Use Debug function */
+require_once("modules/msc/includes/tmpl.inc.php"); /**< Use MSC_Tmpl class */
+require_once("modules/msc/includes/debug.inc.php"); /**< Use Debug function */
 
 /*
  * Initialise template engine
  */
-$template = new LSC_Tmpl(array("connection_error_page" => "connection_error_page.tpl" ));
+$template = new MSC_Tmpl(array("connection_error_page" => "connection_error_page.tpl" ));
 
-$template->header_param = array("lsc connection_error", $text{'home_title'});
+$template->header_param = array("msc connection_error", $text{'home_title'});
 
 $template->set_var("MAC", $session->mac);
 $template->set_var("IP", $session->ip);

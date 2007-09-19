@@ -24,13 +24,13 @@
 
 require("localSidebar.php");
 require("graph/navbar.inc.php");
-require_once("modules/lsc/includes/tmpl.inc.php");
-require_once("modules/lsc/includes/path.inc.php");
-require_once("modules/lsc/includes/system.inc.php");
-require_once("modules/lsc/includes/ssh.inc.php");
-require_once("modules/lsc/includes/widget.inc.php");
-require_once("modules/lsc/includes/scheduler.php");
-require_once("modules/lsc/includes/functions.php");
+require_once("modules/msc/includes/tmpl.inc.php");
+require_once("modules/msc/includes/path.inc.php");
+require_once("modules/msc/includes/system.inc.php");
+require_once("modules/msc/includes/ssh.inc.php");
+require_once("modules/msc/includes/widget.inc.php");
+require_once("modules/msc/includes/scheduler.php");
+require_once("modules/msc/includes/functions.php");
 
 
 
@@ -39,12 +39,12 @@ $p->setSideMenu($sidemenu);
 $p->display(); 
 
 if ($_GET["id_command"]!="") { ############################ id_command
-	require("modules/lsc/includes/commands.php");
+	require("modules/msc/includes/commands.php");
 	tmpl_command_detail($_GET);
 	exit;
 }
 if ($_GET["id_command_on_host"]!="") { ################################ id_command_on_host
-	require("modules/lsc/includes/commands.php");
+	require("modules/msc/includes/commands.php");
 	tmpl_command_on_host_detail($_GET, 'commands_states.cgi');
 	exit;
 }
@@ -77,22 +77,22 @@ if ($_GET["mac"] == "") { ########################################## GROUP
 	/*
 	 * Handle action
 	 */
-	if ($_GET["lsc_action"]=="play") {
-	        lsc_command_set_play($_GET["id_command_play"]);
-	} elseif ($_GET["lsc_action"]=="pause") {
-	        lsc_command_set_pause($_GET["id_command_pause"]);
-	} elseif ($_GET["lsc_action"]=="stop") {
-	        lsc_command_set_stop($_GET["id_command_stop"]);
+	if ($_GET["msc_action"]=="play") {
+	        msc_command_set_play($_GET["id_command_play"]);
+	} elseif ($_GET["msc_action"]=="pause") {
+	        msc_command_set_pause($_GET["id_command_pause"]);
+	} elseif ($_GET["msc_action"]=="stop") {
+	        msc_command_set_stop($_GET["id_command_stop"]);
 	}
 	
 	/*
 	 * Initialise template engine
 	 */
-	$template = new LSC_Tmpl(array("commands_states_on_group_and_profile_page" => "commands_states_on_group_and_profile_page.tpl" ));
+	$template = new MSC_Tmpl(array("commands_states_on_group_and_profile_page" => "commands_states_on_group_and_profile_page.tpl" ));
 	
-	$template->header_param = array("lsc commands_states", $text{'explorer_title'});
+	$template->header_param = array("msc commands_states", $text{'explorer_title'});
 	
-	$script = urlStr("lsc/lsc/cmd_state", array(
+	$script = urlStr("msc/msc/cmd_state", array(
                                                         'mac'=>$_GET["mac"],
                                                         'group'=>$_GET["profile"],
                                                         'profile'=>$_GET["group"],
@@ -239,23 +239,23 @@ if ($_GET["mac"] == "") { ########################################## GROUP
 	/*
 	 * Display
 	 */
-	$template->set_var('IMAGE_PATH', '/lmc/modules/lsc/graph/images/');
+	$template->set_var('IMAGE_PATH', '/lmc/modules/msc/graph/images/');
 	$template->pparse("out", "commands_states_on_group_and_profile_page", "commands_states_on_group_and_profile_page");
 	
 } else { ########################################################### HOST
 	// include("open_session.inc.php");
 	if ($_GET["mac"] != "")
-	        $session = new LSC_Session($_GET["mac"], "root", false, false);
+	        $session = new MSC_Session($_GET["mac"], "root", false, false);
 	
 	$hostname = $session->hostname;
 	/*
 	 * Initialise template engine
 	 */
-	$template = new LSC_Tmpl(array("commands_states_on_host_page" => "commands_states_on_host_page.tpl" ));
+	$template = new MSC_Tmpl(array("commands_states_on_host_page" => "commands_states_on_host_page.tpl" ));
 	
-	$template->header_param = array("lsc commands_states", $text{'explorer_title'});
+	$template->header_param = array("msc commands_states", $text{'explorer_title'});
 
-	$script = urlStr("lsc/lsc/cmd_state", array(
+	$script = urlStr("msc/msc/cmd_state", array(
 	                                        	'mac'=>$_GET["mac"],
 							'group'=>$_GET["profile"],
 							'profile'=>$_GET["group"],
@@ -270,12 +270,12 @@ if ($_GET["mac"] == "") { ########################################## GROUP
 	/*
 	 * Handle action
 	 */
-	if ($_GET["lsc_action"]=="play") {
-	        lsc_command_set_play($_GET["id_command_play"]);
-	} elseif ($_GET["lsc_action"]=="pause") {
-	        lsc_command_set_pause($_GET["id_command_pause"]);
-	} elseif ($_GET["lsc_action"]=="stop") {
-	        lsc_command_set_stop($_GET["id_command_stop"]);
+	if ($_GET["msc_action"]=="play") {
+	        msc_command_set_play($_GET["id_command_play"]);
+	} elseif ($_GET["msc_action"]=="pause") {
+	        msc_command_set_pause($_GET["id_command_pause"]);
+	} elseif ($_GET["msc_action"]=="stop") {
+	        msc_command_set_stop($_GET["id_command_stop"]);
 	}                                                                                             
 	
 	template_set_cmd_by_page(&$template, 'commands_states_on_host_page', $number_command_by_page);
@@ -413,7 +413,7 @@ if ($_GET["mac"] == "") { ########################################## GROUP
 	/*
 	 * Display
 	 */
-	$template->set_var('IMAGE_PATH', '/lmc/modules/lsc/graph/images/');
+	$template->set_var('IMAGE_PATH', '/lmc/modules/msc/graph/images/');
 	$template->pparse("out", "commands_states_on_host_page", "commands_states_on_host_page");
 	
 }
