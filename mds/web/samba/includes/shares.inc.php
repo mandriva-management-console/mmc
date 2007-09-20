@@ -60,48 +60,36 @@ function getAdminUsersOnShare($name) {
 }
 
 
-function
-get_shares_detailed()
-{
-  $shares = xmlCall("samba.getDetailedShares",null);
-  return $shares;
+function get_shares_detailed() {
+    $shares = xmlCall("samba.getDetailedShares", null);
+    return $shares;
 }
 
-// recuperation chemin d'un partage
-function share_path($share, $error)
-{
-
-  $param = array($share);
-  $shares = xmlCall("samba.getSharePath",$param);
+/* Get share path */
+function share_path($share, $error) {
+    $param = array($share);
+    $shares = xmlCall("samba.getSharePath", $param);
 }
 
 function del_share($share, $files) {
-  $param = array($share, $files);
-  return xmlCall("samba.delShare", $param);
+    $param = array($share, $files);
+    return xmlCall("samba.delShare", $param);
 }
 
-function share_infos($error, $share)
-{
-  $param = array($share);
-  $result=xmlCall("samba.shareInfo",$param);
-  if ($result==-1) { $error="erreur dans la récupération des données"; return; }
-  return $result;
-}
-
-function mod_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0)
-{
-    # FIXME
-    del_share($errdel, $name, false);
-    if (isset($errdel)) {
-        $error = $errdel;
-	return;
-    }
-    add_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
-    if (isset($erradd))
-    {
-        $error = $erradd;
+function share_infos($error, $share) {
+    $param = array($share);
+    $result = xmlCall("samba.shareInfo",$param);
+    if ($result == -1) {
+        $error="erreur dans la récupération des données";
         return;
     }
+    return $result;
+}
+
+function mod_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
+    /* FIXME */
+    del_share($name, false);
+    add_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
     return "Partage $share modifié";
 }
 
