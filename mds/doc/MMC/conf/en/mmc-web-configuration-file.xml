@@ -3,22 +3,22 @@
 "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <article class="whitepaper">
 
-  <title>LMC web configuration file</title>
+  <title>MMC web configuration file</title>
 
   <articleinfo>
     
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
-      <email>cedric.delfosse@linbox.com</email>
+      <email>cdelfosse@mandriva.com</email>
     </author>
 
     <affiliation>
-      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+      <orgname>Mandriva</orgname>
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse- Linbox F&amp;AS</year>
+      <year>2007 Cédric Delfosse- Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -30,7 +30,7 @@
     </revhistory>
 
     <abstract>
-      <para>This document explains the content of the LMC web configuration file</para>
+      <para>This document explains the content of the MMC web configuration file</para>
     </abstract>
 
   </articleinfo>
@@ -40,16 +40,16 @@
     <title>Introduction</title>
 
     <para>
-      The LMC web interface communicates with LMC agents to manage LDAP directories, services and ressources.
+      The MMC web interface communicates with MMC agents to manage LDAP directories, services and ressources.
     </para>
 
     <para>
-      Its configuration file is <filename>/etc/lmc/lmc.ini</filename>.
-      This file must be readable only by root, as it contains the login and password required to connect to LMC agents.
+      Its configuration file is <filename>/etc/mmc/mmc.ini</filename>.
+      This file must be readable only by root, as it contains the login and password required to connect to MMC agents.
     </para>
 
     <para>
-      Like all LMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
     </para>
     <para>
       For example:
@@ -74,7 +74,7 @@
 
     <table>
       <title>
-	/etc/lmc/lmc.ini available sections
+	/etc/mmc/mmc.ini available sections
       </title>
       <tgroup cols="3">
 	<thead>
@@ -87,7 +87,7 @@
 	<tbody>
 	  <row>
 	    <entry>global</entry>
-	    <entry>LMC web interface global options</entry>
+	    <entry>MMC web interface global options</entry>
 	    <entry>no</entry>
 	  </row>
 	  <row>
@@ -97,7 +97,7 @@
 	  </row>
 	  <row>
 	    <entry>server_x</entry>
-	    <entry>LMC agent XMLRPC server connection options</entry>
+	    <entry>MMC agent XMLRPC server connection options</entry>
 	    <entry>no</entry>
 	  </row>
 	</tbody>
@@ -132,25 +132,25 @@
 	  </row>
 	  <row>
 	    <entry>login</entry>
-	    <entry>credential to authenticate with the LMC agent</entry>
+	    <entry>credential to authenticate with the MMC agent</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	  <row>
 	    <entry>password</entry>
-	    <entry>credential to authenticate with the LMC agent</entry>
+	    <entry>credential to authenticate with the MMC agent</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	  <row>
 	    <entry>root</entry>
-	    <entry>Root URL where the LMC web pages are installed</entry>
+	    <entry>Root URL where the MMC web pages are installed</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	  <row>
 	    <entry>rootfsmodules</entry>
-	    <entry>Filesystem path where the LMC web modules are installed</entry>
+	    <entry>Filesystem path where the MMC web modules are installed</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
@@ -201,10 +201,10 @@
     <title>Section « server_x »</title>
 
     <para>
-      You can set multiple sections called « server_01 », « server_02 » ... to specify a list of LMC agents to connect to.
+      You can set multiple sections called « server_01 », « server_02 » ... to specify a list of MMC agents to connect to.
     </para>
     <para>
-      On the LMC login web page, all the specified LMC agents will be displayed, and you will be able to select the one you want to be connected to.
+      On the MMC login web page, all the specified MMC agents will be displayed, and you will be able to select the one you want to be connected to.
     </para>
 
     <table>
@@ -223,13 +223,13 @@
 	<tbody>
 	  <row>
 	    <entry>description</entry>
-	    <entry>label to display on the LMC login web page</entry>
+	    <entry>label to display on the MMC login web page</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	  <row>
 	    <entry>url</entry>
-	    <entry>How to connect the XMLRPC server of this LMC agent</entry>
+	    <entry>How to connect the XMLRPC server of this MMC agent</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
@@ -238,22 +238,22 @@
     </table>
 
     <para>
-      For example, to define a local LMC agent:
+      For example, to define a local MMC agent:
     </para>
     
     <screen>
       [server_01]
-      description = Local LMC agent
+      description = Local MMC agent
       url = http://127.0.0.1:7080
     </screen>
     
     <para>
-      To use SSL between the web interface and the LMC agent (SSL must be enabled on the LMC agent):
+      To use SSL between the web interface and the MMC agent (SSL must be enabled on the MMC agent):
     </para>
 
     <screen>
       [server_01]
-      description = Local LMC agent
+      description = Local MMC agent
       url = https://127.0.0.1:7080
     </screen>
 

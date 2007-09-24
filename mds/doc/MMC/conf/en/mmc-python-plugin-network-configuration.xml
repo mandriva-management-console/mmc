@@ -3,22 +3,22 @@
 "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <article class="whitepaper">
 
-  <title>LMC network plugin configuration file</title>
+  <title>MMC network plugin configuration file</title>
 
   <articleinfo>
     
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
-      <email>cedric.delfosse@linbox.com</email>
+      <email>cdelfosse@mandriva.com</email>
     </author>
 
     <affiliation>
-      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+      <orgname>Mandriva</orgname>
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse- Linbox F&amp;AS</year>
+      <year>2007 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -30,7 +30,7 @@
     </revhistory>
 
     <abstract>
-      <para>This document explains the content of the LMC network plugin configuration file</para>
+      <para>This document explains the content of the MMC network plugin configuration file</para>
     </abstract>
 
   </articleinfo>
@@ -40,13 +40,13 @@
     <title>Introduction</title>
     
     <para>
-      The « network » plugin allows the LMC Python API to manage DNS zones and hosts, DHCP subnet and hosts, into a LDAP. Patched version of ISC BIND (with LDAP sdb backend) and ISC DHCP (with LDAP configuration file backend) are needed.
+      The « network » plugin allows the MMC Python API to manage DNS zones and hosts, DHCP subnet and hosts, into a LDAP. Patched version of ISC BIND (with LDAP sdb backend) and ISC DHCP (with LDAP configuration file backend) are needed.
     </para>
     <para>
-      The plugin configuration file is <filename>/etc/lmc/plugins/network.ini</filename>.
+      The plugin configuration file is <filename>/etc/mmc/plugins/network.ini</filename>.
     </para>
     <para>
-      Like all LMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
     </para>
     <para>
       For example:
