@@ -25,6 +25,33 @@ replace_arr = [
 [ "<body>" , """<body>  <style type="text/css">
 @import url("http://193-19-217-4.ovanet.net/custom/css/linbox.css");
 
+.screen {
+ background-color: #FFEEDD;
+ padding: 2em;
+ -moz-border-radius: 8px;
+ -khtml-border-radius: 8px;
+ border-radius: 8px;
+}
+
+.note {
+  background-color: #DDEEFF;
+  margin: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80% !important;
+  min-height: 40px;
+  clear: both;
+  text-align: justify;
+  vertical-align: middle;
+  border-collapse: collapse;
+  padding: 0.5em 1em 0.5em 36px;
+  background-position: 5px 0.5em;
+  background-repeat: no-repeat;
+  -moz-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
+}
+
 </style>
 
 
@@ -45,7 +72,7 @@ replace_arr = [
 </div>
 
 <div id="main">
-<div id="content">
+<div id="singlecontent">
   """]
 ]
 
