@@ -28,7 +28,8 @@
 require("modules/samba/includes/shares.inc.php");
 
 if (isset($_POST["bdelshare"])) {
-    del_share($_POST["share"], $_POST["delFiles"]);
+    $share = $_POST["share"];
+    del_share($share, $_POST["delFiles"]);
     if (!isXMLRPCError()) {
         $str = sprintf(_T("Share %s deleted"), $share);
         new NotifyWidgetSuccess($str);
