@@ -38,8 +38,6 @@ if (isset($_POST["bdelblacklist"])) {
 
 <h2><?= _T("Remove a squidGuard domain"); ?></h2>
 
-<div class="fixheight"></div>
-
 <?php
 if (isset($_GET["blacklist"])) {
     $blacklist = urldecode($_GET["blacklist"]);
