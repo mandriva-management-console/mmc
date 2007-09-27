@@ -3,7 +3,7 @@
 "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <article class="whitepaper">
 
-  <title>How to translate the LMC web interface</title>
+  <title>How to translate the MMC web interface</title>
 
   <subtitle>Informational / Draft</subtitle>
 
@@ -12,15 +12,15 @@
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
-      <email>cedric.delfosse@linbox.com</email>
+      <email>cdelfosse@mandriva.com</email>
     </author>
 
     <affiliation>
-      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+      <orgname>Mandriva</orgname>
     </affiliation>
 
     <copyright>
-      <year>2006 Cédric Delfosse - Linbox F&amp;AS</year>
+      <year>2007 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -31,21 +31,21 @@
       </revision>
     </revhistory>
 
-    <productname>lmc-web-base, lmc-web-samba, lmc-web-ox, lmc-web-proxy</productname>
+    <productname>mmc-web-base, mmc-web-samba, mmc-web-ox, mmc-web-proxy</productname>
     <productnumber>1.x</productnumber>
 
     <abstract>
-      <para>This document explains how to help the LDS project to make the LMC support more languages</para>
+      <para>This document explains how to help the MDS project to make the MMC support more languages</para>
     </abstract>
 
   </articleinfo>
 
   <section>
 
-    <title>How to translate the LMC</title>
+    <title>How to translate the MMC</title>
     
     <para>
-    The LMC web interface uses the PHP gettext library to provide a multilanguage experience.</para>
+    The MMC web interface uses the PHP gettext library to provide a multilanguage experience.</para>
     <para>
       Please note that gettext requires the locales you want to use to be installed on your system. For example, to have the french locale working, you must install the "fr_FR.UTF-8" locale.
     </para>
@@ -86,23 +86,23 @@
 
     <screen>
       $ cd /tmp
-      $ svn export http://lds.linbox.org/svn/lmc-web-base/trunk
+      $ svn export http://mds.mandriva.org/svn/mmc-web-base/trunk
       $ cd trunk
       $ make build_pot # Will build the translation template
       $ mkdir -p modules/base/locale/es_ES.utf8/LC_MESSAGES
       $ cp modules/base/locale/base.pot modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
       # use your favorite editor to translate modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
       $ kbabel modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
-      # Compile the .mo file and copy it to your running LMC
+      # Compile the .mo file and copy it to your running MMC
       $ make build_mo
-      $ cp -r modules/base/locale/es_ES.utf8 /usr/share/lmc/modules/base/locale
+      $ cp -r modules/base/locale/es_ES.utf8 /usr/share/mmc/modules/base/locale
       # Install the spanish es_ES.UTF-8 on your system
       # Your apache2 must be restarted to use the new .mo file
       $ /etc/init.d/apache2 restart
     </screen>
     
     <para>
-      Now if you point your navigator to the LMC login page, your newly translated language should be available.
+      Now if you point your navigator to the MMC login page, your newly translated language should be available.
     </para>
 
   </section>
