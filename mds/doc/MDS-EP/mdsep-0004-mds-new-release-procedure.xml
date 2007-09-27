@@ -3,22 +3,22 @@
 "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <article class="whitepaper">
 
-  <title>LMC release guidelines</title>
+  <title>MMC release guidelines</title>
 
   <articleinfo>
 
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
-      <email>cedric.delfosse@linbox.com</email>
+      <email>cdelfosse@mandriva.com</email>
     </author>
 
     <affiliation>
-      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+      <orgname>Mandriva</orgname>
     </affiliation>
 
     <copyright>
-      <year>2006 Cédric Delfosse - Linbox F&amp;AS</year>
+      <year>2007 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -29,17 +29,17 @@
       </revision>
     </revhistory>
 
-    <productname>LDS component this LDSEP applies: LMC agent and LMC web</productname>
-    <productnumber>LDS component version this LDSEP applies: 1.x</productnumber>
+    <productname>MDS component this MDSEP applies: MMC agent and MMC web</productname>
+    <productnumber>MDS component version this MDSEP applies: 1.x</productnumber>
 
     <abstract>
-      <para>This document explains how to release a new LMC version.</para>
+      <para>This document explains how to release a new MMC version.</para>
     </abstract>
   </articleinfo>
 
   <section>
 
-    <title>LMC Release components</title>
+    <title>MMC Release components</title>
 
     <para>
       What we release are:
@@ -47,32 +47,32 @@
     <itemizedlist>
       <listitem>
 	<para>
-	  A tarball called lmc-agent-VERSION.tar.gz. It contains the lmc-agent and all its Python plugins.
+	  A tarball called mmc-agent-VERSION.tar.gz. It contains the mmc-agent and all its Python plugins.
 	</para>
       </listitem>
       <listitem>
 	<para>
-	  A tarball called lmc-web-base-VERSION.tar.gz. It contains the base LMC web administration framework and the base LDAP related management functions.
+	  A tarball called mmc-web-base-VERSION.tar.gz. It contains the base MMC web administration framework and the base LDAP related management functions.
 	</para>
       </listitem>
       <listitem>
 	<para>
-	  A tarball called lmc-web-samba-VERSION.tar.gz. It contains the SAMBA web administration module.
+	  A tarball called mmc-web-samba-VERSION.tar.gz. It contains the SAMBA web administration module.
 	</para>
       </listitem>
       <listitem>
 	<para>
-	  A tarball called lmc-web-ox-VERSION.tar.gz. It contains the Open-Xchange web administration module.
+	  A tarball called mmc-web-ox-VERSION.tar.gz. It contains the Open-Xchange web administration module.
 	</para>
       </listitem>
       <listitem>
 	<para>
-	  A tarball called lmc-web-proxy-VERSION.tar.gz. It contains the proxy blacklist (squid/squidguard) administration module.
+	  A tarball called mmc-web-proxy-VERSION.tar.gz. It contains the proxy blacklist (squid/squidguard) administration module.
 	</para>
       </listitem>
       <listitem>
 	<para>
-	  A tarball called lmc-doc-VERSION.tar.gz. It contains all the LMC related documentation.
+	  A tarball called mmc-doc-VERSION.tar.gz. It contains all the MMC related documentation.
 	</para>
       </listitem>
     </itemizedlist>
@@ -84,12 +84,12 @@
     <title>Requirements for each component</title>
 
     <para>
-      Beware that lmc-agent requirements must be met before lmc-web-* one.
+      Beware that mmc-agent requirements must be met before mmc-web-* one.
     </para>
 
     <section>
       
-      <title>Requirements for lmc-agent</title>
+      <title>Requirements for mmc-agent</title>
 
       <para>
 	Please check the requirements in this order.
@@ -98,7 +98,7 @@
 	All the python unit tests runs succesfully.
       </para>
       <para>
-	For the agent and each plugin, the VERSION attribute must be updated to the version number we release, in those files: <filename>lmc/agent.py lmc/plugin/base/__init__.py lmc/plugin/samba/__init__.py lmc/plugin/proxy/__init__.py lmc/plugin/ox/__init__.py</filename>.
+	For the agent and each plugin, the VERSION attribute must be updated to the version number we release, in those files: <filename>mmc/agent.py mmc/plugin/base/__init__.py mmc/plugin/samba/__init__.py mmc/plugin/proxy/__init__.py mmc/plugin/ox/__init__.py</filename>.
       </para>
       <para>
 	For each plugin, the APIVERSION attribute may be updated. The APIVERSION string is similar to libtool library versions: current:revision:age.
@@ -150,19 +150,19 @@
 
     <section>
       
-      <title>Requirements for lmc-web-* components</title>
+      <title>Requirements for mmc-web-* components</title>
       
       <para>
 	Please check the requirements in this order.
       </para>
       <para>
-	The version attribute contained in each infoPackage.inc.php file from each lmc-web-* component must be updated to the version we release, thanks to the setVersion method.
+	The version attribute contained in each infoPackage.inc.php file from each mmc-web-* component must be updated to the version we release, thanks to the setVersion method.
       </para>
       <para>
-	Each lmc-web-* must be able to interact with their corresponding plugin we are going to release. For example, lmc-web-base must be compatible with the base plugin of the lmc-agent. The APIVersion variable contained in each infoPackage.inc.php file from each lmc-web-* must be equal to the APIVERSION attribute of the corresponding lmc-agent Python plugin. This is done thanks to the setAPIVersion method.
+	Each mmc-web-* must be able to interact with their corresponding plugin we are going to release. For example, mmc-web-base must be compatible with the base plugin of the mmc-agent. The APIVersion variable contained in each infoPackage.inc.php file from each mmc-web-* must be equal to the APIVERSION attribute of the corresponding mmc-agent Python plugin. This is done thanks to the setAPIVersion method.
       </para>
       <para>
-	The web selenium tests are successful with the lmc-agent revision we are going to release and that met the release requirement.
+	The web selenium tests are successful with the mmc-agent revision we are going to release and that met the release requirement.
       </para>
       <para>
 	The manual tests of the web interface are successful.
@@ -174,7 +174,7 @@
 
   <section>
 
-    <title>Updating lmc-doc</title>
+    <title>Updating mmc-doc</title>
 
     <para>
       All the installation/configuration manuals must be updated and checked.
@@ -194,57 +194,57 @@
     
     <section>
       
-      <title>Releasing lmc-agent</title>
+      <title>Releasing mmc-agent</title>
       
       <para>
 	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
       </para>
       <para>
-	The lmc-agent SVN repository is tagged according to the version number of the release. The tag format is LMC_x_y_z. For example, if the version we release is 1.2.3, the tag is LMC_1_2_3.
+	The mmc-agent SVN repository is tagged according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
       </para>
       <para>
-	We export the source code from the SVN repository with the tag we just set, to a directory called <filename>lmc-agent-x.y.z</filename>.
+	We export the source code from the SVN repository with the tag we just set, to a directory called <filename>mmc-agent-x.y.z</filename>.
       </para>
       <para>
-	A tarball called lmc-agent-x.y.z.tar.gz is built from this directory.
+	A tarball called mmc-agent-x.y.z.tar.gz is built from this directory.
       </para>
 		
     </section>
     
     <section>
       
-      <title>Releasing lmc-web-* components</title>
+      <title>Releasing mmc-web-* components</title>
       
       <para>
       The Changelog file of each component must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
       </para>
       <para>
-	All the lmc-web-* SVN repositories are tagged according to the version number of the release. The tag format is LMC_x_y_z. For example, if the version we release is 1.2.3, the tag is LMC_1_2_3.
+	All the mmc-web-* SVN repositories are tagged according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
       </para>
       <para>
-	We export the source code from the SVN repositories with the tag we just set, to directories called <filename>lmc-web-*-x.y.z</filename> (for example <filename>lmc-web-base-1.2.3</filename>).
+	We export the source code from the SVN repositories with the tag we just set, to directories called <filename>mmc-web-*-x.y.z</filename> (for example <filename>mmc-web-base-1.2.3</filename>).
       </para>
       <para>
-	Tarballs called lmc-web-*-x.y.z.tar.gz are built from this directory.
+	Tarballs called mmc-web-*-x.y.z.tar.gz are built from this directory.
       </para>
 		
     </section>
 
     <section>
       
-      <title>Releasing lmc-doc</title>
+      <title>Releasing mmc-doc</title>
       
       <para>
 	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
       </para>
       <para>
-	The lmc-doc SVN repository is tagged according to the version number of the release. The tag format is LMC_x_y_z. For example, if the version we release is 1.2.3, the tag is LMC_1_2_3.
+	The mmc-doc SVN repository is tagged according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
       </para>
       <para>
-	We export the source code from the SVN repository with the tag we just set, to a directory called <filename>lmc-doc-x.y.z</filename>.
+	We export the source code from the SVN repository with the tag we just set, to a directory called <filename>mmc-doc-x.y.z</filename>.
       </para>
       <para>
-	A tarball called lmc-doc-x.y.z.tar.gz is built from this directory.
+	A tarball called mmc-doc-x.y.z.tar.gz is built from this directory.
       </para>
 
     </section>
@@ -262,10 +262,10 @@
       The debian packages repository is updated, for Sarge and Etch
     </para>
     <para>
-      The VMware image is updated thanks to the debian packages. The LDS version in the GRUB splash screen is updated.
+      The VMware image is updated thanks to the debian packages. The MDS version in the GRUB splash screen is updated.
     </para>
     <para>
-      A mail is sent to the lds-announce mailing list.
+      A mail is sent to the mds-announce mailing list.
     </para>
     <para>
       The freshmeat entry is updated.
@@ -292,7 +292,7 @@
 
     <screen>
       # trac-admin .
-      # component add lmc-component-name 
+      # component add mmc-component-name 
       # quit
     </screen>
     
