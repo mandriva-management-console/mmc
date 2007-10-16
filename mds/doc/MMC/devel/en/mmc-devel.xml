@@ -761,7 +761,7 @@
             new TrFormElement(_T("Family name"), new InputTpl("name"),
 	    array("value" =&gt; "", "required" =&gt; True)
 	);
-	/* Go back to the validating form level
+	/* Go back to the validating form level */
 	$f-&gt;pop();
 
 	/* Add a button to the form */
