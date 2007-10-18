@@ -72,66 +72,103 @@
 
   </section>
 
-  <section id="MDS_DEBIAN">
+  <section>
 
-    <title>Debian users are lucky</title>
+    <title>Available packaging</title>
 
-    <para>
-      ... because MMC debian packages are available.
-    </para>
-
-    <para>
-      For Debian Sarge, add this in your sources.list:
-    </para>
-
-    <screen>
-      deb ftp://mds.mandriva.org/pub/mds/debian sarge main
-    </screen>
-
-    <para>
-      For Debian Etch:
-    </para>
-
-    <screen>
-      deb ftp://mds.mandriva.org/pub/mds/debian etch main
-    </screen>
-
-    <para>
-      Here are the Debian packages naming conventions:
-      <itemizedlist>
-	<listitem>
-	  <para>
-	    mmc-agent: the MMC agent package
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    python-mmc-plugins-tools: helpers for some plugin 
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    python-mmc-PLUGIN: MMC agent plugin
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    mmc-web-PLUGIN: web interface plugin
-	  </para>
-	</listitem>
-      </itemizedlist>
-    </para>
-
-    <note>
+    <section id="MDS_MANDRIVA">
       
-      <title>Sample configuration files</title>
+      <title>Mandriva users are lucky</title>
       
       <para>
-	All MMC related sample configuration files are available in the python-mmc-base package, in directory <filename>/usr/share/doc/python-mmc-base/contrib/</filename>.
-	You will find there OpenLDAP, SAMBA and Postfix configuration files.
+	... because MMC Mandriva RPM packages are available.
       </para>
       
-    </note>
+      <para>
+	Packages for Mandriva 2008 and Mandriva Cooker are available Mandriva official repository
+      </para>
+      <para>
+	Corporate Server 4 packages are also available.
+      </para>
+      <para>
+	You can register the CS4 package repository with this command for 32 bits architecture:
+      </para>
+      <screen>	
+	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/i586
+      </screen>
+      <para>
+	For 64 bits architecture:
+      </para>
+      <screen>
+	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/x86_64
+      </screen>
+
+    </section>
+    
+    <section id="MDS_DEBIAN">
+      
+      <title>Debian packages</title>
+      
+      <para>
+	For Debian Sarge, add this in your sources.list:
+      </para>
+    
+      <screen>
+	deb http://mds.mandriva.org/pub/mds/debian sarge main
+      </screen>
+      
+      <para>
+	For Debian Etch:
+      </para>
+      
+      <screen>
+	deb http://mds.mandriva.org/pub/mds/debian etch main
+      </screen>
+          
+    </section>
+
+    <section>
+
+      <title>Packages naming conventions</title>
+
+      <para>
+	Here are the packages naming conventions:
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      mmc-agent: the MMC agent package
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      python-mmc-plugins-tools: helpers for some plugin 
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      python-mmc-PLUGIN: MMC agent plugin
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      mmc-web-PLUGIN: web interface plugin
+	    </para>
+	  </listitem>
+	</itemizedlist>
+      </para>
+      
+      <note>
+	
+	<title>Sample configuration files</title>
+	
+	<para>
+	  All MMC related sample configuration files are available in the python-mmc-base package, in directory <filename>/usr/share/doc/python-mmc-base/contrib/</filename>.
+	  You will find there OpenLDAP, SAMBA and Postfix configuration files.
+	</para>
+	
+      </note>
+
+    </section>
     
   </section>
 
