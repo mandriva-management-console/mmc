@@ -164,7 +164,8 @@
       </para>
       <screen>
 	# urpmi mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-	  mmc-agent python-mmc-plugins-tools python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
+	  python-twisted-web mmc-agent python-mmc-plugins-tools \
+	  python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
       </screen>
 
     </section>
