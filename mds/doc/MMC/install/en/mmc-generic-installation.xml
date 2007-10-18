@@ -163,7 +163,8 @@
 	To install all the MDS related packages, just type:
       </para>
       <screen>
-	# urpmi mmc-agent mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba python-mmc-base python-mmc-mail python-mmc-network python-mmc-plugins-tools python-mmc-proxy python-mmc-samba
+	# urpmi mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
+	  mmc-agent python-mmc-plugins-tools python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
       </screen>
 
     </section>
@@ -192,7 +193,8 @@
 	To install all the MDS related packages, just type:
       </para>
       <screen>
-	# apt-get install mmc-agent mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba python-mmc-base python-mmc-mail python-mmc-network python-mmc-plugins-tools python-mmc-proxy python-mmc-samba
+	# apt-get install mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
+	  mmc-agent python-mmc-plugins-tools python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
       </screen>
           
     </section>
