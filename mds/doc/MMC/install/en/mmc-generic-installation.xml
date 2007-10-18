@@ -74,58 +74,7 @@
 
   <section>
 
-    <title>Available packaging</title>
-
-    <section id="MDS_MANDRIVA">
-      
-      <title>Mandriva users are lucky</title>
-      
-      <para>
-	... because MMC Mandriva RPM packages are available.
-      </para>
-      
-      <para>
-	Packages for Mandriva 2008 and Mandriva Cooker are available Mandriva official repository
-      </para>
-      <para>
-	Corporate Server 4 packages are also available.
-      </para>
-      <para>
-	You can register the CS4 package repository with this command for 32 bits architecture:
-      </para>
-      <screen>	
-	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/i586
-      </screen>
-      <para>
-	For 64 bits architecture:
-      </para>
-      <screen>
-	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/x86_64
-      </screen>
-
-    </section>
-    
-    <section id="MDS_DEBIAN">
-      
-      <title>Debian packages</title>
-      
-      <para>
-	For Debian Sarge, add this in your sources.list:
-      </para>
-    
-      <screen>
-	deb http://mds.mandriva.org/pub/mds/debian sarge main
-      </screen>
-      
-      <para>
-	For Debian Etch:
-      </para>
-      
-      <screen>
-	deb http://mds.mandriva.org/pub/mds/debian etch main
-      </screen>
-          
-    </section>
+    <title>MDS packages</title>
 
     <section>
 
@@ -168,6 +117,84 @@
 	
       </note>
 
+    </section>
+
+    <section id="MDS_MANDRIVA">
+      
+      <title>Mandriva users are lucky</title>
+      
+      <para>
+	... because Mandriva RPM packages for the MDS and the MMC are available.
+      </para>
+      
+      <para>
+	Packages for Mandriva 2008 and Mandriva Cooker are available on Mandriva official repository.
+	You will find an official mirror using <ulink url="http://club.mandriva.com/xwiki/bin/view/Downloads/MirrorFinder2">the Mandriva mirror finder module</ulink>.
+      </para> 
+      <para>
+	Then, you can register a package repository with this command:
+      </para>
+      <screen>
+	urpmi.addmedia Community_Main ftp://ftp.free.fr/mirrors/ftp.mandriva.com/MandrivaLinux/official/2008.0/i586
+      </screen>
+      <para>
+	For 64 bits architecture:
+      </para>
+      <screen>
+	urpmi.addmedia Community_Main ftp://ftp.free.fr/mirrors/ftp.mandriva.com/MandrivaLinux/official/2008.0/x86_64
+      </screen>
+      <para>
+	Corporate Server 4 packages are also available.
+      </para>
+      <para>
+	You can register the CS4 package repository with this command for 32 bits architecture:
+      </para>
+      <screen>	
+	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/i586
+      </screen>
+      <para>
+	For 64 bits architecture:
+      </para>
+      <screen>
+	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/x86_64
+      </screen>
+
+      <para>
+	To install all the MDS related packages, just type:
+      </para>
+      <screen>
+	# urpmi mmc-agent mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba python-mmc-base python-mmc-mail python-mmc-network python-mmc-plugins-tools python-mmc-proxy python-mmc-samba
+      </screen>
+
+    </section>
+    
+    <section id="MDS_DEBIAN">
+      
+      <title>Debian packages</title>
+      
+      <para>
+	For Debian Sarge, add this in your sources.list:
+      </para>
+    
+      <screen>
+	deb http://mds.mandriva.org/pub/mds/debian sarge main
+      </screen>
+      
+      <para>
+	For Debian Etch:
+      </para>
+      
+      <screen>
+	deb http://mds.mandriva.org/pub/mds/debian etch main
+      </screen>
+
+      <para>
+	To install all the MDS related packages, just type:
+      </para>
+      <screen>
+	# apt-get install mmc-agent mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba python-mmc-base python-mmc-mail python-mmc-network python-mmc-plugins-tools python-mmc-proxy python-mmc-samba
+      </screen>
+          
     </section>
     
   </section>
