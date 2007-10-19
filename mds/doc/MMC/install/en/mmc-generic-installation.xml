@@ -1093,6 +1093,16 @@
       </note>
 
     </section>
+
+    <section>
+
+      <title>About SE Linux</title>
+
+      <para>
+	The default SE Linux configuration may not allow SAMBA to launch the script defined in "add machine script", and so you won't be able to join a machine to the SAMBA domain.
+      </para>
+
+    </section>
     
   </section>
   
