@@ -164,8 +164,8 @@
       </para>
       <screen>
 	# urpmi mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-	  python-twisted-web mmc-agent python-mmc-plugins-tools \
-	  python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
+          mmc-agent python-mmc-plugins-tools \
+          python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
       </screen>
 
     </section>
@@ -253,6 +253,10 @@
       <screen>
 	include /etc/openldap/schema/mmc.schema
       </screen>
+      
+      <para>
+	This schema must be included after the <filename>inetorgperson.schema</filename> file. On Mandriva, the <filename>kolab.schema</filename> file is conflicting with <filename>mmc.schema</filename>, so you need to comment the include directive for the Kolab schema, else OpenLDAP won't start.
+      </para>
 
       <para>
 	In the OpenLDAP configuration file, we also define the LDAP DN suffix, the LDAP manager (rootdn) and its password (rootpw):
