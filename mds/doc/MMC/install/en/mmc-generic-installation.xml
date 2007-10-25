@@ -314,6 +314,16 @@
 	</para>
       </note>
 
+      <note>
+	<title>Changing the OpenLDAP manager password</title>
+	<para>
+	  You can't change this password using the MMC interface. You must use this command line:
+	</para>
+	<screen>
+ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=admin,dc=mandriva,dc=com
+	</screen>
+      </note>
+
     </section>
 
     <section>
