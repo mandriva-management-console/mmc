@@ -229,23 +229,102 @@
       url="http://twistedmatrix.com/projects/core/documentation/howto/process.html">ProcessProtocol
       classes</ulink>.</para>
 
-      <para>But we provide a simple ProcessProtocol based function to run a
-      process, and get its outputs. Here is an example:</para>
+      <para>But we provide simple ProcessProtocol based functions to run a
+      process, and get its outputs.</para>
+      
+      <section>
 
-      <screen>	
-	#&nbsp;Import the shLaunch method
-	from mmc.support.mmctools import shLaunch
+	<title>Blocking mode</title>
+
+	<para>
+	  In blocking mode, if we start a shell command, the twisted server
+	  will loop until a process terminates. Blocking mode should not be
+	  used for functions that can be called by XML-RPC, because they will
+	  completely block the server.
+	  The server won't process other requests until the blocking code is
+	  terminated.
+	</para>
+	<para>
+	  But when using the MMC API in command line, it's simpler to use the
+	  blocking mode.
+	</para>
+	<para>Here is an example:</para>	  
+
+	<screen>	
+	  # Import the shLaunch method
+	  from mmc.support.mmctools import shLaunch
+	  
+	  # Run "ls -l"
+	  # shLaunch returns once the shell command terminates
+	  proc = shLaunch("ls -l")
+	  
+	  # Return shell command exit code
+	  print proc.exitCode
+	  # Return shell command stdout
+	  print proc.out
+	  # Return shell command stderr
+	  print proc.err	
+	</screen>
 	
-	# Run "ls -l"
-	proc = shLaunch("ls -l")
-	
-	#&nbsp;Return shell command exit code
-	print proc.exitCode
-	# Return shell command stdout
-	print proc.out
-	# Return shell command stderr
-	print proc.err	
-      </screen>
+      </section>
+
+      <section>
+
+	<title>Non blocking mode</title>
+
+	<para>
+	    Non blocking-mode should be used when a method called by XML-RPC
+	    may block.
+	    Basically, the method should not return the result, but a Deferred
+	    object attached to a callback corresponding to the result.
+	    The twisted reactor will process the deferred, send the result
+	    to the callback, and the callback will finally return the wanted
+	    result.
+	</para>
+	<para>Here is an example:</para>
+
+	<screen>
+	  # Import the shLaunchDeferred method
+	  from mmc.support.mmctools import shLaunchDeferred
+
+	  def runLs():
+	      def cb(shprocess):
+	          # The callback just return the process outputs
+	          return shprocess.exitCode, shprocess.out, shprocess.err
+	  
+              d = shLaunchDeferred("ls -l")
+	      # shLaunchDeferred returns a Deferred() object
+	      # We add the cb function as a callback
+              d.addCallback(cb)
+	      # We return the Deferred() object
+              return d
+	</screen>
+
+	<para>
+	  For more explanation about Python Twisted and Deferred objects, please read <ulink url="http://twistedmatrix.com/projects/core/documentation/howto/defer.html">this page</ulink>.
+	</para>
+
+	<para>
+	  To use the runLs function in a python script, without the XML-RPC server:
+	</para>
+
+	<screen>
+	  from twisted.internet import reactor, defer
+	  from xxx import runLs
+	  
+	  def printResult(ret):
+	      print ret
+	      reactor.stop()
+
+	  d = runLs()
+	  # runLs returns a deferred object, we add a callback that is just
+	  # printing the result
+	  d.addCallback(printResult)
+	  reactor.run()
+	</screen>
+
+      </section>
+
     </section>
 
     <section>
