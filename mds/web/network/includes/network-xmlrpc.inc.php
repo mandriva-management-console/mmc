@@ -125,6 +125,10 @@ function getSubnet($subnet) {
     return xmlCall("network.getSubnet", array($subnet));
 }
 
+function setSubnetAuthoritative($subnet, $flag) {
+    xmlCall("network.setSubnetAuthoritative", array($subnet, $flag));
+}
+
 function setSubnetOption($subnet, $option, $value) {
     xmlCall("network.setSubnetOption", array($subnet, $option, $value));
 }

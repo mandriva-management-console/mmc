@@ -35,6 +35,21 @@ if ($_GET["action"] == "subnetedit") $sidemenu->forceActiveItem("subnetindex");
 $p->setSideMenu($sidemenu);
 $p->display();
 
+function isAuthoritative($subnet) {
+    $ret = False;
+    $statements = array();
+    if (isset($subnet[0][1]["dhcpStatements"])) {
+        foreach($subnet[0][1]["dhcpStatements"] as $statement) {
+            if ($statement == "authoritative") {
+                $ret = True;
+                break;
+            }
+        }
+    }
+    return $ret;
+}
+
+
 function checkSubnet() {
     /* Check that the given subnet is not contained into an existing subnet */
     $subnet = $_POST["subnet"];
@@ -120,6 +135,7 @@ if (!isset($error)
         }
         setSubnetStatement($subnet, $name, $value);
     }
+    setSubnetAuthoritative($subnet, isset($_POST["authoritative"]));
     
     /* Create or update the DHCP pool */
     if (isset($_POST["badd"])) $pool = array();
@@ -165,6 +181,11 @@ if ($_GET["action"] == "subnetedit") {
     $description = $subnetInfos[0][1]["dhcpComments"][0];
     $options = getSubnetOptions($subnetInfos);
     $statements = getSubnetStatements($subnetInfos);
+    if (isAuthoritative($subnetInfos)) {
+        $authoritative = "CHECKED";
+    } else {
+        $authoritative = "";
+    }
     $pool = getPool($_GET["subnet"]);
     if (count($pool)) {
         $hasSubnetPool = "checked";
@@ -173,8 +194,9 @@ if ($_GET["action"] == "subnetedit") {
     } else $hasSubnetPool = "";
 }
 
-if ($_GET["action"]=="subnetadd") {
+if ($_GET["action"] == "subnetadd") {    
     $formElt = new IPInputTpl("subnet");
+    $authoritative = "";
 } else {
     $formElt = new HiddenTpl("subnet");
 }
@@ -193,6 +215,10 @@ $f->add(
 $f->add(
         new TrFormElement(_T("Description"),new IA5InputTpl("description")),
         array("value" => $description)
+        );
+$f->add(
+        new TrFormElement(_T("Authoritative"),new CheckboxTpl("authoritative")),
+        array("value" => $authoritative)
         );
 $f->pop();
 
