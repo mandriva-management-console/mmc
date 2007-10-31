@@ -1226,12 +1226,12 @@
 	  foreach($stock as $value) {
 	      if ($value &lt; 10) {
                   /* Only put the deleteAction link if value is lower than 10 */
-	          $actionDel[] = $deleteAction;
-		  $actionView[] = $emptyAction;
+	          $actionsDel[] = $deleteAction;
+		  $actionsView[] = $emptyAction;
 	      } else {
                   /* else only put the viewAction link */
-	          $actionView[] = $viewAction;
-		  $actionDel[] = $emptyAction;
+	          $actionsView[] = $viewAction;
+		  $actionsDel[] = $emptyAction;
 	      }
 	  }
 	  
