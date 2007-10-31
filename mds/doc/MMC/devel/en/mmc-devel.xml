@@ -1201,6 +1201,52 @@
       </section>
 
       <section>
+
+	<title>Conditional actions</title>
+
+	<para>
+	  With the addActionItem method, you add an action to every row of a ListInfos widget. In some cases, an action can't be performed for a specific row, so you don't want the action link to be available.
+	</para>
+	<para>
+	  The addActionItemArray method allows to pass to the ListInfos widget an array of actions to display:
+	</para>
+
+        <screen>
+	  require ("includes/PageGenerator.php");
+	  $fruits = array("apple", "banana", "lemon", "papaya", "fig", "olive", "clementine", "orange", "mandarin", "grapes", "kumquat");
+	  $stock = array("5", "8", "40", "12", "40", "51", "12", "7", "9", "15", "21");
+
+	  $viewAction = new ActionItem(_T("View fruit"), "view", "afficher", "fruit");
+	  $deleteAction = new ActionPopupItem(_T("Delete fruit"), "view", "supprimer", "fruit");
+	  /* an EmptyActionItem will be displayed as a blank space */
+	  $emptyAction = new EmptyActionItem();
+
+	  $actionsView = array();
+	  $actionsDel = array();
+	  foreach($stock as $value) {
+	      if ($value &lt; 10) {
+                  /* Only put the deleteAction link if value is lower than 10 */
+	          $actionDel[] = $deleteAction;
+		  $actionView[] = $emptyAction;
+	      } else {
+                  /* else only put the viewAction link */
+	          $actionView[] = $viewAction;
+		  $actionDel[] = $emptyAction;
+	      }
+	  }
+	  
+	  $l = new ListInfos($fruits, _T("Fruit name"));
+	  $l-&gt;addExtraInfo($stock, _T("Quantity"));
+	  $l-&gt;setName(_T("Fruits"));
+	  $l->addActionItemArray($actionsView);
+	  $l->addActionItemArray($actionsDel);
+	  $l-&gt;display();	  
+	</screen>
+
+      </section>
+
+      <section>
+
         <title>Ajaxified ListInfos</title>
 
         <para>A ListInfos widget content can be dynamically filtered.</para>
