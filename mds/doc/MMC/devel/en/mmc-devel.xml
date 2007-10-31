@@ -707,6 +707,7 @@
           Ajax.Updater objects. False by default.</para>
         </listitem>
       </itemizedlist>
+
     </section>
 
     <section>
@@ -826,6 +827,59 @@
           </listitem>
         </itemizedlist>
       </section>
+
+      <section>
+
+	<title>Adding page from a module to another module</title>
+
+	<para>
+	  With the <filename>infoPackage.inc.php</filename> file, you can also
+	  add the page of a module to another module. This is useful if you
+	  want to provide new features to an already existing module.
+	</para>
+	
+	<para>
+	  In our example, we add a new page to the "computers" sub-module of the "base" module. Here is the corresponding infoPackage.inc.php:
+	</para>
+
+	<screen>
+	  /* Get the base module instance */
+	  $base = &amp;$MMCApp->getModule('base');
+	  /* Get the computers sub-module instance */
+	  $computers = &amp;$base->getSubmod('computers');
+
+	  /* Add the page to the module */
+	  $page = new Page("extrapage", _T("Extra page", "module1"));
+	  $page->setFile("modules/module1/extra/extrapage.php");
+	  $computers->addPage($page);
+	</screen>
+	
+	<para>
+	  With this code, the PHP script <filename>modules/module1/extra/extrapage.php</filename> will be called when using the <filename>main.php?module=base&amp;submod=computers&amp;action=extrapage</filename>.
+	</para>
+	
+	<para>
+	  The remaining problem is the sidebar management. In the called PHP script, you must include the <filename>localSidebar.php</filename> script from the other sub-module module, and add your SideMenuItem object to it.
+	</para>
+	<para>
+	  For example:
+	</para>
+	<screen>	  
+	  require("modules/base/computers/localSidebar.php");
+	  require("graph/navbar.inc.php");
+	  $p = new PageGenerator(_T("Extra page with new functions"));
+
+	  /* Add new sidemenu item */
+	  $sidemenu->addSideMenuItem(new SideMenuItem(_T("Extra page"),"base","computers","extrapage", "modules/base/graph/img/computers_active.png", "modules/base/graph/img/computers_inactive.png"));
+
+	  $p->setSideMenu($sidemenu);
+	  $p->display();
+
+	  ...
+	</screen>
+	
+      </section>
+
     </section>
 
     <section>
