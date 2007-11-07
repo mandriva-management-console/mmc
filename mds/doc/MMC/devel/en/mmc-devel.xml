@@ -843,15 +843,19 @@
 	</para>
 
 	<screen>
-	  /* Get the base module instance */
+	  /* Get the base module instance reference */
 	  $base = &amp;$MMCApp->getModule('base');
-	  /* Get the computers sub-module instance */
+	  /* Get the computers sub-module instance reference */
 	  $computers = &amp;$base->getSubmod('computers');
 
 	  /* Add the page to the module */
 	  $page = new Page("extrapage", _T("Extra page", "module1"));
 	  $page->setFile("modules/module1/extra/extrapage.php");
 	  $computers->addPage($page);
+
+	  /* You should unset the references when you finished using them */
+	  unset($base);
+	  unset($computers);
 	</screen>
 	
 	<para>
