@@ -1521,6 +1521,64 @@
 	  new NotifyWidgetSuccess(_T("Reboot was successful ! \o/"));
 	</screen>
       </section>
+
+      <section>
+
+	<title>Creating page with tabs</title>
+
+	<para>
+	  This widget allows to include a tab selector that displays a page
+	  when clicking on a tab.
+	</para>
+	<para>
+	  For example:
+	</para>
+	<screen>
+	  require("localSidebar.php");
+	  require("graph/navbar.inc.php");
+
+	  /* We use the TabbedPageGenerator class */
+	  $p = new TabbedPageGenerator();
+	  /* Set the sidemenu, as the PageGenerator class */
+	  $p->setSideMenu($sidemenu);
+
+	  /*
+	    Not required: you can add some content above the tab selector
+	    The content is a title, and a PHP file to include.
+	  */  
+	  $p->addTop("Page title", "modules/module1/submodule1/top.php");
+
+	  /*
+	    Now we add new tab to the tab selector.
+	    Each tab is associated to an id, a tab title, a page title, and a PHP file to include.
+	    
+	  */
+	  $p->addTab("tab1", "Tab 1 title", "Page 1 title", "modules/module1/submodule1/tab1.php");
+	  $p->addTab("tab2", "Tab 2 title", "Page 2 title", "modules/module1/submodule1/tab2.php"); 
+	  $p->addTab("tab3", "Tab 3 title", "Page 3 title", "modules/module1/submodule1/tab3.php");
+
+	  /*
+	    You can add a fifth argument, which is an array of URL parameters
+	    that will be used when building the URL link of the tab.
+	  */
+	  $p->addTab("tab4", "Tab 4 title", "Page 4 title", "modules/module1/submodule1/tab4.php", array("uid" => "foo"));
+	  $p->display();
+	</screen>
+
+	<para>
+	  If no tab is selected, the first tab is automatically activated.
+	</para>
+	<para>
+	  To build a tab URL link, the current module, submodule and action are used, with the given tab id and the given array of URL parameters.
+	  For example:
+	</para>
+	<screen>
+	  $p->addTab("tab4", "Tab 4 title", "Page 4 title", "modules/module1/submodule1/tab4.php", array("uid" => "foo"));
+	</screen>
+	<para>will build this link: module=currentmod&amp;submod=currentsubmod&amp;action=currentaction&amp;tab=tab4&amp;uid=foo</para>
+
+      </section>
+
     </section>
 
     <section>
