@@ -27,9 +27,9 @@ $n->setCssClass("domainName");
 $n->addExtraInfo(array_values($domains), _T("Description", "mail"));
 $n->setName(_T("Mail domain", "mail"));
 
-$n->addActionItem(new ActionItem(_T("View domain members", "mail"),"members","afficher","mail", "mail", "mail"));
+$n->addActionItem(new ActionItem(_T("View domain members", "mail"),"members","display","mail", "mail", "mail"));
 $n->addActionItem(new ActionItem(_T("Edit domain", "mail"),"edit","edit","mail", "mail", "mail"));
-$n->addActionItem(new ActionPopupItem(_T("Delete domain", "mail"),"delete","supprimer","mail", "mail", "mail"));
+$n->addActionItem(new ActionPopupItem(_T("Delete domain", "mail"),"delete","delete","mail", "mail", "mail"));
 
 $n->display();
 
