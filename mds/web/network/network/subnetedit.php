@@ -126,7 +126,7 @@ if (!isset($error)
     }
 
     /* Update the DHCP statements */
-    $names = array("filename", "min-lease-time", "default-lease-time", "max-lease-time");
+    $names = array("filename", "next-server", "min-lease-time", "default-lease-time", "max-lease-time");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
         if (strlen($value)) {
@@ -286,7 +286,14 @@ $f->add(
                           array("tooltip" => $tooltip )
                           ),
         array("value" => $options["root-path"])
-        );        
+        );
+$tooltip = _T("Server from which the initial boot file is to be loaded");
+$f->add(
+        new TrFormElement(_T("Next server"), new IA5InputTpl("next-server"),
+                          array("tooltip" => $tooltip)
+                          ),
+        array("value" => $statements["next-server"])
+        );
 $tooltip = _T("Trivial File Transfer Protocol server name from which the client is booting.");
 $tooltip .= "%s";
 $tooltip .= _T("(DHCP option number 66)");
