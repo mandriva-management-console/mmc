@@ -1265,6 +1265,13 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	An example of <filename>named.conf</filename> filename for Debian based system is available in the directory <filename>contrib/bind/</filename> of the mmc-agent tarball.
       </para>
       
+      <note>
+	<title>BIND and OpenLDAP services startup order</title>
+	<para>
+	  On most distributions, BIND is started before OpenLDAP during the boot sequence. If BIND/LDAP is used, BIND won't be able to connect to the LDAP directory, and won't start. So you may need to tweak your system boot scripts to fix this.
+	</para>
+      </note>
+      
     </section>
     
     <section>
