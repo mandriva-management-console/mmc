@@ -40,7 +40,7 @@ $actionsLog = array();
 $startAction = new ActionItem(_T("Start service"),"servicestart","start", "");
 $stopAction = new ActionItem(_T("Stop service"),"servicestop","stop","");
 $reloadAction = new ActionItem(_T("Reload service"),"servicereload","reload","");
-$logAction = new ActionItem(_T("View log"),"servicelog","afficher","");
+$logAction = new ActionItem(_T("View log"),"servicelog","display","");
 $emptyAction = new EmptyActionItem();
 
 $status = array();
