@@ -26,38 +26,37 @@
 
 $pdc = xmlCall("samba.isPdc",null);
 
-if ($pdc) { //si PDC
-
-$sidebar = array("class" => "shares",
-                 "content" => array(array("id" => "global",
-                                    "text" => _T("List shares","samba"),
-                                    "link" => "main.php?module=samba&submod=shares&action=index"),
-                              array("id" => "addShare",
-                                    "text" => _T("Add a share","samba"),
-                                    "link" => "main.php?module=samba&submod=shares&action=add"),
-                              array("id" => "globalMachine",
-                                    "text" => _T("List computers","samba"),
-                                    "link" => "main.php?module=samba&submod=machines&action=index"),
-                              array("id" => "addMachine",
-                                    "text" => _T("Add a computer","samba"),
-                                    "link" => "main.php?module=samba&submod=machines&action=add"),
-                              array("id" => "globalConfig",
-                                    "text" => _T("General options","samba"),
-                                    "link" => "main.php?module=samba&submod=config&action=index")
-                              ));
+if ($pdc) { // if SAMBA is configured as a PDC
+    $sidebar = array("class" => "shares",
+                     "content" => array(array("id" => "global",
+                                              "text" => _T("List shares","samba"),
+                                              "link" => urlStr("samba/shares/index")),
+                                        array("id" => "addShare",
+                                              "text" => _T("Add a share","samba"),
+                                              "link" => urlStr("samba/shares/add")),
+                                        array("id" => "globalMachine",
+                                              "text" => _T("List computers","samba"),
+                                              "link" => urlStr("samba/machines/index")),
+                                        array("id" => "addMachine",
+                                              "text" => _T("Add a computer","samba"),
+                                              "link" => urlStr("samba/machines/add")),
+                                        array("id" => "globalConfig",
+                                              "text" => _T("General options","samba"),
+                                              "link" => urlStr("samba/config/index"))
+                                        ));
 }
 else {
-$sidebar = array("class" => "shares",
-                 "content" => array(array("id" => "global",
-                                    "text" => _T("List shares","samba"),
-                                    "link" => "main.php?module=samba&submod=shares&action=index"),
-                              array("id" => "addShare",
-                                    "text" => _T("Add a share","samba"),
-                                    "link" => "main.php?module=samba&submod=shares&action=add"),
-                              array("id" => "globalConfig",
-                                    "text" => _T("General options","samba"),
-                                    "link" => "main.php?module=samba&submod=config&action=index")
-                              ));
-
+    $sidebar = array("class" => "shares",
+                     "content" => array(array("id" => "global",
+                                              "text" => _T("List shares","samba"),
+                                              "link" => urlStr("samba/shares/index")),
+                                        array("id" => "addShare",
+                                              "text" => _T("Add a share","samba"),
+                                              "link" => urlStr("samba/shares/add")),
+                                        array("id" => "globalConfig",
+                                              "text" => _T("General options","samba"),
+                                              "link" => urlStr("samba/config/index"))
+                                        ));
+    
 }
 ?>
