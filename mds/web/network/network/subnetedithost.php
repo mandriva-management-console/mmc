@@ -36,8 +36,9 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $hostname = $_POST["hostname"];
     $macaddress = $_POST["macaddress"];
     $ipaddress = $_POST["ipaddress"];
-    $tftpservername = $_POST["tftp-server-name"];
     $oldip = $_POST["oldip"];
+    $tftpservername = trim($_POST["tftp-server-name"]);
+    if (strlen($tftpservername)) $tftpservername = '"' . $tftpservername . '"';
     $filename = trim($_POST["filename"]);
     if (strlen($filename)) $filename = '"' . $filename . '"';
     $rootpath = trim($_POST["rootpath"]);
