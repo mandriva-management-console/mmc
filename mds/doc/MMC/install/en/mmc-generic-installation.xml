@@ -1270,6 +1270,12 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	<para>
 	  On most distributions, BIND is started before OpenLDAP during the boot sequence. If BIND/LDAP is used, BIND won't be able to connect to the LDAP directory, and won't start. So you may need to tweak your system boot scripts to fix this.
 	</para>
+	<para>
+	  The following command line should work on Debian based systems:
+	</para>
+	<screen>
+	  # update-rc.d -f slapd remove &amp;&amp; update-rc.d slapd start 14 2 3 4 5 . stop 86 0 1 6 .
+	</screen>
       </note>
       
     </section>
