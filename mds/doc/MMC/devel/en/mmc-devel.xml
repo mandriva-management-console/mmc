@@ -884,6 +884,19 @@
 	
       </section>
 
+      <section>
+
+	<title>Including CSS file</title>
+
+	<para>
+	  When a page is rendered, the framework includes the file <filename>modules/currentmodule/graph/currentmodule/currentsubmodule/index.css</filename> if it exists.
+	</para>
+	<para>
+	  "currentmodule" and "currentsubmodule" are guessed from the current URL.
+	</para>
+
+      </section>
+
     </section>
 
     <section>
