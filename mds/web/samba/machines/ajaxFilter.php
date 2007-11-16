@@ -166,10 +166,10 @@ for ($idx = $start;
   echo "<td class=\"Name\">".$machines[$idx][1]."</td>";
   echo "<td class=\"machineAction\">";
   echo "<ul class=\"action\">";
-  //echo "<li class=\"supprimer\"><a href=\"main.php?module=samba&submod=machines&action=delete&machine=".urlencode($machines[$idx][0])."\">Supprimer</a></li>";
+
   $_GET["module"] = 'samba';
   $_GET["submod"] = 'machines';
-  $a = new ActionPopupItem(_T("Delete"),"delete","supprimer","machine");
+  $a = new ActionPopupItem(_T("Delete"),"delete","delete","machine");
   $a->display(urlencode($machines[$idx][0]));
   echo "</ul></td>";
 

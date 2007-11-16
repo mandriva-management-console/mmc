@@ -21,27 +21,9 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
-/* $Id$ */
 
 require("modules/samba/includes/machines.inc.php");
-
-?>
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/samba/graph/machines/index.css");
-?>
-
--->
-</style>
-
-<?php
 require("modules/samba/mainSidebar.php");
-
 require("graph/navbar.inc.php");
 
 if (!isset($_GET["items"])) {
@@ -116,9 +98,14 @@ $end = $_GET["end"];
 
 </form>
 
-<h2><?= _T("Computers management") ?></h2>
+<?
 
-<div class="fixheight"></div>
+$p = new PageGenerator(_T("Computers management"));
+$p->setSideMenu($sidemenu);
+$p->display();
+
+?>
+
 <div id="container">
 <?php
 print_nav($start, $end, $machines);
@@ -176,7 +163,7 @@ for ($idx = $start;
   echo "<td class=\"Name\">".$machines[$idx][1]."</td>";
   echo "<td class=\"machineAction\">";
   echo "<ul class=\"action\">";
-  $a = new ActionPopupItem(_T("Delete"),"delete","supprimer","machine");
+  $a = new ActionPopupItem(_T("Delete"),"delete","delete","machine");
   $a->display(urlencode($machines[$idx][0]));
   echo "</ul></td>";
 

@@ -21,25 +21,8 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
-/* $Id$ */
 
 require("modules/samba/includes/machines.inc.php");
-
-?>
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/samba/graph/machines/add.css");
-?>
-
--->
-</style>
-
-<?php
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
 
@@ -64,11 +47,11 @@ if (isset($_POST["baddmach"])) {
     }
 }
 
+$p = new PageGenerator(_T("Add a computer"));
+$p->setSideMenu($sidemenu);
+$p->display();
+
 ?>
-
-<h2><?= _T("Add a computer"); ?></h2>
-
-<div class="fixheight"></div>
 
 <p><?= _T("The computer name can only contains letters lowercase and numbers, and must begin with a letter."); ?></p>
 

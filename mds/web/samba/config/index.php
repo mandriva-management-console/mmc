@@ -21,8 +21,6 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?
 
 require("modules/samba/includes/shares.inc.php");
 
@@ -64,37 +62,12 @@ if (isset($_POST["bsave"]))
     $pdc = xmlCall("samba.isPdc",null);
 }
 
-
-?>
-
-
-
-<style type="text/css">
-<!--
-
-<?php
-require("graph/config/index.css");
-?>
-
--->
-</style>
-
-<?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Shares"),
-                    "link" => "main.php?module=samba&submod=shares&action=index"),
-              array("name" => _T("General options")));
-
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
-?>
 
-<h2><?= _T("General options"); ?></h2>
-
-<div class="fixheight"></div>
-
-<?php
+$p = new PageGenerator(_T("General options"));
+$p->setSideMenu($sidemenu);
+$p->display();
 
 if (!isset($_POST["bsave"]))
 {

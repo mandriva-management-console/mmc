@@ -21,35 +21,12 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
 /* $Id$ */
 
-
-//partage protégé
+/* protected share */
 $protectedShare= array ("","hotbackup","homes","netlogon","public","archive");
 
 require("modules/samba/includes/shares.inc.php");
-?>
-
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/samba/graph/shares/index.css");
-?>
-
--->
-</style>
-
-<?php
-$path = array(array("name" => _T("Home"),
-                    "link" => "main.php"),
-              array("name" => _T("Shares"),
-                    "link" => "main.php?module=samba&submod=shares&action=index"),
-              array("name" => _T("Management")));
-
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
 
@@ -82,13 +59,10 @@ $start = $_GET["start"];
 $end = $_GET["end"];
 }
 
-?>
+$p = new PageGenerator(_T("Shares"));
+$p->setSideMenu($sidemenu);
+$p->display();
 
-<h2><?= _T("Shares"); ?></h2>
-
-<div class="fixheight"></div>
-
-<?php
 print_nav($start, $end, $shares);
 global $maxperpage; //definition globale
 ?>
@@ -144,12 +118,12 @@ for ($idx = $start;
   echo "<li class=\"edit\">";
   if(array_search($shares[$idx][0],$protectedShare)==null) {
     echo "<a title=\"Propriétés\" href=\"main.php?module=samba&submod=shares&action=details&share=".urlencode($shares[$idx][0])."\">.</a></li>";
-    //echo "<li class=\"supprimer\"><a title=\"Supprimer\" href=\"main.php?module=samba&submod=shares&action=delete&share=".urlencode($shares[$idx][0])."\">.</a></li>";
-      $a = new ActionPopupItem(_T("Delete"),"delete","supprimer","share");
+
+      $a = new ActionPopupItem(_T("Delete"),"delete","delete","share");
       $a->display(urlencode($shares[$idx][0]));
 
     }
-  $a = new ActionPopupItem(_T("Archive"),"backup","archiver","share");
+  $a = new ActionPopupItem(_T("Archive"),"backup","backup","share");
   $a->display(urlencode($shares[$idx][0]));
   echo "</ul>";
   echo "</td>";

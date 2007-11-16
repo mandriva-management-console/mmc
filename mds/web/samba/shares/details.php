@@ -21,20 +21,7 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
 
-<style type="text/css">
-<!--
-
-<?php
-if ($_GET["action"] == "add") require("modules/samba/graph/shares/add.css");
-else require("modules/samba/graph/shares/index.css");
-?>
-
--->
-</style>
-
-<?php
 require("modules/samba/includes/shares.inc.php");
 require("modules/base/includes/groups.inc.php");
 require("modules/samba/mainSidebar.php");
@@ -87,10 +74,13 @@ if (isset($_POST["bmodify"]))
     }
 }
 
-if ($_GET["action"] == "add") $title = _T("Add a share");
-else {
+if ($_GET["action"] == "add") {
+    $title = _T("Add a share");
+    $activeItem = "add";
+} else {
     $share = urldecode($_GET["share"]);
     $title = _T("Properties of share $share");
+    $activeItem = "index";
     $permAll = False;
     $av = False;
     $browseable = True;
@@ -108,11 +98,12 @@ if ($share != "homes")
     }
 }
 
+$p = new PageGenerator($title);
+$sidemenu->forceActiveItem($activeItem);
+$p->setSideMenu($sidemenu);
+$p->display();
+
 ?>
-
-<h2><?= $title; ?></h2>
-
-<div class="fixheight"></div>
 
 <? if ($_GET["action"] == "add")  { ?>
 <p>
