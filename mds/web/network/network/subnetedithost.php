@@ -14,13 +14,13 @@ if (count($subnetInfos) == 0) {
 }
 
 $subnetOptions = getSubnetOptions(getSubnet($subnet));
-if (isset($subnetOptions["domain-name"])) {
-    $domain = $subnetOptions["domain-name"];
+if (isset($subnetOptions["primarydomainname"])) {
+    $domain = $subnetOptions["primarydomainname"];
     $domainexist = zoneExists($domain);
 } else $domainexist = False;
 
 $netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
-if ($_GET["action"] == "subnetaddhost") $title =  sprintf(_T("Add a DHCP host to subnet %s / %s"), $subnet, $netmask);
+if ($_GET["action"] == "subnetaddhost") $title = sprintf(_T("Add a DHCP host to subnet %s / %s"), $subnet, $netmask);
 else $title = sprintf(_T("Edit DHCP host of subnet %s"), $subnet);
 
 $p = new PageGenerator($title);
@@ -76,8 +76,8 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         if (isset($_POST["dnsrecord"]) && !isset($error)) {
             /* Check that no hostname and reverse for this IP address exist in the DNS zone */
             $options = getSubnetOptions(getSubnet($subnet));
-            if (isset($options["domain-name"])) {
-                $zone = $options["domain-name"];
+            if (isset($options["primarydomainname"])) {
+                $zone = $options["primarydomainname"];
                 if (hostExists($zone, $hostname)) {
                     $error .= sprintf(_T("The specified hostname has been already registered in DNS zone %s."), $zone) . " ";
                     setFormError("hostname");
@@ -100,7 +100,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             $options = getSubnetOptions(getSubnet($subnet));
             if ($domainexist) {
                 /* If a DNS record exists for this machine, we need to update it too */
-                $zone = $options["domain-name"];
+                $zone = $options["primarydomainname"];
                 if (hostExists($zone, $hostname) && ipExists($zone, $oldip)) {
                     /* a record exists, can we update it ? */
                     if (ipExists($zone, $ipaddress)) {
@@ -121,7 +121,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             setHostOption($subnet, $hostname, "host-name", $hostname);
             if (isset($_POST["dnsrecord"])) {
                 $options = getSubnetOptions(getSubnet($subnet));
-                if (isset($options["domain-name"])) addRecordA($options["domain-name"], $hostname, $ipaddress);
+                if (isset($options["primarydomainname"])) addRecordA($options["primarydomainname"], $hostname, $ipaddress);
             }
         }
         setHostOption($subnet, $hostname, "root-path", $rootpath);
@@ -174,7 +174,7 @@ $f->push(new Table());
 if ($_GET["action"] == "subnetaddhost") {
     $formElt = new HostnameInputTpl("hostname");
     if ($domainexist)
-        $ipaddress = getSubnetAndZoneFreeIp($subnet, $subnetOptions["domain-name"]);
+        $ipaddress = getSubnetAndZoneFreeIp($subnet, $subnetOptions["primarydomainname"]);
     else 
         $ipaddress = getSubnetFreeIp($subnet);
 } else {
@@ -201,8 +201,8 @@ $f->add(
 $f->pop();
 
 
-if (isset($subnetOptions["domain-name"])) {
-    $domain = $subnetOptions["domain-name"];
+if (isset($subnetOptions["primarydomainname"])) {
+    $domain = $subnetOptions["primarydomainname"];
     if (zoneExists($domain)) {
         $f->push(new Table());
         if ($_GET["action"] == "subnetaddhost") {

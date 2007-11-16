@@ -42,12 +42,12 @@ if (isset($_POST["bconfirm"])) {
     $askupdatedns = False;
     $domain = "";
     $options = getSubnetOptions(getSubnet($subnet));
-    if (isset($options["domain-name"])) {
+    if (isset($options["primarydomainname"])) {
         /*
            If the DHCP domain name option is set, and corresponds to an existing DNS zone
            we ask the user if she/he wants to remove the A record in the DNS zone too.
         */
-        $domain = $options["domain-name"];
+        $domain = $options["primarydomainname"];
         if (zoneExists($domain)) {
             if (hostExists($domain, $host)) $askupdatedns = True;
         }

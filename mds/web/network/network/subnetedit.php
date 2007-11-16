@@ -229,10 +229,11 @@ $f->add(
         array("value"=>$options["broadcast-address"])
         );
 $f->add(
-        new TrFormElement(_T("Domain name"), new DomainInputTpl("domain-name"),
+        new TrFormElement(_T("Domain name"), new IA5InputTpl("domain-name"),
                           array(
                                 "tooltip" => _T("Domain name that will be appended to the client's hostname to form a fully-qualified domain-name (FQDN).") . "<br/>"
-                                . _T("If the domain name is a registered DNS domain, the subnet will be associated to the DNS domain.")
+                                . _T("If the domain name is a registered DNS domain, the subnet will be associated to the DNS domain.") . "<br/>"
+                                . _T("You can set more than one domain, separated by spaces. They will be added to the DHCP client DNS domain search path.")
                                 )
                           ),
         array("value"=>$options["domain-name"], "extra" => _T("Links the subnet to a DNS zone"))

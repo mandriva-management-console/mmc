@@ -130,6 +130,10 @@ function getSubnetOptions($subnet) {
             $options[$name] = trim($value, '"');
         }
     }
+    if (isset($options["domain-name"])) {
+        $tmp = explode(" ", $options["domain-name"]);
+        $options["primarydomainname"] = $tmp[0];
+    }    
     return $options;
 }
 
