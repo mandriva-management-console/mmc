@@ -71,6 +71,7 @@ $submod->setVisibility(False);
 $submod->setImg('img/navbar/computer');
 $submod->setDefaultPage("samba/machines/index");
 $submod->setDescription(_T("Machines"),"samba");
+$submod->setAlias('shares');
 
 $page = new Page("index",_T("Computer list","samba"));
 $submod->addPage($page);
