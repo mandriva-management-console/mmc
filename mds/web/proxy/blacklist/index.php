@@ -41,7 +41,7 @@ $p = new PageGenerator();
 $p->setSideMenu($sidemenu);
 $p->displaySideMenu();
 $n = new ListInfos($arrB);
-$n->addActionItem(new ActionPopupItem(_("Delete"),"delete","supprimer","blacklist") );
+$n->addActionItem(new ActionPopupItem(_("Delete"),"delete","delete","blacklist") );
 $n->setName(_T("Blacklist entries"));
 $n->display();
 ?>
