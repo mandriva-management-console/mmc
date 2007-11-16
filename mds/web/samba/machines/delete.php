@@ -21,28 +21,9 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-
-<style type="text/css">
-<!--
-
-<?php
-require("modules/samba/graph/machines/index.css");
-?>
-
--->
-</style>
-
-<?php
 
 require("modules/samba/includes/machines.inc.php");
-require("modules/samba/mainSidebar.php");
 
-?>
-
-<h2><?= _T("Delete a computer"); ?></h2>
-
-<?php
 if (isset($_GET["machine"])) {
   $machine = urldecode($_GET["machine"]);
 }
@@ -53,21 +34,12 @@ if (isset($_POST["machine"])) {
 if (isset($_POST["bdelmach"])) {
     del_machine($machine);
     $str = sprintf(_T("Computer <strong>%s</strong> deleted."),$machine);
-    $n = new NotifyWidget();
-    $n->add($str);
+    new NotifyWidgetSuccess($str);
     header("location: " . urlStrRedirect('samba/machines/index'));
+} else {
+    $f = new PopupForm(_T("Delete a computer"));
+    $f->addText(sprintf(_T("You will delete the %s computer"), "<strong>$machine</strong>"));
+    $f->addValidateButton("bdelmach");
+    $f->addCancelButton("bback");
+    $f->display();    
 }
-
-?>
-
-<form action="<? echo "main.php?module=samba&submod=machines&action=delete"; ?>" method="post">
-<p>
-<?
-printf(_T("You will delete <strong>%s</strong>."),$machine);
-?>
-</p>
-
-<input name="machine" type="hidden" value="<?php echo $machine; ?>" />
-<input name="bdelmach" type="submit" class="btnPrimary" value="<?= _T("Delete"); ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;"/>
-</form>
