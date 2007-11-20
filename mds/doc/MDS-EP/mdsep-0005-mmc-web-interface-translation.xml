@@ -89,13 +89,13 @@
       $ svn export http://mds.mandriva.org/svn/mmc-web-base/trunk
       $ cd trunk
       $ make build_pot # Will build the translation template
-      $ mkdir -p modules/base/locale/es_ES.utf8/LC_MESSAGES
-      $ cp modules/base/locale/base.pot modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
-      # use your favorite editor to translate modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
-      $ kbabel modules/base/locale/es_ES.utf8/LC_MESSAGES/base.po
+      $ mkdir -p modules/base/locale/es_ES/LC_MESSAGES
+      $ cp modules/base/locale/base.pot modules/base/locale/es_ES/LC_MESSAGES/base.po
+      # use your favorite editor to translate modules/base/locale/es_ES/LC_MESSAGES/base.po
+      $ kbabel modules/base/locale/es_ES/LC_MESSAGES/base.po
       # Compile the .mo file and copy it to your running MMC
       $ make build_mo
-      $ cp -r modules/base/locale/es_ES.utf8 /usr/share/mmc/modules/base/locale
+      $ cp -r modules/base/locale/es_ES /usr/share/mmc/modules/base/locale
       # Install the spanish es_ES.UTF-8 on your system
       # Your apache2 must be restarted to use the new .mo file
       $ /etc/init.d/apache2 restart
