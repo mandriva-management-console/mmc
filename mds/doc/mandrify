@@ -57,12 +57,6 @@ replace_arr = [
 
 <div id="logolinbox"><img src="http://mds.mandriva.org/custom/mandriva.png" alt="mandriva"/></div
 
-<div id="header">
-  <a id="logo" href="http://www.linbox.com"><img src="http://lds.linbox.org/trac/linbox.png"
-      width="236" height="73"
-      alt="Linbox - FAS" /></a>
-</div>
-
 <div id="metanav" class="nav">
     &nbsp;
 </div>
