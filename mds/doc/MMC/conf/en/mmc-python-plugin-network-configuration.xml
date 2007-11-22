@@ -187,7 +187,12 @@
 	    <entry>no</entry>
 	    <entry></entry>
 	  </row>
-
+	  <row>
+	    <entry>bindchrootconfpath</entry>
+	    <entry>path to the BIND chroot. Don't set it if BIND is not into a chroot.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
 	  <row>
 	    <entry>bindroot</entry>
 	    <entry>path to the BIND configuration file directory</entry>
