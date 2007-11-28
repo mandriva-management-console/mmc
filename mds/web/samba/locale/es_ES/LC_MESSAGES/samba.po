@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: traducción módulo samba LDS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-30 09:22+0200\n"
+"POT-Creation-Date: 2007-11-28 09:20+0100\n"
 "PO-Revision-Date: 2007-03-27 22:16+0100\n"
 "Last-Translator: Alejandro Escobar <alejandro.escobar@aitire.es>\n"
 "Language-Team: Aitire <info@aitire.es>\n"
@@ -17,55 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10\n"
 
-#: samba/status/index.php:29
+#: samba/status/index.php:30
 msgid "Samba status"
 msgstr "Estado SAMBA"
 
-#: samba/status/index.php:55
+#: samba/status/index.php:56
 msgid "Opened sessions"
 msgstr "Sesiones abiertas"
 
-#: samba/status/index.php:63
+#: samba/status/index.php:64
 msgid "Users"
 msgstr "Usuarios"
 
-#: samba/status/index.php:64 samba/status/index.php:113
+#: samba/status/index.php:65 samba/status/index.php:114
 msgid "Computers"
 msgstr "Máquinas"
 
-#: samba/status/index.php:65 samba/status/index.php:114
+#: samba/status/index.php:66 samba/status/index.php:115
 msgid "IP"
 msgstr "IP"
 
-#: samba/status/index.php:71
+#: samba/status/index.php:72
 msgid "No opened sessions"
 msgstr "No hay sesiones"
 
-#: samba/status/index.php:76
+#: samba/status/index.php:77
 msgid "Connections on shares"
 msgstr "Conexiones a los recursos"
 
-#: samba/status/index.php:83
+#: samba/status/index.php:84
 msgid "Share"
 msgstr "Recurso"
 
-#: samba/status/index.php:112
+#: samba/status/index.php:113
 msgid "User"
 msgstr "Usuario"
 
-#: samba/status/index.php:115
+#: samba/status/index.php:116
 msgid "Connected at"
 msgstr "Conectado a"
 
-#: samba/status/index.php:122
+#: samba/status/index.php:123
 msgid "No connections"
 msgstr "No hay conexiones"
 
-#: samba/config/restart.php:55 samba/config/restart.php:76
+#: samba/config/restart.php:56 samba/config/restart.php:77
 msgid "Restart server"
 msgstr "Reiniciar servidor"
 
-#: samba/config/restart.php:84
+#: samba/config/restart.php:85
 msgid ""
 "Your Samba server is being restarted... You can see progress on the default "
 "status page."
@@ -73,204 +73,151 @@ msgstr ""
 "Su servidor Samba va a ser reiniciado... Puede ver el progreso en la página "
 "de estado."
 
-#: samba/config/index.php:55
+#: samba/config/index.php:54
 msgid "Configuration saved"
 msgstr "Configuración guardada"
 
-#: samba/config/index.php:82 samba/shares/delete.php:45
-#: samba/shares/backup.php:49 samba/shares/index.php:46
-msgid "Home"
-msgstr "Inicio"
-
-#: samba/config/index.php:84 samba/shares/delete.php:47
-#: samba/shares/backup.php:51 samba/shares/index.php:48
-#: samba/shares/index.php:86 samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr "Recursos"
-
-#: samba/config/index.php:86 samba/config/index.php:92
-#: samba/mainSidebar.php:44 samba/mainSidebar.php:57
+#: samba/config/index.php:68 samba/mainSidebar.php:41
 msgid "General options"
 msgstr "Operaciones generales"
 
-#: samba/config/index.php:114
+#: samba/config/index.php:88
 msgid "This server is a PDC"
 msgstr "Este servidor es un PDC"
 
-#: samba/config/index.php:116
+#: samba/config/index.php:90
 msgid "Share user's homes"
 msgstr "Compartir carpetas raíz de los usuarios"
 
-#: samba/config/index.php:118
+#: samba/config/index.php:92
 msgid "Domain name"
 msgstr "Nombre de dominio"
 
-#: samba/config/index.php:120
+#: samba/config/index.php:94
 msgid "Server name"
 msgstr "Nombre del servidor"
 
-#: samba/config/index.php:128 samba/includes/publicFunc.php:238
+#: samba/config/index.php:102 samba/includes/publicFunc.php:239
 msgid "User profile path"
 msgstr "Ruta al perfil del usuario"
 
-#: samba/config/index.php:129 samba/includes/publicFunc.php:239
+#: samba/config/index.php:103 samba/includes/publicFunc.php:240
 msgid "Opening script session"
 msgstr "Script de inicio de sesión"
 
-#: samba/config/index.php:130 samba/includes/publicFunc.php:240
+#: samba/config/index.php:104 samba/includes/publicFunc.php:241
 msgid "Base directory path"
 msgstr "Ruta al directorio raíz"
 
-#: samba/config/index.php:131 samba/includes/publicFunc.php:241
+#: samba/config/index.php:105 samba/includes/publicFunc.php:242
 msgid "Connect base directory on network drive"
 msgstr "Conectar al directorio raíz en una unidad de red"
 
-#: samba/config/index.php:143 samba/shares/details.php:252
+#: samba/config/index.php:117 samba/shares/details.php:244
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: samba/config/index.php:144
+#: samba/config/index.php:118
 msgid "Back"
 msgstr "Atrás"
 
-#: samba/config/index.php:157
+#: samba/config/index.php:131
 msgid "Restart SAMBA"
 msgstr "Reiniciar SAMBA"
 
-#: samba/shares/delete.php:49
-msgid "Del a share"
-msgstr "Borrar un recurso"
-
-#: samba/shares/delete.php:55
-msgid "Delete a share"
-msgstr "Borrar un recurso"
-
-#: samba/shares/delete.php:68
-#, php-format
-msgid "You will delete the share <b>%s</b>"
-msgstr "Va a borrar el recurso <b>%s</b>"
-
-#: samba/shares/delete.php:72
-msgid "Delete all data"
-msgstr "Eliminar todos los datos"
-
-#: samba/shares/delete.php:76
-msgid "Are you sure ?"
-msgstr "¿Está usted seguro?"
-
-#: samba/shares/delete.php:80
-msgid "Delete "
-msgstr "Eliminar"
-
-#: samba/shares/delete.php:81 samba/shares/delete.php:123
-#: samba/shares/backup.php:134 samba/machines/delete.php:73
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: samba/shares/delete.php:95
-#, php-format
-msgid "An error has occured during delete process on %s:<br/>"
-msgstr "Ha ocurrido un error durante el proceso de borrado en %s:<br/>"
-
-#: samba/shares/delete.php:107
+#: samba/shares/delete.php:34
 #, php-format
 msgid "Share %s deleted"
 msgstr "Recurso %s eliminado"
 
-#: samba/shares/delete.php:119
-msgid "You must select a share into the list of shares"
-msgstr "Debe seleccionar un recurso en la lista de recursos"
+#: samba/shares/delete.php:37
+#, fuzzy, php-format
+msgid "An error has occured during delete process on %s"
+msgstr "Ha ocurrido un error durante el proceso de borrado en %s:<br/>"
 
-#: samba/shares/localSidebar.php:27
+#: samba/shares/delete.php:43
+msgid "Delete a share"
+msgstr "Borrar un recurso"
+
+#: samba/shares/delete.php:44
+#, php-format
+msgid "You will delete the share <b>%s</b>"
+msgstr "Va a borrar el recurso <b>%s</b>"
+
+#: samba/shares/delete.php:45
+msgid "Delete all data"
+msgstr "Eliminar todos los datos"
+
+#: samba/shares/localSidebar.php:28
 msgid "Shares management"
 msgstr "Gestor de recursos"
 
-#: samba/shares/localSidebar.php:30 samba/shares/details.php:89
-#: samba/mainSidebar.php:35 samba/mainSidebar.php:54
-#: samba/infoPackage.inc.php:47
+#: samba/shares/localSidebar.php:31 samba/shares/details.php:78
+#: samba/mainSidebar.php:30 samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr "Añadir un recurso"
 
-#: samba/shares/localSidebar.php:33 samba/machines/localSidebar.php:27
-#: samba/machines/index.php:118
+#: samba/shares/localSidebar.php:34 samba/machines/localSidebar.php:28
+#: samba/machines/index.php:103
 msgid "Computers management"
 msgstr "Administración de máquinas"
 
-#: samba/shares/localSidebar.php:36 samba/machines/localSidebar.php:30
-#: samba/machines/add.php:68 samba/mainSidebar.php:41
-#: samba/infoPackage.inc.php:77
+#: samba/shares/localSidebar.php:37 samba/machines/localSidebar.php:31
+#: samba/machines/add.php:50 samba/mainSidebar.php:36
+#: samba/infoPackage.inc.php:79
 msgid "Add a computer"
 msgstr "Añadir una máquina"
 
-#: samba/shares/backup.php:53
-msgid "Backup this share"
-msgstr "Realizar una copia de seguridad de este recurso"
-
-#: samba/shares/backup.php:59 samba/shares/backup.php:89
+#: samba/shares/backup.php:33 samba/shares/backup.php:48
 msgid "Share backup"
 msgstr "Copia de seguridad de un recurso"
 
-#: samba/shares/backup.php:79
-msgid "Error during backup process"
-msgstr "Error realizando la copia de seguridad"
-
-#: samba/shares/backup.php:92
+#: samba/shares/backup.php:35
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched as a background job."
 msgstr ""
 "La copia de seguridad del recurso <b>%s</b> ha sido lanzada como trabajo en "
 "segundo plano."
 
-#: samba/shares/backup.php:96
-#, php-format
-msgid ""
-"The ISO file that contains this backup will be stored into the directory <b>%"
-"s</b>."
-msgstr ""
-"La imagen ISO que contendrá esta copia de seguridad será almacenada en el "
-"directorio <b>%s</b>."
-
-#: samba/shares/backup.php:99
+#: samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
 msgstr ""
 "La duración de la operación depende de la cantidad de datos a ser salvados."
 
-#: samba/shares/backup.php:117
+#: samba/shares/backup.php:43
+#, fuzzy
+msgid "Can't launch backup"
+msgstr "Comenzar copia de seguridad"
+
+#: samba/shares/backup.php:49
 #, php-format
 msgid "The share %s will be archived."
 msgstr "El recurso %s será archivado."
 
-#: samba/shares/backup.php:122
+#: samba/shares/backup.php:50
+#, fuzzy
 msgid ""
 "Please select media size. If your data exceed volume size, several files "
-"with your media size will be created"
+"with your media size will be created."
 msgstr ""
 "Por favor seleccione el tamaño del medio. Si los datos execeden el tamaño "
 "del medio se partirá en varios ficheros."
 
-#: samba/shares/backup.php:126
-msgid "Media size"
-msgstr "Tamaño del medio"
-
-#: samba/shares/backup.php:133
-msgid "Launch backup"
-msgstr "Comenzar copia de seguridad"
-
-#: samba/shares/details.php:55
+#: samba/shares/details.php:43
 msgid "Invalid share name"
 msgstr "Nombre de recurso inválido"
 
-#: samba/shares/details.php:65
+#: samba/shares/details.php:53
 #, php-format
 msgid "Share %s successfully added"
 msgstr "Recurso %s añadido correctamente"
 
-#: samba/shares/details.php:85
+#: samba/shares/details.php:73
 #, php-format
 msgid "Share %s successfully modified"
 msgstr "Recurso %s modificado correctamente"
 
-#: samba/shares/details.php:118
+#: samba/shares/details.php:110
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
@@ -278,43 +225,43 @@ msgstr ""
 "El nombre del recurso sólo puede contener letras (mayúsculas y minúsculas) y "
 "números. Además debe comenzar por una letra."
 
-#: samba/shares/details.php:128
+#: samba/shares/details.php:120
 msgid "Name"
 msgstr "Nombre"
 
-#: samba/shares/details.php:137 samba/machines/add.php:78
+#: samba/shares/details.php:129 samba/machines/add.php:62
 msgid "Comment"
 msgstr "Comentario"
 
-#: samba/shares/details.php:153
+#: samba/shares/details.php:145
 msgid "AntiVirus on this share"
 msgstr "AntiVirus en este recurso"
 
-#: samba/shares/details.php:168
+#: samba/shares/details.php:160
 msgid "This share is visible on the domain"
 msgstr "Este recurso es visible en el dominio"
 
-#: samba/shares/details.php:181
+#: samba/shares/details.php:173
 msgid "Permissions"
 msgstr "Permisos"
 
-#: samba/shares/details.php:193
+#: samba/shares/details.php:185
 msgid "Access for all"
 msgstr "Acceso para todos"
 
-#: samba/shares/details.php:230
+#: samba/shares/details.php:222
 msgid "Administrator groups for this share"
 msgstr "Grupos de administración para este recurso"
 
-#: samba/shares/details.php:249
+#: samba/shares/details.php:241
 msgid "Create"
 msgstr "Crear"
 
-#: samba/shares/index.php:50
-msgid "Management"
-msgstr "Administración"
+#: samba/shares/index.php:62 samba/infoPackage.inc.php:41
+msgid "Shares"
+msgstr "Recursos"
 
-#: samba/shares/index.php:100
+#: samba/shares/index.php:75
 #, php-format
 msgid ""
 "Shares <strong>%s</strong>\n"
@@ -327,61 +274,60 @@ msgstr ""
 "de un total de <strong>%s</strong>\n"
 "(página %s de "
 
-#: samba/shares/index.php:147 samba/machines/ajaxFilter.php:171
-#: samba/machines/delete.php:72 samba/machines/index.php:178
-#: samba/views/groups.tpl.php:124
+#: samba/shares/index.php:122 samba/machines/ajaxFilter.php:172
+#: samba/machines/index.php:166 samba/views/groups.tpl.php:125
 msgid "Delete"
 msgstr "Eliminar"
 
-#: samba/shares/index.php:151
+#: samba/shares/index.php:126
 msgid "Archive"
 msgstr "Copia de seguridad"
 
-#: samba/includes/publicFunc.php:65
+#: samba/includes/publicFunc.php:66
 msgid "Samba attributes deleted."
 msgstr "Atributos de samba eliminados."
 
-#: samba/includes/publicFunc.php:100
+#: samba/includes/publicFunc.php:101
 msgid "Samba attributes added."
 msgstr "Atributos de samba añadidos."
 
-#: samba/includes/publicFunc.php:113
+#: samba/includes/publicFunc.php:114
 msgid "You must reenter your password."
 msgstr "Debe reintroducir su contraseña."
 
-#: samba/includes/publicFunc.php:128
+#: samba/includes/publicFunc.php:129
 msgid "Invalid network drive."
 msgstr "Unidad de red no válida."
 
-#: samba/includes/publicFunc.php:164
+#: samba/includes/publicFunc.php:165
 msgid "Samba user properties"
 msgstr "Propiedades del usuario de Samba"
 
-#: samba/includes/publicFunc.php:167
+#: samba/includes/publicFunc.php:168
 msgid "SAMBA access"
 msgstr "Acceso SAMBA"
 
-#: samba/includes/publicFunc.php:201
+#: samba/includes/publicFunc.php:202
 msgid "WARNING"
 msgstr ""
 
-#: samba/includes/publicFunc.php:202
+#: samba/includes/publicFunc.php:203
 msgid "The user password has expired"
 msgstr ""
 
-#: samba/includes/publicFunc.php:208
+#: samba/includes/publicFunc.php:209
 msgid "User is disabled, if checked"
 msgstr "Usuario desactivado, si está marcada."
 
-#: samba/includes/publicFunc.php:210
+#: samba/includes/publicFunc.php:211
 msgid "Disable samba user account"
 msgstr "Desactivar cuenta de usuario Samba"
 
-#: samba/includes/publicFunc.php:223
+#: samba/includes/publicFunc.php:224
 msgid "User is locked, if checked"
 msgstr "Usuario bloqueado, si está marcada."
 
-#: samba/includes/publicFunc.php:225
+#: samba/includes/publicFunc.php:226
 msgid ""
 "Lock samba user access\n"
 "                        <p>User can be locked after too many failed log.</p>"
@@ -436,15 +382,15 @@ msgstr ""
 "<ul> \t\t<li>Elimine este recurso antes de volver a crearlo</li> \t"
 "\t<li>Escoja otro nombre para el recurso.</li> </ul>"
 
-#: samba/machines/ajaxFilter.php:81 samba/machines/ajaxFilter.php:87
+#: samba/machines/ajaxFilter.php:82 samba/machines/ajaxFilter.php:88
 msgid "Previous"
 msgstr "Anterior"
 
-#: samba/machines/ajaxFilter.php:92 samba/machines/ajaxFilter.php:100
+#: samba/machines/ajaxFilter.php:93 samba/machines/ajaxFilter.php:101
 msgid "Next"
 msgstr "Siguiente"
 
-#: samba/machines/ajaxFilter.php:119 samba/machines/index.php:129
+#: samba/machines/ajaxFilter.php:120 samba/machines/index.php:117
 #, php-format
 msgid ""
 "Computers <strong>%s</strong>\n"
@@ -455,25 +401,25 @@ msgstr ""
 "Máquinas <strong>%s</strong> a <strong>%s</strong> de un total de <strong>%"
 "s</strong> (página <b>%s</b> de"
 
-#: samba/machines/delete.php:42 samba/infoPackage.inc.php:80
-msgid "Delete a computer"
-msgstr "Eliminar una máquina"
-
-#: samba/machines/delete.php:56
+#: samba/machines/delete.php:36
 #, php-format
 msgid "Computer <strong>%s</strong> deleted."
 msgstr "Máquina <b>%s</b> eliminada."
 
-#: samba/machines/delete.php:67
-#, php-format
-msgid "You will delete <strong>%s</strong>."
-msgstr "Va a eliminar <strong>%s</strong>."
+#: samba/machines/delete.php:40 samba/infoPackage.inc.php:82
+msgid "Delete a computer"
+msgstr "Eliminar una máquina"
 
-#: samba/machines/add.php:50
+#: samba/machines/delete.php:41
+#, fuzzy, php-format
+msgid "You will delete the %s computer"
+msgstr "Va a borrar el recurso <b>%s</b>"
+
+#: samba/machines/add.php:34
 msgid "Invalid computer name"
 msgstr "Nombre de máquina no válido"
 
-#: samba/machines/add.php:72
+#: samba/machines/add.php:56
 msgid ""
 "The computer name can only contains letters lowercase and numbers, and must "
 "begin with a letter."
@@ -481,86 +427,125 @@ msgstr ""
 "El nombre de la máquina sólo puede contener letras minúsculas y números. "
 "Además debe comenzar por una letra."
 
-#: samba/machines/add.php:76
+#: samba/machines/add.php:60
 msgid "Computer name"
 msgstr "Nombre de la máquina"
 
-#: samba/machines/add.php:82 samba/views/groups.tpl.php:137
+#: samba/machines/add.php:66 samba/views/groups.tpl.php:138
 msgid "Add"
 msgstr "Añadir"
 
-#: samba/views/groups.tpl.php:25
+#: samba/views/groups.tpl.php:26
 msgid "Groups"
 msgstr "Grupos"
 
-#: samba/views/groups.tpl.php:69
+#: samba/views/groups.tpl.php:70
 msgid "This group doesn't exist"
 msgstr "Este grupo no existe"
 
-#: samba/views/groups.tpl.php:128
+#: samba/views/groups.tpl.php:129
 msgid "Add a new group"
 msgstr "Añadir un grupo nuevo"
 
-#: samba/mainSidebar.php:32 samba/mainSidebar.php:51
-#: samba/infoPackage.inc.php:44
+#: samba/mainSidebar.php:29 samba/infoPackage.inc.php:45
 msgid "List shares"
 msgstr "Lista de recursos"
 
-#: samba/mainSidebar.php:38
+#: samba/mainSidebar.php:33
 msgid "List computers"
 msgstr "Lista de máquinas"
 
-#: samba/infoPackage.inc.php:30
+#: samba/infoPackage.inc.php:31
 msgid "SAMBA service"
 msgstr "Servicio SAMBA"
 
-#: samba/infoPackage.inc.php:50
+#: samba/infoPackage.inc.php:51
 msgid "Backup a share"
 msgstr "Realizar copia de seguridad de un recurso"
 
-#: samba/infoPackage.inc.php:54
+#: samba/infoPackage.inc.php:55
 msgid "Remove a share"
 msgstr "Eliminar un recurso"
 
-#: samba/infoPackage.inc.php:58
+#: samba/infoPackage.inc.php:59
 msgid "Share details"
 msgstr "Detalles del recurso"
 
-#: samba/infoPackage.inc.php:72
+#: samba/infoPackage.inc.php:73
 msgid "Machines"
 msgstr "Máquinas"
 
-#: samba/infoPackage.inc.php:74
+#: samba/infoPackage.inc.php:76
 msgid "Computer list"
 msgstr "Lista de máquinas"
 
-#: samba/infoPackage.inc.php:93
+#: samba/infoPackage.inc.php:95
 msgid "Configuration"
 msgstr "Configuración"
 
-#: samba/infoPackage.inc.php:98
+#: samba/infoPackage.inc.php:100
 msgid "SAMBA configuration"
 msgstr "Configuración de SAMBA"
 
-#: samba/infoPackage.inc.php:101
+#: samba/infoPackage.inc.php:103
 msgid "restart SAMBA service"
 msgstr "Reiniciar el servicio SAMBA"
 
-#: samba/infoPackage.inc.php:110
+#: samba/infoPackage.inc.php:112
 msgid "Add/delete SAMBA's attributes"
 msgstr "Añadir/Eliminar atributos de SAMBA"
 
-#: samba/infoPackage.inc.php:111
+#: samba/infoPackage.inc.php:113
 msgid "Enable/Disable account"
 msgstr "Activar/Desactivar cuenta"
 
-#: samba/infoPackage.inc.php:112
+#: samba/infoPackage.inc.php:114
 msgid "Lock/Unlock account"
 msgstr "Bloquear/Desbloquear cuenta"
 
-#: samba/infoPackage.inc.php:122
+#: samba/infoPackage.inc.php:124
 msgid "SAMBA status"
 msgstr "Estado de SAMBA"
+
+#~ msgid "Home"
+#~ msgstr "Inicio"
+
+#~ msgid "Del a share"
+#~ msgstr "Borrar un recurso"
+
+#~ msgid "Are you sure ?"
+#~ msgstr "¿Está usted seguro?"
+
+#~ msgid "Delete "
+#~ msgstr "Eliminar"
+
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgid "You must select a share into the list of shares"
+#~ msgstr "Debe seleccionar un recurso en la lista de recursos"
+
+#~ msgid "Backup this share"
+#~ msgstr "Realizar una copia de seguridad de este recurso"
+
+#~ msgid "Error during backup process"
+#~ msgstr "Error realizando la copia de seguridad"
+
+#~ msgid ""
+#~ "The ISO file that contains this backup will be stored into the directory "
+#~ "<b>%s</b>."
+#~ msgstr ""
+#~ "La imagen ISO que contendrá esta copia de seguridad será almacenada en el "
+#~ "directorio <b>%s</b>."
+
+#~ msgid "Media size"
+#~ msgstr "Tamaño del medio"
+
+#~ msgid "Management"
+#~ msgstr "Administración"
+
+#~ msgid "You will delete <strong>%s</strong>."
+#~ msgstr "Va a eliminar <strong>%s</strong>."
 
 #~ msgid "Backup a share directory"
 #~ msgstr "Realizar una copia de seguridad de un recurso compartido"
