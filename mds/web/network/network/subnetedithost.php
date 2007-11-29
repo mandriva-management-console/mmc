@@ -39,6 +39,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
     $oldip = $_POST["oldip"];
     $tftpservername = trim($_POST["tftp-server-name"]);
     if (strlen($tftpservername)) $tftpservername = '"' . $tftpservername . '"';
+    $nextserver = trim($_POST["next-server"]);
     $filename = trim($_POST["filename"]);
     if (strlen($filename)) $filename = '"' . $filename . '"';
     $rootpath = trim($_POST["rootpath"]);
@@ -127,6 +128,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         setHostOption($subnet, $hostname, "root-path", $rootpath);
         setHostOption($subnet, $hostname, "tftp-server-name", $tftpservername);
         setHostStatement($subnet, $hostname, "filename", $filename);
+        setHostStatement($subnet, $hostname, "next-server", $nextserver);
         setHostHWAddress($subnet, $hostname, $macaddress);
         setHostStatement($subnet, $hostname, "fixed-address", $ipaddress);
         if ($updatednsrecord) modifyRecord($zone, $hostname, $ipaddress);
@@ -160,6 +162,7 @@ if ($_GET["action"] == "subnetedithost") {
     $filename = $statements["filename"];
     $rootpath = $options["root-path"];
     $tftpservername = $options["tftp-server-name"];
+    $nextserver = $statements["next-server"];
 } else if ($_GET["action"] == "subnetaddhost") {
     if (!isset($error)) {
         /* Reset the field only if no error were found */
@@ -262,6 +265,13 @@ $f->add(
                           array("tooltip" => $tooltip)
                           ),
         array("value"=>$rootpath)
+        );
+$tooltip = _T("Server from which the initial boot file is to be loaded");
+$f->add(
+        new TrFormElement(_T("Next server"), new IA5InputTpl("next-server"),
+                          array("tooltip" => $tooltip)
+                          ),
+        array("value" => $statements["next-server"])
         );
 $tooltip = _T("Trivial File Transfer Protocol server name from which the client is booting.");
 $tooltip .= "%s";
