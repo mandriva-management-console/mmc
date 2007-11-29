@@ -147,6 +147,17 @@
     <para>
       This section defines where DNS needed files, directories and LDAP entities are located.
     </para>
+    <para>
+      When the plugin starts for the first time, it creates:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>the directory <filename>bindroot/named.ldap</filename>. This directory will contains all zones definitions</para>
+      </listitem>
+      <listitem>
+	<para>the file <filename>bindroot/named.conf.ldap</filename>. This file will include all the zone definitions stored into <filename>bindroot/named.ldap</filename>/</para>
+      </listitem>
+    </itemizedlist>    
 
     <table>
       <title>
@@ -189,7 +200,7 @@
 	  </row>
 	  <row>
 	    <entry>bindchrootconfpath</entry>
-	    <entry>path to the BIND chroot. Don't set it if BIND is not into a chroot.</entry>
+	    <entry>path to the named.ldap directory inside the BIND chroot. Don't set it if BIND is not into a chroot.</entry>
 	    <entry>no</entry>
 	    <entry></entry>
 	  </row>
@@ -208,6 +219,20 @@
 	</tbody>
       </tgroup>
     </table>
+
+    <para>
+      Here is an example for a Mandriva Corporate Server 4:
+    </para>
+    <screen>
+      [dns]
+      dn = ou=DNS,dc=mandriva,dc=com
+      pidfile = /var/lib/named/var/run/named.pid
+      init = /etc/rc.d/init.d/named
+      logfile = /var/log/messages
+      bindroot = /var/lib/named/etc/
+      bindchrootconfpath = /etc
+      binduser = named   
+    </screen>
     
   </section>
 
