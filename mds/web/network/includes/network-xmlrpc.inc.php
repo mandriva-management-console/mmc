@@ -101,8 +101,18 @@ function addRecordCNAME($zone, $alias, $cname) {
 }
 
 function setHostAliases($zone, $host, $aliases) {
-    if ($aliases == array("")) $aliases = array();
-    xmlCall("network.setHostAliases", array($zone, $host, $aliases));
+    if ($aliases == array("")) {
+        $tmp = array();
+    } else {
+        /* Cleanup alias list */
+        foreach($aliases as $alias) {
+            $alias = trim($alias);
+            if (strlen($alias)) {
+                $tmp[] = $alias;
+            }
+        }
+    }
+    xmlCall("network.setHostAliases", array($zone, $host, $tmp));
 }
 
 /* DHCP RPCs */
