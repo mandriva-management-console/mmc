@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-26 10:08+0100\n"
-"PO-Revision-Date: 2007-11-26 10:17+0100\n"
+"POT-Creation-Date: 2007-11-30 16:08+0100\n"
+"PO-Revision-Date: 2007-11-30 16:08+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -63,13 +63,13 @@ msgid "edit record"
 msgstr "modifier l'enregistrement"
 
 #: network/network/ajaxZoneMembersFilter.php:72
-#: network/network/subnetedithost.php:191
+#: network/network/subnetedithost.php:194
 #: network/network/ajaxSubnetMembersFilter.php:103
 msgid "IP address"
 msgstr "Adresse IP"
 
 #: network/network/ajaxZoneMembersFilter.php:75
-#: network/network/subnetedithost.php:185 network/network/edithost.php:125
+#: network/network/subnetedithost.php:188 network/network/edithost.php:125
 #: network/network/ajaxSubnetMembersFilter.php:107
 msgid "Host name"
 msgstr "Nom de l'hôte"
@@ -108,94 +108,94 @@ msgstr "Ajout d'un hôte DHCP au sous-réseau %s / %s"
 msgid "Edit DHCP host of subnet %s"
 msgstr "Édition de l'hôte DHCP du sous-réseau %s"
 
-#: network/network/subnetedithost.php:49
+#: network/network/subnetedithost.php:50
 msgid "The specified IP address does not belong to the subnet."
 msgstr "L'adresse IP spécifiée n'appartient pas au sous-réseau."
 
-#: network/network/subnetedithost.php:58
+#: network/network/subnetedithost.php:59
 msgid ""
 "The specified IP address belongs to the dynamic pool range of the subnet."
 msgstr ""
 "L'adresse IP spécifiée appartient à la plage d'adresse dynamique du sous-"
 "réseau."
 
-#: network/network/subnetedithost.php:67
+#: network/network/subnetedithost.php:68
 msgid "The specified hostname has been already registered in this DHCP subnet."
 msgstr "Le nom d'hôte spécifié a déjà été enregistré dans ce sous-réseau DHCP."
 
-#: network/network/subnetedithost.php:72 network/network/subnetedithost.php:97
+#: network/network/subnetedithost.php:73 network/network/subnetedithost.php:98
 msgid ""
 "The specified IP address has been already registered in this DHCP subnet."
 msgstr ""
 "L'adresse IP spécifiée a déjà été enregistrée dans le sous-réseau DHCP."
 
-#: network/network/subnetedithost.php:82
+#: network/network/subnetedithost.php:83
 #, php-format
 msgid "The specified hostname has been already registered in DNS zone %s."
 msgstr "Le nom d'hôte spécifié est déjà enregistré dans la zone DNS %s."
 
-#: network/network/subnetedithost.php:87
+#: network/network/subnetedithost.php:88
 #, php-format
 msgid "The specified IP address has been already registered in DNS zone %s."
 msgstr "L'adresse IP spécifiée est déjà enregistrée dans la zone DNS %s"
 
-#: network/network/subnetedithost.php:110
+#: network/network/subnetedithost.php:111
 #, php-format
 msgid "The IP address %s is already registered in DNS zone %s"
 msgstr "L'adresse IP %s est déjà enregistrée dans la zone DNS %s"
 
-#: network/network/subnetedithost.php:135
+#: network/network/subnetedithost.php:137
 msgid "Host successfully added."
 msgstr "Hôte ajouté avec succès."
 
-#: network/network/subnetedithost.php:136
+#: network/network/subnetedithost.php:138
 msgid "Host successfully modified."
 msgstr "Hôte modifié avec succès."
 
-#: network/network/subnetedithost.php:137 network/network/edithost.php:78
+#: network/network/subnetedithost.php:139 network/network/edithost.php:78
 msgid "DNS record successfully modified."
 msgstr "Enregistrement DNS modifié avec succès."
 
-#: network/network/subnetedithost.php:198
+#: network/network/subnetedithost.php:201
 #: network/network/ajaxSubnetMembersFilter.php:108
 msgid "MAC address"
 msgstr "Adresse MAC"
 
-#: network/network/subnetedithost.php:214
+#: network/network/subnetedithost.php:217
 #, php-format
 msgid "Also records this machine into DNS zone %s"
 msgstr "Enregistrer aussi cette machine dans la zone DNS %s"
 
-#: network/network/subnetedithost.php:224
+#: network/network/subnetedithost.php:227
 #, php-format
 msgid "This host name is also registered in DNS zone %s"
 msgstr "Ce nom d'hôte est aussi enregistré dans la zone DNS %s"
 
-#: network/network/subnetedithost.php:227
+#: network/network/subnetedithost.php:230
 #, php-format
 msgid "but with another IP address (%s)"
 msgstr "Mais avec une autre adresse IP (%s)"
 
-#: network/network/subnetedithost.php:231
+#: network/network/subnetedithost.php:234
 #, php-format
 msgid "This host is not registered in DNS zone %s"
 msgstr "Cet hôte n'est pas enregistré dans la zone DNS %s"
 
-#: network/network/subnetedithost.php:234
+#: network/network/subnetedithost.php:237
 msgid "Click here to add it"
 msgstr "Cliquer ici pour l'ajouter"
 
-#: network/network/subnetedithost.php:243 network/network/subnetedit.php:268
+#: network/network/subnetedithost.php:246 network/network/subnetedit.php:268
 msgid "Other DHCP options"
 msgstr "Autres options DHCP"
 
-#: network/network/subnetedithost.php:244 network/network/subnetedit.php:269
+#: network/network/subnetedithost.php:247 network/network/subnetedit.php:269
 msgid ""
 "Specify the name of the initial boot file which is to be loaded by a client."
 msgstr ""
 "Spécifie le chemin du fichier de boot qui doit être chargé par le client."
 
-#: network/network/subnetedithost.php:246 network/network/subnetedit.php:271
+#: network/network/subnetedithost.php:249 network/network/subnetedit.php:271
 msgid ""
 "The filename should be a filename recognizable to whatever file transfer "
 "protocol the client can be expected to use to load the file."
@@ -203,47 +203,55 @@ msgstr ""
 "Le fichier doit être un nom de fichier reconnaissable par un des types de "
 "protocole de transfert supportés par le client."
 
-#: network/network/subnetedithost.php:248 network/network/subnetedit.php:273
+#: network/network/subnetedithost.php:251 network/network/subnetedit.php:273
 msgid "(DHCP option number 67)"
 msgstr "(Option DHCP numéro 67"
 
-#: network/network/subnetedithost.php:251 network/network/subnetedit.php:276
+#: network/network/subnetedithost.php:254 network/network/subnetedit.php:276
 msgid "Initial boot file name"
 msgstr "Nom du fichier de boot d'initialisation"
 
-#: network/network/subnetedithost.php:256 network/network/subnetedit.php:281
+#: network/network/subnetedithost.php:259 network/network/subnetedit.php:281
 msgid "Path-name that contains the client's root disk."
 msgstr "Chemin vers la racine du système de fichiers du client."
 
-#: network/network/subnetedithost.php:258 network/network/subnetedit.php:283
+#: network/network/subnetedithost.php:261 network/network/subnetedit.php:283
 msgid "(DHCP option number 17)"
 msgstr "(Option DHCP numéro 17)"
 
-#: network/network/subnetedithost.php:261 network/network/subnetedit.php:286
+#: network/network/subnetedithost.php:264 network/network/subnetedit.php:286
 msgid "Path to the root filesystem"
 msgstr "Chemin du système de fichier racine"
 
-#: network/network/subnetedithost.php:266 network/network/subnetedit.php:298
+#: network/network/subnetedithost.php:269 network/network/subnetedit.php:291
+msgid "Server from which the initial boot file is to be loaded"
+msgstr "Serveur depuis lequel le fichier de boot initial doit être chargé"
+
+#: network/network/subnetedithost.php:271 network/network/subnetedit.php:293
+msgid "Next server"
+msgstr "Next server"
+
+#: network/network/subnetedithost.php:276 network/network/subnetedit.php:298
 msgid ""
 "Trivial File Transfer Protocol server name from which the client is booting."
 msgstr ""
 "Nom du server Trivial File Transfer Protocol utilisé par le client pour "
 "booter."
 
-#: network/network/subnetedithost.php:268 network/network/subnetedit.php:300
+#: network/network/subnetedithost.php:278 network/network/subnetedit.php:300
 msgid "(DHCP option number 66)"
 msgstr "(Option DHCP numéro 66)"
 
-#: network/network/subnetedithost.php:271 network/network/subnetedit.php:303
+#: network/network/subnetedithost.php:281 network/network/subnetedit.php:303
 msgid "TFTP server name"
 msgstr "Nom du serveur TFTP"
 
-#: network/network/subnetedithost.php:281 network/network/subnetedit.php:364
+#: network/network/subnetedithost.php:291 network/network/subnetedit.php:364
 #: network/network/edithost.php:150 network/network/edit.php:180
 msgid "Create"
 msgstr "Créer"
 
-#: network/network/subnetedithost.php:283 network/network/subnetedit.php:366
+#: network/network/subnetedithost.php:293 network/network/subnetedit.php:366
 #: network/network/edit.php:182
 msgid "Confirm"
 msgstr "Confirmer"
@@ -337,7 +345,9 @@ msgstr ""
 msgid ""
 "You can set more than one domain, separated by spaces. They will be added to "
 "the DHCP client DNS domain search path."
-msgstr "Vous pouvez spécifier plusieurs domaines, séparés par des espaces. Ils seront utilisés en tant que domaines de recherche DNS du client DHCP."
+msgstr ""
+"Vous pouvez spécifier plusieurs domaines, séparés par des espaces. Ils "
+"seront utilisés en tant que domaines de recherche DNS du client DHCP."
 
 #: network/network/subnetedit.php:239
 msgid "Links the subnet to a DNS zone"
@@ -366,14 +376,6 @@ msgstr "Serveurs NTP"
 #: network/network/subnetedit.php:260
 msgid "Network Time Protocol servers available to the client."
 msgstr "Serveurs Network Time Protocol disponibles"
-
-#: network/network/subnetedit.php:291
-msgid "Server from which the initial boot file is to be loaded"
-msgstr "Serveur depuis lequel le fichier de boot initial doit être chargé"
-
-#: network/network/subnetedit.php:293
-msgid "Next server"
-msgstr "Next server"
 
 #: network/network/subnetedit.php:311
 msgid "DHCP client lease time (in seconds)"
@@ -806,3 +808,8 @@ msgstr "Journal du service DHCP"
 #: network/infoPackage.inc.php:182
 msgid "DNS service log"
 msgstr "Journal du service DNS"
+
+#: network/network/ajaxZoneMembersFilter.php:61
+#, php-format
+msgid "(alias of %s)"
+msgstr "(alias de %s)"

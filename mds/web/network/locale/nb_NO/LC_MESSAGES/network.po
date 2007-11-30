@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linbox LDS Network Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-26 10:08+0100\n"
+"POT-Creation-Date: 2007-11-30 16:08+0100\n"
 "PO-Revision-Date: 2007-07-24 18:06+0100\n"
 "Last-Translator: Atle Johansen <atle@laluna.no>\n"
 "Language-Team:  <atle@laluna.no>\n"
@@ -66,13 +66,13 @@ msgid "edit record"
 msgstr ""
 
 #: network/network/ajaxZoneMembersFilter.php:72
-#: network/network/subnetedithost.php:191
+#: network/network/subnetedithost.php:194
 #: network/network/ajaxSubnetMembersFilter.php:103
 msgid "IP address"
 msgstr "IP adresse"
 
 #: network/network/ajaxZoneMembersFilter.php:75
-#: network/network/subnetedithost.php:185 network/network/edithost.php:125
+#: network/network/subnetedithost.php:188 network/network/edithost.php:125
 #: network/network/ajaxSubnetMembersFilter.php:107
 msgid "Host name"
 msgstr "Vertsnavn"
@@ -111,91 +111,91 @@ msgstr "Legg til en DHCP vert til subnett %s / %s"
 msgid "Edit DHCP host of subnet %s"
 msgstr "Rediger DHCP vert til subnett %s"
 
-#: network/network/subnetedithost.php:49
+#: network/network/subnetedithost.php:50
 msgid "The specified IP address does not belong to the subnet."
 msgstr "Den oppgitte IP adressen hører ikke til subnettet."
 
-#: network/network/subnetedithost.php:58
+#: network/network/subnetedithost.php:59
 msgid ""
 "The specified IP address belongs to the dynamic pool range of the subnet."
 msgstr ""
 "Den oppgitte IP adressen tilhører det dynamiske adresseområdet for subnettet."
 
-#: network/network/subnetedithost.php:67
+#: network/network/subnetedithost.php:68
 msgid "The specified hostname has been already registered in this DHCP subnet."
 msgstr "Det oppgitte vertsnavnet er allerede registrert i DHCP subnettet."
 
-#: network/network/subnetedithost.php:72 network/network/subnetedithost.php:97
+#: network/network/subnetedithost.php:73 network/network/subnetedithost.php:98
 msgid ""
 "The specified IP address has been already registered in this DHCP subnet."
 msgstr "Den oppgitte IP adressen er allerede registrert i DHCP subnettet."
 
-#: network/network/subnetedithost.php:82
+#: network/network/subnetedithost.php:83
 #, php-format
 msgid "The specified hostname has been already registered in DNS zone %s."
 msgstr "Det oppgitte vertsnavnet er allerede registrert i DNS sonen %s."
 
-#: network/network/subnetedithost.php:87
+#: network/network/subnetedithost.php:88
 #, php-format
 msgid "The specified IP address has been already registered in DNS zone %s."
 msgstr "Den oppgitte IP adressen er allerede registrert i DNS sonen %s."
 
-#: network/network/subnetedithost.php:110
+#: network/network/subnetedithost.php:111
 #, php-format
 msgid "The IP address %s is already registered in DNS zone %s"
 msgstr "IP adressen %s er allerede registrert i DNS sonen %s"
 
-#: network/network/subnetedithost.php:135
+#: network/network/subnetedithost.php:137
 msgid "Host successfully added."
 msgstr "Verten ble lagt til."
 
-#: network/network/subnetedithost.php:136
+#: network/network/subnetedithost.php:138
 msgid "Host successfully modified."
 msgstr "Verten ble endret."
 
-#: network/network/subnetedithost.php:137 network/network/edithost.php:78
+#: network/network/subnetedithost.php:139 network/network/edithost.php:78
 msgid "DNS record successfully modified."
 msgstr "DNS sonen ble endret."
 
-#: network/network/subnetedithost.php:198
+#: network/network/subnetedithost.php:201
 #: network/network/ajaxSubnetMembersFilter.php:108
 msgid "MAC address"
 msgstr "MAC adresse"
 
-#: network/network/subnetedithost.php:214
+#: network/network/subnetedithost.php:217
 #, php-format
 msgid "Also records this machine into DNS zone %s"
 msgstr "Også meld denne maskinen inn i DNS sonen %s"
 
-#: network/network/subnetedithost.php:224
+#: network/network/subnetedithost.php:227
 #, php-format
 msgid "This host name is also registered in DNS zone %s"
 msgstr "Dette vertsnavnet er også registrert i DNS sonen %s"
 
-#: network/network/subnetedithost.php:227
+#: network/network/subnetedithost.php:230
 #, php-format
 msgid "but with another IP address (%s)"
 msgstr "men med en annen IP adresse (%s)"
 
-#: network/network/subnetedithost.php:231
+#: network/network/subnetedithost.php:234
 #, php-format
 msgid "This host is not registered in DNS zone %s"
 msgstr "Dette vertsnavnet er ikke registrert i DNS sonen %s"
 
-#: network/network/subnetedithost.php:234
+#: network/network/subnetedithost.php:237
 msgid "Click here to add it"
 msgstr "Klikk her for å legge det til"
 
-#: network/network/subnetedithost.php:243 network/network/subnetedit.php:268
+#: network/network/subnetedithost.php:246 network/network/subnetedit.php:268
 msgid "Other DHCP options"
 msgstr "Andre DHCP innstillinger"
 
-#: network/network/subnetedithost.php:244 network/network/subnetedit.php:269
+#: network/network/subnetedithost.php:247 network/network/subnetedit.php:269
 msgid ""
 "Specify the name of the initial boot file which is to be loaded by a client."
 msgstr "Spesifiser navnet på oppstartsfilen som skal lastes av klienter."
 
-#: network/network/subnetedithost.php:246 network/network/subnetedit.php:271
+#: network/network/subnetedithost.php:249 network/network/subnetedit.php:271
 msgid ""
 "The filename should be a filename recognizable to whatever file transfer "
 "protocol the client can be expected to use to load the file."
@@ -203,45 +203,55 @@ msgstr ""
 "Filnavnet bør være gjenkjennelig for den filoverføringsprotokollen som "
 "klienter kan forventes å bruke til å laste filen."
 
-#: network/network/subnetedithost.php:248 network/network/subnetedit.php:273
+#: network/network/subnetedithost.php:251 network/network/subnetedit.php:273
 msgid "(DHCP option number 67)"
 msgstr "(DHCP valg nummer 67)"
 
-#: network/network/subnetedithost.php:251 network/network/subnetedit.php:276
+#: network/network/subnetedithost.php:254 network/network/subnetedit.php:276
 msgid "Initial boot file name"
 msgstr "Oppstartsfilnavn"
 
-#: network/network/subnetedithost.php:256 network/network/subnetedit.php:281
+#: network/network/subnetedithost.php:259 network/network/subnetedit.php:281
 msgid "Path-name that contains the client's root disk."
 msgstr "Stinavn som inneholder klientens root disk."
 
-#: network/network/subnetedithost.php:258 network/network/subnetedit.php:283
+#: network/network/subnetedithost.php:261 network/network/subnetedit.php:283
 msgid "(DHCP option number 17)"
 msgstr "(DHCP valg nummer 17)"
 
-#: network/network/subnetedithost.php:261 network/network/subnetedit.php:286
+#: network/network/subnetedithost.php:264 network/network/subnetedit.php:286
 msgid "Path to the root filesystem"
 msgstr "Stil til root filsystemet"
 
-#: network/network/subnetedithost.php:266 network/network/subnetedit.php:298
+#: network/network/subnetedithost.php:269 network/network/subnetedit.php:291
+#, fuzzy
+msgid "Server from which the initial boot file is to be loaded"
+msgstr "Spesifiser navnet på oppstartsfilen som skal lastes av klienter."
+
+#: network/network/subnetedithost.php:271 network/network/subnetedit.php:293
+#, fuzzy
+msgid "Next server"
+msgstr "NTP tjenere"
+
+#: network/network/subnetedithost.php:276 network/network/subnetedit.php:298
 msgid ""
 "Trivial File Transfer Protocol server name from which the client is booting."
 msgstr "Trivial File Transfer Protocol servernavn som klienten starter fra."
 
-#: network/network/subnetedithost.php:268 network/network/subnetedit.php:300
+#: network/network/subnetedithost.php:278 network/network/subnetedit.php:300
 msgid "(DHCP option number 66)"
 msgstr "(DHCP valg nummer 66)"
 
-#: network/network/subnetedithost.php:271 network/network/subnetedit.php:303
+#: network/network/subnetedithost.php:281 network/network/subnetedit.php:303
 msgid "TFTP server name"
 msgstr "TFTP servernavn"
 
-#: network/network/subnetedithost.php:281 network/network/subnetedit.php:364
+#: network/network/subnetedithost.php:291 network/network/subnetedit.php:364
 #: network/network/edithost.php:150 network/network/edit.php:180
 msgid "Create"
 msgstr "Opprett"
 
-#: network/network/subnetedithost.php:283 network/network/subnetedit.php:366
+#: network/network/subnetedithost.php:293 network/network/subnetedit.php:366
 #: network/network/edit.php:182
 msgid "Confirm"
 msgstr "Bekreft"
@@ -360,16 +370,6 @@ msgstr "NTP tjenere"
 #: network/network/subnetedit.php:260
 msgid "Network Time Protocol servers available to the client."
 msgstr "Network Time Protocol tjenere tilgjengelig for klienten."
-
-#: network/network/subnetedit.php:291
-#, fuzzy
-msgid "Server from which the initial boot file is to be loaded"
-msgstr "Spesifiser navnet på oppstartsfilen som skal lastes av klienter."
-
-#: network/network/subnetedit.php:293
-#, fuzzy
-msgid "Next server"
-msgstr "NTP tjenere"
 
 #: network/network/subnetedit.php:311
 msgid "DHCP client lease time (in seconds)"
@@ -797,6 +797,11 @@ msgstr "DHCP tjeneste logg"
 #: network/infoPackage.inc.php:182
 msgid "DNS service log"
 msgstr "DNS tjeneste logg"
+
+#: network/network/ajaxZoneMembersFilter.php:61
+#, php-format
+msgid "(alias of %s)"
+msgstr ""
 
 #~ msgid "Previous"
 #~ msgstr "Forrige"

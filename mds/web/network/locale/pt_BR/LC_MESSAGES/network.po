@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the network package.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: mds network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-23 17:42-0200\n"
+"POT-Creation-Date: 2007-11-30 16:08+0100\n"
 "PO-Revision-Date: 2007-11-23 17:55-0300\n"
 "Last-Translator: Wanderlei Antonio Cavassin <cavassin@mandriva.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -34,119 +33,6 @@ msgstr "Ver log do serviço DNS"
 msgid "Get next free IP address"
 msgstr "Obter próximo endereço IP livre"
 
-#: network/network/edit.php:31 network/infoPackage.inc.php:89
-msgid "Add a DNS zone"
-msgstr "Adicionar uma zona DNS"
-
-#: network/network/edit.php:33
-msgid "Edit DNS zone"
-msgstr "Editar zona DNS"
-
-#: network/network/edit.php:54
-msgid "This zone already exists."
-msgstr "Esta zona já existe."
-
-#: network/network/edit.php:63
-msgid ""
-"The network address and the network mask fields must be filled in if you "
-"also want to create a reverse zone."
-msgstr ""
-"Os campos endereço da rede e máscara de rede devem ser preenchidos se "
-"você também deseja criar uma zona reversa."
-
-#: network/network/edit.php:72
-msgid ""
-"The network address and the network mask fields must be filled in if you "
-"also want to create a DHCP subnet."
-msgstr ""
-"Os campos endereço da rede e máscara de rede devem ser preenchidos se "
-"você também deseja criar uma sub-rede DHCP."
-
-#: network/network/edit.php:84 network/network/subnetedit.php:61
-#, php-format
-msgid ""
-"The given network address belongs to the already existing DHCP subnet %s / %"
-"s."
-msgstr ""
-"O endereço de rede fornecido pertence à sub-rede DHCP já existente %s / %"
-"s."
-
-#: network/network/edit.php:94
-msgid ""
-"DHCP subnet and DNS zone successfully added. The DHCP service must be "
-"restarted."
-msgstr ""
-"Sub-rede DHCP e zona DNS adicionados com sucesso. O serviço DHCP deve ser "
-"reiniciado."
-
-#: network/network/edit.php:97
-msgid "DNS zone successfully added."
-msgstr "Zona DNS adicionada com sucesso."
-
-#: network/network/edit.php:99
-msgid "The DNS service must be reloaded."
-msgstr "O serviço DNS deve ser recarregado."
-
-#: network/network/edit.php:113
-msgid "DNS zone successfully modified."
-msgstr "Zona DNS modificada com sucesso."
-
-#: network/network/edit.php:139
-msgid "DNS zone FQDN"
-msgstr "Zona DNS FQDN"
-
-#: network/network/edit.php:143 network/network/subnetedit.php:216
-#: network/network/ajaxSubnetFilter.php:44
-#: network/network/ajaxZoneFilter.php:41
-msgid "Description"
-msgstr "Descrição"
-
-#: network/network/edit.php:147
-msgid "Name server host name"
-msgstr "Host servidor de nomes"
-
-#: network/network/edit.php:153
-msgid "Name server IP"
-msgstr "IP do servidor de nomes"
-
-#: network/network/edit.php:159
-msgid ""
-"The network address and mask fields must be filled in if you also want to "
-"create a reverse zone or a DHCP subnet linked to this DNS zone."
-msgstr ""
-"O endereço de rede e a máscara de rede devem ser preenchidos se você "
-"deseja criar uma zona reversa ou uma sub-rede DHCP ligada a esta zona DNS."
-
-#: network/network/edit.php:161 network/network/edithost.php:146
-msgid "Network address"
-msgstr "Endereço de rede"
-
-#: network/network/edit.php:165
-msgid "Network mask"
-msgstr "Máscara de rede"
-
-#: network/network/edit.php:166
-msgid "Only 8, 16 or 24 is allowed"
-msgstr "Somente 8, 16 ou 24 é permitido"
-
-#: network/network/edit.php:169
-msgid "Also manage a reverse DNS zone"
-msgstr "Gerenciar também uma zona reversa de DNS"
-
-#: network/network/edit.php:173
-msgid "Also create a related DHCP subnet"
-msgstr "Criar também uma sub-rede DHCP"
-
-#: network/network/edit.php:180 network/network/subnetedithost.php:281
-#: network/network/subnetedit.php:364 network/network/edithost.php:150
-msgid "Create"
-msgstr "Criar"
-
-#: network/network/edit.php:182 network/network/subnetedithost.php:283
-#: network/network/subnetedit.php:366
-msgid "Confirm"
-msgstr "Confirmar"
-
 #: network/network/deletehost.php:31
 msgid "The record has been deleted."
 msgstr "O registro foi removido."
@@ -164,10 +50,6 @@ msgstr "Você irá remover o registro %s"
 msgid "The linked CNAME records will also be deleted:"
 msgstr "Os registros CNAME relacionados também serão removidos:"
 
-#: network/network/servicestop.php:32
-msgid "The service has been asked to stop."
-msgstr "Foi solicitada a parada do serviço."
-
 #: network/network/ajaxZoneMembersFilter.php:41
 msgid "Delete host (A record)"
 msgstr "Remover host (registro A)"
@@ -181,13 +63,13 @@ msgid "edit record"
 msgstr "editar registro"
 
 #: network/network/ajaxZoneMembersFilter.php:72
-#: network/network/subnetedithost.php:191
+#: network/network/subnetedithost.php:194
 #: network/network/ajaxSubnetMembersFilter.php:103
 msgid "IP address"
 msgstr "Endereço IP"
 
 #: network/network/ajaxZoneMembersFilter.php:75
-#: network/network/subnetedithost.php:185 network/network/edithost.php:125
+#: network/network/subnetedithost.php:188 network/network/edithost.php:125
 #: network/network/ajaxSubnetMembersFilter.php:107
 msgid "Host name"
 msgstr "Nome do host"
@@ -226,93 +108,94 @@ msgstr "Adicionar um host DHCP para a sub-rede %s / %s"
 msgid "Edit DHCP host of subnet %s"
 msgstr "Editar host DHCP da sub-rede %s"
 
-#: network/network/subnetedithost.php:49
+#: network/network/subnetedithost.php:50
 msgid "The specified IP address does not belong to the subnet."
 msgstr "O endereço IP especificado não pertence à sub-rede."
 
-#: network/network/subnetedithost.php:58
+#: network/network/subnetedithost.php:59
 msgid ""
 "The specified IP address belongs to the dynamic pool range of the subnet."
 msgstr ""
-"O endereço IP especificado pertence ao intervalo de IPs dinâmicos da sub-rede."
+"O endereço IP especificado pertence ao intervalo de IPs dinâmicos da sub-"
+"rede."
 
-#: network/network/subnetedithost.php:67
+#: network/network/subnetedithost.php:68
 msgid "The specified hostname has been already registered in this DHCP subnet."
 msgstr "O nome de host especificado já foi registrado para esta sub-rede DHCP."
 
-#: network/network/subnetedithost.php:72 network/network/subnetedithost.php:97
+#: network/network/subnetedithost.php:73 network/network/subnetedithost.php:98
 msgid ""
 "The specified IP address has been already registered in this DHCP subnet."
-msgstr ""
-"O endereço IP especificado já foi registrado para esta sub-rede DHCP."
+msgstr "O endereço IP especificado já foi registrado para esta sub-rede DHCP."
 
-#: network/network/subnetedithost.php:82
+#: network/network/subnetedithost.php:83
 #, php-format
 msgid "The specified hostname has been already registered in DNS zone %s."
 msgstr "O nome de host especificado já foi registrado para na zona DNS %s."
 
-#: network/network/subnetedithost.php:87
+#: network/network/subnetedithost.php:88
 #, php-format
 msgid "The specified IP address has been already registered in DNS zone %s."
 msgstr "O endereço IP especificado já foi registrado para na zona DNS %s."
 
-#: network/network/subnetedithost.php:110
+#: network/network/subnetedithost.php:111
 #, php-format
 msgid "The IP address %s is already registered in DNS zone %s"
 msgstr "O endereço IP %s já está registrado na zona DNS %s"
 
-#: network/network/subnetedithost.php:135
+#: network/network/subnetedithost.php:137
 msgid "Host successfully added."
 msgstr "Host adicionado com sucesso."
 
-#: network/network/subnetedithost.php:136
+#: network/network/subnetedithost.php:138
 msgid "Host successfully modified."
 msgstr "Host modificado com sucesso."
 
-#: network/network/subnetedithost.php:137 network/network/edithost.php:78
+#: network/network/subnetedithost.php:139 network/network/edithost.php:78
 msgid "DNS record successfully modified."
 msgstr "Registro DNS modificado com sucesso."
 
-#: network/network/subnetedithost.php:198
+#: network/network/subnetedithost.php:201
 #: network/network/ajaxSubnetMembersFilter.php:108
 msgid "MAC address"
 msgstr "Endereço MAC"
 
-#: network/network/subnetedithost.php:214
+#: network/network/subnetedithost.php:217
 #, php-format
 msgid "Also records this machine into DNS zone %s"
 msgstr "Registrar também esta máquina na zona DNS %s"
 
-#: network/network/subnetedithost.php:224
+#: network/network/subnetedithost.php:227
 #, php-format
 msgid "This host name is also registered in DNS zone %s"
 msgstr "Este nome de host está também registrado na zona DNS %s"
 
-#: network/network/subnetedithost.php:227
+#: network/network/subnetedithost.php:230
 #, php-format
 msgid "but with another IP address (%s)"
 msgstr "mas com outro endereço IP (%s)"
 
-#: network/network/subnetedithost.php:231
+#: network/network/subnetedithost.php:234
 #, php-format
 msgid "This host is not registered in DNS zone %s"
 msgstr "Este host não está registrado na zona DNS %s"
 
-#: network/network/subnetedithost.php:234
+#: network/network/subnetedithost.php:237
 msgid "Click here to add it"
 msgstr "Clique aqui para adicionar"
 
-#: network/network/subnetedithost.php:243 network/network/subnetedit.php:268
+#: network/network/subnetedithost.php:246 network/network/subnetedit.php:268
 msgid "Other DHCP options"
 msgstr "Outras opções DHCP"
 
-#: network/network/subnetedithost.php:244 network/network/subnetedit.php:269
+#: network/network/subnetedithost.php:247 network/network/subnetedit.php:269
 msgid ""
 "Specify the name of the initial boot file which is to be loaded by a client."
 msgstr ""
-"Especifique o nome do arquivo inicial do boot para ser carregado pelo cliente."
+"Especifique o nome do arquivo inicial do boot para ser carregado pelo "
+"cliente."
 
-#: network/network/subnetedithost.php:246 network/network/subnetedit.php:271
+#: network/network/subnetedithost.php:249 network/network/subnetedit.php:271
 msgid ""
 "The filename should be a filename recognizable to whatever file transfer "
 "protocol the client can be expected to use to load the file."
@@ -320,39 +203,61 @@ msgstr ""
 "O arquivo deve ter um nome reconhecível para um dos protocolos de "
 "transferência suportados pelos cliente para carregar o arquivo."
 
-#: network/network/subnetedithost.php:248 network/network/subnetedit.php:273
+#: network/network/subnetedithost.php:251 network/network/subnetedit.php:273
 msgid "(DHCP option number 67)"
 msgstr "(DHCP opção número 67)"
 
-#: network/network/subnetedithost.php:251 network/network/subnetedit.php:276
+#: network/network/subnetedithost.php:254 network/network/subnetedit.php:276
 msgid "Initial boot file name"
 msgstr "Nome do arquivo inicial do boot"
 
-#: network/network/subnetedithost.php:256 network/network/subnetedit.php:281
+#: network/network/subnetedithost.php:259 network/network/subnetedit.php:281
 msgid "Path-name that contains the client's root disk."
 msgstr "Nome do caminho deve conter o disco raiz do cliente."
 
-#: network/network/subnetedithost.php:258 network/network/subnetedit.php:283
+#: network/network/subnetedithost.php:261 network/network/subnetedit.php:283
 msgid "(DHCP option number 17)"
 msgstr "(DHCP opção número 17)"
 
-#: network/network/subnetedithost.php:261 network/network/subnetedit.php:286
+#: network/network/subnetedithost.php:264 network/network/subnetedit.php:286
 msgid "Path to the root filesystem"
 msgstr "Caminho do sistema de arquivos raiz"
 
-#: network/network/subnetedithost.php:266 network/network/subnetedit.php:298
+#: network/network/subnetedithost.php:269 network/network/subnetedit.php:291
+msgid "Server from which the initial boot file is to be loaded"
+msgstr "Servidor a partir do qual o arquivo de boot deve ser carregado"
+
+#: network/network/subnetedithost.php:271 network/network/subnetedit.php:293
+msgid "Next server"
+msgstr "Próximo servidor"
+
+#: network/network/subnetedithost.php:276 network/network/subnetedit.php:298
 msgid ""
 "Trivial File Transfer Protocol server name from which the client is booting."
 msgstr ""
 "Nome do servidor Trivial File Transfer Protocol para boot dos clientes."
 
-#: network/network/subnetedithost.php:268 network/network/subnetedit.php:300
+#: network/network/subnetedithost.php:278 network/network/subnetedit.php:300
 msgid "(DHCP option number 66)"
 msgstr "(DHCP opção número 66)"
 
-#: network/network/subnetedithost.php:271 network/network/subnetedit.php:303
+#: network/network/subnetedithost.php:281 network/network/subnetedit.php:303
 msgid "TFTP server name"
 msgstr "Nome do servidor TFTP"
+
+#: network/network/subnetedithost.php:291 network/network/subnetedit.php:364
+#: network/network/edithost.php:150 network/network/edit.php:180
+msgid "Create"
+msgstr "Criar"
+
+#: network/network/subnetedithost.php:293 network/network/subnetedit.php:366
+#: network/network/edit.php:182
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: network/network/servicestop.php:32
+msgid "The service has been asked to stop."
+msgstr "Foi solicitada a parada do serviço."
 
 #: network/network/subnetedit.php:30 network/infoPackage.inc.php:104
 msgid "Add a DHCP subnet"
@@ -361,6 +266,14 @@ msgstr "Adicionar uma sub-rede DHCP"
 #: network/network/subnetedit.php:31 network/infoPackage.inc.php:107
 msgid "Edit DHCP subnet"
 msgstr "Editar a sub-rede DHCP"
+
+#: network/network/subnetedit.php:61 network/network/edit.php:84
+#, php-format
+msgid ""
+"The given network address belongs to the already existing DHCP subnet %s / %"
+"s."
+msgstr ""
+"O endereço de rede fornecido pertence à sub-rede DHCP já existente %s / %s."
 
 #: network/network/subnetedit.php:86
 msgid "The specified dynamic pool IP range is not valid."
@@ -386,6 +299,11 @@ msgstr "Endereços da sub-rede DHCP"
 msgid "Netmask"
 msgstr "Máscara"
 
+#: network/network/subnetedit.php:216 network/network/ajaxSubnetFilter.php:44
+#: network/network/edit.php:143 network/network/ajaxZoneFilter.php:41
+msgid "Description"
+msgstr "Descrição"
+
 #: network/network/subnetedit.php:220
 msgid "Authoritative"
 msgstr "Autoritativo"
@@ -407,8 +325,8 @@ msgid ""
 "Domain name that will be appended to the client's hostname to form a fully-"
 "qualified domain-name (FQDN)."
 msgstr ""
-"Nome do domínio que será adicionado ao nome do host cliente para formar "
-"um nome de domínio completamente qualificado (FQDN)."
+"Nome do domínio que será adicionado ao nome do host cliente para formar um "
+"nome de domínio completamente qualificado (FQDN)."
 
 #: network/network/subnetedit.php:235
 msgid ""
@@ -453,14 +371,6 @@ msgstr "Servidores NTP"
 #: network/network/subnetedit.php:260
 msgid "Network Time Protocol servers available to the client."
 msgstr "Servidores de Network Time Protocol disponíveis para o cliente."
-
-#: network/network/subnetedit.php:291
-msgid "Server from which the initial boot file is to be loaded"
-msgstr "Servidor a partir do qual o arquivo de boot deve ser carregado"
-
-#: network/network/subnetedit.php:293
-msgid "Next server"
-msgstr "Próximo servidor"
 
 #: network/network/subnetedit.php:311
 msgid "DHCP client lease time (in seconds)"
@@ -536,10 +446,6 @@ msgstr "Editar sub-rede"
 msgid "Add static host to subnet"
 msgstr "Adicionar host estático para a sub-rede"
 
-#: network/network/servicestart.php:32
-msgid "The service has been asked to start."
-msgstr "Foi solicitado o início do serviço."
-
 #: network/network/subnetmembers.php:34
 msgid "Members of DHCP subnet"
 msgstr "Membros da sub-rede DHCP"
@@ -547,6 +453,10 @@ msgstr "Membros da sub-rede DHCP"
 #: network/network/subnetmembers.php:42
 msgid "Add a static host"
 msgstr "Adicionar um host estático"
+
+#: network/network/servicestart.php:32
+msgid "The service has been asked to start."
+msgstr "Foi solicitado o início do serviço."
 
 #: network/network/subnetdeletehost.php:32
 msgid "The host has been deleted."
@@ -571,19 +481,6 @@ msgstr "Também desregistrar este host da zona DNS %s"
 msgid "Delete host"
 msgstr "Remover host"
 
-#: network/network/subnetdelete.php:31
-msgid "The DHCP subnet has been deleted. You must restart the DHCP service."
-msgstr "A sub-rede DHCP foi removida. Você deve reiniciar o serviço DHCP."
-
-#: network/network/subnetdelete.php:40
-#, php-format
-msgid "You will delete the DHCP subnet %s."
-msgstr "Você irá remover a sub-rede DHCP %s."
-
-#: network/network/subnetdelete.php:45
-msgid "Delete subnet"
-msgstr "Remover sub-rede"
-
 #: network/network/edithost.php:32
 #, php-format
 msgid "Add a host to zone %s"
@@ -607,7 +504,8 @@ msgstr "Host adicionado com sucesso à zona DNS."
 
 #: network/network/edithost.php:61
 msgid "Host successfully added to DNS zone and corresponding reverse zone."
-msgstr "Host adicionado com sucesso à zona DNS e à zona reversa correspondente."
+msgstr ""
+"Host adicionado com sucesso à zona DNS e à zona reversa correspondente."
 
 #: network/network/edithost.php:81
 msgid ""
@@ -620,6 +518,10 @@ msgstr ""
 #: network/network/edithost.php:113
 msgid "A reverse DNS record will be automatically created for this host."
 msgstr "Um registro reverso DNS foi automaticamente criado para este host."
+
+#: network/network/edithost.php:146 network/network/edit.php:161
+msgid "Network address"
+msgstr "Endereço de rede"
 
 #: network/network/edithost.php:153 network/network/edithost.php:157
 msgid "Hostname alias"
@@ -668,6 +570,19 @@ msgstr "Status dos serviços de rede"
 msgid "Status"
 msgstr "Status"
 
+#: network/network/subnetdelete.php:31
+msgid "The DHCP subnet has been deleted. You must restart the DHCP service."
+msgstr "A sub-rede DHCP foi removida. Você deve reiniciar o serviço DHCP."
+
+#: network/network/subnetdelete.php:40
+#, php-format
+msgid "You will delete the DHCP subnet %s."
+msgstr "Você irá remover a sub-rede DHCP %s."
+
+#: network/network/subnetdelete.php:45
+msgid "Delete subnet"
+msgstr "Remover sub-rede"
+
 #: network/network/localSidebar.php:27 network/network/ajaxZoneFilter.php:36
 #: network/network/ajaxZoneFilter.php:42 network/infoPackage.inc.php:44
 msgid "DNS zones"
@@ -681,9 +596,89 @@ msgstr "Adicionar zona DNS"
 msgid "Add DHCP subnet"
 msgstr "Adicionar sub-rede DHCP"
 
-#: network/network/servicereload.php:32
-msgid "The service has been asked to reload."
-msgstr "Foi solicitada a recarga do serviço."
+#: network/network/edit.php:31 network/infoPackage.inc.php:89
+msgid "Add a DNS zone"
+msgstr "Adicionar uma zona DNS"
+
+#: network/network/edit.php:33
+msgid "Edit DNS zone"
+msgstr "Editar zona DNS"
+
+#: network/network/edit.php:54
+msgid "This zone already exists."
+msgstr "Esta zona já existe."
+
+#: network/network/edit.php:63
+msgid ""
+"The network address and the network mask fields must be filled in if you "
+"also want to create a reverse zone."
+msgstr ""
+"Os campos endereço da rede e máscara de rede devem ser preenchidos se você "
+"também deseja criar uma zona reversa."
+
+#: network/network/edit.php:72
+msgid ""
+"The network address and the network mask fields must be filled in if you "
+"also want to create a DHCP subnet."
+msgstr ""
+"Os campos endereço da rede e máscara de rede devem ser preenchidos se você "
+"também deseja criar uma sub-rede DHCP."
+
+#: network/network/edit.php:94
+msgid ""
+"DHCP subnet and DNS zone successfully added. The DHCP service must be "
+"restarted."
+msgstr ""
+"Sub-rede DHCP e zona DNS adicionados com sucesso. O serviço DHCP deve ser "
+"reiniciado."
+
+#: network/network/edit.php:97
+msgid "DNS zone successfully added."
+msgstr "Zona DNS adicionada com sucesso."
+
+#: network/network/edit.php:99
+msgid "The DNS service must be reloaded."
+msgstr "O serviço DNS deve ser recarregado."
+
+#: network/network/edit.php:113
+msgid "DNS zone successfully modified."
+msgstr "Zona DNS modificada com sucesso."
+
+#: network/network/edit.php:139
+msgid "DNS zone FQDN"
+msgstr "Zona DNS FQDN"
+
+#: network/network/edit.php:147
+msgid "Name server host name"
+msgstr "Host servidor de nomes"
+
+#: network/network/edit.php:153
+msgid "Name server IP"
+msgstr "IP do servidor de nomes"
+
+#: network/network/edit.php:159
+msgid ""
+"The network address and mask fields must be filled in if you also want to "
+"create a reverse zone or a DHCP subnet linked to this DNS zone."
+msgstr ""
+"O endereço de rede e a máscara de rede devem ser preenchidos se você deseja "
+"criar uma zona reversa ou uma sub-rede DHCP ligada a esta zona DNS."
+
+#: network/network/edit.php:165
+msgid "Network mask"
+msgstr "Máscara de rede"
+
+#: network/network/edit.php:166
+msgid "Only 8, 16 or 24 is allowed"
+msgstr "Somente 8, 16 ou 24 é permitido"
+
+#: network/network/edit.php:169
+msgid "Also manage a reverse DNS zone"
+msgstr "Gerenciar também uma zona reversa de DNS"
+
+#: network/network/edit.php:173
+msgid "Also create a related DHCP subnet"
+msgstr "Criar também uma sub-rede DHCP"
 
 #: network/network/ajaxZoneFilter.php:40
 msgid "Network prefix"
@@ -700,19 +695,6 @@ msgstr "Editar zona"
 #: network/network/ajaxZoneFilter.php:46
 msgid "Add host"
 msgstr "Adicionar host"
-
-#: network/network/zonemembers.php:33
-#, php-format
-msgid "Members of zone %s"
-msgstr "Membros da zona %s"
-
-#: network/network/zonemembers.php:41
-msgid "Add a host"
-msgstr "Adicionar um host"
-
-#: network/network/subnetindex.php:32
-msgid "DHCP subnets management"
-msgstr "Gerenciamento de sub-redes DHCP"
 
 #: network/network/ajaxSubnetMembersFilter.php:33
 #: network/network/ajaxSubnetMembersFilter.php:92
@@ -734,6 +716,23 @@ msgstr "editar um host estático"
 #: network/network/ajaxSubnetMembersFilter.php:109
 msgid "Type"
 msgstr "Tipo"
+
+#: network/network/zonemembers.php:33
+#, php-format
+msgid "Members of zone %s"
+msgstr "Membros da zona %s"
+
+#: network/network/zonemembers.php:41
+msgid "Add a host"
+msgstr "Adicionar um host"
+
+#: network/network/servicereload.php:32
+msgid "The service has been asked to reload."
+msgstr "Foi solicitada a recarga do serviço."
+
+#: network/network/subnetindex.php:32
+msgid "DHCP subnets management"
+msgstr "Gerenciamento de sub-redes DHCP"
 
 #: network/dhcplogview/ajax_showlog.php:41
 msgid "Operations"
@@ -802,3 +801,8 @@ msgstr "Log do serviço DHCP"
 #: network/infoPackage.inc.php:182
 msgid "DNS service log"
 msgstr "Log do serviço DNS"
+
+#: network/network/ajaxZoneMembersFilter.php:61
+#, php-format
+msgid "(alias of %s)"
+msgstr ""
