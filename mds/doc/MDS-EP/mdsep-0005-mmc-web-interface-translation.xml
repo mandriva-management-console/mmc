@@ -31,7 +31,7 @@
       </revision>
     </revhistory>
 
-    <productname>mmc-web-base, mmc-web-samba, mmc-web-ox, mmc-web-proxy</productname>
+    <productname>mmc-web-base, mmc-web-samba, mmc-web-network, mmc-web-proxy, mmc-web-mail</productname>
     <productnumber>1.x</productnumber>
 
     <abstract>
@@ -39,6 +39,19 @@
     </abstract>
 
   </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>
+      You don't need to be a programmer to do some translation works.
+    </para>
+    <para>
+      Please subscribe to the <ulink url="http://mds.mandriva.org/wiki/MailingLists">MDS i18n mailing list</ulink>, and tell us about the language you want to work on (somebody else may already translates this language).
+    </para>
+
+  </section>
 
   <section>
 
@@ -81,7 +94,7 @@
     </itemizedlist>
 
     <para>
-      For example, you want to translate lmc-web-base into Spanish:
+      For example, you want to translate mmc-web-base into Spanish:
     </para>
 
     <screen>
