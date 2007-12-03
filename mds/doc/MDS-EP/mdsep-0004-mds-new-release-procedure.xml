@@ -259,10 +259,13 @@
       The tarballs are put in the public download place.
     </para>
     <para>
-      The debian packages repository is updated, for Sarge and Etch
+      The debian packages repository is updated, for Sarge and Etch (Cédric Delfosse).
     </para>
     <para>
-      The VMware image is updated thanks to the debian packages. The MDS version in the GRUB splash screen is updated.
+      The RPMs packages repository for Mandriva CS4 and Mandriva 2008 are updateed (Oden Eriksson).
+    </para>
+    <para>
+      The VMware image is updated thanks to the RPM packages.
     </para>
     <para>
       A mail is sent to the mds-announce mailing list.
@@ -292,7 +295,7 @@
 
     <screen>
       # trac-admin .
-      # component add mmc-component-name 
+      # component add mmc-component-name
       # quit
     </screen>
     
