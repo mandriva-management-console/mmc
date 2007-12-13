@@ -664,6 +664,11 @@
 	    If "visible" is set to False, the page won't be displayed in the sub-module summary on the MMC home page.
 	*/	     
 	$page-&gt;setOptions(array("visible"=&gt;False));
+
+	/* A page can contain tabs. These tabs must be declared to get ACL support on them */
+	$page->addTab(new Tab("tabid1", "Tab description 1"));
+	$page->addTab(new Tab("tabid2", "Tab description 2"));
+
 	$submod-&gt;addPage($page);
 
 	
