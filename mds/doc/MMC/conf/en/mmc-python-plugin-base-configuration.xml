@@ -40,7 +40,7 @@
     <title>Introduction</title>
     
     <para>
-      The « base » plugin is the main plugin of the MMC Python API. It features base operations like LDAP management (users, groups, etc).
+      The « base » plugin is the main plugin of the MMC Python API. It features base operations like LDAP management (users, groups, etc), user authentication and provisioning.
     </para>
     <para>
       The plugin configuration file is <filename>/etc/mmc/plugins/base.ini</filename>.
@@ -392,5 +392,207 @@
 
   </section>
   
+  <section>
+
+    <title>User authentication</title>
+
+    <para>
+      The default configuration authenticates users using the LDAP directory specified in the [ldap] section.
+    </para>
+    <para>
+      But it is also possible to set up authentication using an external LDAP server.
+    </para>
+
+    <section>
+
+      <title>Section « authentication »</title>
+
+      <para>
+	This optional section tells the MMC agent authentication manager how to authenticate a user. Each Python plugin can register "authenticator object" to the authentication manager, that then can be used to authenticate users.
+      </para>
+      <para>
+	The authentication manager tries each authenticator with the supplied login and password until one successfully authenticate the user.
+      </para>
+      <para>
+	Please note that the user won't be able to log in to the MMC web interface if she/he doesn't have an account in the LDAP directory configured in the [ldap] section of the base plugin. The provisioning system will allow you to automatically create this account.
+      </para>
+      <para>
+	The base plugin registers two authenticators:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    baseldap: this authenticator uses the LDAP directory configured in the [ldap] section of the base plugin to authenticate the user,
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    externalldap: this authenticator uses an external LDAP directory to authenticate the user.
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <table>
+	<title>
+	  Available options for the "authentication" section
+	</title>
+	<tgroup cols="4">
+	  <thead>
+	    <row>
+	      <entry>Option name</entry>
+	      <entry>Description</entry>
+	      <entry>Optional</entry>
+	      <entry>Default value</entry>
+	    </row>	  
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry>method</entry>
+	      <entry>space-separated list of authenticators to try to authenticate a user</entry>
+	    <entry>yes</entry>
+	    <entry>baseldap</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>
+	The default configuration is:
+      </para>
+      <screen>
+	[authentication]
+	method = baseldap
+      </screen>
+
+    </section>
+
+    <section>
+      <title>authentication_baseldap</title>
+
+      <para>
+	This section defines some configuration directives for the baseldap authenticator.
+      </para>
+
+      <table>
+	<title>
+	  Available options for the "authentication_baseldap" section
+	</title>
+	<tgroup cols="4">
+	  <thead>
+	    <row>
+	      <entry>Option name</entry>
+	      <entry>Description</entry>
+	      <entry>Optional</entry>
+	      <entry>Default value</entry>
+	    </row>	  
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry>authonly</entry>
+	      <entry>space-separated list of login that will be authentified using this authenticator. Others will be skipped.</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>
+	For example, to make the "baseldap" authenticator only authenticate the virtual MMC "root" user:
+      </para>
+      <screen>
+	[authentication_baseldap]
+	authonly = root
+      </screen>
+
+    </section>
+
+    <section>
+
+      <title>authentication_externalldap</title>
+
+      <para>
+	This section defines some configuration directives for the baseldap authenticator.
+      </para>
+
+      <table>
+	<title>
+	  Available options for the "authentication_externalldap" section
+	</title>
+	<tgroup cols="4">
+	  <thead>
+	    <row>
+	      <entry>Option name</entry>
+	      <entry>Description</entry>
+	      <entry>Optional</entry>
+	      <entry>Default value</entry>
+	    </row>	  
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry>exclude</entry>
+	      <entry>space-separated list of login that won't be authenticated using this authenticator.</entry>
+	      <entry>yes</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>ldapurl</entry>
+	      <entry>LDAP URL of the LDAP directory to connect to to authenticate user.</entry>
+	      <entry>no</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>suffix</entry>
+	      <entry>DN of the LDAP directory where to search users</entry>
+	      <entry>no</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>bindname</entry>
+	      <entry>DN of the LDAP directory account that must be used to bind to the LDAP directory and to perform the user search. If empty, an anonymous bind is done.</entry>
+	      <entry>no</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>bindpasswd</entry>
+	      <entry>Password of the LDAP directory account given by the bindname option. Not needed if bindname is empty.</entry>
+	      <entry>no</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>filter</entry>
+	      <entry>LDAP filter to use to search the user in the LDAP directory</entry>
+	      <entry>yes</entry>
+	      <entry>objectClass=*</entry>
+	    </row>
+	    <row>
+	      <entry>attr</entry>
+	      <entry>Name of the LDAP attribute that will allow to match a user entry with a LDAP search</entry>
+	      <entry>no</entry>
+	      <entry></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>
+	For example, to authenticate a user using an Active Directory:
+      </para>
+
+      <screen>
+	[authentication_externalldap]
+	exclude = root
+	ldapurl = ldap://192.168.0.1:389
+	suffix = cn=Users,dc=adroot,dc=com
+	bindname = cn=Administrator, cn=Users, dc=adroot, dc=com
+	bindpasswd = s3cr3t
+	filter = objectClass=*
+	attr = cn
+      </screen>
+
+    </section>
+
+  </section>
+
 
 </article>
