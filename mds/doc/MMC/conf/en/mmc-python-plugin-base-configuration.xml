@@ -408,7 +408,7 @@
       <title>Section « authentication »</title>
 
       <para>
-	This optional section tells the MMC agent authentication manager how to authenticate a user. Each Python plugin can register "authenticator object" to the authentication manager, that then can be used to authenticate users.
+	This optional section tells the MMC agent authentication manager how to authenticate a user. Each Python plugin can register "authenticator" objects to the authentication manager, that then can be used to authenticate users.
       </para>
       <para>
 	The authentication manager tries each authenticator with the supplied login and password until one successfully authenticate the user.
@@ -588,6 +588,150 @@
 	bindpasswd = s3cr3t
 	filter = objectClass=*
 	attr = cn
+      </screen>
+
+    </section>
+
+  </section>
+
+  <section>
+
+    <title>User provisioning</title>
+
+    <para>
+      This feature allows to automatically create a user account if it does not already exist in the LDAP directory configured in the [ldap] section of the base plugin.
+    </para>
+    <para>
+      User provisioning is needed for example if an external LDAP is used to authenticate users. The users won't be able to log in to the MMC web interface even if their login and password are rights, because the local LDAP doesn't store thir accounts.
+    </para>
+
+    <section>
+
+      <title>Section « provisioning »</title>
+
+      <para>
+	This optional section tells the MMC agent provisioning manager how to provision a user account. Each Python plugin can register "provisioner" objects to the provisioning manager, that then can be used to provision users.
+      </para>
+      <para>
+	When a user logs in to the MMC web interface, the authenticator manager authenticates this user. If the authentication succeed, then the provisioning manager runs each provisioner.
+      </para>
+      <para>
+	The authenticator object that successfully authenticates the user must pass to the provisioning manager the user informations, so that the provisioners have data to create or update the user entry.
+      </para>
+      
+      <table>
+	<title>
+	  Available options for the "provisioning" section
+	</title>
+	<tgroup cols="4">
+	  <thead>
+	    <row>
+	      <entry>Option name</entry>
+	      <entry>Description</entry>
+	      <entry>Optional</entry>
+	      <entry>Default value</entry>
+	    </row>	  
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry>method</entry>
+	      <entry>space-separated list of provisioners</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>
+	For example, this configuration tells to use the "externalldap" provisioner to create the user account:
+      </para>
+      <screen>
+	[provisioning]
+	method = externalldap
+      </screen>
+
+    </section>
+
+    <section>
+
+      <title>provisioning_external</title>
+
+      <para>
+	This section defines some configuration directives for the externalldap authenticator.
+      </para>
+
+      <table>
+	<title>
+	  Available options for the "authentication_externalldap" section
+	</title>
+	<tgroup cols="4">
+	  <thead>
+	    <row>
+	      <entry>Option name</entry>
+	      <entry>Description</entry>
+	      <entry>Optional</entry>
+	      <entry>Default value</entry>
+	    </row>	  
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry>exclude</entry>
+	      <entry>space-separated list of login that won't be provisioned by this provisioner.</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	    </row>
+	    <row>
+	      <entry>ldap_uid</entry>
+	      <entry>name of the external LDAP field that is corresponding to the local uid field. The uid LDAP attribute is the user login.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	    </row>
+	    <row>
+	      <entry>ldap_givenName</entry>
+	      <entry>name of the external LDAP field that is corresponding to the local givenName field</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	    </row>
+	    <row>
+	      <entry>ldap_sn</entry>
+	      <entry>name of the external LDAP field that is corresponding to the local sn (SurName) field</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+      <para>
+	To create a user account, the MMC agent needs its login, its password, its given name and its surname. That's why the ldap_uid, ldap_givenName and ldap_sn options are mandatory.
+      </para>
+
+      <para>
+	Here is a simple example of an authenticators and provisioners chain that authenticates users using an Active Directory, and create accounts:
+      </para>
+
+      <screen>
+	[authentication]
+	method = baseldap externalldap
+
+	[authentication_externalldap]
+	exclude = root
+	ldapurl = ldap://192.168.0.1:389
+	suffix = cn=Users,dc=adroot,dc=com
+	bindname = cn=Administrator, cn=Users, dc=adroot, dc=com
+	bindpasswd = s3cr3t
+	filter = objectClass=*
+	attr = cn
+
+	[provisioning]
+	method = externalldap
+	
+	[provisioning_externalldap]
+	exclude = root
+	ldap_uid = cn
+	ldap_givenName = sn
+	ldap_sn = sn
       </screen>
 
     </section>
