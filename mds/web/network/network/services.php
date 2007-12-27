@@ -35,11 +35,13 @@ $params = array();
 $actionsStart = array();
 $actionsStop = array();
 $actionsReload = array();
+$actionsRestart = array();
 $actionsLog = array();
 
 $startAction = new ActionItem(_T("Start service"),"servicestart","start", "");
 $stopAction = new ActionItem(_T("Stop service"),"servicestop","stop","");
 $reloadAction = new ActionItem(_T("Reload service"),"servicereload","reload","");
+$restartAction = new ActionItem(_T("Restart service"),"servicerestart","restart","");
 $logAction = new ActionItem(_T("View log"),"servicelog","display","");
 $emptyAction = new EmptyActionItem();
 
@@ -51,10 +53,12 @@ if (dhcpService("status")) {
     $status[] = _T("Started");
     $actionsStart[] = $emptyAction;
     $actionsStop[] = $stopAction;
+    $actionsRestart[] = $restartAction;
 } else {
     $status[] = _T("Stopped");
     $actionsStart[] = $startAction;
     $actionsStop[] = $emptyAction;
+    $actionsRestart[] = $emptyAction;
 }
 
 $actionsLog[] = $logAction;
@@ -63,10 +67,12 @@ if (dnsService("status")) {
     $status[] = _T("Started");
     $actionsStart[] = $emptyAction;
     $actionsStop[] = $stopAction;
+    $actionsRestart[] = $restartAction;
 } else {
     $status[] = _T("Stopped");
     $actionsStart[] = $startAction;
     $actionsStop[] = $emptyAction;
+    $actionsRestart[] = $emptyAction;
 }
 
 $l = new ListInfos(array("DHCP", "DNS"), _T("Services"));
@@ -78,6 +84,7 @@ $l->disableFirstColumnActionLink();
 
 $l->addActionItemArray($actionsStart);
 $l->addActionItemArray($actionsStop);
+$l->addActionItemArray($actionsRestart);
 $l->addActionItemArray($actionsReload);
 $l->addActionItemArray($actionsLog);
 

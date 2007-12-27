@@ -150,6 +150,9 @@ $page = new Page("servicereload",_T("Network services management","network"));
 $page->setOptions(array("noHeader" => True, "visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("servicerestart",_T("Network services management","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False));
+$submod->addPage($page);
 
 
 $mod->addSubmod($submod);
