@@ -115,12 +115,12 @@ if (!isset($error)
     }
 
     /* Update the DHCP options */
-    $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "root-path", "tftp-server-name");
+    $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "netbios-name-servers", "netbios-node-type", "root-path", "tftp-server-name");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
 	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
             $value = '"' . $value . '"';
-	if (in_array($name, array("domain-name-servers", "ntp-servers")))
+	if (in_array($name, array("domain-name-servers", "ntp-servers", "netbios-name-servers")))
             $value = str_replace(" ", ",", $value);
         setSubnetOption($subnet, $name, $value);
     }
@@ -262,6 +262,28 @@ $f->add(
                           ),
         array("value"=>$options["ntp-servers"])
         );
+$f->add(
+        new TrFormElement(_T("WINS servers"),new HostIpListInputTpl("netbios-name-servers"),
+                          array(
+                                "tooltip" => _T("Netbios name servers available to Windows clients, listed in order of preference.")
+                                )
+                          ),
+        array("value"=>$options["netbios-name-servers"])
+        );
+
+$winsclient = new SelectItem("netbios-node-type");
+$types = array("" => "Auto", "1" => _T("Broadcast only"), "2" => _T("WINS only"), "4" => _T("Broadcast, then WINS"), "8" => _T("WINS, then broadcast"));
+$winsclient->setElements(array_values($types));
+$winsclient->setElementsVal(array_keys($types));
+$f->add(
+        new TrFormElement(_T("WINS resolution and registration method"),$winsclient,
+                          array(
+                                "tooltip" => _T("Specify how NetBIOS name resolution is performed. Auto: the client OS will automatically select a method. Broadcast only (B-node): use broadcast for name resolution and registration. Peer node (P-node): use the specified WINS servers. Mixed node (M-node): use broadcast, then the specified WINS servers. Hybrid node (H-node): use the specified WINS server, then broadcast.")
+                                )
+                          ),
+        array("value"=>$options["netbios-node-type"])
+        );
+
 $f->pop();
 
 $f->push(new Table());
