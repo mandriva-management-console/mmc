@@ -76,6 +76,10 @@ $submod->setAlias('shares');
 $page = new Page("index",_T("Computer list","samba"));
 $submod->addPage($page);
 
+$page = new Page("ajaxFilter");
+$page->setOptions(array("AJAX" =>True,"visible"=>False));
+$submod->addPage($page);
+
 $page = new Page("add",_T("Add a computer","samba"));
 $submod->addPage($page);
 
