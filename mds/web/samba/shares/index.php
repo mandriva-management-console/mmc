@@ -35,10 +35,20 @@ global $conf;
 $shares = get_shares_detailed();
 $sharesName = array();
 $sharesComment = array();
+
+$editActions = array();
+$delActions = array();
+//$backupActions = array();
+
 foreach($shares as $share) {
+    $sharesName[] = $share[0];
+    $sharesComment[] = $share[1];
     if (!in_array($share[0], $protectedShare)) {
-        $sharesName[] = $share[0];
-        $sharesComment[] = $share[1];
+        $editActions[] = new ActionItem(_T("Edit"),"details","edit","share");
+        $delActions[] = new ActionPopupItem(_T("Delete"),"delete","delete","share");
+    } else {
+        $editActions[] = new EmptyActionItem();
+        $delActions[] = new EmptyActionItem();
     }
 }
 
@@ -48,9 +58,11 @@ $p->display();
 
 $l = new ListInfos($sharesName, _T("Shares"));
 $l->addExtraInfo($sharesComment);
-$l->addActionItem(new ActionItem(_T("Edit"),"details","edit","share"));
-$l->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","share"));
+$l->addActionItemArray($editActions);
+$l->addActionItemArray($delActions);
+
 $l->addActionItem(new ActionPopupItem(_T("Archive"),"backup","backup","share"));
+$l->disableFirstColumnActionLink();
 $l->display();
 
 ?>
