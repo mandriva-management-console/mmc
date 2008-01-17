@@ -1322,6 +1322,8 @@
 	  */
 	      
 	  $ajax = new AjaxFilter("modules/module1/submodule1/ajaxFruits.php");
+	  /* You can ask the AJAX updater to be called every 10s */
+	  /* $ajax-&gt;setRefresh(10000); */
 	  $ajax-&gt;display();
 
 	  /* Set page title and left side bar */
