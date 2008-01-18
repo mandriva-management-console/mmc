@@ -27,9 +27,9 @@ require("modules/base/includes/groups.inc.php");
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-if (isset($_POST["bcreate"]))
-{
+if (isset($_POST["bcreate"])) {
     $shareName = $_POST["shareName"];
+    $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
     $shareGroup = $_POST["usergroupsselected"];
     $adminGroups = $_POST["admingroupsselected"];
@@ -40,18 +40,12 @@ if (isset($_POST["bcreate"]))
     else $browseable = 0;
     
     if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9]*$/", $shareName))) {
-        $error = _T("Invalid share name");
-	$n = new NotifyWidget();
-	$n->flush();
-	$n->add("<div id=\"errorCode\">$error</div>");
-	$n->setLevel(4);
-	$n->setSize(600);    
+	new NotifyWidgetFailure(_T("Invalid share name"));
     } else {
-        add_share($shareName, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+        add_share($shareName, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
 	if (!isXMLRPCError()) {
-	    $n = new NotifyWidget();
-	    $n->add(sprintf(_T("Share %s successfully added"), $shareName));
-	    header("Location: main.php?module=samba&submod=shares&action=index");
+	    new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
+	    header("Location: " . urlStrRedirect("samba/shares/index" ));
 	}
     }
 }
@@ -59,6 +53,7 @@ if (isset($_POST["bcreate"]))
 if (isset($_POST["bmodify"]))
 {
     $share = $_POST["share"];
+    $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
     $shareGroup = $_POST["usergroupsselected"];
     $adminGroups = $_POST["admingroupsselected"];
@@ -67,16 +62,17 @@ if (isset($_POST["bmodify"]))
     else $av = 0;
     if ($_POST["browseable"]) $browseable = 1;
     else $browseable = 0;
-    mod_share($share, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+    mod_share($share, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
     if (!isXMLRPCError()) {
-        $n = new NotifyWidget();
-        $n->add(sprintf(_T("Share %s successfully modified"), $share));
+        new NotifyWidgetSuccess(sprintf(_T("Share %s successfully modified"), $shareName));
     }
 }
 
 if ($_GET["action"] == "add") {
     $title = _T("Add a share");
     $activeItem = "add";
+    $share = "";
+    $shareDesc = "";
 } else {
     $share = urldecode($_GET["share"]);
     $title = _T("Properties of share $share");
@@ -91,6 +87,7 @@ if ($share != "homes")
     $shareInfos = share_infos($error, $share);
     if (!isset($error)) {
         $shareDesc = $shareInfos["desc"];
+        $sharePath = $shareInfos["sharePath"];
         $shareGroup = $shareInfos["group"];
         $permAll = $shareInfos["permAll"];
 	$av = $shareInfos["antivirus"];
@@ -116,56 +113,69 @@ $p->display();
 
 <form method="post" action="<? echo $PHP_SELF; ?>" onSubmit="autouserObj.selectAll(); autoadminObj.selectAll();">
 
-<table cellspacing="0">
-<tr><td style="text-align: right;width :40%"><?= _T("Name"); ?></td>
-    <td>
-<? if ($_GET["action"] == "add")  { ?>
-    <input name="shareName" type="text" class="textfield" size="23" value="<?php if (isset($error)) {echo $shareName;} ?>" />
-<? } else {
-    echo $share;
-} ?>
-    </td>
-</tr>
-<tr><td style="text-align: right;width :40%"><?= _T("Comment"); ?></td>
-    <td><input name="shareDesc" type="text" class="textfield" size="23" value="<?php
-if ($_GET["action"] == "add") {    
-    if (isset($error)) echo $shareDesc;
+<?
+
+$t = new Table();
+if ($_GET["action"] == "add")  {
+    $input = new InputTpl("shareName");
 } else {
-    echo $shareDesc;
+    $input = new HiddenTpl("shareName");
 }
-?>" /></td></tr>
+$t->add(
+        new TrFormElement(_T("Name"), $input),
+        array("value" => $share)
+        );
 
-<?php
-    if (hasClamAv()) {
-        $checked = "";
-	if ($shareInfos["antivirus"]) {
-	    $checked = "checked";
-	}
-        $param = array ("value" => $checked);
-        $test = new TrFormElement(_T("AntiVirus on this share"), new CheckboxTpl("hasClamAv"));
-        $test->setCssError("hasClamAv");
-        $test->display($param);
+$t->add(
+        new TrFormElement(_T("Comment"), new InputTpl("shareDesc")),
+        array("value" => $shareDesc)
+        );
+
+if (hasClamAv()) {
+    $checked = "";
+    if ($shareInfos["antivirus"]) {
+        $checked = "checked";
     }
+    $param = array ("value" => $checked);
+    $t->add(
+            new TrFormElement(_T("AntiVirus on this share"), new CheckboxTpl("hasClamAv")),
+            $param
+            );
+}
+$t->display();
 
-?>
-</table>
+$d = new DivExpertMode();
+$d->push(new Table());
 
-<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
-<table cellspacing="0">
+/* As long as we have no own modShare() (Ticket #96), the sharePath is readonly in edit mode */
+if ($_GET["action"] == "add")  {
+    $sharePath = "";
+    $sharePathText = "Share path (leave empty for a default path in " . default_shares_path() . ")";
+    $input = new InputTpl("sharePath");
+} else {
+    $sharePath = $shareInfos["sharePath"];
+    $sharePathText = "Path";
+    $input = new HiddenTpl("sharePath");
+}
 
-<?php
+$d->add(
+        new TrFormElement(_T($sharePathText), $input),
+        array("value" => $sharePath)
+        );
+
 if ($browseable) $param = array("value" => "CHECKED");
 else $param = array("value" => "");
 
-$test = new TrFormElement(_T("This share is visible on the domain"), new CheckboxTpl("browseable"));
-$test->setCssError("browseable");
-$test->display($param);
+$d->add(
+        new TrFormElement(_T("This share is visible on the domain"), new CheckboxTpl("browseable")),
+        $param
+        );
+$d->pop();
+$d->display();
+        
 ?>
 
-</table>
-</div>
-
-<table>
+<table cellspacing="0">
     <tr>
     <td>
     </td>

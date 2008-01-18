@@ -25,23 +25,20 @@
 <?php
 /* $Id$ */
 
-function add_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0)
-{
+function add_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
     $name = trim($name);
     # FIXME !
     $reserved = array("homes", "print$", "printers");
     foreach ($reserved as $res) {
         if ($name == $res) {
-	    $error = "$name est un nom réservé";
 	    return;
 	}
     }
-    $param = array($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
-    return xmlCall("samba.addShare", $param);
+    $param = array($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
+    xmlCall("samba.addShare", $param);
 }
 
-function get_shares()
-{
+function get_shares() {
     $shares = xmlCall("samba.getDetailedShares", null);
     foreach ($shares as $key=>$value) $resArray[]=$key;
     return $resArray;
@@ -71,6 +68,10 @@ function share_path($share, $error) {
     $shares = xmlCall("samba.getSharePath", $param);
 }
 
+function default_shares_path() {
+    return xmlCall("samba.getDefaultSharesPath");
+}
+
 function del_share($share, $files) {
     $param = array($share, $files);
     return xmlCall("samba.delShare", $param);
@@ -86,11 +87,10 @@ function share_infos($error, $share) {
     return $result;
 }
 
-function mod_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
+function mod_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
     /* FIXME */
     del_share($name, false);
-    add_share($name, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
-    return "Partage $share modifié";
+    add_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
 }
 
 function sched_backup($share, $media) {
