@@ -1173,8 +1173,8 @@
 	  $l-&gt;addExtraInfo($stock, _T("Quantity"));
 	  $l-&gt;setName(_T("Fruits"));
 	  /* Add actions */
-	  $l-&gt;addActionItem(new ActionItem(_T("View fruit"), "view", "afficher", "fruit"));
-	  $l-&gt;addActionItem(new ActionPopupItem(_T("Delete fruit"), "view", "supprimer", "fruit"));
+	  $l-&gt;addActionItem(new ActionItem(_T("View fruit"), "view", "display", "fruit"));
+	  $l-&gt;addActionItem(new ActionPopupItem(_T("Delete fruit"), "view", "delete", "fruit"));
 	  $l-&gt;display();	  
 	</screen>
 
@@ -1190,13 +1190,15 @@
           </listitem>
 
           <listitem>
-            <para>the web page ("view") of the current sub-module to use to
+	    <para>the web page ("view") of the current sub-module to use to
             perform the action</para>
+	    <para>
+	      These 
+	    </para>
           </listitem>
 
           <listitem>
-            <para>the CSS class ("afficher") is the French for "display") to
-            use to set the action icons</para>
+            <para>the CSS class ("display") to use to set the action icons</para>
           </listitem>
 
           <listitem>
@@ -1209,6 +1211,27 @@
         <para>In our example, the URL link for the first row will be:
         "main.php?module=module1&amp;submod=submodule1&amp;action=view&amp;fruit=apple".
         For the second row, "...&amp;fruit=banana", etc.</para>
+
+
+	<para>
+	  Sometimes an action link needs to send the user to another module or submodule, instead of the current one. To do this, you add these parameters to the ActionItem constructor:
+	</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>$module: the module part of the URL link</para>
+          </listitem>
+
+          <listitem>
+            <para>$submod: the sub-module part of the URL link</para>
+          </listitem>
+
+          <listitem>
+            <para>$tab: the tab part of the URL link (if the link goes to a specific tab of a widget</para>
+          </listitem>
+
+        </itemizedlist>
+
 
         <para>ActionPopupItem displays a little popup page when clicked. This
         is useful for actions that just need an extra validation to be
@@ -1262,7 +1285,7 @@
 	  $l-&gt;setName(_T("Fruits"));
 	  $l->addActionItemArray($actionsView);
 	  $l->addActionItemArray($actionsDel);
-	  $l-&gt;display();	  
+	  $l-&gt;display();
 	</screen>
 
       </section>
