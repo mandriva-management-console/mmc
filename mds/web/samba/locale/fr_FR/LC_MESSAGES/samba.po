@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-11-28 09:20+0100\n"
-"PO-Revision-Date: 2007-11-28 09:21+0100\n"
+"PO-Revision-Date: 2008-02-01 14:42+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,9 +67,7 @@ msgstr "Redémarrer le serveur"
 msgid ""
 "Your Samba server is being restarted... You can see progress on the default "
 "status page."
-msgstr ""
-"Votre serveur Samba est en train d'être redémarrer. Vous pouvez voir la "
-"progression sur la page principale."
+msgstr "Votre serveur Samba est en train d'être redémarrer. Vous pouvez voir la progression sur la page de statut."
 
 #: samba/config/index.php:54
 msgid "Configuration saved"
@@ -323,13 +321,11 @@ msgid ""
 "                        <p>User can be locked after too many failed log.</p>"
 msgstr ""
 "Verrouille l'accès samba\n"
-"<p>L'utilisateur peut être verrouillé après plusieurs tentatives "
-"d'authentification non valide.</p>"
+"<p>L'utilisateur peut être verrouillé après plusieurs tentatives d'authentification non valides.</p>"
 
 #: samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr ""
-"Les acls ne sont pas supportés sur votre partition contenant /home/samba/"
+msgstr "Les ACLs ne sont pas supportés sur votre partition contenant /home/samba/"
 
 #: samba/includes/errorHandling.php:6
 msgid ""
@@ -341,12 +337,7 @@ msgid ""
 "\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
 "\t\t\t</ul>\n"
 "\t\t\t"
-msgstr ""
-"Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> \t\t"
-"\t<li>Vous pouvez utilisé utilisé XFS qui supporte nativement les ACLs</li> "
-"\t\t\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de "
-"montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,"
-"acl  1  2</pre></li> \t\t\t</ul> "
+msgstr "Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> \t\t\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li> \t\t\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li> \t\t\t</ul> "
 
 #: samba/includes/errorHandling.php:17
 msgid "This share does not exist"
@@ -405,7 +396,7 @@ msgstr "Vous allez supprimer la machine <b>%s</b>"
 
 #: samba/machines/add.php:34
 msgid "Invalid computer name"
-msgstr "Nom machine invalide"
+msgstr "Nom de machine invalide"
 
 #: samba/machines/add.php:56
 msgid ""
