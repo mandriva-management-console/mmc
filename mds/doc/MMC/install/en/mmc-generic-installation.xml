@@ -880,7 +880,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
     </para>
     <para>
       A slapd.conf for OpenLDAP and a smb.conf for SAMBA are included into the MMC agent tarball: <filename>contrib/ldap/slapd.conf.samba</filename> and <filename>contrib/samba/smb.conf</filename>. Please use these files as templates for your own configuration.
-      If you aren't familiar with SAMBA/LDAP installation, read the <ulink url="http://www.idealx.com/downloads/samba3-ldap-howto.pdf">SAMBA LDAP HOWTO</ulink>. SAMBA LDAP setup is not easy.
+      If you aren't familiar with SAMBA/LDAP installation, read the <ulink url="http://download.gna.org/smbldap-tools/docs/samba-ldap-howto/index.html">SAMBA LDAP HOWTO</ulink>. SAMBA LDAP setup is not easy.
     </para>
 
     <section>
@@ -943,7 +943,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 
     <section>
 
-      <title>LDAP directory for SAMBA init</title>
+      <title>Populating the LDAP directory for SAMBA</title>
 
       <para>
 	The LDAP directory needs to be populated so that SAMBA can use it. We use the <command>smbldap-populate</command> command from smbldap-tools.
@@ -952,7 +952,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	This command populates the LDAP with the OUs (Organizational Unit), users and groups needed by SAMBA.
       </para>
       <para>
-	A RPM package of smbldap-tools is available at: http://download.gna.org/smbldap-tools/packages/smbldap-tools-0.9.3-1.noarch.rpm
+	A RPM package of smbldap-tools is available <ulink url="http://download.gna.org/smbldap-tools/packages/smbldap-tools-0.9.3-1.noarch.rpm">there</ulink>.
       </para>
 
       <para>
