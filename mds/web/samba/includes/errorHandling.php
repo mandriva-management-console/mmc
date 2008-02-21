@@ -31,6 +31,11 @@ $errItem->setSize(450);
 $errItem->setTraceBackDisplay(false);
 $errObj->add($errItem);
 
+$errItem = new ErrorHandlingItem("No such file or directory");
+$errItem->setMsg(_T("The share directory does not exist."));
+$errItem->setAdvice(_T("Please delete this share, and then create it again."));
+$errItem->setTraceBackDisplay(false);
+$errObj->add($errItem);
 
 
 ?>
