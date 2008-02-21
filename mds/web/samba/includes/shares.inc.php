@@ -77,14 +77,8 @@ function del_share($share, $files) {
     return xmlCall("samba.delShare", $param);
 }
 
-function share_infos($error, $share) {
-    $param = array($share);
-    $result = xmlCall("samba.shareInfo",$param);
-    if ($result == -1) {
-        $error="erreur dans la récupération des données";
-        return;
-    }
-    return $result;
+function share_infos($share) {
+    return xmlCall("samba.shareInfo", array($share));
 }
 
 function mod_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
