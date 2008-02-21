@@ -80,18 +80,17 @@ if ($_GET["action"] == "add") {
     $permAll = False;
     $av = False;
     $browseable = True;
-}
 
-if ($share != "homes")
-{
-    $shareInfos = share_infos($error, $share);
-    if (!isset($error)) {
-        $shareDesc = $shareInfos["desc"];
-        $sharePath = $shareInfos["sharePath"];
-        $shareGroup = $shareInfos["group"];
-        $permAll = $shareInfos["permAll"];
-	$av = $shareInfos["antivirus"];
-	$browseable = $shareInfos["browseable"];
+    if ($share != "homes") {
+        $shareInfos = share_infos($error, $share);
+        if (!isset($error)) {
+            $shareDesc = $shareInfos["desc"];
+            $sharePath = $shareInfos["sharePath"];
+            $shareGroup = $shareInfos["group"];
+            $permAll = $shareInfos["permAll"];
+            $av = $shareInfos["antivirus"];
+            $browseable = $shareInfos["browseable"];
+        }
     }
 }
 
