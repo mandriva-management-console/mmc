@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-21 17:40+0100\n"
-"PO-Revision-Date: 2008-02-21 18:05+0100\n"
+"PO-Revision-Date: 2008-02-21 18:06+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -459,7 +459,7 @@ msgstr "Durée maximum en secondes assignée à un bail."
 
 #: network/network/subnetedit.php:362
 msgid "Dynamic pool for non-registered DHCP clients"
-msgstr "Plage d'adresse dynamic pour les clients DHCP non enregistrés"
+msgstr "Plage d'adresse dynamique pour les clients DHCP non enregistrés"
 
 #: network/network/subnetedit.php:373
 msgid "IP range start"
