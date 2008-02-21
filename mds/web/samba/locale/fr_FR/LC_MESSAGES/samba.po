@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-28 09:20+0100\n"
-"PO-Revision-Date: 2008-02-01 14:42+0100\n"
+"POT-Creation-Date: 2008-02-21 17:37+0100\n"
+"PO-Revision-Date: 2008-02-21 17:39+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,7 @@ msgid "Users"
 msgstr "Utilisateurs"
 
 #: samba/status/index.php:65 samba/status/index.php:114
+#: samba/machines/ajaxFilter.php:42
 msgid "Computers"
 msgstr "Machines"
 
@@ -67,7 +68,9 @@ msgstr "Redémarrer le serveur"
 msgid ""
 "Your Samba server is being restarted... You can see progress on the default "
 "status page."
-msgstr "Votre serveur Samba est en train d'être redémarrer. Vous pouvez voir la progression sur la page de statut."
+msgstr ""
+"Votre serveur Samba est en train d'être redémarrer. Vous pouvez voir la "
+"progression sur la page de statut."
 
 #: samba/config/index.php:54
 msgid "Configuration saved"
@@ -109,7 +112,7 @@ msgstr "Chemin du répertoire de base"
 msgid "Connect base directory on network drive"
 msgstr "Connexion du répertoire de base sur le lecteur réseau"
 
-#: samba/config/index.php:117 samba/shares/details.php:244
+#: samba/config/index.php:117 samba/shares/details.php:253
 msgid "Confirm"
 msgstr "Valider"
 
@@ -148,19 +151,19 @@ msgstr "Supprimer toutes les données"
 msgid "Shares management"
 msgstr "Gestion des partages"
 
-#: samba/shares/localSidebar.php:31 samba/shares/details.php:78
+#: samba/shares/localSidebar.php:31 samba/shares/details.php:72
 #: samba/mainSidebar.php:30 samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr "Ajouter un partage"
 
 #: samba/shares/localSidebar.php:34 samba/machines/localSidebar.php:28
-#: samba/machines/index.php:103
+#: samba/machines/index.php:32
 msgid "Computers management"
 msgstr "Gestion des machines"
 
 #: samba/shares/localSidebar.php:37 samba/machines/localSidebar.php:31
 #: samba/machines/add.php:50 samba/mainSidebar.php:36
-#: samba/infoPackage.inc.php:79
+#: samba/infoPackage.inc.php:83
 msgid "Add a computer"
 msgstr "Ajouter une machine"
 
@@ -199,17 +202,17 @@ msgstr ""
 msgid "Invalid share name"
 msgstr "Nom de partage invalide"
 
-#: samba/shares/details.php:53
+#: samba/shares/details.php:47
 #, php-format
 msgid "Share %s successfully added"
 msgstr "Partage %s ajouté"
 
-#: samba/shares/details.php:73
+#: samba/shares/details.php:67
 #, php-format
 msgid "Share %s successfully modified"
 msgstr "Partage %s modifié"
 
-#: samba/shares/details.php:110
+#: samba/shares/details.php:106
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
@@ -217,7 +220,7 @@ msgstr ""
 "Le partage ne peut contenir que des lettres (majuscules, minuscules) et des "
 "chiffres, et il doit commencer par une lettre."
 
-#: samba/shares/details.php:120
+#: samba/shares/details.php:124
 msgid "Name"
 msgstr "Nom"
 
@@ -225,49 +228,45 @@ msgstr "Nom"
 msgid "Comment"
 msgstr "Commentaire"
 
-#: samba/shares/details.php:145
+#: samba/shares/details.php:140
 msgid "AntiVirus on this share"
 msgstr "Antivirus sur ce partage"
 
-#: samba/shares/details.php:160
+#: samba/shares/details.php:169
 msgid "This share is visible on the domain"
 msgstr "Le partage est visible sur le domaine"
 
-#: samba/shares/details.php:173
+#: samba/shares/details.php:182
 msgid "Permissions"
 msgstr "Permissions"
 
-#: samba/shares/details.php:185
+#: samba/shares/details.php:194
 msgid "Access for all"
 msgstr "Accès pour tous"
 
-#: samba/shares/details.php:222
+#: samba/shares/details.php:231
 msgid "Administrator groups for this share"
 msgstr "Groupes administrateur de ce partage"
 
-#: samba/shares/details.php:241
+#: samba/shares/details.php:250
 msgid "Create"
 msgstr "Créer"
 
-#: samba/shares/index.php:62 samba/infoPackage.inc.php:41
-msgid "Shares"
-msgstr "Partages"
+#: samba/shares/index.php:47
+msgid "Edit"
+msgstr "Éditer"
 
-#: samba/shares/index.php:75
-#, php-format
-msgid ""
-"Shares <strong>%s</strong>\n"
-"to <strong>%s</strong>\n"
-"on a total of <strong>%s</strong>\n"
-"(page %s on "
-msgstr "Partages <b>%s à <b>%s sur un total de <b>%s</b> (page %s sur"
-
-#: samba/shares/index.php:122 samba/machines/ajaxFilter.php:172
-#: samba/machines/index.php:166 samba/views/groups.tpl.php:125
+#: samba/shares/index.php:48 samba/machines/ajaxFilter.php:41
+#: samba/views/groups.tpl.php:125
 msgid "Delete"
 msgstr "Supprimer"
 
-#: samba/shares/index.php:126
+#: samba/shares/index.php:55 samba/shares/index.php:59
+#: samba/infoPackage.inc.php:41
+msgid "Shares"
+msgstr "Partages"
+
+#: samba/shares/index.php:64
 msgid "Archive"
 msgstr "Archive"
 
@@ -321,11 +320,13 @@ msgid ""
 "                        <p>User can be locked after too many failed log.</p>"
 msgstr ""
 "Verrouille l'accès samba\n"
-"<p>L'utilisateur peut être verrouillé après plusieurs tentatives d'authentification non valides.</p>"
+"<p>L'utilisateur peut être verrouillé après plusieurs tentatives "
+"d'authentification non valides.</p>"
 
 #: samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr "Les ACLs ne sont pas supportés sur votre partition contenant /home/samba/"
+msgstr ""
+"Les ACLs ne sont pas supportés sur votre partition contenant /home/samba/"
 
 #: samba/includes/errorHandling.php:6
 msgid ""
@@ -337,7 +338,12 @@ msgid ""
 "\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
 "\t\t\t</ul>\n"
 "\t\t\t"
-msgstr "Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> \t\t\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li> \t\t\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li> \t\t\t</ul> "
+msgstr ""
+"Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> \t\t"
+"\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li> \t\t"
+"\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de "
+"montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,"
+"acl  1  2</pre></li> \t\t\t</ul> "
 
 #: samba/includes/errorHandling.php:17
 msgid "This share does not exist"
@@ -361,31 +367,20 @@ msgstr ""
 "<ul> \t\t<li>Supprimer ce partage avant de le recréer.</li> \t"
 "\t<li>Choisissez un autre nom de partage.</li> </ul>"
 
-#: samba/machines/ajaxFilter.php:82 samba/machines/ajaxFilter.php:88
-msgid "Previous"
-msgstr "Précédent"
+#: samba/machines/ajaxFilter.php:36 samba/machines/add.php:60
+msgid "Computer name"
+msgstr "Nom de la machine"
 
-#: samba/machines/ajaxFilter.php:93 samba/machines/ajaxFilter.php:101
-msgid "Next"
-msgstr "Suivant"
-
-#: samba/machines/ajaxFilter.php:120 samba/machines/index.php:117
-#, php-format
-msgid ""
-"Computers <strong>%s</strong>\n"
-"to <strong>%s</strong>\n"
-"on a total of <strong>%s</strong>\n"
-"(page %s on"
-msgstr ""
-"Ordinateurs <strong>%s</strong> à <strong>%s</strong> sur un total de "
-"<strong>%s</strong> (page <b>%s</b> sur"
+#: samba/machines/ajaxFilter.php:40
+msgid "Description"
+msgstr "Description"
 
 #: samba/machines/delete.php:36
 #, php-format
 msgid "Computer <strong>%s</strong> deleted."
 msgstr "L'ordinateur <b>%s</b> a été supprimé"
 
-#: samba/machines/delete.php:40 samba/infoPackage.inc.php:82
+#: samba/machines/delete.php:40 samba/infoPackage.inc.php:86
 msgid "Delete a computer"
 msgstr "Supprimer une machine"
 
@@ -405,10 +400,6 @@ msgid ""
 msgstr ""
 "Le nom de la machine ne peut contenir que des lettres en minuscules et des "
 "nombres et doit commencer par une lettre."
-
-#: samba/machines/add.php:60
-msgid "Computer name"
-msgstr "Nom de la machine"
 
 #: samba/machines/add.php:66 samba/views/groups.tpl.php:138
 msgid "Add"
@@ -458,30 +449,30 @@ msgstr "Machines"
 msgid "Computer list"
 msgstr "Liste des machines"
 
-#: samba/infoPackage.inc.php:95
+#: samba/infoPackage.inc.php:99
 msgid "Configuration"
 msgstr "Configuration"
 
-#: samba/infoPackage.inc.php:100
+#: samba/infoPackage.inc.php:104
 msgid "SAMBA configuration"
 msgstr "Configuration de SAMBA"
 
-#: samba/infoPackage.inc.php:103
+#: samba/infoPackage.inc.php:107
 msgid "restart SAMBA service"
 msgstr "Redémarrer le service SAMBA"
 
-#: samba/infoPackage.inc.php:112
+#: samba/infoPackage.inc.php:116
 msgid "Add/delete SAMBA's attributes"
 msgstr "Ajout/Suppression des attributs SAMBA"
 
-#: samba/infoPackage.inc.php:113
+#: samba/infoPackage.inc.php:117
 msgid "Enable/Disable account"
 msgstr "Activation/Désactivation du compte"
 
-#: samba/infoPackage.inc.php:114
+#: samba/infoPackage.inc.php:118
 msgid "Lock/Unlock account"
 msgstr "Verrouillage/Déverrouillage du compte"
 
-#: samba/infoPackage.inc.php:124
+#: samba/infoPackage.inc.php:128
 msgid "SAMBA status"
 msgstr "Statut SAMBA"
