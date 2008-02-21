@@ -57,7 +57,8 @@ $p->setSideMenu($sidemenu);
 $p->display();
 
 $l = new ListInfos($sharesName, _T("Shares"));
-$l->addExtraInfo($sharesComment);
+$l->setCssClass("shareName");
+$l->addExtraInfo($sharesComment, _T("Description"));
 $l->addActionItemArray($editActions);
 $l->addActionItemArray($delActions);
 
