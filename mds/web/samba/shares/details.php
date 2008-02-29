@@ -73,23 +73,20 @@ if ($_GET["action"] == "add") {
     $activeItem = "add";
     $share = "";
     $shareDesc = "";
+    $permAll = False;
+    $av = False;
+    $browseable = True;
 } else {
     $share = urldecode($_GET["share"]);
     $title = _T("Properties of share $share");
     $activeItem = "index";
-    $permAll = False;
-    $av = False;
-    $browseable = True;
-
-    if ($share != "homes") {
-        $shareInfos = share_infos($share);
-        $shareDesc = $shareInfos["desc"];
-        $sharePath = $shareInfos["sharePath"];
-        $shareGroup = $shareInfos["group"];
-        $permAll = $shareInfos["permAll"];
-        $av = $shareInfos["antivirus"];
-        $browseable = $shareInfos["browseable"];
-    }
+    $shareInfos = share_infos($share);
+    $shareDesc = $shareInfos["desc"];
+    $sharePath = $shareInfos["sharePath"];
+    $shareGroup = $shareInfos["group"];
+    $permAll = $shareInfos["permAll"];
+    $av = $shareInfos["antivirus"];
+    $browseable = $shareInfos["browseable"];
 }
 
 $p = new PageGenerator($title);
@@ -130,7 +127,7 @@ $t->add(
 
 if (hasClamAv()) {
     $checked = "";
-    if ($shareInfos["antivirus"]) {
+    if ($av) {
         $checked = "checked";
     }
     $param = array ("value" => $checked);
