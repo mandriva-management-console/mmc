@@ -1,7 +1,7 @@
 <?
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007 Mandriva, http://www.mandriva.com/
+ * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
  * $Id: edit.php 61 2007-05-29 15:55:22Z cedric $
  *
