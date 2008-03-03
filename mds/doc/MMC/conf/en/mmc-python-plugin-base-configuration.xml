@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2006 Cédric Delfosse - Mandriva</year>
+      <year>2006-2008 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -537,7 +537,7 @@
 	    </row>
 	    <row>
 	      <entry>ldapurl</entry>
-	      <entry>LDAP URL of the LDAP directory to connect to to authenticate user.</entry>
+	      <entry>LDAP URL of the LDAP directory to connect to to authenticate user. You can specify multiple LDAP URLs, separated by spaces. Each LDAP server is tried until one successfully accepts a connection.</entry>
 	      <entry>no</entry>
 	      <entry></entry>
 	    </row>
