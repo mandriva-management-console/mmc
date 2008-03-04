@@ -6,8 +6,7 @@
 class HostnameInputTpl extends InputTpl {
 
     function HostnameInputTpl($name) {
-        $this->name = $name;
-        $this->regexp = '/^[a-z][a-z0-9-]*[a-z0-9]$/';
+        $this->InputTpl($name, '/^[a-z][a-z0-9-]*[a-z0-9]$/');
     }
 
 }
@@ -18,8 +17,7 @@ class HostnameInputTpl extends InputTpl {
 class HostIpListInputTpl extends InputTpl {
     
     function HostIpListInputTpl($name) {
-        $this->name = $name;
-        $this->regexp = '/^[0-9a-z,.-]*$/';
+        $this->InputTpl($name, '/^[0-9a-z,.-]*$/');
     }
 
 }
@@ -30,8 +28,7 @@ class HostIpListInputTpl extends InputTpl {
 class NetmaskInputTpl extends InputTpl {
 
     function NetmaskInputTpl($name) {
-        $this->name = $name;
-        $this->regexp = '/^([1-9]|[1-2][0-9]|3[0-2])$/';
+        $this->InputTpl($name, '/^([1-9]|[1-2][0-9]|3[0-2])$/');
     }
 
 }
@@ -42,8 +39,7 @@ class NetmaskInputTpl extends InputTpl {
 class SimpleNetmaskInputTpl extends InputTpl {
 
     function SimpleNetmaskInputTpl($name) {
-        $this->name = $name;
-        $this->regexp = '/^(8|16|24)$/';
+        $this->InputTpl($name, '/^(8|16|24)$/');
     }
 
 }
