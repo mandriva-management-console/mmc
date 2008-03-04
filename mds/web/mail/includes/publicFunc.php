@@ -294,7 +294,6 @@ function _mail_changeUser($postArr) {
         if (hasMailObjectClass($postArr["nlogin"])) {
             $syncmailgroupalias = False;
             if (isset($postArr["unlimitedquota"])) $postArr["mailuserquota"] = "0";
-            if (strlen($postArr["mailuserquota"])) changeUserAttributes($postArr["nlogin"], "mailuserquota", $postArr["mailuserquota"]);
         } else $syncmailgroupalias = True;
         changeMaildrop($postArr["nlogin"],$postArr['maildrop']);
         changeMailalias($postArr["nlogin"],$postArr['mailalias']);
@@ -309,6 +308,11 @@ function _mail_changeUser($postArr) {
         } else {
             changeMailEnable($postArr["nlogin"],False);
         }
+        /*
+          Only change quota if it is POSTed. When adding a user, the default
+          domain mail quota is used.
+        */
+        if (strlen($postArr["mailuserquota"])) changeUserAttributes($postArr["nlogin"], "mailuserquota", $postArr["mailuserquota"]);
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */
             syncMailGroupAliases($postArr["primary_autocomplete"]);
