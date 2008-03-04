@@ -54,6 +54,9 @@ function changeMailbox($login, $mailbox) {
     return xmlCall("mail.changeMailbox", array($login, $mailbox));
 }
 
+function changeMailhost($login, $mailhost) {
+    return xmlCall("mail.changeMailhost", array($login, $mailhost));
+}
 
 function removeMail($login) {
     return xmlCall("mail.removeMail",array($login));

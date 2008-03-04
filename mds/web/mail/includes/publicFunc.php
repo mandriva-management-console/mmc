@@ -232,6 +232,10 @@ function _mail_baseEdit($ldapArr, $postArr) {
               new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox")),
               array("value" => $ldapArr["mailbox"][0])
               );
+      $f->add(
+              new TrFormElement(_T("Mail server host", "mail"),new IA5InputTpl("mailhost")),
+              array("value" => $ldapArr["mailhost"][0])
+              );
       $f->pop();
       $f->pop();
   }
@@ -296,6 +300,9 @@ function _mail_changeUser($postArr) {
         changeMailalias($postArr["nlogin"],$postArr['mailalias']);
         if (isset($postArr["mailbox"])) {
             changeMailbox($postArr["nlogin"], $postArr['mailbox']);
+        }
+        if (isset($postArr["mailhost"])) {
+            changeMailhost($postArr["nlogin"], $postArr['mailhost']);
         }
         if (!$postArr["maildisable"]) {
             changeMailEnable($postArr["nlogin"],True);
