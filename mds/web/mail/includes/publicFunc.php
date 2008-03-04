@@ -24,38 +24,7 @@
  */
 
 require_once("mail-xmlrpc.php");
-
-class QuotaTpl extends InputTpl {
-
-    function QuotaTpl($name, $regexp="/.*/") {
-        $this->name = $name;
-        $this->regexp = $regexp;        
-    }
-    
-    function Display($arrParam) {
-        if ($arrParam["value"] === "0") {
-            $checked = "CHECKED";
-            $disabled = "1";
-        } else {
-            $checked = "";
-            $disabled = "0";
-        }
-        parent::display($arrParam);
-        print "&nbsp;" . _T("Unlimited quota", "mail") . '<input type="checkbox" id="unlimitedquota" name="unlimitedquota" ' . $checked . ' onclick="unlimitedquotaclick();">';
-        print '<script type="text/javascript">
-$("mailuserquota").disabled = ' . $disabled . ';
-function unlimitedquotaclick() {
-    $("mailuserquota").disabled = !$("mailuserquota").disabled;
-}
-</script>';
-    }
-
-    function displayRo($arrParam) {
-        if ($arrParam["value"] === "0") print _T("Unlimited quota", "mail");
-        else print $arrParam["value"];
-    }
-
-}
+require_once("mail.inc.php");
 
 function _mail_baseGroupEdit($ldapArr, $postArr) {
     if (!isset($ldapArr["cn"][0])) return;

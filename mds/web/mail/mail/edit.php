@@ -25,6 +25,7 @@
       
 require("localSidebar.php");
 require("graph/navbar.inc.php");
+require_once("modules/mail/includes/mail.inc.php");
 
 if ($_GET["action"] == "add") $title =  _T("Add a mail domain");
 else {
@@ -36,10 +37,14 @@ $p = new PageGenerator($title);
 $p->setSideMenu($sidemenu);
 $p->display();
 
-if (isset($_POST["badd"])) {
+if (isset($_POST)) {
     $domainname = $_POST["domainname"];
-    $description = $_POST["description"];
+    $description = stripslashes($_POST["description"]);
+    if (isset($_POST["unlimitedquota"])) $_POST["mailuserquota"] = "0";
     $mailuserquota = $_POST["mailuserquota"];
+}
+
+if (isset($_POST["badd"])) {
     if (!preg_match("/^[a-z][0-9\-a-zA-Z\.]+$/", $domainname)) {
         $error = _T("Invalid domain name");
     } else {
@@ -58,9 +63,6 @@ if (isset($_POST["badd"])) {
 	header("Location: " . urlStrRedirect("mail/mail/index"));
     }
 } else if (isset($_POST["bedit"]) || isset($_POST["breset"])) {
-    $domainname = $_POST["domainname"];
-    $description = $_POST["description"];
-    $mailuserquota = $_POST["mailuserquota"];
     setVDomainDescription($domainname, $description);
     if (strlen($mailuserquota)) setVDomainQuota($domainname, $mailuserquota);
     $result = _T("The mail domain has been modified.");
@@ -100,8 +102,8 @@ $f->add(
         array("value" => $description)
         );
 
-$f->add(
-        new TrFormElement(_T("Default mail quota for users created in this domain (in kB)"), new InputTpl("mailuserquota", '/^[0-9]*$/')),
+$f->add(          
+        new TrFormElement(_T("Default mail quota for users created in this domain (in kB)"), new QuotaTpl("mailuserquota", '/^[0-9]*$/')),
         array("value" => $mailuserquota)
         );
 
