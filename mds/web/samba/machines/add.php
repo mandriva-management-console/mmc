@@ -26,24 +26,28 @@ require("modules/samba/includes/machines.inc.php");
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
 
+/**
+ * Input with a check for NetBIOS name validity in a DNS zone.
+ * The accepted NetBIOS name are 15 ASCII characters length.
+ * We accept a-z, 0-9 and -, and the length must be greater than two
+ * characters.
+ */
+class NetbiosInputTpl extends InputTpl {
+
+    function NetbiosInputTpl($name) {
+        $this->InputTpl($name, '/^[a-z][0-9a-z-]{2,14}$/');
+    }
+
+}
+
 if (isset($_POST["baddmach"])) {
     $machine = $_POST["machine"];
-    $comment = $_POST["comment"];
+    $comment = stripslashes($_POST["comment"]);
 
-    if (!preg_match("/^[A-Za-z][A-Za-z-0-9]*$/", $machine)) {
-        $error = _T("Invalid computer name");
-        $n = new NotifyWidget();
-        $n->flush();
-        $n->add("<div id=\"errorCode\">$error</div>");
-        $n->setLevel(4);
-        $n->setSize(600);    
-    } else {
-        add_machine($machine, $comment);
-	if (!isXMLRPCError()) {
-            $n = new NotifyWidget();
-	    $n->add(sprintf("Computer %s successfully added", $machine));
-	    header("Location: " . urlStrRedirect("samba/machines/index"));
-	}
+    add_machine($machine, $comment);
+    if (!isXMLRPCError()) {
+        new NotifyWidgetSuccess(sprintf(_T("Computer %s successfully added"), $machine));
+        header("Location: " . urlStrRedirect("samba/machines/index"));
     }
 }
 
@@ -51,17 +55,20 @@ $p = new PageGenerator(_T("Add a computer"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
+$f = new ValidatingForm();
+$f->addSummary(_T("The computer name can only contains letters lowercase and numbers, and must begin with a letter."));
+$f->push(new Table());
+$f->add(
+        new TrFormElement(_T("Computer name"), new NetbiosInputTpl("machine")),
+        array("value" => $machine, "required" => True)
+        );
+$f->add(
+        new TrFormElement(_T("Comment"), new InputTpl("comment")),
+        array("value" => $comment)
+        );
+$f->pop();
+$f->pop();
+$f->addValidateButton("baddmach");
+$f->display();
+
 ?>
-
-<p><?= _T("The computer name can only contains letters lowercase and numbers, and must begin with a letter."); ?></p>
-
-<form method="post" action="<? echo "main.php?module=samba&submod=machines&action=add"; ?>">
-<table cellspacing="0">
-<tr><td style="text-align: right;width :40%"><?= _T("Computer name"); ?></td>
-    <td><input name="machine" type="text" class="textfield" size="23" value="<?php if (isset($error)){echo $machine;} ?>" /></td></tr>
-<tr><td style="text-align: right;width :40%"><?= _T("Comment"); ?></td>
-    <td><input name="comment" type="text" class="textfield" size="23" value="<?php if (isset($error)){echo $comment;} ?>" /></td></tr>
-</table>
-
-<input name="baddmach" type="submit" class="btnPrimary" value="<?= _T("Add"); ?>" />
-</form>
