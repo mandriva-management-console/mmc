@@ -272,7 +272,6 @@
 
   </section>  
 
-
   <section>
     
     <title>Section « hooks »</title>
@@ -281,7 +280,10 @@
       The hooks system allow you to run external script when doing some operations with the MMC.
     </para>
     <para>
-      The script will be run as root user, with as only argument the full LDIF of the LDAP user. For the å adduser » hook, the LDIF file will contains the userPassword attributes in cleartext.
+      The script will be run as root user, with as only argument the path to a temporary file containing the full LDIF export of the LDAP user. For the « adduser » hook, the LDIF file will contains the userPassword attributes in cleartext.
+    </para>
+    <para>
+      The executable bit must be set on the script to run. The temporary LDIF file is removed once the script has been executed.
     </para>
 
     <table>
@@ -314,6 +316,46 @@
       </tgroup>
     </table>
     
+    <para>
+      Here is a hook example written in BASH for « adduser »:
+    </para>
+    <screen>
+#!/bin/sh
+
+# Get the uid of the new user
+VALUE=`cat $1 | grep ^uid: | sed "s/uid: //"`
+      
+# Log new user event
+echo "New user $VALUE created" >> /var/log/newuser.log
+
+exit 0
+    </screen>
+
+    <para>
+      The same hook, written in Python:
+    </para>
+    <screen>
+#!/usr/bin/python
+
+import sys
+
+# ldif is a Python package of the python-ldap extension
+import ldif
+
+LOGFILE="/var/log/newuser.log"
+
+class MyParser(ldif.LDIFParser):
+
+    def handle(self, dn, entry):
+        uid = entry["uid"][0]
+        f = file(LOGFILE, "a")
+        f.write("New user %s created\n" % uid)
+        f.close()
+
+parser = MyParser(file(sys.argv[1]))
+parser.parse()
+    </screen>
+
   </section>
 
   <section>
