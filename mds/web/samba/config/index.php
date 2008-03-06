@@ -122,8 +122,8 @@ foreach ($d as $description => $field) {
 $f->pop();
 $f->pop();
 
-$f->addExpertButton("brestart", _T("Restart SAMBA"));
 $f->addValidateButton("bsave");
+$f->addExpertButton("brestart", _T("Restart SAMBA"));
 
 $f->display();
 
