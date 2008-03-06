@@ -23,23 +23,20 @@
  */
 
 require("modules/samba/includes/shares.inc.php");
+require("modules/samba/includes/samba.inc.php");
 
 if (isset($_POST["brestart"]))
 {
-    header("Location: ".$root."modules/base/config/restart.php?goto=".$_SERVER["SCRIPT_NAME"]);
+    header("Location: " . urlStrRedirect("samba/config/restart"));
     exit;
 }
 
-function
-get_smbconf()
-{
+function get_smbconf() {
     $smbInfo = xmlCall("samba.getSmbInfo", null);
     return $smbInfo;
 }
 
-function
-save_smbconf()
-{
+function save_smbconf() {
     $ispdc = $_POST["pdc"];
     $homes = $_POST["homes"];
     $wg = $_POST["workgroup"];
@@ -54,12 +51,11 @@ save_smbconf()
     return _T("Configuration saved");
 }
 
-if (isset($_POST["bsave"]))
-{
+if (isset($_POST["bsave"])) {
     $result = save_smbconf();
 
     // re-read the config, now that it's been changed
-    $pdc = xmlCall("samba.isPdc",null);
+    $pdc = xmlCall("samba.isPdc");
 }
 
 require("modules/samba/mainSidebar.php");
@@ -69,64 +65,66 @@ $p = new PageGenerator(_T("General options"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
-if (!isset($_POST["bsave"]))
-{
+if (!isset($_POST["bsave"])) {
     $smb = get_smbconf();
-
-    if ($smb["error"])
-    {
+    if ($smb["error"]) {
 	echo $smb["error"];
     }
+} else {
+    foreach (array("pdc", "homes", "workgroup", "netbios name", "logon script", "logon path", "logon drive", "logon home", "ldap passwd sync") as $value)
+        $smb[$value] = $_POST[$value];
 }
-else foreach (array("pdc", "homes", "workgroup", "netbios name", "logon script", "logon path", "logon drive", "logon home") as $value)
-     $smb[$value] = $_POST[$value];
 
-?>
+$f = new ValidatingForm();
+$f->push(new Table());
+if ($smb["pdc"]) $value = "CHECKED";
+else $value = "";
+$f->add(
+        new TrFormElement(_T("This server is a PDC"),new CheckboxTpl("pdc")),
+        array("value" => $value)
+        );
+if ($smb["homes"]) $value = "CHECKED";
+else $value = "";
+$f->add(
+        new TrFormElement(_T("Share user's homes"),new CheckboxTpl("homes")),
+        array("value" => $value)
+        );
+$f->add(
+        new TrFormElement(_T("Domain name"), new NetbiosUppercaseInputTpl("workgroup")),
+        array("value" => $smb["workgroup"], "required" => True)
+        );
+$f->add(
+        new TrFormElement(_T("Server name"), new NetbiosUppercaseInputTpl("netbios name")),
+        array("value" => $smb["netbios name"], "required" => True)
+        );
+$f->pop();
 
-<form action="<?php echo $PHP_SELF ?>" method="post" name="configList" target="_self">
-<table cellspacing="0">
-<tr><td width="40%" style="text-align : right;"><?= _T("This server is a PDC"); ?></td>
-<td><input name="pdc" type="checkbox" <?php if ($smb["pdc"]) { echo "checked"; } ?> /></td></tr>
-<tr><td style="text-align : right;"><?= _T("Share user's homes"); ?></td>
-<td><input name="homes" type="checkbox" <?php if ($smb["homes"]) { echo "checked"; } ?> /></td></tr>
-<tr><td style="text-align : right;"><?= _T("Domain name"); ?></td>
-<td><input name="workgroup" type="text" class="textfield" id="newPrinterName" size="23" value="<?php echo $smb["workgroup"]; ?>" /></td></tr>
-<tr><td style="text-align : right;"><?= _T("Server name"); ?></td>
-<td><input name="netbios name" type="text" class="textfield" id="newPrinterName" size="23" value="<?php echo $smb["netbios name"]; ?>" /></td></tr>
 
-</table>
-
-<div id="expertMode" <?displayExpertCss();?>>
-<table cellspacing="0">
-<?php
+$f->push(new DivExpertMode());
+$f->push(new Table());
+if ($smb["ldap passwd sync"]) $value = "CHECKED";
+else $value = "";
+$f->add(
+        new TrFormElement(_T("LDAP password sync"), new CheckboxTpl("ldap passwd sync")),
+        array("value" =>  $value)
+        );
 $d = array(_T("User profile path") => "logon path",
            _T("Opening script session") => "logon script",
            _T("Base directory path") => "logon home",
            _T("Connect base directory on network drive") => "logon drive");
 
 foreach ($d as $description => $field) {
-    $test = new TrFormElement($description,
-                              new InputTpl($field));
-    $test->setCssError($field);
-    $test->display(array("value"=>$smb[$field]));
+    $f->add(
+            new TrFormElement($description, new IA5InputTpl($field)),
+            array("value"=>$smb[$field])
+            );
 }
+$f->pop();
+$f->pop();
+
+$f->addExpertButton("brestart", _T("Restart SAMBA"));
+$f->addValidateButton("bsave");
+
+$f->display();
+
 ?>
-</table>
-</div>
-
-<input name="bsave" type="submit" class="btnPrimary" value="<?= _T("Confirm"); ?>" />
-<input name="bcancel" type="submit" class="btnSecondary" value="<?= _T("Back"); ?>" />
-
-<?php
-if (isset($_POST["bsave"]))
-{
-    echo $result;
-}
-?>
-
-</form>
-
-<form method="post" action="main.php?module=samba&submod=config&action=restart">
-<input name="goto" type="hidden" value="<?php echo $root; ?>main.php" />
-<input name="brestart" type="submit" class="btnPrimary" value="<?= _T("Restart SAMBA"); ?>" />
-</form>

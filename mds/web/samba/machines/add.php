@@ -23,22 +23,9 @@
  */
 
 require("modules/samba/includes/machines.inc.php");
+require("modules/samba/includes/samba.inc.php");
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
-
-/**
- * Input with a check for NetBIOS name validity in a DNS zone.
- * The accepted NetBIOS name are 15 ASCII characters length.
- * We accept a-z, 0-9 and -, and the length must be greater than two
- * characters.
- */
-class NetbiosInputTpl extends InputTpl {
-
-    function NetbiosInputTpl($name) {
-        $this->InputTpl($name, '/^[a-z][0-9a-z-]{2,14}$/');
-    }
-
-}
 
 if (isset($_POST["baddmach"])) {
     $machine = $_POST["machine"];
