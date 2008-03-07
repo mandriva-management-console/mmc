@@ -32,9 +32,9 @@ if (isset($_POST["bgo"])) {
     if (!isXMLRPCError()) {
         $str = "<h2>"._T("Share backup")."</h2>";
         $str .= '<p>';
-        $str .= sprintf(_T("Backup of share <b>%s</b> has been launched as a background job."), $share);
+        $str .= sprintf(_T("Backup of share <b>%s</b> has been launched in background."), $share);
         $str .= "</p><p>";
-        $str .= "Please go to the status page to see the operation completion.";
+        $str .= _T("Please go to the status page to check the backup status.");
         $str .= "</p><p>";
         $str .= _T("This operation will last according to the amount of data to backup.");
         $str .= "</p>";
