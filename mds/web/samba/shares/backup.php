@@ -21,18 +21,18 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
 
 require("modules/samba/includes/shares.inc.php");
 
 if (isset($_POST["bgo"])) {
     $share = $_POST["share"];
-    sched_backup($share, $_POST["media"]);
+    $backuppath = sched_backup($share, $_POST["media"]);
     if (!isXMLRPCError()) {
         $str = "<h2>"._T("Share backup")."</h2>";
         $str .= '<p>';
         $str .= sprintf(_T("Backup of share <b>%s</b> has been launched in background."), $share);
+        $str .= "</p><p>";
+        $str .= sprintf(_("The files will be stored in the directory %s of the server at the end of the backup."), $backuppath);
         $str .= "</p><p>";
         $str .= _T("Please go to the status page to check the backup status.");
         $str .= "</p><p>";

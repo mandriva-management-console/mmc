@@ -89,7 +89,7 @@ function mod_share($name, $path, $comment, $usergroups, $permAll, $admingroups, 
 
 function sched_backup($share, $media) {
     $param = array($share, $media, $_SESSION["login"]);
-    xmlCall("samba.backupShare", $param);
+    return xmlCall("samba.backupShare", $param);
 }
 
 function getDomainAdminsGroup() {
