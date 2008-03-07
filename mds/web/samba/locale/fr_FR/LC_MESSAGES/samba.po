@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 17:37+0100\n"
-"PO-Revision-Date: 2008-02-21 17:39+0100\n"
-"Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
+"POT-Creation-Date: 2008-03-07 15:23+0100\n"
+"PO-Revision-Date: 2008-03-07 15:26+0100\n"
+"Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,11 +60,7 @@ msgstr "Connecté à"
 msgid "No connections"
 msgstr "Aucune connexion"
 
-#: samba/config/restart.php:56 samba/config/restart.php:77
-msgid "Restart server"
-msgstr "Redémarrer le serveur"
-
-#: samba/config/restart.php:85
+#: samba/config/restart.php:26
 msgid ""
 "Your Samba server is being restarted... You can see progress on the default "
 "status page."
@@ -72,55 +68,51 @@ msgstr ""
 "Votre serveur Samba est en train d'être redémarrer. Vous pouvez voir la "
 "progression sur la page de statut."
 
-#: samba/config/index.php:54
+#: samba/config/index.php:51
 msgid "Configuration saved"
 msgstr "Configuration sauvegardée"
 
-#: samba/config/index.php:68 samba/mainSidebar.php:41
+#: samba/config/index.php:64 samba/mainSidebar.php:41
 msgid "General options"
 msgstr "Options générales"
 
-#: samba/config/index.php:88
+#: samba/config/index.php:83
 msgid "This server is a PDC"
 msgstr "Ce serveur est un PDC"
 
-#: samba/config/index.php:90
+#: samba/config/index.php:89
 msgid "Share user's homes"
 msgstr "Partage des répertoires utilisateurs"
 
-#: samba/config/index.php:92
+#: samba/config/index.php:93
 msgid "Domain name"
 msgstr "Nom du domaine"
 
-#: samba/config/index.php:94
+#: samba/config/index.php:97
 msgid "Server name"
 msgstr "Nom du serveur"
 
-#: samba/config/index.php:102 samba/includes/publicFunc.php:239
+#: samba/config/index.php:108
+msgid "LDAP password sync"
+msgstr "Synchronisation du mot de passe LDAP"
+
+#: samba/config/index.php:111 samba/includes/publicFunc.php:239
 msgid "User profile path"
 msgstr "Chemin du profil utilisateur"
 
-#: samba/config/index.php:103 samba/includes/publicFunc.php:240
+#: samba/config/index.php:112 samba/includes/publicFunc.php:240
 msgid "Opening script session"
 msgstr "Script d'ouverture de session"
 
-#: samba/config/index.php:104 samba/includes/publicFunc.php:241
+#: samba/config/index.php:113 samba/includes/publicFunc.php:241
 msgid "Base directory path"
 msgstr "Chemin du répertoire de base"
 
-#: samba/config/index.php:105 samba/includes/publicFunc.php:242
+#: samba/config/index.php:114 samba/includes/publicFunc.php:242
 msgid "Connect base directory on network drive"
 msgstr "Connexion du répertoire de base sur le lecteur réseau"
 
-#: samba/config/index.php:117 samba/shares/details.php:253
-msgid "Confirm"
-msgstr "Valider"
-
-#: samba/config/index.php:118
-msgid "Back"
-msgstr "Retour"
-
-#: samba/config/index.php:131
+#: samba/config/index.php:126
 msgid "Restart SAMBA"
 msgstr "Redémarrer SAMBA"
 
@@ -162,7 +154,7 @@ msgid "Computers management"
 msgstr "Gestion des machines"
 
 #: samba/shares/localSidebar.php:37 samba/machines/localSidebar.php:31
-#: samba/machines/add.php:50 samba/mainSidebar.php:36
+#: samba/machines/add.php:41 samba/mainSidebar.php:36
 #: samba/infoPackage.inc.php:83
 msgid "Add a computer"
 msgstr "Ajouter une machine"
@@ -212,7 +204,7 @@ msgstr "Partage %s ajouté"
 msgid "Share %s successfully modified"
 msgstr "Partage %s modifié"
 
-#: samba/shares/details.php:106
+#: samba/shares/details.php:101
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
@@ -220,37 +212,41 @@ msgstr ""
 "Le partage ne peut contenir que des lettres (majuscules, minuscules) et des "
 "chiffres, et il doit commencer par une lettre."
 
-#: samba/shares/details.php:124
+#: samba/shares/details.php:119
 msgid "Name"
 msgstr "Nom"
 
-#: samba/shares/details.php:129 samba/machines/add.php:62
+#: samba/shares/details.php:124 samba/machines/add.php:53
 msgid "Comment"
 msgstr "Commentaire"
 
-#: samba/shares/details.php:140
+#: samba/shares/details.php:135
 msgid "AntiVirus on this share"
 msgstr "Antivirus sur ce partage"
 
-#: samba/shares/details.php:169
+#: samba/shares/details.php:164
 msgid "This share is visible on the domain"
 msgstr "Le partage est visible sur le domaine"
 
-#: samba/shares/details.php:182
+#: samba/shares/details.php:177
 msgid "Permissions"
 msgstr "Permissions"
 
-#: samba/shares/details.php:194
+#: samba/shares/details.php:189
 msgid "Access for all"
 msgstr "Accès pour tous"
 
-#: samba/shares/details.php:231
+#: samba/shares/details.php:226
 msgid "Administrator groups for this share"
 msgstr "Groupes administrateur de ce partage"
 
-#: samba/shares/details.php:250
+#: samba/shares/details.php:245
 msgid "Create"
 msgstr "Créer"
+
+#: samba/shares/details.php:248
+msgid "Confirm"
+msgstr "Valider"
 
 #: samba/shares/index.php:47
 msgid "Edit"
@@ -266,7 +262,11 @@ msgstr "Supprimer"
 msgid "Shares"
 msgstr "Partages"
 
-#: samba/shares/index.php:64
+#: samba/shares/index.php:61 samba/machines/ajaxFilter.php:40
+msgid "Description"
+msgstr "Description"
+
+#: samba/shares/index.php:65
 msgid "Archive"
 msgstr "Archive"
 
@@ -367,13 +367,17 @@ msgstr ""
 "<ul> \t\t<li>Supprimer ce partage avant de le recréer.</li> \t"
 "\t<li>Choisissez un autre nom de partage.</li> </ul>"
 
-#: samba/machines/ajaxFilter.php:36 samba/machines/add.php:60
+#: samba/includes/errorHandling.php:35
+msgid "The share directory does not exist."
+msgstr "Le répertoire de ce partage n'existe pas."
+
+#: samba/includes/errorHandling.php:36
+msgid "Please delete this share, and then create it again."
+msgstr "Veuillez supprimer puis créer à nouveau ce partage."
+
+#: samba/machines/ajaxFilter.php:36 samba/machines/add.php:49
 msgid "Computer name"
 msgstr "Nom de la machine"
-
-#: samba/machines/ajaxFilter.php:40
-msgid "Description"
-msgstr "Description"
 
 #: samba/machines/delete.php:36
 #, php-format
@@ -389,21 +393,18 @@ msgstr "Supprimer une machine"
 msgid "You will delete the %s computer"
 msgstr "Vous allez supprimer la machine <b>%s</b>"
 
-#: samba/machines/add.php:34
-msgid "Invalid computer name"
-msgstr "Nom de machine invalide"
+#: samba/machines/add.php:36
+#, php-format
+msgid "Computer %s successfully added"
+msgstr "Ordinateur %s ajouté"
 
-#: samba/machines/add.php:56
+#: samba/machines/add.php:46
 msgid ""
 "The computer name can only contains letters lowercase and numbers, and must "
 "begin with a letter."
 msgstr ""
 "Le nom de la machine ne peut contenir que des lettres en minuscules et des "
 "nombres et doit commencer par une lettre."
-
-#: samba/machines/add.php:66 samba/views/groups.tpl.php:138
-msgid "Add"
-msgstr "Ajouter"
 
 #: samba/views/groups.tpl.php:26
 msgid "Groups"
@@ -416,6 +417,10 @@ msgstr "Ce groupe n'existe pas"
 #: samba/views/groups.tpl.php:129
 msgid "Add a new group"
 msgstr "Ajouter un nouveau groupe"
+
+#: samba/views/groups.tpl.php:138
+msgid "Add"
+msgstr "Ajouter"
 
 #: samba/mainSidebar.php:29 samba/infoPackage.inc.php:45
 msgid "List shares"
