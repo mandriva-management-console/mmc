@@ -31,10 +31,10 @@
 require_once("modules/mail/includes/mail-xmlrpc.php");
 
 $mod = new Module("mail");
-$mod->setVersion("2.2.0");
+$mod->setVersion("2.3.0");
 $mod->setRevision("$Rev$");
 $mod->setDescription(_T("Mail service","mail"));
-$mod->setAPIVersion("5:1:3");
+$mod->setAPIVersion("6:0:4");
 $mod->setPriority(600);
 
 $mod->addACL("mailaccess", _T("Mail access","mail"));
