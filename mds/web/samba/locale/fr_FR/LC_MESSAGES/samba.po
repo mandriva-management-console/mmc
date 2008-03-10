@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-07 15:23+0100\n"
-"PO-Revision-Date: 2008-03-07 15:26+0100\n"
+"POT-Creation-Date: 2008-03-10 09:05+0100\n"
+"PO-Revision-Date: 2008-03-10 09:06+0100\n"
 "Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -160,6 +160,7 @@ msgid "Add a computer"
 msgstr "Ajouter une machine"
 
 #: samba/shares/backup.php:33 samba/shares/backup.php:48
+#: samba/shares/backup.php:31
 msgid "Share backup"
 msgstr "Sauvegarde d'un partage"
 
@@ -481,3 +482,19 @@ msgstr "Verrouillage/Déverrouillage du compte"
 #: samba/infoPackage.inc.php:128
 msgid "SAMBA status"
 msgstr "Statut SAMBA"
+
+#: samba/shares/backup.php:33
+#, php-format
+msgid "Backup of share <b>%s</b> has been launched in background."
+msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
+
+#: samba/shares/backup.php:35
+#, php-format
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the "
+"backup."
+msgstr "Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la sauvegarde."
+
+#: samba/shares/backup.php:37
+msgid "Please go to the status page to check the backup status."
+msgstr "Veuillez consulter la page de statut pour vérifier le processus de sauvegarde."
