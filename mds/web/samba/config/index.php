@@ -25,10 +25,12 @@
 require("modules/samba/includes/shares.inc.php");
 require("modules/samba/includes/samba.inc.php");
 
-if (isset($_POST["brestart"]))
-{
+if (isset($_POST["brestart"])) {
     header("Location: " . urlStrRedirect("samba/config/restart"));
     exit;
+} else if (isset($_POST["breload"])) {
+    header("Location: " . urlStrRedirect("samba/config/reload"));
+    exit;    
 }
 
 function get_smbconf() {
@@ -63,7 +65,7 @@ function getCheckedState($smb, $option) {
 if (isset($_POST["bsave"])) {
     $result = save_smbconf();
     if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to restart SAMBA."), $shareName));
+        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service."), $shareName));
     }
 }
 
@@ -76,7 +78,6 @@ $p->display();
 
 $smb = get_smbconf();
 
-print_r($smb);
 $f = new ValidatingForm();
 $f->push(new Table());
 if ($smb["pdc"]) $value = "CHECKED";
@@ -128,6 +129,7 @@ $f->pop();
 
 $f->addValidateButton("bsave");
 $f->addExpertButton("brestart", _T("Restart SAMBA"));
+$f->addExpertButton("breload", _T("Reload SAMBA configuration"));
 
 $f->display();
 

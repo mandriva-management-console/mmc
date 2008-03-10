@@ -108,6 +108,10 @@ $page = new Page("restart",_T("restart SAMBA service","samba"));
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("reload",_T("Reload SAMBA service","samba"));
+$page->setOptions(array("visible"=>False));
+$submod->addPage($page);
+
 $mod->addSubmod($submod);
 
 /**
