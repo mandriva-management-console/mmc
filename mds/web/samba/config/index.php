@@ -51,11 +51,20 @@ function save_smbconf() {
     return _T("Configuration saved");
 }
 
+function getCheckedState($smb, $option) {
+    $ret = "";
+    if (isset($smb["ldap passwd sync"])) {
+        if (strtolower($smb[$option]) == "yes") 
+            $ret = "CHECKED";
+        }
+    return $ret;
+}
+
 if (isset($_POST["bsave"])) {
     $result = save_smbconf();
-
-    // re-read the config, now that it's been changed
-    $pdc = xmlCall("samba.isPdc");
+    if (!isXMLRPCError()) {
+        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to restart SAMBA."), $shareName));
+    }
 }
 
 require("modules/samba/mainSidebar.php");
@@ -65,16 +74,9 @@ $p = new PageGenerator(_T("General options"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
-if (!isset($_POST["bsave"])) {
-    $smb = get_smbconf();
-    if ($smb["error"]) {
-	echo $smb["error"];
-    }
-} else {
-    foreach (array("pdc", "homes", "workgroup", "netbios name", "logon script", "logon path", "logon drive", "logon home", "ldap passwd sync") as $value)
-        $smb[$value] = $_POST[$value];
-}
+$smb = get_smbconf();
 
+print_r($smb);
 $f = new ValidatingForm();
 $f->push(new Table());
 if ($smb["pdc"]) $value = "CHECKED";
@@ -82,6 +84,10 @@ else $value = "";
 $f->add(
         new TrFormElement(_T("This server is a PDC"),new CheckboxTpl("pdc")),
         array("value" => $value)
+        );
+$f->add(
+        new TrFormElement(_T("This server is a WINS server"),new CheckboxTpl("wins support")),
+        array("value" => getCheckedState($smb, "wins support"))
         );
 if ($smb["homes"]) $value = "CHECKED";
 else $value = "";
@@ -102,11 +108,9 @@ $f->pop();
 
 $f->push(new DivExpertMode());
 $f->push(new Table());
-if ($smb["ldap passwd sync"]) $value = "CHECKED";
-else $value = "";
 $f->add(
         new TrFormElement(_T("LDAP password sync"), new CheckboxTpl("ldap passwd sync")),
-        array("value" =>  $value)
+        array("value" => getCheckedState($smb, "ldap passwd sync"))
         );
 $d = array(_T("User profile path") => "logon path",
            _T("Opening script session") => "logon script",
