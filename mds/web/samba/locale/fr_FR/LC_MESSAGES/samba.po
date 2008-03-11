@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-10 09:05+0100\n"
-"PO-Revision-Date: 2008-03-10 09:06+0100\n"
+"POT-Creation-Date: 2008-03-11 08:57+0100\n"
+"PO-Revision-Date: 2008-03-11 09:05+0100\n"
 "Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,60 +61,74 @@ msgid "No connections"
 msgstr "Aucune connexion"
 
 #: samba/config/restart.php:26
-msgid ""
-"Your Samba server is being restarted... You can see progress on the default "
-"status page."
-msgstr ""
-"Votre serveur Samba est en train d'être redémarrer. Vous pouvez voir la "
-"progression sur la page de statut."
+msgid "The SAMBA service has been asked to restart."
+msgstr "Il a été demandé au service SAMBA de redémarrer."
 
-#: samba/config/index.php:51
+#: samba/config/index.php:53
 msgid "Configuration saved"
 msgstr "Configuration sauvegardée"
 
-#: samba/config/index.php:64 samba/mainSidebar.php:41
+#: samba/config/index.php:68
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr "Configuration de SAMBA sauvegardée. Il peut être nécessaire de recharger ou de redémarrer le service SAMBA."
+
+#: samba/config/index.php:75 samba/mainSidebar.php:41
 msgid "General options"
 msgstr "Options générales"
 
-#: samba/config/index.php:83
+#: samba/config/index.php:86
 msgid "This server is a PDC"
 msgstr "Ce serveur est un PDC"
 
-#: samba/config/index.php:89
+#: samba/config/index.php:90
+msgid "This server is a WINS server"
+msgstr "Ce serveur est un serveur WINS"
+
+#: samba/config/index.php:96
 msgid "Share user's homes"
 msgstr "Partage des répertoires utilisateurs"
 
-#: samba/config/index.php:93
+#: samba/config/index.php:100
 msgid "Domain name"
 msgstr "Nom du domaine"
 
-#: samba/config/index.php:97
+#: samba/config/index.php:104
 msgid "Server name"
 msgstr "Nom du serveur"
 
-#: samba/config/index.php:108
+#: samba/config/index.php:113
 msgid "LDAP password sync"
 msgstr "Synchronisation du mot de passe LDAP"
 
-#: samba/config/index.php:111 samba/includes/publicFunc.php:239
+#: samba/config/index.php:116 samba/includes/publicFunc.php:239
 msgid "User profile path"
 msgstr "Chemin du profil utilisateur"
 
-#: samba/config/index.php:112 samba/includes/publicFunc.php:240
+#: samba/config/index.php:117 samba/includes/publicFunc.php:240
 msgid "Opening script session"
 msgstr "Script d'ouverture de session"
 
-#: samba/config/index.php:113 samba/includes/publicFunc.php:241
+#: samba/config/index.php:118 samba/includes/publicFunc.php:241
 msgid "Base directory path"
 msgstr "Chemin du répertoire de base"
 
-#: samba/config/index.php:114 samba/includes/publicFunc.php:242
+#: samba/config/index.php:119 samba/includes/publicFunc.php:242
 msgid "Connect base directory on network drive"
 msgstr "Connexion du répertoire de base sur le lecteur réseau"
 
-#: samba/config/index.php:126
+#: samba/config/index.php:131
 msgid "Restart SAMBA"
 msgstr "Redémarrer SAMBA"
+
+#: samba/config/index.php:132
+msgid "Reload SAMBA configuration"
+msgstr "Recharger SAMBA"
+
+#: samba/config/reload.php:26
+msgid "The SAMBA service has been asked to reload its configuration file."
+msgstr "Il a été demandé au service SAMBA de relire sa configuration."
 
 #: samba/shares/delete.php:34
 #, php-format
@@ -159,15 +173,29 @@ msgstr "Gestion des machines"
 msgid "Add a computer"
 msgstr "Ajouter une machine"
 
-#: samba/shares/backup.php:33 samba/shares/backup.php:48
-#: samba/shares/backup.php:31
+#: samba/shares/backup.php:31 samba/shares/backup.php:48
 msgid "Share backup"
 msgstr "Sauvegarde d'un partage"
 
+#: samba/shares/backup.php:33
+#, php-format
+msgid "Backup of share <b>%s</b> has been launched in background."
+msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
+
 #: samba/shares/backup.php:35
 #, php-format
-msgid "Backup of share <b>%s</b> has been launched as a background job."
-msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the "
+"backup."
+msgstr ""
+"Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la "
+"sauvegarde."
+
+#: samba/shares/backup.php:37
+msgid "Please go to the status page to check the backup status."
+msgstr ""
+"Veuillez consulter la page de statut pour vérifier le processus de "
+"sauvegarde."
 
 #: samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
@@ -467,34 +495,22 @@ msgstr "Configuration de SAMBA"
 msgid "restart SAMBA service"
 msgstr "Redémarrer le service SAMBA"
 
-#: samba/infoPackage.inc.php:116
+#: samba/infoPackage.inc.php:111
+msgid "Reload SAMBA service"
+msgstr "Recharger le service SAMBA"
+
+#: samba/infoPackage.inc.php:120
 msgid "Add/delete SAMBA's attributes"
 msgstr "Ajout/Suppression des attributs SAMBA"
 
-#: samba/infoPackage.inc.php:117
+#: samba/infoPackage.inc.php:121
 msgid "Enable/Disable account"
 msgstr "Activation/Désactivation du compte"
 
-#: samba/infoPackage.inc.php:118
+#: samba/infoPackage.inc.php:122
 msgid "Lock/Unlock account"
 msgstr "Verrouillage/Déverrouillage du compte"
 
-#: samba/infoPackage.inc.php:128
+#: samba/infoPackage.inc.php:132
 msgid "SAMBA status"
 msgstr "Statut SAMBA"
-
-#: samba/shares/backup.php:33
-#, php-format
-msgid "Backup of share <b>%s</b> has been launched in background."
-msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
-
-#: samba/shares/backup.php:35
-#, php-format
-msgid ""
-"The files will be stored in the directory %s of the server at the end of the "
-"backup."
-msgstr "Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la sauvegarde."
-
-#: samba/shares/backup.php:37
-msgid "Please go to the status page to check the backup status."
-msgstr "Veuillez consulter la page de statut pour vérifier le processus de sauvegarde."
