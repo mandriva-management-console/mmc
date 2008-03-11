@@ -41,6 +41,8 @@ if (isset($_POST["bcreate"])) {
     
     if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9]*$/", $shareName))) {
 	new NotifyWidgetFailure(_T("Invalid share name"));
+    } else if (!isAuthorizedSharePath($sharePath)) {
+        new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
     } else {
         add_share($shareName, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
 	if (!isXMLRPCError()) {

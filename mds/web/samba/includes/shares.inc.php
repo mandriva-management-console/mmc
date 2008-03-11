@@ -96,4 +96,8 @@ function getDomainAdminsGroup() {
     return xmlCall("samba.getDomainAdminsGroup", null);
 }
 
+function isAuthorizedSharePath($path) {
+    return xmlCall("samba.isAuthorizedSharePath", $path);
+}
+
 ?>
