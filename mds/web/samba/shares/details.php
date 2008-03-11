@@ -40,15 +40,22 @@ if (isset($_POST["bcreate"])) {
     else $browseable = 0;
     
     if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9]*$/", $shareName))) {
-	new NotifyWidgetFailure(_T("Invalid share name"));
-    } else if (!isAuthorizedSharePath($sharePath)) {
-        new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
+	new NotifyWidgetFailure(_T("Invalid share name")); 
     } else {
-        add_share($shareName, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
-	if (!isXMLRPCError()) {
-	    new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
-	    header("Location: " . urlStrRedirect("samba/shares/index" ));
-	}
+        $add = True;
+        if (strlen($sharePath)) {
+            if (!isAuthorizedSharePath($sharePath)) {
+                new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
+                $add = False;
+            }
+        }
+        if ($add) {
+            add_share($shareName, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+            if (!isXMLRPCError()) {
+                new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
+                header("Location: " . urlStrRedirect("samba/shares/index" ));
+            }
+        }
     }
 }
 
