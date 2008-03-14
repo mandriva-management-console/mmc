@@ -3,7 +3,7 @@
 "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <article class="whitepaper">
 
-  <title>How to translate the MMC web interface</title>
+  <title>How to translate the MDS web interface</title>
 
   <subtitle>Informational / Draft</subtitle>
 
@@ -20,7 +20,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2007-2008 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -55,8 +55,27 @@
 
   <section>
 
-    <title>How to translate the MMC</title>
+    <title>How to translate the MDS (easy)</title>
     
+    <para>
+      Connect to <ulink url="http://mds.mandriva.org/custom/mmc-i18n.php">the MDS translation status page</ulink> and download the .po file corresponding to your language and the module you want to translate. If your language is not listed, download the template file available at the beginning of the status page.
+    </para>
+    <para>
+      You can then start to translate the file with applications like <ulink url="http://www.poedit.net">poedit</ulink> or kbabel.
+    </para>
+    <para>
+      Once finished, send the file to the MDS i18n or the MDS devel <ulink url="http://mds.mandriva.org/wiki/MailingLists">mailing list</ulink>, and we will integrate your work.
+    </para>
+    
+  </section>
+
+  <section>
+
+    <title>How to translate the MDS (harder)</title>
+
+    <para>
+      This section is for people with some development background. The translation process is harder, but it will allow you to display and test your translations in the MMC web interface.
+    </para>    
     <para>
     The MMC web interface uses the PHP gettext library to provide a multilanguage experience.</para>
     <para>
