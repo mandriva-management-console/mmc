@@ -6,16 +6,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: traducción módulo samba LDS\n"
+"Project-Id-Version: MDS spanish translation - Samba module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-27 10:31+0100\n"
-"PO-Revision-Date: 2008-03-27 10:33+0100\n"
+"POT-Creation-Date: 2008-03-27 15:21+0100\n"
+"PO-Revision-Date: 2008-03-27 13:59+0100\n"
 "Last-Translator: Juan Asensio Sánchez <okelet@gmail.com>\n"
-"Language-Team: Aitire <info@aitire.es>\n"
+"Language-Team: Aitire / Juan Asensio Sánchez <info@aitire.es / okelet@gmail."
+"com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: samba/status/index.php:30
 msgid "Samba status"
@@ -64,11 +68,11 @@ msgstr "No hay conexiones"
 
 #: samba/config/restart.php:26
 msgid "The SAMBA service has been asked to restart."
-msgstr ""
+msgstr "Se ha solicitado el reinicio del servicio de Samba."
 
 #: samba/config/reload.php:26
 msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr ""
+msgstr "Se ha solicitado la recarga del archivo de configuración de Samba."
 
 #: samba/config/index.php:53
 msgid "Configuration saved"
@@ -79,6 +83,8 @@ msgid ""
 "SAMBA configuration saved. You may need to reload or restart the SAMBA "
 "service."
 msgstr ""
+"La configuración de Samba ha sido guardada. Puede que necesite recargar o "
+"reiniciar el servicio de Samba."
 
 #: samba/config/index.php:75 samba/mainSidebar.php:41
 msgid "General options"
@@ -89,9 +95,8 @@ msgid "This server is a PDC"
 msgstr "Este servidor es un PDC"
 
 #: samba/config/index.php:90
-#, fuzzy
 msgid "This server is a WINS server"
-msgstr "Este servidor es un PDC"
+msgstr "Éste es un servidor WINDS"
 
 #: samba/config/index.php:96
 msgid "Share user's homes"
@@ -107,7 +112,7 @@ msgstr "Nombre del servidor"
 
 #: samba/config/index.php:113
 msgid "LDAP password sync"
-msgstr ""
+msgstr "Sincronización de contraseñas LDAP"
 
 #: samba/config/index.php:116 samba/includes/publicFunc.php:239
 msgid "User profile path"
@@ -130,9 +135,8 @@ msgid "Restart SAMBA"
 msgstr "Reiniciar SAMBA"
 
 #: samba/config/index.php:132
-#, fuzzy
 msgid "Reload SAMBA configuration"
-msgstr "Configuración de SAMBA"
+msgstr "Recargar configuración de SAMBA"
 
 #: samba/shares/delete.php:34
 #, php-format
@@ -182,11 +186,11 @@ msgid "Share backup"
 msgstr "Copia de seguridad de un recurso"
 
 #: samba/shares/backup.php:33
-#, fuzzy, php-format
+#, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr ""
-"La copia de seguridad del recurso <b>%s</b> ha sido lanzada como trabajo en "
-"segundo plano."
+"La copia de seguridad de la carpeta compartida <b>%s</b> ha sido lanzada "
+"como trabajo en segundo plano."
 
 #: samba/shares/backup.php:35
 #, php-format
@@ -194,10 +198,14 @@ msgid ""
 "The files will be stored in the directory %s of the server at the end of the "
 "backup."
 msgstr ""
+"Los archivos serán almacenados en el directorio %s del servidor al final de "
+"la copia de seguridad."
 
 #: samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
 msgstr ""
+"Por favor, acceda a la página de estado para comprobar el estado de la copia "
+"de seguridad."
 
 #: samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
@@ -228,6 +236,7 @@ msgstr "Nombre de recurso inválido"
 #: samba/shares/details.php:48
 msgid "The share path is not authorized by configuration"
 msgstr ""
+"La ruta a la carpeta compartida no está autorizada por la configuración"
 
 #: samba/shares/details.php:55
 #, php-format
@@ -285,7 +294,7 @@ msgstr "Confirmar"
 
 #: samba/shares/index.php:47
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: samba/shares/index.php:48 samba/machines/ajaxFilter.php:41
 #: samba/views/groups.tpl.php:125
@@ -298,9 +307,8 @@ msgid "Shares"
 msgstr "Recursos"
 
 #: samba/shares/index.php:61 samba/machines/ajaxFilter.php:40
-#, fuzzy
 msgid "Description"
-msgstr "Script de inicio de sesión"
+msgstr "Descripción"
 
 #: samba/shares/index.php:65
 msgid "Archive"
@@ -406,13 +414,13 @@ msgstr ""
 "\t<li>Escoja otro nombre para el recurso.</li> </ul>"
 
 #: samba/includes/errorHandling.php:35
-#, fuzzy
 msgid "The share directory does not exist."
-msgstr "Este recurso no existe"
+msgstr "El directorio de esta carpeta de inicio no existe."
 
 #: samba/includes/errorHandling.php:36
 msgid "Please delete this share, and then create it again."
 msgstr ""
+"Por favor, elimine esta carpeta compartida, y después vuelva a crearla."
 
 #: samba/machines/ajaxFilter.php:36 samba/machines/add.php:49
 msgid "Computer name"
@@ -433,9 +441,9 @@ msgid "You will delete the %s computer"
 msgstr "Se va a eliminar el equipo %s"
 
 #: samba/machines/add.php:36
-#, fuzzy, php-format
+#, php-format
 msgid "Computer %s successfully added"
-msgstr "Recurso %s añadido correctamente"
+msgstr "El equipo %s ha sido añadido correctamente."
 
 #: samba/machines/add.php:46
 msgid ""
@@ -506,9 +514,8 @@ msgid "restart SAMBA service"
 msgstr "Reiniciar el servicio SAMBA"
 
 #: samba/infoPackage.inc.php:111
-#, fuzzy
 msgid "Reload SAMBA service"
-msgstr "Servicio SAMBA"
+msgstr "Recargar servicio de SAMBA"
 
 #: samba/infoPackage.inc.php:120
 msgid "Add/delete SAMBA's attributes"
