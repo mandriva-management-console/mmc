@@ -1,196 +1,210 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-27 10:36+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Asensio Sánchez <okelet@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 #: mail/mail/ajaxFilter.php:27
 msgid "Login"
-msgstr ""
+msgstr "Identificación"
 
 #: mail/mail/ajaxFilter.php:30
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: mail/mail/ajaxFilter.php:31
 msgid "Mail address"
-msgstr ""
+msgstr "Dirección"
 
 #: mail/mail/ajaxFilter.php:32
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: mail/mail/members.php:33
 msgid "Members of "
-msgstr ""
+msgstr "Miembros de"
 
 #: mail/mail/ajaxDomainFilter.php:22 mail/mail/ajaxDomainFilter.php:28
 #: mail/mail/edit.php:96
 msgid "Mail domain"
-msgstr ""
+msgstr "Dominio de correo"
 
 #: mail/mail/ajaxDomainFilter.php:27 mail/mail/edit.php:101
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: mail/mail/ajaxDomainFilter.php:30
 msgid "View domain members"
-msgstr ""
+msgstr "Ver miembros del dominio"
 
 #: mail/mail/ajaxDomainFilter.php:31
 msgid "Edit domain"
-msgstr ""
+msgstr "Editar dominio"
 
 #: mail/mail/ajaxDomainFilter.php:32 mail/mail/delete.php:54
 msgid "Delete domain"
-msgstr ""
+msgstr "Eliminar dominio"
 
 #: mail/mail/delete.php:37
 msgid "The mail domain has been deleted."
-msgstr ""
+msgstr "El dominio de correo ha sido eliminado."
 
 #: mail/mail/delete.php:49
 msgid "You will delete the virtual mail domain "
-msgstr ""
+msgstr "Va a borrar el dominio de correo virtual"
 
 #: mail/mail/delete.php:55
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: mail/mail/localSidebar.php:6 mail/mail/index.php:32
 #: mail/infoPackage.inc.php:57
 msgid "Mail domain list"
-msgstr ""
+msgstr "Lista de dominio de correo"
 
 #: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:60
 msgid "Add a domain"
-msgstr ""
+msgstr "Añadir dominio"
 
 #: mail/mail/edit.php:30
 msgid "Add a mail domain"
-msgstr ""
+msgstr "Añadir dominio de correo"
 
 #: mail/mail/edit.php:32
 msgid "Edit mail domain"
-msgstr ""
+msgstr "Editar dominio de correo"
 
 #: mail/mail/edit.php:49
 msgid "Invalid domain name"
-msgstr ""
+msgstr "Nombre de dominio no válido"
 
 #: mail/mail/edit.php:55
 msgid "The mail domain has been added."
-msgstr ""
+msgstr "El dominio de correo ha sido añadido."
 
 #: mail/mail/edit.php:68
 msgid "The mail domain has been modified."
-msgstr ""
+msgstr "El dominio de correo ha sido modificado."
 
 #: mail/mail/edit.php:71
 msgid " The quota of all users of this mail domain have been reset."
-msgstr ""
+msgstr "La cuota de todos los usuarios de este dominio ha sido reseteada."
 
 #: mail/mail/edit.php:106
 msgid "Default mail quota for users created in this domain (in kB)"
-msgstr ""
+msgstr "Cota por defecto para los usuarios creados en este dominio (en kB)"
 
 #: mail/mail/edit.php:112
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: mail/mail/edit.php:114
 msgid "Reset users quota to default"
-msgstr ""
+msgstr "Resetear la cuota de los usuarios a la cuota por defecto"
 
 #: mail/mail/edit.php:115
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmar"
 
 #: mail/includes/mail.inc.php:41 mail/includes/mail.inc.php:51
 msgid "Unlimited quota"
-msgstr ""
+msgstr "Cuota ilimitada"
 
 #: mail/includes/publicFunc.php:33 mail/includes/publicFunc.php:133
 msgid "Mail plugin"
-msgstr ""
+msgstr "Complemento de correo"
 
 #: mail/includes/publicFunc.php:54
 msgid "No mail alias can be set for this group"
-msgstr ""
+msgstr "Nose pueden establecer alias de correo para los usuarios de este grupo"
 
 #: mail/includes/publicFunc.php:57
 msgid "Enable mail alias for users of this group "
-msgstr ""
+msgstr "Habilitar alias de correo para los usuarios de este grupo"
 
 #: mail/includes/publicFunc.php:69 mail/includes/publicFunc.php:72
 #: mail/includes/publicFunc.php:190 mail/includes/publicFunc.php:193
 msgid "Mail alias"
-msgstr ""
+msgstr "Alias de correo"
 
 #: mail/includes/publicFunc.php:149 mail/infoPackage.inc.php:40
 msgid "Mail access"
-msgstr ""
+msgstr "Acceso al correo"
 
 #: mail/includes/publicFunc.php:169
 msgid "Mail delivery is disabled, if checked"
-msgstr ""
+msgstr "Entrega de correo deshabilitada, si activado"
 
 #: mail/includes/publicFunc.php:173
 msgid "Mail quota (in kB)"
-msgstr ""
+msgstr "Cuota de correo (in kB)"
 
 #: mail/includes/publicFunc.php:179 mail/infoPackage.inc.php:50
 msgid "Forward to"
-msgstr ""
+msgstr "Reenviar a"
 
 #: mail/includes/publicFunc.php:183 mail/includes/publicFunc.php:187
 #: mail/infoPackage.inc.php:97
 msgid "Mail drop"
-msgstr ""
+msgstr "Eliminar mensaje"
 
 #: mail/includes/publicFunc.php:201 mail/infoPackage.inc.php:43
 msgid "Mail delivery path"
-msgstr ""
+msgstr "Ruta de entrega de correo"
 
 #: mail/includes/publicFunc.php:205 mail/infoPackage.inc.php:44
 msgid "Mail server host"
-msgstr ""
+msgstr "Equipo servidor de correo"
 
 #: mail/includes/publicFunc.php:245
 #, php-format
 msgid "%s is not a valid mail alias."
-msgstr ""
+msgstr "%s no es un alias de correo válido."
 
 #: mail/includes/publicFunc.php:252
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
+"Debe especificar una dirección de correo válida para habilitar la entrega de "
+"correo."
 
 #: mail/infoPackage.inc.php:36
 msgid "Mail service"
-msgstr ""
+msgstr "Servicio de correo"
 
 #: mail/infoPackage.inc.php:41
 msgid "Disable mail delivery"
-msgstr ""
+msgstr "Entrega de correo deshabilitada"
 
 #: mail/infoPackage.inc.php:42
 msgid "Mail aliases"
-msgstr ""
+msgstr "Alias de correo"
 
 #: mail/infoPackage.inc.php:45
 msgid "Mail user quota"
-msgstr ""
+msgstr "Cuota de correo de usuario"
 
 #: mail/infoPackage.inc.php:47
 msgid "Mail group alias access"
-msgstr ""
+msgstr "Acceso de alias del grupo de correo"
 
 #: mail/infoPackage.inc.php:53
 msgid "Mail"
-msgstr ""
+msgstr "Correo"
 
 #: mail/infoPackage.inc.php:63
 msgid "Edit a domain"
-msgstr ""
+msgstr "Editar dominio"
 
 #: mail/infoPackage.inc.php:67
 msgid "View members"
-msgstr ""
+msgstr "Ver miembros"
 
 #: mail/infoPackage.inc.php:71
 msgid "Delete a mail domain"
-msgstr ""
+msgstr "Eliminar dominio de correo"
