@@ -3,39 +3,17 @@
 # This file is distributed under the same license as the mail package.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-23 17:42-0200\n"
-"PO-Revision-Date: 2007-11-23 17:55-0300\n"
+"POT-Creation-Date: 2008-03-27 21:53+0100\n"
+"PO-Revision-Date: 2008-03-27 15:47-0300\n"
 "Last-Translator: Wanderlei Antonio Cavassin <cavassin@mandriva.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: mail/mail/ajaxDomainFilter.php:22 mail/mail/ajaxDomainFilter.php:28
-#: mail/mail/edit.php:94
-msgid "Mail domain"
-msgstr "Domínio de email"
-
-#: mail/mail/ajaxDomainFilter.php:27 mail/mail/edit.php:99
-msgid "Description"
-msgstr "Descrição"
-
-#: mail/mail/ajaxDomainFilter.php:30
-msgid "View domain members"
-msgstr "Ver membros do domínio"
-
-#: mail/mail/ajaxDomainFilter.php:31
-msgid "Edit domain"
-msgstr "Editar domínio"
-
-#: mail/mail/ajaxDomainFilter.php:32 mail/mail/delete.php:54
-msgid "Delete domain"
-msgstr "Remover domínio"
 
 #: mail/mail/ajaxFilter.php:27
 msgid "Login"
@@ -57,14 +35,26 @@ msgstr "Editar"
 msgid "Members of "
 msgstr "Membros de "
 
-#: mail/mail/localSidebar.php:6 mail/mail/index.php:32
-#: mail/infoPackage.inc.php:56
-msgid "Mail domain list"
-msgstr "Lista de domínios de email"
+#: mail/mail/ajaxDomainFilter.php:22 mail/mail/ajaxDomainFilter.php:28
+#: mail/mail/edit.php:96
+msgid "Mail domain"
+msgstr "Domínio de email"
 
-#: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:59
-msgid "Add a domain"
-msgstr "Adicionar um domínio"
+#: mail/mail/ajaxDomainFilter.php:27 mail/mail/edit.php:101
+msgid "Description"
+msgstr "Descrição"
+
+#: mail/mail/ajaxDomainFilter.php:30
+msgid "View domain members"
+msgstr "Ver membros do domínio"
+
+#: mail/mail/ajaxDomainFilter.php:31
+msgid "Edit domain"
+msgstr "Editar domínio"
+
+#: mail/mail/ajaxDomainFilter.php:32 mail/mail/delete.php:54
+msgid "Delete domain"
+msgstr "Remover domínio"
 
 #: mail/mail/delete.php:37
 msgid "The mail domain has been deleted."
@@ -78,100 +68,115 @@ msgstr "Você irá remover o domínio virtual de emails "
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: mail/mail/edit.php:29
+#: mail/mail/localSidebar.php:6 mail/mail/index.php:32
+#: mail/infoPackage.inc.php:57
+msgid "Mail domain list"
+msgstr "Lista de domínios de email"
+
+#: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:60
+msgid "Add a domain"
+msgstr "Adicionar um domínio"
+
+#: mail/mail/edit.php:30
 msgid "Add a mail domain"
 msgstr "Adicionar um domínio de emails"
 
-#: mail/mail/edit.php:31
+#: mail/mail/edit.php:32
 msgid "Edit mail domain"
 msgstr "Editar domínio de emails"
 
-#: mail/mail/edit.php:44
+#: mail/mail/edit.php:49
 msgid "Invalid domain name"
 msgstr "Nome inválido de domínio"
 
-#: mail/mail/edit.php:50
+#: mail/mail/edit.php:55
 msgid "The mail domain has been added."
 msgstr "O domínio de email foi adicionado."
 
-#: mail/mail/edit.php:66
+#: mail/mail/edit.php:68
 msgid "The mail domain has been modified."
 msgstr "O domínio de email foi modificado."
 
-#: mail/mail/edit.php:69
+#: mail/mail/edit.php:71
 msgid " The quota of all users of this mail domain have been reset."
 msgstr " A quota de todos os usuários deste domínio foi reconfigurada."
 
-#: mail/mail/edit.php:104
+#: mail/mail/edit.php:106
 msgid "Default mail quota for users created in this domain (in kB)"
 msgstr "Quota padrão de emails para usuários criada neste domínio (em kB)"
 
-#: mail/mail/edit.php:110
+#: mail/mail/edit.php:112
 msgid "Create"
 msgstr "Criar"
 
-#: mail/mail/edit.php:112
+#: mail/mail/edit.php:114
 msgid "Reset users quota to default"
 msgstr "Reconfigurar quota de usuários para o padrão"
 
-#: mail/mail/edit.php:113
+#: mail/mail/edit.php:115
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: mail/includes/publicFunc.php:44 mail/includes/publicFunc.php:54
+#: mail/includes/mail.inc.php:41 mail/includes/mail.inc.php:51
 msgid "Unlimited quota"
 msgstr "Quota ilimitada"
 
-#: mail/includes/publicFunc.php:64 mail/includes/publicFunc.php:164
+#: mail/includes/publicFunc.php:33 mail/includes/publicFunc.php:133
 msgid "Mail plugin"
 msgstr "Plugin de email"
 
-#: mail/includes/publicFunc.php:85
+#: mail/includes/publicFunc.php:54
 msgid "No mail alias can be set for this group"
 msgstr "Nenhum alias de email pode ser configurado para este grupo"
 
-#: mail/includes/publicFunc.php:88
+#: mail/includes/publicFunc.php:57
 msgid "Enable mail alias for users of this group "
 msgstr "Habilitar aliases para usuários deste grupo "
 
-#: mail/includes/publicFunc.php:100 mail/includes/publicFunc.php:103
-#: mail/includes/publicFunc.php:221 mail/includes/publicFunc.php:224
+#: mail/includes/publicFunc.php:69 mail/includes/publicFunc.php:72
+#: mail/includes/publicFunc.php:190 mail/includes/publicFunc.php:193
 msgid "Mail alias"
 msgstr "Alias de email"
 
-#: mail/includes/publicFunc.php:180 mail/infoPackage.inc.php:40
+#: mail/includes/publicFunc.php:149 mail/infoPackage.inc.php:40
 msgid "Mail access"
 msgstr "Acesso ao email"
 
-#: mail/includes/publicFunc.php:200
+#: mail/includes/publicFunc.php:169
 msgid "Mail delivery is disabled, if checked"
 msgstr "Entrega de email está desabilitada, se marcado"
 
-#: mail/includes/publicFunc.php:204
+#: mail/includes/publicFunc.php:173
 msgid "Mail quota (in kB)"
 msgstr "Quota de email (em kB)"
 
-#: mail/includes/publicFunc.php:210 mail/infoPackage.inc.php:49
+#: mail/includes/publicFunc.php:179 mail/infoPackage.inc.php:50
 msgid "Forward to"
 msgstr "Retransmitir para"
 
-#: mail/includes/publicFunc.php:214 mail/includes/publicFunc.php:218
-#: mail/infoPackage.inc.php:96
+#: mail/includes/publicFunc.php:183 mail/includes/publicFunc.php:187
+#: mail/infoPackage.inc.php:97
 msgid "Mail drop"
 msgstr "Descartar email"
 
-#: mail/includes/publicFunc.php:232 mail/infoPackage.inc.php:43
+#: mail/includes/publicFunc.php:201 mail/infoPackage.inc.php:43
 msgid "Mail delivery path"
 msgstr "Caminho de entrega do email"
 
-#: mail/includes/publicFunc.php:272
+#: mail/includes/publicFunc.php:205 mail/infoPackage.inc.php:44
+msgid "Mail server host"
+msgstr "Host do servidor de email"
+
+#: mail/includes/publicFunc.php:245
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s não é um aliás válido para email."
 
-#: mail/includes/publicFunc.php:279
+#: mail/includes/publicFunc.php:252
 msgid "You must specify a valid mail address to enable mail delivery."
-msgstr "Você deve especificar um endereço de email válido para habilitar a entrega de email."
+msgstr ""
+"Você deve especificar um endereço de email válido para habilitar a entrega "
+"de email."
 
 #: mail/infoPackage.inc.php:36
 msgid "Mail service"
@@ -185,26 +190,26 @@ msgstr "Desabilitar a entrega de email"
 msgid "Mail aliases"
 msgstr "Aliases de email"
 
-#: mail/infoPackage.inc.php:44
+#: mail/infoPackage.inc.php:45
 msgid "Mail user quota"
 msgstr "Quota de emails dos usuários"
 
-#: mail/infoPackage.inc.php:46
+#: mail/infoPackage.inc.php:47
 msgid "Mail group alias access"
 msgstr "Acesso a aliás de mensagens para grupos"
 
-#: mail/infoPackage.inc.php:52
+#: mail/infoPackage.inc.php:53
 msgid "Mail"
 msgstr "Email"
 
-#: mail/infoPackage.inc.php:62
+#: mail/infoPackage.inc.php:63
 msgid "Edit a domain"
 msgstr "Editar um domínio"
 
-#: mail/infoPackage.inc.php:66
+#: mail/infoPackage.inc.php:67
 msgid "View members"
 msgstr "Ver membros"
 
-#: mail/infoPackage.inc.php:70
+#: mail/infoPackage.inc.php:71
 msgid "Delete a mail domain"
 msgstr "Remover um domínio de email"
