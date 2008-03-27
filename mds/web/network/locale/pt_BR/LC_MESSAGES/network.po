@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mds network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-30 16:08+0100\n"
-"PO-Revision-Date: 2007-11-23 17:55-0300\n"
+"POT-Creation-Date: 2008-03-27 21:54+0100\n"
+"PO-Revision-Date: 2008-03-27 15:47-0300\n"
 "Last-Translator: Wanderlei Antonio Cavassin <cavassin@mandriva.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Informações"
 msgid "DNS service log view"
 msgstr "Ver log do serviço DNS"
 
-#: network/includes/network.inc.php:76
+#: network/includes/network.inc.php:72
 msgid "Get next free IP address"
 msgstr "Obter próximo endereço IP livre"
 
@@ -61,6 +61,11 @@ msgstr "Remover alias (registro CNAME)"
 #: network/network/ajaxZoneMembersFilter.php:44
 msgid "edit record"
 msgstr "editar registro"
+
+#: network/network/ajaxZoneMembersFilter.php:61
+#, php-format
+msgid "(alias of %s)"
+msgstr "(aliás de %s)"
 
 #: network/network/ajaxZoneMembersFilter.php:72
 #: network/network/subnetedithost.php:194
@@ -184,18 +189,18 @@ msgstr "Este host não está registrado na zona DNS %s"
 msgid "Click here to add it"
 msgstr "Clique aqui para adicionar"
 
-#: network/network/subnetedithost.php:246 network/network/subnetedit.php:268
+#: network/network/subnetedithost.php:246 network/network/subnetedit.php:290
 msgid "Other DHCP options"
 msgstr "Outras opções DHCP"
 
-#: network/network/subnetedithost.php:247 network/network/subnetedit.php:269
+#: network/network/subnetedithost.php:247 network/network/subnetedit.php:291
 msgid ""
 "Specify the name of the initial boot file which is to be loaded by a client."
 msgstr ""
 "Especifique o nome do arquivo inicial do boot para ser carregado pelo "
 "cliente."
 
-#: network/network/subnetedithost.php:249 network/network/subnetedit.php:271
+#: network/network/subnetedithost.php:249 network/network/subnetedit.php:293
 msgid ""
 "The filename should be a filename recognizable to whatever file transfer "
 "protocol the client can be expected to use to load the file."
@@ -203,57 +208,61 @@ msgstr ""
 "O arquivo deve ter um nome reconhecível para um dos protocolos de "
 "transferência suportados pelos cliente para carregar o arquivo."
 
-#: network/network/subnetedithost.php:251 network/network/subnetedit.php:273
+#: network/network/subnetedithost.php:251 network/network/subnetedit.php:295
 msgid "(DHCP option number 67)"
 msgstr "(DHCP opção número 67)"
 
-#: network/network/subnetedithost.php:254 network/network/subnetedit.php:276
+#: network/network/subnetedithost.php:254 network/network/subnetedit.php:298
 msgid "Initial boot file name"
 msgstr "Nome do arquivo inicial do boot"
 
-#: network/network/subnetedithost.php:259 network/network/subnetedit.php:281
+#: network/network/subnetedithost.php:259 network/network/subnetedit.php:303
 msgid "Path-name that contains the client's root disk."
 msgstr "Nome do caminho deve conter o disco raiz do cliente."
 
-#: network/network/subnetedithost.php:261 network/network/subnetedit.php:283
+#: network/network/subnetedithost.php:261 network/network/subnetedit.php:305
 msgid "(DHCP option number 17)"
 msgstr "(DHCP opção número 17)"
 
-#: network/network/subnetedithost.php:264 network/network/subnetedit.php:286
+#: network/network/subnetedithost.php:264 network/network/subnetedit.php:308
 msgid "Path to the root filesystem"
 msgstr "Caminho do sistema de arquivos raiz"
 
-#: network/network/subnetedithost.php:269 network/network/subnetedit.php:291
+#: network/network/subnetedithost.php:269 network/network/subnetedit.php:313
 msgid "Server from which the initial boot file is to be loaded"
 msgstr "Servidor a partir do qual o arquivo de boot deve ser carregado"
 
-#: network/network/subnetedithost.php:271 network/network/subnetedit.php:293
+#: network/network/subnetedithost.php:271 network/network/subnetedit.php:315
 msgid "Next server"
 msgstr "Próximo servidor"
 
-#: network/network/subnetedithost.php:276 network/network/subnetedit.php:298
+#: network/network/subnetedithost.php:276 network/network/subnetedit.php:320
 msgid ""
 "Trivial File Transfer Protocol server name from which the client is booting."
 msgstr ""
 "Nome do servidor Trivial File Transfer Protocol para boot dos clientes."
 
-#: network/network/subnetedithost.php:278 network/network/subnetedit.php:300
+#: network/network/subnetedithost.php:278 network/network/subnetedit.php:322
 msgid "(DHCP option number 66)"
 msgstr "(DHCP opção número 66)"
 
-#: network/network/subnetedithost.php:281 network/network/subnetedit.php:303
+#: network/network/subnetedithost.php:281 network/network/subnetedit.php:325
 msgid "TFTP server name"
 msgstr "Nome do servidor TFTP"
 
-#: network/network/subnetedithost.php:291 network/network/subnetedit.php:364
+#: network/network/subnetedithost.php:291 network/network/subnetedit.php:386
 #: network/network/edithost.php:150 network/network/edit.php:180
 msgid "Create"
 msgstr "Criar"
 
-#: network/network/subnetedithost.php:293 network/network/subnetedit.php:366
+#: network/network/subnetedithost.php:293 network/network/subnetedit.php:388
 #: network/network/edit.php:182
 msgid "Confirm"
 msgstr "Confirmar"
+
+#: network/network/servicerestart.php:32
+msgid "The service has been asked to restart."
+msgstr "Foi solicitado o reinício do serviço."
 
 #: network/network/servicestop.php:32
 msgid "The service has been asked to stop."
@@ -372,23 +381,70 @@ msgstr "Servidores NTP"
 msgid "Network Time Protocol servers available to the client."
 msgstr "Servidores de Network Time Protocol disponíveis para o cliente."
 
-#: network/network/subnetedit.php:311
+#: network/network/subnetedit.php:266
+msgid "WINS servers"
+msgstr "Servidores WINS"
+
+#: network/network/subnetedit.php:268
+msgid ""
+"Netbios name servers available to Windows clients, listed in order of "
+"preference."
+msgstr ""
+"Servidores de nome Netbios disponíveis para clientes Windows, listados em "
+"ordem de preferência."
+
+#: network/network/subnetedit.php:275
+msgid "Broadcast only"
+msgstr "Somente broadcast"
+
+#: network/network/subnetedit.php:275
+msgid "WINS only"
+msgstr "Somente WINS"
+
+#: network/network/subnetedit.php:275
+msgid "Broadcast, then WINS"
+msgstr "Broadcast, depois WINS"
+
+#: network/network/subnetedit.php:275
+msgid "WINS, then broadcast"
+msgstr "WINS, depois broadcast"
+
+#: network/network/subnetedit.php:279
+msgid "WINS resolution and registration method"
+msgstr "Resolução de nomes WINS e método de registro"
+
+#: network/network/subnetedit.php:281
+msgid ""
+"Specify how NetBIOS name resolution is performed. Auto: the client OS will "
+"automatically select a method. Broadcast only (B-node): use broadcast for "
+"name resolution and registration. Peer node (P-node): use the specified WINS "
+"servers. Mixed node (M-node): use broadcast, then the specified WINS "
+"servers. Hybrid node (H-node): use the specified WINS server, then broadcast."
+msgstr ""
+"Especifica como a resolução de nomes NetBIOS é feita. Auto: o SO cliente "
+"automaticamente selecionará um método. Somente Broadcast (B-node): usa "
+"broadcast para resolução de nomes e registro. Peer node (P-node): usa os "
+"servidores WINS especificados. Mixed node (M-node): usa broadcast, e depois "
+"os servidores WINS especificados. Hybrid node (H-node): usa o servidor WINS "
+"especificado, e depois broadcast."
+
+#: network/network/subnetedit.php:333
 msgid "DHCP client lease time (in seconds)"
 msgstr "Tempo de concessão DHCP (em segundos)"
 
-#: network/network/subnetedit.php:313
+#: network/network/subnetedit.php:335
 msgid "Minimum lease time"
 msgstr "Tempo mínimo de concessão"
 
-#: network/network/subnetedit.php:315
+#: network/network/subnetedit.php:337
 msgid "Minimum length in seconds that will be assigned to a lease."
 msgstr "Tempo mínimo em segundos que será assinalado a uma concessão."
 
-#: network/network/subnetedit.php:321
+#: network/network/subnetedit.php:343
 msgid "Default lease time"
 msgstr "Tempo de concessão padrão"
 
-#: network/network/subnetedit.php:323
+#: network/network/subnetedit.php:345
 msgid ""
 "Lengh in seconds that will be assigned to a lease if the client requesting "
 "the lease does not ask for a specific expiration time."
@@ -396,23 +452,23 @@ msgstr ""
 "Tempo em segundos que será concedido se o cliente requisitando a concessão "
 "não solicitar um tempo de expiração específico."
 
-#: network/network/subnetedit.php:329
+#: network/network/subnetedit.php:351
 msgid "Maximum lease time"
 msgstr "Tempo máximo de concessão"
 
-#: network/network/subnetedit.php:331
+#: network/network/subnetedit.php:353
 msgid "Maximum length in seconds that will be assigned to a lease."
 msgstr "Tempo máximo em segundos que será assinalado a uma concessão."
 
-#: network/network/subnetedit.php:340
+#: network/network/subnetedit.php:362
 msgid "Dynamic pool for non-registered DHCP clients"
 msgstr "Intervalo dinâmico para clientes DHCP não registrados"
 
-#: network/network/subnetedit.php:351
+#: network/network/subnetedit.php:373
 msgid "IP range start"
 msgstr "Início do intervalo de IPs"
 
-#: network/network/subnetedit.php:355
+#: network/network/subnetedit.php:377
 msgid "IP range end"
 msgstr "Final do intervalo de IPs"
 
@@ -530,43 +586,47 @@ msgstr "Aliás de nome de hosts"
 #: network/network/services.php:29 network/network/localSidebar.php:31
 #: network/infoPackage.inc.php:134 network/infoPackage.inc.php:137
 #: network/infoPackage.inc.php:141 network/infoPackage.inc.php:145
-#: network/infoPackage.inc.php:149
+#: network/infoPackage.inc.php:149 network/infoPackage.inc.php:153
 msgid "Network services management"
 msgstr "Gerenciamento de serviços de rede"
 
-#: network/network/services.php:40
+#: network/network/services.php:41
 msgid "Start service"
 msgstr "Iniciar serviço"
 
-#: network/network/services.php:41
+#: network/network/services.php:42
 msgid "Stop service"
 msgstr "Parar serviço"
 
-#: network/network/services.php:42
+#: network/network/services.php:43
 msgid "Reload service"
 msgstr "Recarregar serviço"
 
-#: network/network/services.php:43
+#: network/network/services.php:44
+msgid "Restart service"
+msgstr "Reiniciar serviço"
+
+#: network/network/services.php:45
 msgid "View log"
 msgstr "Ver log"
 
-#: network/network/services.php:51 network/network/services.php:63
+#: network/network/services.php:53 network/network/services.php:67
 msgid "Started"
 msgstr "Iniciado"
 
-#: network/network/services.php:55 network/network/services.php:67
+#: network/network/services.php:58 network/network/services.php:72
 msgid "Stopped"
 msgstr "Parado"
 
-#: network/network/services.php:72
+#: network/network/services.php:78
 msgid "Services"
 msgstr "Serviços"
 
-#: network/network/services.php:73
+#: network/network/services.php:79
 msgid "Network services status"
 msgstr "Status dos serviços de rede"
 
-#: network/network/services.php:74
+#: network/network/services.php:80
 msgid "Status"
 msgstr "Status"
 
@@ -794,15 +854,10 @@ msgstr "Remover um host de uma sub-rede"
 msgid "Members of a DHCP subnet"
 msgstr "Membros de uma sub-rede DHCP"
 
-#: network/infoPackage.inc.php:164
+#: network/infoPackage.inc.php:167
 msgid "DHCP service log"
 msgstr "Log do serviço DHCP"
 
-#: network/infoPackage.inc.php:182
+#: network/infoPackage.inc.php:185
 msgid "DNS service log"
 msgstr "Log do serviço DNS"
-
-#: network/network/ajaxZoneMembersFilter.php:61
-#, php-format
-msgid "(alias of %s)"
-msgstr ""
