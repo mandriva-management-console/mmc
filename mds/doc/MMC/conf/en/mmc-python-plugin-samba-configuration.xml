@@ -130,6 +130,12 @@
 	</thead>
 	<tbody>
 	  <row>
+	    <entry>baseComputersDN</entry>
+	    <entry>LDAP organisational unit DN where the SAMBA computer accounts are located</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
 	    <entry>sambaConfFile</entry>
 	    <entry>Main SAMBA configuration file path</entry>
 	    <entry>yes</entry>
@@ -148,10 +154,16 @@
 	    <entry>/usr/lib/samba/vfs/vscan-clamav.so</entry>
 	  </row>
 	  <row>
-	    <entry>sharespath</entry>
-	    <entry>Directory where the SAMBA shares are created</entry>
+	    <entry>defaultSharesPath</entry>
+	    <entry>Directory where the SAMBA shares are created, if no path is specified</entry>
 	    <entry>no</entry>
 	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>authorizedSharePaths</entry>
+	    <entry>Comma-separated list of directories where SAMBA shares are allowed to be created.</entry>
+	    <entry>yes</entry>
+	    <entry>The value of defaultSharesPath</entry>
 	  </row>
 	</tbody>
       </tgroup>
