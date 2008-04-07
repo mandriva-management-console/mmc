@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 17:40+0100\n"
-"PO-Revision-Date: 2008-02-21 18:06+0100\n"
+"POT-Creation-Date: 2008-04-07 10:39+0200\n"
+"PO-Revision-Date: 2008-04-07 10:42+0200\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Informations"
 msgid "DNS service log view"
 msgstr "Journal du service DNS"
 
-#: network/includes/network.inc.php:76
+#: network/includes/network.inc.php:72
 msgid "Get next free IP address"
 msgstr "Adresse IP libre suivante"
 
@@ -394,7 +394,9 @@ msgstr "Serveurs WINS"
 msgid ""
 "Netbios name servers available to Windows clients, listed in order of "
 "preference."
-msgstr "Nom des serveurs NetBIOS disponibles pour les clients Windows, par ordre de préférence."
+msgstr ""
+"Nom des serveurs NetBIOS disponibles pour les clients Windows, par ordre de "
+"préférence."
 
 #: network/network/subnetedit.php:275
 msgid "Broadcast only"
@@ -423,7 +425,13 @@ msgid ""
 "name resolution and registration. Peer node (P-node): use the specified WINS "
 "servers. Mixed node (M-node): use broadcast, then the specified WINS "
 "servers. Hybrid node (H-node): use the specified WINS server, then broadcast."
-msgstr "Paramètre la méthode de résolution des noms NetBIOS. Auto: l'OS du client sélectionne automatiquement une méthode. Diffusion (broadcast) uniquement (B-node): utiliser la diffusion pour la résolution et l'enregistrement. Nœud point-à-point (P-node): utiliser le serveur WINS spécifié. Nœud mixte (M-node): utiliser la diffusion, puis le serveur WINS spécifié. Nœud hybride (H-node): utiliser le serveur WINS spécifié, puis la diffusion."
+msgstr ""
+"Paramètre la méthode de résolution des noms NetBIOS. Auto: l'OS du client "
+"sélectionne automatiquement une méthode. Diffusion (broadcast) uniquement (B-"
+"node): utiliser la diffusion pour la résolution et l'enregistrement. Nœud "
+"point-à-point (P-node): utiliser le serveur WINS spécifié. Nœud mixte (M-"
+"node): utiliser la diffusion, puis le serveur WINS spécifié. Nœud hybride (H-"
+"node): utiliser le serveur WINS spécifié, puis la diffusion."
 
 #: network/network/subnetedit.php:333
 msgid "DHCP client lease time (in seconds)"
@@ -527,7 +535,7 @@ msgstr "Vous allez supprimer l'hôte %s du sous-réseau DHCP."
 #: network/network/subnetdeletehost.php:66
 #, php-format
 msgid "Also unregister this host from DNS zone %s"
-msgstr "Supprimer aussi l'hôte d'une zone DNS %s"
+msgstr "Supprimer aussi l'hôte de la zone DNS %s"
 
 #: network/network/subnetdeletehost.php:72
 #: network/network/ajaxSubnetMembersFilter.php:80
