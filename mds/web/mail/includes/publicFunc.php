@@ -266,11 +266,20 @@ function _mail_changeUser($postArr) {
         } else $syncmailgroupalias = True;
         changeMaildrop($postArr["nlogin"],$postArr['maildrop']);
         changeMailalias($postArr["nlogin"],$postArr['mailalias']);
+        /*
+          If we are adding the user and the mailbox/mailhost attributes are
+          not filled in, we don't empty them as this may clear default values
+          set by the MMC agent.
+        */
         if (isset($postArr["mailbox"])) {
-            changeMailbox($postArr["nlogin"], $postArr['mailbox']);
+            if (!($_GET["action"] == "add" && strlen($postArr["mailbox"]) == 0)) {
+                changeMailbox($postArr["nlogin"], $postArr['mailbox']);
+            }
         }
         if (isset($postArr["mailhost"])) {
-            changeMailhost($postArr["nlogin"], $postArr['mailhost']);
+            if (!($_GET["action"] == "add" && strlen($postArr["mailhost"]) == 0)) {
+                changeMailhost($postArr["nlogin"], $postArr['mailhost']);
+            }
         }
         if (!$postArr["maildisable"]) {
             changeMailEnable($postArr["nlogin"],True);
