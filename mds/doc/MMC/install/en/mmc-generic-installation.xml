@@ -217,7 +217,110 @@
 
     <section>
 
-      <title>OpenLDAP configuration</title>
+      <title>OpenLDAP configuration on Mandriva 2008 and Mandriva CS4</title>
+
+      <para>
+	The OpenLDAP configuration can be easily done using the openldap-mandriva-dit-package.
+      </para>
+      <screen>
+	# urpmi openldap-mandriva-dit
+	...
+	# /usr/share/openldap/scripts/mandriva-dit-setup.sh
+	Please enter your DNS domain name [localdomain]:
+	mandriva.com
+
+	Administrator account
+
+	The administrator account for this directory is
+	uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com
+
+	Please choose a password for this account:
+	New password:[type password]
+	Re-enter new password:[type password]
+	
+	
+	Summary
+	=======
+
+	Domain:        mandriva.com
+	LDAP suffix:   dc=mandriva,dc=com
+	Administrator: uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com
+
+	Confirm? (Y/n)
+	Y
+	config file testing succeeded
+	Stopping ldap service
+	Finished, starting ldap service
+	Running /usr/bin/db_recover on /var/lib/ldap
+	remove /var/lib/ldap/alock
+	Starting slapd (ldap + ldaps): [  OK  ]
+      </screen>
+	
+      <para>
+	And you're done, the LDAP directory has been populated and the LDAP service has been started.
+      </para>
+
+      <para>
+	Some tweaks needs to be done to the LDAP configuration so that the LDAP service suits to the MDS.
+      </para>
+      <para>
+	First, copy the MDS LDAP schema to the LDAP schemas directory:
+      </para>
+      <screen>
+	# cd /usr/share/doc/python-mmc-base*/contrib/ldap/
+	# cp dhcp.schema dnszone.schema mail.schema mmc.schema /etc/openldap/schema/
+      </screen>
+      <para>
+	Then, add these lines to the file <filename>/etc/openldap/schema/local.schema</filename>:	
+      </para>
+      <screen>
+include /etc/openldap/schema/mmc.schema
+include /etc/openldap/schema/mail.schema
+include /etc/openldap/schema/dnszone.schema
+include /etc/openldap/schema/dhcp.schema
+      </screen>
+      <para>
+	Then, to avoid LDAP schemas conflicts, comment or remove these lines at the beginning of the file <filename>/etc/openldap/slapd.conf</filename>:
+      </para>
+      <screen>
+#include /usr/share/openldap/schema/misc.schema
+#include /usr/share/openldap/schema/kolab.schema
+#include /usr/share/openldap/schema/dnszone.schema
+#include /usr/share/openldap/schema/dhcp.schema
+      </screen>
+      <para>
+	Last, comment or remove these lines at the end of the file <filename>/etc/openldap/mandriva-dit-access.conf</filename>:
+      </para>
+      <screen>
+#access to dn.one="ou=People,dc=mandriva,dc=com"
+#        attrs=@inetLocalMailRecipient,mail
+#        by group.exact="cn=MTA Admins,ou=System Groups,dc=mandriva,dc=com" write
+#        by * read
+      </screen>
+     
+      <para>
+	To check that the LDAP service configuration is right, run slaptest:
+      </para>
+      <screen>
+	# slaptest
+	config file testing succeeded
+      </screen>
+      
+      <para>
+	Now you can restart the LDAP service:
+      </para>
+      <screen>
+	# service ldap restart
+	Checking config file /etc/openldap/slapd.conf: [  OK  ]
+	Stopping slapd:                                [  OK  ]
+	Starting slapd (ldap + ldaps):                 [  OK  ]
+      </screen>
+
+    </section>
+
+    <section>
+
+      <title>OpenLDAP configuration on other distributions</title>
 
       <note>
 	<title>OpenLDAP example configuration</title>
