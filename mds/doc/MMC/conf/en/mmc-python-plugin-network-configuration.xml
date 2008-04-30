@@ -211,9 +211,21 @@
 	    <entry></entry>
 	  </row>
 	  <row>
-	    <entry>binduser</entry>
-	    <entry>uid which BIND is running</entry>
+	    <entry>bindgroup</entry>
+	    <entry>gid which BIND is running ("bind" or "named")</entry>
 	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dnsreader</entry>
+	    <entry>LDAP user DN to use to read zone info</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>	  
+	  <row>
+	    <entry>dnsreaderpassword</entry>
+	    <entry>password of the user specified in dnsreader</entry>
+	    <entry>not if dnsreader is set</entry>
 	    <entry></entry>
 	  </row>
 	</tbody>
@@ -231,7 +243,9 @@
       logfile = /var/log/messages
       bindroot = /var/lib/named/etc/
       bindchrootconfpath = /etc
-      binduser = named   
+      binduser = named
+      dnsreader = uid=DNS Reader,ou=System Accounts,dc=mandriva,dc=com
+      dnsreaderpassword = s3cr3t
     </screen>
     
   </section>
