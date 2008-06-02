@@ -20,7 +20,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <legalnotice>
@@ -86,11 +86,6 @@
 	  <listitem>
 	    <para>
 	      mmc-agent: the MMC agent package
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para>
-	      python-mmc-plugins-tools: helpers for some plugin 
 	    </para>
 	  </listitem>
 	  <listitem>
@@ -164,7 +159,7 @@
       </para>
       <screen>
 	# urpmi mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-          mmc-agent python-mmc-plugins-tools \
+          mmc-agent \
           python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
       </screen>
 
@@ -195,7 +190,7 @@
       </para>
       <screen>
 	# apt-get install mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-	  mmc-agent python-mmc-plugins-tools python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
+	  mmc-agent python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
       </screen>
           
     </section>
@@ -981,9 +976,14 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
     <para>
       Basically, you need to do a classic SAMBA/LDAP setup, SAMBA running as a PDC.
     </para>
-    <para>
+    <note>
+      <title>Configuration files</title>
+      <para>
       A slapd.conf for OpenLDAP and a smb.conf for SAMBA are included into the MMC agent tarball: <filename>contrib/ldap/slapd.conf.samba</filename> and <filename>contrib/samba/smb.conf</filename>. Please use these files as templates for your own configuration.
-      If you aren't familiar with SAMBA/LDAP installation, read the <ulink url="http://download.gna.org/smbldap-tools/docs/samba-ldap-howto/index.html">SAMBA LDAP HOWTO</ulink>. SAMBA LDAP setup is not easy.
+      </para>
+    </note>
+    <para>
+    If you aren't familiar with SAMBA/LDAP installation, read the <ulink url="http://download.gna.org/smbldap-tools/docs/samba-ldap-howto/index.html">SAMBA LDAP HOWTO</ulink>. SAMBA LDAP setup is not easy.
     </para>
 
     <section>
