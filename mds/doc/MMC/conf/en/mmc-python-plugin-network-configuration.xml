@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -243,7 +243,7 @@
       logfile = /var/log/messages
       bindroot = /var/lib/named/etc/
       bindchrootconfpath = /etc
-      binduser = named
+      bindgroup = named
       dnsreader = uid=DNS Reader,ou=System Accounts,dc=mandriva,dc=com
       dnsreaderpassword = s3cr3t
     </screen>
