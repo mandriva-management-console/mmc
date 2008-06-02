@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -161,14 +161,14 @@
       If the mails are delivered by Postfix, use this:
     </para>
     <screen>
-      [userDefault]
+      [userdefault]
       mailbox = %homeDirectory%/Maildir/
     </screen>
     <para>
       If you use Dovecot as the delivery agent:
     </para>
     <screen>
-      [userDefault]
+      [userdefault]
       mailbox = maildir:%homeDirectory%/Maildir/
     </screen>
 
