@@ -67,6 +67,41 @@
 
   <section>
 
+    <title>Obfuscated password support in configuration files</title>
+
+    <para>
+      All the passwords contained in MMC-related configuration files can be
+      obfuscated using a base64 encoding. This is not a security feature, but
+      at least somebody won't be able to read accidentally a password.
+    </para>
+    <para>
+      To obfuscate a password, for example the word "secret", you can use the Python interpreter:
+    </para>
+    <screen>
+      $ python -c 'print "secret".encode("base64")'
+      c2VjcmV0
+
+    </screen>
+
+    <para>
+      The base64-encoded password is the word "c2VjcmV0". Now to use it in a
+      configuration file:
+    </para>
+    <screen>
+      [section]
+      password = {base64}c2VjcmV0
+    </screen>
+
+    <para>
+      The {base64} prefix warns the configuration parser that the following
+      word is a base64-encoded word, and so needs to be decoded before being
+      used.
+    </para>
+
+  </section>
+
+  <section>
+
     <title>Configuration file sections</title>
 
     <para>
@@ -104,6 +139,16 @@
 	  <row>
 	    <entry>userdefault</entry>
 	    <entry>Attributes and Objectclass values that are added or deleted when adding a new user into the LDAP</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>authentication</entry>
+	    <entry>Defines how a user is authenticated when logging into the MMC web interface. For example, another LDAP server can be use to perform the authentication.</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>provisioning</entry>
+	    <entry>User accounts can be created or updated automatically when logging in to the MMC web interface.</entry>
 	    <entry>yes</entry>
 	  </row>
 	</tbody>
