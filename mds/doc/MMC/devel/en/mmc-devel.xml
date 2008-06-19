@@ -1243,6 +1243,17 @@
         <screen>
 	  $l-&gt;disableFirstColumnActionLink();
 	</screen>
+
+	<para>
+	  The default size of the JavaScript popup window is 300 pixel. This
+	  can be changed like this:
+	</para>
+	<screen>
+	  $p = new ActionPopupItem(_T("Delete fruit"), "view", "delete", "fruit");
+	  $p-&gt;setWidth(500); /* Size is now 500 px */
+	  $l-&gt;addActionItem($p);
+	</screen>
+	
       </section>
 
       <section>
