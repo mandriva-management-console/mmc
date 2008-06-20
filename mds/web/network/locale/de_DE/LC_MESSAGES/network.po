@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2008-06-20 14:22+0200\n"
 "Last-Translator: Marcel haase <mha@x-source.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: network/dnslogview/ajax_showlog.php:38
@@ -40,11 +40,11 @@ msgstr "DNS-Zonen"
 
 #: network/infoPackage.inc.php:77
 msgid "Delete a DNS zone"
-msgstr "DNS-Zone löschen"
+msgstr "DNS-Zone lÃ¶schen"
 
 #: network/infoPackage.inc.php:81
 msgid "Delete a host"
-msgstr "Host löschen"
+msgstr "Host lÃ¶schen"
 
 #: network/infoPackage.inc.php:85
 msgid "Edit a DNS record"
@@ -53,7 +53,7 @@ msgstr "DNS-Record bearbeiten"
 #: network/infoPackage.inc.php:89
 #: network/network/edit.php:31
 msgid "Add a DNS zone"
-msgstr "DNS-Zone hinzufügen"
+msgstr "DNS-Zone hinzufÃ¼gen"
 
 #: network/infoPackage.inc.php:92
 msgid "Edit a DNS zone"
@@ -70,7 +70,7 @@ msgstr ""
 #: network/infoPackage.inc.php:104
 #: network/network/subnetedit.php:30
 msgid "Add a DHCP subnet"
-msgstr "DHCP-Subnetz hinzufügen"
+msgstr "DHCP-Subnetz hinzufÃ¼gen"
 
 #: network/infoPackage.inc.php:107
 #: network/network/subnetedit.php:31
@@ -86,7 +86,7 @@ msgstr "DHCP-Subnetze"
 
 #: network/infoPackage.inc.php:114
 msgid "Delete a subnet"
-msgstr "Subnetz löschen"
+msgstr "Subnetz lÃ¶schen"
 
 #: network/infoPackage.inc.php:118
 msgid "Add a host to a DHCP subnet"
@@ -192,7 +192,7 @@ msgstr ""
 #: network/network/ajaxSubnetFilter.php:51
 #: network/network/ajaxZoneFilter.php:47
 msgid "Delete zone"
-msgstr "Zone löschen"
+msgstr "Zone lÃ¶schen"
 
 #: network/network/delete.php:44
 #: network/network/subnetdeletehost.php:73
@@ -244,7 +244,7 @@ msgstr ""
 
 #: network/network/subnetedithost.php:137
 msgid "Host successfully added."
-msgstr "Host erfolgreich hinzugefügt."
+msgstr "Host erfolgreich hinzugefÃ¼gt."
 
 #: network/network/subnetedithost.php:138
 msgid "Host successfully modified."
@@ -360,7 +360,7 @@ msgstr "erstellen"
 #: network/network/subnetedit.php:388
 #: network/network/edit.php:182
 msgid "Confirm"
-msgstr "bestätigen"
+msgstr "bestÃ¤tigen"
 
 #: network/network/servicerestart.php:32
 msgid "The service has been asked to restart."
@@ -695,11 +695,11 @@ msgstr ""
 
 #: network/network/localSidebar.php:28
 msgid "Add DNS zone"
-msgstr "DNS-Zone hinzufügen"
+msgstr "DNS-Zone hinzufÃ¼gen"
 
 #: network/network/localSidebar.php:30
 msgid "Add DHCP subnet"
-msgstr "DHCP-Subnetz hinzufügen"
+msgstr "DHCP-Subnetz hinzufÃ¼gen"
 
 #: network/network/edit.php:33
 msgid "Edit DNS zone"
@@ -723,7 +723,7 @@ msgstr ""
 
 #: network/network/edit.php:97
 msgid "DNS zone successfully added."
-msgstr "DNS-Zone erfolgreich hinzugefügt."
+msgstr "DNS-Zone erfolgreich hinzugefÃ¼gt."
 
 #: network/network/edit.php:99
 msgid "The DNS service must be reloaded."
@@ -731,7 +731,7 @@ msgstr "Der DNS-Dienst muss neu geladen werden."
 
 #: network/network/edit.php:113
 msgid "DNS zone successfully modified."
-msgstr "DNS-Zone erfolgreich geändert."
+msgstr "DNS-Zone erfolgreich geÃ¤ndert."
 
 #: network/network/edit.php:139
 msgid "DNS zone FQDN"
@@ -779,7 +779,7 @@ msgstr "Zone bearbeiten"
 
 #: network/network/ajaxZoneFilter.php:46
 msgid "Add host"
-msgstr "Host hinzufügen"
+msgstr "Host hinzufÃ¼gen"
 
 #: network/network/ajaxSubnetMembersFilter.php:33
 #: network/network/ajaxSubnetMembersFilter.php:92
@@ -792,7 +792,7 @@ msgstr "dynamisch"
 
 #: network/network/ajaxSubnetMembersFilter.php:81
 msgid "Add static host"
-msgstr "statischen Host hinzufügen"
+msgstr "statischen Host hinzufÃ¼gen"
 
 #: network/network/ajaxSubnetMembersFilter.php:82
 msgid "edit static host"
@@ -809,7 +809,7 @@ msgstr "Mitglied der Zone %s"
 
 #: network/network/zonemembers.php:41
 msgid "Add a host"
-msgstr "Host hinzufügen"
+msgstr "Host hinzufÃ¼gen"
 
 #: network/network/servicereload.php:32
 msgid "The service has been asked to reload."
