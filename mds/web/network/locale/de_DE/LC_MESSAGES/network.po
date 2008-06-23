@@ -2,12 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-06-20 14:22+0200\n"
+"PO-Revision-Date: \n"
 "Last-Translator: Marcel haase <mha@x-source.de>\n"
-"Language-Team: \n"
+"Language-Team: X-SOURCE TechnikService <info@x-source.de>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: network/dnslogview/ajax_showlog.php:38
 #: network/dhcplogview/ajax_showlog.php:40
@@ -61,11 +64,11 @@ msgstr "DNS-Zone bearbeiten"
 
 #: network/infoPackage.inc.php:96
 msgid "Add a host to a zone"
-msgstr ""
+msgstr "einen Host zu einer Zone hinzufügen"
 
 #: network/infoPackage.inc.php:100
 msgid "Members of a zone"
-msgstr ""
+msgstr "Mitglieder einer Zone"
 
 #: network/infoPackage.inc.php:104
 #: network/network/subnetedit.php:30
@@ -75,7 +78,7 @@ msgstr "DHCP-Subnetz hinzufügen"
 #: network/infoPackage.inc.php:107
 #: network/network/subnetedit.php:31
 msgid "Edit DHCP subnet"
-msgstr ""
+msgstr "DHCP-Subnetz bearbeiten"
 
 #: network/infoPackage.inc.php:111
 #: network/network/ajaxSubnetFilter.php:39
@@ -90,19 +93,19 @@ msgstr "Subnetz löschen"
 
 #: network/infoPackage.inc.php:118
 msgid "Add a host to a DHCP subnet"
-msgstr ""
+msgstr "einen Host zu einem DHCP-Subnetz hinzufügen"
 
 #: network/infoPackage.inc.php:122
 msgid "Edit a host from a DHCP subnet"
-msgstr ""
+msgstr "einen Host eines DHCP-Subnetzes bearbeiten"
 
 #: network/infoPackage.inc.php:126
 msgid "Delete a host from a subnet"
-msgstr ""
+msgstr "einen Host eines DHCP-Subnetzes löschen"
 
 #: network/infoPackage.inc.php:130
 msgid "Members of a DHCP subnet"
-msgstr ""
+msgstr "Mitglieder eines DHCP-Subnetzes"
 
 #: network/infoPackage.inc.php:134
 #: network/infoPackage.inc.php:137
@@ -125,32 +128,32 @@ msgstr "DNS-Log"
 
 #: network/includes/network.inc.php:72
 msgid "Get next free IP address"
-msgstr ""
+msgstr "nächste freie IP-Adresse holen"
 
 #: network/network/deletehost.php:31
 msgid "The record has been deleted."
-msgstr ""
+msgstr "Record wurde gelöscht."
 
 #: network/network/deletehost.php:37
 msgid "Delete a DNS record"
-msgstr ""
+msgstr "einen DNS-Record löschen"
 
 #: network/network/deletehost.php:38
 #, php-format
 msgid "You will delete the %s record"
-msgstr ""
+msgstr "Sie löschen den Record %s"
 
 #: network/network/deletehost.php:43
 msgid "The linked CNAME records will also be deleted:"
-msgstr ""
+msgstr "Die verknüpfte CNAME-Datensatz wird ebenfalls gelöscht:"
 
 #: network/network/ajaxZoneMembersFilter.php:41
 msgid "Delete host (A record)"
-msgstr ""
+msgstr "Host löschen (A Record)"
 
 #: network/network/ajaxZoneMembersFilter.php:42
 msgid "Delete alias (CNAME record)"
-msgstr ""
+msgstr "Alias löschen (CNAME Record)"
 
 #: network/network/ajaxZoneMembersFilter.php:44
 msgid "edit record"
@@ -181,12 +184,12 @@ msgstr "Host"
 
 #: network/network/delete.php:30
 msgid "The DNS zone has been deleted."
-msgstr ""
+msgstr "DNS-Zone wurde gelöscht."
 
 #: network/network/delete.php:38
 #, php-format
 msgid "You will delete the DNS zone %s."
-msgstr ""
+msgstr "Sie löschen die DNS-Zone %s."
 
 #: network/network/delete.php:43
 #: network/network/ajaxSubnetFilter.php:51
@@ -394,7 +397,7 @@ msgstr ""
 
 #: network/network/subnetedit.php:208
 msgid "DHCP subnet address"
-msgstr ""
+msgstr "DHCP-Subnetz Adresse"
 
 #: network/network/subnetedit.php:212
 #: network/network/ajaxSubnetFilter.php:43
@@ -409,8 +412,9 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: network/network/subnetedit.php:220
+#, fuzzy
 msgid "Authoritative"
-msgstr ""
+msgstr "Authoritative"
 
 #: network/network/subnetedit.php:226
 msgid "DHCP options related to clients network parameters"
@@ -450,7 +454,7 @@ msgstr ""
 
 #: network/network/subnetedit.php:250
 msgid "Domain name servers"
-msgstr ""
+msgstr "DNS Server"
 
 #: network/network/subnetedit.php:252
 msgid "DNS name servers available to the client."
@@ -482,11 +486,11 @@ msgstr "nur WINS"
 
 #: network/network/subnetedit.php:275
 msgid "Broadcast, then WINS"
-msgstr ""
+msgstr "Broadcast, dann WINS"
 
 #: network/network/subnetedit.php:275
 msgid "WINS, then broadcast"
-msgstr ""
+msgstr "WINS, dann Broadcast"
 
 #: network/network/subnetedit.php:279
 msgid "WINS resolution and registration method"
@@ -530,11 +534,11 @@ msgstr ""
 
 #: network/network/subnetedit.php:373
 msgid "IP range start"
-msgstr ""
+msgstr "IP-Bereich startet bei"
 
 #: network/network/subnetedit.php:377
 msgid "IP range end"
-msgstr ""
+msgstr "IP-Bereich endet bei"
 
 #: network/network/index.php:32
 msgid "DNS zones management"
@@ -593,16 +597,16 @@ msgstr ""
 #: network/network/subnetdeletehost.php:72
 #: network/network/ajaxSubnetMembersFilter.php:80
 msgid "Delete host"
-msgstr ""
+msgstr "Host löschen"
 
 #: network/network/edithost.php:32
 #, php-format
 msgid "Add a host to zone %s"
-msgstr ""
+msgstr "Host zur Zone %s hinzufügen"
 
 #: network/network/edithost.php:33
 msgid "Edit host"
-msgstr ""
+msgstr "Host bearbeiten"
 
 #: network/network/edithost.php:48
 msgid "The specified hostname has been already recorded in this zone."
