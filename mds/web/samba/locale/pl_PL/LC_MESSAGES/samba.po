@@ -1,433 +1,424 @@
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:30
+# translation of samba.po to Polski
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Andrzej Skrzypczak <aeskrzypczak@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: samba\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-06-24 06:28+0200\n"
+"PO-Revision-Date: 2008-07-02 14:26+0200\n"
+"Last-Translator: Andrzej Skrzypczak <aeskrzypczak@gmail.com>\n"
+"Language-Team: Polski <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
 #: samba/status/index.php:30
 msgid "Samba status"
-msgstr ""
+msgstr "Stan SAMBY"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:56
 #: samba/status/index.php:56
 msgid "Opened sessions"
-msgstr ""
+msgstr "Otwarte sesje"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:64
 #: samba/status/index.php:64
 msgid "Users"
-msgstr ""
+msgstr "Użytkownicy"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:65
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:114
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:42
 #: samba/status/index.php:65 samba/status/index.php:114
 #: samba/machines/ajaxFilter.php:42
 msgid "Computers"
-msgstr ""
+msgstr "Komputery"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:66
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:115
 #: samba/status/index.php:66 samba/status/index.php:115
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:72
 #: samba/status/index.php:72
 msgid "No opened sessions"
-msgstr ""
+msgstr "Brak otwartych sesji"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:77
 #: samba/status/index.php:77
 msgid "Connections on shares"
-msgstr ""
+msgstr "Połączenia do udziałów"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:84
 #: samba/status/index.php:84
 msgid "Share"
-msgstr ""
+msgstr "Udział"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:113
 #: samba/status/index.php:113
 msgid "User"
-msgstr ""
+msgstr "Użytkownik"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:116
 #: samba/status/index.php:116
 msgid "Connected at"
-msgstr ""
+msgstr "Połączono do"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:123
 #: samba/status/index.php:123
 msgid "No connections"
-msgstr ""
+msgstr "Brak połączeń"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/restart.php:26
+#: samba/mainSidebar.php:29 samba/infoPackage.inc.php:45
+msgid "List shares"
+msgstr "Lista udziałół"
+
+#: samba/mainSidebar.php:30 samba/infoPackage.inc.php:48
+#: samba/shares/localSidebar.php:31 samba/shares/details.php:81
+msgid "Add a share"
+msgstr "Dodaj udział"
+
+#: samba/mainSidebar.php:33
+msgid "List computers"
+msgstr "Lista komputerów"
+
+#: samba/mainSidebar.php:36 samba/infoPackage.inc.php:83
+#: samba/shares/localSidebar.php:37 samba/machines/localSidebar.php:31
+#: samba/machines/add.php:41
+msgid "Add a computer"
+msgstr "Dodaj komputer"
+
+#: samba/mainSidebar.php:41 samba/config/index.php:75
+msgid "General options"
+msgstr "Opcje ogólne"
+
 #: samba/config/restart.php:26
 msgid "The SAMBA service has been asked to restart."
-msgstr ""
+msgstr "Zlecono restart usługi SAMBA."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:53
+#: samba/config/reload.php:26
+msgid "The SAMBA service has been asked to reload its configuration file."
+msgstr "Zlecono przeładowanie pliku konfiguracyjnego usługi SAMBA."
+
 #: samba/config/index.php:53
 msgid "Configuration saved"
-msgstr ""
+msgstr "Zapisano konfigurację"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:68
 #: samba/config/index.php:68
 msgid ""
 "SAMBA configuration saved. You may need to reload or restart the SAMBA "
 "service."
-msgstr ""
+msgstr "Zapisano konfigurację SAMBY. Być może będzie trzeba zrestarotować lub przeładować usługę SAMBY."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:75
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:41
-#: samba/config/index.php:75 samba/mainSidebar.php:41
-msgid "General options"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:86
 #: samba/config/index.php:86
 msgid "This server is a PDC"
-msgstr ""
+msgstr "Ten serwer jest PDC"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:90
 #: samba/config/index.php:90
 msgid "This server is a WINS server"
-msgstr ""
+msgstr "Ten serwer jest serwerem WINS"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:96
 #: samba/config/index.php:96
 msgid "Share user's homes"
-msgstr ""
+msgstr "Współdziel katalogi 'home' użytkowników"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:100
 #: samba/config/index.php:100
 msgid "Domain name"
-msgstr ""
+msgstr "Nazwa domeny"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:104
 #: samba/config/index.php:104
 msgid "Server name"
-msgstr ""
+msgstr "Nazwa serwera"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:113
 #: samba/config/index.php:113
 msgid "LDAP password sync"
-msgstr ""
+msgstr "Synchronizacja hasła LDAP"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:116
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:239
 #: samba/config/index.php:116 samba/includes/publicFunc.php:239
 msgid "User profile path"
-msgstr ""
+msgstr "Ścieżka do profilu użytkownika"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:117
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:240
 #: samba/config/index.php:117 samba/includes/publicFunc.php:240
 msgid "Opening script session"
-msgstr ""
+msgstr "Otwieranie skryptu sesji"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:118
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:241
 #: samba/config/index.php:118 samba/includes/publicFunc.php:241
 msgid "Base directory path"
-msgstr ""
+msgstr "Ścieżka do katalogu bazowego"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:119
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:242
 #: samba/config/index.php:119 samba/includes/publicFunc.php:242
 msgid "Connect base directory on network drive"
-msgstr ""
+msgstr "Połącz podstawowy katalog bazowyna dysku sieciowym"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:131
 #: samba/config/index.php:131
 msgid "Restart SAMBA"
-msgstr ""
+msgstr "Zrestartuj SAMBĘ"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:132
 #: samba/config/index.php:132
 msgid "Reload SAMBA configuration"
-msgstr ""
+msgstr "Przeładuj konfigurację SAMBY"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/reload.php:26
-#: samba/config/reload.php:26
-msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr ""
+#: samba/infoPackage.inc.php:31
+msgid "SAMBA service"
+msgstr "Usługa SAMBA"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:34
+#: samba/infoPackage.inc.php:41 samba/shares/index.php:55
+#: samba/shares/index.php:59
+msgid "Shares"
+msgstr "Udziały"
+
+#: samba/infoPackage.inc.php:51
+msgid "Backup a share"
+msgstr "Zrób kopię udziału"
+
+#: samba/infoPackage.inc.php:55
+msgid "Remove a share"
+msgstr "Usuń udział"
+
+#: samba/infoPackage.inc.php:59
+msgid "Share details"
+msgstr "Szczegóły udziału"
+
+#: samba/infoPackage.inc.php:73
+msgid "Machines"
+msgstr "Maszyny"
+
+#: samba/infoPackage.inc.php:76
+msgid "Computer list"
+msgstr "Lista komputerów"
+
+#: samba/infoPackage.inc.php:86 samba/machines/delete.php:40
+msgid "Delete a computer"
+msgstr "Usuń komputer"
+
+#: samba/infoPackage.inc.php:99
+msgid "Configuration"
+msgstr "Konfiguracja"
+
+#: samba/infoPackage.inc.php:104
+msgid "SAMBA configuration"
+msgstr "Konfiguracja SAMBY"
+
+#: samba/infoPackage.inc.php:107
+msgid "restart SAMBA service"
+msgstr "zrestartuj usługę SAMBA"
+
+#: samba/infoPackage.inc.php:111
+msgid "Reload SAMBA service"
+msgstr "Przeładuj usługę SAMBA"
+
+#: samba/infoPackage.inc.php:120
+msgid "Add/delete SAMBA's attributes"
+msgstr "Dodaj / Usuń atrybuty SAMBY"
+
+#: samba/infoPackage.inc.php:121
+msgid "Enable/Disable account"
+msgstr "Aktywuj / Deaktywuj konto"
+
+#: samba/infoPackage.inc.php:122
+msgid "Lock/Unlock account"
+msgstr "Zablokuj / Odblokuj konto"
+
+#: samba/infoPackage.inc.php:132
+msgid "SAMBA status"
+msgstr "Stan SAMBY"
+
 #: samba/shares/delete.php:34
 #, php-format
 msgid "Share %s deleted"
-msgstr ""
+msgstr "Udział %s usunięty"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:37
 #: samba/shares/delete.php:37
 #, php-format
 msgid "An error has occured during delete process on %s"
-msgstr ""
+msgstr "Wystąpił błąd podczas przetwarzania procesu usuwania %s"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:43
 #: samba/shares/delete.php:43
 msgid "Delete a share"
-msgstr ""
+msgstr "Usuń udział"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:44
 #: samba/shares/delete.php:44
 #, php-format
 msgid "You will delete the share <b>%s</b>"
-msgstr ""
+msgstr "Usuniesz udział <b>%s</b>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:45
 #: samba/shares/delete.php:45
 msgid "Delete all data"
-msgstr ""
+msgstr "Usuń wszystkie dane"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:28
 #: samba/shares/localSidebar.php:28
 msgid "Shares management"
-msgstr ""
+msgstr "Zarządzanie udziałami"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:31
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:72
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:30
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:48
-#: samba/shares/localSidebar.php:31 samba/shares/details.php:81
-#: samba/mainSidebar.php:30 samba/infoPackage.inc.php:48
-msgid "Add a share"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:34
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/localSidebar.php:28
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/index.php:32
 #: samba/shares/localSidebar.php:34 samba/machines/localSidebar.php:28
 #: samba/machines/index.php:32
 msgid "Computers management"
-msgstr ""
+msgstr "Zarządzanie komputerami"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:37
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/localSidebar.php:31
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:41
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:36
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:83
-#: samba/shares/localSidebar.php:37 samba/machines/localSidebar.php:31
-#: samba/machines/add.php:41 samba/mainSidebar.php:36
-#: samba/infoPackage.inc.php:83
-msgid "Add a computer"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:31
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:48
 #: samba/shares/backup.php:31 samba/shares/backup.php:48
 msgid "Share backup"
-msgstr ""
+msgstr "Kopia udziału"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:33
 #: samba/shares/backup.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
-msgstr ""
+msgstr "Rozpoczęto tworzenie kopii udziału <b>%s</b> w tle."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:35
 #: samba/shares/backup.php:35
 #, php-format
 msgid ""
 "The files will be stored in the directory %s of the server at the end of the "
 "backup."
-msgstr ""
+msgstr "Pliki będą przechowywane w katalogu %s po zakończeniu robienia kopii."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:37
 #: samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
-msgstr ""
+msgstr "Proszę udać się na stronę stanu aby sprawdzć postępy robienia kopii."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:39
 #: samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
-msgstr ""
+msgstr "Czas trwania operacji zależy od ilości danych do skopiowania."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:43
 #: samba/shares/backup.php:43
 msgid "Can't launch backup"
-msgstr ""
+msgstr "Nie udało się rozpocząć kopiowania"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:49
 #: samba/shares/backup.php:49
 #, php-format
 msgid "The share %s will be archived."
-msgstr ""
+msgstr "Udział %s zostanie zarchiwizowany."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:50
 #: samba/shares/backup.php:50
 msgid ""
 "Please select media size. If your data exceed volume size, several files "
 "with your media size will be created."
-msgstr ""
+msgstr "Proszę określić rozmiar nośnika. Jeżeli ilość danych przekroczy rozmiar nośnika, utworzonych zostanie kilka plików o tym rozmiarze."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:43
 #: samba/shares/details.php:43
 msgid "Invalid share name"
-msgstr ""
+msgstr "Nieprawidłowa nazwa udziału"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:47
+#: samba/shares/details.php:48
+msgid "The share path is not authorized by configuration"
+msgstr "Ta ścieżka udziału nie została autoryzowana w konfiguracji."
+
 #: samba/shares/details.php:55
 #, php-format
 msgid "Share %s successfully added"
-msgstr ""
+msgstr "Dodano udział %s"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:67
 #: samba/shares/details.php:76
 #, php-format
 msgid "Share %s successfully modified"
-msgstr ""
+msgstr "Zmodyfikowano udział %s"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:101
 #: samba/shares/details.php:110
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
-msgstr ""
+msgstr "Nazwa udziału może zawierać tylko litery (małe i duże) oraz cyfry oraz musi się rozpoczynać od litery."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:119
 #: samba/shares/details.php:128
 msgid "Name"
-msgstr ""
+msgstr "Nazwa"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:124
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:53
 #: samba/shares/details.php:133 samba/machines/add.php:53
 msgid "Comment"
-msgstr ""
+msgstr "Komentarz"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:135
 #: samba/shares/details.php:144
 msgid "AntiVirus on this share"
-msgstr ""
+msgstr "Antywirus dla tego udziału"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:164
 #: samba/shares/details.php:173
 msgid "This share is visible on the domain"
-msgstr ""
+msgstr "Ten udział jest widoczny w domenie"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:177
 #: samba/shares/details.php:186
 msgid "Permissions"
-msgstr ""
+msgstr "Uprawnienia"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:189
 #: samba/shares/details.php:198
 msgid "Access for all"
-msgstr ""
+msgstr "Dostęp dla wszystkich"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:226
 #: samba/shares/details.php:235
 msgid "Administrator groups for this share"
-msgstr ""
+msgstr "Grupy administratorów dla tego udziału"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:245
 #: samba/shares/details.php:254
 msgid "Create"
-msgstr ""
+msgstr "Utwórz"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:248
 #: samba/shares/details.php:257
 msgid "Confirm"
-msgstr ""
+msgstr "Potwierdź"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:47
 #: samba/shares/index.php:47
 msgid "Edit"
-msgstr ""
+msgstr "Edytuj"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:48
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:41
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:125
 #: samba/shares/index.php:48 samba/machines/ajaxFilter.php:41
 #: samba/views/groups.tpl.php:125
 msgid "Delete"
-msgstr ""
+msgstr "Usuń"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:55
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:59
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:41
-#: samba/shares/index.php:55 samba/shares/index.php:59
-#: samba/infoPackage.inc.php:41
-msgid "Shares"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:61
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:40
 #: samba/shares/index.php:61 samba/machines/ajaxFilter.php:40
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:65
 #: samba/shares/index.php:65
 msgid "Archive"
-msgstr ""
+msgstr "Archiwum"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:66
 #: samba/includes/publicFunc.php:66
 msgid "Samba attributes deleted."
-msgstr ""
+msgstr "Usunięto atrybuty SAMBY."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:101
 #: samba/includes/publicFunc.php:101
 msgid "Samba attributes added."
-msgstr ""
+msgstr "Dodano atrybuty SAMBY."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:114
 #: samba/includes/publicFunc.php:114
 msgid "You must reenter your password."
-msgstr ""
+msgstr "Musisz powtórzyć swoje hasło."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:129
 #: samba/includes/publicFunc.php:129
 msgid "Invalid network drive."
-msgstr ""
+msgstr "Nieprawidłowy dysk sieciowy."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:165
 #: samba/includes/publicFunc.php:165
 msgid "Samba user properties"
-msgstr ""
+msgstr "Włąściwości użytkowników SAMBY."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:168
 #: samba/includes/publicFunc.php:168
 msgid "SAMBA access"
-msgstr ""
+msgstr "Dostęp do SAMBY"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:202
 #: samba/includes/publicFunc.php:202
 msgid "WARNING"
-msgstr ""
+msgstr "UWAGA"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:203
 #: samba/includes/publicFunc.php:203
 msgid "The user password has expired"
-msgstr ""
+msgstr "Hasło użytkownika wygasło"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:209
 #: samba/includes/publicFunc.php:209
 msgid "User is disabled, if checked"
-msgstr ""
+msgstr "Użytkownik jest nieaktywny jeżeli zazanczone"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:211
 #: samba/includes/publicFunc.php:211
 msgid "Disable samba user account"
-msgstr ""
+msgstr "Wyłącz konto użytkownika SAMBA"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:224
 #: samba/includes/publicFunc.php:224
 msgid "User is locked, if checked"
-msgstr ""
+msgstr "Użytkownik jest zablokowany jeżeli zaznaczone"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:226
 #: samba/includes/publicFunc.php:226
 msgid ""
 "Lock samba user access\n"
 "                        <p>User can be locked after too many failed log.</p>"
 msgstr ""
+"Zablokuj dostęp do SAMBY użytkownika\n"
+"                           <p>Użytkownik może być zablokowany po zbyt dużej próbie nieudanych logowań.</p>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:5
 #: samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr ""
+msgstr "ACL-e nie są wspierane w Twojej partycji zawierającej /home/samba"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:6
 #: samba/includes/errorHandling.php:6
 msgid ""
 "Try to remount your partition with ACLs support\n"
@@ -439,23 +430,26 @@ msgid ""
 "\t\t\t</ul>\n"
 "\t\t\t"
 msgstr ""
+"Spróbuj ponownie podmontować partycję z obsługą ACLi\n"
+"\t\t\t<ul>\n"
+"\t\t\t<li>Możesz wykorzystać XFS, który wspiera ACLe natywnie</li>\n"
+"\t\t\t<li>Dla systemu plików ext3 musisz dodać \"acl\" do opcji montowania w /etc/fstab<br>\n"
+"\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
+"\t\t\t</ul>\n"
+"\t\t\t"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:17
 #: samba/includes/errorHandling.php:17
 msgid "This share does not exist"
-msgstr ""
+msgstr "Ten udział nie istnieje"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:18
 #: samba/includes/errorHandling.php:18
 msgid "Verify specified share exist."
-msgstr ""
+msgstr "Sprawdź czy podany udział istnieje."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:24
 #: samba/includes/errorHandling.php:24
 msgid "This share already exist"
-msgstr ""
+msgstr "Ten udział już istnieje"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:25
 #: samba/includes/errorHandling.php:25
 msgid ""
 "<ul>\n"
@@ -463,155 +457,57 @@ msgid ""
 "                           <li>Choose another share name</li>\n"
 "                        </ul>"
 msgstr ""
+"<ul>\n"
+"                           <li>Usuń ten udział zanim go odtworzysz.</li>\n"
+"                           <li>Wybierz inną nazwę udziału</li>\n"
+"                        </ul>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:35
 #: samba/includes/errorHandling.php:35
 msgid "The share directory does not exist."
-msgstr ""
+msgstr "Katalog udziału nie istnieje."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:36
 #: samba/includes/errorHandling.php:36
 msgid "Please delete this share, and then create it again."
-msgstr ""
+msgstr "Proszę usuń ten udział i utwórz go ponownie."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:36
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:49
 #: samba/machines/ajaxFilter.php:36 samba/machines/add.php:49
 msgid "Computer name"
-msgstr ""
+msgstr "Nazwa komputera"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/delete.php:36
 #: samba/machines/delete.php:36
 #, php-format
 msgid "Computer <strong>%s</strong> deleted."
-msgstr ""
+msgstr "Komputer <strong>%s</strong> usunięty."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/delete.php:40
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:86
-#: samba/machines/delete.php:40 samba/infoPackage.inc.php:86
-msgid "Delete a computer"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/delete.php:41
 #: samba/machines/delete.php:41
 #, php-format
 msgid "You will delete the %s computer"
-msgstr ""
+msgstr "Usuniesz komputer %s"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:36
 #: samba/machines/add.php:36
 #, php-format
 msgid "Computer %s successfully added"
-msgstr ""
+msgstr "Dodano komputer %s"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:46
 #: samba/machines/add.php:46
 msgid ""
 "The computer name can only contains letters lowercase and numbers, and must "
 "begin with a letter."
-msgstr ""
+msgstr "Nazwa komputera może zawierać tylko małe litery i liczby i musi zaczynać się od litery."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:26
 #: samba/views/groups.tpl.php:26
 msgid "Groups"
-msgstr ""
+msgstr "Grupy"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:70
 #: samba/views/groups.tpl.php:70
 msgid "This group doesn't exist"
-msgstr ""
+msgstr "Ta grupa nie istnieje"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:129
 #: samba/views/groups.tpl.php:129
 msgid "Add a new group"
-msgstr ""
+msgstr "Dodaj nową grupę"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:138
 #: samba/views/groups.tpl.php:138
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:29
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:45
-#: samba/mainSidebar.php:29 samba/infoPackage.inc.php:45
-msgid "List shares"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:33
-#: samba/mainSidebar.php:33
-msgid "List computers"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:31
-#: samba/infoPackage.inc.php:31
-msgid "SAMBA service"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:51
-#: samba/infoPackage.inc.php:51
-msgid "Backup a share"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:55
-#: samba/infoPackage.inc.php:55
-msgid "Remove a share"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:59
-#: samba/infoPackage.inc.php:59
-msgid "Share details"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:73
-#: samba/infoPackage.inc.php:73
-msgid "Machines"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:76
-#: samba/infoPackage.inc.php:76
-msgid "Computer list"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:99
-#: samba/infoPackage.inc.php:99
-msgid "Configuration"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:104
-#: samba/infoPackage.inc.php:104
-msgid "SAMBA configuration"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:107
-#: samba/infoPackage.inc.php:107
-msgid "restart SAMBA service"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:111
-#: samba/infoPackage.inc.php:111
-msgid "Reload SAMBA service"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:120
-#: samba/infoPackage.inc.php:120
-msgid "Add/delete SAMBA's attributes"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:121
-#: samba/infoPackage.inc.php:121
-msgid "Enable/Disable account"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:122
-#: samba/infoPackage.inc.php:122
-msgid "Lock/Unlock account"
-msgstr ""
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:132
-#: samba/infoPackage.inc.php:132
-msgid "SAMBA status"
-msgstr ""
-
-#: samba/shares/details.php:48
-msgid "The share path is not authorized by configuration"
-msgstr ""
