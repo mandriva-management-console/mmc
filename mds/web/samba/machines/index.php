@@ -29,7 +29,7 @@ require("graph/navbar.inc.php");
 $ajax = new AjaxFilter(urlStrRedirect("samba/machines/ajaxFilter"));
 $ajax->display();
 
-$p = new PageGenerator(_T("Computers management"));
+$p = new PageGenerator(_T("Computer management"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
