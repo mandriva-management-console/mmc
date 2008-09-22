@@ -29,7 +29,7 @@ require("graph/navbar.inc.php");
 $ajax = new AjaxFilter("modules/network/network/ajaxSubnetFilter.php");
 $ajax->display();
 
-$p = new PageGenerator(_T("DHCP subnets management"));
+$p = new PageGenerator(_T("DHCP subnet management"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
