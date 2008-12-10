@@ -109,6 +109,7 @@ $f->push(new Table());
 
 /* Prepare hostname input field content */
 if ($_GET["action"] == "addhost") {
+    $hostname = "";
     $zoneaddress = getZoneNetworkAddress($zone);
     if (count($zoneaddress)) $f->add(new TrFormElement(_T("A reverse DNS record will be automatically created for this host."), new HiddenTpl("")));
 }

@@ -37,6 +37,22 @@ $p->setTitle($title);
 $p->setSideMenu($sidemenu);
 $p->display();
 
+function isARecord($zone, $name, &$error) {
+    $msg = _T("$name is not a A record of this zone.") . '<br/>';
+    if (strpos($name, $zone) === False) {
+        $error .= $msg;
+        return False;
+    }
+    $rname = str_replace('.' . $zone, '', $name);
+    $ret = True;
+    $rr = getResourceRecord($zone, $rname);
+    if (empty($rr) || !isset($rr[0][1]['aRecord'])) {
+        $error .= $msg;
+        $ret = False;
+    }
+    return $ret;
+}
+
 global $error;
 if (isset($_POST["badd"])) {
     $zonename = $_POST["zonename"];
@@ -107,18 +123,73 @@ if (isset($_POST["badd"])) {
     $zonename = $_POST["zonename"];
     $nameserver = $_POST["nameserver"];
     $description = $_POST["description"];
-    setNSRecord($zonename, $nameserver . ".");
-    setZoneDescription($zonename, $description);
-    if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
-        header("Location: " . urlStrRedirect("network/network/index"));
+    $nameserverstmp = $_POST["nameservers"];
+    $mxserverstmp = $_POST["mxservers"];
+    $nameservers = array();
+
+    if (!isARecord($zonename, $nameserver, $error)) {
+        setFormError('nameserver');
+    }
+
+    foreach($nameserverstmp as $ns) {
+        if (!empty($ns) && !in_array($ns, $nameservers) && ($ns != $nameserver)) {
+            if (!isARecord($zonename, $ns, $error)) {
+                setFormError('nameservers0');
+            } else {
+                $nameservers[] = $ns . ".";
+            }
+        }
+    }
+    $mxservers = array();
+    foreach($mxserverstmp as $mx) {
+        if (!empty($mx)) {
+            $mxhostname = explode(' ', $mx);
+            $mxhostname = $mxhostname[1];
+            if (!isARecord($zonename, $mxhostname, $error)) {
+                setFormError('mxservers0');
+            } else {
+                $mxservers[] = $mx . ".";
+            }
+        }
+    }
+    if (!isset($error)) {
+        setSOANSRecord($zonename, $nameserver . ".");
+        setNSRecords($zonename, $nameservers);
+        setMXRecords($zonename, $mxservers);
+        setZoneDescription($zonename, $description);
+        if (!isXMLRPCError()) {
+            new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
+            header("Location: " . urlStrRedirect("network/network/index"));
+        }
+    } else {
+        new NotifyWidgetFailure($error);
+        $mxservers = $mxserverstmp;
+        $nameservers = $nameserverstmp;
     }
 }
 
-if ($_GET["action"] == "edit") {
+if (($_GET["action"] == "edit") && !isset($error)) {
     $zonename = $_GET["zone"];
     $soa = getSOARecord($zonename);
     $nameserver = trim($soa["nameserver"], ".");
+    $nameservers = array();
+    foreach(getNSRecords($zonename) as $ns) {
+        if ($ns != $soa["nameserver"]) {
+            $nameservers[] = trim($ns, '.');
+        }
+    }
+    if (empty($nameservers)) {
+        $nameservers = array('');
+    }
+
+    $mxservers = array();
+    foreach(getMXRecords($zonename) as $mx) {
+        $mxservers[] = trim($mx, '.');
+    }
+    if (empty($mxservers)) {
+        $mxservers = array('');
+    }
+
     $zones = getZones($zonename);
     $description = $zones[0][1]["tXTRecord"][0];
 }
@@ -126,7 +197,6 @@ if ($_GET["action"] == "edit") {
 $f = new ValidatingForm();
 $f->push(new Table());
 
-$arrNetwork = array("value" => $network, "required" => True);
 if ($_GET["action"]=="add") {
     $formElt1 = new DomainInputTpl("zonename");
     $formElt2 = new HostnameInputTpl("nameserver");
@@ -134,6 +204,11 @@ if ($_GET["action"]=="add") {
 } else {
     $formElt1 = new HiddenTpl("zonename");
     $formElt2 = new DomainInputTpl("nameserver");
+    $formElt3 = new MultipleInputTpl("nameservers", _T("Secondary name servers"));
+    $formElt3->setRegexp($formElt2->regexp);
+    $formElt4 = new MultipleInputTpl("mxservers", _T("MX records (SMTP servers)"));
+    $tmp = new MXRecordInputTpl("mx");
+    $formElt4->setRegexp($tmp->regexp);
 }
 $f->add(
         new TrFormElement(_T("DNS zone FQDN"), $formElt1),
@@ -144,7 +219,7 @@ $f->add(
         array("value" => $description)
         );
 $f->add(
-        new TrFormElement(_T("Name server host name"), $formElt2),
+        new TrFormElement(_T("Primary name server host name"), $formElt2),
         array("value" => $nameserver, "required" => True)
         );
                 
@@ -173,9 +248,20 @@ if ($_GET["action"] == "add") {
             new TrFormElement(_T("Also create a related DHCP subnet"), new CheckboxTpl("dhcpsubnet")),
             array("value" => "CHECKED")
             );
+    $f->pop();
+} else {
+    $f->pop();
+    $f->add(
+            new FormElement(_T("Secondary name servers hosts name"), $formElt3),
+            $nameservers
+            );
+    $f->add(
+            new FormElement(_T("Secondary name servers hosts name"), $formElt4),
+            $mxservers
+            );
 }
 
-$f->pop();
+
 if ($_GET["action"] == "add") {
     $f->addButton("badd", _("Create"));
 } else {

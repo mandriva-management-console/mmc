@@ -44,6 +44,17 @@ class SimpleNetmaskInputTpl extends InputTpl {
 
 }
 
+/**
+ * Input with a check for a valid MX record (eg "10 smtp.example.net")
+ */
+class MXRecordInputTpl extends InputTpl {
+
+    function MXRecordInputTpl($name) {
+        $this->InputTpl($name, '/^([1-9]|[1-9][0-9]) ([a-z][a-z0-9-]*[a-z0-9]\.){0,10}[a-z][a-z0-9-]*[a-z0-9]$/');
+    }
+
+}
+
 
 class GetFreeIPInputTpl extends IPInputTpl {
 
@@ -54,8 +65,12 @@ class GetFreeIPInputTpl extends IPInputTpl {
     function display($arrParam) {
         parent::display($arrParam);
         $zone = $arrParam["zone"];
-        $subnet = $arrParam["subnet"];
         $ajaxurl = $arrParam["ajaxurl"];
+        if (empty($arrParam["subnet"])) {
+            $subnet = '';
+        } else {
+            $subnet = $arrParam["subnet"];
+        }
         print '
 
 <script type="text/javascript">

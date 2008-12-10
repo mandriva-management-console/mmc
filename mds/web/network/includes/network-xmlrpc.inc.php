@@ -60,8 +60,24 @@ function getSOARecord($zone) {
     return xmlCall("network.getSOARecord", array($zone));
 }
 
-function setNSRecord($zone, $nameserver) {
-    return xmlCall("network.setNSRecord", array($zone, $nameserver));
+function setSOANSRecord($zone, $nameserver) {
+    return xmlCall("network.setSOANSRecord", array($zone, $nameserver));
+}
+
+function setNSRecords($zone, $nameservers) {
+    xmlCall("network.setNSRecords", array($zone, $nameservers));
+}
+
+function setMXRecords($zone, $mxservers) {
+    xmlCall("network.setMXRecords", array($zone, $mxservers));
+}
+
+function getNSRecords($zone) {
+    return xmlCall("network.getNSRecords", array($zone));
+}
+
+function getMXRecords($zone) {
+    return xmlCall("network.getMXRecords", array($zone));
 }
 
 function setZoneDescription($zone, $description) {
