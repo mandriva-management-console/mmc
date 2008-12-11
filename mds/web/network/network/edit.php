@@ -38,7 +38,7 @@ $p->setSideMenu($sidemenu);
 $p->display();
 
 function isARecord($zone, $name, &$error) {
-    $msg = _T("$name is not a A record of this zone.") . '<br/>';
+    $msg = sprintf(_T("%s is not a A record of this zone."), $name) . '<br/>';
     if (strpos($name, $zone) === False) {
         $error .= $msg;
         return False;
