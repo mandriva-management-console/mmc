@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-11 09:13+0100\n"
-"PO-Revision-Date: 2008-12-11 09:15+0100\n"
+"POT-Creation-Date: 2008-12-11 09:44+0100\n"
+"PO-Revision-Date: 2008-12-11 09:44+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -880,3 +880,8 @@ msgstr "Journal du service DHCP"
 #: network/infoPackage.inc.php:185
 msgid "DNS service log"
 msgstr "Journal du service DNS"
+
+#: network/network/edit.php:41
+#, php-format
+msgid "%s is not a A record of this zone."
+msgstr "%s n'est pas un enregistrement de type A de cette zone."
