@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-03 09:31+0200\n"
+"POT-Creation-Date: 2008-12-17 15:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Vitaly Kolomeytsev <nvalka@gmail.com>\n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgstr "Информация"
 msgid "DNS service log view"
 msgstr "Прсмотр журнала службы DNS"
 
-#: network/includes/network.inc.php:72
+#: network/includes/network.inc.php:87
 msgid "Get next free IP address"
 msgstr "Получить следующий свободный IP-адрес"
 
@@ -76,7 +76,7 @@ msgid "IP address"
 msgstr "IP-адрес"
 
 #: network/network/ajaxZoneMembersFilter.php:75
-#: network/network/subnetedithost.php:188 network/network/edithost.php:125
+#: network/network/subnetedithost.php:188 network/network/edithost.php:126
 #: network/network/ajaxSubnetMembersFilter.php:107
 msgid "Host name"
 msgstr "Имя узла"
@@ -246,12 +246,12 @@ msgid "TFTP server name"
 msgstr "Имя TFTP-сервера"
 
 #: network/network/subnetedithost.php:291 network/network/subnetedit.php:386
-#: network/network/edithost.php:150 network/network/edit.php:180
+#: network/network/edithost.php:151 network/network/edit.php:266
 msgid "Create"
 msgstr "Создать"
 
 #: network/network/subnetedithost.php:293 network/network/subnetedit.php:388
-#: network/network/edit.php:182
+#: network/network/edit.php:268
 msgid "Confirm"
 msgstr "Подтвердить"
 
@@ -271,7 +271,7 @@ msgstr "Добавить DHCP-подсеть"
 msgid "Edit DHCP subnet"
 msgstr "Изменить DHCP-подсеть"
 
-#: network/network/subnetedit.php:61 network/network/edit.php:84
+#: network/network/subnetedit.php:61 network/network/edit.php:100
 #, php-format
 msgid ""
 "The given network address belongs to the already existing DHCP subnet %s / %"
@@ -303,7 +303,7 @@ msgid "Netmask"
 msgstr "Маска"
 
 #: network/network/subnetedit.php:216 network/network/ajaxSubnetFilter.php:44
-#: network/network/edit.php:143 network/network/ajaxZoneFilter.php:41
+#: network/network/edit.php:218 network/network/ajaxZoneFilter.php:41
 msgid "Description"
 msgstr "Описание"
 
@@ -317,7 +317,7 @@ msgstr ""
 
 #: network/network/subnetedit.php:228
 msgid "Broadcast address"
-msgstr ""
+msgstr "Широковещательный адрес"
 
 #: network/network/subnetedit.php:232
 msgid "Domain name"
@@ -381,7 +381,7 @@ msgstr ""
 
 #: network/network/subnetedit.php:275
 msgid "Broadcast only"
-msgstr ""
+msgstr "Только Broadcast"
 
 #: network/network/subnetedit.php:275
 msgid "WINS only"
@@ -389,11 +389,11 @@ msgstr "Только WINS"
 
 #: network/network/subnetedit.php:275
 msgid "Broadcast, then WINS"
-msgstr ""
+msgstr "Broadcast, затем WINS"
 
 #: network/network/subnetedit.php:275
 msgid "WINS, then broadcast"
-msgstr ""
+msgstr "WINS, затем broadcast"
 
 #: network/network/subnetedit.php:279
 msgid "WINS resolution and registration method"
@@ -440,7 +440,7 @@ msgstr ""
 
 #: network/network/subnetedit.php:362
 msgid "Dynamic pool for non-registered DHCP clients"
-msgstr ""
+msgstr "Динамический пул для незарегестрированных DHCP-клиентов"
 
 #: network/network/subnetedit.php:373
 msgid "IP range start"
@@ -456,7 +456,7 @@ msgstr "Управление DNS-зонами"
 
 #: network/network/ajaxSubnetFilter.php:35
 msgid "No dynamic address pool"
-msgstr ""
+msgstr "Нет динамического пула адресов"
 
 #: network/network/ajaxSubnetFilter.php:39
 #: network/network/ajaxSubnetFilter.php:46 network/network/localSidebar.php:29
@@ -466,7 +466,7 @@ msgstr "DHCP-подсети"
 
 #: network/network/ajaxSubnetFilter.php:45
 msgid "Dynamic pool range"
-msgstr ""
+msgstr "Диапазон динамического пула"
 
 #: network/network/ajaxSubnetFilter.php:48
 msgid "View DHCP static host"
@@ -539,7 +539,7 @@ msgstr "Узел успешно добавлен в DNS-зону."
 #: network/network/edithost.php:61
 #, fuzzy
 msgid "Host successfully added to DNS zone and corresponding reverse zone."
-msgstr "Узел успешно добавлен в DNS-зону и ...."
+msgstr "Узел успешно добавлен в DNS-зону и соответсвующую reverse-зону."
 
 #: network/network/edithost.php:81
 msgid ""
@@ -549,17 +549,17 @@ msgstr ""
 "Следующие псевдонимы не были заданы, потому что DNS-запись с некоторыми "
 "именами уже сужествует:"
 
-#: network/network/edithost.php:113
+#: network/network/edithost.php:114
 msgid "A reverse DNS record will be automatically created for this host."
 msgstr ""
 
-#: network/network/edithost.php:146 network/network/edit.php:161
+#: network/network/edithost.php:147 network/network/edit.php:236
 msgid "Network address"
 msgstr "Сетевой адрес"
 
-#: network/network/edithost.php:153 network/network/edithost.php:157
+#: network/network/edithost.php:154 network/network/edithost.php:158
 msgid "Hostname alias"
-msgstr ""
+msgstr "псевдоним имени узла"
 
 #: network/network/services.php:29 network/network/localSidebar.php:31
 #: network/infoPackage.inc.php:134 network/infoPackage.inc.php:137
@@ -642,17 +642,22 @@ msgstr "Добавить DNS-зону"
 msgid "Edit DNS zone"
 msgstr "Изменить DNS-зону"
 
-#: network/network/edit.php:54
+#: network/network/edit.php:41
+#, php-format
+msgid "%s is not a A record of this zone."
+msgstr "%s не является A-записью для этой зоны."
+
+#: network/network/edit.php:70
 msgid "This zone already exists."
 msgstr "Такая зона уже существует."
 
-#: network/network/edit.php:63
+#: network/network/edit.php:79
 msgid ""
 "The network address and the network mask fields must be filled in if you "
 "also want to create a reverse zone."
 msgstr ""
 
-#: network/network/edit.php:72
+#: network/network/edit.php:88
 msgid ""
 "The network address and the network mask fields must be filled in if you "
 "also want to create a DHCP subnet."
@@ -660,7 +665,7 @@ msgstr ""
 "поля Сетевого адреса и маски подсети должны быть заполнены, если вы хотите "
 "создать DHCP-подсеть."
 
-#: network/network/edit.php:94
+#: network/network/edit.php:110
 msgid ""
 "DHCP subnet and DNS zone successfully added. The DHCP service must be "
 "restarted."
@@ -668,51 +673,63 @@ msgstr ""
 "DHCP-подсеть и DNS-зона успешно добавлены. Служба DHCPдолжна быть "
 "перезапущена."
 
-#: network/network/edit.php:97
+#: network/network/edit.php:113
 msgid "DNS zone successfully added."
 msgstr "DNS-зона успешно добавлена."
 
-#: network/network/edit.php:99
+#: network/network/edit.php:115
 msgid "The DNS service must be reloaded."
 msgstr "Служба DNS должна быть перезагружена."
 
-#: network/network/edit.php:113
+#: network/network/edit.php:161
 msgid "DNS zone successfully modified."
 msgstr "DNS-зона успешно изменена"
 
-#: network/network/edit.php:139
+#: network/network/edit.php:207
+msgid "Secondary name servers"
+msgstr "Вторичные сервера  имен"
+
+#: network/network/edit.php:209
+msgid "MX records (SMTP servers)"
+msgstr "MX-записи (SMTP-сервера)"
+
+#: network/network/edit.php:214
 msgid "DNS zone FQDN"
 msgstr "FQDN DNS-зоны"
 
-#: network/network/edit.php:147
-msgid "Name server host name"
-msgstr "Имя сервера имен"
+#: network/network/edit.php:222
+msgid "Primary name server host name"
+msgstr "Имя первичного сервера имен"
 
-#: network/network/edit.php:153
+#: network/network/edit.php:228
 msgid "Name server IP"
 msgstr "IP-адрес сервера имен"
 
-#: network/network/edit.php:159
+#: network/network/edit.php:234
 msgid ""
 "The network address and mask fields must be filled in if you also want to "
 "create a reverse zone or a DHCP subnet linked to this DNS zone."
 msgstr ""
 
-#: network/network/edit.php:165
+#: network/network/edit.php:240
 msgid "Network mask"
 msgstr "Маска подсети"
 
-#: network/network/edit.php:166
+#: network/network/edit.php:241
 msgid "Only 8, 16 or 24 is allowed"
 msgstr "Разрешеный только значения  8, 16 или 24"
 
-#: network/network/edit.php:169
+#: network/network/edit.php:244
 msgid "Also manage a reverse DNS zone"
 msgstr "Also manage a reverse DNS zone"
 
-#: network/network/edit.php:173
+#: network/network/edit.php:248
 msgid "Also create a related DHCP subnet"
 msgstr "Также создать связанную DHCP-подсеть"
+
+#: network/network/edit.php:255 network/network/edit.php:259
+msgid "Secondary name servers hosts name"
+msgstr "Имя вторичного сервера имен"
 
 #: network/network/ajaxZoneFilter.php:40
 msgid "Network prefix"
@@ -765,7 +782,8 @@ msgid "The service has been asked to reload."
 msgstr "Служба запросила перезагрузку."
 
 #: network/network/subnetindex.php:32
-msgid "DHCP subnets management"
+#, fuzzy
+msgid "DHCP subnet management"
 msgstr "Управление DHCP-подсетями"
 
 #: network/dhcplogview/ajax_showlog.php:41
