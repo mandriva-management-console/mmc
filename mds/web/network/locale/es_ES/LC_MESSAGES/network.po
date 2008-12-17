@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-12 10:52+0100\n"
-"PO-Revision-Date: 2008-12-11 11:11+0100\n"
+"POT-Creation-Date: 2008-12-17 15:46+0100\n"
+"PO-Revision-Date: 2008-12-17 15:13+0100\n"
 "Last-Translator: Juan Asensio Sánchez <okelet@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -667,7 +667,7 @@ msgstr "Editar zona DNS"
 #: network/network/edit.php:41
 #, php-format
 msgid "%s is not a A record of this zone."
-msgstr ""
+msgstr "%s no es un registro A de esta zona."
 
 #: network/network/edit.php:70
 msgid "This zone already exists."
