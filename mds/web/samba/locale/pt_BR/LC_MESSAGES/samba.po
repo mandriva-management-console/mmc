@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mds samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-27 21:51+0100\n"
+"POT-Creation-Date: 2008-12-17 15:09+0100\n"
 "PO-Revision-Date: 2008-03-27 21:52+0100\n"
 "Last-Translator: Wanderlei Antonio Cavassin <cavassin@mandriva.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -166,7 +166,6 @@ msgid "Add a share"
 msgstr "Adicionar um compartilhamento"
 
 #: samba/shares/localSidebar.php:34 samba/machines/localSidebar.php:28
-#: samba/machines/index.php:32
 msgid "Computers management"
 msgstr "Gerenciamento de computadores"
 
@@ -429,6 +428,10 @@ msgstr "Remover um computador"
 #, php-format
 msgid "You will delete the %s computer"
 msgstr "Você irá remover o computador %s"
+
+#: samba/machines/index.php:32
+msgid "Computer management"
+msgstr "Gerenciamento de computadores"
 
 #: samba/machines/add.php:36
 #, php-format
