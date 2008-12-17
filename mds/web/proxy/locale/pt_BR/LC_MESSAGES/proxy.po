@@ -3,26 +3,17 @@
 # This file is distributed under the same license as the proxy package.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: mds proxy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-23 17:42-0200\n"
-"PO-Revision-Date: 2007-11-23 17:55-0300\n"
+"POT-Creation-Date: 2008-12-17 16:35+0100\n"
+"PO-Revision-Date: 2008-12-17 16:36+0100\n"
 "Last-Translator: Wanderlei Antonio Cavassin <cavassin@mandriva.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: proxy/blacklist/restart.php:56 proxy/blacklist/restart.php:67
-msgid "Restart squidGuard server"
-msgstr "Reiniciar servidor squidGuard"
-
-#: proxy/blacklist/restart.php:78
-msgid "Back"
-msgstr "Voltar"
 
 #: proxy/blacklist/delete.php:39
 msgid "Remove a squidGuard domain"
@@ -63,13 +54,21 @@ msgstr "Gerenciamento de lista negra"
 msgid "Add an entry in blacklist"
 msgstr "Adicionar uma entrada na lista negra"
 
+#: proxy/blacklist/restart.php:56 proxy/blacklist/restart.php:67
+msgid "Restart squidGuard server"
+msgstr "Reiniciar servidor squidGuard"
+
+#: proxy/blacklist/restart.php:78
+msgid "Back"
+msgstr "Voltar"
+
 #: proxy/blacklist/statut.php:42
-msgid "enable"
-msgstr "habilitar"
+msgid "enabled"
+msgstr "habilitado"
 
 #: proxy/blacklist/statut.php:43
-msgid "disable"
-msgstr "desabilitar"
+msgid "disabled"
+msgstr "desabilitado"
 
 #: proxy/blacklist/statut.php:50
 msgid "Services"
