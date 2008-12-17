@@ -39,8 +39,8 @@ $arrayTMP = getStatutProxy();
 
 foreach($arrayTMP as $key => $value) {
     $info[]=$key;
-    if ($value) $extraInfo[]=_T("enable");
-    else $extraInfo[]=_T("disable");
+    if ($value) $extraInfo[]=_T("enabled");
+    else $extraInfo[]=_T("disabled");
 }
 
 $p = new PageGenerator();
