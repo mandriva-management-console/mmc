@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-03 09:32+0200\n"
+"POT-Creation-Date: 2008-12-17 15:16+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Vitaly Kolomeytsev <nvalka@gmail.com>\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: mail/mail/ajaxFilter.php:27
 msgid "Login"
-msgstr "Имя пользователя"
+msgstr "Пользователь"
 
 #: mail/mail/ajaxFilter.php:30
 msgid "Name"
@@ -35,7 +35,7 @@ msgstr "Изменить"
 
 #: mail/mail/members.php:33
 msgid "Members of "
-msgstr "Члены "
+msgstr "Члены групы "
 
 #: mail/mail/ajaxDomainFilter.php:22 mail/mail/ajaxDomainFilter.php:28
 #: mail/mail/edit.php:96
@@ -145,6 +145,7 @@ msgid "Mail alias"
 msgstr "Почтовый псевдоним"
 
 #: mail/includes/publicFunc.php:149 mail/infoPackage.inc.php:40
+#, fuzzy
 msgid "Mail access"
 msgstr "Доступность почты"
 
