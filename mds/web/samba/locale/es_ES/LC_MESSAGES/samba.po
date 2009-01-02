@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: MDS spanish translation - Samba module\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-11 06:29+0100\n"
-"PO-Revision-Date: 2008-12-11 11:08+0100\n"
+"PO-Revision-Date: 2008-12-19 16:15+0100\n"
 "Last-Translator: Juan Asensio Sánchez <okelet@gmail.com>\n"
 "Language-Team: Aitire / Juan Asensio Sánchez <info@aitire.es / okelet@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -243,12 +243,12 @@ msgstr "Ha ocurrido un error durante el proceso de eliminación en %s"
 
 #: samba/shares/delete.php:43
 msgid "Delete a share"
-msgstr "Borrar un recurso"
+msgstr "Eliminar un recurso"
 
 #: samba/shares/delete.php:44
 #, php-format
 msgid "You will delete the share <b>%s</b>"
-msgstr "Va a borrar el recurso <b>%s</b>"
+msgstr "Va a eliminar el recurso <b>%s</b>"
 
 #: samba/shares/delete.php:45
 msgid "Delete all data"
