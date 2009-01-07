@@ -1,18 +1,21 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: MDS spanish translation - Mail module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-12 10:54+0100\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Juan Asensio S�nchez <okelet@gmail.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2009-01-07 09:03+0100\n"
+"PO-Revision-Date: 2009-01-02 12:46+0100\n"
+"Last-Translator: Juan Asensio Sánchez <okelet@gmail.com>\n"
+"Language-Team: Juan Asensio Sánchez <okelet@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: mail/mail/ajaxFilter.php:27
 msgid "Login"
-msgstr "Identificaci�n"
+msgstr "Identificación"
 
 #: mail/mail/ajaxFilter.php:30
 msgid "Name"
@@ -20,7 +23,7 @@ msgstr "Nombre"
 
 #: mail/mail/ajaxFilter.php:31
 msgid "Mail address"
-msgstr "Direcci�n"
+msgstr "Dirección"
 
 #: mail/mail/ajaxFilter.php:32
 msgid "Edit"
@@ -37,7 +40,7 @@ msgstr "Dominio de correo"
 
 #: mail/mail/ajaxDomainFilter.php:27 mail/mail/edit.php:101
 msgid "Description"
-msgstr "Descripci�n"
+msgstr "Descripción"
 
 #: mail/mail/ajaxDomainFilter.php:30
 msgid "View domain members"
@@ -57,7 +60,7 @@ msgstr "El dominio de correo ha sido eliminado."
 
 #: mail/mail/delete.php:49
 msgid "You will delete the virtual mail domain "
-msgstr "Va a borrar el dominio de correo virtual"
+msgstr "Va a eliminar el dominio de correo virtual"
 
 #: mail/mail/delete.php:55
 msgid "Cancel"
@@ -70,11 +73,11 @@ msgstr "Lista de dominio de correo"
 
 #: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:60
 msgid "Add a domain"
-msgstr "A�adir dominio"
+msgstr "Añadir dominio"
 
 #: mail/mail/edit.php:30
 msgid "Add a mail domain"
-msgstr "A�adir dominio de correo"
+msgstr "Añadir dominio de correo"
 
 #: mail/mail/edit.php:32
 msgid "Edit mail domain"
@@ -82,11 +85,11 @@ msgstr "Editar dominio de correo"
 
 #: mail/mail/edit.php:49
 msgid "Invalid domain name"
-msgstr "Nombre de dominio no v�lido"
+msgstr "Nombre de dominio no válido"
 
 #: mail/mail/edit.php:55
 msgid "The mail domain has been added."
-msgstr "El dominio de correo ha sido a�adido."
+msgstr "El dominio de correo ha sido añadido."
 
 #: mail/mail/edit.php:68
 msgid "The mail domain has been modified."
@@ -165,12 +168,12 @@ msgstr "Equipo servidor de correo"
 #: mail/includes/publicFunc.php:245
 #, php-format
 msgid "%s is not a valid mail alias."
-msgstr "%s no es un alias de correo v�lido."
+msgstr "%s no es un alias de correo válido."
 
 #: mail/includes/publicFunc.php:252
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
-"Debe especificar una direcci�n de correo v�lida para habilitar la entrega de "
+"Debe especificar una dirección de correo válida para habilitar la entrega de "
 "correo."
 
 #: mail/infoPackage.inc.php:36
