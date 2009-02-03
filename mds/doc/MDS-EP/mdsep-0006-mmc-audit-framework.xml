@@ -221,7 +221,7 @@
 	There is a little problem when addressing object in a log. For example, we want to record that the LDAP attribute called "fooattr" from the user "foo" has been deleted. How do we implement that using this database structure ?
       </para>
       <para>
-	When storing the log date into the database, we will simply connect the object representing the LDAP attribute "fooattr" to the object representing the user "foo" thanks to the fk_parent field.
+	When storing the log data into the database, we will simply connect the object representing the LDAP attribute "fooattr" to the object representing the user "foo" thanks to the fk_parent field.
       </para>
 
     </section>
@@ -250,7 +250,7 @@
       <title>Logging an event</title>
       
       <para>
-	 It owns this method to log an event:
+	 The AuditFactory class owns this method to log an event:
       </para>
 
       <screen>
