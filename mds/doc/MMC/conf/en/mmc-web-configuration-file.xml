@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse- Mandriva</year>
+      <year>2007,2008,2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -45,7 +45,7 @@
 
     <para>
       Its configuration file is <filename>/etc/mmc/mmc.ini</filename>.
-      This file must be readable only by root, as it contains the login and password required to connect to MMC agents.
+      This file must be readable only by the Apache web server, as it contains the login and password required to connect to MMC agents.
     </para>
 
     <para>
@@ -94,6 +94,11 @@
 	    <entry>debug</entry>
 	    <entry>debug options</entry>
 	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>logintitle</entry>
+	    <entry>Login page title</entry>
+	    <entry>yes</entry>
 	  </row>
 	  <row>
 	    <entry>server_x</entry>
@@ -170,6 +175,10 @@
 
     <title>Section « debug »</title>
 
+    <para>
+      For debugging purpose only. The XML-RPC calls and results will be displayed on the MMC web interface.
+    </para>
+
     <table>
       <title>
 	Available options for the « debug » section
@@ -193,6 +202,31 @@
 	</tbody>
       </tgroup>
     </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « logintitle »</title>
+
+    <para>
+      This section allows to customize the title of the login box of the MMC web interface login page. By default, there is no title.
+    </para>
+    <para>
+      A title can be defined for each supported locales, like this: "localename = Title_for_this_locale". The title string must be encoded in UTF-8.
+    </para>
+    <para>
+      For example:
+    </para>
+    <screen>
+[logintitle]
+; Default page title for English and non-translated languages
+C = Welcome
+; French title
+fr_FR = Bienvenue
+; Spanish title
+es_ES = Bienvenido
+    </screen>
 
   </section>
 
@@ -233,6 +267,24 @@
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
+	  <row>
+	    <entry>verifypeer</entry>
+	    <entry>If verifypeer is enabled, the TLS protocol is used, and the XML-RPC server must provide a valid certificate.</entry>
+	    <entry>Yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>localcert</entry>
+	    <entry>If verifypeer = 1, path to the file (PEM format) containing the private key and the public certificate used to authenticate with the MMC agent</entry>
+	    <entry>No if verifypeer = 1</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>cacert</entry>
+	    <entry>Path to the file (PEM format) containing the public certificate of the Certificate Authority that produced the certificate defined by the localcert option. The certificate provided by the MMC agent will be validated by this CA.</entry>
+	    <entry>No if verifypeer = 1</entry>
+	    <entry></entry>
+	  </row>
 	</tbody>
       </tgroup>
     </table>
@@ -256,6 +308,20 @@
       description = Local MMC agent
       url = https://127.0.0.1:7080
     </screen>
+
+    <para>
+      To use TLS with certificate check:
+    </para>
+
+    <screen>
+      [server_01]
+      description = MMC agent
+      url = https://10.0.0.1:7080
+      verifypeer = 1
+      cacert = /etc/mmc/certs/demoCA/cacert.pem
+      localcert = /etc/mmc/certs/client.pem
+    </screen>
+
 
   </section>
 
