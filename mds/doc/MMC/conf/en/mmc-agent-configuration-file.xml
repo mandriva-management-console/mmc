@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -90,8 +90,8 @@
 	    <entry>no</entry>
 	  </row>
 	  <row>
-	    <entry>log</entry>
-	    <entry>other MMC agent option (to be removed)</entry>
+	    <entry>daemon</entry>
+	    <entry>MMC agent daemon option</entry>
 	    <entry>no</entry>
 	  </row>
 	</tbody>
@@ -99,7 +99,7 @@
     </table>
 
     <para>
-      All the other sections (loggers, handlers, ...) are related to Python language logging framework. See http://docs.python.org/lib/logging-config-fileformat.html. 
+      All the other sections (loggers, handlers, ...) are related to Python language logging framework. See <ulink url="http://docs.python.org/lib/logging-config-fileformat.html">the Python documentation</ulink> for more informations.
     </para>
 
   </section>
@@ -123,77 +123,92 @@
 	</thead>
 	<tbody>
 	  <row>
-	    <entry>enablessl</entry>
-	    <entry>Enable SSL for XMLRPC communication. If disabled enabled, the XMLRPC traffic is not encrypted.</entry>
-	    <entry>yes</entry>
-	    <entry>0</entry>
-	  </row>
-	  <row>
-	    <entry>privkey</entry>
-	    <entry>Give the name of a file containing a private key.</entry>
-	    <entry>If enablessl=0, yes</entry>
-	    <entry></entry>
-	  </row>
-	  <row>
-	    <entry>certfile</entry>
-	    <entry>Give the name of a file containing a certificate.</entry>
-	    <entry>If enablessl=0, yes</entry>
-	    <entry></entry>
-	  </row>
-	  <row>
 	    <entry>host</entry>
-	    <entry>IP where we listen for incoming connections</entry>
+	    <entry>IP where the MMC agent XML-RPC server listens to incoming connections</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	  <row>
 	    <entry>port</entry>
-	    <entry>TCP/IP port where we listen for incoming connections</entry>
+	    <entry>TCP/IP port where the MMC agent XML-RPC server listens to incoming connections</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	  <row>
 	    <entry>login</entry>
-	    <entry>login to connect to the mmc-agent</entry>
+	    <entry>login to connect to the MMC agent XML-RPC server</entry>
 	    <entry>No</entry>
 	    <entry>mmc</entry>
 	  </row>
 	  <row>
 	    <entry>password</entry>
-	    <entry>password to connect to the mmc-agent</entry>
+	    <entry>password to connect to the MMC agent XML-RPC server</entry>
 	    <entry>No</entry>
 	    <entry>s3cr3t</entry>
+	  </row>
+	  <row>
+	    <entry>enablessl</entry>
+	    <entry>Enable TLS/SSL for XMLRPC communication. If disabled, the XMLRPC traffic is not encrypted.</entry>
+	    <entry>yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>verifypeer</entry>
+	    <entry>If SSL is enabled and verifypeer is enabled, the XML-RPC client that connects to the MMC agent XML-RPC server must provide a valid certificate, else the connection will be closed.</entry>
+	    <entry>yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>localcert</entry>
+	    <entry>If verifypeer = 1, the file should contain the private key and the public certificate. This option was previously called privkey</entry>
+	    <entry>If verifypeer = 1, yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>cacert</entry>
+	    <entry>Path to the file (PEM format) containing the public certificate of the Certificate Authority that produced the certificate defined by the localcert option. If verifypeer = 1, the certificate provided by the XML-RPC client will be validated by this CA.</entry>
+	    <entry>If verifypeer = 1, yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>multithreading</entry>
+	    <entry>Multi-threading support. If enabled, each incoming XML-RPC request is processed in a new thread.</entry>
+	    <entry>Yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>maxthreads</entry>
+	    <entry>If multi-threading is enabled, this setting defines the size of the pool of threads serving XML-RPC requests.</entry>
+	    <entry>Yes</entry>
+	    <entry>20</entry>
 	  </row>
 	</tbody>
       </tgroup>
     </table>
 
     <para>
-      If host=127.0.0.1, the MMC agent will only listen for local incoming connection. You can use host=0.0.0.0 to make it listen on all available network interfaces.
+      If host=127.0.0.1, the MMC agent will only listen to local incoming connections. You can use host=0.0.0.0 to make it listen to all available network interfaces.
     </para>
     <para>
       To connect to the MMC agent, the client (for example the MMC web interface) must do a HTTP Basic authentication, using the configured login and password.
     </para>
     <para>
-      You must change the login and password in the configuration file, because if you keep using the default configuration, anybody can connect to your MMC agent.  MMC agent issue a warning if you use the default login and password.
-    </para>
-    <para>
-      When using SSL, the MMC agent doesn't check the client public certificate (if it gives one). SSL is only used to encrypt the connection.
+      You must change the login and password in the configuration file, because if you keep using the default configuration, anybody can connect to your MMC agent. MMC agent issue a warning if you use the default login and password.
     </para>
 
   </section>  
 
   <section>
     
-    <title>Section « log »</title>
+    <title>Section « deamon »</title>
 
     <para>
-      This section will be deprecated soon.
+      This section defines some MMC agent daemon settings.
     </para>
 
     <table>
       <title>
-	Available options for the "log" section
+	Available options for the "daemon" section
       </title>
       <tgroup cols="4">
 	<thead>
@@ -206,20 +221,36 @@
 	</thead>
 	<tbody>
 	  <row>
-	    <entry>name</entry>
-	    <entry>Name of the MMC agent daemon</entry>
-	    <entry>No</entry>
-	    <entry></entry>
+	    <entry>user</entry>
+	    <entry>System user under which the MMC agent service is running</entry>
+	    <entry>yes</entry>
+	    <entry>root</entry>
+	  </row>
+	  <row>
+	    <entry>group</entry>
+	    <entry>System group under which the MMC agent service is running</entry>
+	    <entry>yes</entry>
+	    <entry>root</entry>
+	  </row>
+	  <row>
+	    <entry>umask</entry>
+	    <entry>umask used by the MMC agent when creating files (log files for example)</entry>
+	    <entry>yes</entry>
+	    <entry>0777</entry>
 	  </row>
 	  <row>
 	    <entry>pidfile</entry>
-	    <entry>Give the name of a file containing the PID of the MMC agent</entry>
+	    <entry>Path to the file containing the PID of the MMC agent</entry>
 	    <entry>No</entry>
 	    <entry></entry>
 	  </row>
 	</tbody>
       </tgroup>
     </table>
+
+    <para>
+      If the MMC agent is configured to run as non-root, it drops its root privileges to the defined user and group id using the "seteuid" system call. This is done as soon as the configuration file is read.
+    </para>
 
   </section>
 
