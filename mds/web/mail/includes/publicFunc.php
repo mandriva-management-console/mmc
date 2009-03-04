@@ -87,7 +87,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
  */
 function _mail_changeGroup($postArr) {
     $group = $postArr["groupname"];
-    if ($postArr["mailgroupaccess"]) {
+    if (!empty($postArr["mailgroupaccess"])) {
         $mail = $postArr["mailgroupalias"];
         if (hasVDomainSupport()) {
             $vdomain = $postArr["maildomain"];
