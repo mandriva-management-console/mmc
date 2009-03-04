@@ -136,16 +136,12 @@ function _samba_verifInfo($postArr) {
 
 function _samba_baseEdit($ldapArr,$postArr) {
     $checked = "checked"; //default value
+    $displayType= "inline";
 
     //fetch ldap updated info if we can
-    if ($ldapArr["uid"][0]) {
-
+    if (isset($ldapArr["uid"][0])) {
         $uid = $ldapArr["uid"][0];
-
-        if (hasSmbAttr($ldapArr["uid"][0])) {
-            $checked = "checked";
-            $displayType= "inline";
-        } else {
+        if (!hasSmbAttr($ldapArr["uid"][0])) {
             $checked = "";
             $displayType= "none";
         }
@@ -181,27 +177,22 @@ function _samba_baseEdit($ldapArr,$postArr) {
     print '<table>'."\n";
 
     $checked = "";
-
-    if ($ldapArr["uid"][0]) {
+    $smbuser = False;
+    if (isset($ldapArr["uid"][0])) {
         $smbuser = hasSmbAttr($ldapArr["uid"][0]);
-
-    if ($smbuser) {
-        if (!isEnabledUser($uid)) {
-            $checked = "checked";
-        } else {
-            $checked = "";
+        if ($smbuser) {
+            if (!isEnabledUser($ldapArr["uid"][0])) {
+                $checked = "checked";
+            }
         }
-    } else {
-        $checked = "";
-    }
     }
 
     if ($smbuser) {
-      if (userPasswdHasExpired($uid)) {
-	$formElt = new HiddenTpl("userPasswdHasExpired");
-	$test = new TrFormElement(_("WARNING"), $formElt);
-	$test->display(array("value" => _T("The user password has expired", "samba")));
-      }
+        if (userPasswdHasExpired($ldapArr["uid"][0])) {
+            $formElt = new HiddenTpl("userPasswdHasExpired");
+            $warn = new TrFormElement(_("WARNING"), $formElt);
+            $warn->display(array("value" => _T("The user password has expired", "samba")));
+        }
     }
 
     $param = array ("value" => $checked);
@@ -213,7 +204,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
     $test->display($param);
 
     if ($smbuser) {
-        if (isLockedUser($uid)) {
+        if (isLockedUser($ldapArr["uid"][0])) {
             $checked = "checked";
         } else {
             $checked = "";
@@ -221,12 +212,12 @@ function _samba_baseEdit($ldapArr,$postArr) {
     }
     $param = array ("value" => $checked);
 
-    $test = new TrFormElement(_T("User is locked, if checked","samba"), new CheckboxTpl("isSmbLocked"),
+    $tr = new TrFormElement(_T("User is locked, if checked","samba"), new CheckboxTpl("isSmbLocked"),
                         array("tooltip"=>
                         _T("Lock samba user access
                         <p>User can be locked after too many failed log.</p>",'samba')));
-    $test->setCssError("isSmbLocked");
-    $test->display($param);
+    $tr->setCssError("isSmbLocked");
+    $tr->display($param);
 
     print '</table>'."\n";
 
@@ -243,10 +234,15 @@ function _samba_baseEdit($ldapArr,$postArr) {
 
 
     foreach ($d as $description => $field) {
-        $test = new TrFormElement($description,
+        $tr = new TrFormElement($description,
                                   new InputTpl($field));
-        $test->setCssError($field);
-        $test->display(array("value"=>$ldapArr[$field][0]));
+        $tr->setCssError($field);
+        if (isset($ldapArr[$field][0])) {
+            $value = $ldapArr[$field][0];
+        } else {
+            $value = "";
+        }
+        $tr->display(array("value"=>$value));
     }
 
     print '</table>'."\n";
