@@ -623,6 +623,24 @@ parser.parse()
 	      <entry></entry>
 	    </row>
 	    <row>
+	      <entry>authonly</entry>
+	      <entry>If set, only the logins from the specified space-separated list of login will be authenticated using this authenticator, other login will be skipped.</entry>
+	      <entry>yes</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>mandatory</entry>
+	      <entry>Set whether this authenticator is mandatory. If it is mandatory and can't be validated during the mmc-agent activation phase, the mmc-agent exits with an error.</entry>
+	      <entry>yes</entry>
+	      <entry>True</entry>
+	    </row>
+	    <row>
+	      <entry>network_timeout</entry>
+	      <entry>LDAP connection timeout in seconds. If the LDAP connection failed after this timeout, we try the next LDAP server in the list or give up if it the last.</entry>
+	      <entry>yes</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
 	      <entry>ldapurl</entry>
 	      <entry>LDAP URL of the LDAP directory to connect to to authenticate user. You can specify multiple LDAP URLs, separated by spaces. Each LDAP server is tried until one successfully accepts a connection.</entry>
 	      <entry>no</entry>
