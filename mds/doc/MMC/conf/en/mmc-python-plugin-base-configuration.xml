@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2006-2008 Cédric Delfosse - Mandriva</year>
+      <year>2006-2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -786,12 +786,36 @@ parser.parse()
 	    <entry>no</entry>
 	    <entry></entry>
 	    </row>
+	    <row>
+	      <entry>profile_attr</entry>
+	      <entry>The ACLs fields of the user that logs in can be filled according to the value of an attribute from the external LDAP. This option should contain the field name.</entry>
+	      <entry>yes</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>profile_acl_&lt;profilename&gt;</entry>
+	      <entry>The ACLs field of the user that logs in with the profile &lt;profilename&gt;.</entry>
+	      <entry>yes</entry>
+	      <entry></entry>
+	    </row>
+	    <row>
+	      <entry>profile_group_mapping</entry>
+	      <entry>If enabled, users with the same profile will be put in the same users group.</entry>
+	      <entry>yes</entry>
+	      <entry>False</entry>
+	    </row>
+	    <row>
+	      <entry>profile_group_prefix</entry>
+	      <entry>If profile_group_mapping is enabled, the created groups name will be prefixed with the given string.</entry>
+	      <entry>yes</entry>
+	      <entry></entry>
+	    </row>
 	  </tbody>
 	</tgroup>
       </table>
 
       <para>
-	To create a user account, the MMC agent needs its login, its password, its given name and its surname. That's why the ldap_uid, ldap_givenName and ldap_sn options are mandatory.
+	To create a user account, the MMC agent needs the user's login, password, given name and surname. That's why the ldap_uid, ldap_givenName and ldap_sn options are mandatory.
       </para>
 
       <para>
