@@ -20,7 +20,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007,2008 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <legalnotice>
@@ -897,6 +897,22 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <para>
 	Now you should be able to see the MMC login screen at this URL: http://IP/mmc
       </para>
+
+      <note>
+	
+	<title>PHP configuration notes</title>
+	
+	<para>
+	  The directive magic_quotes_gpc must be enabled in Apache PHP configuration, either in the globap PHP configuration file, either in the <filename>mmc.conf</filename> file with this line:
+	</para>
+	<screen>
+	  php_flag magic_quotes_gpc on
+	</screen>
+	<para>
+	  The MMC web interface is not compatible with php-eaccelerator. Please uninstall it else you won't be able to connect to the MMC.
+	</para>
+	
+      </note>
 
     </section>
 
