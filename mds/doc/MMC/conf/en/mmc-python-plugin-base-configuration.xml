@@ -325,7 +325,7 @@
       The hooks system allow you to run external script when doing some operations with the MMC.
     </para>
     <para>
-      The script will be run as root user, with as only argument the path to a temporary file containing the full LDIF export of the LDAP user. For the « adduser » hook, the LDIF file will contains the userPassword attributes in cleartext.
+      The script will be run as root user, with as only argument the path to a temporary file containing the full LDIF export of the LDAP user. For the « adduser » and « changeuserpassword » hooks, the LDIF file will contain the userPassword attribute in cleartext.
     </para>
     <para>
       The executable bit must be set on the script to run. The temporary LDIF file is removed once the script has been executed.
@@ -348,6 +348,12 @@
 	  <row>
 	    <entry>adduser</entry>
 	    <entry>path to the script launched when a user has been added into the LDAP directory</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>changeuserpassword</entry>
+	    <entry>path to the script launched when a user has been changed into the LDAP directory</entry>
 	    <entry>yes</entry>
 	    <entry></entry>
 	  </row>
