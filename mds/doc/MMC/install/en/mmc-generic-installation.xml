@@ -69,6 +69,9 @@
     <para>
       These installations instructions are generic: this means they should work on most Linux Distribution.
     </para>
+    <para>
+      If you have any installation issues, please use the <ulink url="http://mds.mandriva.org/wiki/MailingLists">MDS users mailing list</ulink>.
+    </para>
 
   </section>
 
@@ -123,7 +126,7 @@
       </para>
       
       <para>
-	Packages for Mandriva 2008 and Mandriva Cooker are available on Mandriva official repository.
+	Packages for Mandriva 2009 and Mandriva Cooker are available on Mandriva official repository.
 	You will find an official mirror using <ulink url="http://club.mandriva.com/xwiki/bin/view/Downloads/MirrorFinder2">the Mandriva mirror finder module</ulink>.
       </para> 
       <para>
