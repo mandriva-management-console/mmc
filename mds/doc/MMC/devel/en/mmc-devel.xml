@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007-2008 Cédric Delfosse - Mandriva</year>
+      <year>2007-2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>
@@ -339,7 +339,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&amp;ALter Soft, http://linbox.com
-# (c) 2007-2008 Mandriva, http://www.mandriva.com
+# (c) 2007-2009 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
@@ -356,8 +356,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with MMC; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
       </screen>
 
     </section>
@@ -1690,7 +1689,7 @@
       <screen>
 /**
  * (c) 2004-2007 Linbox / Free&amp;ALter Soft, http://linbox.com
- * (c) 2007-2008 Mandriva, http://www.mandriva.com
+ * (c) 2007-2009 Mandriva, http://www.mandriva.com
  *
  * $Id$
  *
@@ -1707,12 +1706,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with MMC; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
       </screen>
     </section>
-
 
   </section>
 
