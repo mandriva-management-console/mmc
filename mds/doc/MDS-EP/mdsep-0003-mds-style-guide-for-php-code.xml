@@ -17,7 +17,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -116,4 +116,64 @@ foreach ($arrParam as $singleItem) {
 
     <para>_membersValue : member value of a class begin with a "_"</para>
   </section>
+
+  <section>
+
+    <title>PHP language version compatibility</title>
+
+    <para>
+      The code must be compatible with PHP 5.0.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>PHP error reporting level</title>
+
+    <para>
+      All possible PHP errors, warnings and notices must be fixed in the PHP code. Use these lines in your <filename>php.ini</filename> file when working on the code to find them all:
+    </para>
+
+    <screen>
+error_reporting = E_ALL
+display_errors = On
+    </screen>
+    
+  </section>
+
+  <section>
+    
+    <title>PHP code copyright header</title>
+    
+    <para>
+      Here is the header that must be used:
+    </para>
+    
+    <screen>
+/**
+ * (c) 2004-2007 Linbox / Free&amp;ALter Soft, http://linbox.com
+ * (c) 2007-2009 Mandriva, http://www.mandriva.com
+ *
+ * $Id$
+ *
+ * This file is part of Mandriva Management Console (MMC).
+ *
+ * MMC is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * MMC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MMC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+    </screen>
+
+  </section>
+  
 </article>
