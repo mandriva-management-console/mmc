@@ -18,7 +18,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007 Cédric Delfosse - Mandriva</year>
+      <year>2009 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <revhistory>      
@@ -138,6 +138,41 @@
       Functions Names: mixedCase for instance method, lower_case_with_underscores for other.
     </para>
 
+  </section>
+
+  <section>
+    <title>Python language version compatibility</title>
+
+    <para>
+      The code must be compatible with Python 2.3. That's a rather old version, but we never had any problems that forced us to use a newer version.
+    </para>
+
+  </section>
+
+  <section>
+    <title>Python additional library compatibility</title>
+
+    <para>
+      The code must be compatible with these library versions:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+	<para>
+	  Python wisted: 8.1.0
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Python LDAP: 2.0
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Python SQLAlchemy: 0.4
+	</para>
+      </listitem>
+    </itemizedlist>
   </section>
 
 </article>
