@@ -89,6 +89,7 @@ if (isset($_POST["bedit"])) {
 
 if ($_GET["action"] == "edithost") {
     $hostname = $_GET["host"];
+    $hostname = str_replace('.' . $zone, '', $hostname);
     $data = getResourceRecord($zone, $hostname);
     if (empty($data)) die("Record $hostname does not exist.");
     else if (isset($data[0][1]["aRecord"])) {
@@ -96,7 +97,11 @@ if ($_GET["action"] == "edithost") {
         /* Lookup host alias */
         $cnames = array();
         foreach(getCNAMEs($zone, $hostname) as $dn => $cname) {
-            $cnames[] = $cname[1]["relativeDomainName"][0];
+            if (in_array("associatedDomain",array_keys($cname[1]))) {
+                $cnames[] = str_replace('.' . $zone, '', $cname[1]["associatedDomain"][0]);
+            } else {
+                $cnames[] = $cname[1]["relativeDomainName"][0];
+            }
         }
     } else {
         die("Only A record edition is supported.");

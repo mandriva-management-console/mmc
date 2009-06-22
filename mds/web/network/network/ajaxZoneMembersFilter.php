@@ -15,7 +15,11 @@ $rrs = getZoneObjects($zone, "");
 /* Build a $hostname => IP array using A record only */
 $records = array();
 foreach($rrs as $dn => $entry) {
-    $hostname = $entry[1]["relativeDomainName"][0];
+    if (in_array("associatedDomain",array_keys($entry[1]))) {
+        $hostname = $entry[1]["associatedDomain"][0];
+    } else {
+        $hostname = $entry[1]["relativeDomainName"][0];
+    }
     if (isset($entry[1]["aRecord"])) {
         $address = ip2long($entry[1]["aRecord"][0]);
         $records[$hostname] = $address;
@@ -24,7 +28,11 @@ foreach($rrs as $dn => $entry) {
 /* Complete the array using CNAME entries */
 $cnames = array();
 foreach($rrs as $dn => $entry) {
-    $alias = $entry[1]["relativeDomainName"][0];
+    if (in_array("associatedDomain",array_keys($entry[1]))) {
+        $alias = $entry[1]["associatedDomain"][0];
+    } else {
+        $alias = $entry[1]["relativeDomainName"][0];
+    }
     if (isset($entry[1]["cNAMERecord"])) {
         $cname = $entry[1]["cNAMERecord"][0];
         $records[$alias] = $records[$cname];

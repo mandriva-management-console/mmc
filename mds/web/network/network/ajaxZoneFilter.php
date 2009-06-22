@@ -11,7 +11,11 @@ $zones = array();
 $count = array();
 
 foreach(getZones($filter) as $dn => $entry) {
-    $zonename = $entry[1]["zoneName"][0];
+    if (in_array("associatedDomain",array_keys($entry[1]))) {
+        $zonename = $entry[1]["associatedDomain"][0];
+    } else {
+        $zonename = $entry[1]["zoneName"][0];
+    }
     $zones[$zonename] = array();
     $zones[$zonename]["description"] = "";    
     if (isset($entry[1]["tXTRecord"])) {
