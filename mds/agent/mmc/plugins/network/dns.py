@@ -38,9 +38,9 @@ class Dns(ldapUserGroupControl):
         ldapUserGroupControl.__init__(self, conffilebase)
         self.configDns = mmc.plugins.network.NetworkConfig("network", conffile)
         if not self.configDns.dnsReader:
-            self.configDns.dnsReader = self.config.get("ldap", "rootName")
+            self.configDns.dnsReader = self.config.getdn("ldap", "rootName")
         if not self.configDns.dnsReaderPassword:
-            self.configDns.dnsReaderPassword = self.config.get("ldap", "password")            
+            self.configDns.dnsReaderPassword = self.config.getpassword("ldap", "password")
         if self.configDns.dnsType == "pdns":
             self.pdns = True
             self.zoneNameField = "associatedDomain"
