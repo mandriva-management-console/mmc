@@ -25,8 +25,6 @@
 # Proxy plugin
 #
 
-from mmc.support.errorObj import errorMessage
-
 import os
 import logging
 from mmc.support import mmctools
