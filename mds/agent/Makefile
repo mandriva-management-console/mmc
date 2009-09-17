@@ -1,0 +1,83 @@
+# (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
+# (c) 2007-2009 Mandriva, http://www.mandriva.com
+#
+# $Id: Makefile 4426 2009-09-10 09:12:38Z cdelfosse $
+#
+# This file is part of Mandriva Management Console (MMC).
+#
+# MMC is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# MMC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# General Makefile variables
+DESTDIR = 
+PREFIX = /usr/local
+SBINDIR = $(PREFIX)/sbin
+LIBDIR = $(PREFIX)/lib/mmc
+ETCDIR = /etc/mmc
+INSTALL = $(shell which install)
+SED = $(shell which sed)
+
+# Python specific variables
+PYTHON = $(shell which python)
+PYTHON_PREFIX = $(shell $(PYTHON) -c "import sys; print sys.prefix")
+
+# List of files to install
+LIBFILES = bin/add_change_share_script bin/delete_share_script bin/add_printer_script bin/delete_printer_script bin/add_machine_script
+
+all:
+
+# Cleaning target
+clean:
+	@echo ""
+	@echo "Cleaning sources..."
+	@echo "Nothing to do"
+
+# Install everything
+install: 
+	@# Install directories
+	@echo "Creating directories..."
+	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(SBINDIR)
+	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(LIBDIR)
+	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(ETCDIR)
+	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(PYTHON_PREFIX)
+
+	@echo ""
+	@echo "Install python code in $(DESTDIR)$(PYTHON_PREFIX)"
+	$(PYTHON) setup.py install --no-compile --prefix $(DESTDIR)$(PYTHON_PREFIX)
+
+	@echo ""
+	@echo "Install LIBFILES in $(DESTDIR)$(LIBDIR)"
+	$(INSTALL) $(LIBFILES) -m 755 -o root -g root $(DESTDIR)$(LIBDIR)
+
+	@echo ""
+	@echo "Install CONFILES in $(DESTDIR)$(ETCDIR)"
+	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(ETCDIR)/plugins
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/samba.ini ] && $(INSTALL) conf/plugins/samba.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/samba.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/mail.ini ] && $(INSTALL) conf/plugins/mail.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/mail.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/network.ini ] && $(INSTALL) conf/plugins/network.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/network.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/proxy.ini ] && $(INSTALL) conf/plugins/proxy.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/proxy.ini
+
+include common.mk
+
+$(RELEASES_DIR)/$(TARBALL_GZ):
+	mkdir -p $(RELEASES_DIR)/$(TARBALL)
+	$(CPA) bin Changelog common.mk conf contrib COPYING init.d Makefile mmc setup.py $(RELEASES_DIR)/$(TARBALL)
+	cd $(RELEASES_DIR) && tar -czf $(TARBALL_GZ) $(EXCLUDE_FILES) $(TARBALL); rm -rf $(TARBALL);
+
+test:
+	mkdir tmp
+	PYTHONPATH=. python tests/testldap.py
+	PYTHONPATH=. python tests/testsamba.py
+	PYTHONPATH=. python tests/testproxy.py
+	PYTHONPATH=. python tests/testmail.py
