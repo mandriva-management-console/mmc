@@ -28,7 +28,6 @@ import stat
 import re
 import logging
 import ldap.modlist
-import fileinput
 import tempfile
 from mmc.plugins.base import ldapUserGroupControl, BasePluginConfig
 from time import mktime, strptime, time, strftime
@@ -42,17 +41,14 @@ except ImportError:
     logger.error("\nPython module pylibacl not found...\nPlease install :\n  * python-pylibacl on Debian/Ubuntu\n  * python-libacl on CentOS 4.3\n  * pylibacl on Mandriva 2006\n")
     raise
 
-from mmc.support.errorObj import errorMessage
 from mmc.support.mmcException import *
 from mmc.support import mmctools
 import mmc.plugins.base
 from mmc.support.config import *
 from mmc.plugins.base import ldapUserGroupControl
 
-from mmc.support.mmctools import shProcessProtocol
 from mmc.support.mmctools import generateBackgroundProcess
 from mmc.support.mmctools import cleanFilter
-from twisted.internet import reactor
 
 INI = "/etc/mmc/plugins/samba.ini"
 
