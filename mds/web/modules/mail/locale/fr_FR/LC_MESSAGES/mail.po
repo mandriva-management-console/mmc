@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-07 15:27+0100\n"
-"PO-Revision-Date: 2008-03-07 15:28+0100\n"
+"PO-Revision-Date: 2009-05-22 20:24+0200\n"
 "Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Éditer"
 
 #: mail/mail/members.php:33
 msgid "Members of "
-msgstr "Membre de "
+msgstr "Membres de "
 
 #: mail/mail/ajaxDomainFilter.php:22 mail/mail/ajaxDomainFilter.php:28
 #: mail/mail/edit.php:96
@@ -45,7 +45,7 @@ msgstr "Description"
 
 #: mail/mail/ajaxDomainFilter.php:30
 msgid "View domain members"
-msgstr "Voir les membres du domaines"
+msgstr "Voir les membres du domaine"
 
 #: mail/mail/ajaxDomainFilter.php:31
 msgid "Edit domain"
