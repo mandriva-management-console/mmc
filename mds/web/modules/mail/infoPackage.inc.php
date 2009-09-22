@@ -68,7 +68,7 @@ if (hasVDomainSupport()) {
     $page->setOptions(array("visible"=>False));
     $submod->addPage($page);
 
-    $page = new Page("delete",_("Delete a mail domain"));
+    $page = new Page("delete",_T("Delete a mail domain", "mail"));
     $page->setFile("modules/mail/mail/delete.php",
 		   array("noHeader"=>True, "visible"=>False)
 		   );
