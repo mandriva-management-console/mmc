@@ -65,12 +65,8 @@ function _sshlpk_baseEdit($ldapArr, $postArr) {
  * @param $postArr $_POST array of the page
  */
 function _sshlpk_verifInfo($postArr) {
-
     global $error;
-    
-    #TODO test if it's sshkey
-    
-    // test if key already exist
+    /*  test if key already exist */
     $doublekey = '';
     for ( $i = 0 ; $i < count($postArr['sshkeylist']) - 1 ; $i++ ) {
       for ( $j = $i+1 ; $j < count($postArr['sshkeylist']) ; $j++ ) {
@@ -94,9 +90,11 @@ function _sshlpk_verifInfo($postArr) {
  */
 function _sshlpk_changeUser($postArr) {
     if (isset($postArr['showsshkey'])) {
-        updateSshKeys($postArr['nlogin'],$postArr['sshkeylist']);
+        updateSshKeys($postArr['nlogin'], $postArr['sshkeylist']);
     } else {
-        delSSHKeyObjectClass($postArr['nlogin']);
+        if (hasSshKeyObjectClass($postArr['nlogin'])) {
+            delSSHKeyObjectClass($postArr['nlogin']);
+        }
     }
 }
 
