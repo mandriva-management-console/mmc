@@ -67,20 +67,22 @@ function _sshlpk_baseEdit($ldapArr, $postArr) {
 function _sshlpk_verifInfo($postArr) {
     global $error;
     /*  test if key already exist */
-    $doublekey = '';
-    for ( $i = 0 ; $i < count($postArr['sshkeylist']) - 1 ; $i++ ) {
-      for ( $j = $i+1 ; $j < count($postArr['sshkeylist']) ; $j++ ) {
-        if ($postArr['sshkeylist'][$i] != '' && $postArr['sshkeylist'][$j] != '' 
-            && $postArr['sshkeylist'][$i] == $postArr['sshkeylist'][$j] ) {
-          $postArr['sshkeylist'][$j] = '';
-          $doublekey .= "  ".($i+1)." - ".($j+1)."<br />" ;
+    if (isset($postArr['sshkeylist'])) {
+        $doublekey = '';
+        for ( $i = 0 ; $i < count($postArr['sshkeylist']) - 1 ; $i++ ) {
+            for ( $j = $i+1 ; $j < count($postArr['sshkeylist']) ; $j++ ) {
+                if ($postArr['sshkeylist'][$i] != '' && $postArr['sshkeylist'][$j] != '' 
+                    && $postArr['sshkeylist'][$i] == $postArr['sshkeylist'][$j] ) {
+                    $postArr['sshkeylist'][$j] = '';
+                    $doublekey .= "  ".($i+1)." - ".($j+1)."<br />" ;
+                }
+            }
         }
-      }
-    }
-    if ($doublekey != '') {
-        $error .= _T("Some SSH public keys are duplicate", "sshlpk")."<br />";
-        $error .= " (" . $doublekey . ")";
-        setFormError("sshlpk");
+        if ($doublekey != '') {
+            $error .= _T("Some SSH public keys are duplicate", "sshlpk")."<br />";
+            $error .= " (" . $doublekey . ")";
+            setFormError("sshlpk");
+        }
     }
 }
 
