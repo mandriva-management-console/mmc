@@ -43,11 +43,11 @@
     <section>
       <title>Related documentations</title>
 
-      <para><ulink url="http://mds.mandriva.org/content/epydoc/">Full MMC Python
+      <para><ulink url="http://mds.mandriva.org/content/epydoc-trunk/">Full MMC Python
       API documentation</ulink>.</para>
 
       <para><ulink
-      url="http://mds.mandriva.org/content/MDS-EP/mdsep-0002-mds-style-guide-for-python-code.html">MMC
+      url="http://mds.mandriva.org/content/MDS-EP-trunk/mdsep-0002-mds-style-guide-for-python-code.html">MMC
       Python style guidelines</ulink>.</para>
 
       <para><ulink
@@ -335,11 +335,11 @@
     <section>
       <title>Related documentations</title>
 
-      <para><ulink url="http://mds.mandriva.org/content/doxygen/html/">Full MMC
+      <para><ulink url="http://mds.mandriva.org/content/doxygen-trunk/html/">Full MMC
       PHP web interface documentation</ulink>.</para>
 
       <para><ulink
-      url="http://mds.mandriva.org/content/MDS-EP/mdsep-0003-mds-style-guide-for-php-code.html">MMC
+      url="http://mds.mandriva.org/content/MDS-EP-trunk/mdsep-0003-mds-style-guide-for-php-code.html">MMC
       PHP style guidelines</ulink>.</para>
     </section>
 
@@ -1638,7 +1638,7 @@
       <filename>/usr/share/mmc/modules/modulename/locale/&lt;language_code&gt;.utf8/LC_MESSAGES/modulename.[pm]o</filename>.</para>
 
       <para><ulink
-      url="http://mds.mandriva.org/content/MDS-EP/mdsep-0005-mmc-web-interface-translation.html">Here
+      url="http://mds.mandriva.org/content/MDS-EP-trunk/mdsep-0005-mmc-web-interface-translation.html">Here
       is another document explaining how to translate the MMC web interface
       modules</ulink>. It explains how to produce the .po and the .mo
       files.</para>
