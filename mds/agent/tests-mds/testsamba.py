@@ -49,7 +49,7 @@ def cleanLdap():
     os.system("/etc/init.d/slapd restart")
     time.sleep(5)
     # Create Base OU
-    l = ldapUserGroupControl("tests/basetest.ini")
+    l = ldapUserGroupControl("tests-mds/basetest.ini")
     l.addOu("Groups", "dc=mandriva,dc=com")
     l.addOu("Users",  "dc=mandriva,dc=com")
     l.addOu("Computers",  "dc=mandriva,dc=com")
@@ -58,11 +58,11 @@ class TestShares(unittest.TestCase):
 
     def setUp(self):
         cleanLdap()
-        self.l = ldapUserGroupControl("tests/basetest.ini")
+        self.l = ldapUserGroupControl("tests-mds/basetest.ini")
         self.l.addGroup("grouptestA")
         self.l.addGroup("grouptestB")
         os.system("cp contrib/samba/smb.conf /etc/samba/smb.conf")
-        self.s = smbConf(conffile = "tests/sambatest.ini", conffilebase = "tests/basetest.ini")
+        self.s = smbConf(conffile = "tests-mds/sambatest.ini", conffilebase = "tests-mds/basetest.ini")
         os.system("rm -fr %s" % self.s.defaultSharesPath)
 
     def test_shares(self):
@@ -70,7 +70,7 @@ class TestShares(unittest.TestCase):
         self.s.addShare("sharetest", None, "sharetest comment", ["grouptestA"], False, [], True, True)
         self.assertEqual(os.path.exists(os.path.join(self.s.defaultSharesPath, "sharetest")), True)
         self.s.save()
-        s = smbConf(conffile = "tests/sambatest.ini", conffilebase = "tests/basetest.ini")
+        s = smbConf(conffile = "tests-mds/sambatest.ini", conffilebase = "tests-mds/basetest.ini")
         self.assertEqual(s.getACLOnShare("sharetest"), ["grouptestA"])
         self.assertEqual(["sharetest", "sharetest comment"] in s.getDetailedShares(), True)
         i = s.shareInfo("sharetest")
@@ -90,7 +90,7 @@ class TestShares(unittest.TestCase):
         self.assertEqual(self.s.getSmbInfo()["workgroup"], "MANDRIVA")
         self.assertEqual(self.s.getSmbInfo()["netbios name"], "SRV-MANDRIVA")
         self.s.smbInfoSave(False, False, self.s.getSmbInfo())
-        s2 = smbConf(conffile = "tests/sambatest.ini", conffilebase = "tests/basetest.ini")
+        s2 = smbConf(conffile = "tests-mds/sambatest.ini", conffilebase = "tests-mds/basetest.ini")
         self.assertEqual(s2.isPdc(), False)
         self.assertEqual(s2.getSmbInfo()["homes"], False)
 
@@ -105,13 +105,13 @@ class testSambaLdap(unittest.TestCase):
 
     def setUp(self):
         cleanLdap()
-        self.l = ldapUserGroupControl("tests/basetest.ini")
+        self.l = ldapUserGroupControl("tests-mds/basetest.ini")
         self.l.addGroup("allusers")
         os.system("cp contrib/samba/smb.conf /etc/samba/smb.conf")
         os.system("/etc/init.d/samba stop")
         os.system("/usr/bin/smbpasswd -w secret")
         os.system("/etc/init.d/samba start")
-        self.s = sambaLdapControl(conffile = "tests/sambatest.ini", conffilebase = "tests/basetest.ini")
+        self.s = sambaLdapControl(conffile = "tests-mds/sambatest.ini", conffilebase = "tests-mds/basetest.ini")
 
     def test_users(self):
         self.l.addUser("usertest", "userpass", "firstname", "sn")

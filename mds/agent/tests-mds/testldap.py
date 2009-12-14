@@ -48,7 +48,7 @@ def cleanLdap():
     os.system("/etc/init.d/slapd restart")
     time.sleep(5)
     # Create Base OU
-    l = ldapUserGroupControl("tests/basetest.ini")
+    l = ldapUserGroupControl("tests-mds/basetest.ini")
     l.addOu("Groups", "dc=mandriva,dc=com")
     l.addOu("Users",  "dc=mandriva,dc=com")
 
@@ -56,7 +56,7 @@ class TestEmptyLdap(unittest.TestCase):
 
     def setUp(self):
         cleanLdap()
-        self.l = ldapUserGroupControl("tests/basetest.ini")
+        self.l = ldapUserGroupControl("tests-mds/basetest.ini")
 
     def test_empty(self):
         self.assertEqual(self.l.searchUser(), [])
@@ -72,14 +72,14 @@ class TestManageUserGroup(unittest.TestCase):
 
     def setUp(self):
         cleanLdap()
-        self.l = ldapUserGroupControl("tests/basetest.ini")
+        self.l = ldapUserGroupControl("tests-mds/basetest.ini")
         self.assertEqual(self.l.addGroup("allusers"), 10001)
 
     def test_addDelUser(self):
         self.assertEqual(self.l.addUser("usertest", "userpass", u"ùnïcôde", u"çàùôéé"), 0)
 
-        self.assertEqual(ldapAuthen("usertest", "userpass", "tests/basetest.ini").isRightPass(), True)
-        self.assertEqual(ldapAuthen("usertest", "userbadpass", "tests/basetest.ini").isRightPass(), False)
+        self.assertEqual(ldapAuthen("usertest", "userpass", "tests-mds/basetest.ini").isRightPass(), True)
+        self.assertEqual(ldapAuthen("usertest", "userbadpass", "tests-mds/basetest.ini").isRightPass(), False)
         
         self.assertEqual(os.path.exists("/home/usertest"), True)
         self.assertEqual(len(self.l.searchUser()), 1)

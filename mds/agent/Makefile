@@ -75,10 +75,3 @@ $(RELEASES_DIR)/$(TARBALL_GZ):
 	mkdir -p $(RELEASES_DIR)/$(TARBALL)
 	$(CPA) bin Changelog common.mk conf contrib COPYING init.d Makefile mmc setup.py $(RELEASES_DIR)/$(TARBALL)
 	cd $(RELEASES_DIR) && tar -czf $(TARBALL_GZ) $(EXCLUDE_FILES) $(TARBALL); rm -rf $(TARBALL);
-
-test:
-	mkdir tmp
-	PYTHONPATH=. python tests/testldap.py
-	PYTHONPATH=. python tests/testsamba.py
-	PYTHONPATH=. python tests/testproxy.py
-	PYTHONPATH=. python tests/testmail.py

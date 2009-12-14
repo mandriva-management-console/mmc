@@ -45,7 +45,7 @@ def cleanLdap():
     os.system("/etc/init.d/slapd restart")
     time.sleep(5)
     # Create Base OU
-    l = ldapUserGroupControl("tests/basetest.ini")
+    l = ldapUserGroupControl("tests-mds/basetest.ini")
     l.addOu("Groups", "dc=mandriva,dc=com")
     l.addOu("Users",  "dc=mandriva,dc=com")
     l.addOu("mailDomains", "dc=mandriva,dc=com")
@@ -56,7 +56,7 @@ class TestMailControl(unittest.TestCase):
 
     def setUp(self):
         cleanLdap()
-        self.m = MailControl(conffile = "tests/vdomaintest.ini", conffilebase = "tests/basetest.ini")
+        self.m = MailControl(conffile = "tests-mds/vdomaintest.ini", conffilebase = "tests-mds/basetest.ini")
 
     def test_MailControl(self):
         self.m.addUser("usertest", "userpass", "test", "test")
@@ -70,7 +70,7 @@ class TestMailControlVDomain(unittest.TestCase):
 
     def setUp(self):
         cleanLdap()
-        self.m = MailControl(conffile = "tests/vdomaintest.ini", conffilebase = "tests/basetest.ini")
+        self.m = MailControl(conffile = "tests-mds/vdomaintest.ini", conffilebase = "tests-mds/basetest.ini")
 
     def test_MailControl(self):
         self.m.addUser("usertest", "userpass", "test", "test", "/home/mail/usertest", False)
