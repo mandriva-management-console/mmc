@@ -28,7 +28,8 @@
 import os
 import logging
 from mmc.support import mmctools
-from mmc.support.config import *
+from mmc.support.config import PluginConfig, ConfigException
+from ConfigParser import NoSectionError, NoOptionError
 
 VERSION = "2.3.2"
 APIVERSION = "1:0:0"
@@ -84,15 +85,15 @@ class ProxyConfig(PluginConfig):
     def readConf(self):
         PluginConfig.readConf(self)
         try: self.sgBinary = self.get("squidguard", "path")
-        except NoSectionError, NoOptionError: pass
+        except (NoSectionError, NoOptionError): pass
         try: self.sgBlacklist = self.get("squidguard", "blacklist")
-        except NoSectionError, NoOptionError: pass
+        except (NoSectionError, NoOptionError): pass
         try: self.squidReload = self.get("squidguard", "scriptReload")
-        except NoSectionError, NoOptionError: pass
+        except (NoSectionError, NoOptionError): pass
         try: self.squidUser = self.get("squidguard", "user")
-        except NoSectionError, NoOptionError: pass
+        except (NoSectionError, NoOptionError): pass
         try: self.squidGroup = self.get("squidguard", "group")
-        except NoSectionError, NoOptionError: pass
+        except (NoSectionError, NoOptionError): pass
 
     def setDefault(self):
         PluginConfig.setDefault(self)
