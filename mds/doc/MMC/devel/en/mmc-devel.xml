@@ -23,11 +23,11 @@
 
     <revhistory>
       <revision>
-        <revnumber>$Revision: 33 $</revnumber>
+        <revnumber>$Revision$</revnumber>
 
         <date>$Date: 2007-06-12 14:48:02 +0200 (mar, 12 jun 2007) $</date>
 
-        <authorinitials>$Author: cedric $</authorinitials>
+        <authorinitials>$Author$</authorinitials>
       </revision>
     </revhistory>
 
@@ -93,7 +93,7 @@
       <screen>
 	VERSION = "2.0.0"
 	APIVERSION = "4:1:3"
-	REVISION = int("$Rev: 169 $".split(':')[1].strip(' $'))
+	REVISION = int("$Rev$".split(':')[1].strip(' $'))
 	
 	def getVersion(): return VERSION
 	def getApiVersion(): return APIVERSION
@@ -581,7 +581,7 @@
 	/* MMC module version, should follow MDS version release */
 	$mod-&gt;setVersion("2.0.0");
 	/* SVN revision bumber */
-	$mod-&gt;setRevision("$Rev: 51 $");
+	$mod-&gt;setRevision("$Rev$");
 	/* module description. The _T("") syntax will be explained later */
 	$mod-&gt;setDescription(_T("Module 1 service"),"module1");
 	/*
