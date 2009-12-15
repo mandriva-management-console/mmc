@@ -225,6 +225,19 @@
       </para>
 
     </section>
+
+    <section>
+      
+      <title>How do we know the current execution context ?</title>
+
+      <para>
+	All XML-RPC calls received by the MMC agent are executed in threads. Each time a new thread is started, the current user session is attached to the thread. From the session the MMC agent knows which user triggered an event and the initiator (the MMC web interface in most case).
+      </para>
+      <para>
+	When using the MMC API without the MMC agent (no XML-RPC calls), the initiator is the current host and the current application (sys.argv[0]), and the user is the current effective user id number.
+      </para>
+
+    </section>
     
   </section>
 
@@ -254,7 +267,7 @@
       </para>
 
       <screen>
-def log(self, module, event, context = None, objects = None, current=None, previous=None, parameters = None)
+def log(self, module, event, objects = None, current=None, previous=None, parameters = None)
       </screen>
 
       <itemizedlist>
@@ -266,11 +279,6 @@ def log(self, module, event, context = None, objects = None, current=None, previ
 	<listitem>
 	  <para>
 	    event: event name
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    context: contains the MMC agent current execution context. From this context we are able to know the initiator and the user that trigerred this event. If the context is not provided, the initiator is the current host and the current application (sys.argv[0]), and the user is the current effective user id number.
 	  </para>
 	</listitem>
 	<listitem>
@@ -319,6 +327,51 @@ r = AuditFactory().log("MODULE_TEST", "TEST_AUDIT")
 r.commit()
       </screen>
 
+    </section>
+
+    <section>
+
+      <title>Declaring module events and type</title>
+
+      <para>
+	Each MMC API module have a <filename>audit.py</filename> Python file that defines all events and types managed by the module.
+      </para>
+      <para>
+	Here is an extract of what contains the <filename>audit.py</filename> file for the "base" MMC module:
+      </para>
+      <screen>
+class AuditActions:
+    BASE_ADD_USER = u'BASE_ADD_USER'
+    BASE_ENABLE_USER = u'BASE_ENABLE_USER'
+    ...
+AA = AuditActions
+
+class AuditTypes:
+    USER = u'USER'
+    GROUP = u'GROUP'
+    ...
+AT = AuditTypes
+
+PLUGIN_NAME = u'MMC-BASE'
+      </screen>
+
+      <para>
+	Remarks:
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    All the strings must be unicode strings, in uppercase.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Actions (events) name starts with the name of the plugin
+	  </para>
+	</listitem>
+      </itemizedlist>
+      <para>
+      </para>
     </section>
     
   </section>
