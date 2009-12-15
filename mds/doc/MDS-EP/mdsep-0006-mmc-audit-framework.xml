@@ -182,7 +182,7 @@
       </listitem>
       <listitem>
 	<para>
-	  object: name of a object affected by the audit record. Each object has a type. For example, the object representing the user "foo" has the name "foo" and the type "USER".
+	  object: URI of a object affected by the audit record. If the object is a LDAP object, the URI is the LDAP DN of the object. For other type of object, a URI system must be found. Each object has a type. For example, the object representing the LDAP user "foo" has the URI "uid=foo,ou=Users,dc=mds" and the type "USER".
 	</para>
       </listitem>
       <listitem>
@@ -373,9 +373,28 @@ PLUGIN_NAME = u'MMC-BASE'
       <para>
       </para>
     </section>
-    
-  </section>
-  
+
+    <section>
+
+      <title>Defining object URI</title>
+
+      <para>
+	An object URI must allow us to identity and address a unique object in the audit database, to record and track all its changes.
+      </para>
+      
+      <para>
+	For LDAP objects, it is logical to use the object DN as the URI to store into the database.
+      </para>
+
+      <para>
+	But the MMC allows to modify objects which are not into the LDAP, for example SAMBA shares. For this kind of objects, a method to build an URI must found.
+      </para>
+
+    </section>
+
+
+  </section>  
+
   <section>
 
     <title>Open questions</title>
