@@ -379,7 +379,7 @@ PLUGIN_NAME = u'MMC-BASE'
       <title>Defining object URI</title>
 
       <para>
-	An object URI must allow us to identity and address a unique object in the audit database, to record and track all its changes.
+	An object URI must allow us to identify and address a unique object in the audit database, to record and track all its changes.
       </para>
       
       <para>
@@ -387,22 +387,12 @@ PLUGIN_NAME = u'MMC-BASE'
       </para>
 
       <para>
-	But the MMC allows to modify objects which are not into the LDAP, for example SAMBA shares. For this kind of objects, a method to build an URI must found.
+	But the MMC allows to modify objects which are not into the LDAP, for example SAMBA shares. For this kind of objects, a method to build an URI must be found.
       </para>
 
     </section>
 
 
   </section>  
-
-  <section>
-
-    <title>Open questions</title>
-
-    <para>
-      The user that initiates an event can either be a LDAP user (a user connected to the MMC web interface for example), or a system user (a user logged in a Linux system that runs a script using the MMC API). Should the type of these users be different ?
-    </para>
-
-  </section>
 
 </article>
