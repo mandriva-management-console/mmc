@@ -60,7 +60,7 @@ urpmi python-twisted-web python-ldap python-sqlalchemy
 urpmi apache-mpm-prefork apache-mod_php php-gd php-iconv php-xmlrpc
 
 # Development & install
-urpmi subversion make
+urpmi subversion make gcc libldap2.4_2-devel
 
 # for MDS samba plugin
 urpmi python-pylibacl samba-server smbldap-tools nss_ldap
@@ -116,6 +116,9 @@ sed -i 's/@inetLocalMailRecipient,//' /etc/openldap/mandriva-dit-access.conf
 
 rm -f /etc/openldap/schema/local.schema
 echo "include /etc/openldap/schema/mmc.schema" >> /etc/openldap/schema/local.schema
+
+# Setup ppolicy
+sed -i "s/disable = 1/disable = 0/" /etc/mmc/plugins/ppolicy.ini
 
 # Setup Mail
 echo "include /etc/openldap/schema/mail.schema" >> /etc/openldap/schema/local.schema
@@ -194,7 +197,7 @@ sed -i "s!init = /etc/init.d/bind9!init = /etc/init.d/named!" /etc/mmc/plugins/n
 sed -i "s!bindgroup = bind!bindgroup = named!" /etc/mmc/plugins/network.ini
 sed -i "s!bindroot = /etc/bind!bindroot= /var/lib/named/etc/!" /etc/mmc/plugins/network.ini
 echo "bindchrootconfpath = /etc" >> /etc/mmc/plugins/network.ini
-
+sleep 1
 service named start
 
 # Recreate log directory
@@ -204,6 +207,8 @@ rm -fr /var/log/mmc; mkdir /var/log/mmc
 rm -fr /home/archives; mkdir -p /home/archives
 
 # Start MMC agent
+# Remove default LDAP password policies because the MMC agent will add one
+ldapdelete -h 127.0.0.1 -D "uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com" -w secret "cn=default,ou=Password Policies,dc=mandriva,dc=com"
 service mmc-agent restart
 
 rm -fr $TMPCO
