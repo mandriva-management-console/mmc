@@ -54,7 +54,7 @@ urpmi openldap-servers openldap-mandriva-dit
 
 # Python stuff
 urpmi lib64python2.6-devel libpython2.6-devel
-urpmi python-twisted-web python-ldap python-sqlalchemy 
+urpmi python-twisted-web python-ldap python-sqlalchemy lib64crack2-python
 
 # Apache/PHP
 urpmi apache-mpm-prefork apache-mod_php php-gd php-iconv php-xmlrpc
