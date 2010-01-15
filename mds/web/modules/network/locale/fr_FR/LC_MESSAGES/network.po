@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-15 10:26+0100\n"
-"PO-Revision-Date: 2010-01-15 10:29+0100\n"
+"PO-Revision-Date: 2010-01-15 10:34+0100\n"
 "Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -557,7 +557,7 @@ msgstr "État des services réseau"
 #: modules/network/network/subnetedithost.php:271
 #: modules/network/network/subnetedit.php:315
 msgid "Next server"
-msgstr "Next server"
+msgstr "Prochain serveur (Next server)"
 
 #: modules/network/network/ajaxSubnetFilter.php:35
 msgid "No dynamic address pool"
