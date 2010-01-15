@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-12 15:05+0100\n"
-"PO-Revision-Date: 2008-03-12 15:14+0100\n"
+"POT-Creation-Date: 2010-01-15 10:26+0100\n"
+"PO-Revision-Date: 2010-01-15 10:27+0100\n"
 "Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,436 +15,290 @@ msgstr ""
 "X-Generator: KBabel 1.10\n"
 "Plural-Forms:  nplurals=2; plural=(n > 1);\n"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:30
-#: samba/status/index.php:30
-msgid "Samba status"
-msgstr "Statut SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:56
-#: samba/status/index.php:56
-msgid "Opened sessions"
-msgstr "Sessions ouvertes"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:64
-#: samba/status/index.php:64
-msgid "Users"
-msgstr "Utilisateurs"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:65
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:114
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:42
-#: samba/status/index.php:65 samba/status/index.php:114
-#: samba/machines/ajaxFilter.php:42
-msgid "Computers"
-msgstr "Machines"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:66
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:115
-#: samba/status/index.php:66 samba/status/index.php:115
-msgid "IP"
-msgstr "IP"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:72
-#: samba/status/index.php:72
-msgid "No opened sessions"
-msgstr "Aucune session ouverte"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:77
-#: samba/status/index.php:77
-msgid "Connections on shares"
-msgstr "Connexion sur les partages"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:84
-#: samba/status/index.php:84
-msgid "Share"
-msgstr "Partages"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:113
-#: samba/status/index.php:113
-msgid "User"
-msgstr "Utilisateur"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:116
-#: samba/status/index.php:116
-msgid "Connected at"
-msgstr "Connecté à"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/status/index.php:123
-#: samba/status/index.php:123
-msgid "No connections"
-msgstr "Aucune connexion"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/restart.php:26
-#: samba/config/restart.php:26
-msgid "The SAMBA service has been asked to restart."
-msgstr "Il a été demandé au service SAMBA de redémarrer."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:53
-#: samba/config/index.php:53
-msgid "Configuration saved"
-msgstr "Configuration sauvegardée"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:68
-#: samba/config/index.php:68
+#: modules/samba/includes/errorHandling.php:25
 msgid ""
-"SAMBA configuration saved. You may need to reload or restart the SAMBA "
-"service."
+"<ul>\n"
+"                           <li>Delete this share before recreate it.</li>\n"
+"                           <li>Choose another share name</li>\n"
+"                        </ul>"
 msgstr ""
-"Configuration de SAMBA sauvegardée. Il peut être nécessaire de recharger ou "
-"de redémarrer le service SAMBA."
+"<ul> \t\t<li>Supprimer ce partage avant de le recréer.</li> \t"
+"\t<li>Choisissez un autre nom de partage.</li> </ul>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:75
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:41
-#: samba/config/index.php:75 samba/mainSidebar.php:41
-msgid "General options"
-msgstr "Options générales"
+#: modules/samba/includes/errorHandling.php:5
+msgid "ACLs are not supported in your partition containing /home/samba/"
+msgstr ""
+"Les ACLs ne sont pas supportés sur votre partition contenant /home/samba/"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:86
-#: samba/config/index.php:86
-msgid "This server is a PDC"
-msgstr "Ce serveur est un PDC"
+#: modules/samba/shares/details.php:199
+msgid "Access for all"
+msgstr "Accès pour tous"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:90
-#: samba/config/index.php:90
-msgid "This server is a WINS server"
-msgstr "Ce serveur est un serveur WINS"
+#: modules/samba/views/groups.tpl.php:138
+msgid "Add"
+msgstr "Ajouter"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:96
-#: samba/config/index.php:96
-msgid "Share user's homes"
-msgstr "Partage des répertoires utilisateurs"
+#: modules/samba/shares/localSidebar.php:37
+#: modules/samba/shares/localSidebar_flymake.php:37
+#: modules/samba/shares/localSidebar_flymake_flymake.php:37
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:37
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/machines/localSidebar.php:31
+#: modules/samba/machines/add.php:41 modules/samba/mainSidebar.php:36
+#: modules/samba/infoPackage.inc.php:83
+msgid "Add a computer"
+msgstr "Ajouter une machine"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:100
-#: samba/config/index.php:100
-msgid "Domain name"
-msgstr "Nom du domaine"
+#: modules/samba/views/groups.tpl.php:129
+msgid "Add a new group"
+msgstr "Ajouter un nouveau groupe"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:104
-#: samba/config/index.php:104
-msgid "Server name"
-msgstr "Nom du serveur"
+#: modules/samba/shares/localSidebar.php:31
+#: modules/samba/shares/details.php:82
+#: modules/samba/shares/localSidebar_flymake.php:31
+#: modules/samba/shares/localSidebar_flymake_flymake.php:31
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:31
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:31
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:31
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:31
+#: modules/samba/mainSidebar.php:30 modules/samba/infoPackage.inc.php:48
+msgid "Add a share"
+msgstr "Ajouter un partage"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:113
-#: samba/config/index.php:113
-msgid "LDAP password sync"
-msgstr "Synchronisation du mot de passe LDAP"
+#: modules/samba/infoPackage.inc.php:120
+msgid "Add/delete SAMBA's attributes"
+msgstr "Ajout/Suppression des attributs SAMBA"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:116
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:239
-#: samba/config/index.php:116 samba/includes/publicFunc.php:239
-msgid "User profile path"
-msgstr "Chemin du profil utilisateur"
+#: modules/samba/shares/details.php:236
+msgid "Administrator groups for this share"
+msgstr "Groupes administrateur de ce partage"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:117
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:240
-#: samba/config/index.php:117 samba/includes/publicFunc.php:240
-msgid "Opening script session"
-msgstr "Script d'ouverture de session"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:118
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:241
-#: samba/config/index.php:118 samba/includes/publicFunc.php:241
-msgid "Base directory path"
-msgstr "Chemin du répertoire de base"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:119
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:242
-#: samba/config/index.php:119 samba/includes/publicFunc.php:242
-msgid "Connect base directory on network drive"
-msgstr "Connexion du répertoire de base sur le lecteur réseau"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:131
-#: samba/config/index.php:131
-msgid "Restart SAMBA"
-msgstr "Redémarrer SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/index.php:132
-#: samba/config/index.php:132
-msgid "Reload SAMBA configuration"
-msgstr "Recharger SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/config/reload.php:26
-#: samba/config/reload.php:26
-msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr "Il a été demandé au service SAMBA de relire sa configuration."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:34
-#: samba/shares/delete.php:34
-#, php-format
-msgid "Share %s deleted"
-msgstr "Partage %s supprimé"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:37
-#: samba/shares/delete.php:37
+#: modules/samba/shares/delete.php:37
+#: modules/samba/shares/delete_flymake.php:37
+#: modules/samba/shares/delete_flymake_flymake.php:37
+#: modules/samba/shares/delete_flymake_flymake_flymake.php:37
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:37
 #, php-format
 msgid "An error has occured during delete process on %s"
 msgstr "Une erreur est survenue lors de la suppression de %s"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:43
-#: samba/shares/delete.php:43
-msgid "Delete a share"
-msgstr "Supprimer le partage"
+#: modules/samba/shares/details.php:145
+msgid "AntiVirus on this share"
+msgstr "Antivirus sur ce partage"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:44
-#: samba/shares/delete.php:44
-#, php-format
-msgid "You will delete the share <b>%s</b>"
-msgstr "Vous allez supprimer le partage <b>%s</b>"
+#: modules/samba/shares/index.php:65 modules/samba/shares/index_flymake.php:65
+#: modules/samba/shares/index_flymake_flymake.php:65
+#: modules/samba/shares/index_flymake_flymake_flymake.php:65
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:65
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:65
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:65
+msgid "Archive"
+msgstr "Archive"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/delete.php:45
-#: samba/shares/delete.php:45
-msgid "Delete all data"
-msgstr "Supprimer toutes les données"
+#: modules/samba/infoPackage.inc.php:51
+msgid "Backup a share"
+msgstr "Sauvegarder un partage"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:28
-#: samba/shares/localSidebar.php:28
-msgid "Shares management"
-msgstr "Gestion des partages"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:31
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:72
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:30
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:48
-#: samba/shares/localSidebar.php:31 samba/shares/details.php:81
-#: samba/mainSidebar.php:30 samba/infoPackage.inc.php:48
-msgid "Add a share"
-msgstr "Ajouter un partage"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:34
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/localSidebar.php:28
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/index.php:32
-#: samba/shares/localSidebar.php:34 samba/machines/localSidebar.php:28
-#: samba/machines/index.php:32
-msgid "Computers management"
-msgstr "Gestion des machines"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/localSidebar.php:37
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/localSidebar.php:31
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:41
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:36
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:83
-#: samba/shares/localSidebar.php:37 samba/machines/localSidebar.php:31
-#: samba/machines/add.php:41 samba/mainSidebar.php:36
-#: samba/infoPackage.inc.php:83
-msgid "Add a computer"
-msgstr "Ajouter une machine"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:31
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:48
-#: samba/shares/backup.php:31 samba/shares/backup.php:48
-msgid "Share backup"
-msgstr "Sauvegarde d'un partage"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:33
-#: samba/shares/backup.php:33
+#: modules/samba/shares/backup.php:33
+#: modules/samba/shares/backup_flymake.php:33
+#: modules/samba/shares/backup_flymake_flymake.php:33
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:33
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:33
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:33
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:35
-#: samba/shares/backup.php:35
-#, php-format
-msgid ""
-"The files will be stored in the directory %s of the server at the end of the "
-"backup."
-msgstr ""
-"Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la "
-"sauvegarde."
+#: modules/samba/config/index.php:118
+#: modules/samba/includes/publicFunc.php:232
+msgid "Base directory path"
+msgstr "Chemin du répertoire de base"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:37
-#: samba/shares/backup.php:37
-msgid "Please go to the status page to check the backup status."
-msgstr ""
-"Veuillez consulter la page de statut pour vérifier le processus de "
-"sauvegarde."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:39
-#: samba/shares/backup.php:39
-msgid "This operation will last according to the amount of data to backup."
-msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:43
-#: samba/shares/backup.php:43
+#: modules/samba/shares/backup.php:43
+#: modules/samba/shares/backup_flymake.php:43
+#: modules/samba/shares/backup_flymake_flymake.php:43
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:43
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:43
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:43
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:43
 msgid "Can't launch backup"
 msgstr "Impossible de lancer la sauvegarde"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:49
-#: samba/shares/backup.php:49
-#, php-format
-msgid "The share %s will be archived."
-msgstr "Le partage %s va être archivé."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/backup.php:50
-#: samba/shares/backup.php:50
-msgid ""
-"Please select media size. If your data exceed volume size, several files "
-"with your media size will be created."
-msgstr ""
-"Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le "
-"volume des données dépasse la taille du médium choisi, un jeu de média sera "
-"créé."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:43
-#: samba/shares/details.php:43
-msgid "Invalid share name"
-msgstr "Nom de partage invalide"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:47
-#: samba/shares/details.php:55
-#, php-format
-msgid "Share %s successfully added"
-msgstr "Partage %s ajouté"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:67
-#: samba/shares/details.php:76
-#, php-format
-msgid "Share %s successfully modified"
-msgstr "Partage %s modifié"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:101
-#: samba/shares/details.php:110
-msgid ""
-"The share name can only contains letters (lowercase and uppercase) and "
-"numbers, and must begin with a letter."
-msgstr ""
-"Le partage ne peut contenir que des lettres (majuscules, minuscules) et des "
-"chiffres, et il doit commencer par une lettre."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:119
-#: samba/shares/details.php:128
-msgid "Name"
-msgstr "Nom"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:124
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:53
-#: samba/shares/details.php:133 samba/machines/add.php:53
+#: modules/samba/shares/details.php:134 modules/samba/machines/add.php:53
 msgid "Comment"
 msgstr "Commentaire"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:135
-#: samba/shares/details.php:144
-msgid "AntiVirus on this share"
-msgstr "Antivirus sur ce partage"
+#: modules/samba/machines/add.php:36
+#, php-format
+msgid "Computer %s successfully added"
+msgstr "Ordinateur %s ajouté"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:164
-#: samba/shares/details.php:173
-msgid "This share is visible on the domain"
-msgstr "Le partage est visible sur le domaine"
+#: modules/samba/machines/delete.php:36
+#, php-format
+msgid "Computer <strong>%s</strong> deleted."
+msgstr "L'ordinateur <b>%s</b> a été supprimé"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:177
-#: samba/shares/details.php:186
-msgid "Permissions"
-msgstr "Permissions"
+#: modules/samba/infoPackage.inc.php:76
+msgid "Computer list"
+msgstr "Liste des machines"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:189
-#: samba/shares/details.php:198
-msgid "Access for all"
-msgstr "Accès pour tous"
+#: modules/samba/machines/index.php:32
+msgid "Computer management"
+msgstr "Gestion des machines"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:226
-#: samba/shares/details.php:235
-msgid "Administrator groups for this share"
-msgstr "Groupes administrateur de ce partage"
+#: modules/samba/machines/ajaxFilter.php:36 modules/samba/machines/add.php:49
+msgid "Computer name"
+msgstr "Nom de la machine"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:245
-#: samba/shares/details.php:254
-msgid "Create"
-msgstr "Créer"
+#: modules/samba/status/index.php:65 modules/samba/status/index.php:114
+#: modules/samba/machines/ajaxFilter.php:42
+msgid "Computers"
+msgstr "Machines"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/details.php:248
-#: samba/shares/details.php:257
+#: modules/samba/shares/localSidebar.php:34
+#: modules/samba/shares/localSidebar_flymake.php:34
+#: modules/samba/shares/localSidebar_flymake_flymake.php:34
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:34
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:34
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:34
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:34
+#: modules/samba/machines/localSidebar.php:28
+msgid "Computers management"
+msgstr "Gestion des machines"
+
+#: modules/samba/infoPackage.inc.php:99
+msgid "Configuration"
+msgstr "Configuration"
+
+#: modules/samba/config/index.php:53
+msgid "Configuration saved"
+msgstr "Configuration sauvegardée"
+
+#: modules/samba/shares/details.php:258
 msgid "Confirm"
 msgstr "Valider"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:47
-#: samba/shares/index.php:47
-msgid "Edit"
-msgstr "Éditer"
+#: modules/samba/config/index.php:119
+#: modules/samba/includes/publicFunc.php:233
+msgid "Connect base directory on network drive"
+msgstr "Connexion du répertoire de base sur le lecteur réseau"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:48
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:41
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:125
-#: samba/shares/index.php:48 samba/machines/ajaxFilter.php:41
-#: samba/views/groups.tpl.php:125
+#: modules/samba/status/index.php:116
+msgid "Connected at"
+msgstr "Connecté à"
+
+#: modules/samba/status/index.php:77
+msgid "Connections on shares"
+msgstr "Connexion sur les partages"
+
+#: modules/samba/shares/details.php:255
+msgid "Create"
+msgstr "Créer"
+
+#: modules/samba/shares/index.php:48 modules/samba/shares/index_flymake.php:48
+#: modules/samba/shares/index_flymake_flymake.php:48
+#: modules/samba/shares/index_flymake_flymake_flymake.php:48
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:48
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:48
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:48
+#: modules/samba/machines/ajaxFilter.php:41
+#: modules/samba/views/groups.tpl.php:125
 msgid "Delete"
 msgstr "Supprimer"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:55
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:59
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:41
-#: samba/shares/index.php:55 samba/shares/index.php:59
-#: samba/infoPackage.inc.php:41
-msgid "Shares"
-msgstr "Partages"
+#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:86
+msgid "Delete a computer"
+msgstr "Supprimer une machine"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:61
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:40
-#: samba/shares/index.php:61 samba/machines/ajaxFilter.php:40
+#: modules/samba/shares/delete.php:43
+#: modules/samba/shares/delete_flymake.php:43
+#: modules/samba/shares/delete_flymake_flymake.php:43
+#: modules/samba/shares/delete_flymake_flymake_flymake.php:43
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:43
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:43
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:43
+msgid "Delete a share"
+msgstr "Supprimer le partage"
+
+#: modules/samba/shares/delete.php:45
+#: modules/samba/shares/delete_flymake.php:45
+#: modules/samba/shares/delete_flymake_flymake.php:45
+#: modules/samba/shares/delete_flymake_flymake_flymake.php:45
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:45
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:45
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:45
+msgid "Delete all data"
+msgstr "Supprimer toutes les données"
+
+#: modules/samba/shares/index.php:61 modules/samba/shares/index_flymake.php:61
+#: modules/samba/shares/index_flymake_flymake.php:61
+#: modules/samba/shares/index_flymake_flymake_flymake.php:61
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:61
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:61
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:61
+#: modules/samba/machines/ajaxFilter.php:40
 msgid "Description"
 msgstr "Description"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/shares/index.php:65
-#: samba/shares/index.php:65
-msgid "Archive"
-msgstr "Archive"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:66
-#: samba/includes/publicFunc.php:66
-msgid "Samba attributes deleted."
-msgstr "Attributs Samba supprimés."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:101
-#: samba/includes/publicFunc.php:101
-msgid "Samba attributes added."
-msgstr "Attributs Samba ajoutés."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:114
-#: samba/includes/publicFunc.php:114
-msgid "You must reenter your password."
-msgstr "Vous devez entrer à nouveau votre mot de passe."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:129
-#: samba/includes/publicFunc.php:129
-msgid "Invalid network drive."
-msgstr "Nom de lecteur réseau invalide."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:165
-#: samba/includes/publicFunc.php:165
-msgid "Samba user properties"
-msgstr "Propriétés Samba de l'utilisateur"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:168
-#: samba/includes/publicFunc.php:168
-msgid "SAMBA access"
-msgstr "Accès SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:202
-#: samba/includes/publicFunc.php:202
-msgid "WARNING"
-msgstr "ATTENTION"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:203
-#: samba/includes/publicFunc.php:203
-msgid "The user password has expired"
-msgstr "Le mot de passe de l'utilisateur a expiré."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:209
-#: samba/includes/publicFunc.php:209
-msgid "User is disabled, if checked"
-msgstr "Utilisateur désactivé, si cochée"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:211
-#: samba/includes/publicFunc.php:211
+#: modules/samba/includes/publicFunc.php:202
 msgid "Disable samba user account"
 msgstr "Désactivation du compte samba"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:224
-#: samba/includes/publicFunc.php:224
-msgid "User is locked, if checked"
-msgstr "Utilisateur verrouillé, si cochée"
+#: modules/samba/config/index.php:100
+msgid "Domain name"
+msgstr "Nom du domaine"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/publicFunc.php:226
-#: samba/includes/publicFunc.php:226
+#: modules/samba/shares/index.php:47 modules/samba/shares/index_flymake.php:47
+#: modules/samba/shares/index_flymake_flymake.php:47
+#: modules/samba/shares/index_flymake_flymake_flymake.php:47
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:47
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:47
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:47
+msgid "Edit"
+msgstr "Éditer"
+
+#: modules/samba/infoPackage.inc.php:121
+msgid "Enable/Disable account"
+msgstr "Activation/Désactivation du compte"
+
+#: modules/samba/config/index.php:75 modules/samba/mainSidebar.php:41
+msgid "General options"
+msgstr "Options générales"
+
+#: modules/samba/views/groups.tpl.php:26
+msgid "Groups"
+msgstr "Groupes"
+
+#: modules/samba/status/index.php:66 modules/samba/status/index.php:115
+msgid "IP"
+msgstr "IP"
+
+#: modules/samba/includes/publicFunc.php:129
+msgid "Invalid network drive."
+msgstr "Nom de lecteur réseau invalide."
+
+#: modules/samba/shares/details.php:44
+msgid "Invalid share name"
+msgstr "Nom de partage invalide"
+
+#: modules/samba/config/index.php:113
+msgid "LDAP password sync"
+msgstr "Synchronisation du mot de passe LDAP"
+
+#: modules/samba/mainSidebar.php:33
+msgid "List computers"
+msgstr "Liste des machines"
+
+#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
+msgid "List shares"
+msgstr "Liste des partages"
+
+#: modules/samba/includes/publicFunc.php:217
 msgid ""
 "Lock samba user access\n"
 "                        <p>User can be locked after too many failed log.</p>"
@@ -453,14 +307,308 @@ msgstr ""
 "<p>L'utilisateur peut être verrouillé après plusieurs tentatives "
 "d'authentification non valides.</p>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:5
-#: samba/includes/errorHandling.php:5
-msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr ""
-"Les ACLs ne sont pas supportés sur votre partition contenant /home/samba/"
+#: modules/samba/infoPackage.inc.php:122
+msgid "Lock/Unlock account"
+msgstr "Verrouillage/Déverrouillage du compte"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:6
-#: samba/includes/errorHandling.php:6
+#: modules/samba/infoPackage.inc.php:73
+msgid "Machines"
+msgstr "Machines"
+
+#: modules/samba/shares/details.php:129
+msgid "Name"
+msgstr "Nom"
+
+#: modules/samba/status/index.php:123
+msgid "No connections"
+msgstr "Aucune connexion"
+
+#: modules/samba/status/index.php:72
+msgid "No opened sessions"
+msgstr "Aucune session ouverte"
+
+#: modules/samba/status/index.php:56
+msgid "Opened sessions"
+msgstr "Sessions ouvertes"
+
+#: modules/samba/config/index.php:117
+#: modules/samba/includes/publicFunc.php:231
+msgid "Opening script session"
+msgstr "Script d'ouverture de session"
+
+#: modules/samba/shares/details.php:187
+msgid "Permissions"
+msgstr "Permissions"
+
+#: modules/samba/includes/errorHandling.php:36
+msgid "Please delete this share, and then create it again."
+msgstr "Veuillez supprimer puis créer à nouveau ce partage."
+
+#: modules/samba/shares/backup.php:37
+#: modules/samba/shares/backup_flymake.php:37
+#: modules/samba/shares/backup_flymake_flymake.php:37
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:37
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:37
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:37
+msgid "Please go to the status page to check the backup status."
+msgstr ""
+"Veuillez consulter la page de statut pour vérifier le processus de "
+"sauvegarde."
+
+#: modules/samba/shares/backup.php:50
+#: modules/samba/shares/backup_flymake.php:50
+#: modules/samba/shares/backup_flymake_flymake.php:50
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:50
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:50
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:50
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:50
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
+msgstr ""
+"Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le "
+"volume des données dépasse la taille du médium choisi, un jeu de média sera "
+"créé."
+
+#: modules/samba/config/index.php:132
+msgid "Reload SAMBA configuration"
+msgstr "Recharger SAMBA"
+
+#: modules/samba/infoPackage.inc.php:111
+msgid "Reload SAMBA service"
+msgstr "Recharger le service SAMBA"
+
+#: modules/samba/infoPackage.inc.php:55
+msgid "Remove a share"
+msgstr "Suppression d'un partage"
+
+#: modules/samba/config/index.php:131
+msgid "Restart SAMBA"
+msgstr "Redémarrer SAMBA"
+
+#: modules/samba/includes/publicFunc.php:164
+msgid "SAMBA access"
+msgstr "Accès SAMBA"
+
+#: modules/samba/infoPackage.inc.php:104
+msgid "SAMBA configuration"
+msgstr "Configuration de SAMBA"
+
+#: modules/samba/config/index.php:68
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+"Configuration de SAMBA sauvegardée. Il peut être nécessaire de recharger ou "
+"de redémarrer le service SAMBA."
+
+#: modules/samba/infoPackage.inc.php:31
+msgid "SAMBA service"
+msgstr "Redémarrer le service SAMBA"
+
+#: modules/samba/infoPackage.inc.php:132
+msgid "SAMBA status"
+msgstr "Statut SAMBA"
+
+#: modules/samba/includes/publicFunc.php:101
+msgid "Samba attributes added."
+msgstr "Attributs Samba ajoutés."
+
+#: modules/samba/includes/publicFunc.php:66
+msgid "Samba attributes deleted."
+msgstr "Attributs Samba supprimés."
+
+#: modules/samba/status/index.php:30
+msgid "Samba status"
+msgstr "Statut SAMBA"
+
+#: modules/samba/includes/publicFunc.php:161
+msgid "Samba user properties"
+msgstr "Propriétés Samba de l'utilisateur"
+
+#: modules/samba/config/index.php:104
+msgid "Server name"
+msgstr "Nom du serveur"
+
+#: modules/samba/status/index.php:84
+msgid "Share"
+msgstr "Partages"
+
+#: modules/samba/shares/delete.php:34
+#: modules/samba/shares/delete_flymake.php:34
+#: modules/samba/shares/delete_flymake_flymake.php:34
+#: modules/samba/shares/delete_flymake_flymake_flymake.php:34
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:34
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:34
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:34
+#, php-format
+msgid "Share %s deleted"
+msgstr "Partage %s supprimé"
+
+#: modules/samba/shares/details.php:56
+#, php-format
+msgid "Share %s successfully added"
+msgstr "Partage %s ajouté"
+
+#: modules/samba/shares/details.php:77
+#, php-format
+msgid "Share %s successfully modified"
+msgstr "Partage %s modifié"
+
+#: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:48
+#: modules/samba/shares/backup_flymake.php:31
+#: modules/samba/shares/backup_flymake.php:48
+#: modules/samba/shares/backup_flymake_flymake.php:31
+#: modules/samba/shares/backup_flymake_flymake.php:48
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:31
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:48
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:31
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:48
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:31
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:48
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:31
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:48
+msgid "Share backup"
+msgstr "Sauvegarde d'un partage"
+
+#: modules/samba/infoPackage.inc.php:59
+msgid "Share details"
+msgstr "Détails des partages"
+
+#: modules/samba/shares/details.php:157
+#, php-format
+msgid "Share path (leave empty for a default path in %s)"
+msgstr "Chemin du partage (par défaut dans %s si vide)"
+
+#: modules/samba/config/index.php:96
+msgid "Share user's homes"
+msgstr "Partage des répertoires utilisateurs"
+
+#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
+#: modules/samba/shares/index_flymake.php:55
+#: modules/samba/shares/index_flymake.php:59
+#: modules/samba/shares/index_flymake_flymake.php:55
+#: modules/samba/shares/index_flymake_flymake.php:59
+#: modules/samba/shares/index_flymake_flymake_flymake.php:55
+#: modules/samba/shares/index_flymake_flymake_flymake.php:59
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:55
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:59
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:55
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:59
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:55
+#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:59
+#: modules/samba/infoPackage.inc.php:41
+msgid "Shares"
+msgstr "Partages"
+
+#: modules/samba/shares/localSidebar.php:28
+#: modules/samba/shares/localSidebar_flymake.php:28
+#: modules/samba/shares/localSidebar_flymake_flymake.php:28
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:28
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:28
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:28
+#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:28
+msgid "Shares management"
+msgstr "Gestion des partages"
+
+#: modules/samba/config/reload.php:26
+msgid "The SAMBA service has been asked to reload its configuration file."
+msgstr "Il a été demandé au service SAMBA de relire sa configuration."
+
+#: modules/samba/config/restart.php:26
+msgid "The SAMBA service has been asked to restart."
+msgstr "Il a été demandé au service SAMBA de redémarrer."
+
+#: modules/samba/machines/add.php:46
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"Le nom de la machine ne peut contenir que des lettres en minuscules et des "
+"nombres et doit commencer par une lettre."
+
+#: modules/samba/shares/backup.php:35
+#: modules/samba/shares/backup_flymake.php:35
+#: modules/samba/shares/backup_flymake_flymake.php:35
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:35
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:35
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:35
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:35
+#, php-format
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the "
+"backup."
+msgstr ""
+"Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la "
+"sauvegarde."
+
+#: modules/samba/shares/backup.php:49
+#: modules/samba/shares/backup_flymake.php:49
+#: modules/samba/shares/backup_flymake_flymake.php:49
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:49
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:49
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:49
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:49
+#, php-format
+msgid "The share %s will be archived."
+msgstr "Le partage %s va être archivé."
+
+#: modules/samba/includes/errorHandling.php:35
+msgid "The share directory does not exist."
+msgstr "Le répertoire de ce partage n'existe pas."
+
+#: modules/samba/shares/details.php:111
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+"Le partage ne peut contenir que des lettres (majuscules, minuscules) et des "
+"chiffres, et il doit commencer par une lettre."
+
+#: modules/samba/shares/details.php:49
+msgid "The share path is not authorized by configuration"
+msgstr "Le chemin du partage est interdit par configuration"
+
+#: modules/samba/includes/publicFunc.php:194
+msgid "The user password has expired"
+msgstr "Le mot de passe de l'utilisateur a expiré."
+
+#: modules/samba/views/groups.tpl.php:70
+msgid "This group doesn't exist"
+msgstr "Ce groupe n'existe pas"
+
+#: modules/samba/shares/backup.php:39
+#: modules/samba/shares/backup_flymake.php:39
+#: modules/samba/shares/backup_flymake_flymake.php:39
+#: modules/samba/shares/backup_flymake_flymake_flymake.php:39
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:39
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:39
+#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:39
+msgid "This operation will last according to the amount of data to backup."
+msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
+
+#: modules/samba/config/index.php:86
+msgid "This server is a PDC"
+msgstr "Ce serveur est un PDC"
+
+#: modules/samba/config/index.php:90
+msgid "This server is a WINS server"
+msgstr "Ce serveur est un serveur WINS"
+
+#: modules/samba/includes/errorHandling.php:24
+msgid "This share already exist"
+msgstr "Ce partage existe déjà"
+
+#: modules/samba/includes/errorHandling.php:17
+msgid "This share does not exist"
+msgstr "Ce partage n'existe pas"
+
+#: modules/samba/shares/details.php:174
+msgid "This share is visible on the domain"
+msgstr "Le partage est visible sur le domaine"
+
+#: modules/samba/includes/errorHandling.php:6
 msgid ""
 "Try to remount your partition with ACLs support\n"
 "\t\t\t<ul>\n"
@@ -477,182 +625,55 @@ msgstr ""
 "montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,"
 "acl  1  2</pre></li> \t\t\t</ul> "
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:17
-#: samba/includes/errorHandling.php:17
-msgid "This share does not exist"
-msgstr "Ce partage n'existe pas"
+#: modules/samba/status/index.php:113
+msgid "User"
+msgstr "Utilisateur"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:18
-#: samba/includes/errorHandling.php:18
+#: modules/samba/includes/publicFunc.php:200
+msgid "User is disabled, if checked"
+msgstr "Utilisateur désactivé, si cochée"
+
+#: modules/samba/includes/publicFunc.php:215
+msgid "User is locked, if checked"
+msgstr "Utilisateur verrouillé, si cochée"
+
+#: modules/samba/config/index.php:116
+#: modules/samba/includes/publicFunc.php:230
+msgid "User profile path"
+msgstr "Chemin du profil utilisateur"
+
+#: modules/samba/status/index.php:64
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: modules/samba/includes/errorHandling.php:18
 msgid "Verify specified share exist."
 msgstr "Vérifiez que ce partage existe."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:24
-#: samba/includes/errorHandling.php:24
-msgid "This share already exist"
-msgstr "Ce partage existe déjà"
+#: modules/samba/includes/publicFunc.php:193
+msgid "WARNING"
+msgstr "ATTENTION"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:25
-#: samba/includes/errorHandling.php:25
-msgid ""
-"<ul>\n"
-"                           <li>Delete this share before recreate it.</li>\n"
-"                           <li>Choose another share name</li>\n"
-"                        </ul>"
-msgstr ""
-"<ul> \t\t<li>Supprimer ce partage avant de le recréer.</li> \t"
-"\t<li>Choisissez un autre nom de partage.</li> </ul>"
+#: modules/samba/includes/publicFunc.php:114
+msgid "You must reenter your password."
+msgstr "Vous devez entrer à nouveau votre mot de passe."
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:35
-#: samba/includes/errorHandling.php:35
-msgid "The share directory does not exist."
-msgstr "Le répertoire de ce partage n'existe pas."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/includes/errorHandling.php:36
-#: samba/includes/errorHandling.php:36
-msgid "Please delete this share, and then create it again."
-msgstr "Veuillez supprimer puis créer à nouveau ce partage."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/ajaxFilter.php:36
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:49
-#: samba/machines/ajaxFilter.php:36 samba/machines/add.php:49
-msgid "Computer name"
-msgstr "Nom de la machine"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/delete.php:36
-#: samba/machines/delete.php:36
-#, php-format
-msgid "Computer <strong>%s</strong> deleted."
-msgstr "L'ordinateur <b>%s</b> a été supprimé"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/delete.php:40
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:86
-#: samba/machines/delete.php:40 samba/infoPackage.inc.php:86
-msgid "Delete a computer"
-msgstr "Supprimer une machine"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/delete.php:41
-#: samba/machines/delete.php:41
+#: modules/samba/machines/delete.php:41
 #, php-format
 msgid "You will delete the %s computer"
 msgstr "Vous allez supprimer la machine <b>%s</b>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:36
-#: samba/machines/add.php:36
+#: modules/samba/shares/delete.php:44
+#: modules/samba/shares/delete_flymake.php:44
+#: modules/samba/shares/delete_flymake_flymake.php:44
+#: modules/samba/shares/delete_flymake_flymake_flymake.php:44
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:44
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:44
+#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:44
 #, php-format
-msgid "Computer %s successfully added"
-msgstr "Ordinateur %s ajouté"
+msgid "You will delete the share <b>%s</b>"
+msgstr "Vous allez supprimer le partage <b>%s</b>"
 
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/machines/add.php:46
-#: samba/machines/add.php:46
-msgid ""
-"The computer name can only contains letters lowercase and numbers, and must "
-"begin with a letter."
-msgstr ""
-"Le nom de la machine ne peut contenir que des lettres en minuscules et des "
-"nombres et doit commencer par une lettre."
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:26
-#: samba/views/groups.tpl.php:26
-msgid "Groups"
-msgstr "Groupes"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:70
-#: samba/views/groups.tpl.php:70
-msgid "This group doesn't exist"
-msgstr "Ce groupe n'existe pas"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:129
-#: samba/views/groups.tpl.php:129
-msgid "Add a new group"
-msgstr "Ajouter un nouveau groupe"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/views/groups.tpl.php:138
-#: samba/views/groups.tpl.php:138
-msgid "Add"
-msgstr "Ajouter"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:29
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:45
-#: samba/mainSidebar.php:29 samba/infoPackage.inc.php:45
-msgid "List shares"
-msgstr "Liste des partages"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/mainSidebar.php:33
-#: samba/mainSidebar.php:33
-msgid "List computers"
-msgstr "Liste des machines"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:31
-#: samba/infoPackage.inc.php:31
-msgid "SAMBA service"
-msgstr "Redémarrer le service SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:51
-#: samba/infoPackage.inc.php:51
-msgid "Backup a share"
-msgstr "Sauvegarder un partage"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:55
-#: samba/infoPackage.inc.php:55
-msgid "Remove a share"
-msgstr "Suppression d'un partage"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:59
-#: samba/infoPackage.inc.php:59
-msgid "Share details"
-msgstr "Détails des partages"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:73
-#: samba/infoPackage.inc.php:73
-msgid "Machines"
-msgstr "Machines"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:76
-#: samba/infoPackage.inc.php:76
-msgid "Computer list"
-msgstr "Liste des machines"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:99
-#: samba/infoPackage.inc.php:99
-msgid "Configuration"
-msgstr "Configuration"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:104
-#: samba/infoPackage.inc.php:104
-msgid "SAMBA configuration"
-msgstr "Configuration de SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:107
-#: samba/infoPackage.inc.php:107
+#: modules/samba/infoPackage.inc.php:107
 msgid "restart SAMBA service"
 msgstr "Redémarrer le service SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:111
-#: samba/infoPackage.inc.php:111
-msgid "Reload SAMBA service"
-msgstr "Recharger le service SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:120
-#: samba/infoPackage.inc.php:120
-msgid "Add/delete SAMBA's attributes"
-msgstr "Ajout/Suppression des attributs SAMBA"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:121
-#: samba/infoPackage.inc.php:121
-msgid "Enable/Disable account"
-msgstr "Activation/Désactivation du compte"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:122
-#: samba/infoPackage.inc.php:122
-msgid "Lock/Unlock account"
-msgstr "Verrouillage/Déverrouillage du compte"
-
-#: debian/mmc-web-samba/usr/share/mmc/modules/samba/infoPackage.inc.php:132
-#: samba/infoPackage.inc.php:132
-msgid "SAMBA status"
-msgstr "Statut SAMBA"
-
-#: samba/shares/details.php:48
-msgid "The share path is not authorized by configuration"
-msgstr "Le chemin du partage est interdit par configuration"
