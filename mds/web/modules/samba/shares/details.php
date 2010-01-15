@@ -22,6 +22,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 require("modules/samba/includes/shares.inc.php");
 require("modules/base/includes/groups.inc.php");
 require("modules/samba/mainSidebar.php");
@@ -153,7 +154,7 @@ $d->push(new Table());
 /* As long as we have no own modShare() (Ticket #96), the sharePath is readonly in edit mode */
 if ($_GET["action"] == "add")  {
     $sharePath = "";
-    $sharePathText = "Share path (leave empty for a default path in " . default_shares_path() . ")";
+    $sharePathText = sprintf(_T("Share path (leave empty for a default path in %s)"), default_shares_path());
     $input = new InputTpl("sharePath");
 } else {
     $sharePath = $shareInfos["sharePath"];
