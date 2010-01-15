@@ -210,7 +210,7 @@ $f->add(
         );
 $f->add(
         new TrFormElement(_T("Netmask"),new NetmaskInputTpl("netmask")),
-        array("value" => $netmask, "required" => True, "extra" => "(e.g. 24 for a /24 network)")
+        array("value" => $netmask, "required" => True, "extra" => _T("(e.g. 24 for a /24 network)"))
         );
 $f->add(
         new TrFormElement(_T("Description"),new IA5InputTpl("description")),
