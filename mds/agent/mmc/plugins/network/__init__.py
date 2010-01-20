@@ -24,16 +24,14 @@
 import socket
 import ldap
 import logging
-import os
 import os.path
 import grp
+from ConfigParser import NoOptionError
 
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
 from mmc.plugins.network.dns import Dns, DnsService, DnsLogView
-from mmc.support.config import *
-from mmc.support import mmctools
-import mmc
+from mmc.support.config import PluginConfig
 
 INI = "/etc/mmc/plugins/network.ini"
 
