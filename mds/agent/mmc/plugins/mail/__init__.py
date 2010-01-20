@@ -27,9 +27,9 @@
 
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.base import delete_diacritics
-from mmc.support.config import *
+from mmc.support.config import PluginConfig
 import mmc
-import ldap
+import ldap.modlist
 import copy
 import logging
 
