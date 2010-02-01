@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2008 Mandriva, http://www.mandriva.com/
+# (c) 2007-2010 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
@@ -18,18 +18,21 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with MMC; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
-#
-# Proxy plugin
-#
+"""
+MDS proxy plugin for the MMC agent.
+"""
 
 import os
 import logging
 from mmc.support import mmctools
 from mmc.support.config import PluginConfig, ConfigException
 from ConfigParser import NoSectionError, NoOptionError
+
+from mmc.core.audit import AuditFactory as AF
+from mmc.plugins.proxy.audit import AT, AA, PLUGIN_NAME
+
 
 VERSION = "2.3.2"
 APIVERSION = "1:0:0"
@@ -146,6 +149,7 @@ class Blacklist:
         """
         Compile the blacklist database and reload squid.
         """
+        r = AF().log(PLUGIN_NAME, AA.PROXY_RESTART_SQUID)
         mmctools.shlaunch(self.config.sgBinary + ' -C ' + self.config.sgBlacklist)
         mmctools.shlaunch("chown " + self.config.squidGroup + "." + self.config.squidUser + " " + self.config.sgBlacklist + "*")
 
@@ -153,6 +157,7 @@ class Blacklist:
         read = psout.read()
 
         if psout.close(): read = "error reloading squid"
+        r.commit()
 
         return read
 
@@ -197,13 +202,16 @@ class Blacklist:
 
     def addBlacklist(self, elt):
         """Add an element to the blacklist"""
+        r = AF().log(PLUGIN_NAME, AA.PROXY_ADD_BLACKLIST, [(elt, AT.BLACKLIST)])
         if not elt in self.contentArr:
             self.contentArr.append(elt)
-        return self.saveBlacklist()
+        self.saveBlacklist()
+        r.commit()
 
     def delBlacklist(self, elt):
         """Remove an element from the blacklist"""
+        r = AF().log(PLUGIN_NAME, AA.PROXY_DEL_BLACKLIST, [(elt, AT.BLACKLIST)])
         if elt in self.contentArr:
             self.contentArr.remove(elt)
-        return self.saveBlacklist()
-
+        self.saveBlacklist()
+        r.commit()

@@ -1,6 +1,7 @@
+# -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2008 Mandriva, http://www.mandriva.com/
+# (c) 2007-2009 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
@@ -17,14 +18,19 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with MMC; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+DHCP related methods and classes for the network plugin.
+"""
 
 import ldap
 from mmc.plugins.base import ldapUserGroupControl, LogView
-from tools import *
+from tools import ipNext, ipInRange
 from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
+from mmc.core.audit import AuditFactory as AF
+from mmc.plugins.network.audit import AT, AA, PLUGIN_NAME
 
 class Dhcp(ldapUserGroupControl):
 
@@ -177,18 +183,23 @@ class Dhcp(ldapUserGroupControl):
         return ret
 
     def setSubnetOption(self, subnet, option, value = None):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SUBNET, [(subnet, AT.SUBNET), (option, "OPTION")], option)
         subnets = self.getSubnet(subnet)
         if subnets:
             subnetDN = subnets[0][0]
             self.setObjectOption(subnetDN, option, value)
+        r.commit()
 
     def setSubnetStatement(self, subnet, option, value = None):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SUBNET_STMT, [(subnet, AT.SUBNET), (option, "OPTION")], value)
         subnets = self.getSubnet(subnet)
         if subnets:
             subnetDN = subnets[0][0]
             self.setObjectStatement(subnetDN, option, value)
+        r.commit()
 
     def setSubnetDescription(self, subnet, description):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SUBNET_DESC, [(subnet, AT.SUBNET)], description)
         subnets = self.getSubnet(subnet)
         if subnets:
             subnetDN = subnets[0][0]
@@ -196,12 +207,15 @@ class Dhcp(ldapUserGroupControl):
                 self.l.modify_s(subnetDN, [(ldap.MOD_REPLACE, "dhcpComments", description)])
             else:
                 self.l.modify_s(subnetDN, [(ldap.MOD_DELETE, "dhcpComments", None)])
+        r.commit()
 
     def setSubnetNetmask(self, subnet, netmask):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SUBNET_NTMSK, [(subnet, AT.SUBNET)], netmask)
         subnets = self.getSubnet(subnet)
         if subnets:
             subnetDN = subnets[0][0]
             self.l.modify_s(subnetDN, [(ldap.MOD_REPLACE, "dhcpNetMask", netmask)])
+        r.commit()
 
     def setSubnetAuthoritative(self, subnet, flag = True):
         """
@@ -213,6 +227,7 @@ class Dhcp(ldapUserGroupControl):
         @param flag: whether the subnet is authoritative or not
         @type flag: bool
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SUBNET_AUTH, [(subnet, AT.SUBNET)], flag)
         subnets = self.getSubnet(subnet)
         if subnets:
             subnetDN = subnets[0][0]
@@ -226,8 +241,10 @@ class Dhcp(ldapUserGroupControl):
             else:
                 newoptions.append("not authoritative")
             self.l.modify_s(subnetDN, [(ldap.MOD_REPLACE, "dhcpStatements", newoptions)])
+        r.commit()
 
     def addSubnet(self, network, netmask, name = None):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_SUBNET, [(network, AT.SUBNET)], name)
         serviceDN = self.getServiceConfig()[0][0]
         if not name: name = network + "/" + str(netmask)
         dn = "cn=" + network + "," + serviceDN
@@ -239,13 +256,16 @@ class Dhcp(ldapUserGroupControl):
             }
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)    
+        r.commit()
 
     def delSubnet(self, network):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_DEL_SUBNET, [(network, AT.SUBNET)])
         subnets = self.getSubnet()
         for subnet in subnets:
             if subnet[1]["cn"][0] == network:
                 self.delRecursiveEntry(subnet[0])
                 break
+        r.commit()
 
     def getSubnetHosts(self, network, filt = None):
         if filt:
@@ -293,6 +313,7 @@ class Dhcp(ldapUserGroupControl):
             self.setObjectStatement(poolDN, option, value)
 
     def addPool(self, subnet, poolname, start, end):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_POOL, [(subnet, AT.SUBNET),(poolname, AT.POOL)])
         dhcprange = start + " " + end
         subnets = self.getSubnet(subnet)
         dn = "cn=" + poolname + "," + subnets[0][0]
@@ -303,6 +324,7 @@ class Dhcp(ldapUserGroupControl):
             }            
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)    
+        r.commit()
         
     def delPool(self, poolname):
         pools = self.getPool(poolname)
@@ -312,10 +334,12 @@ class Dhcp(ldapUserGroupControl):
                 break        
 
     def setPoolRange(self, pool, start, end):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_POOLRANGE, [(pool, AT.POOL)])
         pools = self.getPool(pool)
         if pools:
             poolDN = pools[0][0]
             self.l.modify_s(poolDN, [(ldap.MOD_REPLACE, "dhcpRange", start + " " + end)])
+        r.commit()
 
     def getPoolRange(self, pool):
         """
@@ -384,22 +408,28 @@ class Dhcp(ldapUserGroupControl):
         return ret
 
     def setHostOption(self, subnet, host, option, value = None):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_HOST, [(subnet, AT.SUBNET),(host, AT.HOST), (option,"OPTION")], value)
         hosts = self.getHost(subnet, host)
         if hosts:
             hostDN = hosts[0][0]
             self.setObjectOption(hostDN, option, value)
+        r.commit()
 
     def setHostStatement(self, subnet, host, option, value):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_HOST_STMT, [(subnet, AT.SUBNET),(host, AT.HOST), (option,"OPTION")], value)
         hosts = self.getHost(subnet, host)
         if hosts:
             hostDN = hosts[0][0]
             self.setObjectStatement(hostDN, option, value)
+        r.commit()
 
     def setHostHWAddress(self, subnet, host, address):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_HOST_HWADD, [(subnet, AT.SUBNET),(host, AT.HOST)], address)
         hosts = self.getHost(subnet, host)
         if hosts:
             hostDN = hosts[0][0]
             self.l.modify_s(hostDN, [(ldap.MOD_REPLACE, "dhcpHWAddress", ["ethernet " + address])])
+        r.commit()
 
     def getHostHWAddress(self, subnet, host, address):
         try:
@@ -410,6 +440,7 @@ class Dhcp(ldapUserGroupControl):
         return ret
 
     def addHostToSubnet(self, subnet, hostname):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_HOST_TO_SUB, [(subnet, AT.SUBNET)], hostname)
         subnets = self.getSubnet(subnet)
         dn = "cn=" + hostname + "," + subnets[0][0]
         entry = {
@@ -418,6 +449,7 @@ class Dhcp(ldapUserGroupControl):
             }            
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)    
+        r.commit()
 
     def addHostToGroup(self, groupname, hostname):
         groups = self.getGroup(groupname)
@@ -430,11 +462,13 @@ class Dhcp(ldapUserGroupControl):
         self.l.add_s(dn, attributes)    
 
     def delHost(self, subnet, hostname):
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_DEL_HOST, [(subnet, AT.SUBNET)], hostname)
         hosts = self.getHost(subnet, hostname)
         for host in hosts:
             if host[1]["cn"][0] == hostname:
                 self.delRecursiveEntry(host[0])
                 break
+        r.commit()
 
     def hostExistsInSubnet(self, subnet, hostname):
         subnets = self.getSubnet(subnet)
@@ -500,12 +534,9 @@ class DhcpLeases:
     def __parse(self):
         COMMENT = "#"
         BEGIN = "lease"
-        STARTS = "starts"
-        ENDS = "ends"
         STATE = "binding state"
         HARDWARE = "hardware ethernet"
         HOSTNAME = "client-hostname"
-        END = "}"
         leases = {}
         leasesFile = file(self.config.dhcpLeases)
         current = None

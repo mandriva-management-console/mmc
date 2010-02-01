@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2008 Mandriva, http://www.mandriva.com/
+# (c) 2007-2009 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
@@ -18,8 +18,11 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with MMC; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+DNS related methods and classes for the network plugin.
+"""
 
 import os
 import os.path
@@ -28,9 +31,11 @@ import ldap
 import urllib
 
 from mmc.plugins.base import ldapUserGroupControl, LogView
-from tools import *
+from tools import ipNext
 from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
+from mmc.core.audit import AuditFactory as AF
+from mmc.plugins.network.audit import AT, AA, PLUGIN_NAME
 
 class Dns(ldapUserGroupControl):
 
@@ -190,6 +195,7 @@ zone "%(zone)s" {
         @param network: the network address defined in this zone (needed to build the reverse zone)
         @param netmask: the netmask address (needed to build the reverse zone)
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_DNS_ZONE, [(name, AT.ZONE)], network)
         if reverse:
             if network == None or netmask == None:
                 raise "Won't create reverse zone as asked, missing network or netmask"
@@ -271,6 +277,7 @@ zone "%(zone)s" {
         if nameserverip:
             # Add a A record for the primary nameserver
             self.addRecordA(name, nameserver, nameserverip)
+        r.commit()
 
     def delZone(self, zone):
         """
@@ -278,6 +285,7 @@ zone "%(zone)s" {
         
         @param name: the zone name to delete     
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_DEL_DNS_ZONE, [(zone, AT.ZONE)])
         if self.pdns:
             zoneDN = "dc=" + zone + "," + self.configDns.dnsDN
             self.delRecursiveEntry(zoneDN)
@@ -298,6 +306,7 @@ zone "%(zone)s" {
             for line in newcontent:
                 f.write(line)
             f.close()
+        r.commit()
         
     def addDnsZone(self, zoneName, description = None, container = None):
         """
@@ -361,6 +370,7 @@ zone "%(zone)s" {
         It updates the SOARecord field and nsRecord field of the @ LDAP entry
         of this given zone.
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SOA, [(zoneName, AT.ZONE)], nameserver)
         if self.pdns:
             zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
             self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, "nsrecord", [nameserver])])
@@ -375,6 +385,7 @@ zone "%(zone)s" {
             soaRecord["nameserver"] = nameserver
             self.setSOARecord(zoneName, soaRecord)
             self.updateZoneSerial(zoneName)
+        r.commit()
 
     def setNSRecords(self, zoneName, nameservers):
         """
@@ -382,6 +393,7 @@ zone "%(zone)s" {
         The nsRecord corresponding to the name server containted into the
         SOARecord field won't be deleted. Use the setSOANSRecord to update it.
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_NS, [(zoneName, AT.ZONE)], nameservers)
         if self.pdns:
             zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
             self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, "nsrecord", nameservers)])
@@ -396,6 +408,7 @@ zone "%(zone)s" {
                     nameservers.append(soanameserver)
                 self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "nSRecord", nameservers)])
                 self.updateZoneSerial(zoneName)
+        r.commit()
 
     def setMXRecords(self, zoneName, mxservers):
         """
@@ -452,7 +465,6 @@ zone "%(zone)s" {
         else:
             soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
         if soa:
-            soaDN = soa[0][0]
             ret = soa[0][1]["nSRecord"]
         return ret
 
@@ -466,7 +478,6 @@ zone "%(zone)s" {
         else:
             soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
         if soa:
-            soaDN = soa[0][0]
             try:
                 ret = soa[0][1]["mXRecord"]
             except KeyError:
@@ -522,6 +533,7 @@ zone "%(zone)s" {
                  with this name already exist
         @rtype: list
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_HOST_ALIASES, [(zone, AT.ZONE), (host,AT.HOST)], aliases)
         ret = []
         oldaliases = []
         for record in self.getCNAMEs(zone, host):
@@ -537,6 +549,7 @@ zone "%(zone)s" {
                     self.addRecordCNAME(zone, alias, host)
                 except ldap.ALREADY_EXISTS:
                     ret.append(alias)
+        r.commit()
         return ret
 
     def addRecordCNAME(self, zone, alias, cname, dnsClass = "IN"):
@@ -554,6 +567,7 @@ zone "%(zone)s" {
         @param cname: CNAME to record (must be a registered A record)
         @type cname: str    
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_RECORD_CNAME, [(zone, AT.ZONE), (alias, AT.ALIAS)], cname)
         # Check that the given cname is a A record
         record = self.getResourceRecord(zone, cname)
         try:
@@ -583,6 +597,7 @@ zone "%(zone)s" {
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)
         self.updateZoneSerial(zone)    
+        r.commit()
 
     def addRecordA(self, zone, hostname, ip, container = None, dnsClass = "IN"):
         """
@@ -591,6 +606,7 @@ zone "%(zone)s" {
         @return: 0 if the host has been added in a reverse zone too, 1 if not
         @rtype: int
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_RECORDA, [(zone,AT.ZONE), (hostname, AT.HOST)], ip)
         ret = 1
         if self.pdns:
             dn = "dc=" + hostname  + "," +"dc=" + zone + "," + self.configDns.dnsDN
@@ -649,6 +665,7 @@ zone "%(zone)s" {
                 self.l.add_s(dn, attributes)
                 self.updateZoneSerial(revZone)
                 ret = 0
+        r.commit()
         return ret
 
     def getCNAMEs(self, zone, hostname):
@@ -706,9 +723,11 @@ zone "%(zone)s" {
         Change the IP address of a host in a zone.
         If the new IP already exists, an exception is raised.
         """
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_MODIFY_RECORD, [(zone, AT.ZONE), (hostname, AT.HOST)], ip)
         if self.ipExists(zone, ip): raise "The IP %s has been already registered in zone %s" % (ip, zone)
         self.delRecord(zone, hostname)
         self.addRecordA(zone, hostname, ip)
+        r.commit()
 
     def computeSerial(self, oldSerial = ""):
         format = "%Y%m%d"

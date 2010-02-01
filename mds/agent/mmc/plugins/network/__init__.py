@@ -21,6 +21,10 @@
 # along with MMC; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+"""
+MDS network plugin for the MMC agent.
+"""
+
 import socket
 import ldap
 import logging
@@ -32,6 +36,10 @@ from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
 from mmc.plugins.network.dns import Dns, DnsService, DnsLogView
 from mmc.support.config import PluginConfig
+
+from mmc.core.audit import AuditFactory as AF
+from mmc.plugins.network.audit import AA, PLUGIN_NAME
+
 
 INI = "/etc/mmc/plugins/network.ini"
 
@@ -341,9 +349,13 @@ def getDnsLog(filter = ''):
 # Service management
 
 def dhcpService(command):
+    r = AF().log(PLUGIN_NAME, AA.NETWORK_DHCP_SERVICE)
+    r.commit()
     return DhcpService().command(command)
 
 def dnsService(command):
+    r = AF().log(PLUGIN_NAME, AA.NETWORK_DNS_SERVICE)
+    r.commit()
     return DnsService().command(command)
 
 class NetworkConfig(PluginConfig):

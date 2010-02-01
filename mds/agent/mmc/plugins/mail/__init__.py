@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2008 Mandriva, http://www.mandriva.com/
+# (c) 2007-2010 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
@@ -18,12 +18,12 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with MMC; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+#
 
-#
-# Mail plugin
-#
+"""
+MDS mail plugin for the MMC agent.
+"""
 
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.base import delete_diacritics
@@ -32,6 +32,9 @@ import mmc
 import ldap.modlist
 import copy
 import logging
+
+from mmc.core.audit import AuditFactory as AF
+from mmc.plugins.mail.audit import AT, AA, PLUGIN_NAME
 
 
 VERSION = "2.3.2"
@@ -181,6 +184,7 @@ class MailControl(ldapUserGroupControl):
         @param domain: virtual mail domain name
         @type domain: str
         """
+        r = AF().log(PLUGIN_NAME, AA.MAIL_ADD_VDOMAIN, [(domain, AT.VMDOMAIN)])
         dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
         entry = {
             "virtualdomain" : domain,
@@ -188,6 +192,7 @@ class MailControl(ldapUserGroupControl):
             }
         modlist = ldap.modlist.addModlist(entry)
         self.l.add_s(dn, modlist)        
+        r.commit()
 
     def delVDomain(self, domain):
         """
@@ -196,8 +201,10 @@ class MailControl(ldapUserGroupControl):
         @param domain: virtual mail domain name
         @type domain: str
         """
+        r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_VDOMAIN, [(domain, AT.VMDOMAIN)])
         dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
         self.delRecursiveEntry(dn)
+        r.commit()
 
     def setVDomainDescription(self, domain, description):
         """
@@ -209,6 +216,7 @@ class MailControl(ldapUserGroupControl):
         @param description: description
         @type description: unicode
         """        
+        r = AF().log(PLUGIN_NAME, AA.MAIL_SET_DOMAIN_DESC, [(domain, AT.VMDOMAIN)], description)
         dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
         description = description.encode("utf-8")
         if description:
@@ -216,6 +224,7 @@ class MailControl(ldapUserGroupControl):
         else:
             self.l.modify_s(dn, [(ldap.MOD_REPLACE, "virtualdomaindescription", "null")])
             self.l.modify_s(dn, [(ldap.MOD_DELETE, "virtualdomaindescription", "null")])
+        r.commit()
 
     def setVDomainQuota(self, domain, quota):
         """
@@ -227,6 +236,7 @@ class MailControl(ldapUserGroupControl):
         @param quota: created user quota in the virtual domain
         @type description: unicode
         """        
+        r = AF().log(PLUGIN_NAME, AA.MAIL_SET_DOMAIN_QUOTA, [(domain, AT.VMDOMAIN)], quota)
         dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
         try:
             int(quota)
@@ -236,6 +246,7 @@ class MailControl(ldapUserGroupControl):
             self.l.modify_s(dn, [(ldap.MOD_REPLACE, "mailuserquota", quota)])
         else:
             self.l.modify_s(dn, [(ldap.MOD_DELETE, "mailuserquota", None)])
+        r.commit()
 
     def resetUsersVDomainQuota(self, domain):
         """
@@ -244,10 +255,12 @@ class MailControl(ldapUserGroupControl):
         @param domain: virtual mail domain name
         @type domain: str
         """
+        r = AF().log(PLUGIN_NAME, AA.MAIL_RESET_DOMAIN_QUOTA, [(domain, AT.VMDOMAIN)])
         vdomain = self.getVDomain(domain)
         mailuserquota = vdomain[0][1]["mailuserquota"][0]
         for user in self.getVDomainUsers(domain):
             self.changeUserAttributes(user[1]["uid"][0], "mailuserquota", mailuserquota)
+        r.commit()
 
     def getVDomain(self, domain):
         """
@@ -298,8 +311,11 @@ class MailControl(ldapUserGroupControl):
         @param maildroplist: a list of all mail drop
         @type maildroplist: list
         """
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_DROP, [(userdn, AT.MAIL)], maildroplist)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
         self.changeUserAttributes(uid, 'maildrop', maildroplist)
+        r.commit()
 
     def changeMailalias(self, uid, mailaliaslist):
         """
@@ -310,8 +326,11 @@ class MailControl(ldapUserGroupControl):
         @param mailaliaslist: a list of all mail aliases
         @type mailaliaslist: list
         """
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_ALIAS, [(userdn, AT.MAIL)], mailaliaslist)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
         self.changeUserAttributes(uid, 'mailalias', mailaliaslist)
+        r.commit()
 
     def changeMailbox(self, uid, mailbox):
         """
@@ -322,8 +341,11 @@ class MailControl(ldapUserGroupControl):
         @param mailbox: a list of all mail aliases
         @type mailbox: mailbox value
         """
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_BOX, [(userdn, AT.MAIL)], mailbox)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
         if mailbox: self.changeUserAttributes(uid, 'mailbox', mailbox)
+        r.commit()
 
     def changeMailhost(self, uid, mailhost):
         """
@@ -334,8 +356,11 @@ class MailControl(ldapUserGroupControl):
         @param mailhost: the FQDN or IP of the mail server
         @type mailhost: str
         """
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_HOST, [(userdn, AT.MAIL)], mailhost)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
         self.changeUserAttributes(uid, 'mailhost', mailhost)
+        r.commit()
 
     def hasMailObjectClass(self, uid):
         """
@@ -399,6 +424,7 @@ class MailControl(ldapUserGroupControl):
         return self.l.search_s(self.baseUsersDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailAccount)(mail=*@%s)(|(uid=%s)(givenName=%s)(sn=%s)(mail=%s)))" % (domain, filt, filt, filt, filt), ["uid", "givenName", "sn", "mail"])
 
     def addMailGroup(self, group, mail):
+        r = AF().log(PLUGIN_NAME, AA.MAIL_ADD_MAIL_GROUP, [(group, AT.MAIL_GROUP)], mail)
         group = group.encode("utf-8")
         cn = 'cn=' + group + ', ' + self.baseGroupsDN
         attrs = []
@@ -410,6 +436,7 @@ class MailControl(ldapUserGroupControl):
         newattrs['mail'] = mail
         mlist = ldap.modlist.modifyModlist(attrs, newattrs)
         self.l.modify_s(cn, mlist)
+        r.commit()
 
     def searchMailGroupAlias(self, mail):
         ret = self.search("(&(cn=*)(mail=%s@*))" % mail, self.baseGroupsDN, ["cn"])
@@ -440,6 +467,7 @@ class MailControl(ldapUserGroupControl):
         """
         Remove the alias of this group from all user entries
         """ 
+        r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_GRP_ALIAS, [(group, AT.MAIL_GROUP)], group)
         if hasMailGroupObjectClass(group):
             mailgroup = self.getDetailedGroup(group)["mail"][0]
             users = self.search("(&(uid=*)(mailalias=%s))" % mailgroup, self.baseUsersDN, ["uid", "mailalias"])
@@ -448,6 +476,7 @@ class MailControl(ldapUserGroupControl):
                 mailaliases = user[0][1]["mailalias"]
                 mailaliases.remove(mailgroup)
                 self.changeMailalias(uid, mailaliases)
+        r.commit()
 
     def syncMailGroupAliases(self, group, foruser = "*"):
         """
