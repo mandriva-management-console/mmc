@@ -1,0 +1,38 @@
+<?
+
+$module_audit_codes = array(
+    'NETWORK_ADD_DNS_ZONE' => _T("Add zone", "network"),
+    'NETWORK_DEL_DNS_ZONE' => _T("Del zone", "network"),
+    'NETWORK_ADD_SUBNET' => _T("Add subnet", "network"),
+    'NETWORK_DEL_SUBNET' => _T("Del subnet", "network"),
+    'NETWORK_SET_HOST' => _T("Set host", "network"),
+    'NETWORK_SET_HOST_STMT' => _T("Set host statement", "network"),
+    'NETWORK_SET_HOST_HWADD' => _T("Set host hardware address", "network"),
+    'NETWORK_SET_SUBNET' => _T("Set subnet", "network"),
+    'NETWORK_SET_SUBNET_STMT' => _T("Set subnet statement", "network"),
+    'NETWORK_SET_SUBNET_DESC' => _T("Set subnet description", "network"),
+    'NETWORK_SET_SUBNET_AUTH' => _T("Set subnet authorities", "network"),
+    'NETWORK_SET_SUBNET_NTMSK' => _T("Set subnet netmask", "network"),
+    'NETWORK_SET_SOA' => _T("Set SOA record", "network"),
+    'NETWORK_SET_NS' => _T("Set ns record", "network"),
+    'NETWORK_ADD_SOA' => _T("Add SOA record", "network"),
+    'NETWORK_MODIFY_RECORD' => _T("Modify record", "network"),
+    'NETWORK_ADD_POOL' => _T("Add pool", "network"),
+    'NETWORK_SET_POOLRANGE' => _T("Set pool range", "network"),
+    'NETWORK_ADD_HOST_TO_SUB' => _T("Add host to subnet", "network"),
+    'NETWORK_DEL_HOST' => _T("Del host", "network"),
+    'NETWORK_SET_HOST_ALIASES' => _T("Set host aliases", "network"),
+    'NETWORK_ADD_RECORD_CNAME' => _T("Add CNAME record", "network"),
+    'NETWORK_ADD_RECORDA' => _T("Add A record", "network"),
+    'NETWORK_DHCP_SERVICE' => _T("Log dns service", "network"),
+    'NETWORK_DNS_SERVICE' => _T("Log dhcp service", "network"),
+    'ZONE' => _T("Zone", "network"),
+    'HOST' => _T("Host", "network"),
+    'NET' => _T("Net", "network"),
+    'SUBNET' => _T("Subnet", "network"),
+    'ALIAS' => _T("Alias", "network"),
+    'POOL' => _T("Pool", "network"),
+    'MMC-NETWORK' => _T("network", "network"),
+);
+
+?>
