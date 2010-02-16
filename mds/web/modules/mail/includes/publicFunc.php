@@ -132,16 +132,26 @@ function _mail_delGroup($group) {
 function _mail_baseEdit($ldapArr, $postArr) {
   $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
 
-  if ($ldapArr['mailenable'][0]=='NONE') {
+  if (isset($ldapArr['mailenable'][0]) && $ldapArr['mailenable'][0] == 'NONE') {
     $checkedMail = "checked";
   }
+  else {
+    $checkedMail = "";
+  }
 
-  if ($ldapArr['uid'][0]) {
+  if (isset($ldapArr['uid'][0]) && $ldapArr['uid'][0]) {
     if (hasMailObjectClass($ldapArr['uid'][0])) {
         $hasMail = "checked";
     }
   } else {
         $hasMail = "checked";
+  }
+  
+  if (isset($ldapArr["mailuserquota"][0])) {
+    $mailuserquota = $ldapArr["mailuserquota"][0];
+  }
+  else {
+    $mailuserquota = "";
   }
 
   $f->push(new Table());
@@ -167,11 +177,11 @@ function _mail_baseEdit($ldapArr, $postArr) {
   $f->push(new Table());  
   $f->add(
           new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable")),
-          array("value"=>$checkedMail)
+          array("value"=> $checkedMail)
           );
   $f->add(          
           new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/')),
-          array("value" => $ldapArr["mailuserquota"][0])
+          array("value" => $mailuserquota)
           );
   $f->pop();
 

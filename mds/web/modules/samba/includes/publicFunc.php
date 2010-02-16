@@ -148,7 +148,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
     }
 
     //if we update a user but error when updating
-    if ($postArr["buser"]) {
+    if (isset($postArr["buser"])) {
         if ($postArr["isSamba"]) {
             $checked = "checked";
             $displayType= "inline";
