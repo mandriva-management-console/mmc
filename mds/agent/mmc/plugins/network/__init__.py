@@ -349,13 +349,9 @@ def getDnsLog(filter = ''):
 # Service management
 
 def dhcpService(command):
-    r = AF().log(PLUGIN_NAME, AA.NETWORK_DHCP_SERVICE)
-    r.commit()
     return DhcpService().command(command)
 
 def dnsService(command):
-    r = AF().log(PLUGIN_NAME, AA.NETWORK_DNS_SERVICE)
-    r.commit()
     return DnsService().command(command)
 
 class NetworkConfig(PluginConfig):
