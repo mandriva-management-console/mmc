@@ -64,7 +64,7 @@ $p->displaySideMenu();
 <?= _T("The domain must be valid"); ?>
 </p>
 
-<form method="post" action="<? echo $PHP_SELF; ?>">
+<form method="post" action="">
 
 <table cellspacing="0">
  <tr>
