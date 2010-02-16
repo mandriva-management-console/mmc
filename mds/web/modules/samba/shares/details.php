@@ -115,7 +115,7 @@ $p->display();
 }
 ?>
 
-<form method="post" action="<? echo $PHP_SELF; ?>" onSubmit="autouserObj.selectAll(); autoadminObj.selectAll();">
+<form method="post" action="" onSubmit="autouserObj.selectAll(); autoadminObj.selectAll();">
 
 <?
 
