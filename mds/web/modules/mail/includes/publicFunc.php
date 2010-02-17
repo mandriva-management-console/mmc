@@ -130,6 +130,7 @@ function _mail_delGroup($group) {
  * @param $ldapArr ldap array return by getDetailedUser xmlrpc function
  */
 function _mail_baseEdit($ldapArr, $postArr) {
+
   $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
 
   if (isset($ldapArr['mailenable'][0]) && $ldapArr['mailenable'][0] == 'NONE') {
@@ -142,6 +143,9 @@ function _mail_baseEdit($ldapArr, $postArr) {
   if (isset($ldapArr['uid'][0]) && $ldapArr['uid'][0]) {
     if (hasMailObjectClass($ldapArr['uid'][0])) {
         $hasMail = "checked";
+    }
+    else {
+        $hasMail = "";
     }
   } else {
         $hasMail = "checked";
@@ -246,7 +250,7 @@ function _mail_baseEdit($ldapArr, $postArr) {
  * @param $postArr $_POST array of the page
  */
 function _mail_verifInfo($postArr) {
-    if ($postArr["mailaccess"]) {
+    if (isset($postArr["mailaccess"])) {
         $ereg='/^([0-9a-zA-Z@._-])*$/';
         foreach ($postArr['mailalias'] as $key => $value) {
             if (!preg_match($ereg, $postArr["mailalias"][$key]))  {
@@ -264,51 +268,65 @@ function _mail_verifInfo($postArr) {
     }
 }
 
+
 /**
  * function call when you submit change on a user
- * @param $postArr $_POST array of the page
+ * @param $FH FormHandler of the page
  */
-function _mail_changeUser($postArr) {
-    if ($postArr["mailaccess"]) {
-        if (hasMailObjectClass($postArr["nlogin"])) {
+function _mail_changeUser($FH) {
+
+    if ($FH->getPostValue("mailaccess")) {
+    
+        if (hasMailObjectClass($FH->getPostValue("nlogin"))) {
             $syncmailgroupalias = False;
-            if (isset($postArr["unlimitedquota"])) $postArr["mailuserquota"] = "0";
-        } else $syncmailgroupalias = True;
-        changeMaildrop($postArr["nlogin"],$postArr['maildrop']);
-        changeMailalias($postArr["nlogin"],$postArr['mailalias']);
+            if ($FH->getValue("unlimitedquota") == "on") 
+                $FH->setValue("mailuserquota", "0");
+        } 
+        else $syncmailgroupalias = True;
+        
+        if($FH->isUpdated("maildrop"))
+            changeMaildrop($FH->getPostValue("nlogin"), $FH->getPostValue('maildrop'));
+        if($FH->isUpdated("mailalias"))
+            changeMailalias($FH->getPostValue("nlogin"), $FH->getPostValue('mailalias'));
         /*
           If we are adding the user and the mailbox/mailhost attributes are
           not filled in, we don't empty them as this may clear default values
           set by the MMC agent.
         */
-        if (isset($postArr["mailbox"])) {
-            if (!($_GET["action"] == "add" && strlen($postArr["mailbox"]) == 0)) {
-                changeMailbox($postArr["nlogin"], $postArr['mailbox']);
+        if ($FH->getPostValue("mailbox")) {
+            if (!$_GET["action"] == "add") {
+                changeMailbox($FH->getPostValue("nlogin"), $FH->getPostValue('mailbox'));
             }
         }
-        if (isset($postArr["mailhost"])) {
-            if (!($_GET["action"] == "add" && strlen($postArr["mailhost"]) == 0)) {
-                changeMailhost($postArr["nlogin"], $postArr['mailhost']);
+        if ($FH->getPostValue("mailhost")) {
+            if (!$_GET["action"] == "add") {
+                changeMailhost($FH->getPostValue("nlogin"), $FH->getPostValue("mailhost"));
             }
         }
-        if (!$postArr["maildisable"]) {
-            changeMailEnable($postArr["nlogin"],True);
-        } else {
-            changeMailEnable($postArr["nlogin"],False);
+        
+        if($FH->isUpdated('maildisable')) {
+            // disable mail
+            if ($FH->getValue('maildisable') == "on")
+                changeMailEnable($FH->getPostValue("nlogin"), False);
+            else
+                changeMailEnable($FH->getPostValue("nlogin"), True);
         }
         /*
           Only change quota if it is POSTed. When adding a user, the default
           domain mail quota is used.
         */
-        if (strlen($postArr["mailuserquota"])) changeUserAttributes($postArr["nlogin"], "mailuserquota", $postArr["mailuserquota"]);
+        if ($FH->isUpdated("mailuserquota")) 
+            changeUserAttributes($FH->getPostValue("nlogin"), "mailuserquota", $FH->getValue("mailuserquota"));
+            
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */
-            syncMailGroupAliases($postArr["primary_autocomplete"]);
-            foreach($postArr["groupsselected"] as $group) syncMailGroupAliases($group);
+            syncMailGroupAliases($FH->getPostValue("primary_autocomplete"));
+            foreach($FH->getPostValue("groupsselected") as $group) 
+                syncMailGroupAliases($group);
         }
     } else { //mail access not checked
-        if (hasMailObjectClass($postArr["nlogin"])) { //and mail access still present
-            removemail($postArr["nlogin"]);
+        if (hasMailObjectClass($FH->getPostValue("nlogin"))) { //and mail access still present
+            removemail($FH->getPostValue("nlogin"));
         }
     }
 

@@ -49,19 +49,19 @@ function _samba_changeUserPasswd($paramsArr) {
 }
 
 function _samba_changeUserPrimaryGroup($uid, $group) {
-    xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
+    if (hasSmbAttr($uid)) xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
 }
  
 
-function _samba_changeUser($postArr) {
+function _samba_changeUser($FH) {
     global $error;
 
     if ($error) return -1;
 
-    if  (hasSmbAttr($postArr["nlogin"])) { //if it is an smbUser
-        if (!$postArr["isSamba"]) {
+    if  (hasSmbAttr($FH->getPostValue("nlogin"))) { //if it is an smbUser
+        if (!$FH->getPostValue("isSamba")) {
             // Removing all SAMBA attributes
-            rmSmbAttr($postArr["nlogin"]);
+            rmSmbAttr($FH->getPostValue("nlogin"));
             global $result;
             $result .= _T("Samba attributes deleted.","samba")."<br />";
         } else {
@@ -70,44 +70,44 @@ function _samba_changeUser($postArr) {
              * Remove passwords from the $_POST array coming from the add/edit user page
              * because we don't want to send them again via RPC.
              */
-            unset($postArr["pass"]);
-            unset($postArr["confpass"]);
+            $FH->delPostValue("pass");
+            $FH->delPostValue("confpass");
 
-            changeSmbAttr($postArr["nlogin"], $postArr);
-            if (isEnabledUser($postArr["nlogin"])) {
-                if ($_POST['isSmbDesactive']) {
-                    smbDisableUser($postArr["nlogin"]);
+            changeSmbAttr($FH->getPostValue("nlogin"), $FH->getValues());
+            
+            if (isEnabledUser($FH->getPostValue("nlogin"))) {
+                if ($FH->getPostValue('isSmbDesactive')) {
+                    smbDisableUser($FH->getPostValue("nlogin"));
                 }
             } else {
-                if (!$_POST['isSmbDesactive']) {
-                    smbEnableUser($postArr["nlogin"]);
+                if (!$FH->getPostValue('isSmbDesactive')) {
+                    smbEnableUser($FH->getPostValue("nlogin"));
                 }
             }
-
-            if (isLockedUser($postArr["nlogin"])) {
-                if (!$_POST['isSmbLocked']) {
-                    smbUnlockUser($postArr["nlogin"]);
+            if (isLockedUser($FH->getPostValue("nlogin"))) {
+                if (!$FH->getPostValue('isSmbLocked')) {
+                    smbUnlockUser($FH->getPostValue("nlogin"));
                 }
             } else {
-                if ($_POST['isSmbLocked']) {
-                    smbLockUser($postArr["nlogin"]);
+                if ($FH->getPostValue('isSmbLocked')) {
+                    smbLockUser($FH->getPostValue("nlogin"));
                 }
             }
         }
     }
     else { //if not have smb attributes
-        if ($postArr["isSamba"]) {
+        if ($FH->getPostValue("isSamba")) {
             global $result;
             $result.=_T("Samba attributes added.","samba")."<br />";
-            addSmbAttr($postArr["nlogin"],$postArr["pass"]);
-            changeSmbAttr($postArr["nlogin"], $postArr);
+            addSmbAttr($FH->getPostValue("nlogin"),$FH->getPostValue("pass"));
+            changeSmbAttr($FH->getPostValue("nlogin"), $FH->raw_data);
         }
     }
 }
 
 function _samba_verifInfo($postArr) {
 
-    if ($postArr["isSamba"]) {
+    if (isset($postArr["isSamba"])) {
         if (!hasSmbAttr($postArr["nlogin"])) {
             if ($postArr["pass"]=="") { //if we not precise password
                 global $error;
@@ -149,7 +149,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
 
     //if we update a user but error when updating
     if (isset($postArr["buser"])) {
-        if ($postArr["isSamba"]) {
+        if (isset($postArr["isSamba"])) {
             $checked = "checked";
             $displayType= "inline";
         } else {

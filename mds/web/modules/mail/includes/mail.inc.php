@@ -32,13 +32,17 @@ class QuotaTpl extends InputTpl {
     function Display($arrParam) {
         if ($arrParam["value"] === "0") {
             $checked = "CHECKED";
+            $old_value = "on";
             $disabled = "1";
         } else {
             $checked = "";
             $disabled = "0";
+            $old_value = "";
         }
         parent::display($arrParam);
-        print "&nbsp;" . _T("Unlimited quota", "mail") . '<input type="checkbox" id="unlimitedquota" name="unlimitedquota" ' . $checked . ' onclick="unlimitedquotaclick();">';
+        print "&nbsp;" . _T("Unlimited quota", "mail") . '
+        <input type="hidden" name="old_unlimitedquota" value="'.$old_value.'" />
+        <input type="checkbox" id="unlimitedquota" name="unlimitedquota" ' . $checked . ' onclick="unlimitedquotaclick();">';
         print '<script type="text/javascript">
 $("mailuserquota").disabled = ' . $disabled . ';
 function unlimitedquotaclick() {

@@ -29,7 +29,7 @@ require_once("sshlpk-xmlrpc.php");
  *
  */
 function _sshlpk_baseEdit($ldapArr, $postArr) {
-    $hassshlpk = 'CHECKED';
+    $hassshlpk = 'checked';
     if ((isset($ldapArr['uid'][0])) && (!hasSshKeyObjectClass($ldapArr['uid'][0]))) {
         $hassshlpk = '';
     }
@@ -48,8 +48,11 @@ function _sshlpk_baseEdit($ldapArr, $postArr) {
 
     if (isset($ldapArr['uid'][0])) {
         $sshkeylist = getAllSshKey($ldapArr['uid'][0]);
+        if(count($sshkeylist) == 0)
+            $sshkeylist = array("0" => "");
     } else {
-        $sshkeylist = array('');
+        $sshkeylist = array();
+        $sshkeylist = array("0" => "");
     }
 
     $f->add(new TrFormElement('', new MultipleInputTpl("sshkeylist",_T("Public SSH Key", "sshlpk"))), $sshkeylist);
@@ -88,14 +91,14 @@ function _sshlpk_verifInfo($postArr) {
 
 /**
  * function called when change on a user is requested
- * @param $postArr $_POST array of the page
+ * @param $FH FormHandler of the page
  */
-function _sshlpk_changeUser($postArr) {
-    if (isset($postArr['showsshkey'])) {
-        updateSshKeys($postArr['nlogin'], $postArr['sshkeylist']);
+function _sshlpk_changeUser($FH) {
+    if ($FH->getPostValue('showsshkey')) {
+        updateSshKeys($FH->getPostValue('nlogin'), $FH->getPostValue('sshkeylist'));
     } else {
-        if (hasSshKeyObjectClass($postArr['nlogin'])) {
-            delSSHKeyObjectClass($postArr['nlogin']);
+        if (hasSshKeyObjectClass($FH->getPostValue('nlogin'))) {
+            delSSHKeyObjectClass($FH->getPostValue('nlogin'));
         }
     }
 }
