@@ -48,7 +48,6 @@ class AuditTypes(AT):
     MAIL_GROUP=u'MAIL_GROUP'
     MAIL=u'MAIL'
     VMDOMAIN=u'VMDOMAIN'
-    USER=u'USER'
 
 AT = AuditTypes
 
