@@ -94,8 +94,8 @@ function _sshlpk_verifInfo($postArr) {
  * @param $FH FormHandler of the page
  */
 function _sshlpk_changeUser($FH) {
-    if ($FH->getPostValue('showsshkey')) {
-        updateSshKeys($FH->getPostValue('nlogin'), $FH->getPostValue('sshkeylist'));
+    if ($FH->isUpdated('sshkeylist')) {
+        updateSshKeys($FH->getPostValue('nlogin'), $FH->getValue('sshkeylist'));
     } else {
         if (hasSshKeyObjectClass($FH->getPostValue('nlogin'))) {
             delSSHKeyObjectClass($FH->getPostValue('nlogin'));
