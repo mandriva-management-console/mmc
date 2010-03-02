@@ -1,7 +1,8 @@
 <?
 
 $module_audit_codes = array(
-    'MAIL_CHANGE_MAIL' => _T("Change mail", "mail"),
+    'MAIL_ENABLE' => _T("Enable mail delivery", "mail"),
+    'MAIL_DISABLE' => _T("Disable mail delivery", "mail"),    
     'MAIL_CHANGE_MAIL_DROP' => _T("Change mail drop", "mail"),
     'MAIL_CHANGE_MAIL_ALIAS' => _T("Change mail alias", "mail"),
     'MAIL_CHANGE_MAIL_BOX' => _T("Change mail box", "mail"),

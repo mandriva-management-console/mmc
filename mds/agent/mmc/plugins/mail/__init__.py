@@ -299,13 +299,17 @@ class MailControl(ldapUserGroupControl):
         @type enabled: bool
         """
         
-        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL, [(uid, AT.MAIL)], enabled)        
+        if enabled:
+            action = AA.MAIL_ENABLE
+            attr_val = "OK"
+        else:
+            action = AA.MAIL_DISABLE
+            attr_val = "NONE"
+        
+        r = AF().log(PLUGIN_NAME, action, [(uid, AT.MAIL)], enabled)        
         if not self.hasMailObjectClass(uid):
             self.addMailObjectClass(uid)
-        if enabled:
-            self.changeUserAttributes(uid, 'mailenable', 'OK', False)
-        else:
-            self.changeUserAttributes(uid, 'mailenable', 'NONE', False)
+        self.changeUserAttributes(uid, 'mailenable', attr_val, False)
         r.commit()
 
     def changeMaildrop(self, uid, maildroplist):
