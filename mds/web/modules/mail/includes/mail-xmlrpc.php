@@ -58,6 +58,10 @@ function changeMailhost($login, $mailhost) {
     return xmlCall("mail.changeMailhost", array($login, $mailhost));
 }
 
+function changeQuota($login, $mailuserquota) {
+    return xmlCall("mail.changeQuota", array($login, $mailuserquota));
+}
+
 function removeMail($login) {
     return xmlCall("mail.removeMail",array($login));
 }

@@ -276,7 +276,7 @@ function _mail_verifInfo($postArr) {
 function _mail_changeUser($FH) {
 
     if ($FH->getPostValue("mailaccess")) {
-    
+        
         if (hasMailObjectClass($FH->getPostValue("nlogin"))) {
             $syncmailgroupalias = False;
             if ($FH->getValue("unlimitedquota") == "on") 
@@ -285,9 +285,9 @@ function _mail_changeUser($FH) {
         else $syncmailgroupalias = True;
         
         if($FH->isUpdated("maildrop"))
-            changeMaildrop($FH->getPostValue("nlogin"), $FH->getPostValue('maildrop'));
+            changeMaildrop($FH->getPostValue("nlogin"), $FH->getValue('maildrop'));
         if($FH->isUpdated("mailalias"))
-            changeMailalias($FH->getPostValue("nlogin"), $FH->getPostValue('mailalias'));
+            changeMailalias($FH->getPostValue("nlogin"), $FH->getValue('mailalias'));
         /*
           If we are adding the user and the mailbox/mailhost attributes are
           not filled in, we don't empty them as this may clear default values
@@ -310,13 +310,15 @@ function _mail_changeUser($FH) {
                 changeMailEnable($FH->getPostValue("nlogin"), False);
             else
                 changeMailEnable($FH->getPostValue("nlogin"), True);
-        }
+        }        
+        
         /*
           Only change quota if it is POSTed. When adding a user, the default
           domain mail quota is used.
         */
-        if ($FH->isUpdated("mailuserquota")) 
-            changeUserAttributes($FH->getPostValue("nlogin"), "mailuserquota", $FH->getValue("mailuserquota"));
+        if ($FH->isUpdated("mailuserquota")) {
+            changeQuota($FH->getPostValue("nlogin"), $FH->getValue("mailuserquota"));
+        }
             
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */

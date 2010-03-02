@@ -99,12 +99,15 @@ def changeMailbox(uid, mailbox):
 
 def changeMailhost(uid, mailhost):
     MailControl().changeMailhost(uid, mailhost)
+    
+def changeQuota(uid, mailuserquota):
+    MailControl().changeQuota(uid, mailuserquota)
 
 def removeMail(uid):
-    MailControl().removeUserObjectClass(uid, 'mailAccount')
+    MailControl().removeMail(uid)
 
 def removeMailGroup(group):
-    MailControl().removeGroupObjectClass(group, 'mailGroup')
+    MailControl().removeMailGroup(group)
 
 def addMailGroup(group, mail):
     MailControl().addMailGroup(group, mail)
@@ -191,7 +194,7 @@ class MailControl(ldapUserGroupControl):
             "objectClass" :  ("mailDomain", "top")
             }
         modlist = ldap.modlist.addModlist(entry)
-        self.l.add_s(dn, modlist)        
+        self.l.add_s(dn, modlist)
         r.commit()
 
     def delVDomain(self, domain):
@@ -259,7 +262,7 @@ class MailControl(ldapUserGroupControl):
         vdomain = self.getVDomain(domain)
         mailuserquota = vdomain[0][1]["mailuserquota"][0]
         for user in self.getVDomainUsers(domain):
-            self.changeUserAttributes(user[1]["uid"][0], "mailuserquota", mailuserquota)
+            self.changeUserAttributes(user[1]["uid"][0], "mailuserquota", mailuserquota, False)
         r.commit()
 
     def getVDomain(self, domain):
@@ -292,15 +295,18 @@ class MailControl(ldapUserGroupControl):
 
         @param uid: user name
         @type uid: str
-        @param mailenable: Boolean to specify if mail is enabled or not
-        @type mailenable: bool
+        @param enabled: Boolean to specify if mail is enabled or not
+        @type enabled: bool
         """
+        
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL, [(uid, AT.MAIL)], enabled)        
         if not self.hasMailObjectClass(uid):
             self.addMailObjectClass(uid)
         if enabled:
-            self.changeUserAttributes(uid, 'mailenable', 'OK')
+            self.changeUserAttributes(uid, 'mailenable', 'OK', False)
         else:
-            self.changeUserAttributes(uid, 'mailenable', 'NONE')
+            self.changeUserAttributes(uid, 'mailenable', 'NONE', False)
+        r.commit()
 
     def changeMaildrop(self, uid, maildroplist):
         """
@@ -314,7 +320,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_DROP, [(userdn, AT.MAIL)], maildroplist)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'maildrop', maildroplist)
+        self.changeUserAttributes(uid, 'maildrop', maildroplist, False)
         r.commit()
 
     def changeMailalias(self, uid, mailaliaslist):
@@ -329,7 +335,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_ALIAS, [(userdn, AT.MAIL)], mailaliaslist)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'mailalias', mailaliaslist)
+        self.changeUserAttributes(uid, 'mailalias', mailaliaslist, False)
         r.commit()
 
     def changeMailbox(self, uid, mailbox):
@@ -344,7 +350,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_BOX, [(userdn, AT.MAIL)], mailbox)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        if mailbox: self.changeUserAttributes(uid, 'mailbox', mailbox)
+        if mailbox: self.changeUserAttributes(uid, 'mailbox', mailbox, False)
         r.commit()
 
     def changeMailhost(self, uid, mailhost):
@@ -359,7 +365,32 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_HOST, [(userdn, AT.MAIL)], mailhost)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'mailhost', mailhost)
+        self.changeUserAttributes(uid, 'mailhost', mailhost, False)
+        r.commit()
+
+    def changeQuota(self, uid, mailuserquota):
+        """
+        Change the user quota attribute.
+
+        @param uid: user name
+        @type uid: str
+        @param mailuserquota: Quota in kB for uid
+        @type mailuserquota: str
+        """
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_QUOTA, [(userdn, AT.MAIL)], mailuserquota)
+        if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
+        self.changeUserAttributes(uid, 'mailuserquota', mailuserquota, False)
+        r.commit()
+        
+    def removeMail(self, uid):
+        r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_CLASS, [(uid, AT.MAIL)])
+        self.removeUserObjectClass(uid, "mailAccount")
+        r.commit()
+        
+    def removeGroupMail(self, group):
+        r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_CLASS, [(group, AT.MAIL)])
+        self.removeUserObjectClass(group, "mailGroup")
         r.commit()
 
     def hasMailObjectClass(self, uid):
@@ -386,7 +417,8 @@ class MailControl(ldapUserGroupControl):
         """
         return "mailGroup" in self.getDetailedGroup(group)["objectClass"]
 
-    def addMailObjectClass(self, uid, maildrop = None):
+    def addMailObjectClass(self, uid, maildrop = None):        
+        r = AF().log(PLUGIN_NAME, AA.MAIL_ADD_MAIL_CLASS, [(uid, AT.MAIL)])    
         # Get current user entry
         dn = 'uid=' + uid + ',' + self.baseUsersDN
         s = self.l.search_s(dn, ldap.SCOPE_BASE)
@@ -413,6 +445,7 @@ class MailControl(ldapUserGroupControl):
         # Update LDAP
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(dn, modlist)
+        r.commit()
 
     def getVDomainUsersCount(self, domain):
         return len(self.search("(&(objectClass=mailAccount)(mail=*@%s))" % domain, self.baseUsersDN, [""]))
