@@ -550,7 +550,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 
     def addSmbAttr(self, uid, password):
         userdn = self.searchUserDN(uid)
-        r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SAMBA_ATTR, [(userdn,AT.USER)])
+        r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SAMBA_CLASS, [(userdn,AT.USER)])
         # If the password has been encoded in the XML-RPC stream, decode it
         if isinstance(password, xmlrpclib.Binary):
             password = str(password)
@@ -613,7 +613,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                     # Maybe delete this SAMBA LDAP attribute
                     try:
                         del new[key]
-                        logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SMB_ATTR, 
+                        logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_ATTR, 
                             [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
                     except KeyError:
                         pass
@@ -622,7 +622,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                         value = value.replace("\\\\", "\\")
                     # Update this SAMBA LDAP attribute
                     new[key] = value
-                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_SAMBA_ATTR, 
+                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR, 
                         [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
                     
         modlist = ldap.modlist.modifyModlist(old, new)
@@ -677,7 +677,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
     def delSmbAttr(self, uid):
         """remove smb attributes via smbpasswd cmd"""
         userdn = self.searchUserDN(uid)
-        r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SMB_ATTR, [(userdn,AT.USER)])
+        r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SAMBA_CLASS, [(userdn,AT.USER)])
         r.commit()
         return mmctools.shlaunch("/usr/bin/smbpasswd -x " + uid)
 

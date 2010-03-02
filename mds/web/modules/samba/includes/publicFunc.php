@@ -100,7 +100,7 @@ function _samba_changeUser($FH) {
             global $result;
             $result.=_T("Samba attributes added.","samba")."<br />";
             addSmbAttr($FH->getPostValue("nlogin"),$FH->getPostValue("pass"));
-            changeSmbAttr($FH->getPostValue("nlogin"), $FH->raw_data);
+            changeSmbAttr($FH->getPostValue("nlogin"), $FH->getPostValues());
         }
     }
 }
