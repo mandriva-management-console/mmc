@@ -99,6 +99,11 @@ function _samba_changeUser($FH) {
         if ($FH->getPostValue("isSamba")) {
             global $result;
             $result.=_T("Samba attributes added.","samba")."<br />";
+            # if the user password doesn't match the pwd policies
+            # we set a random password for the samba user
+            if($FH->getValue("randomSmbPwd") == 1) {
+                $FH->setPostValue("pass", uniqid(rand(), true));
+            }
             addSmbAttr($FH->getPostValue("nlogin"),$FH->getPostValue("pass"));
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getPostValues());
         }
