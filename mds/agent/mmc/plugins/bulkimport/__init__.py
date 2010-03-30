@@ -25,8 +25,8 @@ MDS bulk import plugin for the MMC agent.
 
 INI = "/etc/mmc/plugins/bulkimport.ini"
 
-VERSION = "0.0.2"
-APIVERSION = "1:0:0"
+VERSION = "2.4.0"
+APIVERSION = "0:0:0"
 REVISION = int("$Rev$".split(':')[1].strip(' $'))
 
 def getVersion(): return VERSION
