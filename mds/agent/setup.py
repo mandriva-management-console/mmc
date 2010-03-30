@@ -20,12 +20,16 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+Python setup file to install MDS set of plugins for the MMC agent
+"""
+
 from distutils.core import setup
 
 setup(
     name = 'mds',
     version = '2.4.0',
-    description = 'MDS set of plugins Mandriva Management Console',
+    description = 'MDS set of plugins for Mandriva Management Console',
     license = 'GPL',
     url = "http://mds.mandriva.org",
     author = "Cedric Delfosse",
@@ -34,5 +38,5 @@ setup(
     maintainer_email = "cdelfosse@mandriva.com",
     packages = ["mmc.plugins.samba", "mmc.plugins.mail",
                 "mmc.plugins.network", "mmc.plugins.proxy",
-                "mmc.plugins.sshlpk"],
+                "mmc.plugins.sshlpk", "mmc.plugins.bulkimport"],
 )
