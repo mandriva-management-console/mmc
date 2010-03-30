@@ -20,15 +20,12 @@
  * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
-
 /**
  * module declaration
  */
 $mod = new Module("bulkimport");
 $mod->setVersion("0.0.2");
-$mod->setRevision('$Rev: 1 $');
+$mod->setRevision('$Rev$');
 $mod->setDescription(_T("Bulk user manager via CSV files", "bulkimport"));
 $mod->setAPIVersion('1:0:0');
 

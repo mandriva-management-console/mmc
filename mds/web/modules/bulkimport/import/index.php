@@ -25,135 +25,123 @@ require ("modules/base/users/localSidebar.php");
 require ("graph/navbar.inc.php");
 require ("modules/base/includes/users.inc.php");
 
-// controller 
+// controller
 if (!isset ($_REQUEST["stage"]) || isset ($_REQUEST["backbutton"])) {
     $stage = "";
-	unset ($_SESSION['importusers']);    
-    $p = new PageGenerator(_T("Bulk account modification from CSV file"));
+    unset ($_SESSION['importusers']);
+    $p = new PageGenerator(_T("Bulk account modification from CSV file", "bulkimport"));
     $p->setSideMenu($sidemenu);
-    $p->display();		
-	uploadFormView();	
-}
-else {
+    $p->display();
+    uploadFormView();
+} else {
     $stage = $_REQUEST["stage"];
 }
 
-if ($stage == "preimport") { 
-    $p = new PageGenerator(_T("CSV data to import"));
+if ($stage == "preimport") {
+    $p = new PageGenerator(_T("CSV data to import", "bulkimport"));
     $p->setSideMenu($sidemenu);
     $p->display();
-	displayPreImportTable();
+    displayPreImportTable();
 }
 
 if ($stage == "import") {
-    $p = new PageGenerator(_T("CSV import result"));
+    $p = new PageGenerator(_T("CSV import result", "bulkimport"));
     $p->setSideMenu($sidemenu);
     $p->display();
 }
 
 if ($stage == "import" & isset ($_REQUEST["importbutton"])) {
-	if (bulkImport()) 
-		displayResultsTable();
-}
-else if ($stage == "import" & isset ($_REQUEST["deletebutton"])) {
-	if (bulkDelete()) 
-		displayResultsTable();
-}
-else if ($stage == "import" & isset ($_REQUEST["modifybutton"])) {
-	if (bulkModify())
-		displayResultsTable();
-}
-else if ($stage == "import") {
+    if (bulkImport()) displayResultsTable();
+} else if ($stage == "import" & isset ($_REQUEST["deletebutton"])) {
+    if (bulkDelete()) displayResultsTable();
+} else if ($stage == "import" & isset ($_REQUEST["modifybutton"])) {
+    if (bulkModify()) displayResultsTable();
+} else if ($stage == "import") {
     displayResultsTable();
 }
 
 function getImportObject() {
-	if (isset($_SESSION['importusers']))
-		return unserialize($_SESSION['importusers']);
-	else {
-		uploadFormView();
-		return False;
-	}
+    if (isset($_SESSION['importusers']))
+        return unserialize($_SESSION['importusers']);
+    else {
+        uploadFormView();
+        return False;
+    }
 }
 
 function bulkImport() {
-	$importusers = getImportObject();
-	if (!$importusers) return False;
-	try {
-		$importusers->import();
-		$_SESSION['importusers'] = serialize($importusers);
-		return True;
-	}
-	catch (Exception $e) {
-		print "<b>" . $e->getMessage() . "</b>";
-		return False;
-	}
+    $importusers = getImportObject();
+    if (!$importusers) return False;
+    try {
+        $importusers->import();
+        $_SESSION['importusers'] = serialize($importusers);
+        return True;
+    }
+    catch (Exception $e) {
+        print "<b>" . $e->getMessage() . "</b>";
+        return False;
+    }
 }
 
 function bulkDelete() {
-	$importusers = getImportObject();
-	if (!$importusers ) return False;
-	$importusers->delete();
-	$_SESSION['importusers'] = serialize($importusers);
-	return True;
+    $importusers = getImportObject();
+    if (!$importusers ) return False;
+    $importusers->delete();
+    $_SESSION['importusers'] = serialize($importusers);
+    return True;
 }
+
 function bulkModify() {
-	$importusers = getImportObject();
-	if (!$importusers ) return False;
-	$importusers->modify();
-	$_SESSION['importusers'] = serialize($importusers);
-	return True;
+    $importusers = getImportObject();
+    if (!$importusers ) return False;
+    $importusers->modify();
+    $_SESSION['importusers'] = serialize($importusers);
+    return True;
 }
 
 function displayResultsTable() {
-	$importusers = getImportObject();
-	if (!$importusers ) return False;
-	$l = $importusers->getListInfos("&amp;stage=import");
-	$l->setName(_T("CSV Import results"));
-	/* Display the widget */
-	$l->display();
-	return;
+    $importusers = getImportObject();
+    if (!$importusers ) return False;
+    $l = $importusers->getListInfos("&amp;stage=import");
+    $l->setName(_T("CSV import results", "bulkimport"));
+    /* Display the widget */
+    $l->display();
+    return;
 }
 
 function displayPreImportTable() {
 ?>
-	<div>
-	<?
-	if (file_exists($_FILES["csvfile"]["tmp_name"])) {
-
-		$fh = fopen($_FILES["csvfile"]["tmp_name"], "r");
-		
-		$csvkeys = fgetcsv_compat($fh);
-		try {
-			$importusers = new ImportUsers($csvkeys);
-		}
-		catch (Exception $e) {
-			print "<b>" . $e->getMessage() . "</b>";
-			uploadFormView();
-			return;
-		}
-		try {
-			$importusers->verifyImportHeaders();
-		}
-		catch (Exception $e) {
-			print "<b>" . $e->getMessage() . "</b>";
-		}
-
-		while ($data = fgetcsv_compat($fh)) {
-			$importusers->adduser($data);
-		}
-	}
-	else {
-		if (isset ($_SESSION['importusers']))
-			$importusers = unserialize($_SESSION['importusers']);
-	}
-	
-	if ($importusers->bigList())
-		echo "<p><b>Warning: This is a big list so could take a long time. You may need to increase the timeout settings on your web server and browser.</b></p>";
-	$l = $importusers->getListInfos();
-	$l->setName(_T("CSV Import"));
-	/* Display the widget */
-	$l->display();	
+    <div>
+<?
+    if (file_exists($_FILES["csvfile"]["tmp_name"])) {
+        $fh = fopen($_FILES["csvfile"]["tmp_name"], "r");
+        $csvkeys = fgetcsv_compat($fh);
+        try {
+            $importusers = new ImportUsers($csvkeys);
+        } catch (Exception $e) {
+            print "<b>" . $e->getMessage() . "</b>";
+            uploadFormView();
+            return;
+        }
+        try {
+            $importusers->verifyImportHeaders();
+        } catch (Exception $e) {
+            print "<b>" . $e->getMessage() . "</b>";
+        }
+        while ($data = fgetcsv_compat($fh)) {
+            $importusers->adduser($data);
+        }
+    }
+    else {
+        if (isset ($_SESSION['importusers']))
+            $importusers = unserialize($_SESSION['importusers']);
+    }
+    if ($importusers->bigList())
+        echo "<p><b>" . _T("Warning: This is a big list so could take a long time. You may need to increase the timeout settings on your web server and browser", "bulkimport") . "</b></p>";
+    $l = $importusers->getListInfos();
+    $l->setName(_T("CSV Import", "bulkimport"));
+    /* Display the widget */
+    $l->display();
 ?>
 <form id="bulkimport" enctype="multipart/form-data" method="post">
 <? if ($importusers->allowImport()) { ?> 
@@ -182,9 +170,8 @@ if ($importusers->allowDelete()) {
 </form>
 
 	</div>
-	<?
-	
-	$_SESSION['importusers'] = serialize($importusers);
+<?
+     $_SESSION['importusers'] = serialize($importusers);
 }
 
 function uploadFormView() {
@@ -208,13 +195,12 @@ function uploadFormView() {
 </style>
 <form id="bulkimport" enctype="multipart/form-data" method="post">
     <div class="formblock" style="background-color: #F4F4F4;">
-    
         <input type="hidden" name="stage" value="preimport"/>
         <table cellspacing="0">
-        <?
-	        $test = new TrFormElement(_("CSV file : "), new FileTpl("csvfile"));
-	        $test->display(null);
-        ?>
+<?
+    $test = new TrFormElement(_T("CSV file : ", "bulkimport"), new FileTpl("csvfile"));
+    $test->display(null);
+?>
 
         </table>
         <p class="center"><input name="next" type="submit" class="btnPrimary" value="<?= _("Load CSV"); ?>" /></p>
@@ -268,9 +254,10 @@ function uploadFormView() {
  */
 
 function fgetcsv_compat($fh, $length='1000',$delimiter = ',' , $enclosure = '"' , $escape = '\\') {
-	if (strpos('5.2',phpversion()) === false) {
-		return fgetcsv($fh, $length ,$delimiter , $enclosure , $escape );
-	} else
-	return fgetcsv($fh, $length ,$delimiter , $enclosure );
+    if (strpos('5.3', phpversion()) !== false) {
+        return fgetcsv($fh, $length ,$delimiter , $enclosure , $escape );
+    } else {
+        return fgetcsv($fh, $length ,$delimiter , $enclosure );
+    }
 }
 ?>
