@@ -24,10 +24,10 @@
  * module declaration
  */
 $mod = new Module("bulkimport");
-$mod->setVersion("0.0.2");
+$mod->setVersion("2.4.0");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Bulk user manager via CSV files", "bulkimport"));
-$mod->setAPIVersion('1:0:0');
+$mod->setAPIVersion('0:0:0');
 
 /* Get the base module instance reference */
 $base = &$MMCApp->getModule('base');
