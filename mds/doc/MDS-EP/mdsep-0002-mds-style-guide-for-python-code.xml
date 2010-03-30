@@ -18,10 +18,10 @@
     </affiliation>
 
     <copyright>
-      <year>2009 Cédric Delfosse - Mandriva</year>
+      <year>2009-2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -53,7 +53,7 @@
   <section>
 
     <title>Code layout</title>
-    
+
     <para>
       Indentation: use 4 spaces per indentation level, no tabs allowed. It's ok with Emacs Python mode.
     </para>
@@ -66,7 +66,7 @@
   <section>
 
     <title>Whitespace in Expressions and Statements</title>
-    
+
     <screen>
       Yes: spam(ham[1], {eggs: 2})
       No:  spam( ham[ 1 ], { eggs: 2 } )
@@ -75,18 +75,17 @@
       No:  if (x == 4): print x, y; x, y = y, x
       No:  if x == 4 : print x , y ; x , y = y , x
 
-      
       Yes: spam(1)
       No:  spam (1)
-      
+
       Yes: dict['key'] = list[index]
       No:  dict ['key'] = list [index]
-      
-      Yes:      
+
+      Yes:
       x = 1
       y = 2
       long_variable = 3
-      
+
       No:
       x             = 1
       y             = 2
@@ -97,8 +96,27 @@
 
   <section>
 
+    <title>Naming conventions</title>
+
+    <para>
+      Module name: short, lowercase names, without underscores
+    </para>
+    <para>
+      Class Names: CapitalizedWords
+    </para>
+    <para>
+      Functions Names: mixedCase for instance method, lower_case_with_underscores for other.
+    </para>
+    <para>
+      Constants: UPPER_CASE_WITH_UNDERSCORE
+    </para>
+
+  </section>
+
+  <section>
+
     <title>Comments</title>
-    
+
     <para>
       They are written in english.
     </para>
@@ -114,29 +132,166 @@
   <section>
 
     <title>Docstrings</title>
-    
+
     <para>
-      All functions and classes must have a docstring.
+      All modules, functions and classes must have a docstring.
     </para>
     <para>
-      The docstring must be written in the Epytext Markup Language format. We use epydoc to generate the API documentation. See http://epydoc.sourceforge.net/epytext.html and http://epydoc.sourceforge.net/fields.html for more information.
+      The docstring must be written in the Epytext Markup Language
+      format. We use epydoc to generate the API documentation. See
+      http://epydoc.sourceforge.net/epytext.html and
+      http://epydoc.sourceforge.net/fields.html for more
+      information.
+    </para>
+
+    <para>
+      The recommanded epydoc fields are:
+    </para>
+
+    <screen>
+      def foo(a, b, c):
+          """
+          This methods performs funny things.
+
+          @param a: first parameter of foo
+          @type a: int
+          @param b: second parameter of foo
+          @type b: str
+          @param c: third parameter of foo
+          @type c: unicode
+
+	  @raise ExceptionFoo: raised if the b == 'bar'
+          @rtype: int
+          @return: the result should be 42
+          """
+    </screen>
+
+    <para>
+      Remarks:
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    Sometimes the method description can be written in @return if the function is simple.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If you skip @param because the parameter name seems really explicit to you, use at least: @rtype and @return
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Please use a spellchecker for your docstrings
+	  </para>
+	</listitem>
+      </itemizedlist>
     </para>
 
   </section>
 
   <section>
 
-    <title>Naming conventions</title>
-    
+    <title>Python module import rules</title>
+
     <para>
-      Module name: short, lowercase names, without underscores
+      "from mod import *" is forbidden, because it doesn't allow us to track module dependencies effectively.
     </para>
     <para>
-      Class Names: CapitalizedWords
+      The import order should be:
     </para>
-    <para>
-      Functions Names: mixedCase for instance method, lower_case_with_underscores for other.
-    </para>
+    <screen>
+      # Import standard python module
+      import os
+      import sys
+
+      # Import external modules (SQLAlchemy, Twisted, python-ldap, etc.)
+      from sqlalchemy.orm import create_session
+
+      # Import internal modules
+      from mmc.plugins.base import ...
+    </screen>
+
+  <section>
+
+    <title>SQLAlchemy code convention</title>
+
+    <section>
+
+      <title>Querying with the ORM</title>
+
+      <para>
+	Here are the recommended code guidelines when querying using the ORM:
+      </para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    First select the objects you want as a result:
+	    <screen>
+	      results = session.query(Table1).add_entity(Table2).add_entity(...) \
+	    </screen>
+	    If your query will return more than one row, please call the query "results", or "rows". If you are querying for one object only, please use a variable name corresponding to this object.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Then if needed perform a join between the tables. It is usually done using join in a select_from expression
+	    <screen>
+	      .select_from(table1.join(table2).join(...)) \
+	    </screen>
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Then add filter expressions to filter down the query:
+	    <screen>
+	      .filter(Table1.num == 42) \
+	      .filter(Table2.num == -42) \
+	    </screen>
+	    Please use "Table1.num" instead of "table1.c.num", because it's more pythonish.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    At least add the query limit:
+	    <screen>
+	      .all() # .first() .one(), or count()
+	    </screen>
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	Here is the complete query code:
+      </para>
+
+      <screen>
+	results = session.query(Table1).add_entity(Table2).add_entity(...) \
+	.select_from(table1.join(table2).join(...)) \
+	.filter(Table1.num == 42) \
+	.filter(Table2.num == -42) \
+	.all()
+
+	# Also accepted
+	results = session.query(Table1).add_entity(Table2).add_entity(...). \
+	select_from(table1.join(table2).join(...)). \
+	filter(Table1.num == 42). \
+	filter(Table2.num == -42). \
+	all()
+
+	# Also accepted
+	results = session.query(Table1).add_entity(Table2).add_entity(...)
+	results = results.select_from(table1.join(table2).join(...))
+	results = results.filter(Table1.num == 42)
+	results = results.filter(Table2.num == -42)
+	results = results.all()
+      </screen>
+
+      <para>
+	If you're looking for one result only (e.g. to get the properties of an object or check its existence) please use "one()" instead of "first()". "one()" will raise an exception if no object or more than one objects if returned, and so it forces you to deal with the exception.
+      </para>
+
+    </section>
 
   </section>
 
@@ -176,9 +331,9 @@
   </section>
 
   <section>
-    
+
     <title>Python code copyright header</title>
-    
+
     <para>
       Here is the header that must be used:
     </para>
@@ -187,7 +342,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&amp;ALter Soft, http://linbox.com
-# (c) 2007-2009 Mandriva, http://www.mandriva.com
+# (c) 2007-2010 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
