@@ -160,7 +160,7 @@
           @param c: third parameter of foo
           @type c: unicode
 
-	  @raise ExceptionFoo: raised if the b == 'bar'
+          @raise ExceptionFoo: raised if b == 'bar'
           @rtype: int
           @return: the result should be 42
           """
@@ -210,6 +210,8 @@
       # Import internal modules
       from mmc.plugins.base import ...
     </screen>
+
+  </section>
 
   <section>
 
@@ -266,25 +268,25 @@
       </para>
 
       <screen>
-	results = session.query(Table1).add_entity(Table2).add_entity(...) \
-	.select_from(table1.join(table2).join(...)) \
-	.filter(Table1.num == 42) \
-	.filter(Table2.num == -42) \
-	.all()
+        results = session.query(Table1).add_entity(Table2).add_entity(...) \
+                  .select_from(table1.join(table2).join(...)) \
+                  .filter(Table1.num == 42) \
+                  .filter(Table2.num == -42) \
+                  .all()
 
-	# Also accepted
-	results = session.query(Table1).add_entity(Table2).add_entity(...). \
-	select_from(table1.join(table2).join(...)). \
-	filter(Table1.num == 42). \
-	filter(Table2.num == -42). \
-	all()
+        # Also accepted
+        results = session.query(Table1).add_entity(Table2).add_entity(...). \
+                  select_from(table1.join(table2).join(...)). \
+                  filter(Table1.num == 42). \
+                  filter(Table2.num == -42). \
+                  all()
 
-	# Also accepted
-	results = session.query(Table1).add_entity(Table2).add_entity(...)
-	results = results.select_from(table1.join(table2).join(...))
-	results = results.filter(Table1.num == 42)
-	results = results.filter(Table2.num == -42)
-	results = results.all()
+        # Also accepted
+        results = session.query(Table1).add_entity(Table2).add_entity(...)
+        results = results.select_from(table1.join(table2).join(...))
+        results = results.filter(Table1.num == 42)
+        results = results.filter(Table2.num == -42)
+        results = results.all()
       </screen>
 
       <para>
