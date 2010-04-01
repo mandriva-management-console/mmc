@@ -298,6 +298,35 @@
   </section>
 
   <section>
+
+    <title>Tools to check Python code</title>
+
+    <para>
+      Use the pyflakes tool to check your code. The code must be fixed
+      if these messages are displayed:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+	<para>
+	  "import * used; unable to detect undefined names"
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  "'x' undefined variable"
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  "'x' imported but unused"
+	</para>
+      </listitem>
+    </itemizedlist>
+
+  </section>
+
+  <section>
     <title>Python language version compatibility</title>
 
     <para>
