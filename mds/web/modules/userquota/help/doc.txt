@@ -1,0 +1,36 @@
+This plugin has two components:
+	Disk quotas:
+	 	Disk quotas are designed to work with and EXT3 or EXT4 file system, using the quota package, although the commands run to configure quotas are customisable.
+	 	Quotas are applied to entire file systems with ext3 quotas, and are applied on a per user basis.  This plugin supports multiple file system quotas and 
+	 	allows you to set per user quotas for a group of people at once.  This plugin is designed to run the quota commands on the machine running the mmc-agent, although
+	 	this could be adjusted.   When quota's are set for a group, all the quota commands will be inserted into a temporary file, then run in a batch for performnace reasons.
+	 	
+	 	Disk quotas are stored in the quotas attribute, using the object class "systemQuotas". 
+	
+	Network quotas:
+		Network quotas are designed to be flexable, providing the ability to quotas for any given network and protocol pair defined in the configuration.  This plugin will
+		update the ldap records for network quotas for each user, but does not attempt to apply these quotas to a firewall, as this will be different for most people.  We
+		apply our network quotas using a cron job and a custom python script that queries a database and ldap, then writes tc rules for each user.
+		
+
+This plugin adds additional feilds to each user and to the "Edit group" screen.  
+
+Quotas are displayed in Megabytes in MMC, however they are stored as blocks for disk quotas, and as bytes for network quotas.
+
+Quotas set at the group level will apply to all members of the group.  If a user belongs to two groups, then last group changes are applied.  When making changes at a group
+level, you can choose how these changes are applied by setting the Overwrite options.  This is to allow you to only affect some users of the group, providing the capaiblity for
+some exceptions in quotas to be managed.
+
+Overwrite options:
+	Overwrite All existing quotas:
+		This will overwrite all existing quotas for members of the group.  If any of the quota fields are left black, it will remove the quotas for the users
+			
+	Only if the current quota is smaller than the new quota, or does not exist
+		This will only set the quota if the user has a quota less than the new group quota, or if they don't have a quota at all.
+	
+	Only if the current quota is lager than the new quota, or does not exist
+		This will only set the quota if the user has a quota more than the new group quota, or if they don't have a quota at all.  So the effect of this is reducing peoples quota
+		to a set value, and setting it to that value if they don't have a quota at all.
+	
+	Don't overwrite any existing quotas
+		This will only set quotas for users that don't already have a quota.

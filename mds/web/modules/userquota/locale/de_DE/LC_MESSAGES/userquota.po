@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mmc-web-userquota\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-29 18:04+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: AUSTRIA\n"
+
+#: userquota/infoPackage.inc.php:32
+msgid "Manage user quotas for disk and internet"
+msgstr "Verwalte Benutzer Quotas für lokaler und entfernter Speicher"
+
+#: userquota/includes/publicFunc.php:36
+msgid "Quota plugin"
+msgstr "Quota plugin"
+
+#: userquota/includes/publicFunc.php:65
+msgid "Quota plugin - Network"
+msgstr "Quota plugin - Netzwerk"
+
+#: userquota/includes/publicFunc.php:153
+msgid "Quota plugin group actions"
+msgstr "Quota plugin Gruppen Verwaltung"
+
+#: userquota/includes/publicFunc.php:156
+#: userquota/includes/publicFunc.php:169
+msgid "Quota's applied here affect all members of the group"
+msgstr "Die hier verwendeten Quotas haben Einfluss auf alle Mitglieder der Gruppe"
+
+#: userquota/includes/publicFunc.php:161
+#: userquota/includes/publicFunc.php:174
+msgid "Overwrite for existing member quotas"
+msgstr "Überschreibe existierende Mitglieder Quotas"
+
+#: userquota/includes/publicFunc.php:166
+msgid "Quota plugin - network"
+msgstr "Quota plugin - Netzwerk"
+

@@ -311,7 +311,6 @@ class CSVUser {
 
     function import() {
         if ($this->importable) {
-            echo "import ".$this->user;
             $user = $this->user;
             $login = $user["login"];
             $ret = add_user($login, $user["password"], $user["firstname"], $user["surname"], array_key_exists("homedir", $user) ? $user["homedir"] : "", array_key_exists("createhomedir", $user) ? $user["createhomedir"] : "yes", array_key_exists("primaryGroup", $user) ? $user["primaryGroup"] : "");
