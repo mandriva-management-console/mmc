@@ -1,9 +1,10 @@
+
 msgid ""
 msgstr ""
 "Project-Id-Version: mmc-web-bulkimport-0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-30 10:05+0200\n"
-"PO-Revision-Date: \n"
+"POT-Creation-Date: 2010-04-09 16:13+0200\n"
+"PO-Revision-Date: 2010-04-09 16:19+0200\n"
 "Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -13,72 +14,71 @@ msgstr ""
 "X-Poedit-Country: AUSTRIA\n"
 
 #: modules/bulkimport/import/index.php:32
-#, fuzzy
 msgid "Bulk account modification from CSV file"
-msgstr "Massen Import von CSV Datei"
+msgstr "Massen Benutzer Veränderung über CSV Datei"
 
-#: modules/bulkimport/infoPackage.inc.php:41
-#, fuzzy
+#: modules/bulkimport/infoPackage.inc.php:38
 msgid "Bulk import (CSV)"
-msgstr "Bulk Manager (CSV)"
+msgstr "Massen Import (CSV)"
 
-#: modules/bulkimport/infoPackage.inc.php:32
+#: modules/bulkimport/infoPackage.inc.php:29
 msgid "Bulk user manager via CSV files"
 msgstr "Massen Benutzer Verwaltung (CSV Datei)"
 
-#: modules/bulkimport/import/index.php:154
+#: modules/bulkimport/import/index.php:142
 msgid "CSV Import"
 msgstr "CSV Import"
 
-#: modules/bulkimport/import/index.php:112
-msgid "CSV Import results"
-msgstr "Log CSV Import"
-
-#: modules/bulkimport/import/index.php:42
-#, fuzzy
+#: modules/bulkimport/import/index.php:41
 msgid "CSV data to import"
-msgstr "CSV Import"
+msgstr "CSV Informationen zu importieren"
 
-#: modules/bulkimport/import/index.php:215
-#, fuzzy
+#: modules/bulkimport/import/index.php:201
 msgid "CSV file : "
-msgstr "CSV Datei"
+msgstr "CSV Datei :"
 
-#: modules/bulkimport/import/index.php:49
-#, fuzzy
+#: modules/bulkimport/import/index.php:48
 msgid "CSV import result"
-msgstr "Log CSV Import"
+msgstr "CSV Import Resultat"
 
-#: modules/bulkimport/import/index.php:180
+#: modules/bulkimport/import/index.php:106
+#, fuzzy
+msgid "CSV import results"
+msgstr "CSV Import Resultat"
+
+#: modules/bulkimport/import/index.php:168
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: modules/bulkimport/import/index.php:176
-#: modules/bulkimport/import/index.php:178
+#: modules/bulkimport/import/index.php:164
+#: modules/bulkimport/import/index.php:166
 msgid "Delete"
 msgstr "Entfernen"
 
-#: modules/bulkimport/import/index.php:160
-#: modules/bulkimport/import/index.php:162
+#: modules/bulkimport/import/index.php:148
+#: modules/bulkimport/import/index.php:150
 msgid "Import"
 msgstr "Import"
 
-#: modules/bulkimport/import/index.php:220
+#: modules/bulkimport/import/index.php:206
 msgid "Load CSV"
-msgstr ""
+msgstr "Lade CSV"
 
-#: modules/bulkimport/import/index.php:168
-#: modules/bulkimport/import/index.php:170
+#: modules/bulkimport/import/index.php:156
+#: modules/bulkimport/import/index.php:158
 msgid "Modify"
 msgstr "Ändern"
 
 #: modules/bulkimport/includes/importUsers.php:285
 msgid "Password not updated"
-msgstr ""
+msgstr "Passwort nicht aktualisiert"
 
 #: modules/bulkimport/includes/importUsers.php:293
 msgid "Password updated."
-msgstr ""
+msgstr "Passwort aktualisiert"
 
-#~ msgid "Next"
-#~ msgstr "Weiter"
+#: modules/bulkimport/import/index.php:140
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
+msgstr ""
