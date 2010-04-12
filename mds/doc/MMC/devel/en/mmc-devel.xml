@@ -1278,13 +1278,6 @@
         <filename>/usr/share/mmc/modules/module1/submodule1/ajaxFruits.php</filename>:</para>
 
         <screen>
-	  /* Get MMC includes */
-	  require("../../../includes/config.inc.php");
-	  require("../../../includes/i18n.inc.php");
-	  require("../../../includes/acl.inc.php");
-	  require("../../../includes/session.inc.php");
-	  require("../../../includes/PageGenerator.php");
-
 	  $filter = $_GET["filter"];
 	  $fruits = array("apple", "banana", "lemon", "papaya", "fig", "olive", "clementine", "orange", "mandarin", "grapes", "kumquat");
 	  
@@ -1319,8 +1312,8 @@
 	  /*
 	      Create the filtering form with a input field, and bind this input field to an AJAX updater that will use the specified URL to dynamically fill in a DIV (see below) container.
 	  */
-	      
-	  $ajax = new AjaxFilter("modules/module1/submodule1/ajaxFruits.php");
+
+	  $ajax = new AjaxFilter(urlStrRedirect("module1/submodule1/ajaxFruits"));
 	  /* You can ask the AJAX updater to be called every 10s */
 	  /* $ajax-&gt;setRefresh(10000); */
 	  $ajax-&gt;display();
@@ -1329,7 +1322,7 @@
 	  $p = new PageGenerator(sprintf(_T("Fruits"), "module1"));
 	  $p-&gt;setSideMenu($sidemenu);
 	  $p-&gt;display();
-	  
+
 	  /* Display the DIV container that will be updated */
 	  $ajax-&gt;displayDivToUpdate();
 	</screen>
@@ -1344,7 +1337,7 @@
 	  ...
 	  /* Register the first page */
 	  $page = new Page("index", _T("Fruit list", "module1"));
-	  $submod-&gt;addPage($page);	  
+	  $submod-&gt;addPage($page);
 	  /* Register the page called using the AJAX DIV updater */
 	  $page = new Page("ajaxFruit");
 	  $page-&gt;setFile("modules/module1/submodule1/ajaxFruits.php",
@@ -1477,7 +1470,7 @@
 
         <screen>
 	  class NumericInputTpl extends InputTpl {
-	  
+
 	      function NumericInputTpl($name) {
 	          $this-&gt;name = $name;
 		  $this-&gt;regexp = '/^[0-9]*$/';
@@ -1486,12 +1479,12 @@
 	  }
 
 	  class MACInputTpl extends InputTpl {
-	      
+
 	      function MACInputTpl($name) {
 	          $this-&gt;name = $name;
 		  $this-&gt;regexp = '/^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i';
 	      }
-	      
+
 	  }
 	</screen>
       </section>
