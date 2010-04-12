@@ -72,9 +72,12 @@ function _userquota_baseEdit($ldapArr, $postArr) {
 
 // @todo Join these two into one function.
 function displayDiskQuotas(&$f, &$ldapArr) {
+    
+    $quotas = isset($ldapArr["quota"]) ? $ldapArr["quota"] : array();
+
 	foreach (getDevicemap() as $device) {
 		$quota = new DiskQuota($device);
-		$quota->setCurrentQuotas($ldapArr["quota"]);
+		$quota->setCurrentQuotas($quotas);
 		$f->add($quota->getQuotaForm(), array("value"=>$quota->getQuotaSize()));
 	}
 }
