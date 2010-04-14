@@ -22,13 +22,16 @@
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
 echo "MDS auto-uninstallation script"
-echo
-echo "WARNING: this script will erase some parts of your configuration !"
-echo "         type Ctrl-C now to exit if you are not sure"
-echo "         type Enter to continue"
-read
 
 PREFIX=/usr
+
+if [ -z $FORCE ];
+    echo
+    echo "WARNING: this script will erase some parts of your configuration !"
+    echo "         type Ctrl-C now to exit if you are not sure"
+    echo "         type Enter to continue"
+    read
+fi
 
 service mmc-agent stop || true
 
@@ -40,4 +43,5 @@ rm -fr $PREFIX/share/mmc $PREFIX/lib/mmc
 rm -f /usr/lib*/openldap/mmc-check-password.so
 
 echo "Uninstallation done"
+
 exit 0
