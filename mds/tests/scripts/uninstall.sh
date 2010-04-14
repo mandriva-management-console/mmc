@@ -34,14 +34,8 @@ if [ -z $FORCE ];
     read
 fi
 
-service mmc-agent stop || true
-
-rm -fr /etc/mmc*
-rm -f /etc/init.d/mmc-agent $PREFIX/sbin/mmc-agent
-
-rm -fr $PREFIX/lib/python2.*/site-packages/mmc
-rm -fr $PREFIX/share/mmc $PREFIX/lib/mmc
-rm -f /usr/lib*/openldap/mmc-check-password.so
+# Nothing specific to do for MDS, the uninstallation is handled by the MMC core
+# uninstall script
 
 echo "Uninstallation done"
 
