@@ -26,6 +26,7 @@ echo "MDS auto-uninstallation script"
 PREFIX=/usr
 
 if [ -z $FORCE ];
+    then
     echo
     echo "WARNING: this script will erase some parts of your configuration !"
     echo "         type Ctrl-C now to exit if you are not sure"
