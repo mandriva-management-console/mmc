@@ -35,7 +35,7 @@ then
     echo "Please install lsb_release."
     echo "urpmi lsb-release"
     exit 1
-fi	
+fi
 
 if [ ! -f /etc/mandriva-release ];
 then
@@ -50,10 +50,12 @@ then
     exit 1
 fi
 
-echo "WARNING: this script will erase some parts of your configuration !"
-echo "         type Ctrl-C now to exit if you are not sure"
-echo "         type Enter to continue"
-read
+if [ -z $FORCE ];
+    echo "WARNING: this script will erase some parts of your configuration !"
+    echo "         type Ctrl-C now to exit if you are not sure"
+    echo "         type Enter to continue"
+    read
+fi
 
 # for MDS samba plugin
 urpmi python-pylibacl samba-server smbldap-tools nss_ldap
@@ -137,7 +139,8 @@ sed -i "s/^\(userSmbHome=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
 sed -i "s/^\(userProfile=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
 sed -i "s/^\(userHomeDrive=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
 sed -i "s/^\(userScript=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
-smbldap-populate -m 512 -a administrator -b guest 
+# Populate LDAP for SAMBA
+echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbldap-populate -m 512 -a administrator -b guest
 
 sed -i 's!sambaInitScript = /etc/init.d/samba!sambaInitScript = /etc/init.d/smb!' /etc/mmc/plugins/samba.ini
 
