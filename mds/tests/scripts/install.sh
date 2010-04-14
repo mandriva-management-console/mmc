@@ -68,7 +68,7 @@ urpmi dhcp-server
 urpmi bind
 
 # for MDS mail plugin
-# Nothing needed 
+# Nothing needed
 
 TMPCO=`mktemp -d`
 
@@ -89,6 +89,7 @@ popd
 
 # Setup Mail LDAP schema
 echo "include /etc/openldap/schema/mail.schema" >> /etc/openldap/schema/local.schema
+sed -i "s/vDomainSupport = 0/vDomainSupport = 1/" /etc/mmc/plugins/mail.ini
 
 # Setup SSH-LPK LDAP schema
 echo "include /etc/openldap/schema/openssh-lpk.schema" >> /etc/openldap/schema/local.schema
