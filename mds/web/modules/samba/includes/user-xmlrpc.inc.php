@@ -37,7 +37,9 @@ function rmSmbAttr($uid) {
 }
 
 function changeSmbAttr($uid, $array) {
-    return xmlCall("samba.changeSambaAttributes", array($uid, $array));
+    if (!empty($array)) {
+        xmlCall("samba.changeSambaAttributes", array($uid, $array));
+    }
 }
 
 function isEnabledUser($uid) {
