@@ -51,6 +51,7 @@ then
 fi
 
 if [ -z $FORCE ];
+    then
     echo "WARNING: this script will erase some parts of your configuration !"
     echo "         type Ctrl-C now to exit if you are not sure"
     echo "         type Enter to continue"
