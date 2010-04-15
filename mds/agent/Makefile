@@ -68,6 +68,7 @@ install:
 	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/network.ini ] && $(INSTALL) conf/plugins/network.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/network.ini
 	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/proxy.ini ] && $(INSTALL) conf/plugins/proxy.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/proxy.ini
 	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini ] && $(INSTALL) conf/plugins/sshlpk.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/userquota.ini ] && $(INSTALL) conf/plugins/userquota.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/userquota.ini
 
 include common.mk
 
