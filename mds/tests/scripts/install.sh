@@ -118,7 +118,7 @@ sed -i "s/disable = 1/disable = 0/" /etc/mmc/plugins/ppolicy.ini
 #############
 # Setup SAMBA
 #############
-/etc/init.d/smb stop
+/etc/init.d/smb stop || true
 cp $TMPCO/mds/agent/contrib/samba/smb.conf /etc/samba/
 sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
 
