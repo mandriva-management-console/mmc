@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-for module in samba mail network proxy bulkimport userquota sshlpk ppolicy; do
+for module in samba mail network proxy bulkimport userquota sshlpk; do
     POT="modules/$module/locale/$module.pot"
     rm -f ${POT}
     touch ${POT}
