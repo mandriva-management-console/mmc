@@ -1,0 +1,46 @@
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is larger than the new quota, or does not exist"
+msgstr "Le quota actuel est plus grand que le nouveau quota, ou n'existe pas"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "Le quota actuel est plus petit que le nouveau quota, ou n'existe pas"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Don't overwrite any existing quotas"
+msgstr "Ne pas écraser les quotas existants"
+
+#: modules/userquota/infoPackage.inc.php:32
+msgid "Manage user quotas for filesystems and networks"
+msgstr "Gestion des quotas utilisateurs pour les systèmes de fichiers et réseaux"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Overwrite all existing quotas"
+msgstr "Écraser tous les quotas existants"
+
+#: modules/userquota/includes/publicFunc.php:130
+#: modules/userquota/includes/publicFunc.php:143
+msgid "Overwrite mode for existing quotas"
+msgstr "Mode de mise à jour des quotas"
+
+#: modules/userquota/includes/publicFunc.php:36
+#: modules/userquota/includes/publicFunc.php:122
+msgid "Quota plugin - Filesystem"
+msgstr "Quota plugin - Système de fichiers"
+
+#: modules/userquota/includes/publicFunc.php:43
+#: modules/userquota/includes/publicFunc.php:135
+msgid "Quota plugin - Network"
+msgstr "Quota plugin - Réseaux"
+
+#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:138
+msgid "Quota's applied here affect all members of the group"
+msgstr "Le quota spécifié est appliqué à tous les membres du groupe"
+
+#~ msgid "Quota plugin"
+#~ msgstr "Quota plugin"
