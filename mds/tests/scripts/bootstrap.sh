@@ -38,6 +38,8 @@ export LC_ALL=C
 
 export TMPCO=`mktemp -d`
 
+urpmi --auto subversion make lsb-release
+
 pushd $TMPCO
 
 # Uninstall MDS
