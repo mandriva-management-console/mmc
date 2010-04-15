@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>010_testACLsimpleInterface</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">010_testACLsimpleInterface</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=base&submod=users&action=index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=base&submod=users&action=editacl&user=aclnoright')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>acl[base][status][index][right]</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Select all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>acl[base][status][index][right]</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Unselect all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>acl[base][status][index][right]</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>buser</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

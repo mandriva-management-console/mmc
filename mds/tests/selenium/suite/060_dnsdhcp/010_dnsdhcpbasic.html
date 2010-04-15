@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>010_dnsdhcpbasic</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">010_dnsdhcpbasic</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=network&submod=network&action=index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=network&submod=network&action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add DNS zone</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>zonename</td>
+	<td>example.net</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>description</td>
+	<td>Example DNS zone</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameserverip</td>
+	<td>192.168.0.1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>netaddress</td>
+	<td>192.168.0.0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>netmask</td>
+	<td>24</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>example.net</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Example DNS zone</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=DHCP subnets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&submod=network&action=subnetedit&subnet=192.168.0.0')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>description</td>
+	<td>example.net</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>domain-name</td>
+	<td>example.net</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>domain-name-servers</td>
+	<td>192.168.0.1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>broadcast-address</td>
+	<td>192.168.0.255</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>routers</td>
+	<td>192.168.0.254</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>subnetpool</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ipstart</td>
+	<td>192.168.0.100</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ipend</td>
+	<td>192.168.0.200</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bedit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>192.168.0.100 -&gt; 192.168.0.200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&submod=network&action=subnetaddhost&subnet=192.168.0.0')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>ipaddress</td>
+	<td>192.168.0.2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>testhost1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>macaddress</td>
+	<td>11:22:33:44:55:66</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>dnsrecord</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Also records this machine into DNS zone example.net</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Host successfully added.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=DHCP subnets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//td[5]/ul/li[1]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>192.168.0.2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>testhost1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>11:22:33:44:55:66</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Static</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=DNS zones</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>(2)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=example.net</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>192.168.0.2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>testhost1</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

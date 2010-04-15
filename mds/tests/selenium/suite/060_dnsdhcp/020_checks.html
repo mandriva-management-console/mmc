@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>020_checks</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">020_checks</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=network&submod=network&action=zonemembers&zone=example.net</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=network&submod=network&action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&submod=network&action=addhost&zone=example.net')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>ipaddress</td>
+	<td>192.168.0.3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>testhost1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>The specified hostname has been already recorded in this zone.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>testhost2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ipaddress</td>
+	<td>192.168.0.2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>The specified IP address has been already recorded in this zone.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=DHCP subnets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&submod=network&action=subnetaddhost&subnet=192.168.0.0')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>testhost1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>macaddress</td>
+	<td>22:33:44:55:66:77</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>The specified hostname has been already registered in this DHCP subnet.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>testhost2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ipaddress</td>
+	<td>192.168.0.2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>The specified IP address has been already registered in this DHCP subnet.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>ns</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ipaddress</td>
+	<td>192.168.0.3</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>The specified hostname has been already registered in DNS zone example.net.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

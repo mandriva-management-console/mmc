@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>200_addMailUser</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">200_addMailUser</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Click to switch to expert mode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nlogin</td>
+	<td>mailtest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>pass</td>
+	<td>mailtest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>confpass</td>
+	<td>mailtest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mail</td>
+	<td>mailtest@example.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mailhost</td>
+	<td>srvmail</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>document.forms[0].buser[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Mail</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//td[3]/ul/li[1]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>mailtest</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=mailtest</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>mailuserquota</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>mailhost</td>
+	<td>srvmail</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Click to switch to standard mode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

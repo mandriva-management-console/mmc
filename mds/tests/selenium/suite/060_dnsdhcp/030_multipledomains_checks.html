@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>030_multipledomains_checks</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">030_multipledomains_checks</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=network&submod=network&action=subnetindex</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=network&submod=network&action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=DHCP subnets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&submod=network&action=subnetedit&subnet=192.168.0.0')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>domain-name</td>
+	<td>example.net test.org</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bedit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&submod=network&action=subnetaddhost&subnet=192.168.0.0')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Also records this machine into DNS zone example.net</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

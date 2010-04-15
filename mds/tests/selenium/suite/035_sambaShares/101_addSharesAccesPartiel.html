@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>101_addSharesAccesPartiel</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">101_addSharesAccesPartiel</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=samba&submod=shares&action=index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add a share</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>shareName</td>
+	<td>selenium2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>shareDesc</td>
+	<td>blah blah</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autouser</td>
+	<td>grouptest</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>buseruser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autouser</td>
+	<td>Domain Guests</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>buseruser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bcreate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Share selenium2 successfully added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=samba&submod=shares&action=details&share=selenium2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>permAll</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>grouptest</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Guests</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Admins</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>browseable</td>
+	<td>on</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

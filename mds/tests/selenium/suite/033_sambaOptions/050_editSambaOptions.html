@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>050_editSambaOptions</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">050_editSambaOptions</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Click to switch to expert mode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Shares</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=General options</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>logon script</td>
+	<td>session.bat</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>logon drive</td>
+	<td>H:</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>logon home</td>
+	<td>\\SERVER1\%U</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>logon path</td>
+	<td>\\SERVER1\profiles\%u</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bsave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>logon path</td>
+	<td>\\SERVER1\profiles\%u</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>logon script</td>
+	<td>session.bat</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>logon home</td>
+	<td>\\SERVER1\%U</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>logon drive</td>
+	<td>exact:H:</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Click to switch to standard mode</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

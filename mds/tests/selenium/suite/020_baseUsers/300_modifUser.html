@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>300_modifUser</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">300_modifUser</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=base&submod=users&action=edit&user=jbond</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=base&submod=users&action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=jbond</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autocomplete</td>
+	<td>Administrators</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document.forms[0].buser[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autocomplete</td>
+	<td>Domain Guests</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document.forms[0].buser[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>document.forms[0].buser[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>primary_autocomplete</td>
+	<td>Domain Users</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Administrators</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Guests</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>isBaseDesactive</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>document.forms[0].buser[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>isBaseDesactive</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>isBaseDesactive</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>document.forms[0].buser[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>isBaseDesactive</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>pass</td>
+	<td>newpass</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>confpass</td>
+	<td>newpass</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>document.forms[0].buser[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Password updated</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>select</td>
+	<td>label=Administrators</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document.forms[0].buser[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>primary_autocomplete</td>
+	<td>Administrators</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>document.forms[0].buser[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>primary_autocomplete</td>
+	<td>Administrators</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>select</td>
+	<td>label=Domain Guests</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Guests</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

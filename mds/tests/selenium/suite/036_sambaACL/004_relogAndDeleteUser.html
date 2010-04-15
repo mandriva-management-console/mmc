@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>004_relogAndDeleteUser</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">004_relogAndDeleteUser</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>link=Logout aclsamba</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>delog</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/mmc/index.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>2root</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>root</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>fe</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>LiNBoX</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bConnect</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick="PopupWindow(event,'main.php?module=base&submod=users&action=delete&user=aclsamba', 300); return false;"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bdeluser</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
