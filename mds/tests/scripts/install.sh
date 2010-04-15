@@ -112,9 +112,6 @@ echo "include /etc/openldap/schema/openssh-lpk.schema" >> /etc/openldap/schema/l
 # Setup Quota LDAP schema
 echo "include /etc/openldap/schema/quota.schema" >> /etc/openldap/schema/local.schema
 
-# Setup ppolicy
-sed -i "s/disable = 1/disable = 0/" /etc/mmc/plugins/ppolicy.ini
-
 #############
 # Setup SAMBA
 #############
