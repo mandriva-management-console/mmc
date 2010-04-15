@@ -21,16 +21,13 @@ msgid ""
 "                        </ul>"
 msgstr ""
 "<ul>\n"
-"                           <li>Löschen Sie die Freigabe vor dem neu "
-"erstellen.</li>\n"
-"                           <li>benutzen Sie einen anderen Freigabenamen</"
-"li>\n"
+"                           <li>Löschen Sie die Freigabe vor dem neu erstellen.</li>\n"
+"                           <li>benutzen Sie einen anderen Freigabenamen</li>\n"
 "                        </ul>"
 
 #: modules/samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr ""
-"ACLs werden von Ihrer Partition die /home/samba/ enthält nicht unterstützt."
+msgstr "ACLs werden von Ihrer Partition die /home/samba/ enthält nicht unterstützt."
 
 #: modules/samba/shares/details.php:199
 msgid "Access for all"
@@ -42,7 +39,8 @@ msgstr "hinzufügen"
 
 #: modules/samba/shares/localSidebar.php:37
 #: modules/samba/machines/localSidebar.php:31
-#: modules/samba/machines/add.php:41 modules/samba/mainSidebar.php:36
+#: modules/samba/machines/add.php:41
+#: modules/samba/mainSidebar.php:36
 #: modules/samba/infoPackage.inc.php:83
 msgid "Add a computer"
 msgstr "Computer hinzufügen"
@@ -52,28 +50,25 @@ msgid "Add a new group"
 msgstr "neue Gruppe hinzufügen"
 
 #: modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:82 modules/samba/mainSidebar.php:30
+#: modules/samba/shares/details.php:82
+#: modules/samba/mainSidebar.php:30
 #: modules/samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr "Freigabe hinzufügen"
 
 #: modules/samba/includes/auditCodes.php:21
-#, fuzzy
 msgid "Add computer"
 msgstr "Computer hinzufügen"
 
 #: modules/samba/includes/auditCodes.php:9
-#, fuzzy
 msgid "Add samba attribute"
-msgstr "SAMBA Attribute hinzugefügt"
+msgstr "SAMBA Attribut hinzugefügt"
 
 #: modules/samba/includes/auditCodes.php:12
-#, fuzzy
 msgid "Add samba attributes"
 msgstr "SAMBA Attribute hinzugefügt"
 
 #: modules/samba/includes/auditCodes.php:4
-#, fuzzy
 msgid "Add share"
 msgstr "Freigabe hinzufügen"
 
@@ -108,7 +103,6 @@ msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr "Sicherung der Freigabe <b>%s</b> wurde im Hintergrund gestartet."
 
 #: modules/samba/includes/auditCodes.php:6
-#, fuzzy
 msgid "Backup share"
 msgstr "Freigabe sichern"
 
@@ -122,25 +116,23 @@ msgid "Can't launch backup"
 msgstr "kann Backup nicht starten"
 
 #: modules/samba/includes/auditCodes.php:11
-#, fuzzy
 msgid "Change samba attribute"
-msgstr "SAMBA Attribute hinzugefügt"
+msgstr "SAMBA Attribut ändern"
 
 #: modules/samba/includes/auditCodes.php:14
-#, fuzzy
 msgid "Change user password"
-msgstr "Das Benutzerpasswort ist abgelaufen"
+msgstr "Benutzerpasswort ändern"
 
 #: modules/samba/includes/auditCodes.php:15
 msgid "Change user primary group"
-msgstr ""
+msgstr "primäre Gruppe des Benutzers ändern"
 
-#: modules/samba/shares/details.php:134 modules/samba/machines/add.php:53
+#: modules/samba/shares/details.php:134
+#: modules/samba/machines/add.php:53
 msgid "Comment"
 msgstr "Kommentar"
 
 #: modules/samba/includes/auditCodes.php:24
-#, fuzzy
 msgid "Computer"
 msgstr "Computer"
 
@@ -159,15 +151,16 @@ msgid "Computer list"
 msgstr "Computerliste"
 
 #: modules/samba/machines/index.php:32
-#, fuzzy
 msgid "Computer management"
 msgstr "Computerverwaltung"
 
-#: modules/samba/machines/ajaxFilter.php:36 modules/samba/machines/add.php:49
+#: modules/samba/machines/ajaxFilter.php:36
+#: modules/samba/machines/add.php:49
 msgid "Computer name"
 msgstr "Computername"
 
-#: modules/samba/status/index.php:65 modules/samba/status/index.php:114
+#: modules/samba/status/index.php:65
+#: modules/samba/status/index.php:114
 #: modules/samba/machines/ajaxFilter.php:42
 msgid "Computers"
 msgstr "Computer"
@@ -207,31 +200,29 @@ msgid "Create"
 msgstr "erstellen"
 
 #: modules/samba/includes/auditCodes.php:22
-#, fuzzy
 msgid "Del computer"
 msgstr "Computer löschen"
 
 #: modules/samba/includes/auditCodes.php:10
-#, fuzzy
 msgid "Del samba attribute"
-msgstr "SAMBA Attribute hinzugefügt"
+msgstr "SAMBA Attribut löschen"
 
 #: modules/samba/includes/auditCodes.php:13
-#, fuzzy
 msgid "Del samba attributes"
-msgstr "SAMBA Attribute hinzugefügt"
+msgstr "SAMBA Attribute löschen"
 
 #: modules/samba/includes/auditCodes.php:5
-#, fuzzy
 msgid "Del share"
 msgstr "Freigabe löschen"
 
-#: modules/samba/shares/index.php:48 modules/samba/machines/ajaxFilter.php:41
+#: modules/samba/shares/index.php:48
+#: modules/samba/machines/ajaxFilter.php:41
 #: modules/samba/views/groups.tpl.php:125
 msgid "Delete"
 msgstr "löschen"
 
-#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:86
+#: modules/samba/machines/delete.php:40
+#: modules/samba/infoPackage.inc.php:86
 msgid "Delete a computer"
 msgstr "Computer löschen"
 
@@ -243,7 +234,8 @@ msgstr "Freigabe löschen"
 msgid "Delete all data"
 msgstr "alle Daten löschen"
 
-#: modules/samba/shares/index.php:61 modules/samba/machines/ajaxFilter.php:40
+#: modules/samba/shares/index.php:61
+#: modules/samba/machines/ajaxFilter.php:40
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -252,9 +244,8 @@ msgid "Disable samba user account"
 msgstr "deaktiviere SAMBA Benutzerkonto"
 
 #: modules/samba/includes/auditCodes.php:17
-#, fuzzy
 msgid "Disable user"
-msgstr "deaktiviere SAMBA Benutzerkonto"
+msgstr "Benutzer deaktivieren"
 
 #: modules/samba/config/index.php:100
 msgid "Domain name"
@@ -266,13 +257,14 @@ msgstr "bearbeiten"
 
 #: modules/samba/includes/auditCodes.php:16
 msgid "Enable user"
-msgstr ""
+msgstr "Benutzer aktivieren"
 
 #: modules/samba/infoPackage.inc.php:121
 msgid "Enable/Disable account"
 msgstr "Konto aktivieren/deaktivieren"
 
-#: modules/samba/config/index.php:75 modules/samba/mainSidebar.php:41
+#: modules/samba/config/index.php:75
+#: modules/samba/mainSidebar.php:41
 msgid "General options"
 msgstr "allgemeine Optionen"
 
@@ -280,7 +272,8 @@ msgstr "allgemeine Optionen"
 msgid "Groups"
 msgstr "Gruppen"
 
-#: modules/samba/status/index.php:66 modules/samba/status/index.php:115
+#: modules/samba/status/index.php:66
+#: modules/samba/status/index.php:115
 msgid "IP"
 msgstr "IP"
 
@@ -300,7 +293,8 @@ msgstr "LDAP-Passwortsyncronisation"
 msgid "List computers"
 msgstr "Computerliste"
 
-#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
+#: modules/samba/mainSidebar.php:29
+#: modules/samba/infoPackage.inc.php:45
 msgid "List shares"
 msgstr "Freigabeliste"
 
@@ -310,12 +304,11 @@ msgid ""
 "                        <p>User can be locked after too many failed log.</p>"
 msgstr ""
 "sperre SAMBA Benutzerzugriff\n"
-"                        <p>Benutzer kann gesperrt sein nach zu vielen "
-"fehlgeschlagenen Anmeldeversuchen.</p>"
+"                        <p>Benutzer kann gesperrt sein nach zu vielen fehlgeschlagenen Anmeldeversuchen.</p>"
 
 #: modules/samba/includes/auditCodes.php:18
 msgid "Lock user"
-msgstr ""
+msgstr "Benutzer Spewrren"
 
 #: modules/samba/infoPackage.inc.php:122
 msgid "Lock/Unlock account"
@@ -327,7 +320,7 @@ msgstr "Maschinen"
 
 #: modules/samba/includes/auditCodes.php:20
 msgid "Make samba group"
-msgstr ""
+msgstr "Samba Gruppe erstellen"
 
 #: modules/samba/shares/details.php:129
 msgid "Name"
@@ -360,17 +353,11 @@ msgstr "Bitte löschen und erstellen Sie die Freigabe erneut."
 
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
-msgstr ""
-"Bitte begeben Sie sich auf die System Status Seite zur Überprüfung des "
-"Backup-Status."
+msgstr "Bitte begeben Sie sich auf die System Status Seite zur Überprüfung des Backup-Status."
 
 #: modules/samba/shares/backup.php:50
-msgid ""
-"Please select media size. If your data exceed volume size, several files "
-"with your media size will be created."
-msgstr ""
-"Bitte wählen Sie die Medienkapazität. Wenn Ihr Datenvolumen diese Kapazität "
-"überschreitet, werden mehrere Dateien mit diesem Format erstellt werden."
+msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
+msgstr "Bitte wählen Sie die Medienkapazität. Wenn Ihr Datenvolumen diese Kapazität überschreitet, werden mehrere Dateien mit diesem Format erstellt werden."
 
 #: modules/samba/config/index.php:132
 msgid "Reload SAMBA configuration"
@@ -382,7 +369,7 @@ msgstr "SAMBA-Dienst neu laden"
 
 #: modules/samba/includes/auditCodes.php:8
 msgid "Reload samba"
-msgstr ""
+msgstr "Samba neu laden"
 
 #: modules/samba/infoPackage.inc.php:55
 msgid "Remove a share"
@@ -393,9 +380,8 @@ msgid "Restart SAMBA"
 msgstr "SAMBA neu starten"
 
 #: modules/samba/includes/auditCodes.php:7
-#, fuzzy
 msgid "Restart samba"
-msgstr "SAMBA neu starten"
+msgstr "Samba neu starten"
 
 #: modules/samba/includes/publicFunc.php:169
 msgid "SAMBA access"
@@ -406,12 +392,8 @@ msgid "SAMBA configuration"
 msgstr "SAMBA Konfiguration"
 
 #: modules/samba/config/index.php:68
-msgid ""
-"SAMBA configuration saved. You may need to reload or restart the SAMBA "
-"service."
-msgstr ""
-"SAMBA-Konfiguration gespeichert, möglicherweise müssen Sie die Konfiguration "
-"neu laden oder den Samba-Dienst neu starten."
+msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
+msgstr "SAMBA-Konfiguration gespeichert, möglicherweise müssen Sie die Konfiguration neu laden oder den Samba-Dienst neu starten."
 
 #: modules/samba/infoPackage.inc.php:31
 msgid "SAMBA service"
@@ -441,7 +423,8 @@ msgstr "SAMBA Benutzerberechtigungen"
 msgid "Server name"
 msgstr "Servername"
 
-#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:23
+#: modules/samba/status/index.php:84
+#: modules/samba/includes/auditCodes.php:23
 msgid "Share"
 msgstr "Freigabe"
 
@@ -460,7 +443,8 @@ msgstr "Freigabe %s erfolgreich hinzugefügt"
 msgid "Share %s successfully modified"
 msgstr "Freigabe %s erfolgreich geändert"
 
-#: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:48
+#: modules/samba/shares/backup.php:31
+#: modules/samba/shares/backup.php:48
 msgid "Share backup"
 msgstr "Backup-Verzeichnisse freigeben"
 
@@ -471,13 +455,14 @@ msgstr "Freigabedetails"
 #: modules/samba/shares/details.php:157
 #, php-format
 msgid "Share path (leave empty for a default path in %s)"
-msgstr ""
+msgstr "Share Pfad (Leer lassen für Standard-Pfad %s)"
 
 #: modules/samba/config/index.php:96
 msgid "Share user's homes"
 msgstr "Benutzer Home-Verzeichnisse freigeben"
 
-#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
+#: modules/samba/shares/index.php:55
+#: modules/samba/shares/index.php:59
 #: modules/samba/infoPackage.inc.php:41
 msgid "Shares"
 msgstr "Freigaben"
@@ -488,29 +473,20 @@ msgstr "Freigabeverwaltung"
 
 #: modules/samba/config/reload.php:26
 msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr ""
-"Der SAMBA-Dienst wurde aufgefordert, seine Konfigurationsdatei neu zu laden."
+msgstr "Der SAMBA-Dienst wurde aufgefordert, seine Konfigurationsdatei neu zu laden."
 
 #: modules/samba/config/restart.php:26
 msgid "The SAMBA service has been asked to restart."
 msgstr "Der SAMBA-Dienst wurde aufgefordert neu zu starten."
 
 #: modules/samba/machines/add.php:46
-msgid ""
-"The computer name can only contains letters lowercase and numbers, and must "
-"begin with a letter."
-msgstr ""
-"Der Name des Computers darf nur Kleinbuchstaben und Ziffern enthalten, und "
-"muss mit einem Buchstaben beginnen."
+msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
+msgstr "Der Name des Computers darf nur Kleinbuchstaben und Ziffern enthalten, und muss mit einem Buchstaben beginnen."
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid ""
-"The files will be stored in the directory %s of the server at the end of the "
-"backup."
-msgstr ""
-"Die Dateien werden zum Abschluß des Backups in das Verzeichnis %s auf dem "
-"Server gespeichert."
+msgid "The files will be stored in the directory %s of the server at the end of the backup."
+msgstr "Die Dateien werden zum Abschluß des Backups in das Verzeichnis %s auf dem Server gespeichert."
 
 #: modules/samba/shares/backup.php:49
 #, php-format
@@ -522,12 +498,8 @@ msgid "The share directory does not exist."
 msgstr "Das Freigabeverzeichnis existiert nicht."
 
 #: modules/samba/shares/details.php:111
-msgid ""
-"The share name can only contains letters (lowercase and uppercase) and "
-"numbers, and must begin with a letter."
-msgstr ""
-"Der Freigabeame darf nur Buchstaben (Groß-und Kleinschreibung) und Ziffern "
-"enthalten und muss mit einem Buchstaben beginnen."
+msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
+msgstr "Der Freigabeame darf nur Buchstaben (Groß-und Kleinschreibung) und Ziffern enthalten und muss mit einem Buchstaben beginnen."
 
 #: modules/samba/shares/details.php:49
 msgid "The share path is not authorized by configuration"
@@ -543,8 +515,7 @@ msgstr "Diese Gruppe existiert nicht."
 
 #: modules/samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
-msgstr ""
-"Dieser Vorgang dauert je nach Menge der Daten, die gesichert werden müssen."
+msgstr "Dieser Vorgang dauert je nach Menge der Daten, die gesichert werden müssen."
 
 #: modules/samba/config/index.php:86
 msgid "This server is a PDC"
@@ -571,25 +542,22 @@ msgid ""
 "Try to remount your partition with ACLs support\n"
 "\t\t\t<ul>\n"
 "\t\t\t<li>You could use XFS which support ACLs natively</li>\n"
-"\t\t\t<li>For ext3 filesystem, add \"acl\" to mount options in /etc/fstab<br/"
-">\n"
+"\t\t\t<li>For ext3 filesystem, add \"acl\" to mount options in /etc/fstab<br/>\n"
 "\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
 "\t\t\t</ul>\n"
 "\t\t\t"
 msgstr ""
 "Versuchen Sie die Partition mit ACLs Unterstützung einzubinden\n"
 "\t\t\t<ul>\n"
-"\t\t\t<li>Sie können das XFS Dateisystem nutzern welches ACLs nativ "
-"unterstützt</li>\n"
-"\t\t\t<li>Für das EXT3 Dateisystem, fügen Sie \"acl\" zu den mount Optionen "
-"in /etc/fstab hinzu<br/>\n"
+"\t\t\t<li>Sie können das XFS Dateisystem nutzern welches ACLs nativ unterstützt</li>\n"
+"\t\t\t<li>Für das EXT3 Dateisystem, fügen Sie \"acl\" zu den mount Optionen in /etc/fstab hinzu<br/>\n"
 "\t\t\t    <pre>z.B: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
 "\t\t\t</ul>\n"
 "\t\t\t"
 
 #: modules/samba/includes/auditCodes.php:19
 msgid "Unlock user"
-msgstr ""
+msgstr "Benutzer Speere aufheben"
 
 #: modules/samba/status/index.php:113
 msgid "User"
@@ -640,4 +608,5 @@ msgstr "SAMBA-Dienst neu starten"
 
 #: modules/samba/includes/auditCodes.php:25
 msgid "samba"
-msgstr ""
+msgstr "Samba"
+

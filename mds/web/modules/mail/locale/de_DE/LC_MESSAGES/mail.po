@@ -1,10 +1,9 @@
-
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-09 16:13+0200\n"
-"PO-Revision-Date: 2010-04-09 16:15+0200\n"
+"PO-Revision-Date: 2010-04-12 09:56+0100\n"
 "Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
 "Language-Team: X-SOURCE TechnikService <info@x-source.de>\n"
 "MIME-Version: 1.0\n"
@@ -16,15 +15,15 @@ msgstr ""
 
 #: modules/mail/mail/edit.php:71
 msgid " The quota of all users of this mail domain have been reset."
-msgstr ""
-"Die Quota's von allen Nutzern auf dieser E-Mail Domäne wurden zurückgesetzt."
+msgstr "Die Quota's von allen Nutzern auf dieser E-Mail Domäne wurden zurückgesetzt."
 
 #: modules/mail/includes/publicFunc.php:259
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s ist kein gültiger E-Mail Alias."
 
-#: modules/mail/mail/localSidebar.php:7 modules/mail/infoPackage.inc.php:60
+#: modules/mail/mail/localSidebar.php:7
+#: modules/mail/infoPackage.inc.php:60
 msgid "Add a domain"
 msgstr "eine Domäne hinzufügen"
 
@@ -33,45 +32,40 @@ msgid "Add a mail domain"
 msgstr "eine E-Mail Domäne hinzufügen"
 
 #: modules/mail/includes/auditCodes.php:11
-#, fuzzy
 msgid "Add mail attributes"
-msgstr "eine E-Mail Domäne hinzufügen"
+msgstr "Mail-Attribute hinzufügen"
 
 #: modules/mail/includes/auditCodes.php:14
-#, fuzzy
 msgid "Add mail group"
-msgstr "eine E-Mail Domäne hinzufügen"
+msgstr "Mail-Gruppe hinzufügen"
 
 #: modules/mail/includes/auditCodes.php:15
-#, fuzzy
 msgid "Add virtual domain"
-msgstr "eine Domäne hinzufügen"
+msgstr "Virtuelle-Domain hinzufügen"
 
 #: modules/mail/mail/delete.php:55
 msgid "Cancel"
 msgstr "abbrechen"
 
 #: modules/mail/includes/auditCodes.php:7
-#, fuzzy
 msgid "Change mail alias"
-msgstr "E-Mail Alias"
+msgstr "Mail-Alias ändern"
 
 #: modules/mail/includes/auditCodes.php:8
 msgid "Change mail box"
-msgstr ""
+msgstr "Mail-Box ändern "
 
 #: modules/mail/includes/auditCodes.php:6
-#, fuzzy
 msgid "Change mail drop"
-msgstr "E-Mail ignorieren"
+msgstr "Mail-Drop ändern"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
-msgstr ""
+msgstr "Mail-Host ändern"
 
 #: modules/mail/includes/auditCodes.php:10
 msgid "Change mail quota"
-msgstr ""
+msgstr "Mail-Quota ändern"
 
 #: modules/mail/mail/edit.php:115
 msgid "Confirm"
@@ -87,31 +81,32 @@ msgstr "Standard E-Mail Quota für erstellte Benutzer in dieser Domäne (in kB)"
 
 #: modules/mail/includes/auditCodes.php:12
 msgid "Del mail attributes"
-msgstr ""
+msgstr "Mail-Attribute löschen"
 
 #: modules/mail/includes/auditCodes.php:13
-#, fuzzy
 msgid "Del mail group alias"
-msgstr "E-Mail alias Gruppen Zugang"
+msgstr "Mail-Alias-Gruppe löschen"
 
 #: modules/mail/includes/auditCodes.php:16
-#, fuzzy
 msgid "Del virtual domain"
-msgstr "Domäne löschen"
+msgstr "Virtuelle Domäne löschen"
 
 #: modules/mail/infoPackage.inc.php:71
 msgid "Delete a mail domain"
 msgstr "eine E-Mail Domäne löschen"
 
-#: modules/mail/mail/ajaxDomainFilter.php:32 modules/mail/mail/delete.php:54
+#: modules/mail/mail/ajaxDomainFilter.php:32
+#: modules/mail/mail/delete.php:54
 msgid "Delete domain"
 msgstr "Domäne löschen"
 
-#: modules/mail/mail/ajaxDomainFilter.php:27 modules/mail/mail/edit.php:101
+#: modules/mail/mail/ajaxDomainFilter.php:27
+#: modules/mail/mail/edit.php:101
 msgid "Description"
 msgstr "Beschreibung"
 
-#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:41
+#: modules/mail/includes/auditCodes.php:5
+#: modules/mail/infoPackage.inc.php:41
 msgid "Disable mail delivery"
 msgstr "E-Mail-Übermittlung deaktivieren"
 
@@ -136,9 +131,8 @@ msgid "Enable mail alias for users of this group "
 msgstr "aktiviere E-Mail Alias für Benutzer dieser Gruppe"
 
 #: modules/mail/includes/auditCodes.php:4
-#, fuzzy
 msgid "Enable mail delivery"
-msgstr "E-Mail-Übermittlung deaktivieren"
+msgstr "E-Mail-Zustellung aktivieren"
 
 #: modules/mail/includes/publicFunc.php:193
 #: modules/mail/infoPackage.inc.php:50
@@ -153,14 +147,14 @@ msgstr "ungültiger Domänenname"
 msgid "Login"
 msgstr "Login"
 
-#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:53
+#: modules/mail/includes/auditCodes.php:21
+#: modules/mail/infoPackage.inc.php:53
 msgid "Mail"
 msgstr "E-Mail"
 
 #: modules/mail/includes/auditCodes.php:20
-#, fuzzy
 msgid "Mail Group"
-msgstr "E-Mail ignorieren"
+msgstr "E-Mail Gruppe"
 
 #: modules/mail/includes/publicFunc.php:163
 #: modules/mail/infoPackage.inc.php:40
@@ -192,11 +186,13 @@ msgid "Mail delivery path"
 msgstr "Mail Delivery Pfad"
 
 #: modules/mail/mail/ajaxDomainFilter.php:22
-#: modules/mail/mail/ajaxDomainFilter.php:28 modules/mail/mail/edit.php:96
+#: modules/mail/mail/ajaxDomainFilter.php:28
+#: modules/mail/mail/edit.php:96
 msgid "Mail domain"
 msgstr "E-Mail Domäne"
 
-#: modules/mail/mail/localSidebar.php:6 modules/mail/mail/index.php:32
+#: modules/mail/mail/localSidebar.php:6
+#: modules/mail/mail/index.php:32
 #: modules/mail/infoPackage.inc.php:57
 msgid "Mail domain list"
 msgstr "E-Mail Domänenliste"
@@ -246,23 +242,20 @@ msgid "No mail alias can be set for this group"
 msgstr "kein E-Mail Alias kann für diese Gruppe gesetzt werden"
 
 #: modules/mail/includes/auditCodes.php:19
-#, fuzzy
 msgid "Reset domain quota"
-msgstr "Domäne löschen"
+msgstr "Domain-Quota zurücksetzen"
 
 #: modules/mail/mail/edit.php:114
 msgid "Reset users quota to default"
 msgstr "Setze Benutzer Quota auf Standard"
 
 #: modules/mail/includes/auditCodes.php:17
-#, fuzzy
 msgid "Set domain description"
-msgstr "Beschreibung"
+msgstr "Domain Beschreibung setzen"
 
 #: modules/mail/includes/auditCodes.php:18
-#, fuzzy
 msgid "Set domain quota"
-msgstr "Domäne löschen"
+msgstr "Domain-Quota setzen"
 
 #: modules/mail/mail/edit.php:55
 msgid "The mail domain has been added."
@@ -276,13 +269,14 @@ msgstr "Die E-Mail Domäne wurde gelöscht."
 msgid "The mail domain has been modified."
 msgstr "Die E-Mail Domäne wurde erfolgreich bearbeitet."
 
-#: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
+#: modules/mail/includes/mail.inc.php:43
+#: modules/mail/includes/mail.inc.php:55
 msgid "Unlimited quota"
 msgstr "unbegrenzte Quota"
 
 #: modules/mail/includes/auditCodes.php:23
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: modules/mail/mail/ajaxDomainFilter.php:30
 msgid "View domain members"
@@ -293,20 +287,18 @@ msgid "View members"
 msgstr "Mitglieder anzeigen"
 
 #: modules/mail/includes/auditCodes.php:22
-#, fuzzy
 msgid "Virtual Mail Domain"
-msgstr "E-Mail Domäne bearbeiten"
+msgstr "Virtuelle Mail-Domain"
 
 #: modules/mail/includes/publicFunc.php:266
 msgid "You must specify a valid mail address to enable mail delivery."
-msgstr ""
-"Sie müssen eine gültige Mail-Adresse angeben um die Zustellung zu aktivieren."
+msgstr "Sie müssen eine gültige Mail-Adresse angeben um die Zustellung zu aktivieren."
 
 #: modules/mail/mail/delete.php:49
 msgid "You will delete the virtual mail domain "
 msgstr "Sie löschen die virtuelle E-Mail Domäne."
 
 #: modules/mail/includes/auditCodes.php:24
-#, fuzzy
 msgid "mail"
 msgstr "E-Mail"
+
