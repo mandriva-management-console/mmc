@@ -54,7 +54,7 @@ function packages_to_install () {
     PKGS="$PKGS samba-server smbldap-tools nss_ldap"
     if [ $RELEASE != "2006.0" ];
         then
-        PKGS="PKGS python-pylibacl"
+        PKGS="$PKGS python-pylibacl"
     fi
 
     # for MDS network plugin DHCP
