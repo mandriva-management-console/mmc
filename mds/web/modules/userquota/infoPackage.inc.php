@@ -29,27 +29,11 @@
 $mod = new Module("userquota");
 $mod->setVersion("0.0.3");
 $mod->setRevision('$Rev: 1 $');
-$mod->setDescription(_T("Manage user quotas for disk and internet", "userquota"));
+$mod->setDescription(_T("Manage user quotas for filesystems and networks", "userquota"));
 $mod->setAPIVersion('1:0:0');
 $mod->setPriority(700);
 
-
-$submod = new SubModule("help");
-$submod->setVisibility(True);
-$submod->setDescription(_("Quotas"));
-$submod->setImg('img/navbar/load');
-$submod->setDefaultPage("userquota/help/index");
-$submod->setPriority(10000);
-
-$page = new Page("index",_("Quota Help"));
-$page->setFile("modules/userquota/help/index.php");
-
-$submod->addPage($page);
-
-$mod->addSubmod($submod);
-
 $MMCApp =& MMCApp::getInstance();
 $MMCApp->addModule($mod);
-
 
 ?>

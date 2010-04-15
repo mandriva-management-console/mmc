@@ -68,7 +68,7 @@ class NetworkQuota {
 	}
 
 	function getQuotaForm(){
-		$e = new TrFormElement($this->name,new InputTpl($this->getQuotaField(), '/^[0-9]*$/'));
+		$e = new TrFormElement($this->name." (in Mb)",new InputTpl($this->getQuotaField(), '/^[0-9]*$/'));
 		$e->tooltip = $this->network;
 		return $e;
 	}
@@ -106,7 +106,7 @@ class DiskQuota {
 		return "diskquota".$this->id;
 	}
 	function getQuotaForm(){
-		$e = new TrFormElement($this->name,new InputTpl($this->getQuotaField(), '/^[0-9]*$/'));
+		$e = new TrFormElement($this->name." (in Mb)" ,new InputTpl($this->getQuotaField(), '/^[0-9]*$/'));
 		$e->tooltip = $this->device;
 		return $e;
 	}

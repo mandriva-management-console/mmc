@@ -161,10 +161,10 @@ function _userquota_baseGroupEdit($ldapArr, $postArr) {
 		displayDiskQuotas(&$f, $ldapArr);
 		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group")));
 		$overwrite = new RadioTpl("diskoverwrite");
-		$overwrite->setChoices(array("Overwrite All existing quotas", "Only if the current quota is smaller than the new quota, or does not exist", "Only if the current quota is Larger than the new quota, or does not exist", "Don't overwrite any existing quotas"));
+		$overwrite->setChoices(array("Overwrite all existing quotas", "Current quota is smaller than the new quota, or does not exist", "Current quota is larger than the new quota, or does not exist", "Don't overwrite any existing quotas"));
 		$overwrite->setValues(array("all", "smaller", "larger", "none"));
 		$overwrite->setSelected("none");
-		$f->add(new TrFormElement((_T("Overwrite for existing member quotas")), $overwrite ));
+		$f->add(new TrFormElement((_T("Overwrite mode for existing quotas")), $overwrite ));
 		$f->pop();
 		$f->display();
 	}
@@ -174,10 +174,10 @@ function _userquota_baseGroupEdit($ldapArr, $postArr) {
 		displayNetworkQuotas(&$f, $ldapArr);
 		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group")));
 		$overwrite = new RadioTpl("networkoverwrite");
-		$overwrite->setChoices(array("Overwrite All existing quotas", "Only if the current quota is smaller than the new quota, or does not exist", "Only if the current quota is Larger than the new quota, or does not exist", "Don't overwrite any existing quotas"));
+		$overwrite->setChoices(array("Overwrite all existing quotas", "Current quota is smaller than the new quota, or does not exist", "Current quota is larger than the new quota, or does not exist", "Don't overwrite any existing quotas"));
 		$overwrite->setValues(array("all", "smaller", "larger", "none"));
 		$overwrite->setSelected("none");
-		$f->add(new TrFormElement((_T("Overwrite for existing member quotas")), $overwrite ));
+		$f->add(new TrFormElement((_T("Overwrite mode for existing quotas")), $overwrite ));
 		$f->pop();
 		$f->display();
 	}
