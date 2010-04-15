@@ -215,26 +215,26 @@ class CSVUser {
         }
 
         $this->validBase();
-        $state = "Unvalidated";
+        $state = _T("Unvalidated", "bulkimport");
 
         if (!$this->valid) {
-            $state = "Invalid";
+            $state = _T("Invalid", "bulkimport");
             return $state;
         }
         if ($this->importable) {
-            $state = "Importable";
+            $state = _T("Importable", "bulkimport");
         }
         elseif ($this->deletable && $this->modifiable) {
-            $state = "Deletable or Modifiable";
+            $state = _T("Deletable or Modifiable", "bulkimport");
         }
         elseif ($this->deletable) {
-            $state = "Deletable";
+            $state = _T("Deletable", "bulkimport");
         }
         elseif ($this->modifiable) {
-            $state = "Modifiable";
+            $state = _T("Modifiable", "bulkimport");
         }
         else {
-            $state = "Unable to validate";
+            $state = _T("Unable to validate", "bulkimport");
         }
         return $state;
 
@@ -303,7 +303,7 @@ class CSVUser {
                         unset ($user[$attribute]);
                     }
                 }
-                $this->result .= count($user) . " Attribute(s) Modified";
+                $this->result .= count($user) . _T("Attribute(s) modified", "bulkimport");
             }
         }
 
