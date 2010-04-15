@@ -181,7 +181,7 @@ cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
 service dhcpd start || true
 
 # Setup BIND
-service named stop
+service named stop || true
 sed -i "s!init = /etc/init.d/dhcp3-server!init = /etc/init.d/dhcpd!" /etc/mmc/plugins/network.ini
 sed -i "s!init = /etc/init.d/bind9!init = /etc/init.d/named!" /etc/mmc/plugins/network.ini
 sed -i "s!bindgroup = bind!bindgroup = named!" /etc/mmc/plugins/network.ini
