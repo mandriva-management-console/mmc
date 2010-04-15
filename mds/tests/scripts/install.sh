@@ -126,8 +126,8 @@ sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
 rm -f /etc/smbldap-tools/smbldap.conf
 rm -f /etc/smbldap-tools/smbldap_bind.conf
 # Copy the default ones
-cp /usr/share/doc/smbldap-tools/smbldap.conf /etc/smbldap-tools/
-cp /usr/share/doc/smbldap-tools/smbldap_bind.conf /etc/smbldap-tools/
+cp /usr/share/doc/smbldap-tools*/smbldap.conf /etc/smbldap-tools/
+cp /usr/share/doc/smbldap-tools*/smbldap_bind.conf /etc/smbldap-tools/
 
 ADMINCN="uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com"
 ADMINCNPW="secret"
