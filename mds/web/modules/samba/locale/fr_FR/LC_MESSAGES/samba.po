@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 10:26+0100\n"
+"POT-Creation-Date: 2010-04-15 14:58+0200\n"
 "PO-Revision-Date: 2010-01-15 10:27+0100\n"
 "Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -38,15 +38,8 @@ msgstr "Accès pour tous"
 msgid "Add"
 msgstr "Ajouter"
 
-#: modules/samba/shares/localSidebar.php:37
-#: modules/samba/shares/localSidebar_flymake.php:37
-#: modules/samba/shares/localSidebar_flymake_flymake.php:37
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:37
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/machines/localSidebar.php:31
-#: modules/samba/machines/add.php:41 modules/samba/mainSidebar.php:36
+#: modules/samba/shares/localSidebar.php:37 modules/samba/machines/add.php:41
+#: modules/samba/machines/localSidebar.php:31 modules/samba/mainSidebar.php:36
 #: modules/samba/infoPackage.inc.php:83
 msgid "Add a computer"
 msgstr "Ajouter une machine"
@@ -55,33 +48,37 @@ msgstr "Ajouter une machine"
 msgid "Add a new group"
 msgstr "Ajouter un nouveau groupe"
 
-#: modules/samba/shares/localSidebar.php:31
 #: modules/samba/shares/details.php:82
-#: modules/samba/shares/localSidebar_flymake.php:31
-#: modules/samba/shares/localSidebar_flymake_flymake.php:31
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:31
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:31
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:31
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:31
-#: modules/samba/mainSidebar.php:30 modules/samba/infoPackage.inc.php:48
+#: modules/samba/shares/localSidebar.php:31 modules/samba/mainSidebar.php:30
+#: modules/samba/infoPackage.inc.php:48
 msgid "Add a share"
+msgstr "Ajouter un partage"
+
+#: modules/samba/includes/auditCodes.php:21
+msgid "Add computer"
+msgstr "Ajouter une machine"
+
+#: modules/samba/includes/auditCodes.php:9
+msgid "Add samba attribute"
+msgstr "Attribut Samba ajouté"
+
+#: modules/samba/includes/auditCodes.php:12
+msgid "Add samba attributes"
+msgstr "Attributs Samba ajoutés"
+
+#: modules/samba/includes/auditCodes.php:4
+msgid "Add share"
 msgstr "Ajouter un partage"
 
 #: modules/samba/infoPackage.inc.php:120
 msgid "Add/delete SAMBA's attributes"
-msgstr "Ajout/Suppression des attributs SAMBA"
+msgstr "Ajout/Suppression des attributs Samba"
 
 #: modules/samba/shares/details.php:236
 msgid "Administrator groups for this share"
 msgstr "Groupes administrateur de ce partage"
 
 #: modules/samba/shares/delete.php:37
-#: modules/samba/shares/delete_flymake.php:37
-#: modules/samba/shares/delete_flymake_flymake.php:37
-#: modules/samba/shares/delete_flymake_flymake_flymake.php:37
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:37
 #, php-format
 msgid "An error has occured during delete process on %s"
 msgstr "Une erreur est survenue lors de la suppression de %s"
@@ -90,12 +87,7 @@ msgstr "Une erreur est survenue lors de la suppression de %s"
 msgid "AntiVirus on this share"
 msgstr "Antivirus sur ce partage"
 
-#: modules/samba/shares/index.php:65 modules/samba/shares/index_flymake.php:65
-#: modules/samba/shares/index_flymake_flymake.php:65
-#: modules/samba/shares/index_flymake_flymake_flymake.php:65
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:65
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:65
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:65
+#: modules/samba/shares/index.php:65
 msgid "Archive"
 msgstr "Archive"
 
@@ -104,34 +96,42 @@ msgid "Backup a share"
 msgstr "Sauvegarder un partage"
 
 #: modules/samba/shares/backup.php:33
-#: modules/samba/shares/backup_flymake.php:33
-#: modules/samba/shares/backup_flymake_flymake.php:33
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:33
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:33
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:33
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
 
+#: modules/samba/includes/auditCodes.php:6
+msgid "Backup share"
+msgstr "Sauvegarder le partage"
+
 #: modules/samba/config/index.php:118
-#: modules/samba/includes/publicFunc.php:232
+#: modules/samba/includes/publicFunc.php:237
 msgid "Base directory path"
 msgstr "Chemin du répertoire de base"
 
 #: modules/samba/shares/backup.php:43
-#: modules/samba/shares/backup_flymake.php:43
-#: modules/samba/shares/backup_flymake_flymake.php:43
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:43
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:43
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:43
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:43
 msgid "Can't launch backup"
 msgstr "Impossible de lancer la sauvegarde"
+
+#: modules/samba/includes/auditCodes.php:11
+msgid "Change samba attribute"
+msgstr "Attribut Samba modifié"
+
+#: modules/samba/includes/auditCodes.php:14
+msgid "Change user password"
+msgstr "Changez le mot de passe de l'utilisateur"
+
+#: modules/samba/includes/auditCodes.php:15
+msgid "Change user primary group"
+msgstr "Changez le groupe primaire de l'utilisateur"
 
 #: modules/samba/shares/details.php:134 modules/samba/machines/add.php:53
 msgid "Comment"
 msgstr "Commentaire"
+
+#: modules/samba/includes/auditCodes.php:24
+msgid "Computer"
+msgstr "Machines"
 
 #: modules/samba/machines/add.php:36
 #, php-format
@@ -151,22 +151,16 @@ msgstr "Liste des machines"
 msgid "Computer management"
 msgstr "Gestion des machines"
 
-#: modules/samba/machines/ajaxFilter.php:36 modules/samba/machines/add.php:49
+#: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:36
 msgid "Computer name"
 msgstr "Nom de la machine"
 
-#: modules/samba/status/index.php:65 modules/samba/status/index.php:114
-#: modules/samba/machines/ajaxFilter.php:42
+#: modules/samba/machines/ajaxFilter.php:42 modules/samba/status/index.php:65
+#: modules/samba/status/index.php:114
 msgid "Computers"
 msgstr "Machines"
 
 #: modules/samba/shares/localSidebar.php:34
-#: modules/samba/shares/localSidebar_flymake.php:34
-#: modules/samba/shares/localSidebar_flymake_flymake.php:34
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:34
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:34
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:34
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:34
 #: modules/samba/machines/localSidebar.php:28
 msgid "Computers management"
 msgstr "Gestion des machines"
@@ -184,7 +178,7 @@ msgid "Confirm"
 msgstr "Valider"
 
 #: modules/samba/config/index.php:119
-#: modules/samba/includes/publicFunc.php:233
+#: modules/samba/includes/publicFunc.php:238
 msgid "Connect base directory on network drive"
 msgstr "Connexion du répertoire de base sur le lecteur réseau"
 
@@ -200,13 +194,23 @@ msgstr "Connexion sur les partages"
 msgid "Create"
 msgstr "Créer"
 
-#: modules/samba/shares/index.php:48 modules/samba/shares/index_flymake.php:48
-#: modules/samba/shares/index_flymake_flymake.php:48
-#: modules/samba/shares/index_flymake_flymake_flymake.php:48
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:48
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:48
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:48
-#: modules/samba/machines/ajaxFilter.php:41
+#: modules/samba/includes/auditCodes.php:22
+msgid "Del computer"
+msgstr "Supprimer une machine"
+
+#: modules/samba/includes/auditCodes.php:10
+msgid "Del samba attribute"
+msgstr "Attribut Samba supprimé"
+
+#: modules/samba/includes/auditCodes.php:13
+msgid "Del samba attributes"
+msgstr "Attributs Samba supprimés"
+
+#: modules/samba/includes/auditCodes.php:5
+msgid "Del share"
+msgstr "Supprimer le partage"
+
+#: modules/samba/shares/index.php:48 modules/samba/machines/ajaxFilter.php:41
 #: modules/samba/views/groups.tpl.php:125
 msgid "Delete"
 msgstr "Supprimer"
@@ -216,57 +220,42 @@ msgid "Delete a computer"
 msgstr "Supprimer une machine"
 
 #: modules/samba/shares/delete.php:43
-#: modules/samba/shares/delete_flymake.php:43
-#: modules/samba/shares/delete_flymake_flymake.php:43
-#: modules/samba/shares/delete_flymake_flymake_flymake.php:43
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:43
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:43
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:43
 msgid "Delete a share"
 msgstr "Supprimer le partage"
 
 #: modules/samba/shares/delete.php:45
-#: modules/samba/shares/delete_flymake.php:45
-#: modules/samba/shares/delete_flymake_flymake.php:45
-#: modules/samba/shares/delete_flymake_flymake_flymake.php:45
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:45
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:45
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:45
 msgid "Delete all data"
 msgstr "Supprimer toutes les données"
 
-#: modules/samba/shares/index.php:61 modules/samba/shares/index_flymake.php:61
-#: modules/samba/shares/index_flymake_flymake.php:61
-#: modules/samba/shares/index_flymake_flymake_flymake.php:61
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:61
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:61
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:61
-#: modules/samba/machines/ajaxFilter.php:40
+#: modules/samba/shares/index.php:61 modules/samba/machines/ajaxFilter.php:40
 msgid "Description"
 msgstr "Description"
 
-#: modules/samba/includes/publicFunc.php:202
+#: modules/samba/includes/publicFunc.php:207
 msgid "Disable samba user account"
+msgstr "Désactivation du compte samba"
+
+#: modules/samba/includes/auditCodes.php:17
+msgid "Disable user"
 msgstr "Désactivation du compte samba"
 
 #: modules/samba/config/index.php:100
 msgid "Domain name"
 msgstr "Nom du domaine"
 
-#: modules/samba/shares/index.php:47 modules/samba/shares/index_flymake.php:47
-#: modules/samba/shares/index_flymake_flymake.php:47
-#: modules/samba/shares/index_flymake_flymake_flymake.php:47
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:47
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:47
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:47
+#: modules/samba/shares/index.php:47
 msgid "Edit"
 msgstr "Éditer"
+
+#: modules/samba/includes/auditCodes.php:16
+msgid "Enable user"
+msgstr "Activation du compte Samba"
 
 #: modules/samba/infoPackage.inc.php:121
 msgid "Enable/Disable account"
 msgstr "Activation/Désactivation du compte"
 
-#: modules/samba/config/index.php:75 modules/samba/mainSidebar.php:41
+#: modules/samba/mainSidebar.php:41 modules/samba/config/index.php:75
 msgid "General options"
 msgstr "Options générales"
 
@@ -278,7 +267,7 @@ msgstr "Groupes"
 msgid "IP"
 msgstr "IP"
 
-#: modules/samba/includes/publicFunc.php:129
+#: modules/samba/includes/publicFunc.php:134
 msgid "Invalid network drive."
 msgstr "Nom de lecteur réseau invalide."
 
@@ -298,7 +287,7 @@ msgstr "Liste des machines"
 msgid "List shares"
 msgstr "Liste des partages"
 
-#: modules/samba/includes/publicFunc.php:217
+#: modules/samba/includes/publicFunc.php:222
 msgid ""
 "Lock samba user access\n"
 "                        <p>User can be locked after too many failed log.</p>"
@@ -307,6 +296,10 @@ msgstr ""
 "<p>L'utilisateur peut être verrouillé après plusieurs tentatives "
 "d'authentification non valides.</p>"
 
+#: modules/samba/includes/auditCodes.php:18
+msgid "Lock user"
+msgstr "Bloquer l'utilisateur"
+
 #: modules/samba/infoPackage.inc.php:122
 msgid "Lock/Unlock account"
 msgstr "Verrouillage/Déverrouillage du compte"
@@ -314,6 +307,10 @@ msgstr "Verrouillage/Déverrouillage du compte"
 #: modules/samba/infoPackage.inc.php:73
 msgid "Machines"
 msgstr "Machines"
+
+#: modules/samba/includes/auditCodes.php:20
+msgid "Make samba group"
+msgstr "Création d'un groupe samba"
 
 #: modules/samba/shares/details.php:129
 msgid "Name"
@@ -332,7 +329,7 @@ msgid "Opened sessions"
 msgstr "Sessions ouvertes"
 
 #: modules/samba/config/index.php:117
-#: modules/samba/includes/publicFunc.php:231
+#: modules/samba/includes/publicFunc.php:236
 msgid "Opening script session"
 msgstr "Script d'ouverture de session"
 
@@ -345,24 +342,12 @@ msgid "Please delete this share, and then create it again."
 msgstr "Veuillez supprimer puis créer à nouveau ce partage."
 
 #: modules/samba/shares/backup.php:37
-#: modules/samba/shares/backup_flymake.php:37
-#: modules/samba/shares/backup_flymake_flymake.php:37
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:37
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:37
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:37
 msgid "Please go to the status page to check the backup status."
 msgstr ""
 "Veuillez consulter la page de statut pour vérifier le processus de "
 "sauvegarde."
 
 #: modules/samba/shares/backup.php:50
-#: modules/samba/shares/backup_flymake.php:50
-#: modules/samba/shares/backup_flymake_flymake.php:50
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:50
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:50
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:50
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:50
 msgid ""
 "Please select media size. If your data exceed volume size, several files "
 "with your media size will be created."
@@ -379,6 +364,10 @@ msgstr "Recharger SAMBA"
 msgid "Reload SAMBA service"
 msgstr "Recharger le service SAMBA"
 
+#: modules/samba/includes/auditCodes.php:8
+msgid "Reload samba"
+msgstr "Rechargement de la configuration SAMBA"
+
 #: modules/samba/infoPackage.inc.php:55
 msgid "Remove a share"
 msgstr "Suppression d'un partage"
@@ -387,7 +376,12 @@ msgstr "Suppression d'un partage"
 msgid "Restart SAMBA"
 msgstr "Redémarrer SAMBA"
 
-#: modules/samba/includes/publicFunc.php:164
+#: modules/samba/includes/auditCodes.php:7
+#, fuzzy
+msgid "Restart samba"
+msgstr "Redémarrer SAMBA"
+
+#: modules/samba/includes/publicFunc.php:169
 msgid "SAMBA access"
 msgstr "Accès SAMBA"
 
@@ -423,7 +417,7 @@ msgstr "Attributs Samba supprimés."
 msgid "Samba status"
 msgstr "Statut SAMBA"
 
-#: modules/samba/includes/publicFunc.php:161
+#: modules/samba/includes/publicFunc.php:166
 msgid "Samba user properties"
 msgstr "Propriétés Samba de l'utilisateur"
 
@@ -431,17 +425,11 @@ msgstr "Propriétés Samba de l'utilisateur"
 msgid "Server name"
 msgstr "Nom du serveur"
 
-#: modules/samba/status/index.php:84
+#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:23
 msgid "Share"
 msgstr "Partages"
 
 #: modules/samba/shares/delete.php:34
-#: modules/samba/shares/delete_flymake.php:34
-#: modules/samba/shares/delete_flymake_flymake.php:34
-#: modules/samba/shares/delete_flymake_flymake_flymake.php:34
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:34
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:34
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:34
 #, php-format
 msgid "Share %s deleted"
 msgstr "Partage %s supprimé"
@@ -457,18 +445,6 @@ msgid "Share %s successfully modified"
 msgstr "Partage %s modifié"
 
 #: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:48
-#: modules/samba/shares/backup_flymake.php:31
-#: modules/samba/shares/backup_flymake.php:48
-#: modules/samba/shares/backup_flymake_flymake.php:31
-#: modules/samba/shares/backup_flymake_flymake.php:48
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:31
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:48
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:31
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:48
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:31
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:48
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:31
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:48
 msgid "Share backup"
 msgstr "Sauvegarde d'un partage"
 
@@ -486,29 +462,11 @@ msgid "Share user's homes"
 msgstr "Partage des répertoires utilisateurs"
 
 #: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
-#: modules/samba/shares/index_flymake.php:55
-#: modules/samba/shares/index_flymake.php:59
-#: modules/samba/shares/index_flymake_flymake.php:55
-#: modules/samba/shares/index_flymake_flymake.php:59
-#: modules/samba/shares/index_flymake_flymake_flymake.php:55
-#: modules/samba/shares/index_flymake_flymake_flymake.php:59
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:55
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake.php:59
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:55
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake.php:59
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:55
-#: modules/samba/shares/index_flymake_flymake_flymake_flymake_flymake_flymake.php:59
 #: modules/samba/infoPackage.inc.php:41
 msgid "Shares"
 msgstr "Partages"
 
 #: modules/samba/shares/localSidebar.php:28
-#: modules/samba/shares/localSidebar_flymake.php:28
-#: modules/samba/shares/localSidebar_flymake_flymake.php:28
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake.php:28
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake.php:28
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake.php:28
-#: modules/samba/shares/localSidebar_flymake_flymake_flymake_flymake_flymake_flymake.php:28
 msgid "Shares management"
 msgstr "Gestion des partages"
 
@@ -529,12 +487,6 @@ msgstr ""
 "nombres et doit commencer par une lettre."
 
 #: modules/samba/shares/backup.php:35
-#: modules/samba/shares/backup_flymake.php:35
-#: modules/samba/shares/backup_flymake_flymake.php:35
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:35
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:35
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:35
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:35
 #, php-format
 msgid ""
 "The files will be stored in the directory %s of the server at the end of the "
@@ -544,12 +496,6 @@ msgstr ""
 "sauvegarde."
 
 #: modules/samba/shares/backup.php:49
-#: modules/samba/shares/backup_flymake.php:49
-#: modules/samba/shares/backup_flymake_flymake.php:49
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:49
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:49
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:49
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:49
 #, php-format
 msgid "The share %s will be archived."
 msgstr "Le partage %s va être archivé."
@@ -570,7 +516,7 @@ msgstr ""
 msgid "The share path is not authorized by configuration"
 msgstr "Le chemin du partage est interdit par configuration"
 
-#: modules/samba/includes/publicFunc.php:194
+#: modules/samba/includes/publicFunc.php:199
 msgid "The user password has expired"
 msgstr "Le mot de passe de l'utilisateur a expiré."
 
@@ -579,12 +525,6 @@ msgid "This group doesn't exist"
 msgstr "Ce groupe n'existe pas"
 
 #: modules/samba/shares/backup.php:39
-#: modules/samba/shares/backup_flymake.php:39
-#: modules/samba/shares/backup_flymake_flymake.php:39
-#: modules/samba/shares/backup_flymake_flymake_flymake.php:39
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake.php:39
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake.php:39
-#: modules/samba/shares/backup_flymake_flymake_flymake_flymake_flymake_flymake.php:39
 msgid "This operation will last according to the amount of data to backup."
 msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
 
@@ -625,20 +565,24 @@ msgstr ""
 "montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,"
 "acl  1  2</pre></li> \t\t\t</ul> "
 
+#: modules/samba/includes/auditCodes.php:19
+msgid "Unlock user"
+msgstr ""
+
 #: modules/samba/status/index.php:113
 msgid "User"
 msgstr "Utilisateur"
 
-#: modules/samba/includes/publicFunc.php:200
+#: modules/samba/includes/publicFunc.php:205
 msgid "User is disabled, if checked"
 msgstr "Utilisateur désactivé, si cochée"
 
-#: modules/samba/includes/publicFunc.php:215
+#: modules/samba/includes/publicFunc.php:220
 msgid "User is locked, if checked"
 msgstr "Utilisateur verrouillé, si cochée"
 
 #: modules/samba/config/index.php:116
-#: modules/samba/includes/publicFunc.php:230
+#: modules/samba/includes/publicFunc.php:235
 msgid "User profile path"
 msgstr "Chemin du profil utilisateur"
 
@@ -650,11 +594,11 @@ msgstr "Utilisateurs"
 msgid "Verify specified share exist."
 msgstr "Vérifiez que ce partage existe."
 
-#: modules/samba/includes/publicFunc.php:193
+#: modules/samba/includes/publicFunc.php:198
 msgid "WARNING"
 msgstr "ATTENTION"
 
-#: modules/samba/includes/publicFunc.php:114
+#: modules/samba/includes/publicFunc.php:119
 msgid "You must reenter your password."
 msgstr "Vous devez entrer à nouveau votre mot de passe."
 
@@ -664,12 +608,6 @@ msgid "You will delete the %s computer"
 msgstr "Vous allez supprimer la machine <b>%s</b>"
 
 #: modules/samba/shares/delete.php:44
-#: modules/samba/shares/delete_flymake.php:44
-#: modules/samba/shares/delete_flymake_flymake.php:44
-#: modules/samba/shares/delete_flymake_flymake_flymake.php:44
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake.php:44
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake.php:44
-#: modules/samba/shares/delete_flymake_flymake_flymake_flymake_flymake_flymake.php:44
 #, php-format
 msgid "You will delete the share <b>%s</b>"
 msgstr "Vous allez supprimer le partage <b>%s</b>"
@@ -677,3 +615,7 @@ msgstr "Vous allez supprimer le partage <b>%s</b>"
 #: modules/samba/infoPackage.inc.php:107
 msgid "restart SAMBA service"
 msgstr "Redémarrer le service SAMBA"
+
+#: modules/samba/includes/auditCodes.php:25
+msgid "samba"
+msgstr "samba"
