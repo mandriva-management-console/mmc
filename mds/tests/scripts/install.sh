@@ -166,7 +166,7 @@ sed -i 's!sambaInitScript = /etc/init.d/samba!sambaInitScript = /etc/init.d/smb!
 
 sed -i "s/^\(passwd:\).*$/\1 files ldap/" /etc/nsswitch.conf
 sed -i "s/^\(group:\).*$/\1 files ldap/" /etc/nsswitch.conf
-cp /usr/share/doc/nss_ldap/ldap.conf /etc/ldap.conf
+cp /usr/share/doc/nss_ldap*/ldap.conf /etc/ldap.conf
 sed -i "s/base dc=padl,dc=com/base dc=mandriva,dc=com/" /etc/ldap.conf
 
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbpasswd -s -a administrator
