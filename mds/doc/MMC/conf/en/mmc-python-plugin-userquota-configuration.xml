@@ -155,14 +155,14 @@
 	  <row>
 	    <entry>enable</entry>
 	    <entry>Is this plugin enabled ?</entry>
-	    <entry>Yes</entry>
-	    <entry>1</entry>
+	    <entry>No</entry>
+	    <entry>0</entry>
 	  </row>
 	  <row>
 	    <entry>devicemap</entry>
 	    <entry>The definition of the filesystems using quotas</entry>
 	    <entry>No</entry>
-	    <entry></entry>
+	    <entry>/dev/sda1:1024:Root</entry>
 	  </row>
 	  <row>
 	    <entry>softquotablocks</entry>
@@ -197,18 +197,22 @@
 	</tbody>
       </tgroup>
     </table>
-    
     <para>
-      This section define the mountpoints on which you want to use file system quotas. If you are using an ext3 filesystem you should add the usrquota and grpquota to the filesystem options in /etc/fstab.
+      This section define the mountpoints on which you want to use filesystem quotas. If you are using an ext3 or xfs filesystem you should add the "usrquota" option to the mountpoint(s) in /etc/fstab.
     </para>
+    <para>
+      If you are using an XFS filesystem, you must remount manually the partition after adding the "usrquota" option to the mountpoint in /etc/fstab. On ext3 filesystems, you can remount the filesystem dynamicaly with the usrquota option using the following command :
+    </para>
+    <screen>mount -o remount,usrquota /path/to/mount/point</screen>
+    <para>On ext filesystems you have to create quota files on your mountpoints :</para>
+    <screen>quotacheck -cum /path/to/mount/point</screen>
     <para>
       The devicemap option use the following format :
     </para>
     <screen>device1:blocksize:displayname,device2:blocksize:displayname,...</screen>    
     <para>
-      The device is the unix name of the partition (eg: "/dev/sda1"). The displayname is a string representing the device (eg: "Root"). The blocksize value for the device can be found using the following command :
+      The device is the unix name of the partition (eg: "/dev/sda1"). The displayname is a string representing the device (eg: "Root"). The iquota blocksize value is 1024 on Linux x86.
     </para>
-    <screen>dumpe2fs -h /dev/sda1 | awk '/Block size:/ { print $3 }'</screen>
     <para>
       The soft limits of the quotas are calculated using the softquotablocks and softquotainodes coefs. The inode limit is calculated using the inodesperblock coef.
     </para>
@@ -223,7 +227,6 @@
   <section>
     
     <title>Section « networkquota »</title>
-  
       <table>
       <title>
 	Available options for the « networkquota » section
@@ -241,14 +244,14 @@
 	  <row>
 	    <entry>enable</entry>
 	    <entry>Is this plugin enabled ?</entry>
-	    <entry>Yes</entry>
+	    <entry>No</entry>
 	    <entry>0</entry>
 	  </row>
 	  <row>
 	    <entry>networkmap</entry>
 	    <entry>The definition of networks using quotas</entry>
 	    <entry>No</entry>
-	    <entry></entry>
+	    <entry>Internet:0.0.0.0/0:any</entry>
 	  </row>  	  
 	</tbody>
       </tgroup>
