@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.4.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-12 11:22+0200\n"
+"PO-Revision-Date: 2010-04-12 11:30+0100\n"
+"Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
+"Language-Team: mario.fetka@gmail.com <mario.fetka@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: AUSTRIA\n"
+
+#: modules/sshlpk/infoPackage.inc.php:34
+msgid "LDAP Public SSH key management"
+msgstr "LDAP SSH Public Key-Management"
+
+#: modules/sshlpk/infoPackage.inc.php:38
+msgid "Show/Hide SSH key list"
+msgstr "Anzeigen / Ausblenden SSH-Schlüssel-Liste"
+
+#: modules/sshlpk/infoPackage.inc.php:39
+msgid "Manage SSH key"
+msgstr "SSH-Schlüssel verwalten"
+
+#: modules/sshlpk/includes/publicFunc.php:36
+msgid "Public SSH keys management plugin"
+msgstr "Öffentliche SSH-Schlüssel-Management-Plugin"
+
+#: modules/sshlpk/includes/publicFunc.php:40
+msgid "Enable SSH keys management"
+msgstr "Aktiviere SSH-Schlüssel-Verwaltung"
+
+#: modules/sshlpk/includes/publicFunc.php:58
+msgid "Public SSH Key"
+msgstr "SSH Public Key"
+
+#: modules/sshlpk/includes/publicFunc.php:85
+msgid "Some SSH public keys are duplicate"
+msgstr "Einige SSH Public Keys sind doppelt"
+
