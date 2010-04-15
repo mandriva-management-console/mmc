@@ -59,13 +59,13 @@ if [ -z $FORCE ];
 fi
 
 # for MDS samba plugin
-urpmi python-pylibacl samba-server smbldap-tools nss_ldap
+urpmi --auto python-pylibacl samba-server smbldap-tools nss_ldap
 
 # for MDS network plugin DHCP
-urpmi dhcp-server
+urpmi --auto dhcp-server
 
 # for MDS network plugin BIND
-urpmi bind
+urpmi --auto bind
 
 # for MDS mail plugin
 # Nothing needed
