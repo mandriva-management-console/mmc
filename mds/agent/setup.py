@@ -38,5 +38,6 @@ setup(
     maintainer_email = "cdelfosse@mandriva.com",
     packages = ["mmc.plugins.samba", "mmc.plugins.mail",
                 "mmc.plugins.network", "mmc.plugins.proxy",
-                "mmc.plugins.sshlpk", "mmc.plugins.bulkimport"],
+                "mmc.plugins.sshlpk", "mmc.plugins.bulkimport",
+                "mmc.plugins.userquota"],
 )
