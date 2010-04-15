@@ -37,16 +37,12 @@ then
     exit 1
 fi
 
-if [ ! -f /etc/mandriva-release ];
-then
-    echo "This Operating System is not supported."
-    exit 1
-fi
+DISTRIBUTION=`lsb_release -i -s`
+RELEASE=`lsb_release -r -s`
 
-OSRELEASE=`lsb_release -ir -s`
-if [ "$OSRELEASE" != "MandrivaLinux 2010.0" ];
+if [ ! -f "$DISTRIBUTION-$RELEASE" ];
 then
-    echo "This version of Operating System ($OSRELEASE) is not supported"
+    echo "This version of Operating System ($DISTRIBUTION-$RELEASE) is not supported"
     exit 1
 fi
 
