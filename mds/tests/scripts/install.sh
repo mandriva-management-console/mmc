@@ -40,6 +40,30 @@ fi
 DISTRIBUTION=`lsb_release -i -s`
 RELEASE=`lsb_release -r -s`
 
+PKGS=
+
+if [ `arch` == "x86_64" ];
+then
+    ARCH=64
+else
+    ARCH=
+fi
+
+function packages_to_install () {
+    # for MDS samba plugin
+    PKGS="$PKGS samba-server smbldap-tools nss_ldap"
+    if [ $RELEASE != "2006.0" ];
+        then
+        PKGS="PKGS python-pylibacl"
+    fi
+
+    # for MDS network plugin DHCP
+    PKGS="$PKGS dhcp-server"
+
+    # for MDS network plugin BIND
+    PKGS="$PKGS bind"
+}
+
 if [ ! -f "$DISTRIBUTION-$RELEASE" ];
 then
     echo "This version of Operating System ($DISTRIBUTION-$RELEASE) is not supported"
@@ -54,14 +78,9 @@ if [ -z $FORCE ];
     read
 fi
 
-# for MDS samba plugin
-urpmi --auto python-pylibacl samba-server smbldap-tools nss_ldap
-
-# for MDS network plugin DHCP
-urpmi --auto dhcp-server
-
-# for MDS network plugin BIND
-urpmi --auto bind
+packages_to_install
+urpmi --auto --no-suggests $PKGS
+rpm -q $PKGS
 
 # for MDS mail plugin
 # Nothing needed
