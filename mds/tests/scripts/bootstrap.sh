@@ -38,7 +38,10 @@ export LC_ALL=C
 
 export TMPCO=`mktemp -d`
 
-urpmi --auto subversion make lsb-release
+if [ -f /etc/mandriva-release ];
+    then
+    urpmi --auto subversion make lsb-release
+fi
 
 pushd $TMPCO
 
