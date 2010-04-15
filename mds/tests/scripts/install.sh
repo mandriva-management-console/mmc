@@ -188,7 +188,7 @@ sed -i "s!bindgroup = bind!bindgroup = named!" /etc/mmc/plugins/network.ini
 sed -i "s!bindroot = /etc/bind!bindroot= /var/lib/named/etc/!" /etc/mmc/plugins/network.ini
 echo "bindchrootconfpath = /etc" >> /etc/mmc/plugins/network.ini
 sleep 1
-service named start
+service named start || true
 
 # Restart MMC agent
 service mmc-agent restart
