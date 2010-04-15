@@ -33,36 +33,14 @@ function _userquota_baseEdit($ldapArr, $postArr) {
 	}
 	$components = getActiveComponents();
 	if ($components["disk"]) {
-		$f = new DivForModule(_T("Quota plugin", "quota"), "#FDD");
-		//	$hasQuota = 1;
-		//	$f->push(new Table());
-		//	$f->add(new TrFormElement(_T("Has Quota", "hasquota"), new CheckboxTpl("hasquota")), array (
-		//		"value" => $hasQuota,
-		//		"extraArg" => 'onclick="toggleVisibility(\'quotadiv\');"'
-		//		));
-		//
-		//		$f->pop();
-		//
-		//		$quotadiv = new Div(array (
-		//		"id" => "quotadiv"
-		//		));
-		//		$quotadiv->setVisibility($hasQuota);
-		//		$f->push($quotadiv);
-		//		$f->add(new UserQuotaTitleElement(_T("Disk quotas (in kB)","userquota")));
-
+		$f = new DivForModule(_T("Quota plugin - Filesystem", "userquota"), "#FDD");
 		$f->push(new Table());
 		displayDiskQuotas(&$f, $ldapArr);
-
-		//$f->add(new TrFormElement(_T("Disk / mount", "userquota"), new InputTpl("quota", '/^[0-9=\/:a-zA-Z]*$/')), array (
-		//				"value" => $ldapArr["quota"][0]
-		//			));
-
 		$f->pop();
-
 		$f->display();
 	}
 	if ($components["network"]) {
-		$f = new DivForModule(_T("Quota plugin - Network", "quotanetwork"), "#FDD");
+		$f = new DivForModule(_T("Quota plugin - Network", "userquota"), "#FDD");
 		$f->push(new Table());
 		displayNetworkQuotas(&$f, $ldapArr);
 		$f->pop();
@@ -95,15 +73,7 @@ function displayNetworkQuotas(&$f, &$ldapArr) {
  * @param $postArr $_POST array of the page
  */
 function _userquota_verifInfo($postArr) {
-	//if ($postArr["quota"]) {
 
-		//        $mailreg='/^([A-Za-z0-9._-]+@[A-Za-z0-9.-]+)$/';
-		//        if (!preg_match($mailreg, $postArr["mail"])) {
-		//            global $error;
-		//            setFormError("mail");
-		//            $error.= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
-		//        }
-	//}
 }
 
 /**
@@ -111,14 +81,7 @@ function _userquota_verifInfo($postArr) {
  * @param $postArr $_POST array of the page
  */
 function _userquota_changeUser($FH) {
-//	$defaults = array();
-//	if (!key_exists("currentOC",$postArr)) {
-		//		$currentOC = explode(",", $postArr["currentOC"]);
-		//		if (!in_array("systemQuotas", $currentOC) {
-//		$defaults =	setUserQuotaDefaults($postArr["nlogin"], $postArr["primary_autocomplete"]);
-		//		}
 
-//	}
 	$components = getActiveComponents();
 	if ($components["disk"]) {
 		foreach (getDevicemap() as $device) {
@@ -156,28 +119,28 @@ function _userquota_changeUser($FH) {
 function _userquota_baseGroupEdit($ldapArr, $postArr) {
 	$components = getActiveComponents();
 	if ($components["disk"]) {
-		$f = new DivForModule(_T("Quota plugin group actions", "quota"), "#FFD");
+		$f = new DivForModule(_T("Quota plugin - Filesystem", "userquota"), "#FFD");
 		$f->push(new Table());
 		displayDiskQuotas(&$f, $ldapArr);
-		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group")));
+		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group", "userquota")));
 		$overwrite = new RadioTpl("diskoverwrite");
-		$overwrite->setChoices(array("Overwrite all existing quotas", "Current quota is smaller than the new quota, or does not exist", "Current quota is larger than the new quota, or does not exist", "Don't overwrite any existing quotas"));
+		$overwrite->setChoices(array(_T("Overwrite all existing quotas", "userquota"), _T("Current quota is smaller than the new quota, or does not exist", "userquota"), _T("Current quota is larger than the new quota, or does not exist", "userquota"), _T("Don't overwrite any existing quotas", "userquota")));
 		$overwrite->setValues(array("all", "smaller", "larger", "none"));
 		$overwrite->setSelected("none");
-		$f->add(new TrFormElement((_T("Overwrite mode for existing quotas")), $overwrite ));
+		$f->add(new TrFormElement((_T("Overwrite mode for existing quotas", "userquota")), $overwrite ));
 		$f->pop();
 		$f->display();
 	}
 	if ($components["network"]) {
-		$f = new DivForModule(_T("Quota plugin - network", "networkquota"), "#FFD");
+		$f = new DivForModule(_T("Quota plugin - Network", "userquota"), "#FFD");
 		$f->push(new Table());
 		displayNetworkQuotas(&$f, $ldapArr);
-		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group")));
+		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group", "userquota")));
 		$overwrite = new RadioTpl("networkoverwrite");
-		$overwrite->setChoices(array("Overwrite all existing quotas", "Current quota is smaller than the new quota, or does not exist", "Current quota is larger than the new quota, or does not exist", "Don't overwrite any existing quotas"));
+		$overwrite->setChoices(array(_T("Overwrite all existing quotas", "userquota"), _T("Current quota is smaller than the new quota, or does not exist", "userquota"), _T("Current quota is larger than the new quota, or does not exist", "userquota"), _T("Don't overwrite any existing quotas", "userquota")));
 		$overwrite->setValues(array("all", "smaller", "larger", "none"));
 		$overwrite->setSelected("none");
-		$f->add(new TrFormElement((_T("Overwrite mode for existing quotas")), $overwrite ));
+		$f->add(new TrFormElement((_T("Overwrite mode for existing quotas", "userquota")), $overwrite ));
 		$f->pop();
 		$f->display();
 	}
@@ -221,7 +184,6 @@ function _userquota_changeGroup($postArr) {
 }
 
 function _userquota_changeUserPrimaryGroup($user, $newgroup, $oldgroup) {
-	//	setUserQuotaDefaults($user, $newgroup);
 }
 
 function _userquota_addUserToGroup($user, $group) {
