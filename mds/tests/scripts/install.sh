@@ -239,6 +239,9 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service dhcpd start || true
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
+    # Setup DHCP LDAP schema
+    echo "include ${schema_dir}/dhcp.schema" >> ${schema_dir}/local.schema
+    invoke-rc.d slapd restart
     invoke-rc.d dhcp3-server stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcp3/dhcpd.conf
     invoke-rc.d dhcp3-server start || true
@@ -256,6 +259,9 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service named start || true
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
+    # Setup DNS LDAP schema
+    echo "include ${schema_dir}/dnszone.schema" >> ${schema_dir}/local.schema
+    invoke-rc.d slapd restart
     invoke-rc.d bind9 restart
 fi
 
