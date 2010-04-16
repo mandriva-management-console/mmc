@@ -130,21 +130,21 @@ popd
 popd
 
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
-    schema_file=/etc/openldap/schema/local.schema
+    schema_dir=/etc/openldap/schema
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
-    schema_file=/etc/ldap/schema/local.schema
+    schema_dir=/etc/ldap/schema
 fi
 
 # Setup Mail LDAP schema
-echo "include /etc/openldap/schema/mail.schema" >> $schema_file
+echo "include ${schema_dir}/mail.schema" >> ${schema_dir}/local.schema
 sed -i "s/vDomainSupport = 0/vDomainSupport = 1/" /etc/mmc/plugins/mail.ini
 
 # Setup SSH-LPK LDAP schema
-echo "include /etc/openldap/schema/openssh-lpk.schema" >> $schema_file
+echo "include ${schema_dir}/openssh-lpk.schema" >> ${schema_dir}/local.schema
 
 # Setup Quota LDAP schema
-echo "include /etc/openldap/schema/quota.schema" >> $schema_file
+echo "include ${schema_dir}/quota.schema" >> ${schema_dir}/local.schema
 
 #############
 # Setup SAMBA
