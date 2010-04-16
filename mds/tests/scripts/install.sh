@@ -63,7 +63,7 @@ function packages_to_install () {
         echo libnss-ldap libnss-ldap/dblogin string false | debconf-set-selections
         echo libnss-ldap libnss-ldap/dbrootlogin string true | debconf-set-selections
         echo libnss-ldap shared/ldapns/base-dn string dc=mandriva,dc=com | debconf-set-selections
-        echo libnss-ldap shared/ldapns/ldap-server string ldapi:///127.0.0.1 | debconf-set-selections
+        echo libnss-ldap shared/ldapns/ldap-server string ldap:///127.0.0.1 | debconf-set-selections
         echo libnss-ldap shared/ldapns/ldap_version string 3 | debconf-set-selections
         PKGS="$PKGS samba smbldap-tools libnss-ldap"
     fi
