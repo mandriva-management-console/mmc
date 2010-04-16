@@ -51,6 +51,8 @@ fi
 function packages_to_install () {
     # for MDS samba plugin
     if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+	echo samba-common samba-common/dhcp string false | debconf-set-selections
+	echo samba-common samba-common/workgroup string MANDRIVA | debconf-set-selections
         PKGS="$PKGS samba-server smbldap-tools nss_ldap"
         if [ $RELEASE != "2006.0" ];
             then
@@ -61,7 +63,7 @@ function packages_to_install () {
         echo libnss-ldap libnss-ldap/rootbinddn string cn=admin,dc=mandriva,dc=com | debconf-set-selections
         echo libnss-ldap libnss-ldap/confperm string true | debconf-set-selections
         echo libnss-ldap libnss-ldap/dblogin string false | debconf-set-selections
-        echo libnss-ldap libnss-ldap/dbrootlogin string true | debconf-set-selections
+        echo libnss-ldap libnss-ldap/dbrootlogin string false | debconf-set-selections
         echo libnss-ldap shared/ldapns/base-dn string dc=mandriva,dc=com | debconf-set-selections
         echo libnss-ldap shared/ldapns/ldap-server string ldap:///127.0.0.1 | debconf-set-selections
         echo libnss-ldap shared/ldapns/ldap_version string 3 | debconf-set-selections
