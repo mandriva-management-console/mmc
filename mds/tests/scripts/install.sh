@@ -42,7 +42,7 @@ RELEASE=`lsb_release -r -s`
 
 PKGS=
 ARCH=
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     if [ `arch` == "x86_64" ]; then
         ARCH=64
     fi
@@ -50,14 +50,14 @@ fi
 
 function packages_to_install () {
     # for MDS samba plugin
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
         PKGS="$PKGS samba-server smbldap-tools nss_ldap"
         if [ $RELEASE != "2006.0" ];
             then
             PKGS="$PKGS python-pylibacl"
         fi
     fi
-    if [ $DISTRIBUTION == "Debian" ]; then
+    if [ $DISTRIBUTION == "Debian" ]; then
         echo libnss-ldap libnss-ldap/rootbinddn string cn=admin,dc=mandriva,dc=com | debconf-set-selections
         echo libnss-ldap libnss-ldap/confperm string true | debconf-set-selections
         echo libnss-ldap libnss-ldap/dblogin string false | debconf-set-selections
@@ -69,18 +69,18 @@ function packages_to_install () {
     fi
 
     # for MDS network plugin DHCP
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
         PKGS="$PKGS dhcp-server"
     fi
-    if [ $DISTRIBUTION == "Debian" ]; then
+    if [ $DISTRIBUTION == "Debian" ]; then
         PKGS="$PKGS dhcp3-server dhcp3-server-ldap"
     fi
 
     # for MDS network plugin BIND
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
         PKGS="$PKGS bind"
     fi
-    if [ $DISTRIBUTION == "Debian" ]; then
+    if [ $DISTRIBUTION == "Debian" ]; then
         PKGS="$PKGS bind9"
     fi
 }
@@ -100,11 +100,11 @@ if [ -z $FORCE ];
 fi
 
 packages_to_install
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     urpmi --auto --no-suggests $PKGS
     rpm -q $PKGS
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     apt-get install --yes $PKGS
     dpkg -l $PKGS
 fi
@@ -129,10 +129,10 @@ popd
 
 popd
 
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     schema_file=/etc/openldap/schema/local.schema
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     schema_file=/etc/ldap/schema/local.schema
 fi
 
@@ -149,23 +149,25 @@ echo "include /etc/openldap/schema/quota.schema" >> $schema_file
 #############
 # Setup SAMBA
 #############
-/etc/init.d/smb stop || true
 cp $TMPCO/mds/agent/contrib/samba/smb.conf /etc/samba/
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    /etc/init.d/smb stop || true
     sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
 fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    invoke-rc.d samba stop
+fi
 
-# Remove old smbldap-tools confs
-rm -f /etc/smbldap-tools/smbldap.conf
-rm -f /etc/smbldap-tools/smbldap_bind.conf
-# Copy the default ones
-cp /usr/share/doc/smbldap-tools*/smbldap.conf /etc/smbldap-tools/
-cp /usr/share/doc/smbldap-tools*/smbldap_bind.conf /etc/smbldap-tools/
-
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    # Remove old smbldap-tools confs
+    rm -f /etc/smbldap-tools/smbldap.conf
+    rm -f /etc/smbldap-tools/smbldap_bind.conf
+    # Copy the default ones
+    cp /usr/share/doc/smbldap-tools*/smbldap.conf /etc/smbldap-tools/
+    cp /usr/share/doc/smbldap-tools*/smbldap_bind.conf /etc/smbldap-tools/
     ADMINCN="uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com"
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     ADMINCN="cn=admin,dc=mandriva,dc=com"
     zcat /usr/share/doc/smbldap-tools/examples/smbldap.conf.gz > \
         /etc/smbldap-tools/smbldap.conf
@@ -204,13 +206,13 @@ sed -i "s/^\(userScript=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
 # Populate LDAP for SAMBA
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbldap-populate -m 512 -a administrator -b guest
 
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     sed -i 's!sambaInitScript = /etc/init.d/samba!sambaInitScript = /etc/init.d/smb!' /etc/mmc/plugins/samba.ini
 fi
 
 sed -i "s/^\(passwd:\).*$/\1 files ldap/" /etc/nsswitch.conf
 sed -i "s/^\(group:\).*$/\1 files ldap/" /etc/nsswitch.conf
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     cp /usr/share/doc/nss_ldap*/ldap.conf /etc/ldap.conf
     sed -i "s/base dc=padl,dc=com/base dc=mandriva,dc=com/" /etc/ldap.conf
 fi
