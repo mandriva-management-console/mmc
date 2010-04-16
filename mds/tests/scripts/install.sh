@@ -41,12 +41,11 @@ DISTRIBUTION=`lsb_release -i -s`
 RELEASE=`lsb_release -r -s`
 
 PKGS=
-
-if [ `arch` == "x86_64" ];
-then
-    ARCH=64
-else
-    ARCH=
+ARCH=
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ `arch` == "x86_64" ]; then
+        ARCH=64
+    fi
 fi
 
 function packages_to_install () {
@@ -118,7 +117,7 @@ TMPCO=`mktemp -d`
 pushd $TMPCO
 
 # Checkout MDS
-svn co https://mds.mandriva.org/svn/mmc-projects/mds/trunk mds
+svn co http://mds.mandriva.org/svn/mmc-projects/mds/trunk mds
 
 pushd mds/agent
 make install PREFIX=/usr
