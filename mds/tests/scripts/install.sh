@@ -197,6 +197,7 @@ sed -i "s/^\(computersdn=\).*$/\1\"ou=Computers\"/" /etc/smbldap-tools/smbldap.c
 
 sed -i "s/^\(SID=\).*$/\1\"${SID}\"/" /etc/smbldap-tools/smbldap.conf
 sed -i "s/^\(suffix=\).*$/\1\"${BASEDN}\"/" /etc/smbldap-tools/smbldap.conf
+sed -i "s/^\(sambaDomain=\).*$/\1\"${WORKGROUP}\"/" /etc/smbldap-tools/smbldap.conf
 sed -i "s/^\(sambaUnixIdPooldn=\).*$/\1\"sambaDomainName=${WORKGROUP},${BASEDN}\"/" /etc/smbldap-tools/smbldap.conf
 sed -i 's!^\(defaultMaxPasswordAge=.*\)$!#\1!' /etc/smbldap-tools/smbldap.conf
 sed -i "s/^\(userSmbHome=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
