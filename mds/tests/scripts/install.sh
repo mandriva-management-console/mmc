@@ -217,29 +217,29 @@ fi
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbpasswd -s -a administrator
 
 # Restart LDAP & APACHE
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service ldap restart
     service httpd restart
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     invoke-rc.d slapd restart
     invoke-rc.d apache2 restart
 fi
 
 # Setup DHCP
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service dhcpd stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
     service dhcpd start || true
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     invoke-rc.d dhcp3-server stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcp3/dhcpd.conf
     invoke-rc.d dhcp3-server start || true
 fi
 
 # Setup BIND
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service named stop || true
     sed -i "s!init = /etc/init.d/dhcp3-server!init = /etc/init.d/dhcpd!" /etc/mmc/plugins/network.ini
     sed -i "s!init = /etc/init.d/bind9!init = /etc/init.d/named!" /etc/mmc/plugins/network.ini
@@ -249,15 +249,15 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     sleep 1
     service named start || true
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     invoke-rc.d bind9 restart
 fi
 
 # Restart MMC agent
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service mmc-agent restart
 fi
-if [ $DISTRIBUTION == "Debian" ]; then
+if [ $DISTRIBUTION == "Debian" ]; then
     invoke-rc.d mmc-agent restart
 fi
 
