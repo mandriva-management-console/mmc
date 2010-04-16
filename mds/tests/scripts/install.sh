@@ -30,7 +30,7 @@ then
     exit 1
 fi
 
-if [ ! -f "/bin/lsb_release" ];
+if [ ! -f `which lsb_release` ];
 then
     echo "Please install lsb_release."
     echo "urpmi lsb-release"
@@ -51,17 +51,39 @@ fi
 
 function packages_to_install () {
     # for MDS samba plugin
-    PKGS="$PKGS samba-server smbldap-tools nss_ldap"
-    if [ $RELEASE != "2006.0" ];
-        then
-        PKGS="$PKGS python-pylibacl"
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+        PKGS="$PKGS samba-server smbldap-tools nss_ldap"
+        if [ $RELEASE != "2006.0" ];
+            then
+            PKGS="$PKGS python-pylibacl"
+        fi
+    fi
+    if [ $DISTRIBUTION == "Debian" ]; then
+        echo libnss-ldap libnss-ldap/rootbinddn string cn=admin,dc=mandriva,dc=com | debconf-set-selections
+        echo libnss-ldap libnss-ldap/confperm string true | debconf-set-selections
+        echo libnss-ldap libnss-ldap/dblogin string false | debconf-set-selections
+        echo libnss-ldap libnss-ldap/dbrootlogin string true | debconf-set-selections
+        echo libnss-ldap shared/ldapns/base-dn string dc=mandriva,dc=com | debconf-set-selections
+        echo libnss-ldap shared/ldapns/ldap-server string ldapi:///127.0.0.1 | debconf-set-selections
+        echo libnss-ldap shared/ldapns/ldap_version string 3 | debconf-set-selections
+        PKGS="$PKGS samba smbldap-tools libnss-ldap"
     fi
 
     # for MDS network plugin DHCP
-    PKGS="$PKGS dhcp-server"
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+        PKGS="$PKGS dhcp-server"
+    fi
+    if [ $DISTRIBUTION == "Debian" ]; then
+        PKGS="$PKGS dhcp3-server dhcp3-server-ldap"
+    fi
 
     # for MDS network plugin BIND
-    PKGS="$PKGS bind"
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+        PKGS="$PKGS bind"
+    fi
+    if [ $DISTRIBUTION == "Debian" ]; then
+        PKGS="$PKGS bind9"
+    fi
 }
 
 if [ ! -f "$DISTRIBUTION-$RELEASE" ];
@@ -79,8 +101,14 @@ if [ -z $FORCE ];
 fi
 
 packages_to_install
-urpmi --auto --no-suggests $PKGS
-rpm -q $PKGS
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    urpmi --auto --no-suggests $PKGS
+    rpm -q $PKGS
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    apt-get install --yes $PKGS
+    dpkg -l $PKGS
+fi
 
 # for MDS mail plugin
 # Nothing needed
@@ -102,22 +130,31 @@ popd
 
 popd
 
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    schema_file=/etc/openldap/schema/local.schema
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    schema_file=/etc/ldap/schema/local.schema
+fi
+
 # Setup Mail LDAP schema
-echo "include /etc/openldap/schema/mail.schema" >> /etc/openldap/schema/local.schema
+echo "include /etc/openldap/schema/mail.schema" >> $schema_file
 sed -i "s/vDomainSupport = 0/vDomainSupport = 1/" /etc/mmc/plugins/mail.ini
 
 # Setup SSH-LPK LDAP schema
-echo "include /etc/openldap/schema/openssh-lpk.schema" >> /etc/openldap/schema/local.schema
+echo "include /etc/openldap/schema/openssh-lpk.schema" >> $schema_file
 
 # Setup Quota LDAP schema
-echo "include /etc/openldap/schema/quota.schema" >> /etc/openldap/schema/local.schema
+echo "include /etc/openldap/schema/quota.schema" >> $schema_file
 
 #############
 # Setup SAMBA
 #############
 /etc/init.d/smb stop || true
 cp $TMPCO/mds/agent/contrib/samba/smb.conf /etc/samba/
-sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
+fi
 
 # Remove old smbldap-tools confs
 rm -f /etc/smbldap-tools/smbldap.conf
@@ -126,7 +163,16 @@ rm -f /etc/smbldap-tools/smbldap_bind.conf
 cp /usr/share/doc/smbldap-tools*/smbldap.conf /etc/smbldap-tools/
 cp /usr/share/doc/smbldap-tools*/smbldap_bind.conf /etc/smbldap-tools/
 
-ADMINCN="uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com"
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    ADMINCN="uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com"
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    ADMINCN="cn=admin,dc=mandriva,dc=com"
+    zcat /usr/share/doc/smbldap-tools/examples/smbldap.conf.gz > \
+        /etc/smbldap-tools/smbldap.conf
+    cp /usr/share/doc/smbldap-tools/examples/smbldap_bind.conf \
+        /etc/smbldap-tools/smbldap_bind.conf
+fi
 ADMINCNPW="secret"
 WORKGROUP="MANDRIVA"
 BASEDN="dc=mandriva,dc=com"
@@ -159,36 +205,62 @@ sed -i "s/^\(userScript=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
 # Populate LDAP for SAMBA
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbldap-populate -m 512 -a administrator -b guest
 
-sed -i 's!sambaInitScript = /etc/init.d/samba!sambaInitScript = /etc/init.d/smb!' /etc/mmc/plugins/samba.ini
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    sed -i 's!sambaInitScript = /etc/init.d/samba!sambaInitScript = /etc/init.d/smb!' /etc/mmc/plugins/samba.ini
+fi
 
 sed -i "s/^\(passwd:\).*$/\1 files ldap/" /etc/nsswitch.conf
 sed -i "s/^\(group:\).*$/\1 files ldap/" /etc/nsswitch.conf
-cp /usr/share/doc/nss_ldap*/ldap.conf /etc/ldap.conf
-sed -i "s/base dc=padl,dc=com/base dc=mandriva,dc=com/" /etc/ldap.conf
-
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    cp /usr/share/doc/nss_ldap*/ldap.conf /etc/ldap.conf
+    sed -i "s/base dc=padl,dc=com/base dc=mandriva,dc=com/" /etc/ldap.conf
+fi
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbpasswd -s -a administrator
 
 # Restart LDAP & APACHE
-service ldap restart
-service httpd restart
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    service ldap restart
+    service httpd restart
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    invoke-rc.d slapd restart
+    invoke-rc.d apache2 restart
+fi
 
 # Setup DHCP
-service dhcpd stop
-cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
-service dhcpd start || true
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    service dhcpd stop
+    cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
+    service dhcpd start || true
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    invoke-rc.d dhcp3-server stop
+    cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcp3/dhcpd.conf
+    invoke-rc.d dhcp3-server start || true
+fi
 
 # Setup BIND
-service named stop || true
-sed -i "s!init = /etc/init.d/dhcp3-server!init = /etc/init.d/dhcpd!" /etc/mmc/plugins/network.ini
-sed -i "s!init = /etc/init.d/bind9!init = /etc/init.d/named!" /etc/mmc/plugins/network.ini
-sed -i "s!bindgroup = bind!bindgroup = named!" /etc/mmc/plugins/network.ini
-sed -i "s!bindroot = /etc/bind!bindroot= /var/lib/named/etc/!" /etc/mmc/plugins/network.ini
-echo "bindchrootconfpath = /etc" >> /etc/mmc/plugins/network.ini
-sleep 1
-service named start || true
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    service named stop || true
+    sed -i "s!init = /etc/init.d/dhcp3-server!init = /etc/init.d/dhcpd!" /etc/mmc/plugins/network.ini
+    sed -i "s!init = /etc/init.d/bind9!init = /etc/init.d/named!" /etc/mmc/plugins/network.ini
+    sed -i "s!bindgroup = bind!bindgroup = named!" /etc/mmc/plugins/network.ini
+    sed -i "s!bindroot = /etc/bind!bindroot= /var/lib/named/etc/!" /etc/mmc/plugins/network.ini
+    echo "bindchrootconfpath = /etc" >> /etc/mmc/plugins/network.ini
+    sleep 1
+    service named start || true
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    invoke-rc.d bind9 restart
+fi
 
 # Restart MMC agent
-service mmc-agent restart
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    service mmc-agent restart
+fi
+if [ $DISTRIBUTION == "Debian" ]; then
+    invoke-rc.d mmc-agent restart
+fi
 
 rm -fr $TMPCO
 

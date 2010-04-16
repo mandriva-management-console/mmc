@@ -38,9 +38,14 @@ export LC_ALL=C
 
 export TMPCO=`mktemp -d`
 
-if [ -f /etc/mandriva-release ];
-    then
+if [ -f /etc/mandriva-release ]; then
+    export MDV=1
     urpmi --auto subversion make lsb-release
+fi
+
+if [ -f /etc/debian_version ]; then
+    export DEB=1
+    apt-get install --yes subversion make lsb-release
 fi
 
 pushd $TMPCO
