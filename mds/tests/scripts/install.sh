@@ -155,6 +155,9 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
+    # Setup samba LDAP schema
+    echo "include ${schema_dir}/samba.schema" >> ${schema_dir}/local.schema
+    invoke-rc.d slapd restart
     invoke-rc.d samba stop
 fi
 
