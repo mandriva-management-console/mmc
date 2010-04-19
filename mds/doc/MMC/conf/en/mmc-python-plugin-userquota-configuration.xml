@@ -194,6 +194,12 @@
 	    <entry>No</entry>
 	    <entry>/usr/sbin/setquota $uid 0 0 0 0 $devicepath</entry>
 	  </row>	  	  
+	  <row>
+	    <entry>runquotascript</entry>
+	    <entry>Script for setting quotas</entry>
+	    <entry>No</entry>
+	    <entry>/bin/sh</entry>
+	  </row>	  	  
 	</tbody>
       </tgroup>
     </table>
@@ -220,7 +226,7 @@
       The inode limits protects the filesystem if some user create to much hardlinks as a hardlink use one inode but no block on the filesystem.
     </para>
     <para>
-      The setquotascript and delquotascript options define the commands templates used to apply or remove quotas on the filesystem.
+      The setquotascript and delquotascript options define the commands templates used to apply or remove quotas on the filesystem. The runquotascript is the name of a shell script which contain the quota commands to be run on the system. If it is set to /bin/sh, then quotas will be applied on the local system. Check the applyquotas.sh example script to see how you can apply quotas on a different server. This is useful if your mmc-agent does not run on your file server.
     </para>
   </section>
   
