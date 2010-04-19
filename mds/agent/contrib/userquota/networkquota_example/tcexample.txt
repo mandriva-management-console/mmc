@@ -1,0 +1,3 @@
+filter parent 1: protocol ip pref 1 fw
+filter parent 1: protocol ip pref 1 fw handle 0x281d classid 1:2
+filter parent 1: protocol ip pref 1 fw handle 0x2828 classid 1:2
