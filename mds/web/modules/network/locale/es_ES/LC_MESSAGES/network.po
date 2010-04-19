@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MDS spanish translation - Network module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-01 06:29+0200\n"
-"PO-Revision-Date: 2010-04-07 08:49+0200\n"
-"Last-Translator: Francisco Garcia <fgarpe@gmail.com>\n"
+"POT-Creation-Date: 2010-04-19 10:46+0200\n"
+"PO-Revision-Date: 2010-04-17 01:33+0100\n"
+"Last-Translator: Francisco Garcia <fgarpe@iberos.org>\n"
 "Language-Team: ES <fgarpe@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,8 +47,7 @@ msgstr "(p.e. 24 para una red /24)"
 
 #: modules/network/network/edithost.php:119
 msgid "A reverse DNS record will be automatically created for this host."
-msgstr ""
-"Una entrada DNS inversa será creada automáticamente para este equipo."
+msgstr "Una entrada DNS inversa será creada automáticamente para este equipo."
 
 #: modules/network/includes/auditCodes.php:26
 msgid "Add A record"
@@ -75,12 +74,12 @@ msgstr "Añadir registro SOA"
 msgid "Add a DHCP host to subnet %s / %s"
 msgstr "Añadir un equipo DHCP a subred %s / %s"
 
-#: modules/network/infoPackage.inc.php:104
 #: modules/network/network/subnetedit.php:30
+#: modules/network/infoPackage.inc.php:104
 msgid "Add a DHCP subnet"
 msgstr "Añadir subred DHCP"
 
-#: modules/network/infoPackage.inc.php:89 modules/network/network/edit.php:31
+#: modules/network/network/edit.php:31 modules/network/infoPackage.inc.php:89
 msgid "Add a DNS zone"
 msgstr "Añadir zona DNS"
 
@@ -227,10 +226,10 @@ msgstr ""
 msgid "DHCP subnet management"
 msgstr "Gestión de subredes DHCP"
 
-#: modules/network/infoPackage.inc.php:111
 #: modules/network/network/ajaxSubnetFilter.php:39
 #: modules/network/network/ajaxSubnetFilter.php:46
 #: modules/network/network/localSidebar.php:29
+#: modules/network/infoPackage.inc.php:111
 msgid "DHCP subnets"
 msgstr "Subredes DHCP"
 
@@ -263,10 +262,10 @@ msgstr "Zona DNS añadida correctamente."
 msgid "DNS zone successfully modified."
 msgstr "Zona DNS modificada correctamente."
 
-#: modules/network/infoPackage.inc.php:44
 #: modules/network/network/localSidebar.php:27
 #: modules/network/network/ajaxZoneFilter.php:40
 #: modules/network/network/ajaxZoneFilter.php:46
+#: modules/network/infoPackage.inc.php:44
 msgid "DNS zones"
 msgstr "Zonas DNS"
 
@@ -361,8 +360,8 @@ msgid ""
 "Domain name that will be appended to the client's hostname to form a fully-"
 "qualified domain-name (FQDN)."
 msgstr ""
-"Nombre deldominio que será añadido al nombre del equipopara formar un "
-"nombre de dominio completamente cualificado (FQDN)."
+"Nombre deldominio que será añadido al nombre del equipopara formar un nombre "
+"de dominio completamente cualificado (FQDN)."
 
 #: modules/network/network/ajaxSubnetMembersFilter.php:53
 msgid "Dynamic"
@@ -381,8 +380,8 @@ msgstr "Rango dinámico"
 msgid "Edit DHCP host of subnet %s"
 msgstr "Editar equipo de subred %s"
 
-#: modules/network/infoPackage.inc.php:107
 #: modules/network/network/subnetedit.php:31
+#: modules/network/infoPackage.inc.php:107
 msgid "Edit DHCP subnet"
 msgstr "Editar subred DHCP"
 
@@ -606,14 +605,14 @@ msgstr "Máscara de red"
 msgid "Network prefix"
 msgstr "Prefijo de red"
 
+#: modules/network/network/services.php:29
+#: modules/network/network/localSidebar.php:31
 #: modules/network/infoPackage.inc.php:134
 #: modules/network/infoPackage.inc.php:137
 #: modules/network/infoPackage.inc.php:141
 #: modules/network/infoPackage.inc.php:145
 #: modules/network/infoPackage.inc.php:149
 #: modules/network/infoPackage.inc.php:153
-#: modules/network/network/services.php:29
-#: modules/network/network/localSidebar.php:31
 msgid "Network services management"
 msgstr "Gestión de servicios de red"
 
@@ -756,8 +755,8 @@ msgstr ""
 "sistema operativo del cliente seleccionará el métofo. Sólo broadcast (B-"
 "node): usa los broadcast para la resolución y el registro de nombres. Nodo "
 "Peer (P-node): usa los servidores WINS especificados. Nodo mezclado (M-"
-"node): usa broadcast, y después los servidores WINS especificados. Nodo hí"
-"brido (H-node): usa los servidores WINS especificados, y después el "
+"node): usa broadcast, y después los servidores WINS especificados. Nodo "
+"híbrido (H-node): usa los servidores WINS especificados, y después el "
 "broadcast."
 
 #: modules/network/network/subnetedithost.php:247
@@ -1017,6 +1016,8 @@ msgid ""
 "You can set more than one domain, separated by spaces. They will be added to "
 "the DHCP client DNS domain search path."
 msgstr ""
+"Puede añadir más de un dominio, separados por espacios. Estos se añadirán a "
+"los dominios de búsqueda de DNS"
 
 #: modules/network/network/deletehost.php:38
 #, php-format

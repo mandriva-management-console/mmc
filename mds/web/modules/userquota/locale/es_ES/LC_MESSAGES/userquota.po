@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-19 10:46+0200\n"
+"PO-Revision-Date: 2010-04-19 13:28+0200\n"
+"Last-Translator: Francisco Garcia <fgarpe@iberos.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is larger than the new quota, or does not exist"
+msgstr "La cuota actual es mayor que la nueva cuota o no existe"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "La cuota actual es menor que la nueva cuota o no existe"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Don't overwrite any existing quotas"
+msgstr "No sobreescriba ninguna cuota existente"
+
+#: modules/userquota/infoPackage.inc.php:32
+msgid "Manage user quotas for filesystems and networks"
+msgstr "Gestionar cuotas de usuario para el sistema de ficheros y redes"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Overwrite all existing quotas"
+msgstr "Sobreescribir todas las cuotas existentes"
+
+#: modules/userquota/includes/publicFunc.php:130
+#: modules/userquota/includes/publicFunc.php:143
+msgid "Overwrite mode for existing quotas"
+msgstr "Modo de sobreescritura de cuotas existentes"
+
+#: modules/userquota/includes/publicFunc.php:36
+#: modules/userquota/includes/publicFunc.php:122
+msgid "Quota plugin - Filesystem"
+msgstr "Plugin de cuota - Sistema de ficheros"
+
+#: modules/userquota/includes/publicFunc.php:43
+#: modules/userquota/includes/publicFunc.php:135
+msgid "Quota plugin - Network"
+msgstr "Plugin de cuota - Red"
+
+#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:138
+msgid "Quota's applied here affect all members of the group"
+msgstr "Las cuotas aplicadas aquí afectan a todos los miembros del grupo"
