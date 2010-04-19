@@ -6,7 +6,7 @@
   <title>MMC agent configuration file</title>
 
   <articleinfo>
-    
+
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
@@ -18,10 +18,10 @@
     </affiliation>
 
     <copyright>
-      <year>2007,2008,2009 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2009,2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -38,7 +38,7 @@
   <section>
 
     <title>Introduction</title>
-    
+
     <para>
       The MMC agent is a XML-RPC server that exports to the network the API provided by the MMC python plugins.
     </para>
@@ -48,7 +48,7 @@
     </para>
 
     <para>
-      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
     </para>
     <para>
       For example:
@@ -81,7 +81,7 @@
 	    <entry>Section name</entry>
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -119,7 +119,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -174,7 +174,7 @@
 	    <entry>multithreading</entry>
 	    <entry>Multi-threading support. If enabled, each incoming XML-RPC request is processed in a new thread.</entry>
 	    <entry>Yes</entry>
-	    <entry>0</entry>
+	    <entry>1</entry>
 	  </row>
 	  <row>
 	    <entry>maxthreads</entry>
@@ -196,11 +196,11 @@
       You must change the login and password in the configuration file, because if you keep using the default configuration, anybody can connect to your MMC agent. MMC agent issue a warning if you use the default login and password.
     </para>
 
-  </section>  
+  </section>
 
   <section>
-    
-    <title>Section « deamon »</title>
+
+    <title>Section « daemon »</title>
 
     <para>
       This section defines some MMC agent daemon settings.
@@ -217,7 +217,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -259,20 +259,20 @@
     <title>Sections related to the Python logging module</title>
 
     <para>
-      See http://docs.python.org/lib/logging-config-fileformat.html.      
+      See http://docs.python.org/lib/logging-config-fileformat.html.
     </para>
 
     <para>
       In the default MMC agent configuration, two handlers are configured:
     </para>
-    
+
     <screen>
       [handler_hand01]
       class=FileHandler
       level=INFO
       formatter=form01
       args=("/var/log/mmc/mmc-agent.log",)
-      
+
       [handler_hand02]
       class=StreamHandler
       level=DEBUG
@@ -289,7 +289,7 @@
   </section>
 
   <section>
-    
+
     <title>How to enable full debug in MMC agent</title>
 
     <para>
@@ -300,5 +300,5 @@
     </para>
 
   </section>
-  
+
 </article>
