@@ -62,14 +62,14 @@ function packages_to_install () {
 	echo samba-common samba-common/workgroup string MANDRIVA | debconf-set-selections
         echo libnss-ldap libnss-ldap/confperm string false | debconf-set-selections
         echo libnss-ldap libnss-ldap/dblogin string false | debconf-set-selections
-        echo libnss-ldap libnss-ldap/dbrootlogin string true | debconf-set-selections
+        echo libnss-ldap libnss-ldap/dbrootlogin string false | debconf-set-selections
         echo libnss-ldap libnss-ldap/override string true | debconf-set-selections
-        echo libnss-ldap libnss-ldap/rootbinddn string cn=admin,dc=mandriva,dc=com | debconf-set-selections
         echo libnss-ldap shared/ldapns/base-dn string dc=mandriva,dc=com | debconf-set-selections
         echo libnss-ldap shared/ldapns/ldap-server string ldap:///127.0.0.1 | debconf-set-selections
         echo libnss-ldap shared/ldapns/ldap_version string 3 | debconf-set-selections
 	echo libpam-ldap libpam-ldap/dblogin string false | debconf-set-selections
 	echo libpam-ldap libpam-ldap/dbrootlogin string false | debconf-set-selections
+	echo libpam-ldap libpam-ldap/pam_password string crypt | debconf-set-selections
         PKGS="$PKGS samba smbldap-tools libnss-ldap"
     fi
 
@@ -110,7 +110,9 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     rpm -q $PKGS
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
+    export DEBIAN_FRONTEND=noninteractive
     apt-get install --yes $PKGS
+    export DEBIAN_FRONTEND=newt
     dpkg -l $PKGS
 fi
 
