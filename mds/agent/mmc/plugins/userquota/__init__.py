@@ -44,7 +44,7 @@ import mmc
 
 INI = "/etc/mmc/plugins/userquota.ini"
 
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 APIVERSION = "1:0:0"
 REVISION = int("$Rev: 1 $".split(':')[1].strip(' $'))
 
@@ -107,6 +107,7 @@ class UserQuotaConfig(PluginConfig):
         self.softquotainodes = self.getfloat("diskquota", "softquotainodes")
         self.setquotascript = self.get("diskquota", "setquotascript")
         self.delquotascript = self.get("diskquota", "delquotascript")
+        self.runquotascript = self.get("diskquota", "runquotascript")
         self.networkmap = self.get("networkquota", "networkmap").split(',')
         
     def setDefault(self):
@@ -293,7 +294,7 @@ class UserQuotaControl(ldapUserGroupControl):
          if not self.tempfilename:
             return
          logger = logging.getLogger()
-         shellscript = "/bin/sh %s" % (self.tempfilename)
+         shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
          logger.info("ApplyQuotas: " + shellscript);
          def cb(shprocess):
               # The callback just return the process outputs
@@ -333,7 +334,7 @@ class UserQuotaControl(ldapUserGroupControl):
          if not self.tempdelfilename:
             return
          logger = logging.getLogger()
-         shellscript = "/bin/sh %s" % (self.tempdelfilename)
+         shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
          logger.info("DelQuotaScript: " + shellscript);
          def cb(shprocess):
               # The callback just return the process outputs
