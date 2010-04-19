@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mmc-web-userquota\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-15 09:08+0200\n"
-"PO-Revision-Date: \n"
+"POT-Creation-Date: 2010-04-19 10:04+0200\n"
+"PO-Revision-Date: 2010-04-19 10:06+0200\n"
 "Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12,47 +12,47 @@ msgstr ""
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: AUSTRIA\n"
 
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is larger than the new quota, or does not exist"
+msgstr "Aktuelle Quote ist größer als die neue Quote, oder existiert nicht"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "Aktuelle Quote ist kleiner als die neue Quote, oder existiert nicht"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Don't overwrite any existing quotas"
+msgstr "Überschreibe nicht alle vorhandenen Quotas"
+
 #: modules/userquota/infoPackage.inc.php:32
-msgid "Manage user quotas for disk and internet"
-msgstr "Verwalte Benutzer Quotas für lokaler und entfernter Speicher"
+msgid "Manage user quotas for filesystems and networks"
+msgstr "Verwalte Benutzer Quotas für lokaler und entfernte Speicher"
 
-#: modules/userquota/includes/publicFunc.php:167
-#: modules/userquota/includes/publicFunc.php:180
-msgid "Overwrite for existing member quotas"
-msgstr "Überschreibe existierende Mitglieder Quotas"
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Overwrite all existing quotas"
+msgstr "Überschreiben alle vorhandenen  Quotas"
 
-#: modules/userquota/infoPackage.inc.php:44
-#, fuzzy
-msgid "Quota Help"
-msgstr "Quota plugin"
-
-#: modules/userquota/help/index.php:25
-#, fuzzy
-msgid "Quota help"
-msgstr "Quota plugin"
+#: modules/userquota/includes/publicFunc.php:130
+#: modules/userquota/includes/publicFunc.php:143
+msgid "Overwrite mode for existing quotas"
+msgstr "Überschreibe existierende Quotas"
 
 #: modules/userquota/includes/publicFunc.php:36
-msgid "Quota plugin"
-msgstr "Quota plugin"
+#: modules/userquota/includes/publicFunc.php:122
+msgid "Quota plugin - Filesystem"
+msgstr "Quota-Plugin - Dateisystem"
 
-#: modules/userquota/includes/publicFunc.php:65
+#: modules/userquota/includes/publicFunc.php:43
+#: modules/userquota/includes/publicFunc.php:135
 msgid "Quota plugin - Network"
 msgstr "Quota plugin - Netzwerk"
 
-#: modules/userquota/includes/publicFunc.php:172
-msgid "Quota plugin - network"
-msgstr "Quota plugin - Netzwerk"
-
-#: modules/userquota/includes/publicFunc.php:159
-msgid "Quota plugin group actions"
-msgstr "Quota plugin Gruppen Verwaltung"
-
-#: modules/userquota/includes/publicFunc.php:162
-#: modules/userquota/includes/publicFunc.php:175
+#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:138
 msgid "Quota's applied here affect all members of the group"
 msgstr ""
 "Die hier verwendeten Quotas haben Einfluss auf alle Mitglieder der Gruppe"
-
-#: modules/userquota/infoPackage.inc.php:39
-msgid "Quotas"
-msgstr ""
