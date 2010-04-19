@@ -6,7 +6,7 @@
   <title>MMC base plugin configuration file</title>
 
   <articleinfo>
-    
+
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
@@ -18,10 +18,10 @@
     </affiliation>
 
     <copyright>
-      <year>2006-2009 Cédric Delfosse - Mandriva</year>
+      <year>2006-2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -38,15 +38,15 @@
   <section>
 
     <title>Introduction</title>
-    
+
     <para>
-      The « base » plugin is the main plugin of the MMC Python API. It features base operations like LDAP management (users, groups, etc), user authentication and provisioning.
+      The « base » plugin is the main plugin of the MMC Python API. It features base operations like LDAP management (users, groups, etc), user authentication and provisioning.
     </para>
     <para>
       The plugin configuration file is <filename>/etc/mmc/plugins/base.ini</filename>.
     </para>
     <para>
-      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
     </para>
     <para>
       For example:
@@ -107,7 +107,7 @@
     <para>
       Here are all the base.ini available sections
     </para>
-    
+
     <table>
       <title>
 	base.ini available sections
@@ -118,7 +118,7 @@
 	    <entry>Section name</entry>
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -130,6 +130,11 @@
 	    <entry>backup-tools</entry>
 	    <entry>Backup tools configuration</entry>
 	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>audit</entry>
+	    <entry>MMC audit framework configuration</entry>
+	    <entry>yes</entry>
 	  </row>
 	  <row>
 	    <entry>hooks</entry>
@@ -156,7 +161,7 @@
     </table>
 
   </section>
-  
+
   <section>
 
     <title>Section « ldap »</title>
@@ -176,14 +181,74 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
-	    <entry>host</entry>
+	    <entry>host (deprecated by ldapurl)</entry>
 	    <entry>IP address or hostname of the LDAP server</entry>
 	    <entry>no</entry>
 	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>ldapurl</entry>
+	    <entry>LDAP URL to connect to the LDAP server, for example: ldap://127.0.0.1:389. If ldapurl starts with "ldaps://", use LDAP over SSL on the LDAPS port. LDAPS is deprecated, and you should use StartTLS. If ldapverifypeer = demand, always use the server hostname instead of its IP address in the LDAP URL. This hostname must match the CN field of the server certificate.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>network_timeout</entry>
+	    <entry>Network timeout in seconds for LDAP operations. No default timeout set.</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>start_tls</entry>
+	    <entry>TLS connection parameters when LDAPS is not used. "off": never use TLS. "start_tls": use the LDAPv3 StartTLS extended operation (recommended).</entry>
+	    <entry>yes</entry>
+	    <entry>off</entry>
+	  </row>
+	  <row>
+	    <entry>ldapverifypeer</entry>
+	    <entry>If start_tls != off or LDAPS, specify check to perform on server certificate. "never": don't ask certificate. "demand": request certificate. If none or bad certificate provided, stop the connection (recommended).</entry>
+	    <entry>yes</entry>
+	    <entry>demand</entry>
+	  </row>
+	  <row>
+	    <entry>cacertdir</entry>
+	    <entry>Client certicates to use (default are empty) for LDAPS or TLS connections. For example: /etc/ssl/certs</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>cacert</entry>
+	    <entry>Certificate Authority file. For example: /etc/mmc/certs/demoCA/cacert.pem</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>localcert</entry>
+	    <entry>Local SSL certificate file. For example: /etc/mmc/certs/client.cert</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>localkey</entry>
+	    <entry>Local SSL public key. For example: /etc/mmc/certs/client.key</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>ciphersuites</entry>
+	    <entry>Accepted ciphers from the LDAP server.</entry>
+	    <entry>yes</entry>
+	    <entry>TLSv1:!NULL</entry>
+	  </row>
+	  <row>
+	    <entry>ldapdebuglevel</entry>
+	    <entry>set this to 255 to debug LDAP connection problems. Details of all LDAP operations will be written to stdout</entry>
+	    <entry>yes</entry>
+	    <entry>0</entry>
 	  </row>
 	  <row>
 	    <entry>baseDN</entry>
@@ -191,7 +256,6 @@
 	    <entry>no</entry>
 	    <entry></entry>
 	  </row>
-
 	  <row>
 	    <entry>rootName</entry>
 	    <entry>LDAP administrator DN</entry>
@@ -274,17 +338,17 @@
 	</tbody>
       </tgroup>
     </table>
-    
+
   </section>
 
   <section>
 
-    <title>Section « backup-tools »</title>
+    <title>Section « backup-tools »</title>
 
     <para>
       This section defines where are located the backup tools. The backup tools are used when backuping a home directory or a SAMBA share from the MMC.
     </para>
-    
+
     <table>
       <title>
 	Available options for the "backup-tools" section
@@ -296,7 +360,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -315,17 +379,87 @@
       </tgroup>
     </table>
 
-  </section>  
+  </section>
 
   <section>
-    
-    <title>Section « hooks »</title>
-    
+
+    <title>"audit"</title>
+
+    <para>
+      This section defines the audit framework behaviour. By default the audit framework is disabled.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "audit" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>method</entry>
+	    <entry>Method used to record all audit data. Only the "database" method is supported.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dbhost</entry>
+	    <entry>Host to connect to the SGBD that stores the audit database </entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dbdriver</entry>
+	    <entry>Database driver to use. "mysql" and "postgres" drivers are supported.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dbport</entry>
+	    <entry>Port to connect to the SGBD that stores the audit database.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dbuser</entry>
+	    <entry>User login to connect to the SGBD that stores the audit database.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dbpassword</entry>
+	    <entry>User password to connect to the SGBD that stores the audit database.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dbname</entry>
+	    <entry>Name of the audit database.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « hooks »</title>
+
     <para>
       The hooks system allow you to run external script when doing some operations with the MMC.
     </para>
     <para>
-      The script will be run as root user, with as only argument the path to a temporary file containing the full LDIF export of the LDAP user. For the « adduser » and « changeuserpassword » hooks, the LDIF file will contain the userPassword attribute in cleartext.
+      The script will be run as root user, with as only argument the path to a temporary file containing the full LDIF export of the LDAP user. For the « adduser » and « changeuserpassword » hooks, the LDIF file will contain the userPassword attribute in cleartext.
     </para>
     <para>
       The executable bit must be set on the script to run. The temporary LDIF file is removed once the script has been executed.
@@ -342,7 +476,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -366,16 +500,16 @@
 	</tbody>
       </tgroup>
     </table>
-    
+
     <para>
-      Here is a hook example written in BASH for « adduser »:
+      Here is a hook example written in BASH for « adduser »:
     </para>
     <screen>
 #!/bin/sh
 
-# Get the uid of the new user
+# Get the uid of the new user
 VALUE=`cat $1 | grep ^uid: | sed "s/uid: //"`
-      
+
 # Log new user event
 echo "New user $VALUE created" >> /var/log/newuser.log
 
@@ -411,7 +545,7 @@ parser.parse()
 
   <section>
 
-    <title>Section « userdefault »</title>
+    <title>Section « userdefault »</title>
 
     <para>
       This section allows to set default attributes to a user, or remove them, only at user creation.
@@ -420,7 +554,7 @@ parser.parse()
       Each option of this section is corresponding to the attribute you want to act on.
     </para>
     <para>
-      If you want to remove the « displayName » attribute of each newly added user:
+      If you want to remove the « displayName » attribute of each newly added user:
     </para>
     <screen>
       [userdefault]
@@ -454,7 +588,7 @@ parser.parse()
 	  <row>
 	    <entry>modifier character</entry>
 	    <entry>Description</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -484,7 +618,7 @@ parser.parse()
     </screen>
 
   </section>
-  
+
   <section>
 
     <title>User authentication</title>
@@ -536,7 +670,7 @@ parser.parse()
 	      <entry>Description</entry>
 	      <entry>Optional</entry>
 	      <entry>Default value</entry>
-	    </row>	  
+	    </row>
 	  </thead>
 	  <tbody>
 	    <row>
@@ -577,7 +711,7 @@ parser.parse()
 	      <entry>Description</entry>
 	      <entry>Optional</entry>
 	      <entry>Default value</entry>
-	    </row>	  
+	    </row>
 	  </thead>
 	  <tbody>
 	    <row>
@@ -619,7 +753,7 @@ parser.parse()
 	      <entry>Description</entry>
 	      <entry>Optional</entry>
 	      <entry>Default value</entry>
-	    </row>	  
+	    </row>
 	  </thead>
 	  <tbody>
 	    <row>
@@ -729,7 +863,7 @@ parser.parse()
       <para>
 	The authenticator object that successfully authenticates the user must pass to the provisioning manager the user informations, so that the provisioners have data to create or update the user entry.
       </para>
-      
+
       <table>
 	<title>
 	  Available options for the "provisioning" section
@@ -741,7 +875,7 @@ parser.parse()
 	      <entry>Description</entry>
 	      <entry>Optional</entry>
 	      <entry>Default value</entry>
-	    </row>	  
+	    </row>
 	  </thead>
 	  <tbody>
 	    <row>
@@ -783,7 +917,7 @@ parser.parse()
 	      <entry>Description</entry>
 	      <entry>Optional</entry>
 	      <entry>Default value</entry>
-	    </row>	  
+	    </row>
 	  </thead>
 	  <tbody>
 	    <row>
@@ -861,7 +995,7 @@ parser.parse()
 
 	[provisioning]
 	method = externalldap
-	
+
 	[provisioning_externalldap]
 	exclude = root
 	ldap_uid = cn
