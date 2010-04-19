@@ -23,9 +23,9 @@
 
     <revhistory>      
       <revision>
-        <revnumber>$Revision: 1625 $</revnumber>
-        <date>$Date: 2008-06-02 15:05:11 +0200 (lun. 02 juin 2008) $</date>
-        <authorinitials>$Author: cdelfosse $</authorinitials>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
       </revision>
     </revhistory>
 
