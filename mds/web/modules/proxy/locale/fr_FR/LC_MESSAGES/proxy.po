@@ -1,131 +1,156 @@
+# translation of proxy.po to français
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Jérome Wax <jerome.wax@lo2k.net>, 2006.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: proxy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-12 06:28+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Juan Asensio S�nchez <okelet@gmail.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2010-04-20 14:26+0200\n"
+"PO-Revision-Date: 2010-04-20 14:27+0200\n"
+"Last-Translator: Cédric Delfosse\n"
+"Language-Team:\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n > 1);\n"
 
-#: proxy/infoPackage.inc.php:31
-msgid "Web proxy"
-msgstr "Proxy web"
+#: modules/proxy/blacklist/add.php:59 modules/proxy/infoPackage.inc.php:51
+msgid "Add a domain in the blacklist"
+msgstr "Ajout d'un domaine dans la liste noire"
 
-#: proxy/infoPackage.inc.php:38
+#: modules/proxy/blacklist/localSidebar.php:29
+msgid "Add an entry in blacklist"
+msgstr "Ajout d'une entrée dans la liste noire"
+
+#: modules/proxy/includes/auditCodes.php:4
+msgid "Add blacklist"
+msgstr "Ajout à la liste noire"
+
+#: modules/proxy/blacklist/delete.php:53
+msgid "Are you sure ?"
+msgstr "Êtes vous sûr ?"
+
+#: modules/proxy/blacklist/restart.php:78
+msgid "Back"
+msgstr "Retour"
+
+#: modules/proxy/includes/auditCodes.php:7
+#: modules/proxy/infoPackage.inc.php:44
+msgid "Blacklist"
+msgstr "Liste noire"
+
+#: modules/proxy/blacklist/index.php:45
+msgid "Blacklist entries"
+msgstr "Entrées dans la liste noire"
+
+#: modules/proxy/blacklist/localSidebar.php:28
+#: modules/proxy/blacklist/index.php:33
+msgid "Blacklist management"
+msgstr "Gestion de la liste noire"
+
+#: modules/proxy/blacklist/delete.php:58
+msgid "Cancel"
+msgstr "Annuler"
+
+#: modules/proxy/blacklist/add.php:76
+msgid "Create"
+msgstr "Créer"
+
+#: modules/proxy/includes/auditCodes.php:5
+msgid "Del blacklist"
+msgstr "Suppression de la liste noire"
+
+#: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
+msgid "Delete"
+msgstr "Suppression"
+
+#: modules/proxy/blacklist/delete.php:67
+#, php-format
+msgid "Domain %s has been removed"
+msgstr "Le domaine %s a été supprimé"
+
+#: modules/proxy/blacklist/add.php:47
+#, php-format
+msgid "Domain %s successfully added"
+msgstr "Domaine %s ajouté"
+
+#: modules/proxy/blacklist/add.php:40
+msgid "Invalid domain name"
+msgstr "Nom de domaine invalide"
+
+#: modules/proxy/blacklist/add.php:71
+msgid "Name"
+msgstr "Nom"
+
+#: modules/proxy/infoPackage.inc.php:38
 msgid "Proxy"
 msgstr "Proxy"
 
-#: proxy/infoPackage.inc.php:44
-msgid "Blacklist"
-msgstr "Lista negra"
+#: modules/proxy/blacklist/localSidebar.php:27
+#: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
+msgid "Proxy status"
+msgstr "Statut du proxy"
 
-#: proxy/infoPackage.inc.php:47
-msgid "Remove a domain in the blacklist"
-msgstr "Eliminar un dominio de la lista negra"
-
-#: proxy/infoPackage.inc.php:51 proxy/blacklist/add.php:59
-msgid "Add a domain in the blacklist"
-msgstr "A�adir un dominio a la lista blanca"
-
-#: proxy/infoPackage.inc.php:54
-msgid "Restart proxy web service"
-msgstr "Reinicar servicio de proxy web"
-
-#: proxy/infoPackage.inc.php:58
+#: modules/proxy/infoPackage.inc.php:58
 msgid "Proxy status page"
-msgstr "P�gina de estado del proxy"
+msgstr "Page de statut du proxy"
 
-#: proxy/blacklist/delete.php:39
+#: modules/proxy/infoPackage.inc.php:47
+msgid "Remove a domain in the blacklist"
+msgstr "Suppression d'un domaine dans la liste noire"
+
+#: modules/proxy/blacklist/delete.php:39
 msgid "Remove a squidGuard domain"
-msgstr "Eliminar un dominio de squidGuard"
+msgstr "Supprimer un domaine squidGuard"
 
-#: proxy/blacklist/delete.php:48
+#: modules/proxy/infoPackage.inc.php:54
+msgid "Restart proxy web service"
+msgstr "Redémarrer le service proxy web"
+
+#: modules/proxy/blacklist/statut.php:59 modules/proxy/blacklist/index.php:54
+msgid "Restart service"
+msgstr "Redémarrer le service"
+
+#: modules/proxy/includes/auditCodes.php:6
+msgid "Restart squid"
+msgstr "Redémarrer SQUID"
+
+#: modules/proxy/blacklist/restart.php:56
+#: modules/proxy/blacklist/restart.php:67
+msgid "Restart squidGuard server"
+msgstr "Redémarrer le serveur squidGuard"
+
+#: modules/proxy/blacklist/statut.php:50
+msgid "Services"
+msgstr "Services"
+
+#: modules/proxy/blacklist/statut.php:52
+msgid "Status"
+msgstr "Statut"
+
+#: modules/proxy/blacklist/add.php:64
+msgid "The domain must be valid"
+msgstr "Le domaine doit être valide"
+
+#: modules/proxy/infoPackage.inc.php:31
+msgid "Web proxy"
+msgstr "Proxy web"
+
+#: modules/proxy/blacklist/delete.php:48
 #, php-format
 msgid "You will remove <b>%s</b> entry"
-msgstr "Se va a eliminar el elemento <b>%s</b>"
+msgstr "Vous allez supprimer l'entrée <b>%s</b>"
 
-#: proxy/blacklist/delete.php:53
-msgid "Are you sure ?"
-msgstr "�Est� seguro?"
+#: modules/proxy/blacklist/statut.php:43
+msgid "disabled"
+msgstr "désactivé"
 
-#: proxy/blacklist/delete.php:57 proxy/blacklist/index.php:44
-msgid "Delete"
-msgstr "Eliminar"
+#: modules/proxy/blacklist/statut.php:42
+msgid "enabled"
+msgstr "activé"
 
-#: proxy/blacklist/delete.php:58
-msgid "Cancel"
-msgstr "cancelar"
-
-#: proxy/blacklist/delete.php:67
-#, php-format
-msgid "Domain %s has been removed"
-msgstr "El dominio %s ha sido eliminado"
-
-#: proxy/blacklist/localSidebar.php:27 proxy/blacklist/statut.php:33
-#: proxy/blacklist/statut.php:51
-msgid "Proxy status"
-msgstr "Estado del proxy"
-
-#: proxy/blacklist/localSidebar.php:28 proxy/blacklist/index.php:33
-msgid "Blacklist management"
-msgstr "Gesti�n de listas negras"
-
-#: proxy/blacklist/localSidebar.php:29
-msgid "Add an entry in blacklist"
-msgstr "A�adir una entrada a la lista negra"
-
-#: proxy/blacklist/restart.php:56 proxy/blacklist/restart.php:67
-msgid "Restart squidGuard server"
-msgstr "Reiniciar servidor squidGuard"
-
-#: proxy/blacklist/restart.php:78
-msgid "Back"
-msgstr "Volver"
-
-#: proxy/blacklist/statut.php:42
-msgid "enable"
-msgstr "habilitar"
-
-#: proxy/blacklist/statut.php:43
-msgid "disable"
-msgstr "deshabilitar"
-
-#: proxy/blacklist/statut.php:50
-msgid "Services"
-msgstr "Servicios"
-
-#: proxy/blacklist/statut.php:52
-msgid "Status"
-msgstr "Estado"
-
-#: proxy/blacklist/statut.php:59 proxy/blacklist/index.php:54
-msgid "Restart service"
-msgstr "Reiniciar servicio"
-
-#: proxy/blacklist/index.php:45
-msgid "Blacklist entries"
-msgstr "Entradas en la lista negra"
-
-#: proxy/blacklist/add.php:40
-msgid "Invalid domain name"
-msgstr "Nombre de dominio no v�lido"
-
-#: proxy/blacklist/add.php:47
-#, php-format
-msgid "Domain %s successfully added"
-msgstr "El dominio %s ha sido a�adido correctamente"
-
-#: proxy/blacklist/add.php:64
-msgid "The domain must be valid"
-msgstr "El dominio debe ser v�lido"
-
-#: proxy/blacklist/add.php:71
-msgid "Name"
-msgstr "Nombre"
-
-#: proxy/blacklist/add.php:76
-msgid "Create"
-msgstr "Crear"
+#: modules/proxy/includes/auditCodes.php:8
+msgid "proxy"
+msgstr "proxy"
