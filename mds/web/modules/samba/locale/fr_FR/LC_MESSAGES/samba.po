@@ -27,8 +27,7 @@ msgstr ""
 
 #: modules/samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr ""
-"Les ACLs ne sont pas supportés sur votre partition contenant /home/samba/"
+msgstr "Les ACLs ne sont pas supportées sur votre partition contenant /home/samba/"
 
 #: modules/samba/shares/details.php:199
 msgid "Access for all"
