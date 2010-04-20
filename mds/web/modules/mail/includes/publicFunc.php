@@ -192,7 +192,7 @@ function _mail_baseEdit($ldapArr, $postArr) {
   if (hasVDomainSupport()) {
       $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
       /* In virtual domain mode, maildrop must be an email address */
-      $m->setRegexp('/^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.]+$/');
+      $m->setRegexp('/^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.-]+$/');
   } else {
       $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
       $m->setRegexp('/^([0-9a-zA-Z_.-@.])+$/');
