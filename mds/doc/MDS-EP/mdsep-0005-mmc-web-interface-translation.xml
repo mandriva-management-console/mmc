@@ -8,7 +8,7 @@
   <subtitle>Informational / Draft</subtitle>
 
   <articleinfo>
-    
+
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
@@ -20,10 +20,10 @@
     </affiliation>
 
     <copyright>
-      <year>2007-2008 Cédric Delfosse - Mandriva</year>
+      <year>2007-2008,2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -31,7 +31,7 @@
       </revision>
     </revhistory>
 
-    <productname>mmc-web-base, mmc-web-samba, mmc-web-network, mmc-web-proxy, mmc-web-mail</productname>
+    <productname>MMC CORE and MDS</productname>
     <productnumber>1.x</productnumber>
 
     <abstract>
@@ -56,7 +56,7 @@
   <section>
 
     <title>How to translate the MDS (easy)</title>
-    
+
     <para>
       Connect to <ulink url="http://mds.mandriva.org/custom/mmc-i18n.php">the MDS translation status page</ulink> and download the .po file corresponding to your language and the module you want to translate. If your language is not listed, download the template file available at the beginning of the status page.
     </para>
@@ -66,7 +66,7 @@
     <para>
       Once finished, send the file to the MDS i18n or the MDS devel <ulink url="http://mds.mandriva.org/wiki/MailingLists">mailing list</ulink>, and we will integrate your work.
     </para>
-    
+
   </section>
 
   <section>
@@ -75,7 +75,7 @@
 
     <para>
       This section is for people with some development background. The translation process is harder, but it will allow you to display and test your translations in the MMC web interface.
-    </para>    
+    </para>
     <para>
     The MMC web interface uses the PHP gettext library to provide a multilanguage experience.</para>
     <para>
@@ -109,17 +109,19 @@
 	<para>
 	  Test it, and send us the translated file (.po file).
 	</para>
-      </listitem>      
+      </listitem>
     </itemizedlist>
 
     <para>
-      For example, you want to translate mmc-web-base into Spanish:
+      For example, you want to translate the MMC "base" plugin into Spanish:
     </para>
 
     <screen>
       $ cd /tmp
-      $ svn export http://mds.mandriva.org/svn/mmc-web-base/trunk
-      $ cd trunk
+      $ svn export http://mds.mandriva.org/svn/mmc-projects/mmc-core/trunk/
+      ### For other MDS modules:
+      ### $ svn export http://mds.mandriva.org/svn/mmc-projects/mds/trunk/
+      $ cd trunk/web
       $ make build_pot # Will build the translation template
       $ mkdir -p modules/base/locale/es_ES/LC_MESSAGES
       $ cp modules/base/locale/base.pot modules/base/locale/es_ES/LC_MESSAGES/base.po
@@ -128,11 +130,11 @@
       # Compile the .mo file and copy it to your running MMC
       $ make build_mo
       $ cp -r modules/base/locale/es_ES /usr/share/mmc/modules/base/locale
-      # Install the spanish es_ES.UTF-8 on your system
+      # Install the spanish es_ES.UTF-8 on your system
       # Your apache2 must be restarted to use the new .mo file
       $ /etc/init.d/apache2 restart
     </screen>
-    
+
     <para>
       Now if you point your navigator to the MMC login page, your newly translated language should be available.
     </para>
