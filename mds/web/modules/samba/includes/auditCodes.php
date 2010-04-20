@@ -44,7 +44,7 @@ $module_audit_codes = array(
     'SAMBA_DEL_MACHINE' => _T("Del computer", "samba"),
     'SHARE' => _T("Share", "samba"),
     'MACHINE' => _T("Computer", "samba"),
-    'MMC-SAMBA' => _T("samba", "samba"),
+    'MMC-SAMBA' => _T("SAMBA", "samba"),
 );
 
 ?>
