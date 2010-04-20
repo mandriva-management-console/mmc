@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sshlpk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-15 15:40+0200\n"
-"PO-Revision-Date: 2009-05-22 20:24+0200\n"
+"PO-Revision-Date: 2010-04-20 18:09+0200\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,28 +16,28 @@ msgstr ""
 
 #: modules/sshlpk/includes/publicFunc.php:40
 msgid "Enable SSH keys management"
-msgstr "Activer la gestion des clefs SSH"
+msgstr "Activer la gestion des clés SSH"
 
 #: modules/sshlpk/infoPackage.inc.php:34
 msgid "LDAP Public SSH key management"
-msgstr "Gestion des clefs publiques SSH par LDAP"
+msgstr "Gestion des clés publiques SSH par LDAP"
 
 #: modules/sshlpk/infoPackage.inc.php:39
 msgid "Manage SSH key"
-msgstr "Gerer la clef SSH"
+msgstr "Gérer la clé SSH"
 
 #: modules/sshlpk/includes/publicFunc.php:58
 msgid "Public SSH Key"
-msgstr "Clef plublique SSH"
+msgstr "Clé publique SSH"
 
 #: modules/sshlpk/includes/publicFunc.php:36
 msgid "Public SSH keys management plugin"
-msgstr "Plugin de gestion des clefs SSH"
+msgstr "Plugin de gestion des clés SSH"
 
 #: modules/sshlpk/infoPackage.inc.php:38
 msgid "Show/Hide SSH key list"
-msgstr "Afficher/Cacher la liste des clefs SSH"
+msgstr "Afficher/Cacher la liste des clés SSH"
 
 #: modules/sshlpk/includes/publicFunc.php:85
 msgid "Some SSH public keys are duplicate"
-msgstr "Des clefs SSH sont dupliquées"
+msgstr "Des clés SSH sont dupliquées"
