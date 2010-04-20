@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-15 14:58+0200\n"
-"PO-Revision-Date: 2010-01-15 10:27+0100\n"
+"POT-Creation-Date: 2010-04-20 18:01+0200\n"
+"PO-Revision-Date: 2010-04-20 18:07+0200\n"
 "Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,8 +38,17 @@ msgstr "Accès pour tous"
 msgid "Add"
 msgstr "Ajouter"
 
-#: modules/samba/shares/localSidebar.php:37 modules/samba/machines/add.php:41
-#: modules/samba/machines/localSidebar.php:31 modules/samba/mainSidebar.php:36
+#: modules/samba/includes/auditCodes.php:31
+msgid "Add SAMBA attribute"
+msgstr "Ajout d'un attribut SAMBA"
+
+#: modules/samba/includes/auditCodes.php:34
+msgid "Add SAMBA properties"
+msgstr "Ajout des propriétés SAMBA"
+
+#: modules/samba/shares/localSidebar.php:37
+#: modules/samba/machines/localSidebar.php:31
+#: modules/samba/machines/add.php:41 modules/samba/mainSidebar.php:36
 #: modules/samba/infoPackage.inc.php:83
 msgid "Add a computer"
 msgstr "Ajouter une machine"
@@ -48,27 +57,19 @@ msgstr "Ajouter une machine"
 msgid "Add a new group"
 msgstr "Ajouter un nouveau groupe"
 
-#: modules/samba/shares/details.php:82
-#: modules/samba/shares/localSidebar.php:31 modules/samba/mainSidebar.php:30
+#: modules/samba/shares/localSidebar.php:31
+#: modules/samba/shares/details.php:82 modules/samba/mainSidebar.php:30
 #: modules/samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr "Ajouter un partage"
 
-#: modules/samba/includes/auditCodes.php:21
+#: modules/samba/includes/auditCodes.php:43
 msgid "Add computer"
-msgstr "Ajouter une machine"
+msgstr "Ajout d'un compte ordinateur"
 
-#: modules/samba/includes/auditCodes.php:9
-msgid "Add samba attribute"
-msgstr "Attribut Samba ajouté"
-
-#: modules/samba/includes/auditCodes.php:12
-msgid "Add samba attributes"
-msgstr "Attributs Samba ajoutés"
-
-#: modules/samba/includes/auditCodes.php:4
+#: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
-msgstr "Ajouter un partage"
+msgstr "Ajout d'un partage"
 
 #: modules/samba/infoPackage.inc.php:120
 msgid "Add/delete SAMBA's attributes"
@@ -100,9 +101,9 @@ msgstr "Sauvegarder un partage"
 msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
 
-#: modules/samba/includes/auditCodes.php:6
+#: modules/samba/includes/auditCodes.php:28
 msgid "Backup share"
-msgstr "Sauvegarder le partage"
+msgstr "Sauvegarde d'un partage"
 
 #: modules/samba/config/index.php:118
 #: modules/samba/includes/publicFunc.php:237
@@ -113,25 +114,25 @@ msgstr "Chemin du répertoire de base"
 msgid "Can't launch backup"
 msgstr "Impossible de lancer la sauvegarde"
 
-#: modules/samba/includes/auditCodes.php:11
-msgid "Change samba attribute"
-msgstr "Attribut Samba modifié"
+#: modules/samba/includes/auditCodes.php:33
+msgid "Change SAMBA attribute"
+msgstr "Changement d'un attribut SAMBA"
 
-#: modules/samba/includes/auditCodes.php:14
+#: modules/samba/includes/auditCodes.php:36
 msgid "Change user password"
-msgstr "Changez le mot de passe de l'utilisateur"
+msgstr "Changement du mot de passe utilisateur"
 
-#: modules/samba/includes/auditCodes.php:15
+#: modules/samba/includes/auditCodes.php:37
 msgid "Change user primary group"
-msgstr "Changez le groupe primaire de l'utilisateur"
+msgstr "Changement du groupe primaire de l'utilisateur"
 
 #: modules/samba/shares/details.php:134 modules/samba/machines/add.php:53
 msgid "Comment"
 msgstr "Commentaire"
 
-#: modules/samba/includes/auditCodes.php:24
+#: modules/samba/includes/auditCodes.php:46
 msgid "Computer"
-msgstr "Machines"
+msgstr "Ordinateur"
 
 #: modules/samba/machines/add.php:36
 #, php-format
@@ -151,12 +152,12 @@ msgstr "Liste des machines"
 msgid "Computer management"
 msgstr "Gestion des machines"
 
-#: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:36
+#: modules/samba/machines/ajaxFilter.php:36 modules/samba/machines/add.php:49
 msgid "Computer name"
 msgstr "Nom de la machine"
 
-#: modules/samba/machines/ajaxFilter.php:42 modules/samba/status/index.php:65
-#: modules/samba/status/index.php:114
+#: modules/samba/status/index.php:65 modules/samba/status/index.php:114
+#: modules/samba/machines/ajaxFilter.php:42
 msgid "Computers"
 msgstr "Machines"
 
@@ -194,21 +195,21 @@ msgstr "Connexion sur les partages"
 msgid "Create"
 msgstr "Créer"
 
-#: modules/samba/includes/auditCodes.php:22
+#: modules/samba/includes/auditCodes.php:32
+msgid "Del SAMBA attribute"
+msgstr "Suppression d'un attribut SAMBA"
+
+#: modules/samba/includes/auditCodes.php:35
+msgid "Del SAMBA properties"
+msgstr "Suppression des propriétés SAMBA"
+
+#: modules/samba/includes/auditCodes.php:44
 msgid "Del computer"
-msgstr "Supprimer une machine"
+msgstr "Suppression d'un compte ordinateur"
 
-#: modules/samba/includes/auditCodes.php:10
-msgid "Del samba attribute"
-msgstr "Attribut Samba supprimé"
-
-#: modules/samba/includes/auditCodes.php:13
-msgid "Del samba attributes"
-msgstr "Attributs Samba supprimés"
-
-#: modules/samba/includes/auditCodes.php:5
+#: modules/samba/includes/auditCodes.php:27
 msgid "Del share"
-msgstr "Supprimer le partage"
+msgstr "Suppression d'un partage"
 
 #: modules/samba/shares/index.php:48 modules/samba/machines/ajaxFilter.php:41
 #: modules/samba/views/groups.tpl.php:125
@@ -233,11 +234,11 @@ msgstr "Description"
 
 #: modules/samba/includes/publicFunc.php:207
 msgid "Disable samba user account"
-msgstr "Désactivation du compte samba"
+msgstr "Désactivation du compte SAMBA"
 
-#: modules/samba/includes/auditCodes.php:17
+#: modules/samba/includes/auditCodes.php:39
 msgid "Disable user"
-msgstr "Désactivation du compte samba"
+msgstr "Désactivation du compte SAMBA"
 
 #: modules/samba/config/index.php:100
 msgid "Domain name"
@@ -247,7 +248,7 @@ msgstr "Nom du domaine"
 msgid "Edit"
 msgstr "Éditer"
 
-#: modules/samba/includes/auditCodes.php:16
+#: modules/samba/includes/auditCodes.php:38
 msgid "Enable user"
 msgstr "Activation du compte Samba"
 
@@ -255,7 +256,7 @@ msgstr "Activation du compte Samba"
 msgid "Enable/Disable account"
 msgstr "Activation/Désactivation du compte"
 
-#: modules/samba/mainSidebar.php:41 modules/samba/config/index.php:75
+#: modules/samba/config/index.php:75 modules/samba/mainSidebar.php:41
 msgid "General options"
 msgstr "Options générales"
 
@@ -296,9 +297,9 @@ msgstr ""
 "<p>L'utilisateur peut être verrouillé après plusieurs tentatives "
 "d'authentification non valides.</p>"
 
-#: modules/samba/includes/auditCodes.php:18
+#: modules/samba/includes/auditCodes.php:40
 msgid "Lock user"
-msgstr "Bloquer l'utilisateur"
+msgstr "Verrouillage de l'utilisateur"
 
 #: modules/samba/infoPackage.inc.php:122
 msgid "Lock/Unlock account"
@@ -308,9 +309,9 @@ msgstr "Verrouillage/Déverrouillage du compte"
 msgid "Machines"
 msgstr "Machines"
 
-#: modules/samba/includes/auditCodes.php:20
-msgid "Make samba group"
-msgstr "Création d'un groupe samba"
+#: modules/samba/includes/auditCodes.php:42
+msgid "Make SAMBA group"
+msgstr "Création d'un groupe SAMBA"
 
 #: modules/samba/shares/details.php:129
 msgid "Name"
@@ -356,6 +357,10 @@ msgstr ""
 "volume des données dépasse la taille du médium choisi, un jeu de média sera "
 "créé."
 
+#: modules/samba/includes/auditCodes.php:30
+msgid "Reload SAMBA"
+msgstr "Rechargement du service SAMBA"
+
 #: modules/samba/config/index.php:132
 msgid "Reload SAMBA configuration"
 msgstr "Recharger SAMBA"
@@ -364,22 +369,17 @@ msgstr "Recharger SAMBA"
 msgid "Reload SAMBA service"
 msgstr "Recharger le service SAMBA"
 
-#: modules/samba/includes/auditCodes.php:8
-msgid "Reload samba"
-msgstr "Rechargement de la configuration SAMBA"
-
 #: modules/samba/infoPackage.inc.php:55
 msgid "Remove a share"
 msgstr "Suppression d'un partage"
 
-#: modules/samba/config/index.php:131
+#: modules/samba/config/index.php:131 modules/samba/includes/auditCodes.php:29
 msgid "Restart SAMBA"
 msgstr "Redémarrer SAMBA"
 
-#: modules/samba/includes/auditCodes.php:7
-#, fuzzy
-msgid "Restart samba"
-msgstr "Redémarrer SAMBA"
+#: modules/samba/includes/auditCodes.php:47
+msgid "SAMBA"
+msgstr "SAMBA"
 
 #: modules/samba/includes/publicFunc.php:169
 msgid "SAMBA access"
@@ -425,7 +425,7 @@ msgstr "Propriétés Samba de l'utilisateur"
 msgid "Server name"
 msgstr "Nom du serveur"
 
-#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:23
+#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:45
 msgid "Share"
 msgstr "Partages"
 
@@ -565,9 +565,9 @@ msgstr ""
 "montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,"
 "acl  1  2</pre></li> \t\t\t</ul> "
 
-#: modules/samba/includes/auditCodes.php:19
+#: modules/samba/includes/auditCodes.php:41
 msgid "Unlock user"
-msgstr ""
+msgstr "Déverrouillage de l'utilisateur"
 
 #: modules/samba/status/index.php:113
 msgid "User"
@@ -615,7 +615,3 @@ msgstr "Vous allez supprimer le partage <b>%s</b>"
 #: modules/samba/infoPackage.inc.php:107
 msgid "restart SAMBA service"
 msgstr "Redémarrer le service SAMBA"
-
-#: modules/samba/includes/auditCodes.php:25
-msgid "samba"
-msgstr "samba"
