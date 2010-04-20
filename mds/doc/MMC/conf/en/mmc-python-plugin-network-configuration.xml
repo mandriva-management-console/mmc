@@ -6,7 +6,7 @@
   <title>MMC network plugin configuration file</title>
 
   <articleinfo>
-    
+
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
@@ -18,10 +18,10 @@
     </affiliation>
 
     <copyright>
-      <year>2007,2008 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -38,15 +38,22 @@
   <section>
 
     <title>Introduction</title>
-    
+
     <para>
-      The « network » plugin allows the MMC Python API to manage DNS zones and hosts, DHCP subnet and hosts, into a LDAP. Patched version of ISC BIND (with LDAP sdb backend) and ISC DHCP (with LDAP configuration file backend) are needed.
+      The « network » plugin allows the MMC Python API to manage DNS
+      zones and hosts, DHCP subnet and hosts, into a LDAP. Patched
+      version of ISC BIND (with LDAP sdb backend) and ISC DHCP (with
+      LDAP configuration file backend) are needed. PowerDNS support
+      is also available.
     </para>
     <para>
       The plugin configuration file is <filename>/etc/mmc/plugins/network.ini</filename>.
     </para>
     <para>
-      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+      Like all MMC related configuration file, its file format is INI
+      style. The file is made of sections, each one starting with a «
+      [sectionname] » header. In each section options can be defined
+      like this « option = value ».
     </para>
     <para>
       For example:
@@ -72,7 +79,7 @@
     <para>
       Here are all the network.ini available sections
     </para>
-    
+
     <table>
       <title>
 	network.ini available sections
@@ -83,7 +90,7 @@
 	    <entry>Section name</entry>
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -126,7 +133,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -139,7 +146,7 @@
       </tgroup>
     </table>
   </section>
-  
+
   <section>
 
     <title>Section « dns »</title>
@@ -157,7 +164,7 @@
       <listitem>
 	<para>the file <filename>bindroot/named.conf.ldap</filename>. This file will include all the zone definitions stored into <filename>bindroot/named.ldap</filename>/</para>
       </listitem>
-    </itemizedlist>    
+    </itemizedlist>
 
     <table>
       <title>
@@ -170,9 +177,15 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
+	  <row>
+	    <entry>type</entry>
+	    <entry>DNS server type: "bind" or "pdns" (PowerDNS)</entry>
+	    <entry>yes</entry>
+	    <entry>bind</entry>
+	  </row>
 	  <row>
 	    <entry>dn</entry>
 	    <entry>LDAP DN where the DNS zones are stored</entry>
@@ -185,7 +198,6 @@
 	    <entry>no</entry>
 	    <entry></entry>
 	  </row>
-
 	  <row>
 	    <entry>pidfile</entry>
 	    <entry>path to BIND pid file</entry>
@@ -221,7 +233,7 @@
 	    <entry>LDAP user DN to use to read zone info</entry>
 	    <entry>yes</entry>
 	    <entry></entry>
-	  </row>	  
+	  </row>
 	  <row>
 	    <entry>dnsreaderpassword</entry>
 	    <entry>password of the user specified in dnsreader</entry>
@@ -233,10 +245,11 @@
     </table>
 
     <para>
-      Here is an example for a Mandriva Corporate Server 4:
+      Here is an example for BIND on a Mandriva Corporate Server 4:
     </para>
     <screen>
       [dns]
+      type = bind
       dn = ou=DNS,dc=mandriva,dc=com
       pidfile = /var/lib/named/var/run/named.pid
       init = /etc/rc.d/init.d/named
@@ -247,7 +260,7 @@
       dnsreader = uid=DNS Reader,ou=System Accounts,dc=mandriva,dc=com
       dnsreaderpassword = s3cr3t
     </screen>
-    
+
   </section>
 
   <section>
@@ -257,7 +270,7 @@
     <para>
       This section defines where DHCP related files and LDAP entities are located.
     </para>
-    
+
     <table>
       <title>
 	Available options for the "backup-tools" section
@@ -269,7 +282,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -306,6 +319,6 @@
       </tgroup>
     </table>
 
-  </section>  
+  </section>
 
-</article>  
+</article>
