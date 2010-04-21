@@ -145,25 +145,25 @@ function displayPreImportTable() {
 ?>
 <form id="bulkimport" enctype="multipart/form-data" method="post">
 <? if ($importusers->allowImport()) { ?> 
-<input name="importbutton" type="submit" class="btnPrimary" value="<?= _("Import"); ?>" />
+<input name="importbutton" type="submit" class="btnPrimary" value="<?= _T("Import", "bulkimport"); ?>" />
 <? } else { ?>
-<input name="importbutton" type="submit" class="btnDisabled" value="<?= _("Import"); ?>" disabled="disabled" />
+<input name="importbutton" type="submit" class="btnDisabled" value="<?= _T("Import", "bulkimport"); ?>" disabled="disabled" />
 <?
 
 };
 if ($importusers->allowModify()) {
 ?> 
-<input name="modifybutton" type="submit" class="btnPrimary" value="<?= _("Modify"); ?>" />
+<input name="modifybutton" type="submit" class="btnPrimary" value="<?= _T("Modify", "bulkimport"); ?>" />
 <? } else { ?>
-<input name="modifybutton" type="submit" class="btnDisabled" value="<?= _("Modify"); ?>" disabled="disabled" />
+<input name="modifybutton" type="submit" class="btnDisabled" value="<?= _T("Modify", "bulkimport"); ?>" disabled="disabled" />
 <?
 
 };
 if ($importusers->allowDelete()) {
 ?> 
-<input name="deletebutton" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" />
+<input name="deletebutton" type="submit" class="btnPrimary" value="<?= _T("Delete", "bulkimport"); ?>" />
 <? } else { ?>
-<input name="deletebutton" type="submit" class="btnDisabled" value="<?= _("Delete"); ?>" disabled="disabled" />
+<input name="deletebutton" type="submit" class="btnDisabled" value="<?= _T("Delete", "bulkimport"); ?>" disabled="disabled" />
 <? }; ?>
 <input name="backbutton" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" />
 <input type="hidden" name="stage" value="import"/>
@@ -203,7 +203,7 @@ function uploadFormView() {
 ?>
 
         </table>
-        <p class="center"><input name="next" type="submit" class="btnPrimary" value="<?= _("Load CSV"); ?>" /></p>
+        <p class="center"><input name="next" type="submit" class="btnPrimary" value="<?= _T("Load CSV", "bulkimport"); ?>" /></p>
         <table cellspacing="0">
             <tr>
                 <td>
