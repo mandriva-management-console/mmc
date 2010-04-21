@@ -533,7 +533,7 @@ zone "%(zone)s" {
                  with this name already exist
         @rtype: list
         """
-        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_HOST_ALIASES, [(zone, AT.ZONE), (host,AT.HOST)], aliases)
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_HOST_ALIASES, [(zone, AT.ZONE), (host, AT.RECORD_A)], aliases)
         ret = []
         oldaliases = []
         for record in self.getCNAMEs(zone, host):
@@ -567,7 +567,7 @@ zone "%(zone)s" {
         @param cname: CNAME to record (must be a registered A record)
         @type cname: str    
         """
-        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_RECORD_CNAME, [(zone, AT.ZONE), (alias, AT.ALIAS)], cname)
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_RECORD_CNAME, [(zone, AT.ZONE), (alias, AT.RECORD_CNAME)], cname)
         # Check that the given cname is a A record
         record = self.getResourceRecord(zone, cname)
         try:
@@ -596,7 +596,7 @@ zone "%(zone)s" {
             }
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)
-        self.updateZoneSerial(zone)    
+        self.updateZoneSerial(zone)
         r.commit()
 
     def addRecordA(self, zone, hostname, ip, container = None, dnsClass = "IN"):
@@ -606,7 +606,7 @@ zone "%(zone)s" {
         @return: 0 if the host has been added in a reverse zone too, 1 if not
         @rtype: int
         """
-        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_RECORDA, [(zone,AT.ZONE), (hostname, AT.HOST)], ip)
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_RECORD_A, [(zone,AT.ZONE), (hostname, AT.RECORD_A)], ip)
         ret = 1
         if self.pdns:
             dn = "dc=" + hostname  + "," +"dc=" + zone + "," + self.configDns.dnsDN
@@ -723,7 +723,7 @@ zone "%(zone)s" {
         Change the IP address of a host in a zone.
         If the new IP already exists, an exception is raised.
         """
-        r = AF().log(PLUGIN_NAME, AA.NETWORK_MODIFY_RECORD, [(zone, AT.ZONE), (hostname, AT.HOST)], ip)
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_MODIFY_RECORD, [(zone, AT.ZONE), (hostname, AT.RECORD_A)], ip)
         if self.ipExists(zone, ip): raise "The IP %s has been already registered in zone %s" % (ip, zone)
         self.delRecord(zone, hostname)
         self.addRecordA(zone, hostname, ip)

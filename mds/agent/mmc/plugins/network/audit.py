@@ -65,11 +65,13 @@ class AuditActions:
 AA = AuditActions
 
 class AuditTypes(AT):
+    # DNS objects
     ZONE = u'ZONE'
+    RECORD_CNAME = u'RECORD_CNAME'
+    RECORD_A = u'RECORD_A'
+    # DHCP objects
     HOST = u'HOST'
-    NET = u'NET'
     SUBNET = u'SUBNET'
-    ALIAS = u'ALIAS'
     POOL = u'POOL'
 
 AT = AuditTypes
