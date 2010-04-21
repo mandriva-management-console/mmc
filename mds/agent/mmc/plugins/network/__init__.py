@@ -335,7 +335,7 @@ def getSubnetFreeIp(subnet, startAt):
 
 # DHCP leases
 
-def getDhcpLeases():    
+def getDhcpLeases():
     return DhcpLeases().get()
 
 # Log
@@ -349,10 +349,28 @@ def getDnsLog(filter = ''):
 # Service management
 
 def dhcpService(command):
-    return DhcpService().command(command)
+    if command != 'status':
+        event = { 'start' : AA.NETWORK_START_DHCP_SERVICE,
+                  'stop' : AA.NETWORK_STOP_DHCP_SERVICE,
+                  'restart' : AA.NETWORK_RESTART_DHCP_SERVICE,
+                  'reload' : AA.NETWORK_RELOAD_DHCP_SERVICE }
+        r = AF().log(PLUGIN_NAME, event[command])
+    ret = DhcpService().command(command)
+    if command != 'status':
+        r.commit()
+    return ret
 
 def dnsService(command):
-    return DnsService().command(command)
+    if command != 'status':
+        event = { 'start' : AA.NETWORK_START_DNS_SERVICE,
+                  'stop' : AA.NETWORK_STOP_DNS_SERVICE,
+                  'restart' : AA.NETWORK_RESTART_DNS_SERVICE,
+                  'reload' : AA.NETWORK_RELOAD_DNS_SERVICE }
+        r = AF().log(PLUGIN_NAME, event[command])
+    ret = DnsService().command(command)
+    if command != 'status':
+        r.commit()
+    return ret
 
 class NetworkConfig(PluginConfig):
 

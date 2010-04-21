@@ -64,7 +64,7 @@ class Dhcp(ldapUserGroupControl):
             except ldap.NO_SUCH_ATTRIBUTE:
                 pass
         else:
-            self.l.modify_s(dn, [(ldap.MOD_REPLACE, "dhcpOption", options)])        
+            self.l.modify_s(dn, [(ldap.MOD_REPLACE, "dhcpOption", options)])
 
     # DHCP statements management (line with "name value;")
 
