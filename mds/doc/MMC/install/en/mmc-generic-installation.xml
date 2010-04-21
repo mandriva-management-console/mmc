@@ -20,14 +20,14 @@
     </affiliation>
 
     <copyright>
-      <year>2007,2008,2009 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2009,2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
     <legalnotice>
       <para></para>
     </legalnotice>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -607,10 +607,10 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       </para>
 
     </section>
-    
+
     <section>
 
-      <title>MMC « base » plugin configuration</title>
+      <title>MMC « base » plugin configuration</title>
 
       <para>
  	You can find a full description of the MMC base plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-base-configuration.html">there</ulink>.
@@ -619,15 +619,38 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	The main part of the configuration (<filename>/etc/mmc/plugins/base.ini</filename>) is to set the LDAP server to connect to, and the credentials to use to write into the LDAP.
       </para>
       <para>
-	The « defaultUserGroup » option must be set to an existing group in the LDAP.
+	The « defaultUserGroup » option must be set to an existing group in the LDAP.
 	You will have to create it using the MMC web interface if this group does not exist.
+      </para>
+      <para>
+	To configure the MMC audit framework, see the section <xref linkend="MMC_AUDIT" />.
       </para>
 
     </section>
 
     <section>
 
-      <title>MMC « SAMBA » plugin configuration</title>
+      <title>MMC « ppolicy » plugin configuration</title>
+
+      <para>
+ 	You can find a full description of the MMC ppolicy plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC-trunk/conf/en/mmc-python-plugin-ppolicy-configuration.html">there</ulink>.
+      </para>
+      <para>
+	The only thing you'll have to modify in the configuration file
+	is the "ppolicyDN" option. The OU parent must be an existing
+	DN. If the OU or the default password policy object doesn't
+	exist, the MMC agent will create them when it starts.
+      </para>
+      <para>
+	See the section <xref linkend="MMC_PPOLICY" /> to know how you
+	must configure your LDAP directory for password policy support.
+      </para>
+
+    </section>
+
+    <section>
+
+      <title>MMC « SAMBA » plugin configuration</title>
 
       <para>
 	You can find a full description of the MMC SAMBA plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-samba-configuration.html">there</ulink>.
@@ -980,11 +1003,202 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <para>
 	So you need to fix or disable your SE linux configuration to make it works.
       </para>
-      
+
     </section>
 
   </section>
-  
+
+  <section id="MMC_AUDIT">
+
+    <title>MMC audit framework configuration</title>
+
+    <para>
+      The MMC audit framework allows to record all users operations
+      made through the MMC agent, and so the MMC web interface. These
+      operations are all loggued: LDAP modifications, all filesystem
+      related modifications, and service management (stop, start, ...)
+    </para>
+
+    <para>
+      The audit framework is configured in
+      the <filename>base.ini</filename> configuration file, and is
+      disabled by default. To enable it, uncomment the audit
+      section. It should look like:
+    </para>
+
+    <screen>
+[audit]
+method = database
+dbhost = 127.0.0.1
+port = 5432
+dbdriver = mysql
+dbuser = audit
+dbpassword = audit
+dbname = audit
+    </screen>
+
+    <para>
+      The <command>mmc-helper</command> tool will allow you to create
+      the dabatase and to populate it with the audit tables easily.
+    </para>
+
+    <para>
+      To create the MySQL database:
+    </para>
+
+    <screen>
+# mmc-helper audit create
+-- Execute the following lines into the MySQL client
+CREATE DATABASE audit DEFAULT CHARSET utf8;
+GRANT ALL PRIVILEGES ON audit.* TO 'audit'@localhost IDENTIFIED BY
+'audit';
+FLUSH PRIVILEGES;
+    </screen>
+
+    <para>
+      Just execute the printed SQL statement in a MySQL client and the
+      database will be created. Note that
+      the <filename>base.ini</filename> is read to set the audit
+      database name, user and password in the SQL statements.
+    </para>
+
+    <para>
+      On most Linux distribution, the "root" user has administrative
+      access to the local MySQL server. So this one liner will often be
+      enough:
+    </para>
+
+    <screen>
+# mmc-helper audit create | mysql
+    </screen>
+
+    <para>
+      Once created, the audit database tables must be initialized
+      with this command:
+    </para>
+
+    <screen>
+# mmc-helper audit init
+INFO:root:Creating audit tables as requested
+INFO:root:Using database schema version 1
+INFO:root:Done
+    </screen>
+
+    <para>
+      At the next start, the MMC agent will connect to the audit
+      database and records operations.
+    </para>
+
+  </section>
+
+  <section id="MMC_PPOLICY">
+
+    <title>MMC Password Policy configuration</title>
+
+    <para>
+      On Mandriva, if you used the mandriva-dit setup scripts, the
+      Password Policy configuration is already done. If not, here are
+      some instructions:
+    </para>
+    <para>
+      You must add this to your
+      OpenLDAP <filename>slapd.conf</filename>
+      configuration file:
+    </para>
+
+    <screen>
+# Include password policy schema
+include /path/to/openldap/schema/ppolicy.schema
+
+
+...
+# Load the ppolicy module
+moduleload	ppolicy.la
+
+...
+# Add the overlay ppolicy to your OpenLDAP database
+database	bdb
+suffix		"dc=mandriva,dc=com"
+...
+overlay ppolicy
+ppolicy_default "cn=default,ou=Password Policies,dc=mandriva,dc=com"
+    </screen>
+
+    <para>
+      Beware that the ppolicy_default value must match the options
+      "ppolicyDN" and "ppolicyDefault" you set into
+      the <filename>ppolicy.ini</filename> file.
+    </para>
+
+    <section>
+
+      <title>Password Policy checker module</title>
+
+      <para>
+	This module has only been built and tested on Mandriva. It is
+	installed as <filename>/usr/lib/openldap/mmc-check-password.so</filename>.
+      </para>
+      <para>
+	If password quality checking is enabled on the password
+	policy, OpenLDAP calls this module to check password quality
+	when a user password is changed using the LDAP Password Modify
+	Extended operation. MDS will change user passwords with this
+	operation if you set "passwordscheme = passmod" in
+	the <filename>base.ini</filename> configuration file.
+      </para>
+      <para>
+	To check a
+	password, <filename>mmc-check-password.so</filename> will
+	launch the
+	command <filename>/usr/bin/mmc-password-helper</filename>. The
+	password will pass the quality checks if it contains at least
+	one number, one upper case character, one lower case
+	character and one special character (like #, $, etc.). The
+	password must not contains the same character twice. If
+	python-cracklib is available, a cracklib check is also done.
+      </para>
+
+    </section>
+
+    <section>
+
+      <title>the mmc-password-helper tool</title>
+
+      <para>
+	This tool allows to check a password from the command line.
+	For example:
+      </para>
+      <screen>
+% echo foo | mmc-password-helper -c
+% echo $?
+1
+# Exit code is set to 1 if the password fails quality checks, else 0
+# Use -v for more
+# echo foo | mmc-password-helper -c -v
+the password must be 8 or longer
+% echo $?
+1
+      </screen>
+
+      <para>
+	The tool also generates good passwords:
+      </para>
+      <screen>
+% mmc-password-helper -n
+1NjY0MD:
+# Use -l to change the length (default is 8)
+% mmc-password-helper -n -l 12
+2ND=3OTcwMjY
+% mmc-password-helper -n | mmc-password-helper -c
+% echo $?
+0
+# Generated password will always succeed quality checks :)
+      </screen>
+
+    </section>
+
+  </section>
+
   <section id="MDS_SAMBA">
 
     <title>MDS SAMBA configuration</title>
@@ -1006,15 +1220,15 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
     </para>
 
     <section>
-      
+
       <title>LDAP directory configuration</title>
-            
+
       <para>
 	You need to import the SAMBA schema into the LDAP directory.
 	The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/samba.schema</filename>.
 	But you can also use the schema provided by the SAMBA project.
       </para>
-      
+
     </section>
 
     <section>
@@ -1037,28 +1251,28 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       </para>
       <screen>
 	# smbpasswd -w secret
-	Setting stored password for "cn=admin,dc=mandriva,dc=com" in secrets.tdb	
+	Setting stored password for "cn=admin,dc=mandriva,dc=com" in secrets.tdb
       </screen>
       <para>
 	Now, SAMBA needs to create the SID for your workgroup:
       </para>
       <screen>
 	# net getlocalsid MANDRIVA
-	SID for domain MANDRIVA is: S-1-5-21-128599351-419866736-2079179792	
+	SID for domain MANDRIVA is: S-1-5-21-128599351-419866736-2079179792
       </screen>
       <para>
 	Use slapcat to check that the SID has really been recorded into the LDAP. You should find an entry like this:
       </para>
       <screen>
-	# slapcat | grep sambaDomainName
-	dn: sambaDomainName=MANDRIVA,dc=mandriva,dc=com	
+	# slapcat | grep sambaDomainName
+	dn: sambaDomainName=MANDRIVA,dc=mandriva,dc=com
 	...
       </screen>
       <para>
 	Now you can start SAMBA:
       </para>
       <screen>
-	# /etc/init.d/samba start
+	# /etc/init.d/samba start
       </screen>
 
     </section>
@@ -1080,7 +1294,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <para>
 	Now the smbldap-tools conf file need to be edited. Put this in <filename>/etc/opt/IDEALX/smbldap-tools/smbldap_bind.conf</filename>:
       </para>
-      
+
       <screen>
 	slaveDN="cn=admin,dc=mandriva,dc=com"
 	slavePw="secret"
@@ -1095,25 +1309,25 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <para>
 	Then edit <filename>smbldap.conf</filename> and set those fields:
       </para>
-      
+
       <screen>
 	SID="S-1-5-21-128599351-419866736-2079179792"
 	sambaDomain="MANDRIVA"
 	ldapTLS="0"
-	suffix="dc=mandriva,dc=com
+	suffix="dc=mandriva,dc=com"
 	sambaUnixIdPooldn="sambaDomainName=MANDRIVA,${suffix}"
 	#defaultMaxPasswordAge="45"
 	userSmbHome=""
 	userProfile=""
 	userHomeDrive=""
       </screen>
-      
+
       <para>
 	Now the directory can be populated. Type:
       </para>
 
       <screen>
-	# /opt/IDEALX/sbin/smbldap-populate -m 512 -a administrator
+	# /opt/IDEALX/sbin/smbldap-populate -m 512 -a administrator
       </screen>
 
       <para>
