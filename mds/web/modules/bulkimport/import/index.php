@@ -218,7 +218,7 @@ function uploadFormView() {
                         <li>Required attribute: "login"</li>
                         <li>Require for import: "password","firstname","surname"</li>
                         <li>Additional headers can be set and must match the attribute name in LDAP, for example:
-                    "login","password","firstname","surname","primarygroup","mail"</li>
+                    "login","password","firstname","surname","primaryGroup","mail"</li>
                     </ul>
                     <strong>CSV Formatting:</strong>
                     <ul>

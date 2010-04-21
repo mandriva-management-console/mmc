@@ -72,7 +72,7 @@ class ImportUsers {
         // maybe eventually return list from ldap schema
         return array (
                       "mail",
-                      "primarygroup",
+                      "primaryGroup",
                       "loginShell",
                       "telephoneNumber",
                       "mobile",
