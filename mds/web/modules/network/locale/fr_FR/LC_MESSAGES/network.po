@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lmc-web-network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 10:26+0100\n"
-"PO-Revision-Date: 2010-01-15 10:34+0100\n"
-"Last-Translator: Cédric Delfosse <cedric.delfosse@linbox.com>\n"
+"POT-Creation-Date: 2010-04-21 10:10+0200\n"
+"PO-Revision-Date: 2010-04-21 10:15+0200\n"
+"Last-Translator: Cédric Delfosse <cdelfosse@mandriva.com>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,9 +44,21 @@ msgstr "(alias de %s)"
 msgid "(e.g. 24 for a /24 network)"
 msgstr "(par exemple 24 pour un réseau en /24)"
 
+#: modules/network/includes/auditCodes.php:59
+msgid "A record"
+msgstr "Enregistrement de type A"
+
 #: modules/network/network/edithost.php:119
 msgid "A reverse DNS record will be automatically created for this host."
 msgstr "Un enregistrement DNS sera créé automatiquement pour cet hôte."
+
+#: modules/network/includes/auditCodes.php:48
+msgid "Add A record"
+msgstr "Ajout d'un enregistrement A"
+
+#: modules/network/includes/auditCodes.php:47
+msgid "Add CNAME record"
+msgstr "Ajout d'un enregistrement CNAME"
 
 #: modules/network/network/localSidebar.php:30
 msgid "Add DHCP subnet"
@@ -55,6 +67,10 @@ msgstr "Ajout d'un sous-réseau DHCP"
 #: modules/network/network/localSidebar.php:28
 msgid "Add DNS zone"
 msgstr "Ajout d'une zone DNS"
+
+#: modules/network/includes/auditCodes.php:40
+msgid "Add SOA record"
+msgstr "Ajout d'un enregistrement SOA"
 
 #: modules/network/network/subnetedithost.php:23
 #, php-format
@@ -95,6 +111,14 @@ msgstr "Ajouter un hôte statique"
 msgid "Add host"
 msgstr "Ajouter un hôe"
 
+#: modules/network/includes/auditCodes.php:44
+msgid "Add host to subnet"
+msgstr "Ajout d'un hôte à un sous-réseau"
+
+#: modules/network/includes/auditCodes.php:42
+msgid "Add pool"
+msgstr "Ajout d'une réserve (pool) DHCP"
+
 #: modules/network/network/ajaxSubnetMembersFilter.php:81
 msgid "Add static host"
 msgstr "Ajouter un hôte statique"
@@ -102,6 +126,14 @@ msgstr "Ajouter un hôte statique"
 #: modules/network/network/ajaxSubnetFilter.php:50
 msgid "Add static host to subnet"
 msgstr "Ajouter un hôte statique au sous-réseau"
+
+#: modules/network/includes/auditCodes.php:28
+msgid "Add subnet"
+msgstr "Ajout d'un sous-réseau DHCP"
+
+#: modules/network/includes/auditCodes.php:26
+msgid "Add zone"
+msgstr "Ajout d'une zone DNS"
 
 #: modules/network/network/edit.php:248
 msgid "Also create a related DHCP subnet"
@@ -137,6 +169,10 @@ msgstr "Diffusion uniquement"
 msgid "Broadcast, then WINS"
 msgstr "Diffusion, puis WINS"
 
+#: modules/network/includes/auditCodes.php:58
+msgid "CNAME record"
+msgstr "Enregistrement de type CNAME"
+
 #: modules/network/network/delete.php:44
 #: modules/network/network/subnetdeletehost.php:73
 #: modules/network/network/subnetdelete.php:46
@@ -164,9 +200,17 @@ msgstr "Créer"
 msgid "DHCP client lease time (in seconds)"
 msgstr "Durée du bail des clients DHCP (en secondes)"
 
+#: modules/network/includes/auditCodes.php:60
+msgid "DHCP host"
+msgstr "Hôte DHCP"
+
 #: modules/network/network/subnetedit.php:226
 msgid "DHCP options related to clients network parameters"
 msgstr "Options DHCP liées aux paramètres réseau des clients DHCP"
+
+#: modules/network/includes/auditCodes.php:62
+msgid "DHCP pool"
+msgstr "Pool DHCP"
 
 #: modules/network/infoPackage.inc.php:167
 msgid "DHCP service log"
@@ -175,6 +219,10 @@ msgstr "Journal du service DHCP"
 #: modules/network/dhcplogview/index.php:36
 msgid "DHCP service log view"
 msgstr "Journal du service DHCP"
+
+#: modules/network/includes/auditCodes.php:61
+msgid "DHCP subnet"
+msgstr "Sous-réseau DHCP"
 
 #: modules/network/network/subnetedit.php:208
 msgid "DHCP subnet address"
@@ -216,6 +264,10 @@ msgstr "Journal du service DNS"
 msgid "DNS service log view"
 msgstr "Journal du service DNS"
 
+#: modules/network/includes/auditCodes.php:57
+msgid "DNS zone"
+msgstr "Zone DNS"
+
 #: modules/network/network/edit.php:214
 msgid "DNS zone FQDN"
 msgstr "FQDN de la zone DNS"
@@ -247,6 +299,18 @@ msgstr "Date"
 #: modules/network/network/subnetedit.php:343
 msgid "Default lease time"
 msgstr "Durée de bail DHCP par défaut"
+
+#: modules/network/includes/auditCodes.php:45
+msgid "Del host"
+msgstr "Suppression de l'hôte"
+
+#: modules/network/includes/auditCodes.php:29
+msgid "Del subnet"
+msgstr "Suppression du sous-réseau"
+
+#: modules/network/includes/auditCodes.php:27
+msgid "Del zone"
+msgstr "Suppression de la zone"
 
 #: modules/network/network/deletehost.php:37
 msgid "Delete a DNS record"
@@ -493,6 +557,10 @@ msgstr "Durée de bail DHCP minimum"
 msgid "Minimum length in seconds that will be assigned to a lease."
 msgstr "Durée minimum en secondes assignée à un bail."
 
+#: modules/network/includes/auditCodes.php:41
+msgid "Modify record"
+msgstr "Modification de l'enregistrement"
+
 #: modules/network/network/subnetedit.php:258
 msgid "NTP servers"
 msgstr "Serveurs NTP"
@@ -594,9 +662,25 @@ msgstr "Chemin vers la racine du système de fichiers du client."
 msgid "Primary name server host name"
 msgstr "Nom d'hôte du serveur de noms primaire"
 
+#: modules/network/includes/auditCodes.php:52
+msgid "Reload DHCP service"
+msgstr "Rechargement du service DHCP"
+
+#: modules/network/includes/auditCodes.php:56
+msgid "Reload DNS service"
+msgstr "Rechargement du service DNS"
+
 #: modules/network/network/services.php:43
 msgid "Reload service"
 msgstr "Recharger le service"
+
+#: modules/network/includes/auditCodes.php:51
+msgid "Restart DHCP service"
+msgstr "Redémarrage du service DHCP"
+
+#: modules/network/includes/auditCodes.php:55
+msgid "Restart DNS service"
+msgstr "Redémarrage du service DNS"
 
 #: modules/network/network/services.php:44
 msgid "Restart service"
@@ -623,6 +707,54 @@ msgstr "Serveur depuis lequel le fichier de boot initial doit être chargé"
 msgid "Services"
 msgstr "Services"
 
+#: modules/network/includes/auditCodes.php:39
+msgid "Set NS record"
+msgstr "Changement de l'enregistrement NS"
+
+#: modules/network/includes/auditCodes.php:38
+msgid "Set SOA record"
+msgstr "Changement de l'enregistrement SOA"
+
+#: modules/network/includes/auditCodes.php:30
+msgid "Set host"
+msgstr "Suppression de l'hôte"
+
+#: modules/network/includes/auditCodes.php:46
+msgid "Set host aliases"
+msgstr "Changement de l'alias de l'hôte"
+
+#: modules/network/includes/auditCodes.php:32
+msgid "Set host hardware address"
+msgstr "Changement de l'adresse matériel de l'hôte"
+
+#: modules/network/includes/auditCodes.php:31
+msgid "Set host statement"
+msgstr "Changement de l'expression de l'hôte DHCP"
+
+#: modules/network/includes/auditCodes.php:43
+msgid "Set pool range"
+msgstr "Changement de la plage d'adresse dynamique"
+
+#: modules/network/includes/auditCodes.php:33
+msgid "Set subnet"
+msgstr "Changement du sous-réseau"
+
+#: modules/network/includes/auditCodes.php:36
+msgid "Set subnet authoritative flag"
+msgstr "Changement du drapeau d'autorité du sous-réseau DHCP"
+
+#: modules/network/includes/auditCodes.php:35
+msgid "Set subnet description"
+msgstr "Changement de la description du sous-réseau DHCP"
+
+#: modules/network/includes/auditCodes.php:37
+msgid "Set subnet netmask"
+msgstr "Changement du masque réseau du sous-réseau DHCP"
+
+#: modules/network/includes/auditCodes.php:34
+msgid "Set subnet statement"
+msgstr "Changement d'une expression du sous-réseau DHCP"
+
 #: modules/network/network/subnetedit.php:281
 msgid ""
 "Specify how NetBIOS name resolution is performed. Auto: the client OS will "
@@ -645,6 +777,14 @@ msgid ""
 msgstr ""
 "Spécifie le chemin du fichier de boot qui doit être chargé par le client."
 
+#: modules/network/includes/auditCodes.php:49
+msgid "Start DHCP service"
+msgstr "Démarrage du service DHCP"
+
+#: modules/network/includes/auditCodes.php:53
+msgid "Start DNS service"
+msgstr "Démarrage du service DNS"
+
 #: modules/network/network/services.php:41
 msgid "Start service"
 msgstr "Démarrer le service"
@@ -662,6 +802,14 @@ msgstr "Statique"
 #: modules/network/network/services.php:80
 msgid "Status"
 msgstr "État"
+
+#: modules/network/includes/auditCodes.php:50
+msgid "Stop DHCP service"
+msgstr "Arrêt du service DHCP"
+
+#: modules/network/includes/auditCodes.php:54
+msgid "Stop DNS service"
+msgstr "Arrêt du service DNS"
 
 #: modules/network/network/services.php:42
 msgid "Stop service"
@@ -927,3 +1075,7 @@ msgstr "modifier l'enregistrement"
 #: modules/network/network/ajaxSubnetMembersFilter.php:82
 msgid "edit static host"
 msgstr "Éditer un hôte statique"
+
+#: modules/network/includes/auditCodes.php:63
+msgid "network"
+msgstr "network"
