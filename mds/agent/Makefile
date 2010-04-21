@@ -69,6 +69,7 @@ install:
 	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/proxy.ini ] && $(INSTALL) conf/plugins/proxy.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/proxy.ini
 	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini ] && $(INSTALL) conf/plugins/sshlpk.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini
 	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/userquota.ini ] && $(INSTALL) conf/plugins/userquota.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/userquota.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/bulkimport.ini ] && $(INSTALL) conf/plugins/bulkimport.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/bulkimport.ini
 
 include common.mk
 
