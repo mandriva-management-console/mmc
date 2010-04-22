@@ -26,38 +26,36 @@ require ("graph/navbar.inc.php");
 require ("modules/base/includes/users.inc.php");
 
 // controller
-if (!isset ($_REQUEST["stage"]) || isset ($_REQUEST["backbutton"])) {
-    $stage = "";
+$stage = key_exists("stage", $_REQUEST) ? $_REQUEST["stage"] : false;
+if (isset ($_REQUEST["cancelbutton"])) $stage = false;
+
+switch ($stage) {
+case "import":
+    $p = new PageGenerator(_T("CSV import result", "bulkimport"));
+    $p->setSideMenu($sidemenu);
+    $p->display();
+    if (isset ($_REQUEST["importbutton"]) && bulkImport());
+    if (isset ($_REQUEST["deletebutton"]) && bulkDelete());
+    if (isset ($_REQUEST["modifybutton"]) && bulkModify());
+    displayResultsTable();
+    break;
+
+case "preimportpaging":
+case "preimport":
+    if  (key_exists("csvfile",$_FILES) && $_FILES["csvfile"]["type"] == "text/csv" || isset ($_SESSION['importusers'])) {
+        $p = new PageGenerator(_T("CSV data to import", "bulkimport"));
+        $p->setSideMenu($sidemenu);
+        $p->display();
+        displayPreImportTable();
+        break;
+    }
+
+default:
     unset ($_SESSION['importusers']);
     $p = new PageGenerator(_T("Bulk account modification from CSV file", "bulkimport"));
     $p->setSideMenu($sidemenu);
     $p->display();
     uploadFormView();
-} else {
-    $stage = $_REQUEST["stage"];
-}
-
-if ($stage == "preimport") {
-    $p = new PageGenerator(_T("CSV data to import", "bulkimport"));
-    $p->setSideMenu($sidemenu);
-    $p->display();
-    displayPreImportTable();
-}
-
-if ($stage == "import") {
-    $p = new PageGenerator(_T("CSV import result", "bulkimport"));
-    $p->setSideMenu($sidemenu);
-    $p->display();
-}
-
-if ($stage == "import" & isset ($_REQUEST["importbutton"])) {
-    if (bulkImport()) displayResultsTable();
-} else if ($stage == "import" & isset ($_REQUEST["deletebutton"])) {
-    if (bulkDelete()) displayResultsTable();
-} else if ($stage == "import" & isset ($_REQUEST["modifybutton"])) {
-    if (bulkModify()) displayResultsTable();
-} else if ($stage == "import") {
-    displayResultsTable();
 }
 
 function getImportObject() {
@@ -144,7 +142,7 @@ function displayPreImportTable() {
     $l->display();
 ?>
 <form id="bulkimport" enctype="multipart/form-data" method="post">
-<? if ($importusers->allowImport()) { ?> 
+<? if ($importusers->allowImport()) { ?>
 <input name="importbutton" type="submit" class="btnPrimary" value="<?= _T("Import", "bulkimport"); ?>" />
 <? } else { ?>
 <input name="importbutton" type="submit" class="btnDisabled" value="<?= _T("Import", "bulkimport"); ?>" disabled="disabled" />
@@ -152,7 +150,7 @@ function displayPreImportTable() {
 
 };
 if ($importusers->allowModify()) {
-?> 
+?>
 <input name="modifybutton" type="submit" class="btnPrimary" value="<?= _T("Modify", "bulkimport"); ?>" />
 <? } else { ?>
 <input name="modifybutton" type="submit" class="btnDisabled" value="<?= _T("Modify", "bulkimport"); ?>" disabled="disabled" />
@@ -160,12 +158,12 @@ if ($importusers->allowModify()) {
 
 };
 if ($importusers->allowDelete()) {
-?> 
+?>
 <input name="deletebutton" type="submit" class="btnPrimary" value="<?= _T("Delete", "bulkimport"); ?>" />
 <? } else { ?>
 <input name="deletebutton" type="submit" class="btnDisabled" value="<?= _T("Delete", "bulkimport"); ?>" disabled="disabled" />
 <? }; ?>
-<input name="backbutton" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" />
+<input name="cancelbutton" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" />
 <input type="hidden" name="stage" value="import"/>
 </form>
 
@@ -188,7 +186,7 @@ function uploadFormView() {
 	margin: 0px;
 	list-style: none;
 }
-.attributelist ul {
+.attributelist ul {
     margin: 0px;
     padding: 0px;
 }
