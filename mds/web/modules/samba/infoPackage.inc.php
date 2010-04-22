@@ -26,10 +26,10 @@
  * module declaration
  */
 $mod = new Module("samba");
-$mod->setVersion("2.3.2");
+$mod->setVersion("2.4.0");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("SAMBA service"),"samba");
-$mod->setAPIVersion("5:2:4");
+$mod->setAPIVersion("5:3:4");
 
 $mod->setPriority(10);
 

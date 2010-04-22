@@ -26,10 +26,10 @@
  * module declaration
  */
 $mod = new Module("proxy");
-$mod->setVersion("2.3.2");
+$mod->setVersion("2.4.0");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Web proxy"),"proxy");
-$mod->setAPIVersion('1:0:0');
+$mod->setAPIVersion('1:1:0');
 
 /**
  * user submod definition

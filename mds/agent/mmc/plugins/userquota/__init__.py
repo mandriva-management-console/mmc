@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 # (c) 2009 Open Systems Specilists - Glen Ogilvie
 #
-# $Id: __init__.py $
+# $Id$
 #
 # This file is a plugin for Mandriva Management Console (MMC).
 #
@@ -44,9 +44,9 @@ import mmc
 
 INI = "/etc/mmc/plugins/userquota.ini"
 
-VERSION = "0.0.4"
-APIVERSION = "1:0:0"
-REVISION = int("$Rev: 1 $".split(':')[1].strip(' $'))
+VERSION = "2.4.0"
+APIVERSION = "0:0:0"
+REVISION = int("$Rev$".split(':')[1].strip(' $'))
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION

@@ -34,8 +34,8 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.proxy.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.3.2"
-APIVERSION = "1:0:0"
+VERSION = "2.4.0"
+APIVERSION = "1:1:0"
 REVISION = int("$Rev$".split(':')[1].strip(' $'))
 
 def getVersion(): return VERSION

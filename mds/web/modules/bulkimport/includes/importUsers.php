@@ -142,7 +142,7 @@ class ImportUsers {
         $this->users[] = new CSVUser($record);
     }
 
-    function getListInfos($extra = "&amp;stage=preimport") {
+    function getListInfos($extra = "&amp;stage=preimportpaging") {
         $cols = array ();
         foreach ($this->users as $user) {
             foreach ($user->getArray() as $key => $value) {

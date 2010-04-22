@@ -36,7 +36,7 @@ from ldap import modlist
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.config import PluginConfig
 
-VERSION = "2.3.2"
+VERSION = "2.4.0"
 APIVERSION = "0:0:0"
 REVISION = int("$Rev$".split(':')[1].strip(' $'))
 

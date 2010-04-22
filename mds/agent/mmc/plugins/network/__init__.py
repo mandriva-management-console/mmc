@@ -43,8 +43,8 @@ from mmc.plugins.network.audit import AA, PLUGIN_NAME
 
 INI = "/etc/mmc/plugins/network.ini"
 
-VERSION = "2.3.2"
-APIVERSION = "2:0:0"
+VERSION = "2.4.0"
+APIVERSION = "2:1:0"
 REVISION = int("$Rev$".split(':')[1].strip(' $'))
 
 def getVersion(): return VERSION

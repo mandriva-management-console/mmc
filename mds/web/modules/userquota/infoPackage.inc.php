@@ -27,10 +27,10 @@
  * module declaration
  */
 $mod = new Module("userquota");
-$mod->setVersion("0.0.4");
-$mod->setRevision('$Rev: 1 $');
+$mod->setVersion("2.4.0");
+$mod->setRevision('$Rev$');
 $mod->setDescription(_T("Manage user quotas for filesystems and networks", "userquota"));
-$mod->setAPIVersion('1:0:0');
+$mod->setAPIVersion('0:0:0');
 $mod->setPriority(700);
 
 $MMCApp =& MMCApp::getInstance();

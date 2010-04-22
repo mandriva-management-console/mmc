@@ -58,8 +58,8 @@ from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
 
 INI = "/etc/mmc/plugins/samba.ini"
 
-VERSION = "2.3.2"
-APIVERSION = "5:2:4"
+VERSION = "2.4.0"
+APIVERSION = "5:3:4"
 REVISION = int("$Rev$".split(':')[1].strip(' $'))
 
 def getVersion(): return VERSION
