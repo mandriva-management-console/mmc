@@ -1,0 +1,62 @@
+# Header entry was created by Lokalize.
+#
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+# Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Mime-Version: 1.0"
+"Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
+"PO-Revision-Date: 2010-04-20 18:50-0300\n"
+"Project-Id-Version: \n"
+"Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
+"X-Generator: Lokalize 1.0\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is larger than the new quota, or does not exist"
+msgstr "A cota atual é maior que a nova cota, ou não existe."
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "A cota atual é menor que a nova cota, ou não existe."
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Don't overwrite any existing quotas"
+msgstr "Não substitua qualquer cota existente"
+
+#: modules/userquota/infoPackage.inc.php:32
+msgid "Manage user quotas for filesystems and networks"
+msgstr "Gerencie cotas para sistemas de arquivos e redes"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Overwrite all existing quotas"
+msgstr "Sobrescrever todas as cotas existentes"
+
+#: modules/userquota/includes/publicFunc.php:130
+#: modules/userquota/includes/publicFunc.php:143
+msgid "Overwrite mode for existing quotas"
+msgstr "Modo de substituição para as cotas existentes"
+
+#: modules/userquota/includes/publicFunc.php:36
+#: modules/userquota/includes/publicFunc.php:122
+msgid "Quota plugin - Filesystem"
+msgstr "Plugin de Cota - Sistema de arquivos"
+
+#: modules/userquota/includes/publicFunc.php:43
+#: modules/userquota/includes/publicFunc.php:135
+msgid "Quota plugin - Network"
+msgstr "Plugin de Cota - Rede"
+
+#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:138
+msgid "Quota's applied here affect all members of the group"
+msgstr "Cotas aplicadas aqui afetam todos os membros do grupo"
+

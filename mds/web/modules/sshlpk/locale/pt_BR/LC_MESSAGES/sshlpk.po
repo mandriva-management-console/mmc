@@ -1,0 +1,45 @@
+# Header entry was created by Lokalize.
+#
+#: modules/sshlpk/includes/publicFunc.php:40
+# Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Mime-Version: 1.0"
+"Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
+"PO-Revision-Date: 2010-04-20 18:40-0300\n"
+"Project-Id-Version: \n"
+"Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
+"X-Generator: Lokalize 1.0\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: modules/sshlpk/includes/publicFunc.php:40
+msgid "Enable SSH keys management"
+msgstr "Habilitar gerenciamento de chaves SSH"
+
+#: modules/sshlpk/infoPackage.inc.php:34
+msgid "LDAP Public SSH key management"
+msgstr "Gerenciamento LDAP público de chaves SSH"
+
+#: modules/sshlpk/infoPackage.inc.php:39
+msgid "Manage SSH key"
+msgstr "Gerenciar chave SSH"
+
+#: modules/sshlpk/includes/publicFunc.php:58
+msgid "Public SSH Key"
+msgstr "Chave SSH pública"
+
+#: modules/sshlpk/includes/publicFunc.php:36
+msgid "Public SSH keys management plugin"
+msgstr "Plugin de gerenciamento público de chaves SSH"
+
+#: modules/sshlpk/infoPackage.inc.php:38
+msgid "Show/Hide SSH key list"
+msgstr "Mostrar/Esconder lista de chaves SSH"
+
+#: modules/sshlpk/includes/publicFunc.php:85
+msgid "Some SSH public keys are duplicate"
+msgstr "Algumas chaves SSH públicas estão duplicadas"
+
