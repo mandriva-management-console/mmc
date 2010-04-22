@@ -49,7 +49,7 @@
     <itemizedlist>
       <listitem>
 	<para>
-	  An agent running on the machine to manage. We call it « MMC agent ».
+	  An agent running on the machine to manage. We call it « MMC agent ».
 	  The agent exports to the network several plugins that allow to manage the machine.
 	  Of course, there can be multiple agents running on the network.
 	  The agent and its plugins are written in Python.
@@ -1017,6 +1017,11 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       made through the MMC agent, and so the MMC web interface. These
       operations are all loggued: LDAP modifications, all filesystem
       related modifications, and service management (stop, start, ...)
+    </para>
+
+    <para>
+      The Python SQLAlchemy library version 0.4.x is required for the audit
+      framework. The Python / MySQL bindings are also needed.
     </para>
 
     <para>
