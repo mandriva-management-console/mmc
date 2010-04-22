@@ -52,9 +52,13 @@ function packages_to_install () {
     # for MDS samba plugin
     if [ $DISTRIBUTION == "MandrivaLinux" ]; then
         PKGS="$PKGS samba-server smbldap-tools nss_ldap"
-        if [ $RELEASE != "2006.0" ];
+        if [ $RELEASE == "2010.0" ];
             then
             PKGS="$PKGS python-pylibacl"
+        fi
+        if [ $RELEASE == "2009.0" ];
+            then
+            PKGS="$PKGS pylibacl"
         fi
     fi
     if [ $DISTRIBUTION == "Debian" ]; then
