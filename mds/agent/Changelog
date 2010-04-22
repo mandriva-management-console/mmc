@@ -1,3 +1,12 @@
+mds 2.4.0 (MMC agent)
+---------------------
+
+ * New userquota module (Glen Ogilvie)
+   * To set disk and network quota to users
+ * New bulkimport mode (Glen Ogilvie)
+   * To massively import/update users from a CSV file
+ * New sshlpk module to manage OpenSSH LDAP public keys
+
 mmc-agent 2.3.2
 ---------------
 
