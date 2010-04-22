@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MDS spanish translation - Network module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-19 10:46+0200\n"
-"PO-Revision-Date: 2010-04-17 01:33+0100\n"
-"Last-Translator: Francisco Garcia <fgarpe@iberos.org>\n"
+"POT-Creation-Date: 2010-04-22 16:15+0200\n"
+"PO-Revision-Date: 2010-04-21 20:53+0100\n"
+"Last-Translator: Francisco Garcia <fgarcia@iberos.org>\n"
 "Language-Team: ES <fgarpe@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,15 +45,19 @@ msgstr "(alias de %s)"
 msgid "(e.g. 24 for a /24 network)"
 msgstr "(p.e. 24 para una red /24)"
 
+#: modules/network/includes/auditCodes.php:59
+msgid "A record"
+msgstr "Registro A"
+
 #: modules/network/network/edithost.php:119
 msgid "A reverse DNS record will be automatically created for this host."
 msgstr "Una entrada DNS inversa será creada automáticamente para este equipo."
 
-#: modules/network/includes/auditCodes.php:26
+#: modules/network/includes/auditCodes.php:48
 msgid "Add A record"
 msgstr "Añadir registro A"
 
-#: modules/network/includes/auditCodes.php:25
+#: modules/network/includes/auditCodes.php:47
 msgid "Add CNAME record"
 msgstr "Añadir registro CNAME"
 
@@ -65,7 +69,7 @@ msgstr "Añadir subred DHCP"
 msgid "Add DNS zone"
 msgstr "Añadir zona DNS"
 
-#: modules/network/includes/auditCodes.php:18
+#: modules/network/includes/auditCodes.php:40
 msgid "Add SOA record"
 msgstr "Añadir registro SOA"
 
@@ -108,11 +112,11 @@ msgstr "Añadir equipo estático"
 msgid "Add host"
 msgstr "Añadir equipo"
 
-#: modules/network/includes/auditCodes.php:22
+#: modules/network/includes/auditCodes.php:44
 msgid "Add host to subnet"
 msgstr "Añadir equipo a la subred"
 
-#: modules/network/includes/auditCodes.php:20
+#: modules/network/includes/auditCodes.php:42
 msgid "Add pool"
 msgstr "Añadir pool"
 
@@ -124,18 +128,13 @@ msgstr "Añadir equipo estático"
 msgid "Add static host to subnet"
 msgstr "Añadir equipo estático a la subred"
 
-#: modules/network/includes/auditCodes.php:6
+#: modules/network/includes/auditCodes.php:28
 msgid "Add subnet"
 msgstr "Añadir subred DHCP"
 
-#: modules/network/includes/auditCodes.php:4
-#, fuzzy
+#: modules/network/includes/auditCodes.php:26
 msgid "Add zone"
 msgstr "Añadir zona DNS"
-
-#: modules/network/includes/auditCodes.php:33
-msgid "Alias"
-msgstr "Alias"
 
 #: modules/network/network/edit.php:248
 msgid "Also create a related DHCP subnet"
@@ -171,6 +170,10 @@ msgstr "Sólo broadcast"
 msgid "Broadcast, then WINS"
 msgstr "Broadcast, y después WINS"
 
+#: modules/network/includes/auditCodes.php:58
+msgid "CNAME record"
+msgstr "Registro CNAME"
+
 #: modules/network/network/delete.php:44
 #: modules/network/network/subnetdeletehost.php:73
 #: modules/network/network/subnetdelete.php:46
@@ -198,9 +201,19 @@ msgstr "Crear"
 msgid "DHCP client lease time (in seconds)"
 msgstr "Tiempo de alquiler del cliente DHCP (en segundos)"
 
+#: modules/network/includes/auditCodes.php:60
+#, fuzzy
+msgid "DHCP host"
+msgstr "Equipos en la red DHCP"
+
 #: modules/network/network/subnetedit.php:226
 msgid "DHCP options related to clients network parameters"
 msgstr "Opciones DHCP relacionadas con parámetros de red de clientes"
+
+#: modules/network/includes/auditCodes.php:62
+#, fuzzy
+msgid "DHCP pool"
+msgstr "Recursos comunes DHCP"
 
 #: modules/network/infoPackage.inc.php:167
 msgid "DHCP service log"
@@ -209,6 +222,10 @@ msgstr "Bitácora del servicio DHCP"
 #: modules/network/dhcplogview/index.php:36
 msgid "DHCP service log view"
 msgstr "Ver bitácora del servicio DHCP"
+
+#: modules/network/includes/auditCodes.php:61
+msgid "DHCP subnet"
+msgstr "Subredes DHCP"
 
 #: modules/network/network/subnetedit.php:208
 msgid "DHCP subnet address"
@@ -250,6 +267,10 @@ msgstr "Bitácora del servicio DNS"
 msgid "DNS service log view"
 msgstr "Visualización de la bitácora del servicio DNS"
 
+#: modules/network/includes/auditCodes.php:57
+msgid "DNS zone"
+msgstr "Zonas DNS"
+
 #: modules/network/network/edit.php:214
 msgid "DNS zone FQDN"
 msgstr "Zona DNS FQDN"
@@ -282,18 +303,15 @@ msgstr "Fecha"
 msgid "Default lease time"
 msgstr "Tiempo de alquiler por defecto"
 
-#: modules/network/includes/auditCodes.php:23
-#, fuzzy
+#: modules/network/includes/auditCodes.php:45
 msgid "Del host"
 msgstr "Eliminar equipo"
 
-#: modules/network/includes/auditCodes.php:7
-#, fuzzy
+#: modules/network/includes/auditCodes.php:29
 msgid "Del subnet"
 msgstr "Eliminar subred"
 
-#: modules/network/includes/auditCodes.php:5
-#, fuzzy
+#: modules/network/includes/auditCodes.php:27
 msgid "Del zone"
 msgstr "Eliminar zona"
 
@@ -417,7 +435,6 @@ msgstr "Editar zona"
 msgid "Get next free IP address"
 msgstr "Obtener la siguiente dirección IP libre"
 
-#: modules/network/includes/auditCodes.php:30
 #: modules/network/network/ajaxZoneMembersFilter.php:84
 #: modules/network/network/ajaxSubnetMembersFilter.php:110
 msgid "Host"
@@ -500,14 +517,6 @@ msgstr "Enlaces a la subred en la zona DNS"
 msgid "List of routers (gateways) on client's subnet."
 msgstr "Lista de enrutadores (puertas de enlace) de la subred del cliente."
 
-#: modules/network/includes/auditCodes.php:28
-msgid "Log dhcp service"
-msgstr "Bitácora del servicio DHCP"
-
-#: modules/network/includes/auditCodes.php:27
-msgid "Log dns service"
-msgstr "Bitácora del servicio DNS"
-
 #: modules/network/network/subnetedithost.php:201
 #: modules/network/network/ajaxSubnetMembersFilter.php:108
 msgid "MAC address"
@@ -550,7 +559,7 @@ msgstr "Tiempo mínimo de alquiler"
 msgid "Minimum length in seconds that will be assigned to a lease."
 msgstr "Duración mínima en segundos que durará el aquiler."
 
-#: modules/network/includes/auditCodes.php:19
+#: modules/network/includes/auditCodes.php:41
 msgid "Modify record"
 msgstr "editar registro"
 
@@ -561,11 +570,6 @@ msgstr "Servidores NTP"
 #: modules/network/network/edit.php:228
 msgid "Name server IP"
 msgstr "IP del servidor de nombres"
-
-#: modules/network/includes/auditCodes.php:31
-#, fuzzy
-msgid "Net"
-msgstr "Red"
 
 #: modules/network/network/subnetedit.php:268
 msgid ""
@@ -656,17 +660,29 @@ msgstr "Ruta al sistema de archivos raíz"
 msgid "Path-name that contains the client's root disk."
 msgstr "Ruta que contiene el disco inicial del cliente"
 
-#: modules/network/includes/auditCodes.php:34
-msgid "Pool"
-msgstr "Recursos comunes"
-
 #: modules/network/network/edit.php:222
 msgid "Primary name server host name"
 msgstr "Nombre del equipo de servidor de nombres primario"
 
+#: modules/network/includes/auditCodes.php:52
+msgid "Reload DHCP service"
+msgstr "Recargar servicio DHCP"
+
+#: modules/network/includes/auditCodes.php:56
+msgid "Reload DNS service"
+msgstr "Recargar servicio DNS"
+
 #: modules/network/network/services.php:43
 msgid "Reload service"
 msgstr "Recargar servicio"
+
+#: modules/network/includes/auditCodes.php:51
+msgid "Restart DHCP service"
+msgstr "Reiniciar servicio DHCP"
+
+#: modules/network/includes/auditCodes.php:55
+msgid "Restart DNS service"
+msgstr "Reiniciar servicio DNS"
 
 #: modules/network/network/services.php:44
 msgid "Restart service"
@@ -693,55 +709,53 @@ msgstr "Servidor desde el que se cargará el archivo de inicio"
 msgid "Services"
 msgstr "Servicios"
 
-#: modules/network/includes/auditCodes.php:16
+#: modules/network/includes/auditCodes.php:39
+msgid "Set NS record"
+msgstr "Establecer registro NS"
+
+#: modules/network/includes/auditCodes.php:38
 msgid "Set SOA record"
 msgstr "Establecer registro SOA"
 
-#: modules/network/includes/auditCodes.php:8
+#: modules/network/includes/auditCodes.php:30
 msgid "Set host"
 msgstr "Establecer equipo"
 
-#: modules/network/includes/auditCodes.php:24
+#: modules/network/includes/auditCodes.php:46
 msgid "Set host aliases"
 msgstr "Establecer alias de equipo"
 
-#: modules/network/includes/auditCodes.php:10
-#, fuzzy
+#: modules/network/includes/auditCodes.php:32
 msgid "Set host hardware address"
-msgstr "Obtener la siguiente dirección IP libre"
+msgstr "Establecer dirección de hardware del equipo"
 
-#: modules/network/includes/auditCodes.php:9
+#: modules/network/includes/auditCodes.php:31
 msgid "Set host statement"
 msgstr "Establecer estado de equipo"
 
-#: modules/network/includes/auditCodes.php:17
-msgid "Set ns record"
-msgstr "Establecer registro ns"
-
-#: modules/network/includes/auditCodes.php:21
+#: modules/network/includes/auditCodes.php:43
 msgid "Set pool range"
 msgstr "Establecer Rango dinámico"
 
-#: modules/network/includes/auditCodes.php:11
+#: modules/network/includes/auditCodes.php:33
 msgid "Set subnet"
 msgstr "Establecer subred"
 
-#: modules/network/includes/auditCodes.php:14
-msgid "Set subnet authorities"
-msgstr "Autoridades de subred"
+#: modules/network/includes/auditCodes.php:36
+msgid "Set subnet authoritative flag"
+msgstr "Establecer como autoritativo de subred"
 
-#: modules/network/includes/auditCodes.php:13
+#: modules/network/includes/auditCodes.php:35
 msgid "Set subnet description"
 msgstr "Descripción de la subred"
 
-#: modules/network/includes/auditCodes.php:15
+#: modules/network/includes/auditCodes.php:37
 msgid "Set subnet netmask"
 msgstr "Establecer mascara de la subred"
 
-#: modules/network/includes/auditCodes.php:12
-#, fuzzy
+#: modules/network/includes/auditCodes.php:34
 msgid "Set subnet statement"
-msgstr "Gestión de subredes DHCP"
+msgstr "Establecer declaración de subred"
 
 #: modules/network/network/subnetedit.php:281
 msgid ""
@@ -766,6 +780,14 @@ msgid ""
 msgstr ""
 "Especifique el nombre del archivo de inicio que será cargado por el cliente."
 
+#: modules/network/includes/auditCodes.php:49
+msgid "Start DHCP service"
+msgstr "Iniciar servicio DHCP"
+
+#: modules/network/includes/auditCodes.php:53
+msgid "Start DNS service"
+msgstr "Iniciar servicio DNS"
+
 #: modules/network/network/services.php:41
 msgid "Start service"
 msgstr "Iniciar servicio"
@@ -784,6 +806,14 @@ msgstr "Estática"
 msgid "Status"
 msgstr "Estado"
 
+#: modules/network/includes/auditCodes.php:50
+msgid "Stop DHCP service"
+msgstr "Detener servicio DHCP"
+
+#: modules/network/includes/auditCodes.php:54
+msgid "Stop DNS service"
+msgstr "Detener servicio DNS"
+
 #: modules/network/network/services.php:42
 msgid "Stop service"
 msgstr "Detener servicio"
@@ -792,10 +822,6 @@ msgstr "Detener servicio"
 #: modules/network/network/services.php:72
 msgid "Stopped"
 msgstr "Detenido"
-
-#: modules/network/includes/auditCodes.php:32
-msgid "Subnet"
-msgstr "Subred"
 
 #: modules/network/network/subnetedit.php:160
 msgid "Subnet successfully added. You must restart the DHCP service."
@@ -1039,10 +1065,6 @@ msgstr "Se va a eliminar la zona DNS %s."
 msgid "You will delete the host %s from the DHCP subnet."
 msgstr "Se va a eliminar el equipo %s de la subred DHCP."
 
-#: modules/network/includes/auditCodes.php:29
-msgid "Zone"
-msgstr "Zona"
-
 #: modules/network/network/subnetedithost.php:230
 #, php-format
 msgid "but with another IP address (%s)"
@@ -1056,7 +1078,28 @@ msgstr "editar entrada"
 msgid "edit static host"
 msgstr "Editar equipo estático"
 
-#: modules/network/includes/auditCodes.php:35
-#, fuzzy
+#: modules/network/includes/auditCodes.php:63
 msgid "network"
 msgstr "Red"
+
+#~ msgid "Alias"
+#~ msgstr "Alias"
+
+#~ msgid "Log dhcp service"
+#~ msgstr "Bitácora del servicio DHCP"
+
+#~ msgid "Log dns service"
+#~ msgstr "Bitácora del servicio DNS"
+
+#, fuzzy
+#~ msgid "Net"
+#~ msgstr "Red"
+
+#~ msgid "Set ns record"
+#~ msgstr "Establecer registro ns"
+
+#~ msgid "Subnet"
+#~ msgstr "Subred"
+
+#~ msgid "Zone"
+#~ msgstr "Zona"

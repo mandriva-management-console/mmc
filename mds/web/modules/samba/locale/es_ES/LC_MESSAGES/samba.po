@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MDS spanish translation - Base module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-19 10:46+0200\n"
-"PO-Revision-Date: 2010-04-17 01:58+0100\n"
-"Last-Translator: Francisco Garcia <fgarpe@iberos.org>\n"
+"POT-Creation-Date: 2010-04-22 16:15+0200\n"
+"PO-Revision-Date: 2010-04-21 20:39+0100\n"
+"Last-Translator: Francisco Garcia <fgarcia@iberos.org>\n"
 "Language-Team: Aitire / Juan Asensio Sánchez <info@aitire.es / okelet@gmail."
 "com>\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,14 @@ msgstr "Acceso para todos"
 msgid "Add"
 msgstr "Añadir"
 
+#: modules/samba/includes/auditCodes.php:31
+msgid "Add SAMBA attribute"
+msgstr "Añadir atributo de SAMBA"
+
+#: modules/samba/includes/auditCodes.php:34
+msgid "Add SAMBA properties"
+msgstr "Añadir propiedades de SAMBA"
+
 #: modules/samba/shares/localSidebar.php:37
 #: modules/samba/machines/localSidebar.php:31
 #: modules/samba/machines/add.php:41 modules/samba/mainSidebar.php:36
@@ -54,21 +62,11 @@ msgstr "Añadir un grupo nuevo"
 msgid "Add a share"
 msgstr "Añadir un recurso"
 
-#: modules/samba/includes/auditCodes.php:21
+#: modules/samba/includes/auditCodes.php:43
 msgid "Add computer"
 msgstr "Añadir una máquina"
 
-#: modules/samba/includes/auditCodes.php:9
-#, fuzzy
-msgid "Add samba attribute"
-msgstr "Atributos de samba añadidos."
-
-#: modules/samba/includes/auditCodes.php:12
-#, fuzzy
-msgid "Add samba attributes"
-msgstr "Atributos de samba añadidos."
-
-#: modules/samba/includes/auditCodes.php:4
+#: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
 msgstr "Añadir un recurso"
 
@@ -104,7 +102,7 @@ msgstr ""
 "La copia de seguridad de la carpeta compartida <b>%s</b> ha sido lanzada "
 "como trabajo en segundo plano."
 
-#: modules/samba/includes/auditCodes.php:6
+#: modules/samba/includes/auditCodes.php:28
 msgid "Backup share"
 msgstr "Realizar copia de seguridad de un recurso"
 
@@ -117,17 +115,15 @@ msgstr "Ruta al directorio raíz"
 msgid "Can't launch backup"
 msgstr "No se pudo ejecutar la copia de seguridad"
 
-#: modules/samba/includes/auditCodes.php:11
-#, fuzzy
-msgid "Change samba attribute"
-msgstr "Atributos de samba añadidos."
+#: modules/samba/includes/auditCodes.php:33
+msgid "Change SAMBA attribute"
+msgstr "Cambiar atributo de SAMBA"
 
-#: modules/samba/includes/auditCodes.php:14
-#, fuzzy
+#: modules/samba/includes/auditCodes.php:36
 msgid "Change user password"
-msgstr "La contraseña del usuario ha caducado"
+msgstr "Cambiar contraseña de usuario"
 
-#: modules/samba/includes/auditCodes.php:15
+#: modules/samba/includes/auditCodes.php:37
 msgid "Change user primary group"
 msgstr "Cambiar grupo primario del usuario"
 
@@ -135,10 +131,9 @@ msgstr "Cambiar grupo primario del usuario"
 msgid "Comment"
 msgstr "Comentario"
 
-#: modules/samba/includes/auditCodes.php:24
-#, fuzzy
+#: modules/samba/includes/auditCodes.php:46
 msgid "Computer"
-msgstr "Máquinas"
+msgstr "Máquina"
 
 #: modules/samba/machines/add.php:36
 #, php-format
@@ -201,19 +196,19 @@ msgstr "Conexiones a los recursos"
 msgid "Create"
 msgstr "Crear"
 
-#: modules/samba/includes/auditCodes.php:22
+#: modules/samba/includes/auditCodes.php:32
+msgid "Del SAMBA attribute"
+msgstr "Eliminar atributo de SAMBA"
+
+#: modules/samba/includes/auditCodes.php:35
+msgid "Del SAMBA properties"
+msgstr "Eliminar propiedades de SAMBA"
+
+#: modules/samba/includes/auditCodes.php:44
 msgid "Del computer"
 msgstr "Eliminar una máquina"
 
-#: modules/samba/includes/auditCodes.php:10
-msgid "Del samba attribute"
-msgstr "eliminar atributo de samba."
-
-#: modules/samba/includes/auditCodes.php:13
-msgid "Del samba attributes"
-msgstr "Eliminar atributos de samba."
-
-#: modules/samba/includes/auditCodes.php:5
+#: modules/samba/includes/auditCodes.php:27
 msgid "Del share"
 msgstr "Eliminar un recurso"
 
@@ -242,7 +237,7 @@ msgstr "Descripción"
 msgid "Disable samba user account"
 msgstr "Desactivar cuenta de usuario Samba"
 
-#: modules/samba/includes/auditCodes.php:17
+#: modules/samba/includes/auditCodes.php:39
 msgid "Disable user"
 msgstr "Desactivar cuenta de usuario Samba"
 
@@ -254,7 +249,7 @@ msgstr "Nombre de dominio"
 msgid "Edit"
 msgstr "Editar"
 
-#: modules/samba/includes/auditCodes.php:16
+#: modules/samba/includes/auditCodes.php:38
 msgid "Enable user"
 msgstr "Habilitar usuario"
 
@@ -303,7 +298,7 @@ msgstr ""
 "                       <p>El usuario puede ser bloqueado después de muchos "
 "fallos de acceso</p>"
 
-#: modules/samba/includes/auditCodes.php:18
+#: modules/samba/includes/auditCodes.php:40
 msgid "Lock user"
 msgstr "Bloquear usuario"
 
@@ -315,8 +310,8 @@ msgstr "Bloquear/Desbloquear cuenta"
 msgid "Machines"
 msgstr "Máquinas"
 
-#: modules/samba/includes/auditCodes.php:20
-msgid "Make samba group"
+#: modules/samba/includes/auditCodes.php:42
+msgid "Make SAMBA group"
 msgstr "Crear grupo de samba"
 
 #: modules/samba/shares/details.php:129
@@ -363,6 +358,10 @@ msgstr ""
 "Por favor seleccione el tamaño del medio. Si los datos execeden el tamaño "
 "del medio, se crearán varios ficheros con el tamaño del medio especificado."
 
+#: modules/samba/includes/auditCodes.php:30
+msgid "Reload SAMBA"
+msgstr "Recargar servicio de SAMBA"
+
 #: modules/samba/config/index.php:132
 msgid "Reload SAMBA configuration"
 msgstr "Recargar configuración de SAMBA"
@@ -371,21 +370,17 @@ msgstr "Recargar configuración de SAMBA"
 msgid "Reload SAMBA service"
 msgstr "Recargar servicio de SAMBA"
 
-#: modules/samba/includes/auditCodes.php:8
-msgid "Reload samba"
-msgstr "Recargar samba"
-
 #: modules/samba/infoPackage.inc.php:55
 msgid "Remove a share"
 msgstr "Eliminar un recurso"
 
-#: modules/samba/config/index.php:131
+#: modules/samba/config/index.php:131 modules/samba/includes/auditCodes.php:29
 msgid "Restart SAMBA"
 msgstr "Reiniciar SAMBA"
 
-#: modules/samba/includes/auditCodes.php:7
-msgid "Restart samba"
-msgstr "Reiniciar SAMBA"
+#: modules/samba/includes/auditCodes.php:47
+msgid "SAMBA"
+msgstr "SAMBA"
 
 #: modules/samba/includes/publicFunc.php:169
 msgid "SAMBA access"
@@ -431,7 +426,7 @@ msgstr "Propiedades del usuario de Samba"
 msgid "Server name"
 msgstr "Nombre del servidor"
 
-#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:23
+#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:45
 msgid "Share"
 msgstr "Recurso"
 
@@ -576,7 +571,7 @@ msgstr ""
 "\t\t\t</ul>\n"
 "\t\t\t"
 
-#: modules/samba/includes/auditCodes.php:19
+#: modules/samba/includes/auditCodes.php:41
 msgid "Unlock user"
 msgstr "Desbloquear usuario"
 
@@ -627,6 +622,25 @@ msgstr "Va a eliminar el recurso <b>%s</b>"
 msgid "restart SAMBA service"
 msgstr "Reiniciar el servicio SAMBA"
 
-#: modules/samba/includes/auditCodes.php:25
-msgid "samba"
-msgstr "samba"
+#, fuzzy
+#~ msgid "Add samba attribute"
+#~ msgstr "Atributos de samba añadidos."
+
+#, fuzzy
+#~ msgid "Add samba attributes"
+#~ msgstr "Atributos de samba añadidos."
+
+#~ msgid "Del samba attribute"
+#~ msgstr "eliminar atributo de samba."
+
+#~ msgid "Del samba attributes"
+#~ msgstr "Eliminar atributos de samba."
+
+#~ msgid "Reload samba"
+#~ msgstr "Recargar samba"
+
+#~ msgid "Restart samba"
+#~ msgstr "Reiniciar SAMBA"
+
+#~ msgid "samba"
+#~ msgstr "samba"

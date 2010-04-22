@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MDS spanish translation - Mail module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-19 10:46+0200\n"
-"PO-Revision-Date: 2010-04-17 01:23+0100\n"
-"Last-Translator: Francisco Garcia <fgarpe@iberos.org>\n"
+"POT-Creation-Date: 2010-04-22 16:15+0200\n"
+"PO-Revision-Date: 2010-04-21 20:37+0100\n"
+"Last-Translator: Francisco Garcia <fgarcia@iberos.org>\n"
 "Language-Team: Juan Asensio Sánchez <okelet@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -31,37 +31,32 @@ msgid "Add a mail domain"
 msgstr "Añadir dominio de correo"
 
 #: modules/mail/includes/auditCodes.php:11
-#, fuzzy
 msgid "Add mail attributes"
-msgstr "Añadir dominio de correo"
+msgstr "Añadir atributos de correo"
 
 #: modules/mail/includes/auditCodes.php:14
-#, fuzzy
 msgid "Add mail group"
-msgstr "Añadir dominio de correo"
+msgstr "Añadir grupo de correo"
 
 #: modules/mail/includes/auditCodes.php:15
-#, fuzzy
 msgid "Add virtual domain"
-msgstr "Añadir dominio"
+msgstr "Añadir dominio virtual"
 
 #: modules/mail/mail/delete.php:55
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: modules/mail/includes/auditCodes.php:7
-#, fuzzy
 msgid "Change mail alias"
-msgstr "Alias de correo"
+msgstr "Cambiar alias de correo"
 
 #: modules/mail/includes/auditCodes.php:8
 msgid "Change mail box"
 msgstr "Cambiar buzón de correo"
 
 #: modules/mail/includes/auditCodes.php:6
-#, fuzzy
 msgid "Change mail drop"
-msgstr "Eliminar mensaje"
+msgstr "Cambiar entrega de correo"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
@@ -88,14 +83,12 @@ msgid "Del mail attributes"
 msgstr "Eliminar atributos de correo"
 
 #: modules/mail/includes/auditCodes.php:13
-#, fuzzy
 msgid "Del mail group alias"
-msgstr "Acceso de alias del grupo de correo"
+msgstr "Eliminar alias del grupo de correo"
 
 #: modules/mail/includes/auditCodes.php:16
-#, fuzzy
 msgid "Del virtual domain"
-msgstr "Eliminar dominio"
+msgstr "Eliminar dominio de correo"
 
 #: modules/mail/infoPackage.inc.php:71
 msgid "Delete a mail domain"
@@ -134,9 +127,8 @@ msgid "Enable mail alias for users of this group "
 msgstr "Habilitar alias de correo para los usuarios de este grupo"
 
 #: modules/mail/includes/auditCodes.php:4
-#, fuzzy
 msgid "Enable mail delivery"
-msgstr "Entrega de correo deshabilitada"
+msgstr "Habilitar entrega de correo"
 
 #: modules/mail/includes/publicFunc.php:193
 #: modules/mail/infoPackage.inc.php:50
@@ -156,9 +148,8 @@ msgid "Mail"
 msgstr "Correo"
 
 #: modules/mail/includes/auditCodes.php:20
-#, fuzzy
 msgid "Mail Group"
-msgstr "Eliminar mensaje"
+msgstr "Grupo de correo"
 
 #: modules/mail/includes/publicFunc.php:163
 #: modules/mail/infoPackage.inc.php:40
@@ -244,23 +235,20 @@ msgid "No mail alias can be set for this group"
 msgstr "Nose pueden establecer alias de correo para los usuarios de este grupo"
 
 #: modules/mail/includes/auditCodes.php:19
-#, fuzzy
 msgid "Reset domain quota"
-msgstr "Eliminar dominio"
+msgstr "Reiniciar cuota de dominio"
 
 #: modules/mail/mail/edit.php:114
 msgid "Reset users quota to default"
 msgstr "Resetear la cuota de los usuarios a la cuota por defecto"
 
 #: modules/mail/includes/auditCodes.php:17
-#, fuzzy
 msgid "Set domain description"
-msgstr "Descripción"
+msgstr "Establecer descripción de dominio"
 
 #: modules/mail/includes/auditCodes.php:18
-#, fuzzy
 msgid "Set domain quota"
-msgstr "Eliminar dominio"
+msgstr "Establecer cuota de dominio"
 
 #: modules/mail/mail/edit.php:55
 msgid "The mail domain has been added."
@@ -291,9 +279,8 @@ msgid "View members"
 msgstr "Ver miembros"
 
 #: modules/mail/includes/auditCodes.php:22
-#, fuzzy
 msgid "Virtual Mail Domain"
-msgstr "Editar dominio de correo"
+msgstr "Dominios virtuales de correo"
 
 #: modules/mail/includes/publicFunc.php:266
 msgid "You must specify a valid mail address to enable mail delivery."
@@ -306,6 +293,5 @@ msgid "You will delete the virtual mail domain "
 msgstr "Va a eliminar el dominio de correo virtual"
 
 #: modules/mail/includes/auditCodes.php:24
-#, fuzzy
 msgid "mail"
 msgstr "Correo"
