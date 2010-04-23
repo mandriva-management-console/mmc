@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-20 06:28+0200\n"
-"PO-Revision-Date: 2010-04-20 16:58-0300\n"
+"POT-Creation-Date: 2010-04-23 09:15+0200\n"
+"PO-Revision-Date: 2010-04-22 14:52-0300\n"
 "Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
 "Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "Alterar caixa de e-mail"
 
 #: modules/mail/includes/auditCodes.php:6
 msgid "Change mail drop"
-msgstr ""
+msgstr "Alterar entrega de mail"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
@@ -107,7 +107,7 @@ msgstr "Remover domínio"
 msgid "Description"
 msgstr "Descrição"
 
-#: modules/mail/infoPackage.inc.php:41 modules/mail/includes/auditCodes.php:5
+#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:41
 msgid "Disable mail delivery"
 msgstr "Desabilitar a entrega de email"
 
@@ -135,8 +135,8 @@ msgstr "Habilitar aliases para usuários deste grupo "
 msgid "Enable mail delivery"
 msgstr "Habilitar entrega de e-mail"
 
-#: modules/mail/infoPackage.inc.php:50
 #: modules/mail/includes/publicFunc.php:193
+#: modules/mail/infoPackage.inc.php:50
 msgid "Forward to"
 msgstr "Retransmitir para"
 
@@ -148,7 +148,7 @@ msgstr "Nome inválido de domínio"
 msgid "Login"
 msgstr "Login"
 
-#: modules/mail/infoPackage.inc.php:53 modules/mail/includes/auditCodes.php:21
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:53
 msgid "Mail"
 msgstr "Email"
 
@@ -156,8 +156,8 @@ msgstr "Email"
 msgid "Mail Group"
 msgstr "Grupo de E-mail"
 
-#: modules/mail/infoPackage.inc.php:40
 #: modules/mail/includes/publicFunc.php:163
+#: modules/mail/infoPackage.inc.php:40
 msgid "Mail access"
 msgstr "Acesso ao email"
 
@@ -180,8 +180,8 @@ msgstr "Aliases de email"
 msgid "Mail delivery is disabled, if checked"
 msgstr "Entrega de email está desabilitada, se marcado"
 
-#: modules/mail/infoPackage.inc.php:43
 #: modules/mail/includes/publicFunc.php:215
+#: modules/mail/infoPackage.inc.php:43
 msgid "Mail delivery path"
 msgstr "Caminho de entrega do email"
 
@@ -195,9 +195,9 @@ msgstr "Domínio de email"
 msgid "Mail domain list"
 msgstr "Lista de domínios de email"
 
-#: modules/mail/infoPackage.inc.php:97
 #: modules/mail/includes/publicFunc.php:197
 #: modules/mail/includes/publicFunc.php:201
+#: modules/mail/infoPackage.inc.php:97
 msgid "Mail drop"
 msgstr "Descartar email"
 
@@ -214,8 +214,8 @@ msgstr "Plugin de email"
 msgid "Mail quota (in kB)"
 msgstr "Quota de email (em kB)"
 
-#: modules/mail/infoPackage.inc.php:44
 #: modules/mail/includes/publicFunc.php:219
+#: modules/mail/infoPackage.inc.php:44
 msgid "Mail server host"
 msgstr "Host do servidor de email"
 
@@ -300,4 +300,3 @@ msgstr "Você irá remover o domínio virtual de emails "
 #: modules/mail/includes/auditCodes.php:24
 msgid "mail"
 msgstr "E-mail"
-

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mds samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-20 06:28+0200\n"
+"POT-Creation-Date: 2010-04-23 09:15+0200\n"
 "PO-Revision-Date: 2010-04-20 18:37-0300\n"
 "Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
 "Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
@@ -43,10 +43,20 @@ msgstr "Acesso para todos"
 msgid "Add"
 msgstr "Adicionar"
 
-#: modules/samba/mainSidebar.php:36 modules/samba/infoPackage.inc.php:83
+#: modules/samba/includes/auditCodes.php:31
+#, fuzzy
+msgid "Add SAMBA attribute"
+msgstr "Adicionar/remover atributos do SAMBA"
+
+#: modules/samba/includes/auditCodes.php:34
+#, fuzzy
+msgid "Add SAMBA properties"
+msgstr "Serviço SAMBA"
+
 #: modules/samba/shares/localSidebar.php:37
 #: modules/samba/machines/localSidebar.php:31
-#: modules/samba/machines/add.php:41
+#: modules/samba/machines/add.php:41 modules/samba/mainSidebar.php:36
+#: modules/samba/infoPackage.inc.php:83
 msgid "Add a computer"
 msgstr "Adicionar um computador"
 
@@ -54,25 +64,17 @@ msgstr "Adicionar um computador"
 msgid "Add a new group"
 msgstr "Adicionar um novo grupo"
 
-#: modules/samba/mainSidebar.php:30 modules/samba/infoPackage.inc.php:48
 #: modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:82
+#: modules/samba/shares/details.php:82 modules/samba/mainSidebar.php:30
+#: modules/samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr "Adicionar um compartilhamento"
 
-#: modules/samba/includes/auditCodes.php:21
+#: modules/samba/includes/auditCodes.php:43
 msgid "Add computer"
 msgstr "Adicionar computador"
 
-#: modules/samba/includes/auditCodes.php:9
-msgid "Add samba attribute"
-msgstr "Adicionar Atributo samba"
-
-#: modules/samba/includes/auditCodes.php:12
-msgid "Add samba attributes"
-msgstr "Adicionar atributos samba"
-
-#: modules/samba/includes/auditCodes.php:4
+#: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
 msgstr "Adicionar compartilhamento"
 
@@ -106,7 +108,7 @@ msgstr "Becapear um compartilhamento"
 msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr "Becape do compartilhamento <b>%s</b> foi iniciado em segundo plano."
 
-#: modules/samba/includes/auditCodes.php:6
+#: modules/samba/includes/auditCodes.php:28
 msgid "Backup share"
 msgstr "Cópia se segurança do compartilhamento"
 
@@ -119,15 +121,16 @@ msgstr "Caminho do diretŕoio base"
 msgid "Can't launch backup"
 msgstr "Não foi possível iniciar becape"
 
-#: modules/samba/includes/auditCodes.php:11
-msgid "Change samba attribute"
+#: modules/samba/includes/auditCodes.php:33
+#, fuzzy
+msgid "Change SAMBA attribute"
 msgstr "Alterar Atributos samba"
 
-#: modules/samba/includes/auditCodes.php:14
+#: modules/samba/includes/auditCodes.php:36
 msgid "Change user password"
 msgstr "Alterar senha do usuário"
 
-#: modules/samba/includes/auditCodes.php:15
+#: modules/samba/includes/auditCodes.php:37
 msgid "Change user primary group"
 msgstr "Alterar grupo primário do usuário"
 
@@ -135,7 +138,7 @@ msgstr "Alterar grupo primário do usuário"
 msgid "Comment"
 msgstr "Comentário"
 
-#: modules/samba/includes/auditCodes.php:24
+#: modules/samba/includes/auditCodes.php:46
 msgid "Computer"
 msgstr "Computador"
 
@@ -200,19 +203,21 @@ msgstr "Conexões nos compartilhamentos"
 msgid "Create"
 msgstr "Criar"
 
-#: modules/samba/includes/auditCodes.php:22
+#: modules/samba/includes/auditCodes.php:32
+#, fuzzy
+msgid "Del SAMBA attribute"
+msgstr "Adicionar/remover atributos do SAMBA"
+
+#: modules/samba/includes/auditCodes.php:35
+#, fuzzy
+msgid "Del SAMBA properties"
+msgstr "Recarregar o serviço SAMBA"
+
+#: modules/samba/includes/auditCodes.php:44
 msgid "Del computer"
 msgstr "Remover computador"
 
-#: modules/samba/includes/auditCodes.php:10
-msgid "Del samba attribute"
-msgstr "Remover atributo samba"
-
-#: modules/samba/includes/auditCodes.php:13
-msgid "Del samba attributes"
-msgstr "Remover atributos samba"
-
-#: modules/samba/includes/auditCodes.php:5
+#: modules/samba/includes/auditCodes.php:27
 msgid "Del share"
 msgstr "Remover compartilhamento"
 
@@ -221,7 +226,7 @@ msgstr "Remover compartilhamento"
 msgid "Delete"
 msgstr "Remover"
 
-#: modules/samba/infoPackage.inc.php:86 modules/samba/machines/delete.php:40
+#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:86
 msgid "Delete a computer"
 msgstr "Remover um computador"
 
@@ -241,7 +246,7 @@ msgstr "Descrição"
 msgid "Disable samba user account"
 msgstr "Desabilitar conta de usuário samba"
 
-#: modules/samba/includes/auditCodes.php:17
+#: modules/samba/includes/auditCodes.php:39
 msgid "Disable user"
 msgstr "Desabilitar usuário"
 
@@ -253,7 +258,7 @@ msgstr "Nome do domínio"
 msgid "Edit"
 msgstr "Editar"
 
-#: modules/samba/includes/auditCodes.php:16
+#: modules/samba/includes/auditCodes.php:38
 msgid "Enable user"
 msgstr "Habilitar usuário"
 
@@ -261,7 +266,7 @@ msgstr "Habilitar usuário"
 msgid "Enable/Disable account"
 msgstr "Habilitar/Desabilitar conta"
 
-#: modules/samba/mainSidebar.php:41 modules/samba/config/index.php:75
+#: modules/samba/config/index.php:75 modules/samba/mainSidebar.php:41
 msgid "General options"
 msgstr "Opções gerais"
 
@@ -302,7 +307,7 @@ msgstr ""
 "                        <p>Usuário pode ser bloqueado depois de muitas "
 "tentativas falhas de login.</p>"
 
-#: modules/samba/includes/auditCodes.php:18
+#: modules/samba/includes/auditCodes.php:40
 msgid "Lock user"
 msgstr "Trancar usuário"
 
@@ -314,8 +319,9 @@ msgstr "Bloquear/Desbloquear conta"
 msgid "Machines"
 msgstr "Máquinas"
 
-#: modules/samba/includes/auditCodes.php:20
-msgid "Make samba group"
+#: modules/samba/includes/auditCodes.php:42
+#, fuzzy
+msgid "Make SAMBA group"
 msgstr "Criar grupo samba"
 
 #: modules/samba/shares/details.php:129
@@ -359,6 +365,11 @@ msgstr ""
 "Por favor selecione o tamanho da mídia. Se os dados excedem o tamamnho do "
 "volume, diversos arquivos serão criados."
 
+#: modules/samba/includes/auditCodes.php:30
+#, fuzzy
+msgid "Reload SAMBA"
+msgstr "Recarregar o serviço SAMBA"
+
 #: modules/samba/config/index.php:132
 msgid "Reload SAMBA configuration"
 msgstr "Recarregar a configuração do SAMBA"
@@ -367,21 +378,17 @@ msgstr "Recarregar a configuração do SAMBA"
 msgid "Reload SAMBA service"
 msgstr "Recarregar o serviço SAMBA"
 
-#: modules/samba/includes/auditCodes.php:8
-msgid "Reload samba"
-msgstr "Recarregar samba"
-
 #: modules/samba/infoPackage.inc.php:55
 msgid "Remove a share"
 msgstr "Remover um compartilhamento"
 
-#: modules/samba/config/index.php:131
+#: modules/samba/config/index.php:131 modules/samba/includes/auditCodes.php:29
 msgid "Restart SAMBA"
 msgstr "Reiniciar SAMBA"
 
-#: modules/samba/includes/auditCodes.php:7
-msgid "Restart samba"
-msgstr "Reiniciar samba"
+#: modules/samba/includes/auditCodes.php:47
+msgid "SAMBA"
+msgstr ""
 
 #: modules/samba/includes/publicFunc.php:169
 msgid "SAMBA access"
@@ -427,7 +434,7 @@ msgstr "Propriedades de usuários samba"
 msgid "Server name"
 msgstr "Nome do servidor"
 
-#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:23
+#: modules/samba/status/index.php:84 modules/samba/includes/auditCodes.php:45
 msgid "Share"
 msgstr "Compartilhamento"
 
@@ -465,8 +472,8 @@ msgstr ""
 msgid "Share user's homes"
 msgstr "Homes compartilhados de usuários"
 
-#: modules/samba/infoPackage.inc.php:41 modules/samba/shares/index.php:55
-#: modules/samba/shares/index.php:59
+#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
+#: modules/samba/infoPackage.inc.php:41
 msgid "Shares"
 msgstr "Compartilhamentos"
 
@@ -572,7 +579,7 @@ msgstr ""
 "\t\t\t</ul>\n"
 "\t\t\t"
 
-#: modules/samba/includes/auditCodes.php:19
+#: modules/samba/includes/auditCodes.php:41
 msgid "Unlock user"
 msgstr "Destrancar usuário"
 
@@ -623,7 +630,23 @@ msgstr "Você irá remover o compartilhamento <b>%s</b>"
 msgid "restart SAMBA service"
 msgstr "reiniciar serviço SAMBA"
 
-#: modules/samba/includes/auditCodes.php:25
-msgid "samba"
-msgstr "samba"
+#~ msgid "Add samba attribute"
+#~ msgstr "Adicionar Atributo samba"
 
+#~ msgid "Add samba attributes"
+#~ msgstr "Adicionar atributos samba"
+
+#~ msgid "Del samba attribute"
+#~ msgstr "Remover atributo samba"
+
+#~ msgid "Del samba attributes"
+#~ msgstr "Remover atributos samba"
+
+#~ msgid "Reload samba"
+#~ msgstr "Recarregar samba"
+
+#~ msgid "Restart samba"
+#~ msgstr "Reiniciar samba"
+
+#~ msgid "samba"
+#~ msgstr "samba"

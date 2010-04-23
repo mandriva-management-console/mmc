@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mds proxy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-20 06:28+0200\n"
+"POT-Creation-Date: 2010-04-23 09:15+0200\n"
 "PO-Revision-Date: 2010-04-20 18:32-0300\n"
 "Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
 "Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: modules/proxy/infoPackage.inc.php:51 modules/proxy/blacklist/add.php:59
+#: modules/proxy/blacklist/add.php:59 modules/proxy/infoPackage.inc.php:51
 msgid "Add a domain in the blacklist"
 msgstr "Adicionar um domínio na lista negra"
 
@@ -38,8 +38,8 @@ msgstr "Você tem certeza ?"
 msgid "Back"
 msgstr "Voltar"
 
-#: modules/proxy/infoPackage.inc.php:44
 #: modules/proxy/includes/auditCodes.php:7
+#: modules/proxy/infoPackage.inc.php:44
 msgid "Blacklist"
 msgstr "Lista negra"
 
@@ -156,4 +156,3 @@ msgstr "habilitado"
 #: modules/proxy/includes/auditCodes.php:8
 msgid "proxy"
 msgstr "proxy"
-
