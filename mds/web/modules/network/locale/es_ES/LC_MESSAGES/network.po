@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MDS spanish translation - Network module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-22 16:15+0200\n"
-"PO-Revision-Date: 2010-04-21 20:53+0100\n"
+"POT-Creation-Date: 2010-04-27 08:47+0200\n"
+"PO-Revision-Date: 2010-04-24 11:45+0100\n"
 "Last-Translator: Francisco Garcia <fgarcia@iberos.org>\n"
 "Language-Team: ES <fgarpe@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -202,18 +202,16 @@ msgid "DHCP client lease time (in seconds)"
 msgstr "Tiempo de alquiler del cliente DHCP (en segundos)"
 
 #: modules/network/includes/auditCodes.php:60
-#, fuzzy
 msgid "DHCP host"
-msgstr "Equipos en la red DHCP"
+msgstr "DHCP host"
 
 #: modules/network/network/subnetedit.php:226
 msgid "DHCP options related to clients network parameters"
 msgstr "Opciones DHCP relacionadas con parámetros de red de clientes"
 
 #: modules/network/includes/auditCodes.php:62
-#, fuzzy
 msgid "DHCP pool"
-msgstr "Recursos comunes DHCP"
+msgstr "DHCP pool"
 
 #: modules/network/infoPackage.inc.php:167
 msgid "DHCP service log"
