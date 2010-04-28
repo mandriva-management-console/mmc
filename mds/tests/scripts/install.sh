@@ -95,7 +95,7 @@ function packages_to_install () {
     # for MDS proxy plugin
     if [ $DISTRIBUTION == "MandrivaLinux" ]; then
         PKGS="$PKGS squid"
-        if [ $RELEASE == "2009.0" ];
+        if [ $RELEASE == "2006.0" -o $RELEASE == "2009.0" ];
             then
             PKGS="$PKGS squidGuard"
         fi
@@ -292,7 +292,11 @@ fi
 # Setup SQUID / squidGuard
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     if [ $RELEASE == "2009.0" ]; then
-	BLACKLIST=/usr/share/squidGuard-1.4/db/bad.destdomainlist
+        BLACKLIST=/usr/share/squidGuard-1.4/db/bad.destdomainlist
+    elif [ $RELEASE == "2006.0" ]; then
+        BLACKLIST=/usr/share/squidGuard-1.2.0/db/bad.destdomainlist
+    fi
+    if [ $RELEASE == "2006.0" -o $RELEASE == "2009.0" ]; then
         touch $BLACKLIST
         chown squid.squid $BLACKLIST
         sed -i "s!blacklist = /var/lib/squidguard/db/bad.destdomainlist!blacklist = $BLACKLIST!" /etc/mmc/plugins/proxy.ini
