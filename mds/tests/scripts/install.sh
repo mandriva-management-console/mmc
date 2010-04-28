@@ -294,7 +294,7 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
 	BLACKLIST=/usr/share/squidGuard-1.4/db/bad.destdomainlist
         touch $BLACKLIST
         chown squid.squid $BLACKLIST
-        sed -i "s/blacklist = /var/lib/squidguard/db/bad.destdomainlist/blacklist = $BLACKLIST" /etc/mmc/plugins/proxy.ini
+        sed -i "s!blacklist = /var/lib/squidguard/db/bad.destdomainlist!blacklist = $BLACKLIST!" /etc/mmc/plugins/proxy.ini
         sed -i "s/user = proxy/user = squid/" /etc/mmc/plugins/proxy.ini
         sed -i "s/group = proxy/group = squid/" /etc/mmc/plugins/proxy.ini
     fi
