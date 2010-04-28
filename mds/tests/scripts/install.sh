@@ -260,6 +260,7 @@ fi
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service dhcpd stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
+    sed -i "s!leases = /var/lib/dhcp3/dhcpd.leases!leases = /var/lib/dhcp/dhcpd.leases!" /etc/mmc/plugins/network.ini
     service dhcpd start || true
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
