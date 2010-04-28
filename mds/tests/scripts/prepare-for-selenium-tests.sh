@@ -23,5 +23,9 @@
 # Prepare MDS for Selenium tests
 
 sed -i "s/fr_FR =/fr_FR = Titre de test/" /etc/mmc/mmc.ini
+# Remove previously created home directory
+rm -fr /home/*
+# Re-create archives directory
+mkdir /home/archives
 
 exit 0
