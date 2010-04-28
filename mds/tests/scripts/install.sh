@@ -92,6 +92,18 @@ function packages_to_install () {
     if [ $DISTRIBUTION == "Debian" ]; then
         PKGS="$PKGS bind9"
     fi
+    # for MDS proxy plugin
+    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+        PKGS="$PKGS squid"
+        if [ $RELEASE == "2009.0" ];
+            then
+            PKGS="$PKGS squidGuard"
+        fi
+    fi
+    if [ $DISTRIBUTION == "Debian" ]; then
+        PKGS="$PKGS bind9"
+    fi
+
 }
 
 if [ ! -f "$DISTRIBUTION-$RELEASE" ];
@@ -244,14 +256,14 @@ if [ $DISTRIBUTION == "Debian" ]; then
 fi
 
 # Setup DHCP
+# Setup DHCP LDAP schema
+echo "include ${schema_dir}/dhcp.schema" >> ${schema_dir}/local.schema
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service dhcpd stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
     service dhcpd start || true
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
-    # Setup DHCP LDAP schema
-    echo "include ${schema_dir}/dhcp.schema" >> ${schema_dir}/local.schema
     invoke-rc.d slapd restart
     invoke-rc.d dhcp3-server stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcp3/dhcpd.conf
@@ -274,6 +286,18 @@ if [ $DISTRIBUTION == "Debian" ]; then
     echo "include ${schema_dir}/dnszone.schema" >> ${schema_dir}/local.schema
     invoke-rc.d slapd restart
     invoke-rc.d bind9 restart
+fi
+
+# Setup SQUID / squidGuard
+if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $RELEASE == "2009.0" ]; then
+	BLACKLIST=/usr/share/squidGuard-1.4/db/bad.destdomainlist
+        touch $BLACKLIST
+        chown squid.squid $BLACKLIST
+        sed -i "s/blacklist = /var/lib/squidguard/db/bad.destdomainlist/blacklist = $BLACKLIST" /etc/mmc/plugins/proxy.ini
+        sed -i "s/user = proxy/user = squid/" /etc/mmc/plugins/proxy.ini
+        sed -i "s/group = proxy/group = squid/" /etc/mmc/plugins/proxy.ini
+    fi
 fi
 
 # Restart MMC agent
