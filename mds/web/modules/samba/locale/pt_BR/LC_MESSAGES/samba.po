@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mds samba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-23 09:15+0200\n"
-"PO-Revision-Date: 2010-04-20 18:37-0300\n"
+"POT-Creation-Date: 2010-04-28 18:25+0200\n"
+"PO-Revision-Date: 2010-04-28 12:20-0300\n"
 "Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
 "Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,14 +44,12 @@ msgid "Add"
 msgstr "Adicionar"
 
 #: modules/samba/includes/auditCodes.php:31
-#, fuzzy
 msgid "Add SAMBA attribute"
-msgstr "Adicionar/remover atributos do SAMBA"
+msgstr "Adicionar atributo ao SAMBA"
 
 #: modules/samba/includes/auditCodes.php:34
-#, fuzzy
 msgid "Add SAMBA properties"
-msgstr "Serviço SAMBA"
+msgstr "Adicionar propriedades ao SAMBA"
 
 #: modules/samba/shares/localSidebar.php:37
 #: modules/samba/machines/localSidebar.php:31
@@ -122,9 +120,8 @@ msgid "Can't launch backup"
 msgstr "Não foi possível iniciar becape"
 
 #: modules/samba/includes/auditCodes.php:33
-#, fuzzy
 msgid "Change SAMBA attribute"
-msgstr "Alterar Atributos samba"
+msgstr "Alterar Atributo do SAMBA"
 
 #: modules/samba/includes/auditCodes.php:36
 msgid "Change user password"
@@ -204,14 +201,12 @@ msgid "Create"
 msgstr "Criar"
 
 #: modules/samba/includes/auditCodes.php:32
-#, fuzzy
 msgid "Del SAMBA attribute"
-msgstr "Adicionar/remover atributos do SAMBA"
+msgstr "Remover atributo do SAMBA"
 
 #: modules/samba/includes/auditCodes.php:35
-#, fuzzy
 msgid "Del SAMBA properties"
-msgstr "Recarregar o serviço SAMBA"
+msgstr "Remover propriedades do SAMBA"
 
 #: modules/samba/includes/auditCodes.php:44
 msgid "Del computer"
@@ -320,9 +315,8 @@ msgid "Machines"
 msgstr "Máquinas"
 
 #: modules/samba/includes/auditCodes.php:42
-#, fuzzy
 msgid "Make SAMBA group"
-msgstr "Criar grupo samba"
+msgstr "Criar grupo SAMBA"
 
 #: modules/samba/shares/details.php:129
 msgid "Name"
@@ -366,9 +360,8 @@ msgstr ""
 "volume, diversos arquivos serão criados."
 
 #: modules/samba/includes/auditCodes.php:30
-#, fuzzy
 msgid "Reload SAMBA"
-msgstr "Recarregar o serviço SAMBA"
+msgstr "Recarregar SAMBA"
 
 #: modules/samba/config/index.php:132
 msgid "Reload SAMBA configuration"
@@ -388,7 +381,7 @@ msgstr "Reiniciar SAMBA"
 
 #: modules/samba/includes/auditCodes.php:47
 msgid "SAMBA"
-msgstr ""
+msgstr "SAMBA"
 
 #: modules/samba/includes/publicFunc.php:169
 msgid "SAMBA access"

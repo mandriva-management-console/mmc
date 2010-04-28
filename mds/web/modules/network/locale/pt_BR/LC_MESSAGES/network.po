@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mds network\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-23 09:15+0200\n"
-"PO-Revision-Date: 2010-04-22 15:32-0300\n"
+"POT-Creation-Date: 2010-04-28 18:25+0200\n"
+"PO-Revision-Date: 2010-04-28 12:23-0300\n"
 "Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
 "Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,9 +48,8 @@ msgid "(e.g. 24 for a /24 network)"
 msgstr "(ex. 24 para uma rede /24 )"
 
 #: modules/network/includes/auditCodes.php:59
-#, fuzzy
 msgid "A record"
-msgstr "Adicionar um registro"
+msgstr "Um registro"
 
 #: modules/network/network/edithost.php:119
 msgid "A reverse DNS record will be automatically created for this host."
@@ -174,9 +173,8 @@ msgid "Broadcast, then WINS"
 msgstr "Broadcast, depois WINS"
 
 #: modules/network/includes/auditCodes.php:58
-#, fuzzy
 msgid "CNAME record"
-msgstr "Adicionar um registro CNAME"
+msgstr "Registro CNAME"
 
 #: modules/network/network/delete.php:44
 #: modules/network/network/subnetdeletehost.php:73
@@ -206,18 +204,16 @@ msgid "DHCP client lease time (in seconds)"
 msgstr "Tempo de concessão DHCP (em segundos)"
 
 #: modules/network/includes/auditCodes.php:60
-#, fuzzy
 msgid "DHCP host"
-msgstr "Apagar host"
+msgstr "Host DHCP"
 
 #: modules/network/network/subnetedit.php:226
 msgid "DHCP options related to clients network parameters"
 msgstr "Opções DHCP relacionadas a parâmetros de rede dos clientes"
 
 #: modules/network/includes/auditCodes.php:62
-#, fuzzy
 msgid "DHCP pool"
-msgstr "Pool"
+msgstr "DHCP pool"
 
 #: modules/network/infoPackage.inc.php:167
 msgid "DHCP service log"
@@ -228,9 +224,8 @@ msgid "DHCP service log view"
 msgstr "Ver log do serviço DHCP"
 
 #: modules/network/includes/auditCodes.php:61
-#, fuzzy
 msgid "DHCP subnet"
-msgstr "Sub-redes DHCP"
+msgstr "Sub-rede DHCP"
 
 #: modules/network/network/subnetedit.php:208
 msgid "DHCP subnet address"
@@ -273,9 +268,8 @@ msgid "DNS service log view"
 msgstr "Ver log do serviço DNS"
 
 #: modules/network/includes/auditCodes.php:57
-#, fuzzy
 msgid "DNS zone"
-msgstr "Zonas DNS"
+msgstr "Área DNS"
 
 #: modules/network/network/edit.php:214
 msgid "DNS zone FQDN"
@@ -671,28 +665,24 @@ msgid "Primary name server host name"
 msgstr "Nome do servidor de nomes primário"
 
 #: modules/network/includes/auditCodes.php:52
-#, fuzzy
 msgid "Reload DHCP service"
-msgstr "Recarregar serviço"
+msgstr "Recarregar serviço DHCP"
 
 #: modules/network/includes/auditCodes.php:56
-#, fuzzy
 msgid "Reload DNS service"
-msgstr "Recarregar serviço"
+msgstr "Recarregar serviço DNS"
 
 #: modules/network/network/services.php:43
 msgid "Reload service"
 msgstr "Recarregar serviço"
 
 #: modules/network/includes/auditCodes.php:51
-#, fuzzy
 msgid "Restart DHCP service"
-msgstr "Reiniciar serviço"
+msgstr "Reiniciar serviço DHCP"
 
 #: modules/network/includes/auditCodes.php:55
-#, fuzzy
 msgid "Restart DNS service"
-msgstr "Reiniciar serviço"
+msgstr "Reiniciar serviço DNS"
 
 #: modules/network/network/services.php:44
 msgid "Restart service"
@@ -720,9 +710,8 @@ msgid "Services"
 msgstr "Serviços"
 
 #: modules/network/includes/auditCodes.php:39
-#, fuzzy
 msgid "Set NS record"
-msgstr "Configurar registro SOA"
+msgstr "Configurar registro NS"
 
 #: modules/network/includes/auditCodes.php:38
 msgid "Set SOA record"
@@ -753,7 +742,6 @@ msgid "Set subnet"
 msgstr "Configurar sub-rede"
 
 #: modules/network/includes/auditCodes.php:36
-#, fuzzy
 msgid "Set subnet authoritative flag"
 msgstr "Configurar autoridades da sub-rede"
 
@@ -793,14 +781,12 @@ msgstr ""
 "cliente."
 
 #: modules/network/includes/auditCodes.php:49
-#, fuzzy
 msgid "Start DHCP service"
-msgstr "Iniciar serviço"
+msgstr "Iniciar serviço DHCP"
 
 #: modules/network/includes/auditCodes.php:53
-#, fuzzy
 msgid "Start DNS service"
-msgstr "Iniciar serviço"
+msgstr "Iniciar serviço DNS"
 
 #: modules/network/network/services.php:41
 msgid "Start service"
@@ -821,14 +807,12 @@ msgid "Status"
 msgstr "Status"
 
 #: modules/network/includes/auditCodes.php:50
-#, fuzzy
 msgid "Stop DHCP service"
-msgstr "Parar serviço"
+msgstr "Parar serviço DHCP"
 
 #: modules/network/includes/auditCodes.php:54
-#, fuzzy
 msgid "Stop DNS service"
-msgstr "Parar serviço"
+msgstr "Parar serviço DNS"
 
 #: modules/network/network/services.php:42
 msgid "Stop service"
