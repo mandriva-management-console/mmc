@@ -22,10 +22,15 @@
 
 # Prepare MDS for Selenium tests
 
+# Test for custom title according to the selected locale
 sed -i "s/fr_FR =/fr_FR = Titre de test/" /etc/mmc/mmc.ini
+
 # Remove previously created home directory
 rm -fr /home/*
 # Re-create archives directory
 mkdir /home/archives
+
+# Test userdefault for mail.ini
+echo "mailhost = srvmail" >> /etc/mmc/plugins/mail.ini
 
 exit 0
