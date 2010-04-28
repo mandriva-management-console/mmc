@@ -395,9 +395,9 @@ class MailControl(ldapUserGroupControl):
         self.removeUserObjectClass(uid, "mailAccount")
         r.commit()
         
-    def removeGroupMail(self, group):
+    def removeMailGroup(self, group):
         r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_CLASS, [(group, AT.MAIL)])
-        self.removeUserObjectClass(group, "mailGroup")
+        self.removeGroupObjectClass(group, "mailGroup")
         r.commit()
 
     def hasMailObjectClass(self, uid):
