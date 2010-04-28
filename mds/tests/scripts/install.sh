@@ -278,7 +278,8 @@ fi
 
 # Restart MMC agent
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
-    service mmc-agent restart
+    service mmc-agent stop
+    service mmc-agent start
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
     invoke-rc.d mmc-agent restart
