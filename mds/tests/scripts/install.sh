@@ -257,13 +257,13 @@ fi
 
 # Setup DHCP
 # Setup DHCP LDAP schema
-echo "include ${schema_dir}/dhcp.schema" >> ${schema_dir}/local.schema
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service dhcpd stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
     service dhcpd start || true
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
+    echo "include ${schema_dir}/dhcp.schema" >> ${schema_dir}/local.schema
     invoke-rc.d slapd restart
     invoke-rc.d dhcp3-server stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcp3/dhcpd.conf
