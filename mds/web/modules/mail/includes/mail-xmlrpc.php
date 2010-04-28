@@ -74,6 +74,10 @@ function addMailGroup($group, $mail) {
     return xmlCall("mail.addMailGroup",array($group, $mail));
 }
 
+function addMailObjectClass($login) {
+    xmlCall("mail.addMailObjectClass", $login);
+}
+
 function deleteMailGroupAliases($group) {
     xmlCall("mail.deleteMailGroupAliases", array($group));
 }

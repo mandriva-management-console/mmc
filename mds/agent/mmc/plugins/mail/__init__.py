@@ -112,6 +112,9 @@ def removeMailGroup(group):
 def addMailGroup(group, mail):
     MailControl().addMailGroup(group, mail)
 
+def addMailObjectClass(uid):
+    MailControl().addMailObjectClass(uid)
+
 def hasMailObjectClass(uid):
     return MailControl().hasMailObjectClass(uid)
 
@@ -432,8 +435,10 @@ class MailControl(ldapUserGroupControl):
         if not "mailAccount" in new["objectClass"]:
             new["objectClass"].append("mailAccount")
 
-        if maildrop == None: maildrop = uid
-        new["maildrop"] = maildrop
+        # Add maildrop attribute to user if we are not in virtual domain mode
+        if maildrop == None and not self.hasVDomainSupport():
+            maildrop = uid
+            new["maildrop"] = maildrop
 
         if self.hasVDomainSupport():
             # If the user has her/his mail address in a VDomain, set quota according to domain policy

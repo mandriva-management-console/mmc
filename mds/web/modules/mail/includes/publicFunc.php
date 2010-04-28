@@ -321,6 +321,7 @@ function _mail_changeUser($FH) {
         }
             
         if ($syncmailgroupalias) {
+            addMailObjectClass($FH->getPostValue("nlogin"));
             /* When mail service is activated for an user, add mail group aliases */
             syncMailGroupAliases($FH->getPostValue("primary_autocomplete"));
             foreach($FH->getPostValue("groupsselected") as $group) 
