@@ -22,6 +22,6 @@
 
 # Prepare MDS for Selenium tests
 
-# Nothing to do ! (for now)
+sed -i "s/fr_FR =/fr_FR = Titre de test/" /etc/mmc/mmc.ini
 
 exit 0
