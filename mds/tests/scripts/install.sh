@@ -294,7 +294,7 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     if [ $RELEASE == "2009.0" ]; then
         BLACKLIST=/usr/share/squidGuard-1.4/db/bad.destdomainlist
     elif [ $RELEASE == "2006.0" ]; then
-        BLACKLIST=/usr/share/squidGuard-1.2.0/db/bad.destdomainlist
+        BLACKLIST=/usr/share/squidGuard-1.2.1/db/bad.destdomainlist
     fi
     if [ $RELEASE == "2006.0" -o $RELEASE == "2009.0" ]; then
         touch $BLACKLIST
