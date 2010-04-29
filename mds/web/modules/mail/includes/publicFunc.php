@@ -293,7 +293,7 @@ function _mail_changeUser($FH) {
           not filled in, we don't empty them as this may clear default values
           set by the MMC agent.
         */
-        if ($FH->getPostValue("mailbox")) {
+        if ($FH->isUpdated("mailbox") && $FH->getPostValue("mailbox")) {
             if ($_GET["action"] != "add") {
                 changeMailbox($FH->getPostValue("nlogin"), $FH->getPostValue('mailbox'));
             }
