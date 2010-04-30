@@ -282,8 +282,10 @@ function _mail_changeUser($FH) {
             if ($FH->getValue("unlimitedquota") == "on") 
                 $FH->setValue("mailuserquota", "0");
         } 
-        else $syncmailgroupalias = True;
-        
+	else {
+            addMailObjectClass($FH->getPostValue("nlogin"));
+            $syncmailgroupalias = True;            
+	}
         if($FH->isUpdated("maildrop"))
             changeMaildrop($FH->getPostValue("nlogin"), $FH->getValue('maildrop'));
         if($FH->isUpdated("mailalias"))
@@ -304,7 +306,9 @@ function _mail_changeUser($FH) {
             }
         }
         
-        if($FH->isUpdated('maildisable')) {
+        if (($FH->isUpdated('maildisable'))
+            || ($_GET["action"] == "add")
+            || $syncmailgroupalias) {
             // disable mail
             if ($FH->getValue('maildisable') == "on")
                 changeMailEnable($FH->getPostValue("nlogin"), False);
@@ -321,7 +325,6 @@ function _mail_changeUser($FH) {
         }
             
         if ($syncmailgroupalias) {
-            addMailObjectClass($FH->getPostValue("nlogin"));
             /* When mail service is activated for an user, add mail group aliases */
             syncMailGroupAliases($FH->getPostValue("primary_autocomplete"));
             foreach($FH->getPostValue("groupsselected") as $group) 
