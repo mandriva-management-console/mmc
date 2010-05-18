@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-18 12:12+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Alexander Kazancev <kazancas@mandriva.ru>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is larger than the new quota, or does not exist"
+msgstr "Текущая квота больше, чем новая квота или не задана"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "Текущая квота меньше, чем новая квота или не задана"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Don't overwrite any existing quotas"
+msgstr "Не перезаписывать существующие квоты"
+
+#: modules/userquota/infoPackage.inc.php:32
+msgid "Manage user quotas for filesystems and networks"
+msgstr "Управление квотами пользователя для файловых систем и сетей"
+
+#: modules/userquota/includes/publicFunc.php:127
+#: modules/userquota/includes/publicFunc.php:140
+msgid "Overwrite all existing quotas"
+msgstr "Перезаписать все существующие квоты"
+
+#: modules/userquota/includes/publicFunc.php:130
+#: modules/userquota/includes/publicFunc.php:143
+msgid "Overwrite mode for existing quotas"
+msgstr "Режим перезаписи для существующих квот"
+
+#: modules/userquota/includes/publicFunc.php:36
+#: modules/userquota/includes/publicFunc.php:122
+msgid "Quota plugin - Filesystem"
+msgstr "Плагин квот - Файловая система"
+
+#: modules/userquota/includes/publicFunc.php:43
+#: modules/userquota/includes/publicFunc.php:135
+msgid "Quota plugin - Network"
+msgstr "Плагин квот - Сеть"
+
+#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:138
+msgid "Quota's applied here affect all members of the group"
+msgstr "Примененная здесь квота распространяется на всех членов группы"

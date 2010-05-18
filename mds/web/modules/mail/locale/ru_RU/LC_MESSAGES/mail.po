@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-17 15:16+0100\n"
+"POT-Creation-Date: 2010-05-18 12:12+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Vitaly Kolomeytsev <nvalka@gmail.com>\n"
+"Last-Translator: Alexander Kazancev <kazancas@mandriva.ru>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,205 +17,288 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#: mail/mail/ajaxFilter.php:27
-msgid "Login"
-msgstr "Пользователь"
-
-#: mail/mail/ajaxFilter.php:30
-msgid "Name"
-msgstr "Имя"
-
-#: mail/mail/ajaxFilter.php:31
-msgid "Mail address"
-msgstr "Почтовый адрес"
-
-#: mail/mail/ajaxFilter.php:32
-msgid "Edit"
-msgstr "Изменить"
-
-#: mail/mail/members.php:33
-msgid "Members of "
-msgstr "Члены групы "
-
-#: mail/mail/ajaxDomainFilter.php:22 mail/mail/ajaxDomainFilter.php:28
-#: mail/mail/edit.php:96
-msgid "Mail domain"
-msgstr "Почтовый домен"
-
-#: mail/mail/ajaxDomainFilter.php:27 mail/mail/edit.php:101
-msgid "Description"
-msgstr "Описание"
-
-#: mail/mail/ajaxDomainFilter.php:30
-msgid "View domain members"
-msgstr "Просмотр членов домена"
-
-#: mail/mail/ajaxDomainFilter.php:31
-msgid "Edit domain"
-msgstr "Изменить домен"
-
-#: mail/mail/ajaxDomainFilter.php:32 mail/mail/delete.php:54
-msgid "Delete domain"
-msgstr "Удалить домен"
-
-#: mail/mail/delete.php:37
-msgid "The mail domain has been deleted."
-msgstr "Почтовый домен был удален."
-
-#: mail/mail/delete.php:49
-msgid "You will delete the virtual mail domain "
-msgstr "Вы удалите виртуальный почтовый домен"
-
-#: mail/mail/delete.php:55
-msgid "Cancel"
-msgstr "Отмена"
-
-#: mail/mail/localSidebar.php:6 mail/mail/index.php:32
-#: mail/infoPackage.inc.php:57
-msgid "Mail domain list"
-msgstr "Список почтовых доменов"
-
-#: mail/mail/localSidebar.php:7 mail/infoPackage.inc.php:60
-msgid "Add a domain"
-msgstr "Добавить домен"
-
-#: mail/mail/edit.php:30
-msgid "Add a mail domain"
-msgstr "Добавить почтовый домен"
-
-#: mail/mail/edit.php:32
-msgid "Edit mail domain"
-msgstr "Изменить почтовый домен"
-
-#: mail/mail/edit.php:49
-msgid "Invalid domain name"
-msgstr "Неверное имя домена"
-
-#: mail/mail/edit.php:55
-msgid "The mail domain has been added."
-msgstr "Почтовый домен добавлен."
-
-#: mail/mail/edit.php:68
-msgid "The mail domain has been modified."
-msgstr "Почтовый домен изменен."
-
-#: mail/mail/edit.php:71
+#: modules/mail/mail/edit.php:71
 msgid " The quota of all users of this mail domain have been reset."
 msgstr ""
 "Квота почтовых ящиков всех пользователей этого почтового домена была "
 "установлена в значение по умолчанию."
 
-#: mail/mail/edit.php:106
+#: modules/mail/includes/publicFunc.php:259
+#, php-format
+msgid "%s is not a valid mail alias."
+msgstr "%s не верный почтовый псевдоним."
+
+#: modules/mail/mail/localSidebar.php:7 modules/mail/infoPackage.inc.php:60
+msgid "Add a domain"
+msgstr "Добавить домен"
+
+#: modules/mail/mail/edit.php:30
+msgid "Add a mail domain"
+msgstr "Добавить почтовый домен"
+
+#: modules/mail/includes/auditCodes.php:11
+msgid "Add mail attributes"
+msgstr "Добавить почтовые атрибуты"
+
+#: modules/mail/includes/auditCodes.php:14
+msgid "Add mail group"
+msgstr "Добавить почтовую группу"
+
+#: modules/mail/includes/auditCodes.php:15
+msgid "Add virtual domain"
+msgstr "Добавить виртуальный домен"
+
+#: modules/mail/mail/delete.php:55
+msgid "Cancel"
+msgstr "Отмена"
+
+#: modules/mail/includes/auditCodes.php:7
+msgid "Change mail alias"
+msgstr "Изменить почтовый псевдоним"
+
+#: modules/mail/includes/auditCodes.php:8
+msgid "Change mail box"
+msgstr "Изменить почтовый ящик"
+
+#: modules/mail/includes/auditCodes.php:6
+msgid "Change mail drop"
+msgstr "Изменить сброс почты"
+
+#: modules/mail/includes/auditCodes.php:9
+msgid "Change mail host"
+msgstr "Изменить почтовый узел"
+
+#: modules/mail/includes/auditCodes.php:10
+msgid "Change mail quota"
+msgstr "Изменить квоту почты"
+
+#: modules/mail/mail/edit.php:115
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: modules/mail/mail/edit.php:112
+msgid "Create"
+msgstr "Создать"
+
+#: modules/mail/mail/edit.php:106
 msgid "Default mail quota for users created in this domain (in kB)"
 msgstr ""
 "Значение по умолчанию почтовой квоты для пользователей созданных в этом "
 "домене (kB)"
 
-#: mail/mail/edit.php:112
-msgid "Create"
-msgstr "Создать"
+#: modules/mail/includes/auditCodes.php:12
+msgid "Del mail attributes"
+msgstr "Удалить почтовые атрибуты"
 
-#: mail/mail/edit.php:114
-msgid "Reset users quota to default"
-msgstr "Сбросить квоту пользователей в значене по умолчанию"
+#: modules/mail/includes/auditCodes.php:13
+msgid "Del mail group alias"
+msgstr "Удалить почтовый псевдоним группы"
 
-#: mail/mail/edit.php:115
-msgid "Confirm"
-msgstr "Подтвердить"
+#: modules/mail/includes/auditCodes.php:16
+msgid "Del virtual domain"
+msgstr "Удалить виртуальный домен"
 
-#: mail/includes/mail.inc.php:41 mail/includes/mail.inc.php:51
-msgid "Unlimited quota"
-msgstr "Неограниченая квота"
+#: modules/mail/infoPackage.inc.php:71
+msgid "Delete a mail domain"
+msgstr "Удалить почтовый домен"
 
-#: mail/includes/publicFunc.php:33 mail/includes/publicFunc.php:133
-msgid "Mail plugin"
-msgstr "Модуль почты"
+#: modules/mail/mail/ajaxDomainFilter.php:32 modules/mail/mail/delete.php:54
+msgid "Delete domain"
+msgstr "Удалить домен"
 
-#: mail/includes/publicFunc.php:54
-msgid "No mail alias can be set for this group"
-msgstr "Почтовый псевдоним не может быть установлен для этой группы"
+#: modules/mail/mail/ajaxDomainFilter.php:27 modules/mail/mail/edit.php:101
+msgid "Description"
+msgstr "Описание"
 
-#: mail/includes/publicFunc.php:57
+#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:41
+msgid "Disable mail delivery"
+msgstr "Отключить доставку почты"
+
+#: modules/mail/mail/ajaxFilter.php:32
+msgid "Edit"
+msgstr "Изменить"
+
+#: modules/mail/infoPackage.inc.php:63
+msgid "Edit a domain"
+msgstr "Изменить домен"
+
+#: modules/mail/mail/ajaxDomainFilter.php:31
+msgid "Edit domain"
+msgstr "Изменить домен"
+
+#: modules/mail/mail/edit.php:32
+msgid "Edit mail domain"
+msgstr "Изменить почтовый домен"
+
+#: modules/mail/includes/publicFunc.php:57
 msgid "Enable mail alias for users of this group "
 msgstr "Включить почтовый псевдоним для пользователей этой группы"
 
-#: mail/includes/publicFunc.php:69 mail/includes/publicFunc.php:72
-#: mail/includes/publicFunc.php:190 mail/includes/publicFunc.php:193
-msgid "Mail alias"
-msgstr "Почтовый псевдоним"
+#: modules/mail/includes/auditCodes.php:4
+msgid "Enable mail delivery"
+msgstr "Включить отчёт о доставке почты"
 
-#: mail/includes/publicFunc.php:149 mail/infoPackage.inc.php:40
-#, fuzzy
-msgid "Mail access"
-msgstr "Доступность почты"
-
-#: mail/includes/publicFunc.php:169
-msgid "Mail delivery is disabled, if checked"
-msgstr "Отключить доставку почты"
-
-#: mail/includes/publicFunc.php:173
-msgid "Mail quota (in kB)"
-msgstr "Квота почтового ящика (kB)"
-
-#: mail/includes/publicFunc.php:179 mail/infoPackage.inc.php:50
+#: modules/mail/includes/publicFunc.php:193
+#: modules/mail/infoPackage.inc.php:50
 msgid "Forward to"
 msgstr "Переслать по адресу(ам)"
 
-#: mail/includes/publicFunc.php:183 mail/includes/publicFunc.php:187
-#: mail/infoPackage.inc.php:97
-msgid "Mail drop"
-msgstr "Сброс почты"
+#: modules/mail/mail/edit.php:49
+msgid "Invalid domain name"
+msgstr "Неверное имя домена"
 
-#: mail/includes/publicFunc.php:201 mail/infoPackage.inc.php:43
+#: modules/mail/mail/ajaxFilter.php:27
+msgid "Login"
+msgstr "Пользователь"
+
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:53
+msgid "Mail"
+msgstr "Почта"
+
+#: modules/mail/includes/auditCodes.php:20
+msgid "Mail Group"
+msgstr "Почтовая группа"
+
+#: modules/mail/includes/publicFunc.php:163
+#: modules/mail/infoPackage.inc.php:40
+msgid "Mail access"
+msgstr "Доступ к почте"
+
+#: modules/mail/mail/ajaxFilter.php:31
+msgid "Mail address"
+msgstr "Почтовый адрес"
+
+#: modules/mail/includes/publicFunc.php:69
+#: modules/mail/includes/publicFunc.php:72
+#: modules/mail/includes/publicFunc.php:204
+#: modules/mail/includes/publicFunc.php:207
+msgid "Mail alias"
+msgstr "Почтовый псевдоним"
+
+#: modules/mail/infoPackage.inc.php:42
+msgid "Mail aliases"
+msgstr "Почтовые псевдонимы"
+
+#: modules/mail/includes/publicFunc.php:183
+msgid "Mail delivery is disabled, if checked"
+msgstr "Отключить доставку почты"
+
+#: modules/mail/includes/publicFunc.php:215
+#: modules/mail/infoPackage.inc.php:43
 msgid "Mail delivery path"
 msgstr "Путь доставки почты"
 
-#: mail/includes/publicFunc.php:205 mail/infoPackage.inc.php:44
+#: modules/mail/mail/ajaxDomainFilter.php:22
+#: modules/mail/mail/ajaxDomainFilter.php:28 modules/mail/mail/edit.php:96
+msgid "Mail domain"
+msgstr "Почтовый домен"
+
+#: modules/mail/mail/localSidebar.php:6 modules/mail/mail/index.php:32
+#: modules/mail/infoPackage.inc.php:57
+msgid "Mail domain list"
+msgstr "Список почтовых доменов"
+
+#: modules/mail/includes/publicFunc.php:197
+#: modules/mail/includes/publicFunc.php:201
+#: modules/mail/infoPackage.inc.php:97
+msgid "Mail drop"
+msgstr "Сброс почты"
+
+#: modules/mail/infoPackage.inc.php:47
+msgid "Mail group alias access"
+msgstr "Использовать почтовый псевдоним группы"
+
+#: modules/mail/includes/publicFunc.php:33
+#: modules/mail/includes/publicFunc.php:134
+msgid "Mail plugin"
+msgstr "Модуль почты"
+
+#: modules/mail/includes/publicFunc.php:187
+msgid "Mail quota (in kB)"
+msgstr "Квота почтового ящика (kB)"
+
+#: modules/mail/includes/publicFunc.php:219
+#: modules/mail/infoPackage.inc.php:44
 msgid "Mail server host"
 msgstr "узел  почтового сервера"
 
-#: mail/includes/publicFunc.php:245
-#, php-format
-msgid "%s is not a valid mail alias."
-msgstr "%s не верный почтовый псевдоним."
+#: modules/mail/infoPackage.inc.php:36
+msgid "Mail service"
+msgstr "Почтовая служба"
 
-#: mail/includes/publicFunc.php:252
+#: modules/mail/infoPackage.inc.php:45
+msgid "Mail user quota"
+msgstr "Квота почтового ящика пользователя"
+
+#: modules/mail/mail/members.php:33
+msgid "Members of "
+msgstr "Члены групы "
+
+#: modules/mail/mail/ajaxFilter.php:30
+msgid "Name"
+msgstr "Имя"
+
+#: modules/mail/includes/publicFunc.php:54
+msgid "No mail alias can be set for this group"
+msgstr "Почтовый псевдоним не может быть установлен для этой группы"
+
+#: modules/mail/includes/auditCodes.php:19
+msgid "Reset domain quota"
+msgstr "Сбросить квоту домена"
+
+#: modules/mail/mail/edit.php:114
+msgid "Reset users quota to default"
+msgstr "Сбросить квоту пользователей в значене по умолчанию"
+
+#: modules/mail/includes/auditCodes.php:17
+msgid "Set domain description"
+msgstr " Установить описание домена"
+
+#: modules/mail/includes/auditCodes.php:18
+msgid "Set domain quota"
+msgstr "Установить квоту домена"
+
+#: modules/mail/mail/edit.php:55
+msgid "The mail domain has been added."
+msgstr "Почтовый домен добавлен."
+
+#: modules/mail/mail/delete.php:37
+msgid "The mail domain has been deleted."
+msgstr "Почтовый домен был удален."
+
+#: modules/mail/mail/edit.php:68
+msgid "The mail domain has been modified."
+msgstr "Почтовый домен изменен."
+
+#: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
+msgid "Unlimited quota"
+msgstr "Неограниченая квота"
+
+#: modules/mail/includes/auditCodes.php:23
+msgid "User"
+msgstr "Пользователь"
+
+#: modules/mail/mail/ajaxDomainFilter.php:30
+msgid "View domain members"
+msgstr "Просмотр членов домена"
+
+#: modules/mail/infoPackage.inc.php:67
+msgid "View members"
+msgstr "Просмотр членов домена"
+
+#: modules/mail/includes/auditCodes.php:22
+msgid "Virtual Mail Domain"
+msgstr "Виртуальный почтовый домен"
+
+#: modules/mail/includes/publicFunc.php:266
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
 "Вы должны указать правильный почтовый адрес для включения доставки почты."
 
-#: mail/infoPackage.inc.php:36
-msgid "Mail service"
-msgstr "Почтовая служба"
+#: modules/mail/mail/delete.php:49
+msgid "You will delete the virtual mail domain "
+msgstr "Вы удалите виртуальный почтовый домен"
 
-#: mail/infoPackage.inc.php:41
-msgid "Disable mail delivery"
-msgstr "Отключить доставку почты"
-
-#: mail/infoPackage.inc.php:42
-msgid "Mail aliases"
-msgstr "Почтовые псевдонимы"
-
-#: mail/infoPackage.inc.php:45
-msgid "Mail user quota"
-msgstr "Квота почтового ящика пользователя"
-
-#: mail/infoPackage.inc.php:47
-msgid "Mail group alias access"
-msgstr "Использовать почтовый псевдоним группы"
-
-#: mail/infoPackage.inc.php:53
-msgid "Mail"
-msgstr "Почта"
-
-#: mail/infoPackage.inc.php:63
-msgid "Edit a domain"
-msgstr "Изменить домен"
-
-#: mail/infoPackage.inc.php:67
-msgid "View members"
-msgstr "Просмотр членов домена"
-
-#: mail/infoPackage.inc.php:71
-msgid "Delete a mail domain"
-msgstr "Удалить почтовый домен"
+#: modules/mail/includes/auditCodes.php:24
+msgid "mail"
+msgstr "почта"

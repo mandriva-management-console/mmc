@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-18 12:12+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Alexander Kazancev <kazancas@mandriva.ru>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: modules/sshlpk/includes/publicFunc.php:40
+msgid "Enable SSH keys management"
+msgstr "Включить управление ключами SSH"
+
+#: modules/sshlpk/infoPackage.inc.php:34
+msgid "LDAP Public SSH key management"
+msgstr "Управление публичными ключами SSH для LDAP"
+
+#: modules/sshlpk/infoPackage.inc.php:39
+#, fuzzy
+msgid "Manage SSH key"
+msgstr "Управлять SSH ключами"
+
+#: modules/sshlpk/includes/publicFunc.php:58
+msgid "Public SSH Key"
+msgstr "Публичный ключ SSH"
+
+#: modules/sshlpk/includes/publicFunc.php:36
+msgid "Public SSH keys management plugin"
+msgstr "Плагин управления публичными ключами SSH"
+
+#: modules/sshlpk/infoPackage.inc.php:38
+msgid "Show/Hide SSH key list"
+msgstr "Показать/Скрыть список SSH ключей"
+
+#: modules/sshlpk/includes/publicFunc.php:85
+msgid "Some SSH public keys are duplicate"
+msgstr "Некоторые публичные ключи SSH повторяются"
