@@ -19,15 +19,21 @@
 
 
 # General Makefile variables
-DESTDIR = 
-PREFIX = /usr/local
-DATADIR = $(PREFIX)/share/mmc
+DESTDIR ?=
+PREFIX ?= /usr/local
+DATADIR ?= $(PREFIX)/share/mmc
+
+# Shell tools
 INSTALL = $(shell which install)
 CP = $(shell which cp)
 CHOWN = $(shell which chown)
 CHGRP = $(shell which chgrp)
 SED = $(shell which sed)
 RM = $(shell which rm)
+
+# Files owner
+OWNER ?= root
+OGROUP ?= root
 
 FILESTOINSTALL = modules
 
@@ -38,7 +44,7 @@ clean_mo:
 	sh scripts/clean_mo.sh
 
 build_mo:
-	sh scripts/build_mo.sh
+	sh scripts/build_mo.sh .
 
 build_pot:
 	sh scripts/build_pot.sh
@@ -48,11 +54,11 @@ clean: clean_mo
 install: build_mo
 	@echo ""
 	@echo "Installing mmc-web in $(DESTDIR)$(DATADIR)"
-	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(DATADIR)
+	$(INSTALL) -d -m 755 -o $(OWNER) -g $(OGROUP) $(DESTDIR)$(DATADIR)
 	$(CP) -R $(FILESTOINSTALL) $(DESTDIR)$(DATADIR)
-	$(CHOWN) -R root $(DESTDIR)$(DATADIR)
-	$(CHGRP) -R root $(DESTDIR)$(DATADIR)
-	find $(DESTDIR)$(DATADIR) -type f -name *.po[t] -exec rm -f {} \;
+	$(CHOWN) -R $(OWNER) $(DESTDIR)$(DATADIR)
+	$(CHGRP) -R $(OGROUP) $(DESTDIR)$(DATADIR)
+	find $(DESTDIR)$(DATADIR) -type f -name "*.po[t]" -exec rm -f {} \;
 
 $(RELEASES_DIR)/$(TARBALL_GZ):
 	mkdir -p $(RELEASES_DIR)/$(TARBALL)
