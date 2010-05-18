@@ -19,15 +19,20 @@
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# General Makefile variables
-DESTDIR = 
-PREFIX = /usr/local
-SBINDIR = $(PREFIX)/sbin
-LIBDIR = $(PREFIX)/lib/mmc
-ETCDIR = /etc/mmc
+# General Makefile variables should be passed via environment
+DESTDIR ?=
+PREFIX ?= /usr/local
+SBINDIR ?= $(PREFIX)/sbin
+LIBDIR ?= $(PREFIX)/lib/mmc
+ETCDIR ?= /etc/mmc
+
+# Shell tools
 INSTALL = $(shell which install)
 SED = $(shell which sed)
 
+# Files owner
+OWNER ?= root
+OGROUP ?= root
 # Python specific variables
 PYTHON = $(shell which python)
 PYTHON_PREFIX = $(shell $(PYTHON) -c "import sys; print sys.prefix")
@@ -44,13 +49,13 @@ clean:
 	@echo "Nothing to do"
 
 # Install everything
-install: 
+install:
 	@# Install directories
 	@echo "Creating directories..."
-	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(SBINDIR)
-	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(LIBDIR)
-	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(ETCDIR)
-	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(PYTHON_PREFIX)
+	$(INSTALL) -d -m 755 -o ${OWNER} -g ${OGROUP} $(DESTDIR)$(SBINDIR)
+	$(INSTALL) -d -m 755 -o ${OWNER} -g ${OGROUP} $(DESTDIR)$(LIBDIR)
+	$(INSTALL) -d -m 755 -o ${OWNER} -g ${OGROUP} $(DESTDIR)$(ETCDIR)
+	$(INSTALL) -d -m 755 -o ${OWNER} -g ${OGROUP} $(DESTDIR)$(PYTHON_PREFIX)
 
 	@echo ""
 	@echo "Install python code in $(DESTDIR)$(PYTHON_PREFIX)"
@@ -58,18 +63,17 @@ install:
 
 	@echo ""
 	@echo "Install LIBFILES in $(DESTDIR)$(LIBDIR)"
-	$(INSTALL) $(LIBFILES) -m 755 -o root -g root $(DESTDIR)$(LIBDIR)
-
+	$(INSTALL) -m 755 -o ${OWNER} -g ${OGROUP} $(LIBFILES) $(DESTDIR)$(LIBDIR)
 	@echo ""
 	@echo "Install CONFILES in $(DESTDIR)$(ETCDIR)"
-	$(INSTALL) -d -m 755 -o root -g root $(DESTDIR)$(ETCDIR)/plugins
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/samba.ini ] && $(INSTALL) conf/plugins/samba.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/samba.ini
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/mail.ini ] && $(INSTALL) conf/plugins/mail.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/mail.ini
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/network.ini ] && $(INSTALL) conf/plugins/network.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/network.ini
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/proxy.ini ] && $(INSTALL) conf/plugins/proxy.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/proxy.ini
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini ] && $(INSTALL) conf/plugins/sshlpk.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/userquota.ini ] && $(INSTALL) conf/plugins/userquota.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/userquota.ini
-	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/bulkimport.ini ] && $(INSTALL) conf/plugins/bulkimport.ini -m 600 -o root -g root $(DESTDIR)$(ETCDIR)/plugins/bulkimport.ini
+	$(INSTALL) -d -m 755 -o ${OWNER} -g ${OGROUP} $(DESTDIR)$(ETCDIR)/plugins
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/samba.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/samba.ini $(DESTDIR)$(ETCDIR)/plugins/samba.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/mail.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/mail.ini $(DESTDIR)$(ETCDIR)/plugins/mail.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/network.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/network.ini $(DESTDIR)$(ETCDIR)/plugins/network.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/proxy.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/proxy.ini $(DESTDIR)$(ETCDIR)/plugins/proxy.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/sshlpk.ini $(DESTDIR)$(ETCDIR)/plugins/sshlpk.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/userquota.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/userquota.ini $(DESTDIR)$(ETCDIR)/plugins/userquota.ini
+	-[ ! -f $(DESTDIR)$(ETCDIR)/plugins/bulkimport.ini ] && $(INSTALL) -m 600 -o ${OWNER} -g ${OGROUP} conf/plugins/bulkimport.ini $(DESTDIR)$(ETCDIR)/plugins/bulkimport.ini
 
 include common.mk
 
