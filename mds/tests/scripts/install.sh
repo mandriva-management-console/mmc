@@ -51,7 +51,7 @@ fi
 function packages_to_install () {
     # for MDS samba plugin
     if [ $DISTRIBUTION == "MandrivaLinux" ]; then
-        PKGS="$PKGS samba-server smbldap-tools nss_ldap"
+        PKGS="$PKGS samba-server smbldap-tools nss_ldap quota"
         if [ $RELEASE == "2010.0" ];
             then
             PKGS="$PKGS python-pylibacl"
