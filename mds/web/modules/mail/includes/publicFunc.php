@@ -51,9 +51,13 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
     }
 
     if (($hasMail == "") && ($mail == "")) {
-      print _T("No mail alias can be set for this group", "mail");
+        print _T("No mail alias can be set for this group", "mail");
     } else {
       print '<table cellspacing="0">';
+      if (hasZarafaSupport()) {
+          $trz = new TrFormElement(_T("Zarafa group","mail"), new CheckboxTpl("zarafaGroup"));
+          $trz->display(array("value" => isZarafaGroup($ldapArr['cn'][0]) ? "checked" : ""));
+      }
       $test = new TrFormElement(_T("Enable mail alias for users of this group ","mail"), new CheckboxTpl("mailgroupaccess"));
       $param = array("value" => $hasMail,
 		     "extraArg" => 'onclick="toggleVisibility(\'maildiv\');"');
@@ -87,6 +91,9 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
  */
 function _mail_changeGroup($postArr) {
     $group = $postArr["groupname"];
+    if (hasZarafaSupport($group)) {
+        setZarafaGroup($postArr["groupname"], isset($postArr["zarafaGroup"]));
+    }
     if (!empty($postArr["mailgroupaccess"])) {
         $mail = $postArr["mailgroupalias"];
         if (hasVDomainSupport()) {
@@ -200,7 +207,7 @@ function _mail_baseEdit($ldapArr, $postArr) {
   $f->add(
           new FormElement(_T("Mail drop","mail"), $m),
           $ldapArr['maildrop']
-          );  
+          );
   $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
   $m->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
   $f->add(
@@ -223,6 +230,36 @@ function _mail_baseEdit($ldapArr, $postArr) {
       $f->pop();
   }
 
+  if (hasZarafaSupport()) {
+      $f->push(new DivForModule(_T("Zarafa properties", "mail"), "#FFD"));
+      $f->pop();
+      $f->push(new Table());
+      $f->add(
+              new TrFormElement(_T("Administrator of Zarafa", "mail"),
+                                new CheckboxTpl("zarafaAdmin")),
+              array("value"=> isset($ldapArr["zarafaAdmin"][0]) && $ldapArr["zarafaAdmin"][0] == "1" ? "checked" : "")
+              );
+      $f->add(
+              new TrFormElement(_T("Shared store", "mail"),
+                                new CheckboxTpl("zarafaSharedStoreOnly")),
+              array("value"=> isset($ldapArr["zarafaSharedStoreOnly"][0]) && $ldapArr["zarafaSharedStoreOnly"][0] == "1" ? "checked" : "")
+              );
+      $f->add(
+              new TrFormElement(_T("Zarafa account", "mail"),
+                                new CheckboxTpl("zarafaAccount")),
+              array("value"=> isset($ldapArr["zarafaAccount"][0]) && $ldapArr["zarafaAccount"][0] == "1" ? "checked" : "")
+              );
+      $f->pop();
+
+      $sendas= new MultipleInputTpl("zarafaSendAsPrivilege",
+                                    _T("Zarafa send as user list", "mail"));
+      $sendas->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
+      $f->add(
+              new FormElement("", $sendas),
+              isset($ldapArr["zarafaSendAsPrivilege"]) ? $ldapArr["zarafaSendAsPrivilege"] : array("")
+              );
+  }
+
   $f->pop();
 
   $f->display();
@@ -232,7 +269,7 @@ function _mail_baseEdit($ldapArr, $postArr) {
   <script type="text/javascript" language="javascript">
      function autoCreate() {
         var firstname = $('firstname').value.toLowerCase()
-        firstname = firstname.replace(/( |"|')/g,'')
+        //        firstname = firstname.replace(/( |"|')/g,'')
         $('maildrop[0]').value = $('nlogin').value.toLowerCase();
      }
 
@@ -274,17 +311,16 @@ function _mail_verifInfo($postArr) {
  * @param $FH FormHandler of the page
  */
 function _mail_changeUser($FH) {
-
     if ($FH->getPostValue("mailaccess")) {
-        
+
         if (hasMailObjectClass($FH->getPostValue("nlogin"))) {
             $syncmailgroupalias = False;
-            if ($FH->getValue("unlimitedquota") == "on") 
+            if ($FH->getValue("unlimitedquota") == "on")
                 $FH->setValue("mailuserquota", "0");
-        } 
+        }
 	else {
             addMailObjectClass($FH->getPostValue("nlogin"));
-            $syncmailgroupalias = True;            
+            $syncmailgroupalias = True;
 	}
         if($FH->isUpdated("maildrop"))
             changeMaildrop($FH->getPostValue("nlogin"), $FH->getValue('maildrop'));
@@ -305,7 +341,7 @@ function _mail_changeUser($FH) {
                 changeMailhost($FH->getPostValue("nlogin"), $FH->getPostValue("mailhost"));
             }
         }
-        
+
         if (($FH->isUpdated('maildisable'))
             || ($_GET["action"] == "add")
             || $syncmailgroupalias) {
@@ -314,8 +350,8 @@ function _mail_changeUser($FH) {
                 changeMailEnable($FH->getPostValue("nlogin"), False);
             else
                 changeMailEnable($FH->getPostValue("nlogin"), True);
-        }        
-        
+        }
+
         /*
           Only change quota if it is POSTed. When adding a user, the default
           domain mail quota is used.
@@ -323,11 +359,33 @@ function _mail_changeUser($FH) {
         if ($FH->isUpdated("mailuserquota")) {
             changeQuota($FH->getPostValue("nlogin"), $FH->getValue("mailuserquota"));
         }
-            
+
+        /* Zarafa only */
+        if (hasZarafaSupport()) {
+            $fields = array("zarafaAdmin", "zarafaSharedStoreOnly", "zarafaAccount");
+            foreach($fields as $field) {
+                if ($FH->isUpdated($field)) {
+                    modifyZarafa($FH->getPostValue("nlogin"),
+                                 $field,
+                                 $FH->getValue($field) == "on" ? True : False);
+                }
+            }
+            if ($FH->isUpdated("zarafaSendAsPrivilege")) {
+                $values = $FH->getValue("zarafaSendAsPrivilege");
+                $newvalues = array();
+                foreach($values as $value) {
+                    if (!empty($value)) $newvalues[] = $value;
+                }
+                modifyZarafa($FH->getPostValue("nlogin"),
+                             "zarafaSendAsPrivilege",
+                             $newvalues);
+            }
+        }
+
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */
             syncMailGroupAliases($FH->getPostValue("primary_autocomplete"));
-            foreach($FH->getPostValue("groupsselected") as $group) 
+            foreach($FH->getPostValue("groupsselected") as $group)
                 syncMailGroupAliases($group);
         }
     } else { //mail access not checked

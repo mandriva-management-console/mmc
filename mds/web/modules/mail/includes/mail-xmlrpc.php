@@ -141,4 +141,20 @@ function computeMailGroupAlias($group) {
     return xmlCall("mail.computeMailGroupAlias", array($group));
 }
 
+function hasZarafaSupport() {
+    return xmlCall("mail.hasZarafaSupport");
+}
+
+function modifyZarafa($login, $attr, $value) {
+    return xmlCall("mail.modifyZarafa", array($login, $attr, $value));
+}
+
+function isZarafaGroup($group) {
+    return xmlCall("mail.isZarafaGroup", $group);
+}
+
+function setZarafaGroup($group, $value) {
+    return xmlCall("mail.setZarafaGroup", array($group, $value));
+}
+
 ?>
