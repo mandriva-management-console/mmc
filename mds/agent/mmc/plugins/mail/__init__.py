@@ -25,13 +25,15 @@
 MDS mail plugin for the MMC agent.
 """
 
+import ldap.modlist
+import copy
+import logging
+from ConfigParser import NoOptionError
+
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.base import delete_diacritics
 from mmc.support.config import PluginConfig
 import mmc
-import ldap.modlist
-import copy
-import logging
 
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.mail.audit import AT, AA, PLUGIN_NAME
@@ -60,17 +62,23 @@ def activate():
         "mailDomain" : ["virtualdomain", "virtualdomaindescription", "mailuserquota"],
         }
 
+    # Additional LDAP classes/attributes to check for ZARAFA support
+    if config.zarafa:
+        mailSchema['zarafa-user'] = ['zarafaAdmin', 'zarafaSharedStoreOnly',
+                                     'zarafaAccount', 'zarafaSendAsPrivilege' ]
+        mailSchema['zarafa-group'] = []
+
     for objectClass in mailSchema:
         schema = ldapObj.getSchema(objectClass)
         if not len(schema):
-            logger.error("LDAP mail schema is not up to date: %s objectClass is not included in LDAP directory" % objectClass);
-            return False        
+            logger.error("LDAP mail schema is not up to date: %s objectClass is not included in LDAP directory" % objectClass)
+            return False
         for attribute in mailSchema[objectClass]:
             if not attribute in schema:
-                logger.error("LDAP mail schema is not up to date: %s attribute is not included in LDAP directory" % attribute);
+                logger.error("LDAP mail schema is not up to date: %s attribute is not included in LDAP directory" % attribute)
                 return False
 
-    if config.vDomainSupport:        
+    if config.vDomainSupport:
         # Create required OU
         head, path = config.vDomainDN.split(",", 1)
         ouName = head.split("=")[1]
@@ -78,7 +86,7 @@ def activate():
             ldapObj.addOu(ouName, path)
             logger.info("Created OU " + config.vDomainDN)
         except ldap.ALREADY_EXISTS:
-            pass        
+            pass
 
     return True
 
@@ -160,6 +168,20 @@ def deleteMailGroupAliases(group):
 def syncMailGroupAliases(group, foruser = "*"):
     return MailControl().syncMailGroupAliases(group, foruser)
 
+# Zarafa support
+
+def hasZarafaSupport():
+    return MailConfig('mail').zarafa
+
+def modifyZarafa(uid, attribute, value):
+    return MailControl().modifyZarafa(uid, attribute, value)
+
+def isZarafaGroup(group):
+    return MailControl().isZarafaGroup(group)
+
+def setZarafaGroup(group, value):
+    return MailControl().setZarafaGroup(group, value)
+
 class MailConfig(PluginConfig):
 
     def readConf(self):
@@ -168,11 +190,16 @@ class MailConfig(PluginConfig):
         except: pass
         if self.vDomainSupport:
             self.vDomainDN = self.get("main", "vDomainDN")
+        try:
+            self.zarafa = self.getboolean("main", "zarafa")
+        except NoOptionError:
+            pass
 
     def setDefault(self):
         PluginConfig.setDefault(self)
         self.vDomainSupport = False
         self.userDefault = {}
+        self.zarafa = False
 
 class MailControl(ldapUserGroupControl):
 
@@ -182,6 +209,9 @@ class MailControl(ldapUserGroupControl):
 
     def hasVDomainSupport(self):
         return self.configMail.vDomainSupport
+
+    def hasZarafaSupport(self):
+        return self.configMail.zarafa
 
     def addVDomain(self, domain):
         """
@@ -389,12 +419,16 @@ class MailControl(ldapUserGroupControl):
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
         self.changeUserAttributes(uid, 'mailuserquota', mailuserquota, False)
         r.commit()
-        
+
     def removeMail(self, uid):
         r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_CLASS, [(uid, AT.MAIL)])
         self.removeUserObjectClass(uid, "mailAccount")
         r.commit()
-        
+        if self.hasZarafaSupport():
+            r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_ZARAFA_CLASS, [(uid, AT.MAIL)])
+            self.removeUserObjectClass(uid, "zarafa-user")
+            r.commit()
+
     def removeMailGroup(self, group):
         r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_CLASS, [(group, AT.MAIL)])
         self.removeGroupObjectClass(group, "mailGroup")
@@ -410,7 +444,11 @@ class MailControl(ldapUserGroupControl):
         @return: return True if the user owns the mailAccount objectClass.
         @rtype: boolean
         """
-        return "mailAccount" in self.getDetailedUser(uid)["objectClass"]
+        userClasses = self.getDetailedUser(uid)["objectClass"]
+        ret = "mailAccount" in userClasses
+        if ret and self.hasZarafaSupport():
+            ret = 'zarafa-user' in userClasses
+        return ret
 
     def hasMailGroupObjectClass(self, group):
         """
@@ -424,8 +462,8 @@ class MailControl(ldapUserGroupControl):
         """
         return "mailGroup" in self.getDetailedGroup(group)["objectClass"]
 
-    def addMailObjectClass(self, uid, maildrop = None):        
-        r = AF().log(PLUGIN_NAME, AA.MAIL_ADD_MAIL_CLASS, [(uid, AT.MAIL)])    
+    def addMailObjectClass(self, uid, maildrop = None):
+        r = AF().log(PLUGIN_NAME, AA.MAIL_ADD_MAIL_CLASS, [(uid, AT.MAIL)])
         # Get current user entry
         dn = 'uid=' + uid + ',' + self.baseUsersDN
         s = self.l.search_s(dn, ldap.SCOPE_BASE)
@@ -434,6 +472,11 @@ class MailControl(ldapUserGroupControl):
 
         if not "mailAccount" in new["objectClass"]:
             new["objectClass"].append("mailAccount")
+
+        if self.hasZarafaSupport():
+            rz = AF().log(PLUGIN_NAME, AA.MAIL_ADD_ZARAFA_CLASS, [(uid, AT.MAIL)])
+            if not 'zarafa-user' in new['objectClass']:
+                new['objectClass'].append('zarafa-user')
 
         # Add maildrop attribute to user if we are not in virtual domain mode
         if maildrop == None and not self.hasVDomainSupport():
@@ -455,10 +498,12 @@ class MailControl(ldapUserGroupControl):
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(dn, modlist)
         r.commit()
+        if self.hasZarafaSupport():
+            rz.commit()
 
     def getVDomainUsersCount(self, domain):
         return len(self.search("(&(objectClass=mailAccount)(mail=*@%s))" % domain, self.baseUsersDN, [""]))
-        
+
     def getVDomainUsers(self, domain, filt = ""):
         filt = filt.strip()
         if not filt: filt = "*"
@@ -475,6 +520,8 @@ class MailControl(ldapUserGroupControl):
         newattrs = copy.deepcopy(attrs)
         if not 'mailGroup' in newattrs["objectClass"]:
             newattrs["objectClass"].append('mailGroup')
+        if self.hasZarafaSupport() and not 'zarafa-group' in newattrs["objectClass"]:
+            newattrs["objectClass"].append('zarafa-group')
         newattrs['mail'] = mail
         mlist = ldap.modlist.modifyModlist(attrs, newattrs)
         self.l.modify_s(cn, mlist)
@@ -483,7 +530,7 @@ class MailControl(ldapUserGroupControl):
     def searchMailGroupAlias(self, mail):
         ret = self.search("(&(cn=*)(mail=%s@*))" % mail, self.baseGroupsDN, ["cn"])
         return len(ret) > 0
-    
+
     def computeMailGroupAlias(self, group):
         """
         Find a mail alias that fits for a group.
@@ -544,3 +591,63 @@ class MailControl(ldapUserGroupControl):
                     if mailgroup in mailaliases:
                         mailaliases.remove(mailgroup)
                         self.changeMailalias(uid, mailaliases)
+
+    def modifyZarafa(self, uid, attribute, value):
+        events = { 'zarafaAdmin' : AA.MAIL_MOD_ZARAFA_ADMIN,
+                 'zarafaSharedStoreOnly' : AA.MAIL_MOD_ZARAFA_SHAREDSTOREONLY,
+                 'zarafaAccount' : AA.MAIL_MOD_ZARAFA_ACCOUNT,
+                 'zarafaSendAsPrivilege' : AA.MAIL_MOD_ZARAFA_SENDASPRIVILEGE }
+        if attribute not in events:
+            raise ValueError('Attribute %s is not managed' % attribute)
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, events[attribute], [(userdn, AT.MAIL)], value)
+        if not self.hasMailObjectClass(uid):
+            self.addMailObjectClass(uid)
+        if not value:
+            # If value is False or empty, we set the value to None so that it
+            # is removed
+            value = None
+        elif value == True:
+            value = '1'
+        self.changeUserAttributes(uid, attribute, value, False)
+        r.commit()
+
+    def isZarafaGroup(self, group):
+        """
+        @param group: group name
+        @type group: str
+
+        @return: return True if the user owns the zarafa-group objectClass.
+        @rtype: boolean
+        """
+        return "zarafa-group" in self.getDetailedGroup(group)["objectClass"]
+
+    def setZarafaGroup(self, group, value):
+        """
+        @param group: group name
+        @type group: str
+
+        @param value: to set or unset the zarafa-group class
+        @type value: boolean
+
+        Set/unset zarafa-group object class to a user group
+        """
+        if value:
+            event = AA.MAIL_ADD_ZARAFA_CLASS
+        else:
+            event = AA.MAIL_DEL_ZARAFA_CLASS
+        r = AF().log(PLUGIN_NAME, event, [(group, AT.MAIL_GROUP)], group)
+        group = group.encode("utf-8")
+        cn = 'cn=' + group + ', ' + self.baseGroupsDN
+        attrs = []
+        attrib = self.l.search_s(cn, ldap.SCOPE_BASE)
+        c, attrs = attrib[0]
+        newattrs = copy.deepcopy(attrs)
+        if value and not 'zarafa-group' in newattrs['objectClass']:
+            newattrs["objectClass"].append('zarafa-group')
+        elif not value and 'zarafa-group' in newattrs['objectClass']:
+            newattrs["objectClass"].remove('zarafa-group')
+        mlist = ldap.modlist.modifyModlist(attrs, newattrs)
+        if mlist:
+            self.l.modify_s(cn, mlist)
+        r.commit()
