@@ -6,7 +6,7 @@
   <title>MMC mail plugin configuration file</title>
 
   <articleinfo>
-    
+
     <author>
       <firstname>Cédric</firstname>
       <surname>Delfosse</surname>
@@ -18,10 +18,10 @@
     </affiliation>
 
     <copyright>
-      <year>2007,2008 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2010 Cédric Delfosse - Mandriva</year>
     </copyright>
 
-    <revhistory>      
+    <revhistory>
       <revision>
         <revnumber>$Revision$</revnumber>
         <date>$Date$</date>
@@ -38,9 +38,12 @@
   <section>
 
     <title>Introduction</title>
-    
+
     <para>
-      The « mail » plugin allows the MMC to add/remove mail delivery management attributes to users and groups, and mail virtual domains, etc. It uses the « base » plugin for all its related LDAP operations.
+      The « mail » plugin allows the MMC to add/remove mail delivery
+      management attributes to users and groups, and mail virtual
+      domains, etc. It uses the « base » plugin for all its related
+      LDAP operations.
     </para>
     <para>
       The plugin configuration file is <filename>/etc/mmc/plugins/mail.ini</filename>.
@@ -72,7 +75,7 @@
     <para>
       Here are all the mail.ini available sections
     </para>
-    
+
     <table>
       <title>
 	mail.ini available sections
@@ -83,7 +86,7 @@
 	    <entry>Section name</entry>
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -121,7 +124,7 @@
 	    <entry>Description</entry>
 	    <entry>Optional</entry>
 	    <entry>Default value</entry>
-	  </row>	  
+	  </row>
 	</thead>
 	<tbody>
 	  <row>
@@ -142,15 +145,22 @@
 	    <entry>Yes if vDomainSupport is disabled</entry>
 	    <entry></entry>
 	  </row>
+	  <row>
+	    <entry>zarafa</entry>
+	    <entry>Is Zarafa LDAP fields support enables ?</entry>
+	    <entry></entry>
+	    <entry>0</entry>
+	  </row>
 	</tbody>
       </tgroup>
     </table>
+
   </section>
 
   <section>
-    
+
     <title>Section « userdefault »</title>
-    
+
     <para>
       When adding the mail attributes to a user, you may want to change the value of the attributes that are added. Please look at the « MMC base plugin configuration file » for a look at how this section works.
     </para>
@@ -171,6 +181,51 @@
       [userdefault]
       mailbox = maildir:%homeDirectory%/Maildir/
     </screen>
+
+  </section>
+
+  <section>
+
+    <title>Zarafa support</title>
+
+    <para>
+      The zarafa.schema file must be included into the LDAP directory.
+    </para>
+    <para>
+      If Zarafa support is enabled, the "zarafa-user" object class
+      will be automatically added to users if the administrator gives
+      them mail access thanks to the MMC web interface.
+    </para>
+    <para>
+      The following fields are also available:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>
+	  Administrator of Zarafa (zarafaAdmin LDAP field)
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Shared store (zarafaSharedStoreOnly LDAP field)
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Zarafa account (zarafaAccount)
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Zarafa send as user list (zarafaSendAsPrivilege)
+	</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      When you edit a group, you will also be able to set the
+      "zarafa-group" object class to it.
+    </para>
 
   </section>
 
