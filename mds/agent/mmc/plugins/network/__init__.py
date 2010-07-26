@@ -72,6 +72,10 @@ def activate():
         if len(schema) <= 0:
             logger.error("DHCP schema is not included in LDAP directory");
             return False
+        # Test if DHCP/LDAP schema contains the dhcpComments attribute
+        if "dhcpComments" not in schema:
+            logger.error("DHCP/LDAP schema does not support the dhcpComments attribute. Please use the latest version of DCHP/LDAP schema.")
+            return False
     except:
         logger.exception("invalid schema")
         return False
