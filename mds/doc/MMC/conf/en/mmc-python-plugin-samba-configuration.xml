@@ -23,9 +23,9 @@
 
     <revhistory>      
       <revision>
-        <revnumber>$Revision$</revnumber>
-        <date>$Date$</date>
-        <authorinitials>$Author$</authorinitials>
+        <revnumber>$Revision: 1420 $</revnumber>
+        <date>$Date: 2008-04-02 09:14:22 +0200 (mer. 02 avril 2008) $</date>
+        <authorinitials>$Author: cdelfosse $</authorinitials>
       </revision>
     </revhistory>
 
@@ -149,7 +149,7 @@
 	  </row>
 	  <row>
 	    <entry>sambaClamavSo</entry>
-	    <entry>SAMBA-CLAMAV VFS shared library location. If this file is present, we can enable anti-virus check when creating a SAMBA share</entry>
+	    <entry>VFS shared library location for anti-virus check on shares (scannedonly, vscan-clamav...). If this file is present, we can enable anti-virus check when creating a SAMBA share. This results to an option on the share : vfs object = libname (without .so suffix)</entry>
 	    <entry>yes</entry>
 	    <entry>/usr/lib/samba/vfs/vscan-clamav.so</entry>
 	  </row>

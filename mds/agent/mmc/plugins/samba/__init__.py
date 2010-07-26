@@ -1127,7 +1127,7 @@ class smbConf:
                 self.setContent('homes','directory mask','0700')
                 # Set the vscan-clamav plugin if available
                 if os.path.exists(SambaConfig("samba").clam_av_so):
-                    self.setContent("homes", "vfs objects", "vscan-clamav")
+                    self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").clam_av_so))[0])
             else:
                 try:
                     self.delShare('homes',0)
@@ -1306,8 +1306,8 @@ class smbConf:
         if not browseable: tmpInsert['browseable'] = 'No'
         tmpInsert['path'] = path
 
-        # Set the vscan-clamav plugin if available
-        if av: tmpInsert['vfs objects'] = 'vscan-clamav'
+        # Set the anti-virus plugin if available
+        if av: tmpInsert['vfs objects'] = os.path.splitext(os.path.basename(SambaConfig("samba").clam_av_so))[0]
 
         # Set the admin groups for the share
         if admingroups:
