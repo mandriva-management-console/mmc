@@ -239,17 +239,6 @@
 
             <entry>20</entry>
           </row>
-
-          <row>
-            <entry>community</entry>
-
-            <entry>It's a yes or no flag, it set the fact the installed
-            version is a community one or not </entry>
-
-            <entry>yes</entry>
-
-            <entry>yes</entry>
-          </row>
         </tbody>
       </tgroup>
     </table>
