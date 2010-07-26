@@ -239,6 +239,18 @@
 
             <entry>20</entry>
           </row>
+
+          <row>
+            <entry>sessiontimeout</entry>
+
+            <entry>RPC Session timeout in seconds. If unset default
+	      to Twisted hardcoded 900 seconds.</entry>
+
+            <entry>yes</entry>
+
+            <entry>900</entry>
+	  </row>
+
         </tbody>
       </tgroup>
     </table>
