@@ -24,6 +24,7 @@
 
 $module_audit_codes = array(
     'SAMBA_ADD_SHARE' => _T("Add share", "samba"),
+    'SAMBA_MOD_SHARE' => _T("Mod share", "samba"),    
     'SAMBA_DEL_SHARE' => _T("Del share", "samba"),
     'SAMBA_BACKUP_SHARE' => _T("Backup share", "samba"),
     'SAMBA_RESTART_SAMBA' => _T("Restart SAMBA", "samba"),

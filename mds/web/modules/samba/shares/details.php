@@ -32,10 +32,12 @@ if (isset($_POST["bcreate"])) {
     $shareName = $_POST["shareName"];
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
-    $shareGroup = $_POST["usergroupsselected"];
+    $shareGroup = $_POST["groupgroupsselected"];
+    $shareUser = $_POST["userusersselected"];
     $adminGroups = $_POST["admingroupsselected"];
+    $customParameters = $_POST["customparameters"];       
     $permAll = $_POST["permAll"];
-    if ($_POST["hasClamAv"]) $av = 1;
+    if ($_POST["hasAv"]) $av = 1;
     else $av = 0;
     if ($_POST["browseable"]) $browseable = 1;
     else $browseable = 0;
@@ -51,7 +53,8 @@ if (isset($_POST["bcreate"])) {
             }
         }
         if ($add) {
-            add_share($shareName, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+            $params = array($shareName, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
+            add_share($params);
             if (!isXMLRPCError()) {
                 new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
                 header("Location: " . urlStrRedirect("samba/shares/index" ));
@@ -62,19 +65,36 @@ if (isset($_POST["bcreate"])) {
 
 if (isset($_POST["bmodify"]))
 {
-    $share = $_POST["share"];
+    $share = $_GET["share"];
+    $shareName = $_POST["shareName"];
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
-    $shareGroup = $_POST["usergroupsselected"];
+    $shareGroup = $_POST["groupgroupsselected"];
+    $shareUser = $_POST["userusersselected"];
     $adminGroups = $_POST["admingroupsselected"];
-    $permAll = $_POST["permAll"];
-    if ($_POST["hasClamAv"]) $av = 1;
+    $customParameters = $_POST["customparameters"];    
+    if (isset($_POST["permAll"])) {
+        $permAll = $_POST["permAll"];
+    }
+    else {
+        $permAll = 0;
+    }
+    if ($_POST["hasAv"]) $av = 1;
     else $av = 0;
     if ($_POST["browseable"]) $browseable = 1;
     else $browseable = 0;
-    mod_share($share, $sharePath, $shareDesc, $shareGroup, $permAll, $adminGroups, $browseable, $av);
+    
+    $params = array($share, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
+    mod_share($params);
+    
     if (!isXMLRPCError()) {
         new NotifyWidgetSuccess(sprintf(_T("Share %s successfully modified"), $shareName));
+    }
+    else {
+        // Catch exception
+        // but continue to show the page
+        global $errorStatus;
+        $errorStatus = 0;
     }
 }
 
@@ -86,11 +106,13 @@ if ($_GET["action"] == "add") {
     $permAll = False;
     $av = False;
     $browseable = True;
+    $customParameters = array("");
 } else {
     $share = urldecode($_GET["share"]);
     $title = _T("Properties of share $share");
     $activeItem = "index";
     $shareInfos = share_infos($share);
+    $customParameters = share_custom_parameters($share);
     $shareDesc = $shareInfos["desc"];
     $sharePath = $shareInfos["sharePath"];
     $shareGroup = $shareInfos["group"];
@@ -115,7 +137,7 @@ $p->display();
 }
 ?>
 
-<form method="post" action="" onSubmit="autouserObj.selectAll(); autoadminObj.selectAll();">
+<form id="edit" method="post" action="" onSubmit="autogroupObj.selectAll(); autouserObj.selectAll(); autoadminObj.selectAll(); return validateForm();">
 
 <?
 
@@ -135,14 +157,14 @@ $t->add(
         array("value" => $shareDesc)
         );
 
-if (hasClamAv()) {
+if (hasAv()) {
     $checked = "";
     if ($av) {
         $checked = "checked";
     }
     $param = array ("value" => $checked);
     $t->add(
-            new TrFormElement(_T("AntiVirus on this share"), new CheckboxTpl("hasClamAv")),
+            new TrFormElement(_T("AntiVirus on this share"), new CheckboxTpl("hasAv")),
             $param
             );
 }
@@ -155,11 +177,11 @@ $d->push(new Table());
 if ($_GET["action"] == "add")  {
     $sharePath = "";
     $sharePathText = sprintf(_T("Share path (leave empty for a default path in %s)"), default_shares_path());
-    $input = new InputTpl("sharePath");
+    $input = new IA5InputTpl("sharePath");
 } else {
     $sharePath = $shareInfos["sharePath"];
     $sharePathText = "Path";
-    $input = new HiddenTpl("sharePath");
+    $input = new IA5InputTpl("sharePath");
 }
 
 $d->add(
@@ -212,19 +234,41 @@ if ($permAll) {
 ?>
 <table>
 <?php
-if ($_GET["action"] == "add") $tpl_groups = array();
+if ($_GET["action"] == "add") $acls = array(array(), array());
 else {
-    $tpl_groups = getACLOnShare($share);
+    $acls = getACLOnShare($share);
     if ($shareGroup != 'root') {
-        $tpl_groups[] = $shareGroup;
+        $acls[0][] = $shareGroup;
     }    
 }
-setVar("tpl_groups", $tpl_groups);
+setVar("tpl_groups", $acls[0]);
 global $__TPLref;
-$__TPLref["autocomplete"] = "user";
+$__TPLref["autocomplete"] = "group";
 renderTPL("groups");
+
 ?>
 </table>
+
+<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<table cellspacing="0">
+    <tr>
+    <td>
+    </td>
+    <td>
+        <?= _T("Users for this share"); ?>
+    </td>
+   </tr>
+
+<?php
+
+
+setVar("tpl_users", $acls[1]);
+$__TPLref["autocomplete"] = "user";
+renderTPL("users");
+
+?>
+</table>
+</div>
 </div>
 
 <div id="expertMode" class="expertMode" <?displayExpertCss();?>>
@@ -249,6 +293,19 @@ renderTPL("groups");
 ?>
 
 </table>
+
+<?php
+
+    if (!isset($customParameters) || empty($customParameters)) {
+        $customParameters = array('');
+    }
+    $cp = new MultipleInputTpl("customparameters",_("Custom parameters"));
+    $cp->setRegexp('/^[a-z: _]+[ ]*=.*$/');
+    $cpf = new FormElement(_("Custom parameters"), $cp);
+    $cpf->display($customParameters);
+
+?>
+
 </div>
 
 <? if ($_GET["action"] == "add")  { ?>

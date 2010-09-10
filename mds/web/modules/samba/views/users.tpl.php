@@ -3,7 +3,7 @@
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
- * $Id$
+ * $Id: groups.tpl.php 1220 2008-03-03 15:15:58Z cedric $
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -23,16 +23,16 @@
  */
 ?>
 
-    <tr><td width="40%" style="text-align: right; vertical-align: top;"><?= _("Groups"); ?> </td><td>
-        <select multiple size="10" class="list" name="<?= $autocomplete; ?>groupsselected[]" id="auto<?= $autocomplete; ?>select">
+    <tr><td width="40%" style="text-align: right; vertical-align: top;"><?= _("Users"); ?> </td><td>
+        <select multiple size="10" class="list" name="<?= $autocomplete; ?>usersselected[]" id="auto<?= $autocomplete; ?>select">
             <?php
-            $sorted = $tpl_groups;
+            $sorted = $tpl_users;
 
-            //sorting group
+            //sorting user
             sort($sorted);
-            foreach ($sorted as $group)
+            foreach ($sorted as $user)
                 {
-                echo "<option value=\"".$group."\">".$group."</option>\n";
+                echo "<option value=\"".$user."\">".$user."</option>\n";
             }
             ?>
         </select>
@@ -43,11 +43,11 @@
 
         function auto<?= $autocomplete; ?>() {
             this.select = document.getElementById('auto<?= $autocomplete; ?>select');
-            this.groups = new Array();
+            this.users = new Array();
         <?php
-            foreach (get_groups($error) as $group)
+            foreach (get_users() as $user)
             {
-                echo "this.groups.push('$group[0]');\n";
+                echo "this.users.push('".$user."');\n";
             }
         ?>
         }
@@ -61,13 +61,13 @@
 
         //add an element in selectbox
         auto<?= $autocomplete; ?>.prototype.addElt = function(elt) {
-            if (this.eltInArr(elt, this.groups)) {
+            if (this.eltInArr(elt, this.users)) {
                 this.addEltInSelectBox(elt);
                 $('auto<?= $autocomplete; ?>').value = '';
 
             }
             else {
-                window.alert("<?= _T("This group doesn't exist"); ?>");
+                window.alert("<?= _T("This user doesn't exist"); ?>");
             }
         }
 
@@ -122,11 +122,11 @@
 
     </script>
 
-    <input name="bgroup" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
+    <input name="buser" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
 
     </td>
     </tr>
-    <tr><td style="text-align: right;"><?= _T("Add a new group"); ?></td><td>
+    <tr><td style="text-align: right;"><?= _T("Add a new user"); ?></td><td>
 
     <input type="text" id="auto<?= $autocomplete; ?>" name="auto<?= $autocomplete; ?>" class="textfield" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
     <div id="auto<?= $autocomplete; ?>_choices" class="autocomplete">
@@ -135,11 +135,11 @@
             <li></li>
         </ul>
     </div>
-    <input name="bgroup<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
+    <input name="buser<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
     </td></tr>
 
     <script type="text/javascript">
     <!--
-        new Ajax.Autocompleter('auto<?= $autocomplete; ?>','auto<?= $autocomplete; ?>_choices','modules/base/users/ajaxAutocompleteGroup.php', {paramName: "value"});
+        new Ajax.Autocompleter('auto<?= $autocomplete; ?>','auto<?= $autocomplete; ?>_choices','modules/base/users/ajaxAutocompleteUser.php', {paramName: "value"});
     -->
     </script>

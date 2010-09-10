@@ -25,17 +25,22 @@
 <?php
 /* $Id$ */
 
-function add_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
-    $name = trim($name);
+// $name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av, $customParameters
+function add_share($params) {
+    $name = trim($params[0]);
     # FIXME !
     $reserved = array("homes", "print$", "printers");
     foreach ($reserved as $res) {
         if ($name == $res) {
-	    return;
-	}
+	        return;
+    	}
     }
-    $param = array($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
-    xmlCall("samba.addShare", $param);
+    xmlCall("samba.addShare", $params);
+}
+
+// $name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av, $customParameters
+function mod_share($params) {
+    return xmlCall("samba.modShare", $params);
 }
 
 function get_shares() {
@@ -44,7 +49,7 @@ function get_shares() {
     return $resArray;
 }
 
-function hasClamAv() {
+function hasAv() {
     return xmlCall('samba.isSmbAntiVirus',null);
 }
 
@@ -81,10 +86,8 @@ function share_infos($share) {
     return xmlCall("samba.shareInfo", array($share));
 }
 
-function mod_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av = 0) {
-    /* FIXME */
-    del_share($name, false);
-    add_share($name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av);
+function share_custom_parameters($share) {
+    return xmlCall("samba.shareCustomParameters", array($share));
 }
 
 function sched_backup($share, $media) {

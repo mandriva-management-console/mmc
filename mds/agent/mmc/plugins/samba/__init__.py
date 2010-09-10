@@ -192,7 +192,7 @@ def activate():
     return True
 
 def isSmbAntiVirus():
-    return os.path.exists(SambaConfig("samba").clam_av_so)
+    return os.path.exists(SambaConfig("samba").av_so)
 
 def isAuthorizedSharePath(path):
     return smbConf(SambaConfig("samba")).isAuthorizedSharePath(path)
@@ -223,9 +223,14 @@ def getDomainAdminsGroup():
 def isBrowseable(name):
     return smbConf(SambaConfig("samba").samba_conf_file).isBrowseable(name)
 
-def addShare(name, path, comment, usergroups, permAll, admingroups, browseable = True, av = 0):
+def addShare(name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = 0, customparameters = None):
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
-    smbObj.addShare(name, path, comment, usergroups, permAll, admingroups, browseable, av)
+    smbObj.addShare(name, path, comment, usergroups, users, permAll, admingroups, browseable, av, customparameters)
+    smbObj.save()
+
+def modShare(name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = 0, customparameters = None):
+    smbObj = smbConf(SambaConfig("samba").samba_conf_file)
+    smbObj.addShare(name, path, comment, usergroups, users, permAll, admingroups, browseable, av, customparameters, True)
     smbObj.save()
 
 def delShare(name, file):
@@ -238,6 +243,11 @@ def shareInfo(name):
     """get an array of information about a share"""
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
     return smbObj.shareInfo(name)
+    
+def shareCustomParameters(name):
+    """get an array of additionnal params about a share"""
+    smbObj = smbConf(SambaConfig("samba").samba_conf_file)
+    return smbObj.shareCustomParameters(name)
 
 def getSmbInfo():
     """get main information of global section"""
@@ -363,7 +373,7 @@ class SambaConfig(PluginConfig):
         except: pass
         try: self.samba_init_script = self.get("main", "sambaInitScript")
         except: pass
-        try: self.clam_av_so = self.get("main", "sambaClamavSo")
+        try: self.av_so = self.get("main", "sambaAvSo")
         except: pass
 
         try:
@@ -376,7 +386,7 @@ class SambaConfig(PluginConfig):
         PluginConfig.setDefault(self)
         self.samba_conf_file = '/etc/samba/smb.conf'
         self.samba_init_script = '/etc/init.d/samba'
-        self.clam_av_so = "/usr/lib/samba/vfs/vscan-clamav.so"
+        self.av_so = "/usr/lib/samba/vfs/vscan-clamav.so"
 
 class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 
@@ -888,6 +898,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 class smbConf:
 
     supportedGlobalOptions = ["workgroup", "netbios name", "logon path", "logon drive", "logon home", "logon script", "ldap passwd sync", "wins support"]
+    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browsable', 'browseable', 'group', 'admin users', 'writeable', 'writable', 'vfs objects']
 
     def __init__(self, smbconffile = "/etc/samba/smb.conf", conffile = None, conffilebase = None):
         """
@@ -1125,9 +1136,9 @@ class smbConf:
                 self.setContent('homes','read only','no')
                 self.setContent('homes','create mask','0700')
                 self.setContent('homes','directory mask','0700')
-                # Set the vscan-clamav plugin if available
-                if os.path.exists(SambaConfig("samba").clam_av_so):
-                    self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").clam_av_so))[0])
+                # Set the vscan-av plugin if available
+                if os.path.exists(SambaConfig("samba").av_so):
+                    self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
             else:
                 try:
                     self.delShare('homes',0)
@@ -1233,15 +1244,36 @@ class smbConf:
             pass
         return returnArr
 
+    def shareCustomParameters(self, name):    
+        """
+        Get additional parameters about a share
+        """
+        
+        returnArr = []
+        logger = logging.getLogger()
+        for key, value in self.contentArrVerbose[name].iteritems():
+            if key not in self.supportedOptions:
+                returnArr.append(key + " = " + value)
+                
+        return returnArr
 
-    def addShare(self, name, path, comment, usergroups, permAll, admingroups, browseable = True, av = False):
+    def addShare(self, name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = False, customparameters = None, mod = False):
         """
         add a share in smb.conf
         and create it physicaly
         """
-        r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SHARE, [(name, AT.SHARE)], path)
-        if self.contentArr.has_key(name):
+        
+        if mod:
+            action = AA.SAMBA_MOD_SHARE
+            oldPath = self.contentArr[name]['path']
+        else:
+            action = AA.SAMBA_ADD_SHARE
+        r = AF().log(PLUGIN_NAME, action, [(name, AT.SHARE)], path)
+        
+        if self.contentArr.has_key(name) and not mod:
             raise Exception('This share already exist')
+        if not self.contentArr.has_key(name) and mod:
+            raise Exception('This share does not exist')
 
         # If no path is given, create a default one
         if not path:
@@ -1252,9 +1284,12 @@ class smbConf:
         if not self.isAuthorizedSharePath(path):
             raise path + " is not an authorized share path."
 
-        # Create samba share directory, if it does not exist
+        # Create or move samba share directory, if it does not exist
         try:
-            os.makedirs(path)
+            if mod:
+                os.renames(oldPath, path)
+            else:
+                os.makedirs(path)
         except OSError , (errno, strerror):
             # Raise exception if error is not "File exists"
             if errno != 17:
@@ -1264,17 +1299,37 @@ class smbConf:
         # Directory is owned by root
         os.chown(path, 0, 0)
 
+        if mod:
+            # Delete the old share
+        	del self.contentArr[name]
+
         # create table and fix permission
         tmpInsert = {}
+        
+    	# We insert first custom parameters, so if the user has 
+    	# entered manually any reserved key, that key is overriden 
+    	# below, with the values of specific fields.
+        if customparameters is not None:
+            for line in customparameters:
+                if len(line) > 0:
+                    parts = line.split("=", 1)
+                    if len(parts) is 2:
+                        if not parts[0].strip() in self.supportedOptions:
+                            tmpInsert[parts[0].strip()] = parts[1].strip()
+                    else:
+                        raise Exception("invalid samba parameter format")
+        
         tmpInsert['comment'] = comment
+        
         if permAll:
             tmpInsert['public'] = 'yes'
-            mmctools.shlaunch("setfacl -b " + path)
+            mmctools.shlaunch("setfacl -b %s" % path)
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
         else:
             tmpInsert['public'] = 'no'
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG)
-            mmctools.shlaunch("setfacl -b "+path)
+            # flush ACLs
+            mmctools.shlaunch("setfacl -b %s" % path)
             acl1 = posix1e.ACL(file=path)
             # Add and set default mask to rwx
             # This is needed by the ACL system, else the ACLs won't be valid
@@ -1283,7 +1338,6 @@ class smbConf:
             e.permset.add(posix1e.ACL_WRITE)
             e.permset.add(posix1e.ACL_EXECUTE)
             e.tag_type = posix1e.ACL_MASK
-
             # For each specified group, we add rwx access
             for group in usergroups:
                 e = acl1.append()
@@ -1295,19 +1349,35 @@ class smbConf:
                 ldapobj = mmc.plugins.base.ldapUserGroupControl(self.conffilebase)
                 gidNumber = ldapobj.getDetailedGroup(group)['gidNumber'][0]
                 e.qualifier = int(gidNumber)
+                # FIXME
+                # howto use posix1e for this ?
+                mmctools.shlaunch("setfacl -d -m g:%s:rwx %s" % (str(gidNumber), path))
+            for user in users:
+                e = acl1.append()
+                e.permset.add(posix1e.ACL_READ)
+                e.permset.add(posix1e.ACL_WRITE)
+                e.permset.add(posix1e.ACL_EXECUTE)
+                e.tag_type = posix1e.ACL_USER
+                # Search the gid number corresponding to the given group
+                ldapobj = mmc.plugins.base.ldapUserGroupControl(self.conffilebase)
+                uidNumber = ldapobj.getDetailedUser(user)['uidNumber'][0]
+                e.qualifier = int(uidNumber)
+                # FIXME
+                # howto use posix1e for this ?
+                mmctools.shlaunch("setfacl -d -m u:%s:rwx %s" % (str(uidNumber), path))            
             # Test if our ACLs are valid
             if acl1.valid():
                 acl1.applyto(path)
             else:
                 logger = logging.getLogger()
-                logger.error("cannot save acl on folder " + path)
+                logger.error("Cannot save ACL on folder " + path)
 
         tmpInsert['writeable'] = 'yes'
         if not browseable: tmpInsert['browseable'] = 'No'
         tmpInsert['path'] = path
 
         # Set the anti-virus plugin if available
-        if av: tmpInsert['vfs objects'] = os.path.splitext(os.path.basename(SambaConfig("samba").clam_av_so))[0]
+        if av: tmpInsert['vfs objects'] = os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0]
 
         # Set the admin groups for the share
         if admingroups:
@@ -1325,18 +1395,22 @@ class smbConf:
         @param name: name of the share (last component of the path)
         @type name: str
 
-        @rtype: list
-        @return: list of groups that have rwx access to the share.
+        @rtype: tuple
+        @return: tuple of groups, users that have rwx access to the share.
         """
         path = self.getContent(name, "path")
-        ret= []
+        ret = ([], [])
         ldapobj = mmc.plugins.base.ldapUserGroupControl(self.conffilebase)
         acl1 = posix1e.ACL(file=path)
         for e in acl1:
             if e.permset.write:
                 if e.tag_type == posix1e.ACL_GROUP:
                     res = ldapobj.getDetailedGroupById(str(e.qualifier))
-                    ret.append(res['cn'][0])
+                    ret[0].append(res['cn'][0])
+                if e.tag_type == posix1e.ACL_USER:
+                    res = ldapobj.getDetailedUserById(str(e.qualifier))
+                    ret[1].append(res['uid'][0])
+                    
         return ret
 
     def getAdminUsersOnShare(self, name):
