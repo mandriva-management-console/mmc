@@ -28,6 +28,7 @@ import os
 import os.path
 import shutil
 import stat
+import grp
 import re
 import logging
 import ldap.modlist
@@ -81,12 +82,27 @@ def activate():
 
     if config.defaultSharesPath:
         if config.defaultSharesPath.endswith("/"):
-	    logger.error("Trailing / is not allowed in defaultSharesPath")
-	    return False
+            logger.error("Trailing / is not allowed in defaultSharesPath")
+            return False
+        if not os.path.exists(config.defaultSharesPath):
+            logger.error("The default shares path '%s' does not exist" % config.defaultSharesPath)
+            return False
 
     for cpath in config.authorizedSharePaths:
         if cpath.endswith("/"):
             logger.error("Trailing / is not allowed in authorizedSharePaths")
+            return False
+        if not os.path.exists(cpath):
+            logger.error("The authorized share path '%s' does not exist" % cpath)
+            return False
+
+    # For each share, test if it sharePath exists 
+    for share in getDetailedShares():
+        shareName = share[0]
+        infos = shareInfo(shareName)
+        sharePath = infos['sharePath']
+        if sharePath != -1 and not os.path.exists(sharePath):
+            logger.error("The samba share path '%s' does not exist." % sharePath)
             return False
 
     try:
@@ -1235,17 +1251,11 @@ class smbConf:
             returnArr["browseable"] = 0
             
         # Get the directory group owner
-        # FIXME: ???
-        try:
-            path = self.getContent(name,'path')
-            ps = os.popen('stat %s | grep Access: | head -n 1' % path, 'r')
-            # more matching regex
-            # 'Gid: *\( *[0-9]*/ *([^/]*)\)$'
-            groupArr= re.findall('/ *([^/]*)\)$', ps.read())
-            for group in groupArr:
-                returnArr['group']=group
-        except:
-            pass
+        if os.path.exists(str(returnArr['sharePath'])):
+            stat_info = os.stat(returnArr['sharePath'])
+            gid = stat_info.st_gid
+            returnArr['group'] = grp.getgrgid(gid)[0]
+
         return returnArr
 
     def shareCustomParameters(self, name):    
