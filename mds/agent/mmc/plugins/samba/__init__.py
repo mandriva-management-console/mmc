@@ -1200,7 +1200,11 @@ class smbConf:
             raise Exception('share "'+ name+'" does not exist')
 
         if remove:
-            shutil.rmtree(path)
+            if os.path.exists(path):
+                shutil.rmtree(path)
+            else:
+                logger = logging.getLogger() 
+                logger.error('The "%s" share path does not exist.' % path) 
         r.commit()
 
     def shareInfo(self, name):
