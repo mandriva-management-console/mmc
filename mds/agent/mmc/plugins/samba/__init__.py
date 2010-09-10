@@ -205,6 +205,13 @@ def activate():
         # Issue a warning if NSCD is running
         if os.path.exists("/var/run/nscd.pid") or os.path.exists("/var/run/.nscd_socket") or os.path.exists("/var/run/nscd"):
             logger.warning("Looks like NSCD is installed on your system. You should not run NSCD on a SAMBA server.")
+        # Check that os level is set to 255
+        oslevel = smbconf.getContent("global", "os level")
+        if int(oslevel) < 255:
+            logger.debug("Set SAMBA os level to 255.")
+            smbconf.setContent("global", "os level", "255")
+            smbconf.save()
+            reloadSamba()
     return True
 
 def isSmbAntiVirus():
@@ -1140,8 +1147,12 @@ class smbConf:
                 pass
 
         if current["pdc"] != pdc:
-            if pdc: self.setContent('global','domain logons','yes')
-            else: self.setContent('global','domain logons','no')
+            if pdc: 
+                self.setContent('global','domain logons','yes')
+                self.setContent('global', 'os level', '255')
+            else:
+                self.setContent('global','domain logons','no')
+                self.remove('global', 'os level')
             # Default value of domain master (auto) is sufficient
             self.remove("global", "domain master")
 
