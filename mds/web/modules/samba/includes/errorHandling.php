@@ -37,5 +37,16 @@ $errItem->setAdvice(_T("Please delete this share, and then create it again."));
 $errItem->setTraceBackDisplay(false);
 $errObj->add($errItem);
 
+$errItem = new ErrorHandlingItem('smb.conf file is not valid');
+$errItem->setMsg(_("Some options are not valid"));
+$errItem->setAdvice(_("Check your custom parameters."));
+$errItem->setTraceBackDisplay(false);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem('invalid samba parameter format');
+$errItem->setMsg(_("A custom parameter has an invalid format."));
+$errItem->setAdvice(_("Use the 'option = value' format."));
+$errItem->setTraceBackDisplay(false);
+$errObj->add($errItem);
 
 ?>
