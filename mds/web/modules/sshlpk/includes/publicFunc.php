@@ -29,10 +29,13 @@ require_once("sshlpk-xmlrpc.php");
  *
  */
 function _sshlpk_baseEdit($ldapArr, $postArr) {
+
     $hassshlpk = 'checked';
+
     if ((isset($ldapArr['uid'][0])) && (!hasSshKeyObjectClass($ldapArr['uid'][0]))) {
         $hassshlpk = '';
     }
+        
     $f = new DivForModule(_T("Public SSH keys management plugin","sshlpk"), "#DDF");
     
     $f->push(new Table());
@@ -47,7 +50,12 @@ function _sshlpk_baseEdit($ldapArr, $postArr) {
     $f->push($sshkeydiv);
 
     if (isset($ldapArr['uid'][0])) {
-        $sshkeylist = getAllSshKey($ldapArr['uid'][0]);
+        if ($hassshlpk == 'checked') {
+            $sshkeylist = getAllSshKey($ldapArr['uid'][0]);
+        }
+        else {
+            $sshkeylist = array();
+        }
         if(count($sshkeylist) == 0)
             $sshkeylist = array("0" => "");
     } else {
@@ -94,9 +102,12 @@ function _sshlpk_verifInfo($postArr) {
  * @param $FH FormHandler of the page
  */
 function _sshlpk_changeUser($FH) {
-    if ($FH->isUpdated('sshkeylist')) {
-        updateSshKeys($FH->getPostValue('nlogin'), $FH->getValue('sshkeylist'));
-    } else {
+    if ($FH->getPostValue("showsshkey")) {
+        if ($FH->isUpdated('sshkeylist')) {
+            updateSshKeys($FH->getPostValue('nlogin'), $FH->getValue('sshkeylist'));
+        }
+    } 
+    else {
         if (hasSshKeyObjectClass($FH->getPostValue('nlogin'))) {
             delSSHKeyObjectClass($FH->getPostValue('nlogin'));
         }
