@@ -129,7 +129,7 @@ $f->pop();
 
 $f->addValidateButton("bsave");
 $f->addExpertButton("brestart", _T("Restart SAMBA"));
-$f->addExpertButton("breload", _T("Reload SAMBA configuration"));
+$f->addButton("breload", _T("Reload SAMBA configuration"));
 
 $f->display();
 
