@@ -26,7 +26,7 @@ require("modules/network/includes/network-xmlrpc.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$ajax = new AjaxFilter("modules/network/network/ajaxSubnetFilter.php");
+$ajax = new AjaxFilter(urlStrRedirect("network/network/ajaxSubnetFilter"));
 $ajax->display();
 
 $p = new PageGenerator(_T("DHCP subnet management"));

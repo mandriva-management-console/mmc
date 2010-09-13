@@ -50,6 +50,12 @@ $page->setFile("modules/network/network/ajaxZoneFilter.php",
 	       );
 $submod->addPage($page);
 
+$page = new Page("ajaxSubnetFilter");
+$page->setFile("modules/network/network/ajaxSubnetFilter.php",
+	       array("AJAX" =>True,"visible"=>False)
+	       );
+$submod->addPage($page);
+
 $page = new Page("ajaxZoneMembersFilter");
 $page->setFile("modules/network/network/ajaxZoneMembersFilter.php",
 	       array("AJAX" =>True,"visible"=>False)
