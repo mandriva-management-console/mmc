@@ -34,8 +34,7 @@ if [ -z $FORCE ];
     read
 fi
 
-# Nothing specific to do for MDS, the uninstallation is handled by the MMC core
-# uninstall script
+rm -fr /home/samba
 
 echo "Uninstallation done"
 

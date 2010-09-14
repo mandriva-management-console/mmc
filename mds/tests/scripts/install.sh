@@ -245,6 +245,9 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
 fi
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbpasswd -s -a administrator
 
+# Create default SAMBA shares directory
+mkdir -p /home/samba
+
 # Restart LDAP & APACHE
 if [ $DISTRIBUTION == "MandrivaLinux" ]; then
     service ldap restart
