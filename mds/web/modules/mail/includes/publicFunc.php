@@ -177,9 +177,14 @@ function _mail_baseEdit($ldapArr, $postArr) {
   if (!isset($ldapArr['maildrop'])) {
     $ldapArr['maildrop'] = array('');
   }
-
   if (!isset($ldapArr['mailalias'])) {
     $ldapArr['mailalias'] = array('');
+  }
+  if (!isset($ldapArr['mailhost'])) {
+    $ldapArr['mailhost'] = array('');
+  }
+  if (!isset($ldapArr['mailbox'])) {
+    $ldapArr['mailbox'] = array('');
   }
 
   $maildiv = new Div(array("id" => "maildiv"));
