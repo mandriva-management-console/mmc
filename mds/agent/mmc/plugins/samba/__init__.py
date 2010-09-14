@@ -102,8 +102,8 @@ def activate():
         infos = shareInfo(shareName)
         sharePath = infos['sharePath']
         if sharePath != -1 and not os.path.exists(sharePath):
+            # only show error
             logger.error("The samba share path '%s' does not exist." % sharePath)
-            return False
 
     try:
         ldapObj = ldapUserGroupControl()
