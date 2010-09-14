@@ -140,6 +140,31 @@ function _samba_changeUser($FH) {
                 $FH->setPostValue("pass", uniqid(rand(), true));
             }
             addSmbAttr($FH->getPostValue("nlogin"),$FH->getPostValue("pass"));
+
+            // format samba attributes
+            // FIXME
+            if($FH->getPostValue("sambaPwdLastSet") == "on") {
+                $FH->setPostValue("sambaPwdLastSet", "0");
+            }
+            if($FH->getPostValue("sambaPwdCanChange") == "on") {
+                $FH->setPostValue("sambaPwdCanChange", "");
+            }
+            else {
+                $FH->setPostValue("sambaPwdCanChange", "9999999999");
+            }
+            // account expiration
+            if($FH->isUpdated("sambaKickoffTime")) {
+                $datetime = $FH->getValue("sambaKickoffTime"); 
+                // 2010-09-23 18:32:00
+                if (strlen($datetime) == 19) {
+                    $timestamp = mktime(substr($datetime, -8, 2), substr($datetime, -5, 2), substr($datetime, -2, 2), substr($datetime, 5, 2), substr($datetime, 8, 2), substr($datetime, 0, 4));
+                    $FH->setPostValue("sambaKickoffTime", "$timestamp");
+                }
+                // not a valid value
+                else {
+                    $FH->setPostValue("sambaKickoffTime", "");
+                }
+            }            
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getPostValues());
         }
     }
@@ -258,7 +283,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
     $tr->setCssError("isSmbLocked");
     $tr->display($param);
 
-    if(!isset($ldapArr["sambaPwdCanChange"])) {
+    if(!isset($ldapArr["sambaPwdCanChange"]) or $ldapArr["sambaPwdCanChange"][0] < mktime()) {
         $checked = "checked";
     }
     else {
