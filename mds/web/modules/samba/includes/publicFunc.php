@@ -73,6 +73,41 @@ function _samba_changeUser($FH) {
             $FH->delPostValue("pass");
             $FH->delPostValue("confpass");
 
+            // format samba attributes
+            if($FH->isUpdated("sambaPwdLastSet")) {
+                if($FH->getValue("sambaPwdLastSet") == "on") {
+                    // force user to change password
+                    $FH->setValue("sambaPwdLastSet", "0");
+                }
+                else {
+                    $FH->setValue("sambaPwdLastSet", "9999999999");
+                }
+            }
+            if($FH->isUpdated("sambaPwdCanChange")) {
+                if($FH->getValue("sambaPwdCanChange") == "on") {
+                    // del this attribute
+                    $FH->setValue("sambaPwdCanChange", "");
+                }
+                else {
+                    // user can't change password before this timestamp
+                    $FH->setValue("sambaPwdCanChange", "9999999999");
+                }
+            }
+            // account expiration
+            if($FH->isUpdated("sambaKickoffTime")) {
+                $datetime = $FH->getValue("sambaKickoffTime"); 
+                // 2010-09-23 18:32:00
+                if (strlen($datetime) == 19) {
+                    $timestamp = mktime(substr($datetime, -8, 2), substr($datetime, -5, 2), substr($datetime, -2, 2), substr($datetime, 5, 2), substr($datetime, 8, 2), substr($datetime, 0, 4));
+                    $FH->setValue("sambaKickoffTime", "$timestamp");
+                }
+                // not a valid value
+                else {
+                    $FH->setValue("sambaKickoffTime", "");
+                }
+            }
+
+            // change attributes
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getValues());
             
             if (isEnabledUser($FH->getPostValue("nlogin"))) {
@@ -216,13 +251,49 @@ function _samba_baseEdit($ldapArr,$postArr) {
         }
     }
     $param = array ("value" => $checked);
-
     $tr = new TrFormElement(_T("User is locked, if checked","samba"), new CheckboxTpl("isSmbLocked"),
                         array("tooltip"=>
                         _T("Lock samba user access
                         <p>User can be locked after too many failed log.</p>",'samba')));
     $tr->setCssError("isSmbLocked");
     $tr->display($param);
+
+    if(!isset($ldapArr["sambaPwdCanChange"])) {
+        $checked = "checked";
+    }
+    else {
+        $checked = "";
+    }
+    $param = array ("value" => $checked);
+    $tr = new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange"));
+    $tr->setCssError("sambaPwdCanChange");
+    $tr->display($param);
+    
+    if($ldapArr["sambaPwdLastSet"][0] == "0") {
+        $value = "checked";
+    }
+    else {
+        $value = "";
+    }
+    $param = array ("value" => $value);
+    $tr = new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdLastSet"));
+    $tr->setCssError("sambaPwdLastSet");
+    $tr->display($param);    
+
+
+    if(isset($ldapArr["sambaKickoffTime"][0])) {
+        $value = strftime("%Y-%m-%d %H:%M:%S", $ldapArr["sambaKickoffTime"][0]);
+    }
+    else {
+        $value = "";
+    }
+    $param = array ("value" => $value, "ask_for_never" => 1);
+    $tr = new TrFormElement(_T("Account expiration","samba"), new DynamicDateTpl("sambaKickoffTime"),
+                        array("tooltip"=>
+                        _T("Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire.",'samba')));
+    $tr->setCssError("sambaKickoffTime");
+    $tr->display($param);
+
 
     print '</table>'."\n";
 
@@ -256,9 +327,5 @@ function _samba_baseEdit($ldapArr,$postArr) {
     print "</div>"."\n";
 
 }
-
-
-
-
 
 ?>
