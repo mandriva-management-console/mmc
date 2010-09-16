@@ -39,33 +39,31 @@ function get_smbconf() {
 }
 
 function save_smbconf() {
-    $ispdc = $_POST["pdc"];
-    $homes = $_POST["homes"];
-    $wg = $_POST["workgroup"];
-    $netname = $_POST["netbios name"];
+    $options = array();
 
-    $param=array($ispdc,$homes,$wg,$netname);
-
+    # sanitize POST values
     foreach ($_POST as $key => $value)
-        $_POST[str_replace("_", " ", $key)] = stripslashes($value);
-
-    xmlCall("samba.smbInfoSave", array($ispdc, $homes, $_POST));
-    return _T("Configuration saved");
+        $options[str_replace("_", " ", $key)] = stripslashes($value);
+    if(!isset($_POST['homes']))
+        $options['homes'] = false;
+    if(!isset($_POST['pdc']))
+        $options['pdc'] = false;   
+             
+    # apply samba option
+    return xmlCall("samba.smbInfoSave", array($options));
 }
 
 function getCheckedState($smb, $option) {
     $ret = "";
-    if (isset($smb["ldap passwd sync"])) {
-        if (strtolower($smb[$option]) == "yes") 
-            $ret = "CHECKED";
-        }
+    if (strtolower($smb[$option]) == "yes")
+        $ret = "checked";
     return $ret;
 }
 
 if (isset($_POST["bsave"])) {
-    $result = save_smbconf();
+    $ret = save_smbconf();
     if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service."), $shareName));
+        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.")));
     }
 }
 
@@ -80,32 +78,59 @@ $smb = get_smbconf();
 
 $f = new ValidatingForm();
 $f->push(new Table());
-if ($smb["pdc"]) $value = "CHECKED";
+
+$f->add(
+        new TrFormElement(_T("Domain name"), new NetbiosUppercaseInputTpl("workgroup")),
+        array("value" => $smb["workgroup"], "required" => True)
+);
+
+$f->add(
+        new TrFormElement(_T("Server name"), new NetbiosUppercaseInputTpl("netbios name")),
+        array("value" => $smb["netbios name"], "required" => True)
+);
+
+if ($smb["pdc"]) $value = "checked";
 else $value = "";
 $f->add(
         new TrFormElement(_T("This server is a PDC"),new CheckboxTpl("pdc")),
         array("value" => $value)
-        );
+);
+
 $f->add(
         new TrFormElement(_T("This server is a WINS server"),new CheckboxTpl("wins support")),
         array("value" => getCheckedState($smb, "wins support"))
-        );
-if ($smb["homes"]) $value = "CHECKED";
-else $value = "";
+);
+
+if ($smb["homes"]) {
+    $value = "checked";
+    $hasHomes = true;
+}
+else {
+    $value = "";
+    $hasHomes = false;
+}
 $f->add(
         new TrFormElement(_T("Share user's homes"),new CheckboxTpl("homes")),
-        array("value" => $value)
-        );
-$f->add(
-        new TrFormElement(_T("Domain name"), new NetbiosUppercaseInputTpl("workgroup")),
-        array("value" => $smb["workgroup"], "required" => True)
-        );
-$f->add(
-        new TrFormElement(_T("Server name"), new NetbiosUppercaseInputTpl("netbios name")),
-        array("value" => $smb["netbios name"], "required" => True)
-        );
+        array("value" => $value, "extraArg"=>'onclick="toggleVisibility(\'profilesdiv\');"')
+);
+
 $f->pop();
 
+$profilesdiv = new Div(array("id" => "profilesdiv"));
+$profilesdiv->setVisibility($hasHomes);
+
+$f->push($profilesdiv);
+$f->push(new Table());  
+
+if ($smb["logon path"]) $value = "checked";
+else $value = "";
+$f->add(
+        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("logon path"), 
+            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))), array("value" => $value)
+);
+
+$f->pop();
+$f->pop();
 
 $f->push(new DivExpertMode());
 $f->push(new Table());
@@ -113,8 +138,7 @@ $f->add(
         new TrFormElement(_T("LDAP password sync"), new CheckboxTpl("ldap passwd sync")),
         array("value" => getCheckedState($smb, "ldap passwd sync"))
         );
-$d = array(_T("User profile path") => "logon path",
-           _T("Opening script session") => "logon script",
+$d = array(_T("Opening script session") => "logon script",
            _T("Base directory path") => "logon home",
            _T("Connect base directory on network drive") => "logon drive");
 

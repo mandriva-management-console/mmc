@@ -277,15 +277,20 @@ def getSmbInfo():
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
     return smbObj.getSmbInfo()
 
-def smbInfoSave(pdc, homes, options):
+def smbInfoSave(options):
     """save information about global section"""
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
-    return smbObj.smbInfoSave(pdc, homes, options)
+    return smbObj.smbInfoSave(options)
 
 def isPdc():
     try: smbObj = smbConf(SambaConfig("samba").samba_conf_file)
     except: raise Exception("Can't open SAMBA configuration file")
     return smbObj.isPdc()
+    
+def isProfiles():
+    """ check if global profiles are setup """
+    smbObj = smbConf(SambaConfig("samba").samba_conf_file)
+    return smbObj.isProfiles()
 
 def backupShare(share, media, login):
     """
@@ -657,7 +662,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                     new[key] = value
                     logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR, 
                         [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
-                    
+
         modlist = ldap.modlist.modifyModlist(old, new)
         if modlist: self.l.modify_s(dn, modlist)
         self.runHook("samba.changesambaattributes", uid)
@@ -921,7 +926,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 class smbConf:
 
     supportedGlobalOptions = ["workgroup", "netbios name", "logon path", "logon drive", "logon home", "logon script", "ldap passwd sync", "wins support"]
-    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browsable', 'browseable', 'group', 'admin users', 'writeable', 'writable', 'vfs objects']
+    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable', 'vfs objects']
 
     def __init__(self, smbconffile = "/etc/samba/smb.conf", conffile = None, conffilebase = None):
         """
@@ -1093,6 +1098,13 @@ class smbConf:
         ret = self.getSmbInfo()
         return ret["pdc"]
 
+    def isProfiles(self):
+        ret = self.getSmbInfo()
+        if ret["logon path"]:
+            return True
+        else:
+            return False
+
     def getContent(self, section, content):
         """get information from self.contentArr[section][content]"""
         # FIXME: shouldn't return -1 but keep the exception raised
@@ -1118,19 +1130,17 @@ class smbConf:
         except KeyError:
             pass
 
-    def smbInfoSave(self, pdc, homes, options):
+    def smbInfoSave(self, options):
         """
         Set information in global section:
-         @param pdc: Is it a PDC ?
-         @param homes: Do we share users' home ?
          @param options: dict with global options
         """
         current = self.getSmbInfo()
 
         # For this two smb.conf global option, we put a space and not an empty
         # value in smb.conf, else a value by default is set by Samba
-        for option in ["logon path", "logon home"]:
-            if not options[option]: options[option] = " "
+        for option in ["logon home", "logon path"]:
+            if not option in options: options[option] = " "
 
         # We update only what has changed from the current configuration
         for option in self.supportedGlobalOptions:
@@ -1146,8 +1156,8 @@ class smbConf:
                 # Just ignore the option if it was not sent
                 pass
 
-        if current["pdc"] != pdc:
-            if pdc: 
+        if current["pdc"] != options['pdc']:
+            if options['pdc']: 
                 self.setContent('global','domain logons','yes')
                 self.setContent('global', 'os level', '255')
             else:
@@ -1156,9 +1166,9 @@ class smbConf:
             # Default value of domain master (auto) is sufficient
             self.remove("global", "domain master")
 
-        if current["homes"] != homes:
-            if homes:
-                self.setContent('homes','comment','Repertoires utilisateurs')
+        if current["homes"] != options['homes']:
+            if options['homes']:
+                self.setContent('homes','comment','User shares')
                 self.setContent('homes','browseable','no')
                 self.setContent('homes','read only','no')
                 self.setContent('homes','create mask','0700')
@@ -1171,6 +1181,14 @@ class smbConf:
                     self.delShare('homes',0)
                 except:
                     pass
+                    
+        if current["logon path"] != options['logon path']:
+            # we need to share the user home to store the profile
+            if options['logon path'] != " " and options['homes']:
+                self.setContent('global','logon path','\\\\%L\%U\profile')
+            else:
+                self.setContent('global','logon path',' ')
+            
         # Save file
         self.save()
         return 0

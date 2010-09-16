@@ -54,9 +54,12 @@ function _samba_changeUserPrimaryGroup($uid, $group) {
  
 
 function _samba_changeUser($FH) {
-    global $error;
 
+    global $error;
     if ($error) return -1;
+
+    # check users profiles setup
+    $globalProfiles = xmlCall("samba.isProfiles");
 
     if  (hasSmbAttr($FH->getPostValue("nlogin"))) { //if it is an smbUser
         if (!$FH->getPostValue("isSamba")) {
@@ -106,7 +109,27 @@ function _samba_changeUser($FH) {
                     $FH->setValue("sambaKickoffTime", "");
                 }
             }
-
+            if($FH->isUpdated("sambaProfilePath")) {
+                if($FH->getValue("sambaProfilePath") == "on" && !$globalProfiles) {
+                    $smbconf = xmlCall("samba.getSmbInfo");
+                    $FH->setValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
+                }
+                else {
+                    $FH->setValue("sambaProfilePath", "");
+                }
+            }
+            # FIXME !
+            # need to find a way to disable roaming profile for user when logon path is set
+            /*
+                else if(($FH->getValue("sambaProfilePath") == "on" && $globalProfiles) || !$globalProfiles) {
+                    # sambaProfilePath is useless
+                    $FH->setValue("sambaProfilePath", "");                
+                }
+                else {
+                    # desactivate profile for this user                    
+                    $FH->setValue("sambaProfilePath", '%USERPROFILE%');
+                }
+            }*/
             // change attributes
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getValues());
             
@@ -143,6 +166,7 @@ function _samba_changeUser($FH) {
 
             // format samba attributes
             // FIXME
+            // duplicate with edit phase
             if($FH->getPostValue("sambaPwdLastSet") == "on") {
                 $FH->setPostValue("sambaPwdLastSet", "0");
             }
@@ -164,7 +188,16 @@ function _samba_changeUser($FH) {
                 else {
                     $FH->setPostValue("sambaKickoffTime", "");
                 }
-            }            
+            }           
+            if($FH->isUpdated("sambaProfilePath")) {
+                if($FH->getValue("sambaProfilePath") == "on" && !$globalProfiles) {
+                    $smbconf = xmlCall("samba.getSmbInfo");
+                    $FH->setPostValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
+                }
+                else {
+                    $FH->setPostValue("sambaProfilePath", "");
+                }
+            }
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getPostValues());
         }
     }
@@ -200,8 +233,10 @@ function _samba_verifInfo($postArr) {
 }
 
 function _samba_baseEdit($ldapArr,$postArr) {
+
     $checked = "checked"; //default value
     $displayType= "inline";
+    $globalProfiles = xmlCall("samba.isProfiles");
 
     //fetch ldap updated info if we can
     if (isset($ldapArr["uid"][0])) {
@@ -261,7 +296,6 @@ function _samba_baseEdit($ldapArr,$postArr) {
     }
 
     $param = array ("value" => $checked);
-
     $test = new TrFormElement(_T("User is disabled, if checked","samba"), new CheckboxTpl("isSmbDesactive"),
                                 array("tooltip"=>
                                 _T("Disable samba user account",'samba')));
@@ -282,6 +316,18 @@ function _samba_baseEdit($ldapArr,$postArr) {
                         <p>User can be locked after too many failed log.</p>",'samba')));
     $tr->setCssError("isSmbLocked");
     $tr->display($param);
+    
+    # if no global profile set, we can set a roaming profile for this user
+    if(!$globalProfiles) {
+        if(isset($ldapArr["sambaProfilePath"]))
+            $value = "checked";
+        else
+            $value = "";
+        $param = array ("value" => $value);
+        $tr = new TrFormElement(_T("Use network profile, if checked","samba"), new CheckboxTpl("sambaProfilePath"));
+        $tr->setCssError("sambaProfilePath");
+        $tr->display($param);
+    }
 
     if(!isset($ldapArr["sambaPwdCanChange"]) or $ldapArr["sambaPwdCanChange"][0] < mktime()) {
         $checked = "checked";
@@ -319,7 +365,6 @@ function _samba_baseEdit($ldapArr,$postArr) {
     $tr->setCssError("sambaKickoffTime");
     $tr->display($param);
 
-
     print '</table>'."\n";
 
 
@@ -328,8 +373,7 @@ function _samba_baseEdit($ldapArr,$postArr) {
     displayExpertCss();
     print '><table>';
 
-    $d = array(_T("User profile path","samba") => "sambaProfilePath",
-               _T("Opening script session","samba") => "sambaLogonScript",
+    $d = array(_T("Opening script session","samba") => "sambaLogonScript",
                _T("Base directory path","samba") => "sambaHomePath",
                _T("Connect base directory on network drive","samba") => "sambaHomeDrive")    ;
 
