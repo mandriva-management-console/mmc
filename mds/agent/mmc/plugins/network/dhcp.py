@@ -127,7 +127,8 @@ class Dhcp(ldapUserGroupControl):
         entry = {
             "cn" : name,
             "dhcpServiceDN" : dhcpServiceDN,
-            "objectClass" : ["top", "dhcpServer"]
+            "objectClass" : ["top", "dhcpServer", "dhcpOptions"],
+            "dhcpOption" : "local-pac-server code 252 = text"
             }
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)

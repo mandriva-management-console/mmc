@@ -115,10 +115,10 @@ if (!isset($error)
     }
 
     /* Update the DHCP options */
-    $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "netbios-name-servers", "netbios-node-type", "root-path", "tftp-server-name");
+    $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "netbios-name-servers", "netbios-node-type", "root-path", "tftp-server-name","local-pac-server");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
-	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
+	if (in_array($name, array("domain-name", "root-path", "tftp-server-name", "local-pac-server")))
             $value = '"' . $value . '"';
 	if (in_array($name, array("domain-name-servers", "ntp-servers", "netbios-name-servers")))
             $value = str_replace(" ", ",", $value);
@@ -261,6 +261,14 @@ $f->add(
                                 )
                           ),
         array("value"=>$options["ntp-servers"])
+        );
+ $f->add(
+        new TrFormElement(_T("Proxy auto config URL"),new IA5InputTpl("local-pac-server"),
+                          array(
+                                "tooltip" => _T("Automatic proxy configuration URL (PAC).")
+                                )
+                          ),
+        array("value"=>$options["local-pac-server"])
         );
 $f->add(
         new TrFormElement(_T("WINS servers"),new HostIpListInputTpl("netbios-name-servers"),
