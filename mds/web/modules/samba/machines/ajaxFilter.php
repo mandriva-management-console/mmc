@@ -28,9 +28,11 @@ $computers = search_machines($filter);
 //print_r($computers);
 $names = array();
 $desc = array();
+$active = array();
 foreach($computers as $computer) {
     $names[] = $computer[0];
     $desc[] = $computer[1];
+    $active[] = $computer[2];
 }
 
 $l = new ListInfos($names, _T("Computer name", "samba"));
@@ -38,6 +40,8 @@ $l->disableFirstColumnActionLink();
 $l->setCssClass("machineName");
 $l->setNavBar(new AjaxNavBar(count($computers), $filter));
 $l->addExtraInfo($desc, _T("Description", "samba"));
+$l->addExtraInfo($active, _T("Active", "samba"));
+$l->addActionItem(new ActionItem(_T("Edit"),"edit","edit","machine"));
 $l->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","machine"));
 $l->setName(_("Computers"));
 $l->display();

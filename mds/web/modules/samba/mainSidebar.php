@@ -33,9 +33,9 @@ if ($pdc) { // if SAMBA is configured as a PDC
     $s = new SideMenuItem(_T("List computers", "samba"), "samba", "machines", "index", "img/machines/icn_global_active.gif", "img/machines/icn_global.gif");
     $s->setCssId("indexmachines");
     $sidemenu->addSideMenuItem($s);
-    $s = new SideMenuItem(_T("Add a computer", "samba"), "samba", "machines", "add", "img/machines/icn_addMachines_active.gif", "img/machines/icn_addMachines.gif");
+    /*$s = new SideMenuItem(_T("Add a computer", "samba"), "samba", "machines", "add", "img/machines/icn_addMachines_active.gif", "img/machines/icn_addMachines.gif");
     $s->setCssId("addmachine");
-    $sidemenu->addSideMenuItem($s);
+    $sidemenu->addSideMenuItem($s);*/
 }
 
 $s = new SideMenuItem(_T("General options", "samba"), "samba","config","index", "img/config/icn_global_active.gif", "img/config/icn_global.gif");

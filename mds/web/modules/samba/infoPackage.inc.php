@@ -80,7 +80,11 @@ $page = new Page("ajaxFilter");
 $page->setOptions(array("AJAX" =>True,"visible"=>False));
 $submod->addPage($page);
 
-$page = new Page("add",_T("Add a computer","samba"));
+/*$page = new Page("add",_T("Add a computer","samba"));
+$submod->addPage($page);*/
+
+$page = new Page("edit",_T("Edit a computer","samba"));
+$page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
 $page = new Page("delete",_T("Delete a computer","samba"));

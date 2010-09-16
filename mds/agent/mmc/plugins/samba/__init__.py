@@ -378,6 +378,12 @@ def addMachine(name, comment, addMachineScript = False):
 def delMachine(name):
     return sambaLdapControl().delMachine(name)
 
+def getMachine(name):
+    return sambaLdapControl().getMachine(name)
+
+def changeMachine(name, options):
+    return sambaLdapControl().changeMachine(name, options)
+
 def getMachinesLdap(searchFilter= ""):
     ldapObj = sambaLdapControl()
     searchFilter = cleanFilter(searchFilter)
@@ -549,14 +555,66 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         Remove a computer account from LDAP
 
-        @param uidUser: computer name
-        @type  uidUser: str
+        @param uid: computer name
+        @type  uid: str
         """
-	name='uid=' + uid + ',' + self.baseComputersDN
+        name='uid=' + uid + ',' + self.baseComputersDN
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_MACHINE, [(name, AT.MACHINE)])
         uid = uid + "$"
         self.l.delete_s('uid=' + uid + ',' + self.baseComputersDN)
         r.commit()
+        return 0
+        
+    def getMachine(self, uid, base = None):
+        """
+        Return a computer account from LDAP
+        
+        @param uid: computer name
+        @type uid: string
+        """
+        if not base: base = self.baseComputersDN
+        return self.getEntry("uid=%s$,%s" % (uid, base))
+        
+    def changeMachine(self, uid, options, base = None):
+    
+        logs = []
+        if not base: base = self.baseComputersDN
+        
+        if options['disable']:
+            # String of 11 characters surrounded by square brackets [ ] 
+            # representing account flags such as U (user), W (workstation), 
+            # X (no password expiration), I (domain trust account), 
+            # H (home dir required), S (server trust account), and D (disabled).
+            options['sambaAcctFlags'] = "[DW         ]"
+        else:
+            options['sambaAcctFlags'] = "[W          ]"
+        del options['disable']
+
+        dn = "uid=%s$,%s" % (uid, base)
+        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        c, old = s[0]
+        # We update the old attributes array with the new SAMBA attributes
+        new = old.copy()
+        for key in options.keys():
+            value = options[key]
+            if value == "":
+                # Maybe delete this SAMBA LDAP attribute
+                try:
+                    del new[key]
+                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_ATTR, 
+                        [(dn, AT.MACHINE), (key, AT.ATTRIBUTE)], value))
+                except KeyError:
+                    pass
+            else:
+                # Update this SAMBA LDAP attribute
+                new[key] = value
+                logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR, 
+                    [(dn, AT.MACHINE), (key, AT.ATTRIBUTE)], value))
+        modlist = ldap.modlist.modifyModlist(old, new)
+        self.l.modify_s(dn, modlist)
+        for log in logs:
+            log.commit()
+        
         return 0
 
     def searchMachine(self, pattern = '', base = None):
@@ -570,7 +628,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         # ends with a $.
         searchFilter = searchFilter + "$"
         if not base: base = self.baseComputersDN
-        result_set = self.search(searchFilter, base, ["uid", "displayName"], ldap.SCOPE_ONELEVEL)
+        result_set = self.search(searchFilter, base, ["uid", "displayName", "sambaAcctFlags"], ldap.SCOPE_ONELEVEL)
         resArr = []
         for i in range(len(result_set)):
             for entry in result_set[i]:
@@ -580,8 +638,12 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                     displayName = entry[1]['displayName'][0]
                 except KeyError:
                     displayName = ""
+                active = True
+                if "D" in entry[1]['sambaAcctFlags'][0]:
+                    active = False
                 localArr.append(uid[0:-1])
                 localArr.append(displayName)
+                localArr.append(active)                
                 resArr.append(localArr)
         resArr.sort()
         return resArr

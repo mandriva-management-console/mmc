@@ -34,8 +34,16 @@ function add_machine($machine, $comment) {
     return xmlCall("samba.addMachine",$param);
 }
 
+function get_machine($machine) {
+    return xmlCall("samba.getMachine",$machine);
+}
+
 function del_machine($machine) {
     return xmlCall("samba.delMachine",$machine);
+}
+
+function change_machine($machine, $options) {
+    return xmlCall("samba.changeMachine", array($machine, $options));
 }
 
 function search_machines($filter = null) {
