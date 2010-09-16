@@ -79,7 +79,10 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
 
     if (count($status)!=0) {
         foreach ($status as $sharename => $connects) {
-                $link = '<a href="'.urlStr('samba/shares/details',array('share'=>$sharename)).'">'.$sharename.'</a>';
+                if (!in_array($sharename, array("homes", "IPC$", "netlogon", "archive")))
+                    $link = '<a href="'.urlStr('samba/shares/details',array('share'=>$sharename)).'">'.$sharename.'</a>';
+                else
+                    $link = $sharename;
                 print '<div style="background-color: #EEE; -moz-border-radius: 0.5em; margin: 0.5em; padding:0.5em;">';
                 print "<h3>"._T("Share","samba")." $link(".count($connects)."):</h3>";
                 print '<div style="background-color: #E5E5E5; -moz-border-radius: 0.5em; margin: 0.5em; padding:0.5em;">';
