@@ -109,7 +109,6 @@ $f->add(
 );
 
 $value = "";
-var_dump($smb["hashomes"]);
 if ($smb["hashomes"]) $value = "checked";
 $f->add(
         new TrFormElement(_T("Share user's homes"),new CheckboxTpl("hashomes")),

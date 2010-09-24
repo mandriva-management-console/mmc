@@ -122,7 +122,7 @@
 
     </script>
 
-    <input name="buser" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
+    <input name="bdel<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
 
     </td>
     </tr>
@@ -135,7 +135,7 @@
             <li></li>
         </ul>
     </div>
-    <input name="buser<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
+    <input name="badd<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
     </td></tr>
 
     <script type="text/javascript">

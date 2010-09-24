@@ -79,9 +79,9 @@ if (isset($_POST["bmodify"]))
     else {
         $permAll = 0;
     }
-    if ($_POST["hasAv"]) $av = 1;
+    if (isset($_POST["hasAv"])) $av = 1;
     else $av = 0;
-    if ($_POST["browseable"]) $browseable = 1;
+    if (isset($_POST["browseable"])) $browseable = 1;
     else $browseable = 0;
     
     $params = array($share, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);

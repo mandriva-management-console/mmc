@@ -188,16 +188,16 @@ function _samba_changeUser($FH) {
                 else {
                     $FH->setPostValue("sambaKickoffTime", "");
                 }
-            }           
-            if($FH->isUpdated("sambaProfilePath")) {
-                if($FH->getValue("sambaProfilePath") == "on" && !$globalProfiles) {
-                    $smbconf = xmlCall("samba.getSmbInfo");
-                    $FH->setPostValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
-                }
-                else {
-                    $FH->setPostValue("sambaProfilePath", "");
-                }
             }
+            
+            if($FH->getPostValue("hasProfile") == "on" && !$globalProfiles) {
+                $smbconf = xmlCall("samba.getSmbInfo");
+                $FH->setPostValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
+            }
+            else {
+                $FH->setPostValue("sambaProfilePath", "");
+            }
+
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getPostValues());
         }
     }
