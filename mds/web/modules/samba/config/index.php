@@ -48,7 +48,7 @@ function save_smbconf() {
         $options['hasprofiles'] = false;
     else
         $options['hasprofiles'] = true;
-    if(!isset($_POST['homes']))
+    if(!isset($_POST['hashomes']))
         $options['hashomes'] = false;
     else
         $options['hashomes'] = true;
@@ -109,6 +109,7 @@ $f->add(
 );
 
 $value = "";
+var_dump($smb["hashomes"]);
 if ($smb["hashomes"]) $value = "checked";
 $f->add(
         new TrFormElement(_T("Share user's homes"),new CheckboxTpl("hashomes")),
