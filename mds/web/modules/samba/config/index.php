@@ -44,12 +44,19 @@ function save_smbconf() {
     # sanitize POST values
     foreach ($_POST as $key => $value)
         $options[str_replace("_", " ", $key)] = stripslashes($value);
+    if(!isset($_POST['hasprofiles']))
+        $options['hasprofiles'] = false;
+    else
+        $options['hasprofiles'] = true;
     if(!isset($_POST['homes']))
-        $options['homes'] = false;
+        $options['hashomes'] = false;
+    else
+        $options['hashomes'] = true;
     if(!isset($_POST['pdc']))
-        $options['pdc'] = false;   
-             
-    # apply samba option
+        $options['pdc'] = false;
+    else
+        $options['pdc'] = true;
+    # apply samba options
     return xmlCall("samba.smbInfoSave", array($options));
 }
 
@@ -89,8 +96,8 @@ $f->add(
         array("value" => $smb["netbios name"], "required" => True)
 );
 
+$value = "";
 if ($smb["pdc"]) $value = "checked";
-else $value = "";
 $f->add(
         new TrFormElement(_T("This server is a PDC"),new CheckboxTpl("pdc")),
         array("value" => $value)
@@ -101,53 +108,63 @@ $f->add(
         array("value" => getCheckedState($smb, "wins support"))
 );
 
-if ($smb["homes"]) {
-    $value = "checked";
-    $hasHomes = true;
-}
-else {
-    $value = "";
-    $hasHomes = false;
+$value = "";
+if ($smb["hashomes"]) $value = "checked";
+$f->add(
+        new TrFormElement(_T("Share user's homes"),new CheckboxTpl("hashomes")),
+        array("value" => $value)
+);
+
+$value = "";
+$hasProfiles = false;
+if ($smb['logon path']) {
+    $value = "checked"; 
+    $hasProfiles = true;
 }
 $f->add(
-        new TrFormElement(_T("Share user's homes"),new CheckboxTpl("homes")),
-        array("value" => $value, "extraArg"=>'onclick="toggleVisibility(\'profilesdiv\');"')
+        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("hasprofiles"), 
+            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))), 
+        array("value" => $value, "extraArg" => 'onclick=toggleVisibility("profilespath")')
 );
 
 $f->pop();
 
-$profilesdiv = new Div(array("id" => "profilesdiv"));
-$profilesdiv->setVisibility($hasHomes);
+$pathdiv = new Div(array("id" => "profilespath"));
+$pathdiv->setVisibility($hasProfiles);
 
-$f->push($profilesdiv);
-$f->push(new Table());  
+$f->push($pathdiv);
+$f->push(new Table());
 
-if ($smb["logon path"]) $value = "checked";
-else $value = "";
+# default value for profile path
+$value = "\\\\%N\\profiles\\%U";
+if($hasProfiles) $value = $smb['logon path'];
 $f->add(
-        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("logon path"), 
-            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))), array("value" => $value)
+        new TrFormElement(_T("Network path for profiles"), new InputTpl("logon path"),
+            array("tooltip" => _T("The share must exist and be world-writable.", "samba"))), 
+        array("value" => $value)
 );
-
 $f->pop();
 $f->pop();
 
 $f->push(new DivExpertMode());
 $f->push(new Table());
+
 $f->add(
         new TrFormElement(_T("LDAP password sync"), new CheckboxTpl("ldap passwd sync")),
         array("value" => getCheckedState($smb, "ldap passwd sync"))
-        );
+);
+
 $d = array(_T("Opening script session") => "logon script",
            _T("Base directory path") => "logon home",
            _T("Connect base directory on network drive") => "logon drive");
 
 foreach ($d as $description => $field) {
     $f->add(
-            new TrFormElement($description, new IA5InputTpl($field)),
-            array("value"=>$smb[$field])
-            );
+        new TrFormElement($description, new IA5InputTpl($field)),
+        array("value"=>$smb[$field])
+    );
 }
+
 $f->pop();
 $f->pop();
 
