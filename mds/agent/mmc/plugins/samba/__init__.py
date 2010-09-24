@@ -1150,7 +1150,7 @@ class smbConf:
         resArray['master'] = self.isValueTrue(self.getContent('global','domain master'))
         if resArray['master'] == -1:
             resArray["master"] = self.isValueAuto(self.getContent('global','domain master'))
-        resArray['homes'] = self.contentArr.has_key('homes')
+        resArray['hashomes'] = self.contentArr.has_key('homes')
         resArray['pdc'] = (resArray['logons']) and (resArray['master'])
         for option in self.supportedGlobalOptions:
             resArray[option] = self.getContent("global", option)
@@ -1228,28 +1228,24 @@ class smbConf:
             # Default value of domain master (auto) is sufficient
             self.remove("global", "domain master")
 
-        if current["homes"] != options['homes']:
-            if options['homes']:
-                self.setContent('homes','comment','User shares')
-                self.setContent('homes','browseable','no')
-                self.setContent('homes','read only','no')
-                self.setContent('homes','create mask','0700')
-                self.setContent('homes','directory mask','0700')
-                # Set the vscan-av plugin if available
-                if os.path.exists(SambaConfig("samba").av_so):
-                    self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
-            else:
-                try:
-                    self.delShare('homes',0)
-                except:
-                    pass
-                    
-        if current["logon path"] != options['logon path']:
-            # we need to share the user home to store the profile
-            if options['logon path'] != " " and options['homes']:
-                self.setContent('global','logon path','\\\\%L\%U\profile')
-            else:
-                self.setContent('global','logon path',' ')
+        if options['hashomes'] != current['hashomes']:
+            self.setContent('homes','comment','User shares')
+            self.setContent('homes','browseable','no')
+            self.setContent('homes','read only','no')
+            self.setContent('homes','create mask','0700')
+            self.setContent('homes','directory mask','0700')
+            # Set the vscan-av plugin if available
+            if os.path.exists(SambaConfig("samba").av_so):
+                self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
+        else:
+            try:
+                self.delShare('homes',0)
+            except:
+                pass
+                        
+        # disable global profiles
+        if not options['hasprofiles']:
+            self.setContent('global','logon path', ' ')
             
         # Save file
         self.save()
@@ -1357,6 +1353,7 @@ class smbConf:
         returnArr = []
         logger = logging.getLogger()
         for key, value in self.contentArrVerbose[name].iteritems():
+            print key+" = "+value
             if key not in self.supportedOptions:
                 returnArr.append(key + " = " + value)
                 

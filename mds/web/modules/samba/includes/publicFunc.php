@@ -59,7 +59,7 @@ function _samba_changeUser($FH) {
     if ($error) return -1;
 
     # check users profiles setup
-    $globalProfiles = xmlCall("samba.isProfiles");
+    $hasProfiles = xmlCall("samba.isProfiles");
 
     if  (hasSmbAttr($FH->getPostValue("nlogin"))) { //if it is an smbUser
         if (!$FH->getPostValue("isSamba")) {
@@ -109,10 +109,9 @@ function _samba_changeUser($FH) {
                     $FH->setValue("sambaKickoffTime", "");
                 }
             }
-            if($FH->isUpdated("sambaProfilePath")) {
-                if($FH->getValue("sambaProfilePath") == "on" && !$globalProfiles) {
-                    $smbconf = xmlCall("samba.getSmbInfo");
-                    $FH->setValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
+            if($FH->isUpdated("hasProfile")) {
+                if($FH->getValue("hasProfile") == "on" && !$hasProfiles) {
+                    $FH->setValue("sambaProfilePath", $FH->getPostValue("sambaProfilePath"));
                 }
                 else {
                     $FH->setValue("sambaProfilePath", "");
@@ -130,6 +129,7 @@ function _samba_changeUser($FH) {
                     $FH->setValue("sambaProfilePath", '%USERPROFILE%');
                 }
             }*/
+            
             // change attributes
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getValues());
             
@@ -234,47 +234,48 @@ function _samba_verifInfo($postArr) {
 
 function _samba_baseEdit($ldapArr,$postArr) {
 
-    $checked = "checked"; //default value
-    $displayType= "inline";
-    $globalProfiles = xmlCall("samba.isProfiles");
+    // default values
+    $checked = "checked";
+    $hasSmb = true;
+    
+    // get smb config info
+    $smbInfo = xmlCall("samba.getSmbInfo", null);
 
-    //fetch ldap updated info if we can
+    // fetch ldap updated info if we can
     if (isset($ldapArr["uid"][0])) {
         $uid = $ldapArr["uid"][0];
         if (!hasSmbAttr($ldapArr["uid"][0])) {
             $checked = "";
-            $displayType= "none";
+            $hasSmb = false;
         }
     }
 
-    //if we update a user but error when updating
+    // if we update a user but error when updating
     if (isset($postArr["buser"])) {
         if (isset($postArr["isSamba"])) {
             $checked = "checked";
-            $displayType= "inline";
+            $hasSmb = true;
         } else {
             $checked = "";
-            $displayType= "none";
+            $hasSmb = false;
         }
     }
-    print "<div class=\"formblock\" style=\"background-color: #EFE;\">";
-    print "<h3>"._T("Samba user properties","samba")."</h3>\n";
-    print '<table cellspacing="0">';
+    
+    $f = new DivForModule(_T("Samba user properties","samba"), "#EFE");    
+    $f->push(new Table());
+    
+    $f->add(
+        new TrFormElement(_T("SAMBA access","samba"), new CheckboxTpl("isSamba")),
+        array("value"=>$checked, "extraArg"=>'onclick="toggleVisibility(\'smbdiv\');"')
+    );
 
-    $test = new TrFormElement(_T("SAMBA access","samba"), new CheckboxTpl("isSamba"));
-    $test->setCssError("accesSmb");
-    $param = array("value"=>$checked,
-                   "extraArg"=>'onclick="toggleVisibility(\'smbtable\');"');
-    $test->display($param);
+    $f->pop();
+    
+    $smbdiv = new Div(array("id" => "smbdiv"));
+    $smbdiv->setVisibility($hasSmb);
 
-
-    print '</table>'."\n";
-
-
-    print '<div id="smbtable" style="display: '.$displayType.';">'."\n";
-
-
-    print '<table>'."\n";
+    $f->push($smbdiv);
+    $f->push(new Table());    
 
     $checked = "";
     $smbuser = False;
@@ -290,110 +291,108 @@ function _samba_baseEdit($ldapArr,$postArr) {
     if ($smbuser) {
         if (userPasswdHasExpired($ldapArr["uid"][0])) {
             $formElt = new HiddenTpl("userPasswdHasExpired");
-            $warn = new TrFormElement(_("WARNING"), $formElt);
-            $warn->display(array("value" => _T("The user password has expired", "samba")));
+            $f->add(
+                new TrFormElement(_("WARNING"), $formElt),
+                array("value" => _T("The user password has expired", "samba"))
+            );
         }
     }
 
-    $param = array ("value" => $checked);
-    $test = new TrFormElement(_T("User is disabled, if checked","samba"), new CheckboxTpl("isSmbDesactive"),
-                                array("tooltip"=>
-                                _T("Disable samba user account",'samba')));
-    $test->setCssError("isSmbDesactive");
-    $test->display($param);
+    $f->add(
+        new TrFormElement(_T("User is disabled, if checked","samba"), new CheckboxTpl("isSmbDesactive"),
+            array("tooltip" => _T("Disable samba user account",'samba'))),
+        array ("value" => $checked)
+    );
 
     if ($smbuser) {
-        if (isLockedUser($ldapArr["uid"][0])) {
-            $checked = "checked";
-        } else {
-            $checked = "";
-        }
+        $checked = "";    
+        if (isLockedUser($ldapArr["uid"][0])) $checked = "checked";
     }
-    $param = array ("value" => $checked);
-    $tr = new TrFormElement(_T("User is locked, if checked","samba"), new CheckboxTpl("isSmbLocked"),
-                        array("tooltip"=>
-                        _T("Lock samba user access
-                        <p>User can be locked after too many failed log.</p>",'samba')));
-    $tr->setCssError("isSmbLocked");
-    $tr->display($param);
+    $f->add(
+        new TrFormElement(_T("User is locked, if checked","samba"), new CheckboxTpl("isSmbLocked"),
+            array("tooltip" => _T("Lock samba user access<p>User can be locked after too many failed log.</p>",'samba'))),
+        array ("value" => $checked)
+    );
     
     # if no global profile set, we can set a roaming profile for this user
-    if(!$globalProfiles) {
-        if(isset($ldapArr["sambaProfilePath"]))
-            $value = "checked";
-        else
-            $value = "";
-        $param = array ("value" => $value);
-        $tr = new TrFormElement(_T("Use network profile, if checked","samba"), new CheckboxTpl("sambaProfilePath"));
-        $tr->setCssError("sambaProfilePath");
-        $tr->display($param);
+    if(!$smbInfo["logon path"]) {
+        $hasProfile = false;
+        $checked = "";    
+        if(isset($ldapArr["sambaProfilePath"])) {
+            $hasProfile = true;
+            $checked = "checked";
+        }
+        $f->add(
+            new TrFormElement(_T("Use network profile, if checked","samba"), new CheckboxTpl("hasProfile")),
+            array ("value" => $checked, "extraArg" => 'onclick="toggleVisibility(\'pathdiv\')"')
+        );
+        
+        $f->pop();
+        
+        $pathdiv = new Div(array('id' => 'pathdiv'));
+        $pathdiv->setVisibility($hasProfile);
+        
+        $f->push($pathdiv);
+        $f->push(new Table());
+
+        $value = "\\\\".$smbInfo["netbios name"]."\\profiles\\".$ldapArr["uid"][0];
+        if(isset($ldapArr["sambaProfilePath"][0])) $value = $ldapArr["sambaProfilePath"][0];
+        $f->add(
+            new TrFormElement(_T("Network path for user's profile","samba"), new InputTpl("sambaProfilePath")),
+            array ("value" => $value)
+        );
+        
+        $f->pop();
+        $f->pop();
+        $f->push(new Table());
+        
     }
 
-    if(!isset($ldapArr["sambaPwdCanChange"]) or $ldapArr["sambaPwdCanChange"][0] < mktime()) {
-        $checked = "checked";
-    }
-    else {
-        $checked = "";
-    }
-    $param = array ("value" => $checked);
-    $tr = new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange"));
-    $tr->setCssError("sambaPwdCanChange");
-    $tr->display($param);
+    $checked = "";
+    if(!isset($ldapArr["sambaPwdCanChange"]) or $ldapArr["sambaPwdCanChange"][0] < mktime()) $checked = "checked";
+    $f->add(
+        new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange")),
+        array ("value" => $checked)
+    );
     
-    if($ldapArr["sambaPwdLastSet"][0] == "0") {
-        $value = "checked";
-    }
-    else {
-        $value = "";
-    }
-    $param = array ("value" => $value);
-    $tr = new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdLastSet"));
-    $tr->setCssError("sambaPwdLastSet");
-    $tr->display($param);    
+    $checked = "";
+    if($ldapArr["sambaPwdLastSet"][0] == "0") $checked = "checked";
+    $f->add(
+        new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdLastSet")),
+        array ("value" => $checked)
+    );
 
+    $value = "";
+    if(isset($ldapArr["sambaKickoffTime"][0])) $value = strftime("%Y-%m-%d %H:%M:%S", $ldapArr["sambaKickoffTime"][0]);
+    $f->add(
+        new TrFormElement(_T("Account expiration","samba"), new DynamicDateTpl("sambaKickoffTime"),
+            array("tooltip" => _T("Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire.",'samba'))),
+        array ("value" => $value, "ask_for_never" => 1)
+    );
 
-    if(isset($ldapArr["sambaKickoffTime"][0])) {
-        $value = strftime("%Y-%m-%d %H:%M:%S", $ldapArr["sambaKickoffTime"][0]);
-    }
-    else {
-        $value = "";
-    }
-    $param = array ("value" => $value, "ask_for_never" => 1);
-    $tr = new TrFormElement(_T("Account expiration","samba"), new DynamicDateTpl("sambaKickoffTime"),
-                        array("tooltip"=>
-                        _T("Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire.",'samba')));
-    $tr->setCssError("sambaKickoffTime");
-    $tr->display($param);
-
-    print '</table>'."\n";
-
+    $f->pop();
 
     // Expert mode display
-    print '<div id="expertMode" ';
-    displayExpertCss();
-    print '><table>';
+    $f->push(new DivExpertMode());
+    $f->push(new Table());
 
     $d = array(_T("Opening script session","samba") => "sambaLogonScript",
                _T("Base directory path","samba") => "sambaHomePath",
-               _T("Connect base directory on network drive","samba") => "sambaHomeDrive")    ;
-
+               _T("Connect base directory on network drive","samba") => "sambaHomeDrive");
 
     foreach ($d as $description => $field) {
-        $tr = new TrFormElement($description,
-                                  new InputTpl($field));
-        $tr->setCssError($field);
-        if (isset($ldapArr[$field][0])) {
-            $value = $ldapArr[$field][0];
-        } else {
-            $value = "";
-        }
-        $tr->display(array("value"=>$value));
+        $value = "";
+        if (isset($ldapArr[$field][0])) $value = $ldapArr[$field][0];
+        $f->add(
+            new TrFormElement($description, new InputTpl($field)),
+            array("value" => $value)
+        );
     }
-
-    print '</table>'."\n";
-    print "</div>"."\n";
-    print "</div>"."\n";
-    print "</div>"."\n";
+    
+    $f->pop();
+    $f->pop();
+    $f->pop();
+    $f->display();
 
 }
 
