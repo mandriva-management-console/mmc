@@ -29,9 +29,9 @@
 
     <revhistory>
       <revision>
-        <revnumber>$Revision$</revnumber>
-        <date>$Date$</date>
-        <authorinitials>$Author$</authorinitials>
+        <revnumber>$Revision: 6668 $</revnumber>
+        <date>$Date: 2010-04-22 09:38:45 +0200 (jeu. 22 avril 2010) $</date>
+        <authorinitials>$Author: cdelfosse $</authorinitials>
       </revision>
     </revhistory>
 
@@ -1035,7 +1035,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 [audit]
 method = database
 dbhost = 127.0.0.1
-port = 5432
+port = 3306
 dbdriver = mysql
 dbuser = audit
 dbpassword = audit
