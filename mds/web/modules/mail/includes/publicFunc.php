@@ -204,17 +204,17 @@ function _mail_baseEdit($ldapArr, $postArr) {
   if (hasVDomainSupport()) {
       $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
       /* In virtual domain mode, maildrop must be an email address */
-      $m->setRegexp('/^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.-]+$/');
+      $m->setRegexp('/^[0-9a-zA-Z_.-+]+@[0-9a-zA-Z.-]+$/');
   } else {
       $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
-      $m->setRegexp('/^([0-9a-zA-Z_.-@.])+$/');
+      $m->setRegexp('/^([0-9a-zA-Z_.-+@.])+$/');
   }
   $f->add(
           new FormElement(_T("Mail drop","mail"), $m),
           $ldapArr['maildrop']
           );
   $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
-  $m->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
+  $m->setRegexp('/^([0-9a-zA-Z@_.-+])+$/');
   $f->add(
           new FormElement(_T("Mail alias","mail"), $m),
           $ldapArr['mailalias']
@@ -293,7 +293,7 @@ function _mail_baseEdit($ldapArr, $postArr) {
  */
 function _mail_verifInfo($postArr) {
     if (isset($postArr["mailaccess"])) {
-        $ereg='/^([0-9a-zA-Z@._-])*$/';
+        $ereg='/^([A-Za-z0-9._-+@])*$/';
         foreach ($postArr['mailalias'] as $key => $value) {
             if (!preg_match($ereg, $postArr["mailalias"][$key]))  {
                 global $error;
@@ -301,7 +301,7 @@ function _mail_verifInfo($postArr) {
                 $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
             }
         }
-        $mailreg='/^([A-Za-z0-9._-]+@[A-Za-z0-9.-]+)$/';
+        $mailreg='/^([A-Za-z0-9._-+]+@[A-Za-z0-9.-]+)$/';
         if (!preg_match($mailreg, $postArr["mail"])) {
             global $error;
             setFormError("mail");
@@ -327,6 +327,7 @@ function _mail_changeUser($FH) {
             addMailObjectClass($FH->getPostValue("nlogin"));
             $syncmailgroupalias = True;
 	}
+	
         if($FH->isUpdated("maildrop"))
             changeMaildrop($FH->getPostValue("nlogin"), $FH->getValue('maildrop'));
         if($FH->isUpdated("mailalias"))
