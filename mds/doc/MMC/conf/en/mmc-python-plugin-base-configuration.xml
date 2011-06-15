@@ -482,6 +482,17 @@
 
             <entry></entry>
           </row>
+          
+          <row>
+            <entry>passwordscheme</entry>
+            
+            <entry>LDAP user password scheme. Possible values are "ssha", "crypt" and "passmod". "passmod" uses the LDAP Password Modify Extended Operations to change password. The password encryption is done by the LDAP server.</entry>
+            
+            <entry>no</entry>
+            
+            <entry>passmod</entry>
+          </row>
+            
         </tbody>
       </tgroup>
     </table>
