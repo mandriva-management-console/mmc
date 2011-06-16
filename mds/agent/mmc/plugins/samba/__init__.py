@@ -1228,7 +1228,7 @@ class smbConf:
             # Default value of domain master (auto) is sufficient
             self.remove("global", "domain master")
 
-        if options['hashomes'] != current['hashomes']:
+        if options['hashomes']:
             self.setContent('homes','comment','User shares')
             self.setContent('homes','browseable','no')
             self.setContent('homes','read only','no')
