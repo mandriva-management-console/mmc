@@ -28,7 +28,7 @@ require("graph/navbar.inc.php");
 
 $subnet = $_GET["subnet"];
 
-$ajax = new AjaxFilter("modules/network/network/ajaxSubnetMembersFilter.php?subnet=$subnet");
+$ajax = new AjaxFilter(urlStrRedirect("network/network/ajaxSubnetMembersFilter", array("subnet" => $subnet)));
 $ajax->display();
 
 $p = new PageGenerator(_T("Members of DHCP subnet") . "&nbsp;" . $subnet);
