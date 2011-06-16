@@ -20,4 +20,4 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-SUBDIRS = bulkimport mail network
+SUBDIRS = bulkimport mail network proxy
