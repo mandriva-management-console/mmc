@@ -293,16 +293,17 @@ function _mail_baseEdit($ldapArr, $postArr) {
  */
 function _mail_verifInfo($postArr) {
     if (isset($postArr["mailaccess"])) {
-        $ereg='/^([A-Za-z0-9._-+@])*$/';
+        $ereg='/^([A-Za-z0-9._+-@])*$/';
         foreach ($postArr['mailalias'] as $key => $value) {
-            if (!preg_match($ereg, $postArr["mailalias"][$key]))  {
+            if ($value && !preg_match($ereg, $postArr["mailalias"][$key]))  {
                 global $error;
                 setFormError("mailalias[$key]");
                 $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
             }
         }
-        $mailreg='/^([A-Za-z0-9._-+]+@[A-Za-z0-9.-]+)$/';
-        if (!preg_match($mailreg, $postArr["mail"])) {
+        $mailreg='/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
+	if (!preg_match($mailreg, $postArr["mail"], $matches)) {
+	    print_r($matches);
             global $error;
             setFormError("mail");
             $error.= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
@@ -316,6 +317,7 @@ function _mail_verifInfo($postArr) {
  * @param $FH FormHandler of the page
  */
 function _mail_changeUser($FH) {
+
     if ($FH->getPostValue("mailaccess")) {
 
         if (hasMailObjectClass($FH->getPostValue("nlogin"))) {
@@ -323,10 +325,10 @@ function _mail_changeUser($FH) {
             if ($FH->getValue("unlimitedquota") == "on")
                 $FH->setValue("mailuserquota", "0");
         }
-	else {
+    	else {
             addMailObjectClass($FH->getPostValue("nlogin"));
             $syncmailgroupalias = True;
-	}
+	    }
 	
         if($FH->isUpdated("maildrop"))
             changeMaildrop($FH->getPostValue("nlogin"), $FH->getValue('maildrop'));
@@ -337,16 +339,10 @@ function _mail_changeUser($FH) {
           not filled in, we don't empty them as this may clear default values
           set by the MMC agent.
         */
-        if ($FH->isUpdated("mailbox") && $FH->getPostValue("mailbox")) {
-            if ($_GET["action"] != "add") {
-                changeMailbox($FH->getPostValue("nlogin"), $FH->getPostValue('mailbox'));
-            }
-        }
-        if ($FH->isUpdated("mailhost")) {
-            if ($_GET["action"] != "add") {
-                changeMailhost($FH->getPostValue("nlogin"), $FH->getPostValue("mailhost"));
-            }
-        }
+        if ($FH->isUpdated("mailbox"))
+            changeMailbox($FH->getPostValue("nlogin"), $FH->getPostValue('mailbox'));
+        if ($FH->isUpdated("mailhost"))
+            changeMailhost($FH->getPostValue("nlogin"), $FH->getPostValue("mailhost"));
 
         if (($FH->isUpdated('maildisable'))
             || ($_GET["action"] == "add")
