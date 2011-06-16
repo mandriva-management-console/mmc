@@ -32,10 +32,8 @@ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES(yes)])
 AC_CONFIG_MACRO_DIR([m4])
 
 dnl check for programs
-AC_PROG_CC
 AC_PROG_MAKE_SET
 AC_PROG_LN_S
-AC_PROG_LIBTOOL
 
 dnl Check for GNU install (for file backup)
 AC_MSG_CHECKING([for GNU install])
@@ -96,6 +94,9 @@ AC_CONFIG_FILES([agent/Makefile])
 AC_CONFIG_FILES([agent/bin/Makefile])
 AC_CONFIG_FILES([agent/conf/Makefile])
 AC_CONFIG_FILES([agent/conf/plugins/Makefile])
+AC_CONFIG_FILES([web/Makefile])
+AC_CONFIG_FILES([web/modules/Makefile])
+AC_CONFIG_FILES([web/modules/bulkimport/Makefile])
 
 dnl write all stuff
 AC_OUTPUT

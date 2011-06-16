@@ -64,8 +64,6 @@ if test -f $(dirname $0)/configure.ac; then
         cd $(dirname $0)
         echo "Regenerating autoconf files"
         $ACLOCAL -I m4
-        libtoolize -c
-        #autoheader
         $AUTOMAKE --add-missing --copy
         autoconf
         )
