@@ -20,9 +20,10 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-SUBDIRS  = bin conf
+pluginconfdir = $(sysconfdir)/mmc/plugins
+dist_pluginconf_DATA = samba.ini mail.ini network.ini proxy.ini sshlpk.ini \
+	userquota.ini bulkimport.ini
 
-pythonmodules = mmc.plugins.samba mmc.plugins.mail mmc.plugins.network
-	mmc.plugins.proxy mmc.plugins.sshlpk mmc.plugins.bulkimport mmc.plugins.userquota
-# Expands Python modules list with found *.py files in each module given in pythonmodules
-nobase_python_PYTHON = $(wildcard $(patsubst %,$(srcdir)/%/*.py ,$(subst .,/,$(pythonmodules))))
+if ENABLE_CONF_BACKUP
+INSTALL += --backup=numbered
+endif

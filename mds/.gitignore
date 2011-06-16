@@ -1,3 +1,5 @@
+*~
+*.0
 Makefile.in
 Makefile
 aclocal.m4
@@ -16,3 +18,5 @@ m4/ltoptions.m4
 config.log
 config.status
 libtool
+py-compile
+agent/build/
