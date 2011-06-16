@@ -100,6 +100,7 @@ AC_CONFIG_FILES([web/modules/bulkimport/Makefile])
 AC_CONFIG_FILES([web/modules/mail/Makefile])
 AC_CONFIG_FILES([web/modules/network/Makefile])
 AC_CONFIG_FILES([web/modules/proxy/Makefile])
+AC_CONFIG_FILES([web/modules/samba/Makefile])
 
 dnl write all stuff
 AC_OUTPUT
