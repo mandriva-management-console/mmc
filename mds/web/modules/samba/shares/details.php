@@ -70,7 +70,10 @@ if (isset($_POST["bmodify"]))
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
     $shareGroup = $_POST["groupgroupsselected"];
-    $shareUser = $_POST["userusersselected"];
+    if (isset($_POST["userusersselected"]))
+        $shareUser = $_POST["userusersselected"];
+    else
+        $shareUser = array();
     $adminGroups = $_POST["admingroupsselected"];
     $customParameters = $_POST["customparameters"];    
     if (isset($_POST["permAll"])) {
