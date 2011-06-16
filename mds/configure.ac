@@ -102,6 +102,7 @@ AC_CONFIG_FILES([web/modules/network/Makefile])
 AC_CONFIG_FILES([web/modules/proxy/Makefile])
 AC_CONFIG_FILES([web/modules/samba/Makefile])
 AC_CONFIG_FILES([web/modules/sshlpk/Makefile])
+AC_CONFIG_FILES([web/modules/userquota/Makefile])
 
 dnl write all stuff
 AC_OUTPUT
