@@ -97,6 +97,7 @@ AC_CONFIG_FILES([agent/conf/plugins/Makefile])
 AC_CONFIG_FILES([web/Makefile])
 AC_CONFIG_FILES([web/modules/Makefile])
 AC_CONFIG_FILES([web/modules/bulkimport/Makefile])
+AC_CONFIG_FILES([web/modules/mail/Makefile])
 
 dnl write all stuff
 AC_OUTPUT
