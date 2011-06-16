@@ -6,6 +6,10 @@ mds 2.4.0 (MMC agent)
  * New bulkimport mode (Glen Ogilvie)
    * To massively import/update users from a CSV file
  * New sshlpk module to manage OpenSSH LDAP public keys
+ * French translation update (Mandriva)
+ * German translation update (Mario Fetka)
+ * Spanish translation update (Francisco Garcia)
+ * Brazilian Portuguese translation update (Sergio Rafael Lemke)
 
 mmc-agent 2.3.2
 ---------------
