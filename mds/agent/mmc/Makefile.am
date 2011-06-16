@@ -20,4 +20,10 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-SUBDIRS  = bin mmc conf
+pythonmodules = plugins.samba plugins.mail plugins.network \
+	plugins.proxy plugins.sshlpk plugins.bulkimport \
+	plugins.userquota
+
+# Expands Python modules list with found *.py files in each module given in pythonmodules
+mmcpythondir = $(pythondir)/$(notdir $(realpath $(srcdir)))
+nobase_mmcpython_PYTHON = $(wildcard $(patsubst %,$(srcdir)/%/*.py ,$(subst .,/,$(pythonmodules))))

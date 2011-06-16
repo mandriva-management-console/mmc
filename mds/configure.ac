@@ -91,6 +91,7 @@ AM_CONDITIONAL([ENABLE_CONF_BACKUP], [test "$enable_conf_backup" = "yes"])
 dnl files to generate with automake
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([agent/Makefile])
+AC_CONFIG_FILES([agent/mmc/Makefile])
 AC_CONFIG_FILES([agent/bin/Makefile])
 AC_CONFIG_FILES([agent/conf/Makefile])
 AC_CONFIG_FILES([agent/conf/plugins/Makefile])
