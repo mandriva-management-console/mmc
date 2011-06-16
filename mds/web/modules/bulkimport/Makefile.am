@@ -20,28 +20,22 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-ACLOCAL_AMFLAGS = -I m4
-DISTCHECK_CONFIGURE_FLAGS=--disable-conf-backup
+datafiles = import/index.php infoPackage.inc.php includes/importUsers.php
+#langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
+# Removed langs were .po file is known not to compile (with msgfmt)
+# TODO: fix these .po files
+langs = es_ES ru_RU pt_BR de_DE
 
-SUBDIRS  = agent web
+mmcdatadir = $(datadir)/mmc
+module = $(notdir $(realpath $(srcdir)))
+pofiles = $(foreach lang,$(langs),$(srcdir)/locale/$(lang)/LC_MESSAGES/$(module).po)
+mofiles = $(patsubst %.po,%.mo,$(pofiles))
 
-sysconfdirwarning:
-	@if test "${sysconfdir}" != "/etc"; then \
-	  echo '###'; \
-	  echo '### $${sysconfdir} evaluates to '${sysconfdir}': this is probably not what you want !'; \
-	  echo '### You may want to launch ./configure --sysconfdir=/etc.'; \
-	  echo '###'; \
-	fi
+nobase_pkgdata_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(mofiles)
 
-prereqs:
-	if [ -x /usr/bin/apt-get ]; then \
-	  $(MAKE) prereqs-deb; \
-	elif [ -x /usr/sbin/urpmi ]; then \
-	  $(MAKE) prereqs-urpmi; \
-	fi
+EXTRA_DIST = $(datafiles) $(pofiles)
+CLEANFILES = $(mofiles)
 
-prereqs-urpmi:
-
-prereqs-deb:
-
-.PHONY = sysconfdirwarning prereqs prereqs-deb prereqs-urpmi
+%.mo: %.po
+	$(MKDIR_P) $(@D)
+	$(MSGFMT) -c -o $@ $<
