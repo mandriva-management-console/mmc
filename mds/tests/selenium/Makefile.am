@@ -20,28 +20,4 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-ACLOCAL_AMFLAGS = -I m4
-DISTCHECK_CONFIGURE_FLAGS=--disable-conf-backup
-
-SUBDIRS  = agent web tests
-
-sysconfdirwarning:
-	@if test "${sysconfdir}" != "/etc"; then \
-	  echo '###'; \
-	  echo '### $${sysconfdir} evaluates to '${sysconfdir}': this is probably not what you want !'; \
-	  echo '### You may want to launch ./configure --sysconfdir=/etc.'; \
-	  echo '###'; \
-	fi
-
-prereqs:
-	if [ -x /usr/bin/apt-get ]; then \
-	  $(MAKE) prereqs-deb; \
-	elif [ -x /usr/sbin/urpmi ]; then \
-	  $(MAKE) prereqs-urpmi; \
-	fi
-
-prereqs-urpmi:
-
-prereqs-deb:
-
-.PHONY = sysconfdirwarning prereqs prereqs-deb prereqs-urpmi
+EXTRA_DIST = suite
