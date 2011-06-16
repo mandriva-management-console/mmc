@@ -1,7 +1,8 @@
-# (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2010 Mandriva, http://www.mandriva.com
+#!/bin/sh
+# (c) 2011 Mandriva, http://www.mandriva.com
 #
-# $Id: Makefile 4443 2009-09-17 13:21:55Z cdelfosse $
+# Authors:
+#   Jean Parpaillon <jparpaillon@mandriva.com>
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -18,9 +19,11 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
-RESULTDIR=/tmp/selenium-mds.$(shell date +%Y-%m-%d+%H:%M:%S)
-selenium:
-	tests/scripts/prepare-for-selenium-tests.sh
-	$(MMCCORE)/tests/scripts/build-selenium-suite.sh selenium-suite.html tests/selenium/suite/
-	mkdir $(RESULTDIR)
-	$(MMCCORE)/tests/scripts/run-selenium.sh selenium-suite.html $(RESULTDIR)
+set -e
+
+AUTOGEN_FILES="aclocal.m4 autom4te.cache configure config.guess config.log config.sub config.status depcomp compile libtool ltmain.sh missing mkinstalldirs config.h config.h.in py-compile install-sh"
+
+echo "Clean autogen generated files"
+for file in $AUTOGEN_FILES; do
+    ( cd $(dirname $0) && rm -rf $file )
+done
