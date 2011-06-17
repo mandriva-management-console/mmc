@@ -19,9 +19,15 @@ $module_audit_codes = array(
     'MAIL_RESET_DOMAIN_QUOTA' => _T("Reset domain quota", "mail"),
     'MAIL_GROUP' => _T("Mail Group", "mail"),
     'MAIL' => _T("Mail", "mail"),
+    'MAIL_ADD_ZARAFA_CLASS' => _T("Add Zarafa attributes", "mail"),
+    'MAIL_DEL_ZARAFA_CLASS' => _T("Del Zarafa attributes", "mail"),
+    'MAIL_MOD_ZARAFA_ADMIN' => _T("Change Zarafa admin attribute", "mail"),
+    'MAIL_MOD_ZARAFA_SHAREDSTOREONLY' => _T("Change Zarafa sharedstore attribute", "mail"),
+    'MAIL_MOD_ZARAFA_ACCOUNT' => _T("Change Zarafa account attribute ", "mail"),
+    'MAIL_MOD_ZARAFA_SENDASPRIVILEGE' => _T("Change Zarafa sendas attribute", "mail"),
     'VMDOMAIN' => _T("Virtual Mail Domain", "mail"),
     'USER' => _T("User", "mail"),
-    'MMC-MAIL' => _T("mail", "mail"),
+    'MMC-MAIL' => _T("mail", "mail"),    
 );
 
 ?>
