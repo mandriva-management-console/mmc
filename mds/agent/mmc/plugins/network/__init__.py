@@ -32,6 +32,7 @@ import os.path
 import grp
 from ConfigParser import NoOptionError
 
+from mmc.core.version import scmRevision
 from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
@@ -46,7 +47,7 @@ INI = mmcconfdir + "/plugins/network.ini"
 
 VERSION = "2.4.0"
 APIVERSION = "2:1:0"
-REVISION = int("$Rev$".split(':')[1].strip(' $'))
+REVISION = scmRevision("$Rev$")
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION

@@ -34,6 +34,7 @@ import logging
 import ldap.modlist
 import tempfile
 import ConfigParser
+from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl, BasePluginConfig
 from time import mktime, strptime, time, strftime
 import xmlrpclib
@@ -62,7 +63,7 @@ INI = mmcconfdir + "/plugins/samba.ini"
 
 VERSION = "2.4.0"
 APIVERSION = "5:3:4"
-REVISION = int("$Rev$".split(':')[1].strip(' $'))
+REVISION = scmRevision("$Rev$")
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION
