@@ -47,6 +47,7 @@ except ImportError:
     raise
 
 #from mmc.support.mmcException import *
+from mmc.site import mmcconfdir
 from mmc.support import mmctools
 import mmc.plugins.base
 from mmc.support.config import PluginConfig
@@ -57,7 +58,7 @@ from mmc.support.mmctools import cleanFilter
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
 
-INI = "/etc/mmc/plugins/samba.ini"
+INI = mmcconfdir + "/plugins/samba.ini"
 
 VERSION = "2.4.0"
 APIVERSION = "5:3:4"

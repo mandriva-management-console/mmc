@@ -34,6 +34,7 @@ import os.path
 import grp
 import tempfile
 
+from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.config import *
 from mmc.support import mmctools
@@ -42,7 +43,7 @@ from string import Template
 
 import mmc
 
-INI = "/etc/mmc/plugins/userquota.ini"
+INI = mmcconfdir + "/plugins/userquota.ini"
 
 VERSION = "2.4.0"
 APIVERSION = "0:0:0"

@@ -23,7 +23,9 @@
 MDS bulk import plugin for the MMC agent.
 """
 
-INI = "/etc/mmc/plugins/bulkimport.ini"
+from mmc.site import mmcconfdir
+
+INI = mmcconfdir + "/plugins/bulkimport.ini"
 
 VERSION = "2.4.0"
 APIVERSION = "0:0:0"

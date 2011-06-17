@@ -32,6 +32,7 @@ import os.path
 import grp
 from ConfigParser import NoOptionError
 
+from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
 from mmc.plugins.network.dns import Dns, DnsService, DnsLogView
@@ -41,7 +42,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.network.audit import AA, PLUGIN_NAME
 
 
-INI = "/etc/mmc/plugins/network.ini"
+INI = mmcconfdir + "/plugins/network.ini"
 
 VERSION = "2.4.0"
 APIVERSION = "2:1:0"
