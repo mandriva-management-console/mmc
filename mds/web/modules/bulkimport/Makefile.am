@@ -21,10 +21,7 @@
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
 datafiles = import/index.php infoPackage.inc.php includes/importUsers.php
-#langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
-# Removed langs were .po file is known not to compile (with msgfmt)
-# TODO: fix these .po files
-langs = es_ES ru_RU pt_BR de_DE
+langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
 mmcdatadir = $(datadir)/mmc
 module = $(notdir $(realpath $(srcdir)))

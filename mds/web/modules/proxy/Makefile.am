@@ -38,10 +38,7 @@ datafiles = \
 	includes/auditCodes.php \
 	localCss.php
 
-#langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
-# Removed langs were .po file is known not to compile (with msgfmt)
-# TODO: fix these .po files
-langs = nb_NO es_ES ru_RU pt_BR de_DE pl_PL
+langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
 mmcdatadir = $(datadir)/mmc
 module = $(notdir $(realpath $(srcdir)))
