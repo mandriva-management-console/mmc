@@ -25,6 +25,9 @@ DISTCHECK_CONFIGURE_FLAGS=--disable-conf-backup
 
 SUBDIRS  = agent web tests
 
+dist-hook:
+	rm -rf `find $(distdir) -name .svn`
+
 sysconfdirwarning:
 	@if test "${sysconfdir}" != "/etc"; then \
 	  echo '###'; \
