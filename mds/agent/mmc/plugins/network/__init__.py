@@ -124,14 +124,14 @@ def activate():
         logger.info("Created DHCP config object")
     except ldap.ALREADY_EXISTS:
         pass
-    hostname = socket.gethostname()
+    hostname = d.configDhcp.dhcpHostname
     try:        
         d.addServer(hostname)
-        d.setServicePrimaryServer("DHCP config", hostname)
-        logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
         d.setServiceConfigStatement("not", "authoritative")
     except ldap.ALREADY_EXISTS:
-        pass
+        pass        
+    d.setServicePrimaryServer("DHCP config", hostname)
+    logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
 
     # Create DNS config base structure
     if serverType == "bind":
@@ -388,6 +388,10 @@ class NetworkConfig(PluginConfig):
         self.dhcpInit = self.get("dhcp", "init")
         self.dhcpLogFile = self.get("dhcp", "logfile")
         self.dhcpLeases = self.get("dhcp", "leases")
+        try:
+            self.dhcpHostname = self.get("dhcp", "hostname")
+        except NoOptionError:
+            self.dhcpHostname = socket.gethostname()
         # DNS conf
         try:
             self.dnsType = self.get("dns", "type")
