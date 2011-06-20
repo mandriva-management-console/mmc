@@ -249,7 +249,7 @@ $f->add(
 $f->add(
         new TrFormElement(_T("Domain name servers"),new HostIpListInputTpl("domain-name-servers"),
                           array(
-                                "tooltip" => _T("DNS name servers available to the client.")
+                                "tooltip" => _T("DNS name servers available to the client. Separate servers addresses with ','.")
                                 )
                           ),
         array("value"=>$options["domain-name-servers"])
@@ -257,7 +257,7 @@ $f->add(
 $f->add(
         new TrFormElement(_T("NTP servers"),new HostIpListInputTpl("ntp-servers"),
                           array(
-                                "tooltip" => _T("Network Time Protocol servers available to the client.")
+                                "tooltip" => _T("Network Time Protocol servers available to the client. Separate servers addresses with ','.")
                                 )
                           ),
         array("value"=>$options["ntp-servers"])
@@ -273,7 +273,7 @@ $f->add(
 $f->add(
         new TrFormElement(_T("WINS servers"),new HostIpListInputTpl("netbios-name-servers"),
                           array(
-                                "tooltip" => _T("Netbios name servers available to Windows clients, listed in order of preference.")
+                                "tooltip" => _T("Netbios name servers available to Windows clients, listed in order of preference. Separate servers addresses with ','.")
                                 )
                           ),
         array("value"=>$options["netbios-name-servers"])
