@@ -23,12 +23,12 @@
 datafiles = import/index.php infoPackage.inc.php includes/importUsers.php
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
-mmcdatadir = $(datadir)/mmc
 module = $(notdir $(realpath $(srcdir)))
+moduledir = $(datadir)/mmc/modules/$(module)
 pofiles = $(foreach lang,$(langs),$(srcdir)/locale/$(lang)/LC_MESSAGES/$(module).po)
 mofiles = $(patsubst %.po,%.mo,$(pofiles))
 
-nobase_pkgdata_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(mofiles)
+nobase_module_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(mofiles)
 
 EXTRA_DIST = $(datafiles) $(pofiles)
 CLEANFILES = $(mofiles)
