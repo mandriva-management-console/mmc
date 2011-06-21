@@ -25,6 +25,8 @@ DISTCHECK_CONFIGURE_FLAGS=--disable-conf-backup
 
 SUBDIRS  = agent web tests
 
+EXTRA_DIST = m4
+
 dist-hook:
 	rm -rf `find $(distdir) -name .svn`
 
