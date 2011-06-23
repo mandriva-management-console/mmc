@@ -135,7 +135,7 @@
             <li></li>
         </ul>
     </div>
-    <input name="badd<?php echo  $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
+    <input name="badd<?php echo  $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add"); ?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
     </td></tr>
 
     <script type="text/javascript">

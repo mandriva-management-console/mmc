@@ -252,7 +252,7 @@ renderTPL("groups");
 ?>
 </table>
 
-<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<div id="expertMode" class="expertMode" <?displayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
@@ -274,7 +274,7 @@ renderTPL("users");
 </div>
 </div>
 
-<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<div id="expertMode" class="expertMode" <?displayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
@@ -315,7 +315,7 @@ renderTPL("users");
 <input name="bcreate" type="submit" class="btnPrimary" value="<?php echo  _T("Create"); ?>" />
 <?php } else { ?>
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bmodify" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm");?>" /> 
+<input name="bmodify" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm"); ?>" /> 
 <?php }
 
 ?>

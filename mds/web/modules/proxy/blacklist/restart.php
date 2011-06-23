@@ -64,7 +64,7 @@ require("graph/navbar.inc.php");
 ?>
 
 
-<h2><?php echo  _T('Restart squidGuard server');?></h2>
+<h2><?php echo  _T('Restart squidGuard server'); ?></h2>
 
 <?php
 
@@ -75,5 +75,5 @@ echo xmlCall("proxy.restartSquid",null);
 ?>
 
 <form method="post" action="main.php?module=proxy&submod=blacklist&action=statut">
-<input name="bback" type="submit" class="btnPrimary" value="<?php echo  _('Back');?>" />
+<input name="bback" type="submit" class="btnPrimary" value="<?php echo  _('Back'); ?>" />
 </form>
