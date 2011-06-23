@@ -43,7 +43,7 @@ if (isset($_GET["blacklist"])) {
     $blacklist = urldecode($_GET["blacklist"]);
 ?>
 
-<form action="<? echo urlStr("proxy/blacklist/delete"); ?>" method="post">
+<form action="<?php echo urlStr("proxy/blacklist/delete"); ?>" method="post">
 <p>
 <?php printf(_T("You will remove <b>%s</b> entry"), $blacklist); ?>
 </p>

@@ -62,10 +62,10 @@ if (isset($_POST["bconfirm"])) {
 
 <form action="main.php?module=network&submod=network&action=subnetdeletehost" method="post">
 
-<? if ($askupdatedns) { ?>
+<?php if ($askupdatedns) { ?>
     <p><input type="checkbox" name="updatedns" CHECKED /> <?= sprintf(_T("Also unregister this host from DNS zone %s"), $domain); ?></p>
     <input type="hidden" name="zone" value="<?php echo $domain; ?>" />
-<? } ?>
+<?php } ?>
 
 <input type="hidden" name="host" value="<?php echo $host; ?>" />
 <input type="hidden" name="subnet" value="<?php echo $subnet; ?>" />

@@ -142,9 +142,9 @@ function displayPreImportTable() {
     $l->display();
 ?>
 <form id="bulkimport" enctype="multipart/form-data" method="post">
-<? if ($importusers->allowImport()) { ?>
+<?php if ($importusers->allowImport()) { ?>
 <input name="importbutton" type="submit" class="btnPrimary" value="<?= _T("Import", "bulkimport"); ?>" />
-<? } else { ?>
+<?php } else { ?>
 <input name="importbutton" type="submit" class="btnDisabled" value="<?= _T("Import", "bulkimport"); ?>" disabled="disabled" />
 <?
 
@@ -152,7 +152,7 @@ function displayPreImportTable() {
 if ($importusers->allowModify()) {
 ?>
 <input name="modifybutton" type="submit" class="btnPrimary" value="<?= _T("Modify", "bulkimport"); ?>" />
-<? } else { ?>
+<?php } else { ?>
 <input name="modifybutton" type="submit" class="btnDisabled" value="<?= _T("Modify", "bulkimport"); ?>" disabled="disabled" />
 <?
 
@@ -160,9 +160,9 @@ if ($importusers->allowModify()) {
 if ($importusers->allowDelete()) {
 ?>
 <input name="deletebutton" type="submit" class="btnPrimary" value="<?= _T("Delete", "bulkimport"); ?>" />
-<? } else { ?>
+<?php } else { ?>
 <input name="deletebutton" type="submit" class="btnDisabled" value="<?= _T("Delete", "bulkimport"); ?>" disabled="disabled" />
-<? }; ?>
+<?php }; ?>
 <input name="cancelbutton" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" />
 <input type="hidden" name="stage" value="import"/>
 </form>
@@ -236,7 +236,7 @@ function uploadFormView() {
                     </ul>
                     <strong>Supported attributes:</strong>
                     <ul class="attributelist">
-                    <? foreach (importusers::getValidAttributes() as $attribute) echo "<li>".$attribute."</li>"; ?>
+                    <?php foreach (importusers::getValidAttributes() as $attribute) echo "<li>".$attribute."</li>"; ?>
                     </ul>
                 </td>
             </tr>
