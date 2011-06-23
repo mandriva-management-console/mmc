@@ -133,7 +133,7 @@ $p->display();
 
 <?php if ($_GET["action"] == "add")  { ?>
 <p>
-<?= _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
+<?php echo  _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
 </p>
 
 <?
@@ -209,7 +209,7 @@ $d->display();
     <td>
     </td>
     <td>
-        <?= _T("Permissions"); ?>
+        <?php echo  _T("Permissions"); ?>
     </td>
     </tr>
         <?php
@@ -258,7 +258,7 @@ renderTPL("groups");
     <td>
     </td>
     <td>
-        <?= _T("Users for this share"); ?>
+        <?php echo  _T("Users for this share"); ?>
     </td>
    </tr>
 
@@ -280,7 +280,7 @@ renderTPL("users");
     <td>
     </td>
     <td>
-        <?= _T("Administrator groups for this share"); ?>
+        <?php echo  _T("Administrator groups for this share"); ?>
     </td>
    </tr>
 
@@ -312,10 +312,10 @@ renderTPL("users");
 </div>
 
 <?php if ($_GET["action"] == "add")  { ?>
-<input name="bcreate" type="submit" class="btnPrimary" value="<?= _T("Create"); ?>" />
+<input name="bcreate" type="submit" class="btnPrimary" value="<?php echo  _T("Create"); ?>" />
 <?php } else { ?>
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bmodify" type="submit" class="btnPrimary" value="<?= _T("Confirm");?>" /> 
+<input name="bmodify" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm");?>" /> 
 <?php }
 
 ?>

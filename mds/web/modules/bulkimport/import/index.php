@@ -143,27 +143,27 @@ function displayPreImportTable() {
 ?>
 <form id="bulkimport" enctype="multipart/form-data" method="post">
 <?php if ($importusers->allowImport()) { ?>
-<input name="importbutton" type="submit" class="btnPrimary" value="<?= _T("Import", "bulkimport"); ?>" />
+<input name="importbutton" type="submit" class="btnPrimary" value="<?php echo  _T("Import", "bulkimport"); ?>" />
 <?php } else { ?>
-<input name="importbutton" type="submit" class="btnDisabled" value="<?= _T("Import", "bulkimport"); ?>" disabled="disabled" />
+<input name="importbutton" type="submit" class="btnDisabled" value="<?php echo  _T("Import", "bulkimport"); ?>" disabled="disabled" />
 <?
 
 };
 if ($importusers->allowModify()) {
 ?>
-<input name="modifybutton" type="submit" class="btnPrimary" value="<?= _T("Modify", "bulkimport"); ?>" />
+<input name="modifybutton" type="submit" class="btnPrimary" value="<?php echo  _T("Modify", "bulkimport"); ?>" />
 <?php } else { ?>
-<input name="modifybutton" type="submit" class="btnDisabled" value="<?= _T("Modify", "bulkimport"); ?>" disabled="disabled" />
+<input name="modifybutton" type="submit" class="btnDisabled" value="<?php echo  _T("Modify", "bulkimport"); ?>" disabled="disabled" />
 <?
 
 };
 if ($importusers->allowDelete()) {
 ?>
-<input name="deletebutton" type="submit" class="btnPrimary" value="<?= _T("Delete", "bulkimport"); ?>" />
+<input name="deletebutton" type="submit" class="btnPrimary" value="<?php echo  _T("Delete", "bulkimport"); ?>" />
 <?php } else { ?>
-<input name="deletebutton" type="submit" class="btnDisabled" value="<?= _T("Delete", "bulkimport"); ?>" disabled="disabled" />
+<input name="deletebutton" type="submit" class="btnDisabled" value="<?php echo  _T("Delete", "bulkimport"); ?>" disabled="disabled" />
 <?php }; ?>
-<input name="cancelbutton" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" />
+<input name="cancelbutton" type="submit" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" />
 <input type="hidden" name="stage" value="import"/>
 </form>
 
@@ -201,7 +201,7 @@ function uploadFormView() {
 ?>
 
         </table>
-        <p class="center"><input name="next" type="submit" class="btnPrimary" value="<?= _T("Load CSV", "bulkimport"); ?>" /></p>
+        <p class="center"><input name="next" type="submit" class="btnPrimary" value="<?php echo  _T("Load CSV", "bulkimport"); ?>" /></p>
         <table cellspacing="0">
             <tr>
                 <td>

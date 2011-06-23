@@ -36,7 +36,7 @@ if (isset($_POST["bdelblacklist"])) {
 
 ?>
 
-<h2><?= _T("Remove a squidGuard domain"); ?></h2>
+<h2><?php echo  _T("Remove a squidGuard domain"); ?></h2>
 
 <?php
 if (isset($_GET["blacklist"])) {
@@ -50,12 +50,12 @@ if (isset($_GET["blacklist"])) {
 
 <br>
 <p>
-<?= _T("Are you sure ?"); ?>
+<?php echo  _T("Are you sure ?"); ?>
 </p>
 
 <input name="blacklist" type="hidden" value="<?php echo $blacklist; ?>" />
-<input name="bdelblacklist" type="submit" class="btnPrimary" value="<?= _("Delete"); ?> <?php echo $blacklist; ?>" />
-<input name="bback" type="submit" class="btnSecondary" value="<?= _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
+<input name="bdelblacklist" type="submit" class="btnPrimary" value="<?php echo  _("Delete"); ?> <?php echo $blacklist; ?>" />
+<input name="bback" type="submit" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
 </form>
 
 <?php

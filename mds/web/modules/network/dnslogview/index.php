@@ -32,14 +32,14 @@ displayInputLiveSearch(urlStrRedirect('base/logview/dnssetsearch')); ?>
 </div>
 
 
-<h2><?= _T("DNS service log view", "network"); ?></h2>
+<h2><?php echo  _T("DNS service log view", "network"); ?></h2>
 
 
 <div class="fixheight"></div>
 <div style="height: 400px; overflow: auto;" id="logupdater"></div>
 
 <script>
-    new Ajax.PeriodicalUpdater('logupdater','<?= urlStrRedirect('base/logview/dnsshow') ?>','2',{evalScripts: true});
-    new Ajax.Updater('container','<?= urlStrRedirect('base/logview/dnssetsearch') ?>');
+    new Ajax.PeriodicalUpdater('logupdater','<?php echo  urlStrRedirect('base/logview/dnsshow') ?>','2',{evalScripts: true});
+    new Ajax.Updater('container','<?php echo  urlStrRedirect('base/logview/dnssetsearch') ?>');
 </script>
 

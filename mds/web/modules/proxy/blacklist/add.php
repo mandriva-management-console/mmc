@@ -56,24 +56,24 @@ $p->displaySideMenu();
 
 ?>
 
-<h2><?= _T("Add a domain in the blacklist"); ?></h2>
+<h2><?php echo  _T("Add a domain in the blacklist"); ?></h2>
 
 <div class="fixheight"></div>
 
 <p>
-<?= _T("The domain must be valid"); ?>
+<?php echo  _T("The domain must be valid"); ?>
 </p>
 
 <form method="post" action="">
 
 <table cellspacing="0">
  <tr>
-  <td><?= _T("Name"); ?></td>
+  <td><?php echo  _T("Name"); ?></td>
   <td><input name="blacklistName" type="text" class="textfield" size="23" value="<?php if (isset($error)) {echo $blacklistName;} ?>" /></td>
  </tr>
 </table>
 
-<input name="bcreate" type="submit" class="btnPrimary" value="<?= _("Create"); ?>" />
+<input name="bcreate" type="submit" class="btnPrimary" value="<?php echo  _("Create"); ?>" />
 </form>
 
 <?php

@@ -35,11 +35,11 @@ if (isset($_POST["bconfirm"])) {
 ?>
 
 <p>
-<?= sprintf(_T("You will delete the DNS zone %s."), "<strong>$zone</strong>"); ?>
+<?php echo  sprintf(_T("You will delete the DNS zone %s."), "<strong>$zone</strong>"); ?>
 </p>
 
 <form action="main.php?module=network&submod=network&action=delete" method="post">
 <input type="hidden" name="zone" value="<?php echo $zone; ?>" />
-<input type="submit" name="bconfirm" class="btnPrimary" value="<?= _T("Delete zone"); ?>" />
-<input type="submit" name="bback" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
+<input type="submit" name="bconfirm" class="btnPrimary" value="<?php echo  _T("Delete zone"); ?>" />
+<input type="submit" name="bback" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
 </form>
