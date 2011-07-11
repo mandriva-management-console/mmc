@@ -36,6 +36,9 @@ edit = sed \
         -e 's|@libdir[@]|$(libdir)|g'
 
 samba.ini: Makefile
+	test -f /etc/mandriva-release && \
+	  sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@.in; \
+	  sed -i 's!ou=Computers!ou=Hosts!g' $@.in
 	rm -f $@ $@.tmp
 	$(MKDIR_P) $(@D)
 	srcdir=''; \
@@ -43,4 +46,21 @@ samba.ini: Makefile
 	  $(edit) $${srcdir}$@.in >$@.tmp
 	mv $@.tmp $@
 
-samba.ini: $(srcdir)/samba.ini.in
+network.ini: Makefile
+	test -f /etc/mandriva-release && \
+	  sed -i 's!/var/run/dhcpd.pid!/var/run/dhcpd/dhcpd.pid!g' $@; \
+	  sed -i 's!/etc/init.d/dhcp3-server!/etc/rc.d/init.d/dhcpd!g' $@; \
+	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
+	  sed -i 's!/var/lib/dhcp3/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@; \
+	  sed -i 's!/var/run/bind/run/named.pid!/var/lib/named/var/run/named.pid!g' $@; \
+	  sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@; \
+	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
+	  sed -i 's!/etc/bind/!/var/lib/named!g' $@; \
+	  sed -i 's!^bindgroup = bind!bindgroup = named!g' $@
+
+proxy.ini: Makefile
+	test -f /etc/mandriva-release && \
+	  sed -i 's!/var/lib/squidguard/db/bad.destdomainlist!/usr/share/squidGuard-1.2.0/db/bad.destdomainlist!g' $@; \
+	  sed -i 's!/etc/init.d/squid!/etc/rc.d/init.d/squid!g' $@; \
+	  sed -i 's!^user = proxy!user = squid!g' $@; \
+	  sed -i 's!^group = proxy!user = squid!g' $@;
