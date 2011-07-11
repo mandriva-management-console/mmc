@@ -4,7 +4,7 @@ disable = 0
 baseComputersDN = ou=Computers, %(baseDN)s
 sambaConfFile = /etc/samba/smb.conf
 sambaInitScript = /etc/init.d/samba
-sambaAvSo = /usr/lib/samba/vfs/vscan-clamav.so
+sambaAvSo = @libdir@/samba/vfs/vscan-clamav.so
 # Default SAMBA shares location
 defaultSharesPath = /home/samba
 # You can specify authorized paths for share creation

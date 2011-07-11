@@ -21,9 +21,26 @@
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
 pluginconfdir = $(sysconfdir)/mmc/plugins
-dist_pluginconf_DATA = samba.ini mail.ini network.ini proxy.ini sshlpk.ini \
+dist_pluginconf_DATA = mail.ini network.ini proxy.ini sshlpk.ini \
 	userquota.ini bulkimport.ini
+nodist_pluginconf_DATA = samba.ini
+
+EXTRA_DIST = samba.ini.in
+CLEANFILES = samba.ini
 
 if ENABLE_CONF_BACKUP
 INSTALL += --backup=numbered
 endif
+
+edit = sed \
+        -e 's|@libdir[@]|$(libdir)|g'
+
+samba.ini: Makefile
+	rm -f $@ $@.tmp
+	$(MKDIR_P) $(@D)
+	srcdir=''; \
+	  test -f ./$@.in || srcdir=$(srcdir)/; \
+	  $(edit) $${srcdir}$@.in >$@.tmp
+	mv $@.tmp $@
+
+samba.ini: $(srcdir)/samba.ini.in
