@@ -2,13 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+#   <mario.fetka@gmail.com>, 2011.
+#   <maikwagner@yahoo.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:03+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"PO-Revision-Date: 2011-06-20 16:28+0000\n"
+"Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -279,27 +281,27 @@ msgstr "E-Mail"
 
 #: modules/mail/includes/auditCodes.php:22
 msgid "Add Zarafa attributes"
-msgstr ""
+msgstr "Zarafa Attribute hinzufügen"
 
 #: modules/mail/includes/auditCodes.php:23
 msgid "Del Zarafa attributes"
-msgstr ""
+msgstr "Del Zarafa Attribute"
 
 #: modules/mail/includes/auditCodes.php:24
 msgid "Change Zarafa admin attribute"
-msgstr ""
+msgstr "Zarafa Admin-Attribute ändern"
 
 #: modules/mail/includes/auditCodes.php:25
 msgid "Change Zarafa sharedstore attribute"
-msgstr ""
+msgstr "Ändere Zarafa Shared Store Attribute"
 
 #: modules/mail/includes/auditCodes.php:26
 msgid "Change Zarafa account attribute "
-msgstr ""
+msgstr "Ändern des Zarafa Konto-Attributs"
 
 #: modules/mail/includes/auditCodes.php:27
 msgid "Change Zarafa sendas attribute"
-msgstr ""
+msgstr "Ändere Zarafa Senden Als Attribute"
 
 #: modules/mail/includes/auditCodes.php:28
 msgid "Virtual Mail Domain"
