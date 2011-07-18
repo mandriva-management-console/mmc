@@ -443,6 +443,26 @@
           </row>
 
           <row>
+            <entry>defaultShellEnable</entry>
+
+            <entry>the default shell for enabled users</entry>
+
+            <entry>no</entry>
+
+	    <entry>/bin/bash</entry>
+    	 </row>
+
+          <row>
+            <entry>defaultShellDisable</entry>
+
+            <entry>the default shell for disabled users</entry>
+
+            <entry>no</entry>
+
+	    <entry>/bin/false</entry>
+    	 </row>
+
+          <row>
             <entry>authorizedHomeDir</entry>
 
             <entry>a list of directory where user home directory can be
