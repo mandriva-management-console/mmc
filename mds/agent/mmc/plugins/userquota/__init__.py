@@ -46,7 +46,7 @@ import mmc
 
 INI = mmcconfdir + "/plugins/userquota.ini"
 
-VERSION = "2.4.0"
+VERSION = "2.4.1"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 
@@ -56,6 +56,12 @@ def getRevision(): return REVISION
 
 
 def activate():
+    config = UserQuotaConfig("userquota")
+    logger = logging.getLogger()
+
+    if config.disabled:
+        logger.warning("Plugin userquota: disabled by configuration.")
+        return False
     return True
 
 def getActiveComponents():

@@ -45,7 +45,7 @@ from mmc.plugins.network.audit import AA, PLUGIN_NAME
 
 INI = mmcconfdir + "/plugins/network.ini"
 
-VERSION = "2.4.0"
+VERSION = "2.4.1"
 APIVERSION = "2:1:0"
 REVISION = scmRevision("$Rev$")
 
