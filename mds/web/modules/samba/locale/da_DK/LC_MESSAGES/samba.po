@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-07-13 13:41+0000\n"
+"PO-Revision-Date: 2011-07-26 10:14+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +28,9 @@ msgstr ""
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid "The files will be stored in the directory %s of the server at the end of the backup."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the"
+" backup."
 msgstr ""
 
 #: modules/samba/shares/backup.php:37
@@ -48,7 +51,9 @@ msgid "The share %s will be archived."
 msgstr ""
 
 #: modules/samba/shares/backup.php:50
-msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
 msgstr ""
 
 #: modules/samba/shares/index.php:47 modules/samba/machines/ajaxFilter.php:44
@@ -99,7 +104,9 @@ msgid "Add a share"
 msgstr ""
 
 #: modules/samba/shares/details.php:136
-msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
 msgstr ""
 
 #: modules/samba/shares/details.php:154 modules/samba/machines/edit.php:62
@@ -195,7 +202,9 @@ msgid "Computer %s successfully added"
 msgstr ""
 
 #: modules/samba/machines/add.php:46
-msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
 msgstr ""
 
 #: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
@@ -298,7 +307,9 @@ msgid "The SAMBA service has been asked to restart."
 msgstr ""
 
 #: modules/samba/config/index.php:73
-msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
 msgstr ""
 
 #: modules/samba/config/index.php:90
@@ -413,7 +424,8 @@ msgid "User is locked, if checked"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:316
-msgid "Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:331
@@ -437,7 +449,9 @@ msgid "Account expiration"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:374
-msgid "Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire."
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
 #: modules/samba/includes/errorHandling.php:5
@@ -666,6 +680,6 @@ msgstr ""
 
 #: modules/samba/infoPackage.inc.php:136
 msgid "SAMBA status"
-msgstr "f79416acde644fd6b76626a8d3521d31_tr"
+msgstr ""
 
 

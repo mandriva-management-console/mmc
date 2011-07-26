@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:17+0100\n"
-"PO-Revision-Date: 2011-07-13 13:41+0000\n"
+"PO-Revision-Date: 2011-07-26 10:14+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +34,9 @@ msgid "CSV import results"
 msgstr ""
 
 #: modules/bulkimport/import/index.php:138
-msgid "Warning: This is a big list so could take a long time. You may need to increase the timeout settings on your web server and browser"
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
 msgstr ""
 
 #: modules/bulkimport/import/index.php:140

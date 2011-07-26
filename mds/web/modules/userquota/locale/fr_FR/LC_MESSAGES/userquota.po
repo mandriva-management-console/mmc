@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
@@ -58,6 +59,7 @@ msgstr "Mode de mise à jour des quotas"
 
 #: modules/userquota/infoPackage.inc.php:32
 msgid "Manage user quotas for filesystems and networks"
-msgstr "Gestion des quotas utilisateurs pour les systèmes de fichiers et réseaux"
+msgstr ""
+"Gestion des quotas utilisateurs pour les systèmes de fichiers et réseaux"
 
 

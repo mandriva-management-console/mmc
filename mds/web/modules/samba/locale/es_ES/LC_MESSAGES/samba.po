@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:02+0000\n"
+"PO-Revision-Date: 2011-07-26 09:26+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/team/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -23,20 +24,29 @@ msgstr "Copia de seguridad de un recurso"
 #: modules/samba/shares/backup.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
-msgstr "La copia de seguridad de la carpeta compartida <b>%s</b> ha sido lanzada como trabajo en segundo plano."
+msgstr ""
+"La copia de seguridad de la carpeta compartida <b>%s</b> ha sido lanzada "
+"como trabajo en segundo plano."
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid "The files will be stored in the directory %s of the server at the end of the backup."
-msgstr "Los archivos serán almacenados en el directorio %s del servidor al final de la copia de seguridad."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the"
+" backup."
+msgstr ""
+"Los archivos serán almacenados en el directorio %s del servidor al final de "
+"la copia de seguridad."
 
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
-msgstr "Por favor, acceda a la página de estado para comprobar el estado de la copia de seguridad."
+msgstr ""
+"Por favor, acceda a la página de estado para comprobar el estado de la copia"
+" de seguridad."
 
 #: modules/samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
-msgstr "La duración de la operación depende de la cantidad de datos a ser salvados."
+msgstr ""
+"La duración de la operación depende de la cantidad de datos a ser salvados."
 
 #: modules/samba/shares/backup.php:43
 msgid "Can't launch backup"
@@ -48,8 +58,12 @@ msgid "The share %s will be archived."
 msgstr "El recurso %s será archivado."
 
 #: modules/samba/shares/backup.php:50
-msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
-msgstr "Por favor seleccione el tamaño del medio. Si los datos execeden el tamaño del medio, se crearán varios ficheros con el tamaño del medio especificado."
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
+msgstr ""
+"Por favor seleccione el tamaño del medio. Si los datos execeden el tamaño "
+"del medio, se crearán varios ficheros con el tamaño del medio especificado."
 
 #: modules/samba/shares/index.php:47 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
@@ -80,7 +94,8 @@ msgstr "Nombre de recurso inválido"
 
 #: modules/samba/shares/details.php:51
 msgid "The share path is not authorized by configuration"
-msgstr "La ruta a la carpeta compartida no está autorizada por la configuración"
+msgstr ""
+"La ruta a la carpeta compartida no está autorizada por la configuración"
 
 #: modules/samba/shares/details.php:59
 #, php-format
@@ -99,8 +114,12 @@ msgid "Add a share"
 msgstr "Añadir un recurso"
 
 #: modules/samba/shares/details.php:136
-msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
-msgstr "El nombre del recurso sólo puede contener letras (mayúsculas y minúsculas) y números. Además debe comenzar por una letra."
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+"El nombre del recurso sólo puede contener letras (mayúsculas y minúsculas) y"
+" números. Además debe comenzar por una letra."
 
 #: modules/samba/shares/details.php:154 modules/samba/machines/edit.php:62
 msgid "Name"
@@ -195,8 +214,12 @@ msgid "Computer %s successfully added"
 msgstr "El equipo %s ha sido añadido correctamente."
 
 #: modules/samba/machines/add.php:46
-msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
-msgstr "El nombre de la máquina sólo puede contener letras minúsculas y números. Además debe comenzar por una letra."
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"El nombre de la máquina sólo puede contener letras minúsculas y números. "
+"Además debe comenzar por una letra."
 
 #: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
@@ -298,8 +321,12 @@ msgid "The SAMBA service has been asked to restart."
 msgstr "Se ha solicitado el reinicio del servicio de Samba."
 
 #: modules/samba/config/index.php:73
-msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
-msgstr "La configuración de Samba ha sido guardada. Puede que necesite recargar o reiniciar el servicio de Samba."
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+"La configuración de Samba ha sido guardada. Puede que necesite recargar o "
+"reiniciar el servicio de Samba."
 
 #: modules/samba/config/index.php:90
 msgid "Domain name"
@@ -413,7 +440,8 @@ msgid "User is locked, if checked"
 msgstr "Usuario bloqueado, si está marcada."
 
 #: modules/samba/includes/publicFunc.php:316
-msgid "Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:331
@@ -437,7 +465,9 @@ msgid "Account expiration"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:374
-msgid "Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire."
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
 #: modules/samba/includes/errorHandling.php:5
@@ -480,7 +510,9 @@ msgid ""
 "                           <li>Delete this share before recreate it.</li>\n"
 "                           <li>Choose another share name</li>\n"
 "                        </ul>"
-msgstr "<ul> \t\t<li>Elimine este recurso antes de volver a crearlo</li> \t\t<li>Escoja otro nombre para el recurso.</li> </ul>"
+msgstr ""
+"<ul> \t\t<li>Elimine este recurso antes de volver a crearlo</li> "
+"\t\t<li>Escoja otro nombre para el recurso.</li> </ul>"
 
 #: modules/samba/includes/errorHandling.php:35
 msgid "The share directory does not exist."
@@ -488,7 +520,8 @@ msgstr "El directorio de esta carpeta de inicio no existe."
 
 #: modules/samba/includes/errorHandling.php:36
 msgid "Please delete this share, and then create it again."
-msgstr "Por favor, elimine esta carpeta compartida, y después vuelva a crearla."
+msgstr ""
+"Por favor, elimine esta carpeta compartida, y después vuelva a crearla."
 
 #: modules/samba/includes/errorHandling.php:41
 msgid "Some options are not valid"
@@ -673,6 +706,6 @@ msgstr "Bloquear/Desbloquear cuenta"
 
 #: modules/samba/infoPackage.inc.php:136
 msgid "SAMBA status"
-msgstr "f79416acde644fd6b76626a8d3521d31_tr"
+msgstr ""
 
 

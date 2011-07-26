@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 msgid ""
 msgstr ""
@@ -34,8 +35,12 @@ msgid "CSV import results"
 msgstr "CSV importar resultados"
 
 #: modules/bulkimport/import/index.php:138
-msgid "Warning: This is a big list so could take a long time. You may need to increase the timeout settings on your web server and browser"
-msgstr "Aviso: Esta é uma lista grande portanto pode demorar. Recomendamos que você aumente as configurações de timeout no seu servidor web e navegador"
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
+msgstr ""
+"Aviso: Esta é uma lista grande portanto pode demorar. Recomendamos que você "
+"aumente as configurações de timeout no seu servidor web e navegador"
 
 #: modules/bulkimport/import/index.php:140
 msgid "CSV Import"

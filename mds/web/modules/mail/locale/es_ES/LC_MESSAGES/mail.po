@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:03+0000\n"
+"PO-Revision-Date: 2011-07-26 09:27+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/team/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +126,8 @@ msgstr "Complemento de correo"
 
 #: modules/mail/includes/publicFunc.php:54
 msgid "No mail alias can be set for this group"
-msgstr "Nose pueden establecer alias de correo para los usuarios de este grupo"
+msgstr ""
+"Nose pueden establecer alias de correo para los usuarios de este grupo"
 
 #: modules/mail/includes/publicFunc.php:58
 msgid "Zarafa group"
@@ -203,7 +205,9 @@ msgstr "%s no es un alias de correo válido."
 
 #: modules/mail/includes/publicFunc.php:309
 msgid "You must specify a valid mail address to enable mail delivery."
-msgstr "Debe especificar una dirección de correo válida para habilitar la entrega de correo."
+msgstr ""
+"Debe especificar una dirección de correo válida para habilitar la entrega de"
+" correo."
 
 #: modules/mail/includes/auditCodes.php:4
 msgid "Enable mail delivery"
@@ -311,7 +315,7 @@ msgstr "Usuario"
 
 #: modules/mail/includes/auditCodes.php:30
 msgid "mail"
-msgstr "596dfebe86f38e24c21be1eb28b273f5_tr"
+msgstr ""
 
 #: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
 msgid "Unlimited quota"

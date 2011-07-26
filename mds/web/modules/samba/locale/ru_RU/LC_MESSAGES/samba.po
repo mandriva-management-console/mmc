@@ -2,13 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
+#   <i.sence.i@gmail.com>, 2011.
 # Vitaly Kolomeytsev <nvalka@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:02+0000\n"
+"PO-Revision-Date: 2011-07-26 09:26+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -24,24 +26,33 @@ msgstr "Резервное копирование общего ресурса"
 #: modules/samba/shares/backup.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
-msgstr "Резервное копирование общего ресурса <b>%s</b> запущено в фоновом режиме."
+msgstr ""
+"Резервное копирование общего ресурса <b>%s</b> запущено в фоновом режиме."
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid "The files will be stored in the directory %s of the server at the end of the backup."
-msgstr "Файлы будут сохранены в каталоге %s на сервере, по окончании резервного копирования."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the"
+" backup."
+msgstr ""
+"Файлы будут сохранены в каталоге %s на сервере, по окончании резервного "
+"копирования."
 
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
-msgstr "Пожалуйста перейдите на страницу состояния, чтобы проверить сотояние процесса резервного копирования."
+msgstr ""
+"Пожалуйста, перейдите на страницу состояния, чтобы проверить сотояние "
+"процесса резервного копирования."
 
 #: modules/samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
-msgstr "Эта операция будет продолжаться в зависимости от объема данных заданных для резервного копирования"
+msgstr ""
+"Эта операция будет продолжаться в зависимости от объема данных заданных для "
+"резервного копирования"
 
 #: modules/samba/shares/backup.php:43
 msgid "Can't launch backup"
-msgstr "Не могу запустить резервное копирование"
+msgstr "Невозможно запустить резервное копирование"
 
 #: modules/samba/shares/backup.php:49
 #, php-format
@@ -49,8 +60,12 @@ msgid "The share %s will be archived."
 msgstr "Резервное копирование общего ресурса %s завершено."
 
 #: modules/samba/shares/backup.php:50
-msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
-msgstr "Пожалуйста укажите размер тома. Если данные привысят размер тома, то будет создано несколько томов."
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
+msgstr ""
+"Пожалуйста укажите размер тома. Если данные привысят размер тома, то будет "
+"создано несколько томов."
 
 #: modules/samba/shares/index.php:47 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
@@ -100,8 +115,12 @@ msgid "Add a share"
 msgstr "Добавить общий ресурс"
 
 #: modules/samba/shares/details.php:136
-msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
-msgstr "Имя общего ресурса может содержать только буквы (ВЕРХНЕГО и нижнего регистра) и цифры, и должно начинаться с буквы."
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+"Имя общего ресурса может содержать только буквы (ВЕРХНЕГО и нижнего "
+"регистра) и цифры, и должно начинаться с буквы."
 
 #: modules/samba/shares/details.php:154 modules/samba/machines/edit.php:62
 msgid "Name"
@@ -123,7 +142,7 @@ msgstr "Путь общего ресурса (оставьте пустым дл
 
 #: modules/samba/shares/details.php:199
 msgid "This share is visible on the domain"
-msgstr "Общий ресурс видем для домена"
+msgstr "Общий ресурс видим для домена"
 
 #: modules/samba/shares/details.php:212
 msgid "Permissions"
@@ -135,15 +154,15 @@ msgstr "Доступ для всех"
 
 #: modules/samba/shares/details.php:261
 msgid "Users for this share"
-msgstr ""
+msgstr "Пользователи для этого общего ресурса"
 
 #: modules/samba/shares/details.php:283
 msgid "Administrator groups for this share"
-msgstr "Группы администратор для этого общего ресурса"
+msgstr "Группы администратора для этого общего ресурса"
 
 #: modules/samba/shares/details.php:305 modules/samba/shares/details.php:307
 msgid "Custom parameters"
-msgstr ""
+msgstr "Параметры пользователей"
 
 #: modules/samba/shares/details.php:315
 msgid "Create"
@@ -156,7 +175,7 @@ msgstr "Подтвердить"
 #: modules/samba/shares/delete.php:34
 #, php-format
 msgid "Share %s deleted"
-msgstr "Общий ресурс %s  удален"
+msgstr "Общий ресурс %s удален"
 
 #: modules/samba/shares/delete.php:37
 #, php-format
@@ -196,8 +215,12 @@ msgid "Computer %s successfully added"
 msgstr "Компьютер %s успешно добавлен"
 
 #: modules/samba/machines/add.php:46
-msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
-msgstr "Имя компьютера может содержать только буквы нижнего регистра и цифры, и должно начинаться с буквы."
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"Имя компьютера может содержать только буквы нижнего регистра и цифры, и "
+"должно начинаться с буквы."
 
 #: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
@@ -205,19 +228,19 @@ msgstr "Имя компьютера"
 
 #: modules/samba/machines/edit.php:29
 msgid "Edit computer"
-msgstr ""
+msgstr "Изменить коспьютер"
 
 #: modules/samba/machines/edit.php:50
 msgid "Computer successfully modified."
-msgstr ""
+msgstr "Компьютер успешно изменен."
 
 #: modules/samba/machines/edit.php:77
 msgid "Disable computer account"
-msgstr ""
+msgstr "Выключить аккаунт компьютера"
 
 #: modules/samba/machines/ajaxFilter.php:43
 msgid "Active"
-msgstr ""
+msgstr "Активировать"
 
 #: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:65
 #: modules/samba/status/index.php:117
@@ -299,8 +322,12 @@ msgid "The SAMBA service has been asked to restart."
 msgstr "Служба SAMBA запрашивает перезапуск."
 
 #: modules/samba/config/index.php:73
-msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
-msgstr "Настройки SAMBA сохранены. Чтобы изменения вступили в силу перезагрузите или перезапустите службу SAMBA."
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+"Настройки SAMBA сохранены. Чтобы изменения вступили в силу перезагрузите или"
+" перезапустите службу SAMBA."
 
 #: modules/samba/config/index.php:90
 msgid "Domain name"
@@ -324,19 +351,19 @@ msgstr "Общий ресурс домашних каталогов пользо
 
 #: modules/samba/config/index.php:125
 msgid "Use network profiles for users"
-msgstr ""
+msgstr "Использовать сетевые профили для пользователей"
 
 #: modules/samba/config/index.php:126
 msgid "Activate roaming profiles for all users."
-msgstr ""
+msgstr "Активировать роуминговые профили для пользователей."
 
 #: modules/samba/config/index.php:142
 msgid "Network path for profiles"
-msgstr ""
+msgstr "Сетевой путь к профилям"
 
 #: modules/samba/config/index.php:143
 msgid "The share must exist and be world-writable."
-msgstr ""
+msgstr "Общий ресурс должен существовать и быть доступныи для записи."
 
 #: modules/samba/config/index.php:153
 msgid "LDAP password sync"
@@ -403,7 +430,7 @@ msgstr "Срок действия пароля пользователя истё
 
 #: modules/samba/includes/publicFunc.php:305
 msgid "User is disabled, if checked"
-msgstr "Отключить пользователя"
+msgstr "пользователь отключен"
 
 #: modules/samba/includes/publicFunc.php:306
 msgid "Disable samba user account"
@@ -414,32 +441,40 @@ msgid "User is locked, if checked"
 msgstr "Заблокировать пользователя"
 
 #: modules/samba/includes/publicFunc.php:316
-msgid "Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
+"Блокировать доступ пользователей samba<p>Пользователь может быть "
+"заблокирован полсле большого числа неудачных входов.</p>"
 
 #: modules/samba/includes/publicFunc.php:331
 msgid "Use network profile, if checked"
-msgstr ""
+msgstr "Использовать сетевой профиль"
 
 #: modules/samba/includes/publicFunc.php:346
 msgid "Network path for user's profile"
-msgstr ""
+msgstr "Сетевой путь для профиля пользователей"
 
 #: modules/samba/includes/publicFunc.php:359
 msgid "User can change password, if checked"
-msgstr ""
+msgstr "Пользователи могут изменить пароль"
 
 #: modules/samba/includes/publicFunc.php:366
 msgid "User must change password on next logon, <br/>if checked"
-msgstr ""
+msgstr "Пользователь должен изменить паоль при следующем вхождении, "
 
 #: modules/samba/includes/publicFunc.php:373
 msgid "Account expiration"
-msgstr ""
+msgstr "Истечение срока аккаунта"
 
 #: modules/samba/includes/publicFunc.php:374
-msgid "Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire."
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
+"Укажите дату, когда пользователь будет заблокирован и больше не сможет войти"
+" в аккаунт. Если этот атрибут будет упущен, срок аккаунта никогда не "
+"истечет."
 
 #: modules/samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
@@ -497,19 +532,19 @@ msgstr "Пожалуйста удалите и создайте этот общ�
 
 #: modules/samba/includes/errorHandling.php:41
 msgid "Some options are not valid"
-msgstr ""
+msgstr "Некоторые параметры не доступны"
 
 #: modules/samba/includes/errorHandling.php:42
 msgid "Check your custom parameters."
-msgstr ""
+msgstr "Проверьте ваши пользовательские параметры."
 
 #: modules/samba/includes/errorHandling.php:47
 msgid "A custom parameter has an invalid format."
-msgstr ""
+msgstr "Формат пользовательских паролей не доступен."
 
 #: modules/samba/includes/errorHandling.php:48
 msgid "Use the 'option = value' format."
-msgstr ""
+msgstr "Используйте формат \"параметр = значение\""
 
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
@@ -517,7 +552,7 @@ msgstr "Добавить общий ресурс"
 
 #: modules/samba/includes/auditCodes.php:27
 msgid "Mod share"
-msgstr ""
+msgstr "Изменить общий ресурс"
 
 #: modules/samba/includes/auditCodes.php:28
 msgid "Del share"
@@ -614,11 +649,11 @@ msgstr "Добавить"
 
 #: modules/samba/views/users.tpl.php:70
 msgid "This user doesn't exist"
-msgstr ""
+msgstr "Такого пользователя не существует"
 
 #: modules/samba/views/users.tpl.php:129
 msgid "Add a new user"
-msgstr ""
+msgstr "Добавить нового пользователя"
 
 #: modules/samba/infoPackage.inc.php:31
 msgid "SAMBA service"
@@ -634,7 +669,7 @@ msgstr "Удалить общий ресурс"
 
 #: modules/samba/infoPackage.inc.php:59
 msgid "Share details"
-msgstr "Подробности о общем ресурсе"
+msgstr "Подробности об общем ресурсе"
 
 #: modules/samba/infoPackage.inc.php:73
 msgid "Machines"
@@ -646,7 +681,7 @@ msgstr "Список компьютеров"
 
 #: modules/samba/infoPackage.inc.php:86
 msgid "Edit a computer"
-msgstr ""
+msgstr "Изменить компьютер"
 
 #: modules/samba/infoPackage.inc.php:103
 msgid "Configuration"
@@ -666,7 +701,7 @@ msgstr "Перезагрузить службу SAMBA"
 
 #: modules/samba/infoPackage.inc.php:124
 msgid "Add/delete SAMBA's attributes"
-msgstr "Добавить/Удалить реквезиты SAMBA"
+msgstr "Добавить/Удалить атрибуты SAMBA"
 
 #: modules/samba/infoPackage.inc.php:125
 msgid "Enable/Disable account"
@@ -678,6 +713,6 @@ msgstr "Заблокировать/Разблокировать аккаунт"
 
 #: modules/samba/infoPackage.inc.php:136
 msgid "SAMBA status"
-msgstr "f79416acde644fd6b76626a8d3521d31_tr"
+msgstr ""
 
 

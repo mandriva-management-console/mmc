@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 #   <jpbraun@mandriva.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:41+0000\n"
+"PO-Revision-Date: 2011-07-26 10:13+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -28,12 +29,18 @@ msgstr "La sauvegarde du partage <b>%s</b> a été lancée en arrière plan."
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid "The files will be stored in the directory %s of the server at the end of the backup."
-msgstr "Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la sauvegarde."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the"
+" backup."
+msgstr ""
+"Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la "
+"sauvegarde."
 
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
-msgstr "Veuillez consulter la page de statut pour vérifier le processus de sauvegarde."
+msgstr ""
+"Veuillez consulter la page de statut pour vérifier le processus de "
+"sauvegarde."
 
 #: modules/samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
@@ -49,8 +56,13 @@ msgid "The share %s will be archived."
 msgstr "Le partage %s va être archivé."
 
 #: modules/samba/shares/backup.php:50
-msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
-msgstr "Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le volume des données dépasse la taille du médium choisi, un jeu de média sera créé."
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
+msgstr ""
+"Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le "
+"volume des données dépasse la taille du médium choisi, un jeu de média sera "
+"créé."
 
 #: modules/samba/shares/index.php:47 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
@@ -100,8 +112,12 @@ msgid "Add a share"
 msgstr "Ajouter un partage"
 
 #: modules/samba/shares/details.php:136
-msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
-msgstr "Le partage ne peut contenir que des lettres (majuscules, minuscules) et des chiffres, et il doit commencer par une lettre."
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+"Le partage ne peut contenir que des lettres (majuscules, minuscules) et des "
+"chiffres, et il doit commencer par une lettre."
 
 #: modules/samba/shares/details.php:154 modules/samba/machines/edit.php:62
 msgid "Name"
@@ -196,8 +212,12 @@ msgid "Computer %s successfully added"
 msgstr "Ordinateur %s ajouté"
 
 #: modules/samba/machines/add.php:46
-msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
-msgstr "Le nom de la machine ne peut contenir que des lettres en minuscules et des nombres et doit commencer par une lettre."
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"Le nom de la machine ne peut contenir que des lettres en minuscules et des "
+"nombres et doit commencer par une lettre."
 
 #: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
@@ -299,8 +319,12 @@ msgid "The SAMBA service has been asked to restart."
 msgstr "Il a été demandé au service SAMBA de redémarrer."
 
 #: modules/samba/config/index.php:73
-msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
-msgstr "Configuration de SAMBA sauvegardée. Il peut être nécessaire de recharger ou de redémarrer le service SAMBA."
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+"Configuration de SAMBA sauvegardée. Il peut être nécessaire de recharger ou "
+"de redémarrer le service SAMBA."
 
 #: modules/samba/config/index.php:90
 msgid "Domain name"
@@ -414,8 +438,11 @@ msgid "User is locked, if checked"
 msgstr "Utilisateur verrouillé, si cochée"
 
 #: modules/samba/includes/publicFunc.php:316
-msgid "Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
+"Verrouille l'accès samba<p>L'utilisateur peut être verrouillé après "
+"plusieurs tentatives d'authentification non valides.</p>"
 
 #: modules/samba/includes/publicFunc.php:331
 msgid "Use network profile, if checked"
@@ -438,12 +465,17 @@ msgid "Account expiration"
 msgstr "Expiration du compte"
 
 #: modules/samba/includes/publicFunc.php:374
-msgid "Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire."
-msgstr "Spécifie la date à partir de laquelle l'utilisateur ne pourra plus se connecter. Si le champ est vide, le compte n'expire jamais."
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
+msgstr ""
+"Spécifie la date à partir de laquelle l'utilisateur ne pourra plus se "
+"connecter. Si le champ est vide, le compte n'expire jamais."
 
 #: modules/samba/includes/errorHandling.php:5
 msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr "Les ACLs ne sont pas supportées sur votre partition contenant /home/samba/"
+msgstr ""
+"Les ACLs ne sont pas supportées sur votre partition contenant /home/samba/"
 
 #: modules/samba/includes/errorHandling.php:6
 msgid ""
@@ -454,7 +486,12 @@ msgid ""
 "\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
 "\t\t\t</ul>\n"
 "\t\t\t"
-msgstr "Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> \t\t\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li> \t\t\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li> \t\t\t</ul> "
+msgstr ""
+"Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> "
+"\t\t\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li> "
+"\t\t\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de "
+"montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  "
+"defaults,acl  1  2</pre></li> \t\t\t</ul> "
 
 #: modules/samba/includes/errorHandling.php:17
 msgid "This share does not exist"
@@ -474,7 +511,9 @@ msgid ""
 "                           <li>Delete this share before recreate it.</li>\n"
 "                           <li>Choose another share name</li>\n"
 "                        </ul>"
-msgstr "<ul> \t\t<li>Supprimer ce partage avant de le recréer.</li> \t\t<li>Choisissez un autre nom de partage.</li> </ul>"
+msgstr ""
+"<ul> \t\t<li>Supprimer ce partage avant de le recréer.</li> "
+"\t\t<li>Choisissez un autre nom de partage.</li> </ul>"
 
 #: modules/samba/includes/errorHandling.php:35
 msgid "The share directory does not exist."
@@ -667,6 +706,6 @@ msgstr "Verrouillage/Déverrouillage du compte"
 
 #: modules/samba/infoPackage.inc.php:136
 msgid "SAMBA status"
-msgstr "f79416acde644fd6b76626a8d3521d31_tr"
+msgstr "Statut SAMBA"
 
 

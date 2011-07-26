@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 # Francisco Garcia <fgarpe@gmail.com>, 2010.
 msgid ""
 msgstr ""
@@ -34,8 +35,13 @@ msgid "CSV import results"
 msgstr "Resultados de importación CSV"
 
 #: modules/bulkimport/import/index.php:138
-msgid "Warning: This is a big list so could take a long time. You may need to increase the timeout settings on your web server and browser"
-msgstr "Aviso: Esta es una lista muy grande y puede llevar mucho tiempo la importación. Puede que necesites incrementar los valores de timeout en tu servidor web y navegador."
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
+msgstr ""
+"Aviso: Esta es una lista muy grande y puede llevar mucho tiempo la "
+"importación. Puede que necesites incrementar los valores de timeout en tu "
+"servidor web y navegador."
 
 #: modules/bulkimport/import/index.php:140
 msgid "CSV Import"

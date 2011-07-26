@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 #  <>, 2007.
 # <>, 2007.
 msgid ""
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:03+0000\n"
+"PO-Revision-Date: 2011-07-26 09:27+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -205,7 +206,8 @@ msgstr "%s er ikke et gyldig epost alias."
 
 #: modules/mail/includes/publicFunc.php:309
 msgid "You must specify a valid mail address to enable mail delivery."
-msgstr "Du må spesifisere en gyldig epostadresse for å aktivere epostlevering."
+msgstr ""
+"Du må spesifisere en gyldig epostadresse for å aktivere epostlevering."
 
 #: modules/mail/includes/auditCodes.php:4
 msgid "Enable mail delivery"
@@ -313,7 +315,7 @@ msgstr ""
 
 #: modules/mail/includes/auditCodes.php:30
 msgid "mail"
-msgstr "596dfebe86f38e24c21be1eb28b273f5_tr"
+msgstr ""
 
 #: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
 msgid "Unlimited quota"

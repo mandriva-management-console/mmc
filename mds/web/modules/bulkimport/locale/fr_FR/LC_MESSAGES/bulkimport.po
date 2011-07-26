@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
@@ -33,8 +34,12 @@ msgid "CSV import results"
 msgstr "Résultat de l'import CSV"
 
 #: modules/bulkimport/import/index.php:138
-msgid "Warning: This is a big list so could take a long time. You may need to increase the timeout settings on your web server and browser"
-msgstr "Attention: vous essayez de charger une liste d'utilisateurs importante.Vous devrez peut-être augmenter l'option de timeout PHP sur votre serveur web."
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
+msgstr ""
+"Attention: vous essayez de charger une liste d'utilisateurs importante.Vous "
+"devrez peut-être augmenter l'option de timeout PHP sur votre serveur web."
 
 #: modules/bulkimport/import/index.php:140
 msgid "CSV Import"

@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 msgid ""
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:02+0000\n"
+"PO-Revision-Date: 2011-07-26 09:26+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,8 +30,12 @@ msgstr "Becape do compartilhamento <b>%s</b> foi iniciado em segundo plano."
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid "The files will be stored in the directory %s of the server at the end of the backup."
-msgstr "Os arquivos serão armazenados no diretório %s do servidor no final do becape."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the"
+" backup."
+msgstr ""
+"Os arquivos serão armazenados no diretório %s do servidor no final do "
+"becape."
 
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
@@ -50,8 +55,12 @@ msgid "The share %s will be archived."
 msgstr "O compartilhamento %s será arquivado."
 
 #: modules/samba/shares/backup.php:50
-msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
-msgstr "Por favor selecione o tamanho da mídia. Se os dados excedem o tamamnho do volume, diversos arquivos serão criados."
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
+msgstr ""
+"Por favor selecione o tamanho da mídia. Se os dados excedem o tamamnho do "
+"volume, diversos arquivos serão criados."
 
 #: modules/samba/shares/index.php:47 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
@@ -101,8 +110,12 @@ msgid "Add a share"
 msgstr "Adicionar um compartilhamento"
 
 #: modules/samba/shares/details.php:136
-msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
-msgstr "O nome do compartilhamento só pode conter letras (maiúscula ou minúsculas) e números, devendo começar com uma letra.."
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+"O nome do compartilhamento só pode conter letras (maiúscula ou minúsculas) e"
+" números, devendo começar com uma letra.."
 
 #: modules/samba/shares/details.php:154 modules/samba/machines/edit.php:62
 msgid "Name"
@@ -120,7 +133,9 @@ msgstr "AntiVirus neste compartilhamento"
 #: modules/samba/shares/details.php:182
 #, php-format
 msgid "Share path (leave empty for a default path in %s)"
-msgstr "Caminho de compartilhamento (deixe em branco para um compartilhamento padrão em %s)"
+msgstr ""
+"Caminho de compartilhamento (deixe em branco para um compartilhamento padrão"
+" em %s)"
 
 #: modules/samba/shares/details.php:199
 msgid "This share is visible on the domain"
@@ -197,8 +212,12 @@ msgid "Computer %s successfully added"
 msgstr "Computador %s adicionado com sucesso"
 
 #: modules/samba/machines/add.php:46
-msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
-msgstr "O nome de computador deve conter apenas letras minúsculas e números, devendo começar com uma letra."
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"O nome de computador deve conter apenas letras minúsculas e números, devendo"
+" começar com uma letra."
 
 #: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
@@ -300,8 +319,12 @@ msgid "The SAMBA service has been asked to restart."
 msgstr "Foi solicitado que o serviço SAMBA seja reiniciado."
 
 #: modules/samba/config/index.php:73
-msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
-msgstr "Configuração do SAMBA foi salva. Você deve recarregar ou reiniciar o serviço SAMBA."
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+"Configuração do SAMBA foi salva. Você deve recarregar ou reiniciar o serviço"
+" SAMBA."
 
 #: modules/samba/config/index.php:90
 msgid "Domain name"
@@ -368,7 +391,8 @@ msgstr "Recarregar a configuração do SAMBA"
 
 #: modules/samba/config/reload.php:26
 msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr "Foi solicitado ao serviço SAMBA a recarga do seu arquivo de configuração."
+msgstr ""
+"Foi solicitado ao serviço SAMBA a recarga do seu arquivo de configuração."
 
 #: modules/samba/includes/publicFunc.php:69
 msgid "Samba attributes deleted."
@@ -415,7 +439,8 @@ msgid "User is locked, if checked"
 msgstr "Usuário está bloqueado, se marcado"
 
 #: modules/samba/includes/publicFunc.php:316
-msgid "Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:331
@@ -439,7 +464,9 @@ msgid "Account expiration"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:374
-msgid "Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire."
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
 #: modules/samba/includes/errorHandling.php:5
@@ -679,6 +706,6 @@ msgstr "Bloquear/Desbloquear conta"
 
 #: modules/samba/infoPackage.inc.php:136
 msgid "SAMBA status"
-msgstr "f79416acde644fd6b76626a8d3521d31_tr"
+msgstr ""
 
 

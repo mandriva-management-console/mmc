@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:02+0000\n"
+"PO-Revision-Date: 2011-07-26 09:26+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +28,9 @@ msgstr ""
 
 #: modules/samba/shares/backup.php:35
 #, php-format
-msgid "The files will be stored in the directory %s of the server at the end of the backup."
+msgid ""
+"The files will be stored in the directory %s of the server at the end of the"
+" backup."
 msgstr ""
 
 #: modules/samba/shares/backup.php:37
@@ -36,7 +39,9 @@ msgstr ""
 
 #: modules/samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
-msgstr "Denne operasjonens varighet vil variere med mengden data som skal sikkerhetskopieres."
+msgstr ""
+"Denne operasjonens varighet vil variere med mengden data som skal "
+"sikkerhetskopieres."
 
 #: modules/samba/shares/backup.php:43
 msgid "Can't launch backup"
@@ -48,7 +53,9 @@ msgid "The share %s will be archived."
 msgstr "Den delte mappen %s vil bli arkivert."
 
 #: modules/samba/shares/backup.php:50
-msgid "Please select media size. If your data exceed volume size, several files with your media size will be created."
+msgid ""
+"Please select media size. If your data exceed volume size, several files "
+"with your media size will be created."
 msgstr ""
 
 #: modules/samba/shares/index.php:47 modules/samba/machines/ajaxFilter.php:44
@@ -99,8 +106,12 @@ msgid "Add a share"
 msgstr "Legg til en delt mappe"
 
 #: modules/samba/shares/details.php:136
-msgid "The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."
-msgstr "Delt mappenavn kan kun inneholde bokstaver (små eller store) og tall, og må begynne med en bokstav."
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+"Delt mappenavn kan kun inneholde bokstaver (små eller store) og tall, og må "
+"begynne med en bokstav."
 
 #: modules/samba/shares/details.php:154 modules/samba/machines/edit.php:62
 msgid "Name"
@@ -195,8 +206,12 @@ msgid "Computer %s successfully added"
 msgstr ""
 
 #: modules/samba/machines/add.php:46
-msgid "The computer name can only contains letters lowercase and numbers, and must begin with a letter."
-msgstr "Maskinnavnet kan bare inneholde små bokstaver og tall, og må begynne med en bokstav."
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"Maskinnavnet kan bare inneholde små bokstaver og tall, og må begynne med en "
+"bokstav."
 
 #: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
@@ -298,7 +313,9 @@ msgid "The SAMBA service has been asked to restart."
 msgstr ""
 
 #: modules/samba/config/index.php:73
-msgid "SAMBA configuration saved. You may need to reload or restart the SAMBA service."
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
 msgstr ""
 
 #: modules/samba/config/index.php:90
@@ -413,7 +430,8 @@ msgid "User is locked, if checked"
 msgstr "Brukeren er låst, hvis hukket av"
 
 #: modules/samba/includes/publicFunc.php:316
-msgid "Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:331
@@ -437,7 +455,9 @@ msgid "Account expiration"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:374
-msgid "Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire."
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
 #: modules/samba/includes/errorHandling.php:5
@@ -677,6 +697,6 @@ msgstr "Lås/Lås opp konto"
 
 #: modules/samba/infoPackage.inc.php:136
 msgid "SAMBA status"
-msgstr "f79416acde644fd6b76626a8d3521d31_tr"
+msgstr ""
 
 

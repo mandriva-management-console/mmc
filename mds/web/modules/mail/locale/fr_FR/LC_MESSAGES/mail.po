@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 #   <jpbraun@mandriva.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:33+0000\n"
+"PO-Revision-Date: 2011-07-26 10:12+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +40,8 @@ msgstr "Le domaine de messagerie a été modifié."
 
 #: modules/mail/mail/edit.php:71
 msgid " The quota of all users of this mail domain have been reset."
-msgstr " Le quota de tous les utilisateurs du domaine de messagerie a été mis jour."
+msgstr ""
+" Le quota de tous les utilisateurs du domaine de messagerie a été mis jour."
 
 #: modules/mail/mail/edit.php:96 modules/mail/mail/ajaxDomainFilter.php:22
 #: modules/mail/mail/ajaxDomainFilter.php:28
@@ -52,7 +54,9 @@ msgstr "Description"
 
 #: modules/mail/mail/edit.php:106
 msgid "Default mail quota for users created in this domain (in kB)"
-msgstr "Quota de messagerie par défaut pour les utilisateurs créés dans ce domaine (en ko)"
+msgstr ""
+"Quota de messagerie par défaut pour les utilisateurs créés dans ce domaine "
+"(en ko)"
 
 #: modules/mail/mail/edit.php:112
 msgid "Create"
@@ -204,7 +208,9 @@ msgstr "%s n'est pas un alias de messagerie valide."
 
 #: modules/mail/includes/publicFunc.php:309
 msgid "You must specify a valid mail address to enable mail delivery."
-msgstr "Une adresse email valide doit être renseignée pour activer la messagerie de l'utilisateur."
+msgstr ""
+"Une adresse email valide doit être renseignée pour activer la messagerie de "
+"l'utilisateur."
 
 #: modules/mail/includes/auditCodes.php:4
 msgid "Enable mail delivery"
@@ -300,7 +306,7 @@ msgstr "Changement de l'attribut compte Zarafa"
 
 #: modules/mail/includes/auditCodes.php:27
 msgid "Change Zarafa sendas attribute"
-msgstr ""
+msgstr "Changer l'attribut Zarafa 'envoyé par'"
 
 #: modules/mail/includes/auditCodes.php:28
 msgid "Virtual Mail Domain"
@@ -312,7 +318,7 @@ msgstr "Utilisateur"
 
 #: modules/mail/includes/auditCodes.php:30
 msgid "mail"
-msgstr "596dfebe86f38e24c21be1eb28b273f5_tr"
+msgstr "Mail"
 
 #: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
 msgid "Unlimited quota"

@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+## Translators:
 # Andrzej Skrzypczak <aeskrzypczak@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:00+0000\n"
+"PO-Revision-Date: 2011-07-26 09:27+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,21 +49,33 @@ msgid "This zone already exists."
 msgstr "Ta strefa już istnieje. "
 
 #: modules/network/network/edit.php:79
-msgid "The network address and the network mask fields must be filled in if you also want to create a reverse zone."
-msgstr "Musisz podać adres sieciowy oraz maskę sieci jeżeli chcesz też utworzyć strefę odwzorowania."
+msgid ""
+"The network address and the network mask fields must be filled in if you "
+"also want to create a reverse zone."
+msgstr ""
+"Musisz podać adres sieciowy oraz maskę sieci jeżeli chcesz też utworzyć "
+"strefę odwzorowania."
 
 #: modules/network/network/edit.php:88
-msgid "The network address and the network mask fields must be filled in if you also want to create a DHCP subnet."
-msgstr "Musisz podać adres sieciowy oraz maskę sieci jeżeli chcesz też utworzyć podsieć DHCP."
+msgid ""
+"The network address and the network mask fields must be filled in if you "
+"also want to create a DHCP subnet."
+msgstr ""
+"Musisz podać adres sieciowy oraz maskę sieci jeżeli chcesz też utworzyć "
+"podsieć DHCP."
 
 #: modules/network/network/edit.php:100
 #: modules/network/network/subnetedit.php:61
 #, php-format
-msgid "The given network address belongs to the already existing DHCP subnet %s / %s."
+msgid ""
+"The given network address belongs to the already existing DHCP subnet %s / "
+"%s."
 msgstr "Podany adres sieciowy należy już do istniejącej podsieci DHCP %s / %s"
 
 #: modules/network/network/edit.php:110
-msgid "DHCP subnet and DNS zone successfully added. The DHCP service must be restarted."
+msgid ""
+"DHCP subnet and DNS zone successfully added. The DHCP service must be "
+"restarted."
 msgstr "Dodano podsieć DHCP oraz obszar DNS. Należy zrestartować usługę DHCP."
 
 #: modules/network/network/edit.php:113
@@ -105,8 +118,12 @@ msgid "Name server IP"
 msgstr "IP serera nazw"
 
 #: modules/network/network/edit.php:234
-msgid "The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."
-msgstr "Musisz podać adres sieciowy oraz maskę sieci jeżeli chcesz też utworzyć strefę odwzorowania lub podsieć DHCP powiązaną z tą strefą DNS."
+msgid ""
+"The network address and mask fields must be filled in if you also want to "
+"create a reverse zone or a DHCP subnet linked to this DNS zone."
+msgstr ""
+"Musisz podać adres sieciowy oraz maskę sieci jeżeli chcesz też utworzyć "
+"strefę odwzorowania lub podsieć DHCP powiązaną z tą strefą DNS."
 
 #: modules/network/network/edit.php:236
 #: modules/network/network/edithost.php:152
@@ -303,16 +320,28 @@ msgid "Domain name"
 msgstr "Nazwa domeny"
 
 #: modules/network/network/subnetedit.php:234
-msgid "Domain name that will be appended to the client's hostname to form a fully-qualified domain-name (FQDN)."
-msgstr "Nazwa domeny która będzie dodawana do nazwy hosta aby utworzyć w pełni kwalifikowaną nazwę domeny (FQDN)."
+msgid ""
+"Domain name that will be appended to the client's hostname to form a fully-"
+"qualified domain-name (FQDN)."
+msgstr ""
+"Nazwa domeny która będzie dodawana do nazwy hosta aby utworzyć w pełni "
+"kwalifikowaną nazwę domeny (FQDN)."
 
 #: modules/network/network/subnetedit.php:235
-msgid "If the domain name is a registered DNS domain, the subnet will be associated to the DNS domain."
-msgstr "Jeżeli nazwa domeny jest zarejestrowaną domeną DNS, podsieć będzie powiązana z domeną DNS."
+msgid ""
+"If the domain name is a registered DNS domain, the subnet will be associated"
+" to the DNS domain."
+msgstr ""
+"Jeżeli nazwa domeny jest zarejestrowaną domeną DNS, podsieć będzie powiązana"
+" z domeną DNS."
 
 #: modules/network/network/subnetedit.php:236
-msgid "You can set more than one domain, separated by spaces. They will be added to the DHCP client DNS domain search path."
-msgstr "Możesz ustawić więcej niż jedną domenę, oddzielając je spacją. Zostaną one dodane do ścieżki wyszukiwania domen DNS klienta DHCP."
+msgid ""
+"You can set more than one domain, separated by spaces. They will be added to"
+" the DHCP client DNS domain search path."
+msgstr ""
+"Możesz ustawić więcej niż jedną domenę, oddzielając je spacją. Zostaną one "
+"dodane do ścieżki wyszukiwania domen DNS klienta DHCP."
 
 #: modules/network/network/subnetedit.php:239
 msgid "Links the subnet to a DNS zone"
@@ -355,8 +384,12 @@ msgid "WINS servers"
 msgstr "Serwery WINS"
 
 #: modules/network/network/subnetedit.php:276
-msgid "Netbios name servers available to Windows clients, listed in order of preference."
-msgstr "Nazwy Netbios serwerów dostępne dla klientów Windows, uszeregowane wg. preferencji."
+msgid ""
+"Netbios name servers available to Windows clients, listed in order of "
+"preference."
+msgstr ""
+"Nazwy Netbios serwerów dostępne dla klientów Windows, uszeregowane wg. "
+"preferencji."
 
 #: modules/network/network/subnetedit.php:283
 msgid "Broadcast only"
@@ -379,8 +412,20 @@ msgid "WINS resolution and registration method"
 msgstr "Metoda przetwarzania i rejestracji WINS"
 
 #: modules/network/network/subnetedit.php:289
-msgid "Specify how NetBIOS name resolution is performed. Auto: the client OS will automatically select a method. Broadcast only (B-node): use broadcast for name resolution and registration. Peer node (P-node): use the specified WINS servers. Mixed node (M-node): use broadcast, then the specified WINS servers. Hybrid node (H-node): use the specified WINS server, then broadcast."
-msgstr "Określ, jak nazwy NetBIOS mają być przekształcane. Auto: system klienta sam wybiera metodę. Tylko Rozgłaszanie (B-node): wykorzystuje rozgłaszanie do przekształcenia nazwy i rejestracji. Peer Node (P-node): wykorzystuje określone serwery WINS. Metoda Mieszana (M-node): wykorzystuje rozgłaszanie a następnie określone serwery WINS. Metoda Hybrydowa (H-node): wykorzystuje określone serwery WINS a następnie rozgłaszanie."
+msgid ""
+"Specify how NetBIOS name resolution is performed. Auto: the client OS will "
+"automatically select a method. Broadcast only (B-node): use broadcast for "
+"name resolution and registration. Peer node (P-node): use the specified WINS"
+" servers. Mixed node (M-node): use broadcast, then the specified WINS "
+"servers. Hybrid node (H-node): use the specified WINS server, then "
+"broadcast."
+msgstr ""
+"Określ, jak nazwy NetBIOS mają być przekształcane. Auto: system klienta sam "
+"wybiera metodę. Tylko Rozgłaszanie (B-node): wykorzystuje rozgłaszanie do "
+"przekształcenia nazwy i rejestracji. Peer Node (P-node): wykorzystuje "
+"określone serwery WINS. Metoda Mieszana (M-node): wykorzystuje rozgłaszanie "
+"a następnie określone serwery WINS. Metoda Hybrydowa (H-node): wykorzystuje "
+"określone serwery WINS a następnie rozgłaszanie."
 
 #: modules/network/network/subnetedit.php:298
 #: modules/network/network/subnetedithost.php:246
@@ -389,13 +434,20 @@ msgstr "Inne opcje DHCP"
 
 #: modules/network/network/subnetedit.php:299
 #: modules/network/network/subnetedithost.php:247
-msgid "Specify the name of the initial boot file which is to be loaded by a client."
-msgstr "Określ nazwę początkowego pliku bootującego, który ma być załadowany przez klienta."
+msgid ""
+"Specify the name of the initial boot file which is to be loaded by a client."
+msgstr ""
+"Określ nazwę początkowego pliku bootującego, który ma być załadowany przez "
+"klienta."
 
 #: modules/network/network/subnetedit.php:301
 #: modules/network/network/subnetedithost.php:249
-msgid "The filename should be a filename recognizable to whatever file transfer protocol the client can be expected to use to load the file."
-msgstr "Nazwa plików powinna być rozpoznawalna przez jakikolwiek protokół transferu plików, jaki klient może użyć do załadowania pliku."
+msgid ""
+"The filename should be a filename recognizable to whatever file transfer "
+"protocol the client can be expected to use to load the file."
+msgstr ""
+"Nazwa plików powinna być rozpoznawalna przez jakikolwiek protokół transferu "
+"plików, jaki klient może użyć do załadowania pliku."
 
 #: modules/network/network/subnetedit.php:303
 #: modules/network/network/subnetedithost.php:251
@@ -434,8 +486,10 @@ msgstr "Następny serwer"
 
 #: modules/network/network/subnetedit.php:328
 #: modules/network/network/subnetedithost.php:276
-msgid "Trivial File Transfer Protocol server name from which the client is booting."
-msgstr "Nazwa serwera Trivial File Transfer Protocol, z którego klient bootuje."
+msgid ""
+"Trivial File Transfer Protocol server name from which the client is booting."
+msgstr ""
+"Nazwa serwera Trivial File Transfer Protocol, z którego klient bootuje."
 
 #: modules/network/network/subnetedit.php:330
 #: modules/network/network/subnetedithost.php:278
@@ -464,8 +518,12 @@ msgid "Default lease time"
 msgstr "DOmyślny czas dzierżawy"
 
 #: modules/network/network/subnetedit.php:353
-msgid "Lengh in seconds that will be assigned to a lease if the client requesting the lease does not ask for a specific expiration time."
-msgstr "Czas w sekundach, jaki zostanie przypisany do dzierżawy jeżeli klient nie zażądał określonego czasu wygaśnięcia."
+msgid ""
+"Lengh in seconds that will be assigned to a lease if the client requesting "
+"the lease does not ask for a specific expiration time."
+msgstr ""
+"Czas w sekundach, jaki zostanie przypisany do dzierżawy jeżeli klient nie "
+"zażądał określonego czasu wygaśnięcia."
 
 #: modules/network/network/subnetedit.php:359
 msgid "Maximum lease time"
@@ -502,16 +560,19 @@ msgid "The specified IP address does not belong to the subnet."
 msgstr "Określony adres IP nie należy do tej podsieci."
 
 #: modules/network/network/subnetedithost.php:59
-msgid "The specified IP address belongs to the dynamic pool range of the subnet."
+msgid ""
+"The specified IP address belongs to the dynamic pool range of the subnet."
 msgstr "Określony adres IP należy do puli dynamicznej podsieci."
 
 #: modules/network/network/subnetedithost.php:68
-msgid "The specified hostname has been already registered in this DHCP subnet."
+msgid ""
+"The specified hostname has been already registered in this DHCP subnet."
 msgstr "Określona nazwa hosta została już zarejestrowana w tej podsieci DHCP."
 
 #: modules/network/network/subnetedithost.php:73
 #: modules/network/network/subnetedithost.php:98
-msgid "The specified IP address has been already registered in this DHCP subnet."
+msgid ""
+"The specified IP address has been already registered in this DHCP subnet."
 msgstr "Określony adres IP został już zarejestrowany w tej podsieci DHCP."
 
 #: modules/network/network/subnetedithost.php:83
@@ -639,12 +700,17 @@ msgid "Host successfully added to DNS zone and corresponding reverse zone."
 msgstr "Dodano hosta do strefy DNS oraz odpowiedniej strefy odwzorowania."
 
 #: modules/network/network/edithost.php:81
-msgid "The following aliases have not been set because a DNS record with the same name already exists:"
-msgstr "Następujące aliasy nie zostały ustawione, ponieważ istnieje już rekord DNS z tą samą nazwą:"
+msgid ""
+"The following aliases have not been set because a DNS record with the same "
+"name already exists:"
+msgstr ""
+"Następujące aliasy nie zostały ustawione, ponieważ istnieje już rekord DNS z"
+" tą samą nazwą:"
 
 #: modules/network/network/edithost.php:119
 msgid "A reverse DNS record will be automatically created for this host."
-msgstr "Obszar odwzoroawnia DNS zostanie automatycznie utworzony dla tego hsota."
+msgstr ""
+"Obszar odwzoroawnia DNS zostanie automatycznie utworzony dla tego hsota."
 
 #: modules/network/network/edithost.php:159
 #: modules/network/network/edithost.php:163
@@ -961,7 +1027,7 @@ msgstr "Zarządzanie siecią"
 
 #: modules/network/infoPackage.inc.php:39
 msgid "Network"
-msgstr "cba3eb593893730dfd61ce641be2502a_tr"
+msgstr ""
 
 #: modules/network/infoPackage.inc.php:83
 msgid "Delete a DNS zone"
