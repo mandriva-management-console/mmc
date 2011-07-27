@@ -8,10 +8,13 @@
 
     <author>
       <firstname>Cédric</firstname>
-
       <surname>Delfosse</surname>
-
       <email>cdelfosse@mandriva.com</email>
+    </author>
+    <author>
+      <firstname>Jean-Philippe</firstname>
+      <surname>Braun</surname>
+      <email>jpbraun@mandriva.com</email>
     </author>
 
     <affiliation>
@@ -20,7 +23,7 @@
     </affiliation>
 
     <copyright>
-      <year>2007,2008,2009,2010 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2009,2010,2011 Cédric Delfosse, Jean-Philippe Braun - Mandriva</year>
     </copyright>
 
     <legalnotice>
@@ -110,7 +113,7 @@
 	
 	<para>
 	  All MMC related sample configuration files are available in the python-mmc-base package, in directory <filename>/usr/share/doc/python-mmc-base/contrib/</filename>.
-	  You will find there OpenLDAP, SAMBA and Postfix configuration files.
+	  You will find there OpenLDAP, SAMBA and Postfix configuration files and also OpenLDAP schemas.
 	</para>
 	
       </note>
@@ -126,7 +129,7 @@
       </para>
       
       <para>
-	Packages for Mandriva 2009 and Mandriva Cooker are available on Mandriva official repository.
+	Packages for Mandriva 2010.2 and Mandriva Cooker are available on Mandriva official repository.
 	You will find an official mirror using <ulink url="http://club.mandriva.com/xwiki/bin/view/Downloads/MirrorFinder2">the Mandriva mirror finder module</ulink>.
       </para> 
       <para>
@@ -158,12 +161,14 @@
       </screen>
 
       <para>
-	To install all the MDS related packages, just type:
+	To install all the MDS related packages, just type (will install all plugins):
       </para>
       <screen>
-	# urpmi mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-          mmc-agent \
-          python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
+	# urpmi mmc-agent \
+	mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
+	mmc-web-sshlpk mmc-web-ppolicy mmc-web-userquota mmc-web-bulkimport \
+	python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba \
+	python-mmc-sshlpk python-mmc-ppolicy python-mmc-userquota python-mmc-bulkimport
       </screen>
 
     </section>
@@ -173,27 +178,30 @@
       <title>Debian packages</title>
       
       <para>
-	For Debian Sarge, add this in your sources.list:
+	For Debian Lenny, add this in your sources.list:
       </para>
     
       <screen>
-	deb http://mds.mandriva.org/pub/mds/debian sarge main
+	deb http://mds.mandriva.org/pub/mds/debian lenny main
       </screen>
       
       <para>
-	For Debian Etch:
+	For Debian Squeeze:
       </para>
       
       <screen>
-	deb http://mds.mandriva.org/pub/mds/debian etch main
+	deb http://mds.mandriva.org/pub/mds/debian squeeze main
       </screen>
 
       <para>
 	To install all the MDS related packages, just type:
       </para>
       <screen>
-	# apt-get install mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-	  mmc-agent python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
+	# apt-get install mmc-agent \
+	mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
+	mmc-web-sshlpk mmc-web-ppolicy mmc-web-userquota mmc-web-bulkimport \
+	python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba \
+	python-mmc-sshlpk python-mmc-ppolicy python-mmc-userquota python-mmc-bulkimport
       </screen>
           
     </section>
@@ -210,12 +218,12 @@
     
     <para>
       One LDAP schema called MMC schema is mandatory.
-      This schema and others are available in the mmc-agent tarball, in the directory <filename>contrib/ldap/</filename>.
+      This schema and others are available in the mmc-agent tarball, in the directory <filename>/usr/share/doc/python-mmc-base/contrib/ldap/</filename>.
     </para>
 
     <section>
 
-      <title>OpenLDAP configuration on Mandriva 2008 and Mandriva CS4</title>
+      <title>OpenLDAP configuration on Mandriva</title>
 
       <para>
 	The OpenLDAP configuration can be easily done using the openldap-mandriva-dit-package.
@@ -262,38 +270,35 @@
 	Some tweaks needs to be done to the LDAP configuration so that the LDAP service suits to the MDS.
       </para>
       <para>
-	First, copy the MDS LDAP schema to the LDAP schemas directory:
+	First, copy the MMC LDAP schema you need to the LDAP schemas directory.
       </para>
       <screen>
-	# cd /usr/share/doc/python-mmc-base*/contrib/ldap/
-	# cp dhcp.schema dnszone.schema mail.schema mmc.schema /etc/openldap/schema/
+	# cd /usr/share/doc/python-mmc-base/contrib/ldap/
+	# cp mmc.schema /etc/openldap/schema/
       </screen>
       <para>
 	Then, add these lines to the file <filename>/etc/openldap/schema/local.schema</filename>:	
       </para>
       <screen>
-include /etc/openldap/schema/mmc.schema
-include /etc/openldap/schema/mail.schema
-include /etc/openldap/schema/dnszone.schema
-include /etc/openldap/schema/dhcp.schema
+	include /etc/openldap/schema/mmc.schema
       </screen>
       <para>
 	Then, to avoid LDAP schemas conflicts, comment or remove these lines at the beginning of the file <filename>/etc/openldap/slapd.conf</filename>:
       </para>
       <screen>
-#include /usr/share/openldap/schema/misc.schema
-#include /usr/share/openldap/schema/kolab.schema
-#include /usr/share/openldap/schema/dnszone.schema
-#include /usr/share/openldap/schema/dhcp.schema
+	#include /usr/share/openldap/schema/misc.schema
+	#include /usr/share/openldap/schema/kolab.schema
+	#include /usr/share/openldap/schema/dnszone.schema
+	#include /usr/share/openldap/schema/dhcp.schema
       </screen>
       <para>
 	Last, comment or remove these lines at the end of the file <filename>/etc/openldap/mandriva-dit-access.conf</filename>:
       </para>
       <screen>
-#access to dn.one="ou=People,dc=mandriva,dc=com"
-#        attrs=@inetLocalMailRecipient,mail
-#        by group.exact="cn=MTA Admins,ou=System Groups,dc=mandriva,dc=com" write
-#        by * read
+	#access to dn.one="ou=People,dc=mandriva,dc=com"
+	#        attrs=@inetLocalMailRecipient,mail
+	#        by group.exact="cn=MTA Admins,ou=System Groups,dc=mandriva,dc=com" write
+	#        by * read
       </screen>
      
       <para>
@@ -323,7 +328,7 @@ include /etc/openldap/schema/dhcp.schema
       <note>
 	<title>OpenLDAP example configuration</title>
 	<para>
-	  You will find an example of OpenLDAP configuration in the directory <filename>contrib/ldap/</filename> of the mmc-agent tarball.
+	  You will find an example of OpenLDAP configuration in the directory <filename>agent/contrib/ldap/</filename> of the mmc-core tarball.
 	</para>
       </note>
 
@@ -345,75 +350,29 @@ include /etc/openldap/schema/dhcp.schema
       </note>
 
       <para>
-	Get the file <filename>mmc.schema</filename> from the mmc-agent tarball, and copy it to <filename>/etc/openldap/schema/</filename> (or maybe <filename>/etc/ldap/schema/</filename>).
+	Configure slapd with debconf. This will configure the LDAP DN suffix and the LDAP manager. If you choose "mandriva.com" as your domain, the LDAP DN suffix will be "dc=mandriva,dc=com".
+      </para>
+      <screen>
+	# dpkg-reconfigure slapd
+      </screen>
+      <para>
+	Get the file <filename>mmc.schema</filename> from <filename>/usr/share/doc/python-mmc-base/contrib/ldap</filename>, and copy it to <filename>/etc/ldap/schema/</filename>.
       </para>
       <para>
-	Include this schema in the OpenLDAP configuration, in <filename>/etc/ldap/slapd.conf</filename> (or maybe <filename>/etc/openldap/slapd.conf</filename>):
+	Include this schema in the OpenLDAP configuration, in <filename>/etc/ldap/slapd.conf</filename>:
       </para>
-      
       <screen>
 	include /etc/openldap/schema/mmc.schema
       </screen>
-      
       <para>
 	This schema must be included after the <filename>inetorgperson.schema</filename> file. On Mandriva, the <filename>kolab.schema</filename> file is conflicting with <filename>mmc.schema</filename>, so you need to comment the include directive for the Kolab schema, else OpenLDAP won't start.
       </para>
-
       <para>
-	In the OpenLDAP configuration file, we also define the LDAP DN suffix, the LDAP manager (rootdn) and its password (rootpw):
+	You need to restart OpenLDAP:
       </para>
-
       <screen>
-	suffix          "dc=mandriva,dc=com"
-	rootdn          "cn=admin,dc=mandriva,dc=com"
-	rootpw          {SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8
+	# /etc/init.d/slapd restart
       </screen>
-      
-      <para>
-	The SSHA password is computed using the slappasswd command:
-      </para>
-
-      <screen>
-	# slappasswd -s secret
-	{SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8
-      </screen>
-
-      <para>
-	Once the OpenLDAP server is configured, the base LDAP directory architecture must be created. Create a file called <filename>/tmp/ldap-init.ldif</filename> containing:
-      </para>
-      
-      <screen>
-	dn: dc=mandriva,dc=com
-	objectClass: top
-	objectClass: dcObject
-	objectClass: organization
-	dc: mandriva
-	o: mandriva
-	
-	dn: cn=admin,dc=mandriva,dc=com
-	objectClass: simpleSecurityObject
-	objectClass: organizationalRole
-	cn: admin
-	description: LDAP Administrator
-	userPassword: gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8	
-      </screen>
-
-      <para>
-	The userPassword field must be filled with the output of the slappasswd command. Now we inject the LDIF file into the directory:
-      </para>
-
-      <screen>
-	# /etc/init.d/ldap stop
-	# slapadd -l /tmp/ldap-init.ldif
-	# /etc/init.d/ldap start
-      </screen>
-      
-      <note>
-	<title>LDAP suffix</title>
-	<para>
-	  In this example, the LDAP suffix is dc=mandriva,dc=com. Of course, you can choose another suffix.
-	</para>
-      </note>
 
       <note>
 	<title>Changing the OpenLDAP manager password</title>
@@ -421,7 +380,7 @@ include /etc/openldap/schema/dhcp.schema
 	  You can't change this password using the MMC interface. You must use this command line:
 	</para>
 	<screen>
-ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=admin,dc=mandriva,dc=com
+	$ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=admin,dc=mandriva,dc=com
 	</screen>
       </note>
 
@@ -480,7 +439,6 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	      <entry>Python base plugin</entry>
 	      <entry>Python samba plugin</entry>
 	      <entry>Python mail plugin</entry>
-	      <entry>Python ox plugin</entry>
 	      <entry>Python proxy plugin</entry>
 	    </row>
 	  </thead>
@@ -491,7 +449,6 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	      <entry>python-twisted</entry>
 	      <entry>python-ldap pylibacl</entry>
 	      <entry>samba</entry>
-	      <entry></entry>
 	      <entry>python-psycopg</entry>
 	      <entry>squid squidguard</entry>
 	    </row>	    
@@ -500,7 +457,6 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	      <entry>python-twisted</entry>
 	      <entry>python-ldap python-libacl</entry>
 	      <entry>samba</entry>
-	      <entry></entry>
 	      <entry>python-psycopg postgresql-python</entry>
 	      <entry>squid squidguard</entry>
 	    </row>
@@ -531,20 +487,26 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>Installation from source tarball</title>
 
       <para>
-	Get the current mmc-agent tarball at this URL: ftp://mds.mandriva.org/pub/mds/sources/current/
+        Get the current tarballs at this URLs: ftp://mds.mandriva.org/pub/mmc-core/sources/current/, ftp://mds.mandriva.org/pub/mds/sources/current/
       </para>
       
       <screen>
-	# tar xzf mmc-agent-x.y.z.tar.gz
-	# cd mmc-agent-x.y.z
-	# make install
+	# tar xzvf mmc-core-x.y.z.tar.gz
+	# cd mmc-core-x.y.z
+	# ./configure --sysconfdir=/etc --localstatedir=/var
+	# make
+	# make install
+	# tar xzvf mds-x.y.z.tar.gz
+	# cd mds-x.y.z
+	# ./configure --sysconfdir=/etc --localstatedir=/var
+	# make
+	# make install
       </screen>
 
       <para>
-	The last command starts the installation: the MMC agent and all its plugins are byte-compiled and installed.
-      </para>
-      <para>
-	The default $PREFIX for installation is <filename>/usr/local</filename>. Here are how the files are installed:
+	The default $PREFIX for installation is <filename>/usr/local</filename>. You can change it on the ./configure line by adding the option --prefix=/usr for example.
+	
+	Here are how the files are installed:
       </para>
       <itemizedlist>
 	<listitem>
@@ -575,6 +537,21 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	<listitem>
 	  <para>
 	    <filename>$PREFIX/lib/pythonX.Y/site-packages/mmc/plugins/</filename>: MMC Python plugins
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <filename>$PREFIX/share/mmc/</filename>: all MMC web interface related files (PHP, images, ...l)
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+            <filename>$PREFIX/share/mmc/modules/</filename>: MMC web interface plugins
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+		  <filename>/etc/mmc/mmc.ini</filename>: MMC web configuration file
 	  </para>
 	</listitem>
       </itemizedlist>
@@ -824,7 +801,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	  <para>mmc-web-samba: SAMBA users, groups and computers management, shares management</para>
 	</listitem>
 	<listitem>
-	  <para>mmc-web-mail: mail delivery and mail virtual domains management</para>
+	  <para>mmc-web-mail: mail delivery and mail virtual domains management (with Zarafa support)</para>
 	</listitem>
 	<listitem>
 	  <para>mmc-web-proxy: blacklist management for squidGuard</para>
@@ -832,10 +809,19 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 	<listitem>
 	  <para>mmc-web-network: DNS/DHCP management</para>
 	</listitem>
+	<listitem>
+	  <para>mmc-web-ppolicy: Password policies management</para>
+	</listitem>
+	<listitem>
+	  <para>mmc-web-userquota: Filesystem and network quotas management</para>
+	</listitem>
+	<listitem>
+	  <para>mmc-web-bulkimport: User mass import from CSV files</para>
+	</listitem>
       </itemizedlist>
       
       <para>
-	All this module depends on the mmc-web-base module. They won't work if the mmc-web-base module is not installed.
+	All this modules depends on the mmc-web-base module. They won't work if the mmc-web-base module is not installed.
       </para>
       
     </section>
@@ -856,40 +842,10 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
     
     <section>
 
-      <title>Installation of mmc-web-base from source tarball</title>
+      <title>Web interface configuration</title>
 
       <para>
-	Get the current mmc-web-base tarball <ulink url="ftp://mds.mandriva.org/pub/mds/sources/current/">there</ulink>.
-      </para>
-
-      <screen>
-	# tar xvzpf mmc-web-base-x.y.z.tar.gz
-	# cd mmc-web-base-x.y.z
-	# make install HTTPDUSER=apache
-      </screen>
-
-      <para>
-	For some distribution (e.g. Debian based distro), you must use HTTPDUSER=www-data.
-      </para>
-
-      <para>
-	The installation process copies files to:	
-      </para>
-      <itemizedlist>
-	<listitem>
-	  <para>
-	    <filename>/usr/local/share/mmc/</filename>: all MMC web interface related files (PHP, images, ...)
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>/etc/mmc/mmc.ini</filename>: MMC web configuration file
-	  </para>
-	</listitem>
-      </itemizedlist>
-
-      <para>
-	You can find a full documentation of the mmc.ini file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-web-configuration-file.html">there</ulink>.
+         You can find a full documentation of the /etc/mmc/mmc.ini file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-web-configuration-file.html">there</ulink>.
       </para>
 
       <para>
@@ -914,7 +870,7 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       </para>
 
       <screen>
-	# cp confs/apache/mmc.conf /etc/httpd/conf.d/mmc.conf
+	# cp /etc/mmc/apache/mmc.conf /etc/httpd/conf.d/mmc.conf
       </screen>
 
       <para>
@@ -955,30 +911,6 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
 
     </section>
     
-    <section>
-
-      <title>Installation of additional MMC web modules</title>
-
-      <para>
-	The MMC web tarballs are available <ulink url="ftp://mds.mandriva.org/pub/mds/sources/current/">there</ulink>.
-      </para>
-
-      <para>
-	They are all easy to install. For example:
-      </para>
-
-      <screen>
-	# tar xvzpf mmc-web-samba-x.y.z.tar.gz
-	# cd mmc-web-samba-x.y.z
-	# make install
-      </screen>
-
-      <para>
-	There are no configuration files for all the additional modules.
-      </para>
-      
-    </section>
-
     <section>
 
       <title>About firewalling</title>
