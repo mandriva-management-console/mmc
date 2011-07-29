@@ -315,6 +315,13 @@
 	    <entry>no</entry>
 	    <entry></entry>
 	  </row>
+	  <row>
+	    <entry>hostname</entry>
+	    <entry>name of the DHCP server to user</entry>
+	    <entry>no</entry>
+	    <entry>Set manually the master DHCP hostname in the LDAP. If not set, DHCP name will be the local hostname. If set, you can configure the "ldap-dhcp-server-cn" option in dhcpd.conf to match this setting</entry>
+	  </row>
+	  
 	</tbody>
       </tgroup>
     </table>

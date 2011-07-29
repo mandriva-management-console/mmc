@@ -118,14 +118,15 @@ function _samba_changeUser($FH) {
                 }
             }
             # FIXME !
+            # see #112
             # need to find a way to disable roaming profile for user when logon path is set
             /*
                 else if(($FH->getValue("sambaProfilePath") == "on" && $globalProfiles) || !$globalProfiles) {
                     # sambaProfilePath is useless
-                    $FH->setValue("sambaProfilePath", "");                
+                    $FH->setValue("sambaProfilePath", "");
                 }
                 else {
-                    # desactivate profile for this user                    
+                    # desactivate profile for this user
                     $FH->setValue("sambaProfilePath", '%USERPROFILE%');
                 }
             }*/
@@ -188,16 +189,16 @@ function _samba_changeUser($FH) {
                 else {
                     $FH->setPostValue("sambaKickoffTime", "");
                 }
-            }           
-            if($FH->isUpdated("sambaProfilePath")) {
-                if($FH->getValue("sambaProfilePath") == "on" && !$globalProfiles) {
-                    $smbconf = xmlCall("samba.getSmbInfo");
-                    $FH->setPostValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
-                }
-                else {
-                    $FH->setPostValue("sambaProfilePath", "");
-                }
             }
+            
+            if($FH->getPostValue("hasProfile") == "on" && !$globalProfiles) {
+                $smbconf = xmlCall("samba.getSmbInfo");
+                $FH->setPostValue("sambaProfilePath", "\\\\".$smbconf["netbios name"]."\\".$FH->getPostValue("nlogin")."\\profile");
+            }
+            else {
+                $FH->setPostValue("sambaProfilePath", "");
+            }
+
             changeSmbAttr($FH->getPostValue("nlogin"), $FH->getPostValues());
         }
     }
@@ -214,7 +215,9 @@ function _samba_verifInfo($postArr) {
                 return -1;
             }
         }
-        $drive = $postArr["sambaHomeDrive"];
+        $drive = "";
+        if (isset($postArr["sambaHomeDrive"]))
+            $drive = trim($postArr["sambaHomeDrive"]);
         if ($drive != "") {
 
             // Check that the SAMBA home drive is a correct drive letter
@@ -314,84 +317,88 @@ function _samba_baseEdit($ldapArr,$postArr) {
         array ("value" => $checked)
     );
     
-    # if no global profile set, we can set a roaming profile for this user
-    if(!$smbInfo["logon path"]) {
-        $hasProfile = false;
-        $checked = "";    
-        if(isset($ldapArr["sambaProfilePath"])) {
-            $hasProfile = true;
-            $checked = "checked";
+    # display this options only if we are PDC
+    if($smbInfo["pdc"]) {
+        # if no global profile set, we can set a roaming profile for this user
+        if(!$smbInfo["logon path"]) {
+            $hasProfile = false;
+            $checked = "";    
+            if(isset($ldapArr["sambaProfilePath"])) {
+                $hasProfile = true;
+                $checked = "checked";
+            }
+            $f->add(
+                new TrFormElement(_T("Use network profile, if checked","samba"), new CheckboxTpl("hasProfile")),
+                array ("value" => $checked, "extraArg" => 'onclick="toggleVisibility(\'pathdiv\')"')
+            );
+            
+            $f->pop();
+            
+            $pathdiv = new Div(array('id' => 'pathdiv'));
+            $pathdiv->setVisibility($hasProfile);
+            
+            $f->push($pathdiv);
+            $f->push(new Table());
+
+            $value = "\\\\".$smbInfo["netbios name"]."\\profiles\\".$ldapArr["uid"][0];
+            if(isset($ldapArr["sambaProfilePath"][0])) $value = $ldapArr["sambaProfilePath"][0];
+            $f->add(
+                new TrFormElement(_T("Network path for user's profile","samba"), new InputTpl("sambaProfilePath")),
+                array ("value" => $value)
+            );
+            
+            $f->pop();
+            $f->pop();
+            $f->push(new Table());
+            
         }
+
+        $checked = "";
+        if(!isset($ldapArr["sambaPwdCanChange"]) or $ldapArr["sambaPwdCanChange"][0] < mktime()) $checked = "checked";
         $f->add(
-            new TrFormElement(_T("Use network profile, if checked","samba"), new CheckboxTpl("hasProfile")),
-            array ("value" => $checked, "extraArg" => 'onclick="toggleVisibility(\'pathdiv\')"')
+            new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange")),
+            array ("value" => $checked)
         );
         
-        $f->pop();
-        
-        $pathdiv = new Div(array('id' => 'pathdiv'));
-        $pathdiv->setVisibility($hasProfile);
-        
-        $f->push($pathdiv);
-        $f->push(new Table());
-
-        $value = "\\\\".$smbInfo["netbios name"]."\\profiles\\".$ldapArr["uid"][0];
-        if(isset($ldapArr["sambaProfilePath"][0])) $value = $ldapArr["sambaProfilePath"][0];
+        $checked = "";
+        if($ldapArr["sambaPwdLastSet"][0] == "0") $checked = "checked";
         $f->add(
-            new TrFormElement(_T("Network path for user's profile","samba"), new InputTpl("sambaProfilePath")),
-            array ("value" => $value)
+            new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdLastSet")),
+            array ("value" => $checked)
         );
-        
-        $f->pop();
-        $f->pop();
-        $f->push(new Table());
-        
-    }
 
-    $checked = "";
-    if(!isset($ldapArr["sambaPwdCanChange"]) or $ldapArr["sambaPwdCanChange"][0] < mktime()) $checked = "checked";
-    $f->add(
-        new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange")),
-        array ("value" => $checked)
-    );
-    
-    $checked = "";
-    if($ldapArr["sambaPwdLastSet"][0] == "0") $checked = "checked";
-    $f->add(
-        new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdLastSet")),
-        array ("value" => $checked)
-    );
-
-    $value = "";
-    if(isset($ldapArr["sambaKickoffTime"][0])) $value = strftime("%Y-%m-%d %H:%M:%S", $ldapArr["sambaKickoffTime"][0]);
-    $f->add(
-        new TrFormElement(_T("Account expiration","samba"), new DynamicDateTpl("sambaKickoffTime"),
-            array("tooltip" => _T("Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire.",'samba'))),
-        array ("value" => $value, "ask_for_never" => 1)
-    );
-
-    $f->pop();
-
-    // Expert mode display
-    $f->push(new DivExpertMode());
-    $f->push(new Table());
-
-    $d = array(_T("Opening script session","samba") => "sambaLogonScript",
-               _T("Base directory path","samba") => "sambaHomePath",
-               _T("Connect base directory on network drive","samba") => "sambaHomeDrive");
-
-    foreach ($d as $description => $field) {
         $value = "";
-        if (isset($ldapArr[$field][0])) $value = $ldapArr[$field][0];
+        if(isset($ldapArr["sambaKickoffTime"][0])) $value = strftime("%Y-%m-%d %H:%M:%S", $ldapArr["sambaKickoffTime"][0]);
         $f->add(
-            new TrFormElement($description, new InputTpl($field)),
-            array("value" => $value)
+            new TrFormElement(_T("Account expiration","samba"), new DynamicDateTpl("sambaKickoffTime"),
+                array("tooltip" => _T("Specifies the date when the user will be locked down and cannot login any longer. If this attribute is omitted, then the account will never expire.",'samba'))),
+            array ("value" => $value, "ask_for_never" => 1)
         );
+
+        $f->pop();
+
+        // Expert mode display
+        $f->push(new DivExpertMode());
+        $f->push(new Table());
+
+        $d = array(_T("Opening script session","samba") => "sambaLogonScript",
+                   _T("Base directory path","samba") => "sambaHomePath",
+                   _T("Connect base directory on network drive","samba") => "sambaHomeDrive");
+
+        foreach ($d as $description => $field) {
+            $value = "";
+            if (isset($ldapArr[$field][0])) $value = $ldapArr[$field][0];
+            $f->add(
+                new TrFormElement($description, new InputTpl($field)),
+                array("value" => $value)
+            );
+        }
+        
+        $f->pop();
+        $f->pop();
+        $f->pop();    
     }
     
-    $f->pop();
-    $f->pop();
-    $f->pop();
     $f->display();
 
 }

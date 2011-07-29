@@ -30,6 +30,7 @@ import copy
 import logging
 from ConfigParser import NoOptionError
 
+from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.base import delete_diacritics
 from mmc.support.config import PluginConfig
@@ -39,9 +40,9 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.mail.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.4.0"
+VERSION = "2.4.1"
 APIVERSION = "6:2:4"
-REVISION = int("$Rev$".split(':')[1].strip(' $'))
+REVISION = scmRevision("$Rev$")
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION

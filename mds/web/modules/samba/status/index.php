@@ -27,7 +27,7 @@ require("graph/navbar.inc.php");
 require_once('modules/samba/includes/user-xmlrpc.inc.php');
 ?>
 
-<h2><?= _T("Samba status","samba"); ?></h2>
+<h2><?php echo  _T("Samba status","samba"); ?></h2>
 
 <div class="fixheight"></div>
 
@@ -53,7 +53,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
         }
     }
     ?>
-    <h3><?= _T("Opened sessions","samba"); ?>(<?= count($user); ?>):</h3>
+    <h3><?php echo  _T("Opened sessions","samba"); ?>(<?= count($user); ?>):</h3>
     <?
 
     if (count($user)!=0) {
@@ -74,7 +74,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
 
     $status = getSmbStatus();
     ?>
-    <h3><?= _T("Connections on shares","samba"); ?>(<?= count($status); ?>):</h3>
+    <h3><?php echo  _T("Connections on shares","samba"); ?>(<?= count($status); ?>):</h3>
     <?
 
     if (count($status)!=0) {

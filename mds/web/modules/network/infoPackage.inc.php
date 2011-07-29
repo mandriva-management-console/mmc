@@ -63,7 +63,7 @@ $page->setFile("modules/network/network/ajaxZoneMembersFilter.php",
 $submod->addPage($page);
 
 $page = new Page("ajaxSubnetMembersFilter");
-$page->setFile("modules/network/network/ajaxZoneMembersFilter.php",
+$page->setFile("modules/network/network/ajaxSubnetMembersFilter.php",
 	       array("AJAX" =>True,"visible"=>False)
 	       );
 $submod->addPage($page);

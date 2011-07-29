@@ -23,8 +23,8 @@
  */
 ?>
 
-    <tr><td width="40%" style="text-align: right; vertical-align: top;"><?= _("Groups"); ?> </td><td>
-        <select multiple size="10" class="list" name="<?= $autocomplete; ?>groupsselected[]" id="auto<?= $autocomplete; ?>select">
+    <tr><td width="40%" style="text-align: right; vertical-align: top;"><?php echo  _("Groups"); ?> </td><td>
+        <select multiple size="10" class="list" name="<?php echo  $autocomplete; ?>groupsselected[]" id="auto<?= $autocomplete; ?>select">
             <?php
             $sorted = $tpl_groups;
 
@@ -41,8 +41,8 @@
 
     <!--
 
-        function auto<?= $autocomplete; ?>() {
-            this.select = document.getElementById('auto<?= $autocomplete; ?>select');
+        function auto<?php echo  $autocomplete; ?>() {
+            this.select = document.getElementById('auto<?php echo  $autocomplete; ?>select');
             this.groups = new Array();
         <?php
             foreach (get_groups($error) as $group)
@@ -52,7 +52,7 @@
         ?>
         }
 
-        auto<?= $autocomplete; ?>.prototype.validOnEnter = function(field,event) {
+        auto<?php echo  $autocomplete; ?>.prototype.validOnEnter = function(field,event) {
             if (event.keyCode==13) {
                 return false;
             }
@@ -60,26 +60,26 @@
         }
 
         //add an element in selectbox
-        auto<?= $autocomplete; ?>.prototype.addElt = function(elt) {
+        auto<?php echo  $autocomplete; ?>.prototype.addElt = function(elt) {
             if (this.eltInArr(elt, this.groups)) {
                 this.addEltInSelectBox(elt);
-                $('auto<?= $autocomplete; ?>').value = '';
+                $('auto<?php echo  $autocomplete; ?>').value = '';
 
             }
             else {
-                window.alert("<?= _T("This group doesn't exist"); ?>");
+                window.alert("<?php echo  _T("This group doesn't exist"); ?>");
             }
         }
 
         //verify if an element is in an array
-        auto<?= $autocomplete; ?>.prototype.eltInArr = function(elt,array) {
+        auto<?php echo  $autocomplete; ?>.prototype.eltInArr = function(elt,array) {
             for(var i =0; i<array.length; i++) {
                 if (array[i] == elt) return true;
             }
             return false;
         }
 
-        auto<?= $autocomplete; ?>.prototype.addEltInSelectBox = function(elt) {
+        auto<?php echo  $autocomplete; ?>.prototype.addEltInSelectBox = function(elt) {
             var tmp = new Array();
             var len = this.select.options.length;
             for(var i =0; i<len; i++) {
@@ -100,7 +100,7 @@
 
         }
 
-        auto<?= $autocomplete; ?>.prototype.delEltInSelectBox = function() {
+        auto<?php echo  $autocomplete; ?>.prototype.delEltInSelectBox = function() {
             var len = this.select.options.length;
             for(var i =len-1; i>=0; i--) {
                 if (this.select.options[i].selected) {
@@ -109,37 +109,37 @@
             }
         }
 
-       auto<?= $autocomplete; ?>.prototype.selectAll = function() {
+       auto<?php echo  $autocomplete; ?>.prototype.selectAll = function() {
             var len = this.select.options.length;
             for(var i = 0 ; i<len; i++) {
                 this.select.options[i].selected = true;
             }
        }
  
-       auto<?= $autocomplete; ?>Obj = new auto<?= $autocomplete; ?>();
+       auto<?php echo  $autocomplete; ?>Obj = new auto<?= $autocomplete; ?>();
 
     -->
 
     </script>
 
-    <input name="bgroup" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
+    <input name="bdel<?php echo  $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Delete"); ?>" onClick="auto<?= $autocomplete; ?>Obj.delEltInSelectBox(); return false;"/>
 
     </td>
     </tr>
-    <tr><td style="text-align: right;"><?= _T("Add a new group"); ?></td><td>
+    <tr><td style="text-align: right;"><?php echo  _T("Add a new group"); ?></td><td>
 
-    <input type="text" id="auto<?= $autocomplete; ?>" name="auto<?= $autocomplete; ?>" class="textfield" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
-    <div id="auto<?= $autocomplete; ?>_choices" class="autocomplete">
+    <input type="text" id="auto<?php echo  $autocomplete; ?>" name="auto<?= $autocomplete; ?>" class="textfield" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
+    <div id="auto<?php echo  $autocomplete; ?>_choices" class="autocomplete">
         <ul>
             <li></li>
             <li></li>
         </ul>
     </div>
-    <input name="bgroup<?= $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add");?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
+    <input name="badd<?php echo  $autocomplete; ?>" type="submit" class="btnPrimary" value="<?= _("Add"); ?>" onClick="auto<?= $autocomplete; ?>Obj.addElt($F('auto<?= $autocomplete; ?>')); return false;"/>
     </td></tr>
 
     <script type="text/javascript">
     <!--
-        new Ajax.Autocompleter('auto<?= $autocomplete; ?>','auto<?= $autocomplete; ?>_choices','modules/base/users/ajaxAutocompleteGroup.php', {paramName: "value"});
+        new Ajax.Autocompleter('auto<?php echo  $autocomplete; ?>','auto<?= $autocomplete; ?>_choices','modules/base/users/ajaxAutocompleteGroup.php', {paramName: "value"});
     -->
     </script>

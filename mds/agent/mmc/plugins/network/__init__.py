@@ -32,6 +32,8 @@ import os.path
 import grp
 from ConfigParser import NoOptionError
 
+from mmc.core.version import scmRevision
+from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
 from mmc.plugins.network.dns import Dns, DnsService, DnsLogView
@@ -41,11 +43,11 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.network.audit import AA, PLUGIN_NAME
 
 
-INI = "/etc/mmc/plugins/network.ini"
+INI = mmcconfdir + "/plugins/network.ini"
 
-VERSION = "2.4.0"
+VERSION = "2.4.1"
 APIVERSION = "2:1:0"
-REVISION = int("$Rev$".split(':')[1].strip(' $'))
+REVISION = scmRevision("$Rev$")
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION
@@ -122,14 +124,14 @@ def activate():
         logger.info("Created DHCP config object")
     except ldap.ALREADY_EXISTS:
         pass
-    hostname = socket.gethostname()
+    hostname = d.configDhcp.dhcpHostname
     try:        
         d.addServer(hostname)
-        d.setServicePrimaryServer("DHCP config", hostname)
-        logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
         d.setServiceConfigStatement("not", "authoritative")
     except ldap.ALREADY_EXISTS:
-        pass
+        pass        
+    d.setServicePrimaryServer("DHCP config", hostname)
+    logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
 
     # Create DNS config base structure
     if serverType == "bind":
@@ -386,6 +388,10 @@ class NetworkConfig(PluginConfig):
         self.dhcpInit = self.get("dhcp", "init")
         self.dhcpLogFile = self.get("dhcp", "logfile")
         self.dhcpLeases = self.get("dhcp", "leases")
+        try:
+            self.dhcpHostname = self.get("dhcp", "hostname")
+        except NoOptionError:
+            self.dhcpHostname = socket.gethostname()
         # DNS conf
         try:
             self.dnsType = self.get("dns", "type")

@@ -56,19 +56,19 @@ if (isset($_POST["bconfirm"])) {
 ?>
 
 <p>
-<?= sprintf(_T("You will delete the host %s from the DHCP subnet."), "<strong>$host</strong>"); ?>
+<?php echo  sprintf(_T("You will delete the host %s from the DHCP subnet."), "<strong>$host</strong>"); ?>
 </p>
 
 
 <form action="main.php?module=network&submod=network&action=subnetdeletehost" method="post">
 
-<? if ($askupdatedns) { ?>
-    <p><input type="checkbox" name="updatedns" CHECKED /> <?= sprintf(_T("Also unregister this host from DNS zone %s"), $domain); ?></p>
+<?php if ($askupdatedns) { ?>
+    <p><input type="checkbox" name="updatedns" CHECKED /> <?php echo  sprintf(_T("Also unregister this host from DNS zone %s"), $domain); ?></p>
     <input type="hidden" name="zone" value="<?php echo $domain; ?>" />
-<? } ?>
+<?php } ?>
 
 <input type="hidden" name="host" value="<?php echo $host; ?>" />
 <input type="hidden" name="subnet" value="<?php echo $subnet; ?>" />
-<input type="submit" name="bconfirm" class="btnPrimary" value="<?= _T("Delete host"); ?>" />
-<input type="submit" name="bback" class="btnSecondary" value="<?= _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
+<input type="submit" name="bconfirm" class="btnPrimary" value="<?php echo  _T("Delete host"); ?>" />
+<input type="submit" name="bback" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
 </form>

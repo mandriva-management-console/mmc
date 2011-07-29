@@ -1,21 +1,37 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+## Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.4.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-12 11:22+0200\n"
-"PO-Revision-Date: 2010-04-12 11:30+0100\n"
-"Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
-"Language-Team: mario.fetka@gmail.com <mario.fetka@gmail.com>\n"
+"Project-Id-Version: Mandriva Directory Server\n"
+"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
+"POT-Creation-Date: 2011-01-30 08:18+0100\n"
+"PO-Revision-Date: 2011-06-17 10:02+0000\n"
+"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: AUSTRIA\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: modules/sshlpk/includes/publicFunc.php:39
+msgid "Public SSH keys management plugin"
+msgstr "Öffentliche SSH-Schlüssel-Management-Plugin"
+
+#: modules/sshlpk/includes/publicFunc.php:43
+msgid "Enable SSH keys management"
+msgstr "Aktiviere SSH-Schlüssel-Verwaltung"
+
+#: modules/sshlpk/includes/publicFunc.php:66
+msgid "Public SSH Key"
+msgstr "SSH Public Key"
+
+#: modules/sshlpk/includes/publicFunc.php:93
+msgid "Some SSH public keys are duplicate"
+msgstr "Einige SSH Public Keys sind doppelt"
 
 #: modules/sshlpk/infoPackage.inc.php:34
 msgid "LDAP Public SSH key management"
@@ -29,19 +45,4 @@ msgstr "Anzeigen / Ausblenden SSH-Schlüssel-Liste"
 msgid "Manage SSH key"
 msgstr "SSH-Schlüssel verwalten"
 
-#: modules/sshlpk/includes/publicFunc.php:36
-msgid "Public SSH keys management plugin"
-msgstr "Öffentliche SSH-Schlüssel-Management-Plugin"
-
-#: modules/sshlpk/includes/publicFunc.php:40
-msgid "Enable SSH keys management"
-msgstr "Aktiviere SSH-Schlüssel-Verwaltung"
-
-#: modules/sshlpk/includes/publicFunc.php:58
-msgid "Public SSH Key"
-msgstr "SSH Public Key"
-
-#: modules/sshlpk/includes/publicFunc.php:85
-msgid "Some SSH public keys are duplicate"
-msgstr "Einige SSH Public Keys sind doppelt"
 

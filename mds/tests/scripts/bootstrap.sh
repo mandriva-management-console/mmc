@@ -75,6 +75,8 @@ if [ ! -z "$1" ];
     set +e
     make "$1"
     RET=$?
+    # Print MDS logs on stdout
+    $MMCCORE/tests/scripts/print-mmc-log.sh
     set -e
     popd
 else

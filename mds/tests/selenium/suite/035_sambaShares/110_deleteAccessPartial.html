@@ -10,17 +10,22 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/mmc/main.php?module=samba&submod=shares&action=index</td>
+	<td>/mmc/main.php?module=samba&amp;submod=shares&amp;action=index</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//a[contains(@href, 'main.php?module=samba&submod=shares&action=delete&share=selenium2')]</td>
+	<td>//a[contains(@href, 'main.php?module=samba&amp;submod=shares&amp;action=delete&amp;share=selenium2')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>pause</td>
 	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>delFiles</td>
 	<td></td>
 </tr>
 <tr>
@@ -33,7 +38,6 @@
 	<td>Share selenium2 deleted</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

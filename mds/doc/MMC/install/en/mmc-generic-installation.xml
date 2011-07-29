@@ -5,36 +5,32 @@
   <title>MMC installation</title>
 
   <articleinfo>
-
     <author>
       <firstname>Cédric</firstname>
-
       <surname>Delfosse</surname>
-
       <email>cdelfosse@mandriva.com</email>
     </author>
-
+    <author>
+      <firstname>Jean-Philippe</firstname>
+      <surname>Braun</surname>
+      <email>jpbraun@mandriva.com</email>
+    </author>
     <affiliation>
       <orgname>Mandriva</orgname>
-
     </affiliation>
-
     <copyright>
-      <year>2007,2008,2009,2010 Cédric Delfosse - Mandriva</year>
+      <year>2007,2008,2009,2010,2011 Cédric Delfosse, Jean-Philippe Braun - Mandriva</year>
     </copyright>
-
     <legalnotice>
       <para></para>
     </legalnotice>
-
     <revhistory>
       <revision>
-        <revnumber>$Revision$</revnumber>
-        <date>$Date$</date>
-        <authorinitials>$Author$</authorinitials>
+        <revnumber>$Revision: 6668 $</revnumber>
+        <date>$Date: 2010-04-22 09:38:45 +0200 (jeu. 22 avril 2010) $</date>
+        <authorinitials>$Author: cdelfosse $</authorinitials>
       </revision>
     </revhistory>
-
     <abstract>
       <para>How to install the MMC (Mandriva Management Console) on a Linux distribution</para>
     </abstract>
@@ -48,18 +44,18 @@
     </para>
     <itemizedlist>
       <listitem>
-	<para>
-	  An agent running on the machine to manage. We call it « MMC agent ».
-	  The agent exports to the network several plugins that allow to manage the machine.
-	  Of course, there can be multiple agents running on the network.
-	  The agent and its plugins are written in Python.
-	</para>
+  <para>
+    An agent running on the machine to manage. We call it « MMC agent ».
+    The agent exports to the network several plugins that allow to manage the machine.
+    Of course, there can be multiple agents running on the network.
+    The agent and its plugins are written in Python.
+  </para>
       </listitem>
       <listitem>
-	<para>
-	  A web interface, that talks to the agent(s) using XML-RPC.
-	  The interface is written in PHP4, and use the scriptaculous framework to feature an AJAX experience.
-	</para>
+  <para>
+    A web interface, that talks to the agent(s) using XML-RPC.
+    The interface is written in PHP4, and use the scriptaculous framework to feature an AJAX experience.
+  </para>
       </listitem>
     </itemizedlist>
 
@@ -84,444 +80,437 @@
       <title>Packages naming conventions</title>
 
       <para>
-	Here are the packages naming conventions:
-	<itemizedlist>
-	  <listitem>
-	    <para>
-	      mmc-agent: the MMC agent package
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para>
-	      python-mmc-PLUGIN: MMC agent plugin
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para>
-	      mmc-web-PLUGIN: web interface plugin
-	    </para>
-	  </listitem>
-	</itemizedlist>
+  Here are the packages naming conventions:
+  <itemizedlist>
+    <listitem>
+      <para>
+        mmc-agent: the MMC agent package
       </para>
-      
+    </listitem>
+    <listitem>
+      <para>
+        python-mmc-PLUGIN: MMC agent plugin
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        mmc-web-PLUGIN: web interface plugin
+      </para>
+    </listitem>
+  </itemizedlist>
+      </para>
+
       <note>
-	
-	<title>Sample configuration files</title>
-	
-	<para>
-	  All MMC related sample configuration files are available in the python-mmc-base package, in directory <filename>/usr/share/doc/python-mmc-base/contrib/</filename>.
-	  You will find there OpenLDAP, SAMBA and Postfix configuration files.
-	</para>
-	
+
+  <title>Sample configuration files</title>
+
+  <para>
+    All MMC related sample configuration files are available in the python-mmc-base package, in directory <filename>/usr/share/doc/python-mmc-base/contrib/</filename>.
+    You will find there OpenLDAP, SAMBA and Postfix configuration files and also OpenLDAP schemas.
+  </para>
+
       </note>
 
     </section>
 
     <section id="MDS_MANDRIVA">
-      
+
       <title>Mandriva users are lucky</title>
-      
-      <para>
-	... because Mandriva RPM packages for the MDS and the MMC are available.
-      </para>
-      
-      <para>
-	Packages for Mandriva 2009 and Mandriva Cooker are available on Mandriva official repository.
-	You will find an official mirror using <ulink url="http://club.mandriva.com/xwiki/bin/view/Downloads/MirrorFinder2">the Mandriva mirror finder module</ulink>.
-      </para> 
-      <para>
-	Then, you can register a package repository with this command:
-      </para>
-      <screen>
-	urpmi.addmedia Community_Main ftp://ftp.free.fr/mirrors/ftp.mandriva.com/MandrivaLinux/official/current/i586/media/main/backports/
-      </screen>
-      <para>
-	For 64 bits architecture:
-      </para>
-      <screen>
-	urpmi.addmedia Community_Main ftp://ftp.free.fr/mirrors/ftp.mandriva.com/MandrivaLinux/official/current/x86_64/media/main/backports/
-      </screen>
-      <para>
-	Corporate Server 4 packages are also available.
-      </para>
-      <para>
-	You can register the CS4 package repository with this command for 32 bits architecture:
-      </para>
-      <screen>	
-	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/i586
-      </screen>
-      <para>
-	For 64 bits architecture:
-      </para>
-      <screen>
-	urpmi.addmedia mds http://mds.mandriva.org/pub/mds/RPM/x86_64
-      </screen>
 
       <para>
-	To install all the MDS related packages, just type:
+  ... because Mandriva RPM packages for the MDS and the MMC are available.
+      </para>
+
+      <para>
+  Packages for Mandriva 2010.0, 2010.2 and Cooker are available on Mandriva official repositories.
+  You will find an official mirror using <ulink url="http://api.mandriva.com/mirrors/list.php">the Mandriva mirror finder module</ulink>.
+  You can also add the repositories with the following command:
       </para>
       <screen>
-	# urpmi mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-          mmc-agent \
-          python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
-      </screen>
-
+    urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'</screen>
+      <para>
+    To install the MDS base packages, just type:
+      </para>
+      <screen>
+    # urpmi mmc-agent mmc-web-base python-mmc-base</screen>
+      <para>
+    If you want to install all MDS packages (all plugins), run:
+        </para>
+        <screen>
+    # urpmi task-mds</screen>
     </section>
-    
+
     <section id="MDS_DEBIAN">
-      
+
       <title>Debian packages</title>
-      
-      <para>
-	For Debian Sarge, add this in your sources.list:
-      </para>
-    
-      <screen>
-	deb http://mds.mandriva.org/pub/mds/debian sarge main
-      </screen>
-      
-      <para>
-	For Debian Etch:
-      </para>
-      
-      <screen>
-	deb http://mds.mandriva.org/pub/mds/debian etch main
-      </screen>
 
       <para>
-	To install all the MDS related packages, just type:
+  For Debian Lenny, add this in your sources.list:
+      </para>
+
+      <screen>
+  deb http://mds.mandriva.org/pub/mds/debian lenny main</screen>
+
+      <para>
+  For Debian Squeeze:
+      </para>
+
+      <screen>
+  deb http://mds.mandriva.org/pub/mds/debian squeeze main</screen>
+
+      <para>
+  To install all the MDS related packages, just type:
       </para>
       <screen>
-	# apt-get install mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
-	  mmc-agent python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba
-      </screen>
-          
+  # apt-get update
+  # apt-get install mmc-agent \
+  mmc-web-base mmc-web-mail mmc-web-network mmc-web-proxy mmc-web-samba \
+  mmc-web-sshlpk mmc-web-ppolicy mmc-web-userquota mmc-web-bulkimport \
+  python-mmc-base python-mmc-mail python-mmc-network python-mmc-proxy python-mmc-samba \
+  python-mmc-sshlpk python-mmc-ppolicy python-mmc-userquota python-mmc-bulkimport</screen>
+
     </section>
-    
+
   </section>
 
   <section>
-    
+
     <title>LDAP server configuration</title>
 
     <para>
       Since version 1.1.2, the MMC supports both OpenLDAP and Fedora Directory Server.
     </para>
-    
+
     <para>
       One LDAP schema called MMC schema is mandatory.
-      This schema and others are available in the mmc-agent tarball, in the directory <filename>contrib/ldap/</filename>.
+      This schema and others are available in the mmc-agent tarball, in the directory <filename>/usr/share/doc/python-mmc-base/contrib/ldap/</filename>.
     </para>
 
     <section>
 
-      <title>OpenLDAP configuration on Mandriva 2008 and Mandriva CS4</title>
+      <title>OpenLDAP configuration on Mandriva</title>
 
       <para>
-	The OpenLDAP configuration can be easily done using the openldap-mandriva-dit-package.
+  The OpenLDAP configuration can be easily done using the openldap-mandriva-dit-package.
       </para>
       <screen>
-	# urpmi openldap-mandriva-dit
-	...
-	# /usr/share/openldap/scripts/mandriva-dit-setup.sh
-	Please enter your DNS domain name [localdomain]:
-	mandriva.com
+  # urpmi openldap-mandriva-dit
+  ...
+  # /usr/share/openldap/scripts/mandriva-dit-setup.sh
+  Please enter your DNS domain name [localdomain]:
+  mandriva.com
 
-	Administrator account
+  Administrator account
 
-	The administrator account for this directory is
-	uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com
+  The administrator account for this directory is
+  uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com
 
-	Please choose a password for this account:
-	New password:[type password]
-	Re-enter new password:[type password]
-	
-	
-	Summary
-	=======
+  Please choose a password for this account:
+  New password:[type password]
+  Re-enter new password:[type password]
 
-	Domain:        mandriva.com
-	LDAP suffix:   dc=mandriva,dc=com
-	Administrator: uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com
 
-	Confirm? (Y/n)
-	Y
-	config file testing succeeded
-	Stopping ldap service
-	Finished, starting ldap service
-	Running /usr/bin/db_recover on /var/lib/ldap
-	remove /var/lib/ldap/alock
-	Starting slapd (ldap + ldaps): [  OK  ]
-      </screen>
-	
-      <para>
-	And you're done, the LDAP directory has been populated and the LDAP service has been started.
-      </para>
+  Summary
+  =======
+
+  Domain:        mandriva.com
+  LDAP suffix:   dc=mandriva,dc=com
+  Administrator: uid=LDAP Admin,ou=System Accounts,dc=mandriva,dc=com
+
+  Confirm? (Y/n)
+  Y
+  config file testing succeeded
+  Stopping ldap service
+  Finished, starting ldap service
+  Running /usr/bin/db_recover on /var/lib/ldap
+  remove /var/lib/ldap/alock
+  Starting slapd (ldap + ldaps): [  OK  ]</screen>
 
       <para>
-	Some tweaks needs to be done to the LDAP configuration so that the LDAP service suits to the MDS.
+  And you're done, the LDAP directory has been populated and the LDAP service has been started.
+      </para>
+
+      <para>
+  Some tweaks needs to be done to the LDAP configuration so that the LDAP service suits to the MDS.
       </para>
       <para>
-	First, copy the MDS LDAP schema to the LDAP schemas directory:
+  First, copy the MMC LDAP schema you need to the LDAP schemas directory.
       </para>
       <screen>
-	# cd /usr/share/doc/python-mmc-base*/contrib/ldap/
-	# cp dhcp.schema dnszone.schema mail.schema mmc.schema /etc/openldap/schema/
-      </screen>
+  # cp /usr/share/doc/python-mmc-base/contrib/ldap/mmc.schema /etc/openldap/schema/</screen>
       <para>
-	Then, add these lines to the file <filename>/etc/openldap/schema/local.schema</filename>:	
+  Then, add these line to the file <filename>/etc/openldap/schema/local.schema</filename>:
       </para>
       <screen>
-include /etc/openldap/schema/mmc.schema
-include /etc/openldap/schema/mail.schema
-include /etc/openldap/schema/dnszone.schema
-include /etc/openldap/schema/dhcp.schema
-      </screen>
+  include /etc/openldap/schema/mmc.schema</screen>
       <para>
-	Then, to avoid LDAP schemas conflicts, comment or remove these lines at the beginning of the file <filename>/etc/openldap/slapd.conf</filename>:
+  Then, to avoid LDAP schemas conflicts, comment or remove these lines at the
+  beginning of the file <filename>/etc/openldap/slapd.conf</filename>:
       </para>
       <screen>
-#include /usr/share/openldap/schema/misc.schema
-#include /usr/share/openldap/schema/kolab.schema
-#include /usr/share/openldap/schema/dnszone.schema
-#include /usr/share/openldap/schema/dhcp.schema
-      </screen>
+  #include /usr/share/openldap/schema/misc.schema
+  #include /usr/share/openldap/schema/kolab.schema
+  #include /usr/share/openldap/schema/dnszone.schema
+  #include /usr/share/openldap/schema/dhcp.schema</screen>
       <para>
-	Last, comment or remove these lines at the end of the file <filename>/etc/openldap/mandriva-dit-access.conf</filename>:
+  Last, comment or remove these lines at the end of the file
+  <filename>/etc/openldap/mandriva-dit-access.conf</filename>:
       </para>
       <screen>
-#access to dn.one="ou=People,dc=mandriva,dc=com"
-#        attrs=@inetLocalMailRecipient,mail
-#        by group.exact="cn=MTA Admins,ou=System Groups,dc=mandriva,dc=com" write
-#        by * read
-      </screen>
-     
+  #access to dn.one="ou=People,dc=mandriva,dc=com"
+  #        attrs=@inetLocalMailRecipient,mail
+  #        by group.exact="cn=MTA Admins,ou=System Groups,dc=mandriva,dc=com" write
+  #        by * read</screen>
+
       <para>
-	To check that the LDAP service configuration is right, run slaptest:
+  To check that the LDAP service configuration is right, run slaptest:
       </para>
       <screen>
-	# slaptest
-	config file testing succeeded
-      </screen>
-      
+  # slaptest
+  config file testing succeeded</screen>
+
       <para>
-	Now you can restart the LDAP service:
+  Now you can restart the LDAP service:
       </para>
       <screen>
-	# service ldap restart
-	Checking config file /etc/openldap/slapd.conf: [  OK  ]
-	Stopping slapd:                                [  OK  ]
-	Starting slapd (ldap + ldaps):                 [  OK  ]
-      </screen>
+  # service ldap restart
+  Checking config file /etc/openldap/slapd.conf: [  OK  ]
+  Stopping slapd:                                [  OK  ]
+  Starting slapd (ldap + ldaps):                 [  OK  ]</screen>
 
     </section>
 
     <section>
-
-      <title>OpenLDAP configuration on other distributions</title>
-
-      <note>
-	<title>OpenLDAP example configuration</title>
-	<para>
-	  You will find an example of OpenLDAP configuration in the directory <filename>contrib/ldap/</filename> of the mmc-agent tarball.
-	</para>
-      </note>
-
-      <note>
-	<title>Already existing directory</title>
-	<para>
-	  If you already have an OpenLDAP directory, all you need to do is to include the mmc.schema file.
-	</para>
-      </note>
-
-      <note>
-	<title>Debian based distribution</title>
-	<para>
-	  When installing the slapd package, debconf allows you to configure the root DN of your LDAP directory, set the LDAP manager password and populate the directory.
-	</para>
-	<para>
-	  So you only need to include the mmc.schema in slapd configuration and you are done.
-	</para>
-      </note>
-
-      <para>
-	Get the file <filename>mmc.schema</filename> from the mmc-agent tarball, and copy it to <filename>/etc/openldap/schema/</filename> (or maybe <filename>/etc/ldap/schema/</filename>).
+        <title>OpenLDAP configuration on Debian based distributions</title>
+        <para>
+            When installing the slapd package, debconf allows you to configure
+            the root DN of your LDAP directory, set the LDAP manager password
+            and populate the directory. By default debconf will not ask you to
+            configure the root DN, you can run dpkg-reconfigure for this.
+            If you choose "mandriva.com" as your domain, the LDAP DN suffix
+            will be "dc=mandriva,dc=com".
       </para>
-      <para>
-	Include this schema in the OpenLDAP configuration, in <filename>/etc/ldap/slapd.conf</filename> (or maybe <filename>/etc/openldap/slapd.conf</filename>):
-      </para>
-      
       <screen>
-	include /etc/openldap/schema/mmc.schema
-      </screen>
-      
+  # dpkg-reconfigure slapd</screen>
       <para>
-	This schema must be included after the <filename>inetorgperson.schema</filename> file. On Mandriva, the <filename>kolab.schema</filename> file is conflicting with <filename>mmc.schema</filename>, so you need to comment the include directive for the Kolab schema, else OpenLDAP won't start.
+            After that you only need to include the mmc.schema in slapd
+            configuration and you are done.
       </para>
-
-      <para>
-	In the OpenLDAP configuration file, we also define the LDAP DN suffix, the LDAP manager (rootdn) and its password (rootpw):
-      </para>
-
-      <screen>
-	suffix          "dc=mandriva,dc=com"
-	rootdn          "cn=admin,dc=mandriva,dc=com"
-	rootpw          {SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8
-      </screen>
-      
-      <para>
-	The SSHA password is computed using the slappasswd command:
-      </para>
-
-      <screen>
-	# slappasswd -s secret
-	{SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8
-      </screen>
-
-      <para>
-	Once the OpenLDAP server is configured, the base LDAP directory architecture must be created. Create a file called <filename>/tmp/ldap-init.ldif</filename> containing:
-      </para>
-      
-      <screen>
-	dn: dc=mandriva,dc=com
-	objectClass: top
-	objectClass: dcObject
-	objectClass: organization
-	dc: mandriva
-	o: mandriva
-	
-	dn: cn=admin,dc=mandriva,dc=com
-	objectClass: simpleSecurityObject
-	objectClass: organizationalRole
-	cn: admin
-	description: LDAP Administrator
-	userPassword: gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8	
-      </screen>
-
-      <para>
-	The userPassword field must be filled with the output of the slappasswd command. Now we inject the LDIF file into the directory:
-      </para>
-
-      <screen>
-	# /etc/init.d/ldap stop
-	# slapadd -l /tmp/ldap-init.ldif
-	# /etc/init.d/ldap start
-      </screen>
-      
       <note>
-	<title>LDAP suffix</title>
-	<para>
-	  In this example, the LDAP suffix is dc=mandriva,dc=com. Of course, you can choose another suffix.
-	</para>
-      </note>
-
-      <note>
-	<title>Changing the OpenLDAP manager password</title>
-	<para>
-	  You can't change this password using the MMC interface. You must use this command line:
-	</para>
-	<screen>
-ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=admin,dc=mandriva,dc=com
-	</screen>
-      </note>
-
+          <title>Debian lenny</title>
+          <para>
+              Get the file <filename>mmc.schema</filename> from
+              <filename>/usr/share/doc/python-mmc-base/contrib/ldap</filename>,
+              and copy it to <filename>/etc/ldap/schema/</filename>.
+              Include this schema in the OpenLDAP configuration,
+              in <filename>/etc/ldap/slapd.conf</filename>:
+          </para>
+          <screen>
+  include /etc/openldap/schema/mmc.schema</screen>
+            <para>
+                This schema must be included after the <filename>inetorgperson.schema</filename>
+                file.
+            </para>
+        </note>
+        <note>
+            <title>Debian Squeeze</title>
+            <para>
+                Debian Squeeze's OpenLDAP uses its own database for storing
+                its configuration. So there is no more slapd.conf.
+            </para>
+            <para>
+                You can use the mmc-add-schema script to load new schema in
+                the OpenLDAP configuration database:
+            </para>
+            <screen>
+  # apt-get install ldap-utils
+  # mmc-add-schema /usr/share/doc/python-mmc-base/contrib/ldap/mmc.schema /etc/ldap/schemas/</screen>
+            <para>
+                You can also write a regular slapd.conf file like before, and issue
+                the followind commands to convert the file in the new format:
+            </para>
+            <screen>
+  # /etc/init.d/slapd stop
+  # rm -rf /etc/ldap/slapd.d/*
+  # slaptest -f /path/to/slapd.conf -F /etc/ldap/slapd.d
+  # chown -R openldap.openldap /etc/ldap/slapd.d
+  # /etc/init.d/slapd start</screen>
+        </note>
     </section>
 
     <section>
+        <title>OpenLDAP configuration on other distributions</title>
 
-      <title>Fedora Directory Server configuration</title>
-      
-      <para>
-	This section need to be updated.
-      </para>
-      <para>
-	Install FDS according to the FDS documentation.
-      </para>
-      <para>
-	The LDAP schemas we provide must be converted and then imported into FDS.
-      </para>	
+        <note>
+            <title>OpenLDAP example configuration</title>
+            <para>
+                You will find an example of OpenLDAP configuration in the directory
+                <filename>agent/contrib/ldap/</filename> of the mmc-core tarball.
+          </para>
+        </note>
 
+        <note>
+          <title>Already existing directory</title>
+          <para>
+                If you already have an OpenLDAP directory, all you need to do
+                is to include the mmc.schema file.
+            </para>
+        </note>
+
+        <para>
+            Get the file <filename>mmc.schema</filename> from the
+            <filename>/usr/share/doc/python-mmc-base/contrib/ldap</filename>
+            directory, and copy it to <filename>/etc/openldap/schema/</filename>
+            (or maybe <filename>/etc/ldap/schema/</filename>).
+        </para>
+        <para>
+            Include this schema in the OpenLDAP configuration, in
+            <filename>/etc/ldap/slapd.conf</filename>
+            (or maybe <filename>/etc/openldap/slapd.conf</filename>):
+        </para>
+        <screen>
+  include /etc/openldap/schema/mmc.schema</screen>
+        <para>
+            This schema must be included after the
+            <filename>inetorgperson.schema</filename> file.
+        </para>
+        <para>
+            In the OpenLDAP configuration file, we also define the LDAP DN
+            suffix, the LDAP manager (rootdn) and its password (rootpw):
+        </para>
+        <screen>
+  suffix          "dc=mandriva,dc=com"
+  rootdn          "cn=admin,dc=mandriva,dc=com"
+  rootpw          {SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
+        <para>
+            The SSHA password is computed using the slappasswd command:
+        </para>
+        <screen>
+  # slappasswd -s secret
+  {SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
+        <para>
+            Once the OpenLDAP server is configured, the base LDAP directory
+            architecture must be created. Create a file called
+            <filename>/tmp/ldap-init.ldif</filename> containing:
+        </para>
+        <screen>
+  dn: dc=mandriva,dc=com
+  objectClass: top
+  objectClass: dcObject
+  objectClass: organization
+  dc: mandriva
+  o: mandriva
+
+  dn: cn=admin,dc=mandriva,dc=com
+  objectClass: simpleSecurityObject
+  objectClass: organizationalRole
+  cn: admin
+  description: LDAP Administrator
+  userPassword: gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8
+
+        </screen>
+        <para>
+            The userPassword field must be filled with the output of the
+            slappasswd command. Now we inject the LDIF file into the directory:
+        </para>
+        <screen>
+  # /etc/init.d/ldap stop
+  # slapadd -l /tmp/ldap-init.ldif
+  # chown -R ldap.ldap /var/lib/ldap (use the openldap user for your distribution)
+  # /etc/init.d/ldap start
+        </screen>
+
+        <note>
+            <title>LDAP suffix</title>
+            <para>
+                In this example, the LDAP suffix is dc=mandriva,dc=com. Of course, you can choose another suffix.
+            </para>
+        </note>
+
+        <note>
+            <title>Changing the OpenLDAP manager password</title>
+            <para>
+                You can't change this password using the MMC interface. You must use this command line:
+            </para>
+            <screen>
+  $ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=admin,dc=mandriva,dc=com</screen>
+        </note>
     </section>
-    
-  </section>
+</section>
 
   <section>
 
     <title>MMC agent and plugins installation and configuration</title>
-   
+
     <section>
-      
+
       <title>Pre-requisite for installation</title>
 
       <para>
-	This part is written in Python, and use lots of third party tools.
+  This part is written in Python, and use lots of third party tools.
       </para>
 
       <para>
-	In this table, we give the needed packages for each distribution and each MMC components.
+  In this table, we give the needed packages for each distribution and each MMC components.
       </para>
       <para>
-	If you have informations for other distributions, you're welcome :)
+  If you have informations for other distributions, you're welcome :)
       </para>
 
       <informaltable>
-	<tgroup cols="7" align="left" colsep="1" rowsep="1">
-	  <colspec colnum="1" colname="col1" />
-	  <colspec colnum="2" colname="col2" />
-	  <colspec colnum="3" colname="col3" />
-	  <colspec colnum="4" colname="col4" />
-	  <colspec colnum="5" colname="col5" />
-	  <colspec colnum="6" colname="col6" />
-	  <colspec colnum="7" colname="col7" />	  
-	  <thead>
-	    <row>
-	      <entry>Vendor / MMC component</entry>
-	      <entry>MMC agent</entry>
-	      <entry>Python base plugin</entry>
-	      <entry>Python samba plugin</entry>
-	      <entry>Python mail plugin</entry>
-	      <entry>Python ox plugin</entry>
-	      <entry>Python proxy plugin</entry>
-	    </row>
-	  </thead>
+  <tgroup cols="7" align="left" colsep="1" rowsep="1">
+    <colspec colnum="1" colname="col1" />
+    <colspec colnum="2" colname="col2" />
+    <colspec colnum="3" colname="col3" />
+    <colspec colnum="4" colname="col4" />
+    <colspec colnum="5" colname="col5" />
+    <colspec colnum="6" colname="col6" />
+    <colspec colnum="7" colname="col7" />
+    <thead>
+      <row>
+        <entry>Vendor / MMC component</entry>
+        <entry>MMC agent</entry>
+        <entry>Python base plugin</entry>
+        <entry>Python samba plugin</entry>
+        <entry>Python mail plugin</entry>
+        <entry>Python proxy plugin</entry>
+      </row>
+    </thead>
 
-	  <tbody>
-	    <row>
-	      <entry>Mandriva 2006</entry>
-	      <entry>python-twisted</entry>
-	      <entry>python-ldap pylibacl</entry>
-	      <entry>samba</entry>
-	      <entry></entry>
-	      <entry>python-psycopg</entry>
-	      <entry>squid squidguard</entry>
-	    </row>	    
-	    <row>
-	      <entry>CentOS 4.3</entry>
-	      <entry>python-twisted</entry>
-	      <entry>python-ldap python-libacl</entry>
-	      <entry>samba</entry>
-	      <entry></entry>
-	      <entry>python-psycopg postgresql-python</entry>
-	      <entry>squid squidguard</entry>
-	    </row>
-	  </tbody>
-	</tgroup>
+    <tbody>
+      <row>
+        <entry>Mandriva 2006</entry>
+        <entry>python-twisted</entry>
+        <entry>python-ldap pylibacl</entry>
+        <entry>samba</entry>
+        <entry>python-psycopg</entry>
+        <entry>squid squidguard</entry>
+      </row>
+      <row>
+        <entry>CentOS 4.3</entry>
+        <entry>python-twisted</entry>
+        <entry>python-ldap python-libacl</entry>
+        <entry>samba</entry>
+        <entry>python-psycopg postgresql-python</entry>
+        <entry>squid squidguard</entry>
+      </row>
+    </tbody>
+  </tgroup>
       </informaltable>
 
       <note>
-	<title>CentOS DAG repository</title>
-	<para>
-	  For some package, you will need to add the DAG repository to yum. Create a file named <filename>/etc/yum.repos.d/DAG.repo</filename> containing:
-	</para>
-	<screen>
-	  # DAG Repository for RedHat Enterprise 4 / CentOS 4
-	  [dag]
-	  name=DAG Repository
-	  baseurl = http://apt.sw.be/redhat/el$releasever/en/$basearch/dag
-	  gpgkey=http://dag.wieers.com/packages/RPM-GPG-KEY.dag.txt
-	  gpgcheck=1
-	  enabled=0
-	</screen>
+  <title>CentOS DAG repository</title>
+  <para>
+    For some package, you will need to add the DAG repository to yum. Create a file named <filename>/etc/yum.repos.d/DAG.repo</filename> containing:
+  </para>
+  <screen>
+  # DAG Repository for RedHat Enterprise 4 / CentOS 4
+  [dag]
+  name=DAG Repository
+  baseurl = http://apt.sw.be/redhat/el$releasever/en/$basearch/dag
+  gpgkey=http://dag.wieers.com/packages/RPM-GPG-KEY.dag.txt
+  gpgcheck=1
+  enabled=0</screen>
       </note>
 
     </section>
@@ -531,66 +520,88 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>Installation from source tarball</title>
 
       <para>
-	Get the current mmc-agent tarball at this URL: ftp://mds.mandriva.org/pub/mds/sources/current/
+        Get the current tarballs at this URLs:
+        <ulink url="ftp://mds.mandriva.org/pub/mmc-core/sources/current/">ftp://mds.mandriva.org/pub/mmc-core/sources/current/</ulink>,
+        <ulink url="ftp://mds.mandriva.org/pub/mds/sources/current/">ftp://mds.mandriva.org/pub/mds/sources/current/</ulink>
       </para>
-      
+
       <screen>
-	# tar xzf mmc-agent-x.y.z.tar.gz
-	# cd mmc-agent-x.y.z
-	# make install
-      </screen>
+  # tar xzvf mmc-core-x.y.z.tar.gz
+  # cd mmc-core-x.y.z
+  # ./configure --sysconfdir=/etc --localstatedir=/var
+  # make
+  # make install
+  # tar xzvf mds-x.y.z.tar.gz
+  # cd mds-x.y.z
+  # ./configure --sysconfdir=/etc --localstatedir=/var
+  # make
+  # make install</screen>
 
       <para>
-	The last command starts the installation: the MMC agent and all its plugins are byte-compiled and installed.
-      </para>
-      <para>
-	The default $PREFIX for installation is <filename>/usr/local</filename>. Here are how the files are installed:
+  The default $PREFIX for installation is <filename>/usr/local</filename>. You can change it on the ./configure line by adding the option --prefix=/usr for example.
+
+  Here are how the files are installed:
       </para>
       <itemizedlist>
-	<listitem>
-	  <para>
-	    <filename>$PREFIX/sbin/mmc-agent</filename>: the MMC agent
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>$PREFIX/lib/mmc/</filename>: helpers for some MMC plugins
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>/etc/mmc/</filename>: all MMC configuration files. There files are sample files you will need to edit.
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>/etc/init.d/mmc-agent</filename>: MMC agent init script
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>$PREFIX/lib/pythonX.Y/site-packages/mmc</filename>: MMC Python libraries and plugins.
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>$PREFIX/lib/pythonX.Y/site-packages/mmc/plugins/</filename>: MMC Python plugins
-	  </para>
-	</listitem>
+  <listitem>
+    <para>
+      <filename>$PREFIX/sbin/mmc-agent</filename>: the MMC agent
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>$PREFIX/lib/mmc/</filename>: helpers for some MMC plugins
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>/etc/mmc/</filename>: all MMC configuration files. There files are sample files you will need to edit.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>/etc/init.d/mmc-agent</filename>: MMC agent init script
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>$PREFIX/lib/pythonX.Y/site-packages/mmc</filename>: MMC Python libraries and plugins.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>$PREFIX/lib/pythonX.Y/site-packages/mmc/plugins/</filename>: MMC Python plugins
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>$PREFIX/share/mmc/</filename>: all MMC web interface related files (PHP, images, ...l)
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+            <filename>$PREFIX/share/mmc/modules/</filename>: MMC web interface plugins
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <filename>/etc/mmc/mmc.ini</filename>: MMC web configuration file
+    </para>
+  </listitem>
       </itemizedlist>
 
     </section>
-    
+
     <section>
 
       <title>MMC agent and Python plugins inter-dependencies</title>
 
       <para>
-	When the MMC agent starts, it looks for all the installed plugins, and tries to activate them.
-	Each plugin has a self-test function to check if it can be activated or not. For example, if the « base » plugin can't contact the LDAP, it won't be activated. It the SAMBA schema is not available in the LDAP, the « samba » plugin won't start.
+  When the MMC agent starts, it looks for all the installed plugins, and tries to activate them.
+  Each plugin has a self-test function to check if it can be activated or not. For example, if the « base » plugin can't contact the LDAP, it won't be activated. It the SAMBA schema is not available in the LDAP, the « samba » plugin won't start.
       </para>
-      <para>	
-	The MMC agent always tries to enable the plugin « base » first. The MMC agent won't start if the plugin « base » can't be activated.
+      <para>
+  The MMC agent always tries to enable the plugin « base » first. The MMC agent won't start if the plugin « base » can't be activated.
       </para>
 
     </section>
@@ -600,10 +611,10 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>MMC agent configuration</title>
 
       <para>
-	You can find a full description of the MMC agent configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-agent-configuration-file.html">there</ulink>.
+  You can find a full description of the MMC agent configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-agent-configuration-file.html">there</ulink>.
       </para>
       <para>
-	With the default configuration file we provide (<filename>/etc/mmc/agent/config.ini</filename>), the MMC agent listen locally to incoming XMLRPC over HTTPS connections on port 7080.
+  With the default configuration file we provide (<filename>/etc/mmc/agent/config.ini</filename>), the MMC agent listen locally to incoming XMLRPC over HTTPS connections on port 7080.
       </para>
 
     </section>
@@ -613,17 +624,17 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>MMC « base » plugin configuration</title>
 
       <para>
- 	You can find a full description of the MMC base plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-base-configuration.html">there</ulink>.
+  You can find a full description of the MMC base plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-base-configuration.html">there</ulink>.
       </para>
       <para>
-	The main part of the configuration (<filename>/etc/mmc/plugins/base.ini</filename>) is to set the LDAP server to connect to, and the credentials to use to write into the LDAP.
+  The main part of the configuration (<filename>/etc/mmc/plugins/base.ini</filename>) is to set the LDAP server to connect to, and the credentials to use to write into the LDAP.
       </para>
       <para>
-	The « defaultUserGroup » option must be set to an existing group in the LDAP.
-	You will have to create it using the MMC web interface if this group does not exist.
+  The « defaultUserGroup » option must be set to an existing group in the LDAP.
+  You will have to create it using the MMC web interface if this group does not exist.
       </para>
       <para>
-	To configure the MMC audit framework, see the section <xref linkend="MMC_AUDIT" />.
+  To configure the MMC audit framework, see the section <xref linkend="MMC_AUDIT" />.
       </para>
 
     </section>
@@ -633,17 +644,17 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>MMC « ppolicy » plugin configuration</title>
 
       <para>
- 	You can find a full description of the MMC ppolicy plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC-trunk/conf/en/mmc-python-plugin-ppolicy-configuration.html">there</ulink>.
+  You can find a full description of the MMC ppolicy plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-ppolicy-configuration.html">there</ulink>.
       </para>
       <para>
-	The only thing you'll have to modify in the configuration file
-	is the "ppolicyDN" option. The OU parent must be an existing
-	DN. If the OU or the default password policy object doesn't
-	exist, the MMC agent will create them when it starts.
+  The only thing you'll have to modify in the configuration file
+  is the "ppolicyDN" option. The OU parent must be an existing
+  DN. If the OU or the default password policy object doesn't
+  exist, the MMC agent will create them when it starts.
       </para>
       <para>
-	See the section <xref linkend="MMC_PPOLICY" /> to know how you
-	must configure your LDAP directory for password policy support.
+  See the section <xref linkend="MMC_PPOLICY" /> to know how you
+  must configure your LDAP directory for password policy support.
       </para>
 
     </section>
@@ -653,45 +664,45 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>MMC « SAMBA » plugin configuration</title>
 
       <para>
-	You can find a full description of the MMC SAMBA plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-samba-configuration.html">there</ulink>.
+  You can find a full description of the MMC SAMBA plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-samba-configuration.html">there</ulink>.
       </para>
       <para>
-	You shouldn't need to edit the configuration file (<filename>/etc/mmc/plugins/samba.ini</filename>).
-	This plugin won't be activated if your LDAP directory does not include the SAMBA schema, and well-known RIDs. See the section <xref linkend="MDS_SAMBA" />.
+  You shouldn't need to edit the configuration file (<filename>/etc/mmc/plugins/samba.ini</filename>).
+  This plugin won't be activated if your LDAP directory does not include the SAMBA schema, and well-known RIDs. See the section <xref linkend="MDS_SAMBA" />.
       </para>
       <para>
-	ACLs must be enabled on your filesystem. The SAMBA plugin needs them to set the ACLs when creating shares, and SAMBA will be able to map NTFS ACLs to the POSIX ACLs.
+  ACLs must be enabled on your filesystem. The SAMBA plugin needs them to set the ACLs when creating shares, and SAMBA will be able to map NTFS ACLs to the POSIX ACLs.
       </para>
       <para>
-	If you use XFS, ACLs are enabled by default. For ext3, you need to enable ACLs in <filename>/etc/fstab</filename>.
+  If you use XFS, ACLs are enabled by default. For ext3, you need to enable ACLs in <filename>/etc/fstab</filename>.
       </para>
 
     </section>
-    
+
     <section>
 
       <title>MMC « mail » plugin configuration</title>
 
       <para>
-	You can find a full description of the MMC mail plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-mail-configuration.html">there</ulink>.
+  You can find a full description of the MMC mail plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-mail-configuration.html">there</ulink>.
       </para>
       <para>
-	This plugin won't be activated if your LDAP directory does not include a special mail schema. See the section <xref linkend="MDS_MAIL" />.
+  This plugin won't be activated if your LDAP directory does not include a special mail schema. See the section <xref linkend="MDS_MAIL" />.
       </para>
 
     </section>
 
     <section>
-      
+
       <title>MMC « network » plugin configuration</title>
 
       <para>
-	You can find a full description of the MMC network plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-network-configuration.html">there</ulink>.
+  You can find a full description of the MMC network plugin configuration file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-python-plugin-network-configuration.html">there</ulink>.
       </para>
       <para>
-	This plugin won't be activated if your LDAP directory does not include special schemas. See the section <xref linkend="MDS_NETWORK" />.
+  This plugin won't be activated if your LDAP directory does not include special schemas. See the section <xref linkend="MDS_NETWORK" />.
       </para>
-      
+
     </section>
 
 
@@ -700,69 +711,69 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>Using MMC agent</title>
 
       <para>
-	To start and stop the MMC agent, use the <filename>/etc/init.d/mmc-agent</filename> script:
+  To start and stop the MMC agent, use the <filename>/etc/init.d/mmc-agent</filename> script:
       </para>
       <screen>
-	# /etc/init.d/mmc-agent stop
-	# /etc/init.d/mmc-agent start
+  # /etc/init.d/mmc-agent stop
+  # /etc/init.d/mmc-agent start
       </screen>
 
       <para>
-	The MMC agent must be started to use the MMC web interface.
+  The MMC agent must be started to use the MMC web interface.
       </para>
 
       <para>
-	When the MMC agent is started, all startup log messages are written to stderr and <filename>/var/log/mmc/mmc-agent.log</filename>.
+  When the MMC agent is started, all startup log messages are written to stderr and <filename>/var/log/mmc/mmc-agent.log</filename>.
       </para>
 
       <para>
-	Here is what is written (for example) if there is no error:
-      </para>
-      
-      <screen>
-	# /etc/init.d/mmc-agent start
-	Starting Mandriva Management Console XML-RPC Agent: mmc-agent starting...
-	Plugin base loaded, API version: 4:0:0 build(82)
-	Plugin mail loaded, API version: 3:0:1 build(78)
-	Plugin samba loaded, API version: 3:0:2 build(78)
-	Plugin proxy loaded, API version: 1:0:0 build(78)
-	Daemon PID 13943
-	done.
-      </screen>
-
-      <para>
-	If there is an error:
-      </para>
-      
-      <screen>
-	# /etc/init.d/mmc-agent start
-	Starting Mandriva Management Console XML-RPC Agent: mmc-agent starting...
-	Can't bind to LDAP: invalid credentials.
-	Plugin base not loaded.
-	MMC agent can't run without the base plugin. Exiting.
-	failed.
-      </screen>
-
-      <para>
-	The base plugin can't bind to LDAP, because the credentials we used to connect to the LDAP server are wrong.
-	As the base plugin must be activated to use the MMC agent, the MMC agent exits.
+  Here is what is written (for example) if there is no error:
       </para>
 
       <screen>
-	# /etc/init.d/mmc-agent start
-	Starting Mandriva Management Console XML-RPC Agent: mmc-agent starting...
-	Plugin base loaded, API version: 4:0:0 build(82)
-	Plugin mail loaded, API version: 3:0:1 build(78)
-	Samba schema are not included in LDAP directory
-	Plugin samba not loaded.
-	Plugin proxy loaded, API version: 1:0:0 build(78)
-	Daemon PID 14010
-	done.	
+  # /etc/init.d/mmc-agent start
+  Starting Mandriva Management Console XML-RPC Agent: mmc-agent starting...
+  Plugin base loaded, API version: 4:0:0 build(82)
+  Plugin mail loaded, API version: 3:0:1 build(78)
+  Plugin samba loaded, API version: 3:0:2 build(78)
+  Plugin proxy loaded, API version: 1:0:0 build(78)
+  Daemon PID 13943
+  done.
       </screen>
-      
+
       <para>
-	In this example, the SAMBA schema has not been detected in the LDAP directory, so the SAMBA plugin is not started.
-	But this plugin is not mandatory, so the MMC agent doesn't exit.
+  If there is an error:
+      </para>
+
+      <screen>
+  # /etc/init.d/mmc-agent start
+  Starting Mandriva Management Console XML-RPC Agent: mmc-agent starting...
+  Can't bind to LDAP: invalid credentials.
+  Plugin base not loaded.
+  MMC agent can't run without the base plugin. Exiting.
+  failed.
+      </screen>
+
+      <para>
+  The base plugin can't bind to LDAP, because the credentials we used to connect to the LDAP server are wrong.
+  As the base plugin must be activated to use the MMC agent, the MMC agent exits.
+      </para>
+
+      <screen>
+  # /etc/init.d/mmc-agent start
+  Starting Mandriva Management Console XML-RPC Agent: mmc-agent starting...
+  Plugin base loaded, API version: 4:0:0 build(82)
+  Plugin mail loaded, API version: 3:0:1 build(78)
+  Samba schema are not included in LDAP directory
+  Plugin samba not loaded.
+  Plugin proxy loaded, API version: 1:0:0 build(78)
+  Daemon PID 14010
+  done.
+      </screen>
+
+      <para>
+  In this example, the SAMBA schema has not been detected in the LDAP directory, so the SAMBA plugin is not started.
+  But this plugin is not mandatory, so the MMC agent doesn't exit.
       </para>
 
     </section>
@@ -772,26 +783,26 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>How to disable a plugin</title>
 
       <para>
-	In the .ini file corresponding to the plugin, set « disable = 1 » in the main section.
+  In the .ini file corresponding to the plugin, set « disable = 1 » in the main section.
       </para>
 
     </section>
-    
+
   </section>
 
   <section>
 
     <title>MMC web interface installation</title>
-   
+
     <section>
 
       <title>Prerequisite</title>
-      
+
       <para>
-	The MMC web interface is written in PHP4. Basically, you just need to install an Apache2 server with PHP4 (or PHP5) support.
+  The MMC web interface is written in PHP4. Basically, you just need to install an Apache2 server with PHP4 (or PHP5) support.
       </para>
       <para>
-	The XML-RPC module of PHP is needed too.
+  The XML-RPC module of PHP is needed too.
       </para>
 
     </section>
@@ -801,43 +812,52 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>Description of all the MMC web modules</title>
 
       <para>
-	The mmc-web-base package contains:
+  The mmc-web-base package contains:
       </para>
       <itemizedlist>
-	<listitem>
-	  <para>the base infrastructure used by all the others MMC web modules</para>
-	</listitem>
-	<listitem>
-	  <para>the MMC login page</para>
-	</listitem>
-	<listitem>
-	  <para>the users and groups management pages</para>
-	</listitem>
+  <listitem>
+    <para>the base infrastructure used by all the others MMC web modules</para>
+  </listitem>
+  <listitem>
+    <para>the MMC login page</para>
+  </listitem>
+  <listitem>
+    <para>the users and groups management pages</para>
+  </listitem>
       </itemizedlist>
-      
+
       <para>
-	The others MMC web modules available are:
+  The others MMC web modules available are:
       </para>
 
       <itemizedlist>
-	<listitem>
-	  <para>mmc-web-samba: SAMBA users, groups and computers management, shares management</para>
-	</listitem>
-	<listitem>
-	  <para>mmc-web-mail: mail delivery and mail virtual domains management</para>
-	</listitem>
-	<listitem>
-	  <para>mmc-web-proxy: blacklist management for squidGuard</para>
-	</listitem>
-	<listitem>
-	  <para>mmc-web-network: DNS/DHCP management</para>
-	</listitem>
+  <listitem>
+    <para>mmc-web-samba: SAMBA users, groups and computers management, shares management</para>
+  </listitem>
+  <listitem>
+    <para>mmc-web-mail: mail delivery and mail virtual domains management (with Zarafa support)</para>
+  </listitem>
+  <listitem>
+    <para>mmc-web-proxy: blacklist management for squidGuard</para>
+  </listitem>
+  <listitem>
+    <para>mmc-web-network: DNS/DHCP management</para>
+  </listitem>
+  <listitem>
+    <para>mmc-web-ppolicy: Password policies management</para>
+  </listitem>
+  <listitem>
+    <para>mmc-web-userquota: Filesystem and network quotas management</para>
+  </listitem>
+  <listitem>
+    <para>mmc-web-bulkimport: User mass import from CSV files</para>
+  </listitem>
       </itemizedlist>
-      
+
       <para>
-	All this module depends on the mmc-web-base module. They won't work if the mmc-web-base module is not installed.
+  All this modules depends on the mmc-web-base module. They won't work if the mmc-web-base module is not installed.
       </para>
-      
+
     </section>
 
     <section>
@@ -845,138 +865,84 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>MMC web modules and MMC Python plugins inter-dependencies</title>
 
       <para>
-	A MMC web modules won't show in the web interface if the corresponding Python plugin is not loaded by the contacted MMC agent.
+  A MMC web modules won't show in the web interface if the corresponding Python plugin is not loaded by the contacted MMC agent.
       </para>
       <para>
-	For example, you installed the SAMBA web module, but the SAMBA Python plugin of the MMC agent the web interface is connected to has not been activated.
-	This will be detected and automatically the SAMBA management module of the web interface won't be displayed.
+  For example, you installed the SAMBA web module, but the SAMBA Python plugin of the MMC agent the web interface is connected to has not been activated.
+  This will be detected and automatically the SAMBA management module of the web interface won't be displayed.
       </para>
 
     </section>
-    
+
     <section>
 
-      <title>Installation of mmc-web-base from source tarball</title>
+      <title>Web interface configuration</title>
 
       <para>
-	Get the current mmc-web-base tarball <ulink url="ftp://mds.mandriva.org/pub/mds/sources/current/">there</ulink>.
-      </para>
-
-      <screen>
-	# tar xvzpf mmc-web-base-x.y.z.tar.gz
-	# cd mmc-web-base-x.y.z
-	# make install HTTPDUSER=apache
-      </screen>
-
-      <para>
-	For some distribution (e.g. Debian based distro), you must use HTTPDUSER=www-data.
+         You can find a full documentation of the /etc/mmc/mmc.ini file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-web-configuration-file.html">there</ulink>.
       </para>
 
       <para>
-	The installation process copies files to:	
+  What you need to change in this file is:
       </para>
+
       <itemizedlist>
-	<listitem>
-	  <para>
-	    <filename>/usr/local/share/mmc/</filename>: all MMC web interface related files (PHP, images, ...)
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    <filename>/etc/mmc/mmc.ini</filename>: MMC web configuration file
-	  </para>
-	</listitem>
+  <listitem>
+    <para>
+      « login » and « password »: these are the credentials to connect to the MMC agents on your network (the same credentials as in <filename>/etc/mmc/agent/config.ini</filename>)
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      « url » option of the [server_x]: the URL to connect to the MMC agent.
+    </para>
+  </listitem>
       </itemizedlist>
 
       <para>
-	You can find a full documentation of the mmc.ini file <ulink url="http://mds.mandriva.org/content/MMC/conf/en/mmc-web-configuration-file.html">there</ulink>.
-      </para>
-
-      <para>
-	What you need to change in this file is:
-      </para>
-      
-      <itemizedlist>
-	<listitem>
-	  <para>
-	    « login » and « password »: these are the credentials to connect to the MMC agents on your network (the same credentials as in <filename>/etc/mmc/agent/config.ini</filename>)
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    « url » option of the [server_x]: the URL to connect to the MMC agent.
-	  </para>
-	</listitem>
-      </itemizedlist>      
-
-      <para>
-	To connect to the MMC web interface using an URL like http://IP/mmc, we add an alias to Apache2:
+  To connect to the MMC web interface using an URL like http://IP/mmc, we add an alias to Apache2:
       </para>
 
       <screen>
-	# cp confs/apache/mmc.conf /etc/httpd/conf.d/mmc.conf
+  # cp /etc/mmc/apache/mmc.conf /etc/httpd/conf.d/mmc.conf
       </screen>
 
       <para>
-	Then don't forget to reload the Apache service.
+  Then don't forget to reload the Apache service.
       </para>
       <para>
-	Now you should be able to see the MMC login screen at this URL: http://IP/mmc
+  Now you should be able to see the MMC login screen at this URL: http://IP/mmc
       </para>
 
       <note>
-	
-	<title>PHP configuration notes</title>
-	
-	<para>
-	  The directive magic_quotes_gpc must be enabled in Apache PHP configuration, either in the globap PHP configuration file, either in the <filename>mmc.conf</filename> file with this line:
-	</para>
-	<screen>
-	  php_flag magic_quotes_gpc on
-	</screen>
-	<para>
-	  The MMC web interface is not compatible with php-eaccelerator. Please uninstall it else you won't be able to connect to the MMC.
-	</para>
-	
+
+  <title>PHP configuration notes</title>
+
+  <para>
+    The directive magic_quotes_gpc must be enabled in Apache PHP configuration, either in the globap PHP configuration file, either in the <filename>mmc.conf</filename> file with this line:
+  </para>
+  <screen>
+    php_flag magic_quotes_gpc on
+  </screen>
+  <para>
+    The MMC web interface is not compatible with php-eaccelerator. Please uninstall it else you won't be able to connect to the MMC.
+  </para>
+
       </note>
 
     </section>
 
     <section>
-      
+
       <title>Administrator login to the MMC web interface</title>
-      
-      <para>
-	You can always login to the MMC web interface using the login « root » with the LDAP administrator password.
-      </para>
-      <para>
-	After you installed the MMC, this is the only user you can use to log in, because the LDAP directory entry is empty.
-      </para>
-
-    </section>
-    
-    <section>
-
-      <title>Installation of additional MMC web modules</title>
 
       <para>
-	The MMC web tarballs are available <ulink url="ftp://mds.mandriva.org/pub/mds/sources/current/">there</ulink>.
+  You can always login to the MMC web interface using the login « root » with the LDAP administrator password.
       </para>
-
       <para>
-	They are all easy to install. For example:
+  After you installed the MMC, this is the only user you can use to log in, because the LDAP directory entry is empty.
       </para>
 
-      <screen>
-	# tar xvzpf mmc-web-samba-x.y.z.tar.gz
-	# cd mmc-web-samba-x.y.z
-	# make install
-      </screen>
-
-      <para>
-	There are no configuration files for all the additional modules.
-      </para>
-      
     </section>
 
     <section>
@@ -984,24 +950,24 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
       <title>About firewalling</title>
 
       <para>
-	The MMC web interface communicate with the MMC agent using the TCP port 7080 (default configuration).
-	Please check that your firewall configuration doesn't block this port.
+  The MMC web interface communicate with the MMC agent using the TCP port 7080 (default configuration).
+  Please check that your firewall configuration doesn't block this port.
       </para>
 
     </section>
-    
+
     <section>
-      
+
       <title>About SE Linux</title>
-      
+
       <para>
-	The MMC web interface opens a socket to communicate with the MMC agent using XML-RPC.
+  The MMC web interface opens a socket to communicate with the MMC agent using XML-RPC.
       </para>
       <para>
-	On SE Linux enabled systems (e.g. Fedora Core 6), by default Apache can't open socket per policy.
+  On SE Linux enabled systems (e.g. Fedora Core 6), by default Apache can't open socket per policy.
       </para>
       <para>
-	So you need to fix or disable your SE linux configuration to make it works.
+  So you need to fix or disable your SE linux configuration to make it works.
       </para>
 
     </section>
@@ -1032,14 +998,14 @@ ldappasswd -s NewPassword -D "cn=admin,dc=mandriva,dc=com" -w OldPassword -x cn=
     </para>
 
     <screen>
-[audit]
-method = database
-dbhost = 127.0.0.1
-port = 5432
-dbdriver = mysql
-dbuser = audit
-dbpassword = audit
-dbname = audit
+  [audit]
+  method = database
+  dbhost = 127.0.0.1
+  port = 3306
+  dbdriver = mysql
+  dbuser = audit
+  dbpassword = audit
+  dbname = audit
     </screen>
 
     <para>
@@ -1052,12 +1018,12 @@ dbname = audit
     </para>
 
     <screen>
-# mmc-helper audit create
--- Execute the following lines into the MySQL client
-CREATE DATABASE audit DEFAULT CHARSET utf8;
-GRANT ALL PRIVILEGES ON audit.* TO 'audit'@localhost IDENTIFIED BY
-'audit';
-FLUSH PRIVILEGES;
+  # mmc-helper audit create
+  -- Execute the following lines into the MySQL client
+  CREATE DATABASE audit DEFAULT CHARSET utf8;
+  GRANT ALL PRIVILEGES ON audit.* TO 'audit'@localhost IDENTIFIED BY
+  'audit';
+  FLUSH PRIVILEGES;
     </screen>
 
     <para>
@@ -1074,7 +1040,7 @@ FLUSH PRIVILEGES;
     </para>
 
     <screen>
-# mmc-helper audit create | mysql
+  # mmc-helper audit create | mysql
     </screen>
 
     <para>
@@ -1083,10 +1049,10 @@ FLUSH PRIVILEGES;
     </para>
 
     <screen>
-# mmc-helper audit init
-INFO:root:Creating audit tables as requested
-INFO:root:Using database schema version 1
-INFO:root:Done
+  # mmc-helper audit init
+  INFO:root:Creating audit tables as requested
+  INFO:root:Using database schema version 2
+  INFO:root:Done
     </screen>
 
     <para>
@@ -1112,21 +1078,20 @@ INFO:root:Done
     </para>
 
     <screen>
-# Include password policy schema
-include /path/to/openldap/schema/ppolicy.schema
+  # Include password policy schema
+  include /path/to/openldap/schema/ppolicy.schema
 
+  ...
+  # Load the ppolicy module
+  moduleload  ppolicy.la
 
-...
-# Load the ppolicy module
-moduleload	ppolicy.la
-
-...
-# Add the overlay ppolicy to your OpenLDAP database
-database	bdb
-suffix		"dc=mandriva,dc=com"
-...
-overlay ppolicy
-ppolicy_default "cn=default,ou=Password Policies,dc=mandriva,dc=com"
+  ...
+  # Add the overlay ppolicy to your OpenLDAP database
+  database  bdb
+  suffix    "dc=mandriva,dc=com"
+  ...
+  overlay ppolicy
+  ppolicy_default "cn=default,ou=Password Policies,dc=mandriva,dc=com"
     </screen>
 
     <para>
@@ -1140,27 +1105,27 @@ ppolicy_default "cn=default,ou=Password Policies,dc=mandriva,dc=com"
       <title>Password Policy checker module</title>
 
       <para>
-	This module has only been built and tested on Mandriva. It is
-	installed as <filename>/usr/lib/openldap/mmc-check-password.so</filename>.
+  This module has only been built and tested on Mandriva. It is
+  installed as <filename>/usr/lib/openldap/mmc-check-password.so</filename>.
       </para>
       <para>
-	If password quality checking is enabled on the password
-	policy, OpenLDAP calls this module to check password quality
-	when a user password is changed using the LDAP Password Modify
-	Extended operation. MDS will change user passwords with this
-	operation if you set "passwordscheme = passmod" in
-	the <filename>base.ini</filename> configuration file.
+  If password quality checking is enabled on the password
+  policy, OpenLDAP calls this module to check password quality
+  when a user password is changed using the LDAP Password Modify
+  Extended operation. MDS will change user passwords with this
+  operation if you set "passwordscheme = passmod" in
+  the <filename>base.ini</filename> configuration file.
       </para>
       <para>
-	To check a
-	password, <filename>mmc-check-password.so</filename> will
-	launch the
-	command <filename>/usr/bin/mmc-password-helper</filename>. The
-	password will pass the quality checks if it contains at least
-	one number, one upper case character, one lower case
-	character and one special character (like #, $, etc.). The
-	password must not contains the same character twice. If
-	python-cracklib is available, a cracklib check is also done.
+  To check a
+  password, <filename>mmc-check-password.so</filename> will
+  launch the
+  command <filename>/usr/bin/mmc-password-helper</filename>. The
+  password will pass the quality checks if it contains at least
+  one number, one upper case character, one lower case
+  character and one special character (like #, $, etc.). The
+  password must not contains the same character twice. If
+  python-cracklib is available, a cracklib check is also done.
       </para>
 
     </section>
@@ -1170,35 +1135,33 @@ ppolicy_default "cn=default,ou=Password Policies,dc=mandriva,dc=com"
       <title>the mmc-password-helper tool</title>
 
       <para>
-	This tool allows to check a password from the command line.
-	For example:
+  This tool allows to check a password from the command line.
+  For example:
       </para>
       <screen>
-% echo foo | mmc-password-helper -c
-% echo $?
-1
-# Exit code is set to 1 if the password fails quality checks, else 0
-# Use -v for more
-# echo foo | mmc-password-helper -c -v
-the password must be 8 or longer
-% echo $?
-1
-      </screen>
+  % echo foo | mmc-password-helper -c
+  % echo $?
+  1
+  # Exit code is set to 1 if the password fails quality checks, else 0
+  # Use -v for more
+  # echo foo | mmc-password-helper -c -v
+  the password must be 8 or longer
+  % echo $?
+  1</screen>
 
       <para>
-	The tool also generates good passwords:
+  The tool also generates good passwords:
       </para>
       <screen>
-% mmc-password-helper -n
-1NjY0MD:
-# Use -l to change the length (default is 8)
-% mmc-password-helper -n -l 12
-2ND=3OTcwMjY
-% mmc-password-helper -n | mmc-password-helper -c
-% echo $?
-0
-# Generated password will always succeed quality checks :)
-      </screen>
+  % mmc-password-helper -n
+  1NjY0MD:
+  # Use -l to change the length (default is 8)
+  % mmc-password-helper -n -l 12
+  2ND=3OTcwMjY
+  % mmc-password-helper -n | mmc-password-helper -c
+  % echo $?
+  0
+  # Generated password will always succeed quality checks :)</screen>
 
     </section>
 
@@ -1229,9 +1192,9 @@ the password must be 8 or longer
       <title>LDAP directory configuration</title>
 
       <para>
-	You need to import the SAMBA schema into the LDAP directory.
-	The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/samba.schema</filename>.
-	But you can also use the schema provided by the SAMBA project.
+  You need to import the SAMBA schema into the LDAP directory.
+  The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/samba.schema</filename>.
+  But you can also use the schema provided by the SAMBA project.
       </para>
 
     </section>
@@ -1241,43 +1204,42 @@ the password must be 8 or longer
       <title>SAMBA configuration</title>
 
       <para>
-	Stop samba before modifying its configuration:
+  Stop samba before modifying its configuration:
       </para>
       <screen>
-	# /etc/init.d/samba stop
-	Or according to your distribution:
-	# /etc/init.d/smb stop
+  # /etc/init.d/samba stop
+  Or according to your distribution:
+  # /etc/init.d/smb stop</screen>
+      <para>
+  In <filename>/etc/samba/smb.conf</filename>, you need to modify the « workgroup », « ldap admin dn » and « ldap suffix » to suit your configuration.
+      </para>
+      <para>
+  SAMBA also needs the credentials of the LDAP manager to write into the LDAP:
+      </para>
+      <screen>
+  # smbpasswd -w secret
+  Setting stored password for "cn=admin,dc=mandriva,dc=com" in secrets.tdb
       </screen>
       <para>
-	In <filename>/etc/samba/smb.conf</filename>, you need to modify the « workgroup », « ldap admin dn » and « ldap suffix » to suit your configuration.
-      </para>
-      <para>
-	SAMBA also needs the credentials of the LDAP manager to write into the LDAP:
+  Now, SAMBA needs to create the SID for your workgroup:
       </para>
       <screen>
-	# smbpasswd -w secret
-	Setting stored password for "cn=admin,dc=mandriva,dc=com" in secrets.tdb
+  # net getlocalsid MANDRIVA
+  SID for domain MANDRIVA is: S-1-5-21-128599351-419866736-2079179792
       </screen>
       <para>
-	Now, SAMBA needs to create the SID for your workgroup:
+  Use slapcat to check that the SID has really been recorded into the LDAP. You should find an entry like this:
       </para>
       <screen>
-	# net getlocalsid MANDRIVA
-	SID for domain MANDRIVA is: S-1-5-21-128599351-419866736-2079179792
+  # slapcat | grep sambaDomainName
+  dn: sambaDomainName=MANDRIVA,dc=mandriva,dc=com
+  ...
       </screen>
       <para>
-	Use slapcat to check that the SID has really been recorded into the LDAP. You should find an entry like this:
+  Now you can start SAMBA:
       </para>
       <screen>
-	# slapcat | grep sambaDomainName
-	dn: sambaDomainName=MANDRIVA,dc=mandriva,dc=com
-	...
-      </screen>
-      <para>
-	Now you can start SAMBA:
-      </para>
-      <screen>
-	# /etc/init.d/samba start
+  # /etc/init.d/samba start
       </screen>
 
     </section>
@@ -1287,59 +1249,59 @@ the password must be 8 or longer
       <title>Populating the LDAP directory for SAMBA</title>
 
       <para>
-	The LDAP directory needs to be populated so that SAMBA can use it. We use the <command>smbldap-populate</command> command from smbldap-tools.
+  The LDAP directory needs to be populated so that SAMBA can use it. We use the <command>smbldap-populate</command> command from smbldap-tools.
       </para>
       <para>
-	This command populates the LDAP with the OUs (Organizational Unit), users and groups needed by SAMBA.
+  This command populates the LDAP with the OUs (Organizational Unit), users and groups needed by SAMBA.
       </para>
       <para>
-	A RPM package of smbldap-tools is available <ulink url="http://download.gna.org/smbldap-tools/packages/smbldap-tools-0.9.3-1.noarch.rpm">there</ulink>.
+  A RPM package of smbldap-tools is available <ulink url="http://download.gna.org/smbldap-tools/packages/smbldap-tools-0.9.3-1.noarch.rpm">there</ulink>.
       </para>
 
       <para>
-	Now the smbldap-tools conf file need to be edited. Put this in <filename>/etc/opt/IDEALX/smbldap-tools/smbldap_bind.conf</filename>:
+  Now the smbldap-tools conf file need to be edited. Put this in <filename>/etc/opt/IDEALX/smbldap-tools/smbldap_bind.conf</filename>:
       </para>
 
       <screen>
-	slaveDN="cn=admin,dc=mandriva,dc=com"
-	slavePw="secret"
-	masterDN="cn=admin,dc=mandriva,dc=com"
-	masterPw="secret"
+  slaveDN="cn=admin,dc=mandriva,dc=com"
+  slavePw="secret"
+  masterDN="cn=admin,dc=mandriva,dc=com"
+  masterPw="secret"
       </screen>
 
       <para>
-	<filename>smbldap_bind.conf</filename> defines how to connect to and write to the LDAP server.
+  <filename>smbldap_bind.conf</filename> defines how to connect to and write to the LDAP server.
       </para>
 
       <para>
-	Then edit <filename>smbldap.conf</filename> and set those fields:
+  Then edit <filename>smbldap.conf</filename> and set those fields:
       </para>
 
       <screen>
-	SID="S-1-5-21-128599351-419866736-2079179792"
-	sambaDomain="MANDRIVA"
-	ldapTLS="0"
-	suffix="dc=mandriva,dc=com"
-	sambaUnixIdPooldn="sambaDomainName=MANDRIVA,${suffix}"
-	#defaultMaxPasswordAge="45"
-	userSmbHome=""
-	userProfile=""
-	userHomeDrive=""
+  SID="S-1-5-21-128599351-419866736-2079179792"
+  sambaDomain="MANDRIVA"
+  ldapTLS="0"
+  suffix="dc=mandriva,dc=com"
+  sambaUnixIdPooldn="sambaDomainName=MANDRIVA,${suffix}"
+  #defaultMaxPasswordAge="45"
+  userSmbHome=""
+  userProfile=""
+  userHomeDrive=""
       </screen>
 
       <para>
-	Now the directory can be populated. Type:
+  Now the directory can be populated. Type:
       </para>
 
       <screen>
-	# /opt/IDEALX/sbin/smbldap-populate -m 512 -a administrator
+  # /opt/IDEALX/sbin/smbldap-populate -m 512 -a administrator
       </screen>
 
       <para>
-	A user called « administrator » will be created, and a prompt will ask you to give its password. 
-	Thanks to the « -m 512 » option, this user will belong to the « Domain Admins » group.
+  A user called « administrator » will be created, and a prompt will ask you to give its password.
+  Thanks to the « -m 512 » option, this user will belong to the « Domain Admins » group.
       </para>
-      
+
     </section>
 
     <section id="NSS_LDAP">
@@ -1347,52 +1309,52 @@ the password must be 8 or longer
       <title>NSS LDAP configuration</title>
 
       <para>
-	SAMBA needs that the OS use the LDAP directory to get user and group lists.
+  SAMBA needs that the OS use the LDAP directory to get user and group lists.
       </para>
       <para>
-	To do this, <filename>/etc/nsswitch.conf</filename> and <filename>/etc/ldap.conf</filename> (<filename>/etc/libnss-ldap.conf</filename> for Debian based distros) should be configured.
+  To do this, <filename>/etc/nsswitch.conf</filename> and <filename>/etc/ldap.conf</filename> (<filename>/etc/libnss-ldap.conf</filename> for Debian based distros) should be configured.
       </para>
       <para>
-	Your <filename>/etc/nsswitch.conf</filename> should look like this:
+  Your <filename>/etc/nsswitch.conf</filename> should look like this:
       </para>
       <screen>
-	passwd:     files ldap
-	shadow:     files ldap
-	group:      files ldap
-	
-	hosts:      files dns
-	
-	bootparams: files
-	ethers:     files
-	netmasks:   files
-	networks:   files
-	protocols:  files
-	rpc:        files
-	services:   files
-	netgroup:   files
-	publickey:  files
-	automount:  files
-	aliases:    files
+  passwd:     files ldap
+  shadow:     files ldap
+  group:      files ldap
+
+  hosts:      files dns
+
+  bootparams: files
+  ethers:     files
+  netmasks:   files
+  networks:   files
+  protocols:  files
+  rpc:        files
+  services:   files
+  netgroup:   files
+  publickey:  files
+  automount:  files
+  aliases:    files
       </screen>
       <para>
-	Your <filename>/etc/ldap.conf</filename>:
+  Your <filename>/etc/ldap.conf</filename>:
       </para>
       <screen>
-	host 127.0.0.1
-	base dc=mandriva,dc=com
+  host 127.0.0.1
+  base dc=mandriva,dc=com
       </screen>
-      
+
     </section>
-    
+
     <section>
 
       <title>MMC base plugin configuration for SAMBA</title>
 
       <para>
-	By default, you want your new user to belong to the « Domain Users » group.
+  By default, you want your new user to belong to the « Domain Users » group.
       </para>
       <para>
-	You just need to set the « defaultUserGroup » option to « Domain Users » in <filename>/etc/mmc/plugins/base.ini</filename>.
+  You just need to set the « defaultUserGroup » option to « Domain Users » in <filename>/etc/mmc/plugins/base.ini</filename>.
       </para>
 
     </section>
@@ -1402,19 +1364,19 @@ the password must be 8 or longer
       <title>User password expiration</title>
 
       <para>
-	By default, the maximum password age of a SAMBA user is 42 days. Then the user will need to change his/her password.	
+  By default, the maximum password age of a SAMBA user is 42 days. Then the user will need to change his/her password.
       </para>
       <para>
-	If you don't want password to expire, type:
+  If you don't want password to expire, type:
       </para>
       <screen>
-	# pdbedit -P "maximum password age" -C 0
+  # pdbedit -P "maximum password age" -C 0
       </screen>
       <para>
-	If you want to check your current password expiration policy:
+  If you want to check your current password expiration policy:
       </para>
       <screen>
-	# pdbedit -P "maximum password age"
+  # pdbedit -P "maximum password age"
       </screen>
 
     </section>
@@ -1424,27 +1386,27 @@ the password must be 8 or longer
       <title>Giving privileges to SAMBA users and groups</title>
 
       <para>
-	If « enable privileges = yes » is set on your <filename>smb.conf</filename>, you can give privileges to SAMBA users and groups.
+  If « enable privileges = yes » is set on your <filename>smb.conf</filename>, you can give privileges to SAMBA users and groups.
       </para>
       <para>
-	For example, to give to "Domain Admins" users the right to join a machine to the domain:
+  For example, to give to "Domain Admins" users the right to join a machine to the domain:
       </para>
-      
+
       <screen>
-	# net -U administrator rpc rights grant 'DOMAIN\Domain Admins' SeMachineAccountPrivilege
-	Password:
-	Successfully granted rights.
+  # net -U administrator rpc rights grant 'DOMAIN\Domain Admins' SeMachineAccountPrivilege
+  Password:
+  Successfully granted rights.
       </screen>
 
       <para>
-	Notice that you must replace « DOMAIN » by your SAMBA domain name in the command line.
+  Notice that you must replace « DOMAIN » by your SAMBA domain name in the command line.
       </para>
 
       <note>
-	<title>Users that can give privileges</title>
-	<para>
-	  Only users that belong to the "Domain Admins" group can use the <command>net rpc rights grant</command> command to assign privileges.
-	</para>
+  <title>Users that can give privileges</title>
+  <para>
+    Only users that belong to the "Domain Admins" group can use the <command>net rpc rights grant</command> command to assign privileges.
+  </para>
       </note>
 
     </section>
@@ -1454,69 +1416,69 @@ the password must be 8 or longer
       <title>About SE Linux</title>
 
       <para>
-	The default SE Linux configuration may not allow SAMBA to launch the script defined in "add machine script", and so you won't be able to join a machine to the SAMBA domain.
+  The default SE Linux configuration may not allow SAMBA to launch the script defined in "add machine script", and so you won't be able to join a machine to the SAMBA domain.
       </para>
 
     </section>
-    
+
   </section>
-  
+
   <section id="MDS_MAIL">
 
     <title>MDS mail service configuration</title>
 
     <section>
-      
+
       <title>LDAP directory configuration</title>
-            
+
       <para>
-	You need to import our mail schema into the LDAP directory.
-	The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/mail.schema</filename>.
+  You need to import our mail schema into the LDAP directory.
+  The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/mail.schema</filename>.
       </para>
       <para>
-	Once this schema is imported, you will be able to manage mail delivery attributes thanks to the MMC.
+  Once this schema is imported, you will be able to manage mail delivery attributes thanks to the MMC.
       </para>
-      
+
     </section>
-   
+
     <section>
 
       <title>Postfix/LDAP configuration</title>
 
       <para>
-	Example Postfix configuration files are included into the MMC agent tarball: <filename>contrib/postfix/</filename>.
+  Example Postfix configuration files are included into the MMC agent tarball: <filename>contrib/postfix/</filename>.
       </para>
       <para>
-	We provide two kinds of configuration:
+  We provide two kinds of configuration:
       </para>
       <itemizedlist>
-	<listitem>
-	  <para>
-	    no-virtual-domain: the mail domain is fixed in the « mydestination » option in main.cf
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    with-virtual-domains: mails are delivered to all mail domains created thanks to the MMC
-	  </para>
-	</listitem>
+  <listitem>
+    <para>
+      no-virtual-domain: the mail domain is fixed in the « mydestination » option in main.cf
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      with-virtual-domains: mails are delivered to all mail domains created thanks to the MMC
+    </para>
+  </listitem>
       </itemizedlist>
 
     </section>
 
     <section>
-      
+
       <title>NSS LDAP configuration</title>
 
       <para>
-	NSS LDAP configuration is needed to deliver mails with the right UIDs/GIDs.
+  NSS LDAP configuration is needed to deliver mails with the right UIDs/GIDs.
       </para>
       <para>
-	See <xref linkend="NSS_LDAP"/>.
+  See <xref linkend="NSS_LDAP"/>.
       </para>
-      
-    </section>    
-    
+
+    </section>
+
   </section>
 
   <section id="MDS_NETWORK">
@@ -1528,45 +1490,45 @@ the password must be 8 or longer
       <title>Introduction</title>
 
       <para>
-	This plugin allows to store in a LDAP directory:
+  This plugin allows to store in a LDAP directory:
       </para>
       <itemizedlist>
-	<listitem>
-	  <para>
-	    DNS zones declarations and related DNS records as needed for a standard LAN;
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    DHCP server configuration with DHCP subnet, dynamic pool and static host declarations.
-	  </para>
-	</listitem>
+  <listitem>
+    <para>
+      DNS zones declarations and related DNS records as needed for a standard LAN;
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      DHCP server configuration with DHCP subnet, dynamic pool and static host declarations.
+    </para>
+  </listitem>
       </itemizedlist>
-      
+
       <para>
-	The MMC web interface allows to easily manage the DNS and DHCP services.
+  The MMC web interface allows to easily manage the DNS and DHCP services.
       </para>
 
       <para>
-	The network plugin relies on patched version of ISC DHCP 3 and ISC BIND 9:
+  The network plugin relies on patched version of ISC DHCP 3 and ISC BIND 9:
       </para>
       <itemizedlist>
-	<listitem>
-	  <para>
-	    ISC BIND: a patch featuring a LDAP sdb backend must be applied to your BIND installation.
-	    With this patch BIND will be able to read DNS zone declarations from a LDAP directory.
-	    This patch is available <ulink url="http://www.venaas.no/ldap/bind-sdb/">there</ulink>. 
-	    The stable release of this patch (version 1.0) works fine.
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    ISC DHCP: the patch <ulink url="http://home.ntelos.net/~masneyb/">on this page</ulink> allows to store 
-	    into a LDAP the DHCP service configuration (instead of <filename>/etc/dhcp3/dhcpd.conf</filename>).
-	  </para>
-	</listitem>
+  <listitem>
+    <para>
+      ISC BIND: a patch featuring a LDAP sdb backend must be applied to your BIND installation.
+      With this patch BIND will be able to read DNS zone declarations from a LDAP directory.
+      This patch is available <ulink url="http://www.venaas.no/ldap/bind-sdb/">there</ulink>.
+      The stable release of this patch (version 1.0) works fine.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ISC DHCP: the patch <ulink url="http://home.ntelos.net/~masneyb/">on this page</ulink> allows to store
+      into a LDAP the DHCP service configuration (instead of <filename>/etc/dhcp3/dhcpd.conf</filename>).
+    </para>
+  </listitem>
       </itemizedlist>
-      
+
     </section>
 
     <section>
@@ -1574,75 +1536,75 @@ the password must be 8 or longer
       <title>Debian packages for patched versions of BIND and DHCP</title>
 
       <para>
-	We provide Debian (Sarge/Etch) packages for LDAP patched versions of BIND and DHCP.
+  We provide Debian (Sarge/Etch) packages for LDAP patched versions of BIND and DHCP.
       </para>
       <para>
-	Configure your APT repository as in <xref linkend="MDS_DEBIAN" />, and type:
+  Configure your APT repository as in <xref linkend="MDS_DEBIAN" />, and type:
       </para>
       <screen>
-	# apt-get update
-	# apt-get install dhcp3-server
-	# apt-get install dhcp3-server-ldap
-	# apt-get install bind9
+  # apt-get update
+  # apt-get install dhcp3-server
+  # apt-get install dhcp3-server-ldap
+  # apt-get install bind9
       </screen>
-      
+
     </section>
-    
+
     <section>
 
       <title>DNS service configuration (ISC BIND)</title>
 
       <para>
-	When managing the DNS zones, the MMC agent will create files into the BIND configuration directory (located in <filename>/etc/bind/</filename>). These files must be included in the main BIND configuration file so that the corresponding zones are loaded from the LDAP directory.
+  When managing the DNS zones, the MMC agent will create files into the BIND configuration directory (located in <filename>/etc/bind/</filename>). These files must be included in the main BIND configuration file so that the corresponding zones are loaded from the LDAP directory.
       </para>
       <para>
-	All the DNS zones are defined in the file <filename>named.conf.ldap</filename>. This file must be included in the main BIND configuration file <filename>named.conf</filename>.	Adding this line at the end of BIND <filename>named.conf</filename> should be sufficient:
+  All the DNS zones are defined in the file <filename>named.conf.ldap</filename>. This file must be included in the main BIND configuration file <filename>named.conf</filename>. Adding this line at the end of BIND <filename>named.conf</filename> should be sufficient:
       </para>
       <screen>
-	include "/etc/bind/named.conf.ldap";
-      </screen>      
-
-      <para>
-	An example of <filename>named.conf</filename> filename for Debian based system is available in the directory <filename>contrib/bind/</filename> of the mmc-agent tarball.
-      </para>
-      
-      <note>
-	<title>BIND and OpenLDAP services startup order</title>
-	<para>
-	  On most distributions, BIND is started before OpenLDAP during the boot sequence. If BIND/LDAP is used, BIND won't be able to connect to the LDAP directory, and won't start. So you may need to tweak your system boot scripts to fix this.
-	</para>
-	<para>
-	  The following command line should work on Debian based systems:
-	</para>
-	<screen>
-	  # update-rc.d -f slapd remove &amp;&amp; update-rc.d slapd start 14 2 3 4 5 . stop 86 0 1 6 .
-	</screen>
-      </note>
-      
-    </section>
-    
-    <section>
-
-      <title>DHCP service configuration (ISC DHCP)</title>
-      
-      <para>
-	The DHCP server needs to know how to load its configuration from LDAP.
-	Here is a typical <filename>/etc/dhcp3/dhcpd.conf</filename>:
-      </para>
-      <screen>
-	ldap-server "localhost";
-	ldap-port 389;
-	ldap-username "cn=admin, dc=mandriva, dc=com";
-	ldap-password "secret";
-	ldap-base-dn "dc=mandriva, dc=com";
-	ldap-method dynamic;
-	ldap-debug-file "/var/log/dhcp-ldap-startup.log";
+  include "/etc/bind/named.conf.ldap";
       </screen>
 
       <para>
-	An example of <filename>dhcpd.conf</filename> filename is available in the directory <filename>contrib/dhcpd/</filename> of the mmc-agent tarball.
+  An example of <filename>named.conf</filename> filename for Debian based system is available in the directory <filename>contrib/bind/</filename> of the mmc-agent tarball.
       </para>
-      
+
+      <note>
+  <title>BIND and OpenLDAP services startup order</title>
+  <para>
+    On most distributions, BIND is started before OpenLDAP during the boot sequence. If BIND/LDAP is used, BIND won't be able to connect to the LDAP directory, and won't start. So you may need to tweak your system boot scripts to fix this.
+  </para>
+  <para>
+    The following command line should work on Debian based systems:
+  </para>
+  <screen>
+    # update-rc.d -f slapd remove &amp;&amp; update-rc.d slapd start 14 2 3 4 5 . stop 86 0 1 6 .
+  </screen>
+      </note>
+
+    </section>
+
+    <section>
+
+      <title>DHCP service configuration (ISC DHCP)</title>
+
+      <para>
+  The DHCP server needs to know how to load its configuration from LDAP.
+  Here is a typical <filename>/etc/dhcp3/dhcpd.conf</filename>:
+      </para>
+      <screen>
+  ldap-server "localhost";
+  ldap-port 389;
+  ldap-username "cn=admin, dc=mandriva, dc=com";
+  ldap-password "secret";
+  ldap-base-dn "dc=mandriva, dc=com";
+  ldap-method dynamic;
+  ldap-debug-file "/var/log/dhcp-ldap-startup.log";
+      </screen>
+
+      <para>
+  An example of <filename>dhcpd.conf</filename> filename is available in the directory <filename>contrib/dhcpd/</filename> of the mmc-agent tarball.
+      </para>
+
     </section>
 
     <section>
@@ -1650,59 +1612,59 @@ the password must be 8 or longer
       <title>LDAP Schemas</title>
 
       <para>
-	Two new LDAP schemas must be imported into your LDAP directory: dnszone.schema and dhcp.schema.
+  Two new LDAP schemas must be imported into your LDAP directory: dnszone.schema and dhcp.schema.
       </para>
       <para>
-	Both are available in the directory <filename>contrib/ldap</filename> of the mmc-agent tarball.
+  Both are available in the directory <filename>contrib/ldap</filename> of the mmc-agent tarball.
       </para>
       <para>
-	To speed up LDAP search, you can index these attributes: zoneName, relativeDomainName, dhcpHWAddress, dhcpClassData.
+  To speed up LDAP search, you can index these attributes: zoneName, relativeDomainName, dhcpHWAddress, dhcpClassData.
       </para>
       <para>
-	For OpenLDAP <filename>slapd.conf</filename> configuration file, you will add:	
+  For OpenLDAP <filename>slapd.conf</filename> configuration file, you will add:
       </para>
       <screen>
-	index zoneName,relativeDomainName eq 
-	index dhcpHWAddress,dhcpClassData eq
+  index zoneName,relativeDomainName eq
+  index dhcpHWAddress,dhcpClassData eq
       </screen>
 
-    </section>    
+    </section>
 
     <section>
 
       <title>MMC network plugin initialization</title>
 
       <para>
-	For the DHCP service only, the MMC network plugin needs to create into the LDAP directory two objects:
+  For the DHCP service only, the MMC network plugin needs to create into the LDAP directory two objects:
       </para>
       <itemizedlist>
-	<listitem>
-	  <para>
-	    the container called "DHCP config" (objectClass dhcpService), where all the DHCP service configuration will be stored
-	  </para>
-	</listitem>
-	<listitem>
-	  <para>
-	    the primary server (objectClass dhcpServer) that links to the DHCP service configuration.
-	    The hostname of the machine running the MMC network plugin will be use to name this entry.
-	  </para>
-	</listitem>
+  <listitem>
+    <para>
+      the container called "DHCP config" (objectClass dhcpService), where all the DHCP service configuration will be stored
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      the primary server (objectClass dhcpServer) that links to the DHCP service configuration.
+      The hostname of the machine running the MMC network plugin will be use to name this entry.
+    </para>
+  </listitem>
       </itemizedlist>
 
       <para>
-	The first start of the MMC network plugin should look like:
+  The first start of the MMC network plugin should look like:
       </para>
       <screen>
-	...
-	Created OU ou=DHCP,dc=mandriva,dc=com
-	Created DHCP config object
-	The server 'your_server_hostname' has been set as the primary DHCP server
-	Plugin network loaded ...
-	...
+  ...
+  Created OU ou=DHCP,dc=mandriva,dc=com
+  Created DHCP config object
+  The server 'your_server_hostname' has been set as the primary DHCP server
+  Plugin network loaded ...
+  ...
       </screen>
 
     </section>
 
-  </section>  
+  </section>
 
 </article>

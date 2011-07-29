@@ -27,7 +27,7 @@ require("localSidebar.php");
 require("graph/navbar.inc.php");
 
 $zone = $_GET["zone"];
-$ajax = new AjaxFilter("modules/network/network/ajaxZoneMembersFilter.php?zone=$zone");
+$ajax = new AjaxFilter(urlStrRedirect("network/network/ajaxZoneMembersFilter", array("zone" => $zone)));
 $ajax->display();
 
 $p = new PageGenerator(sprintf(_T("Members of zone %s"), $zone));

@@ -218,6 +218,21 @@
             <entry></entry>
           </row>
 
+	  <row>
+
+	    <entry>sessiontimeout</entry>
+
+	    <entry>Session timeout in seconds. When a user
+	    authenticates to the MMC agent, a user session in
+	    created. This session is destroyed automatically when no
+	    call is done before the session timeout is reach.</entry>
+
+	    <entry>Yes</entry>
+
+	    <entry>900</entry>
+
+	  </row>
+
           <row>
             <entry>multithreading</entry>
 

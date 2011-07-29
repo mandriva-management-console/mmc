@@ -70,7 +70,10 @@ if (isset($_POST["bmodify"]))
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
     $shareGroup = $_POST["groupgroupsselected"];
-    $shareUser = $_POST["userusersselected"];
+    if (isset($_POST["userusersselected"]))
+        $shareUser = $_POST["userusersselected"];
+    else
+        $shareUser = array();
     $adminGroups = $_POST["admingroupsselected"];
     $customParameters = $_POST["customparameters"];    
     if (isset($_POST["permAll"])) {
@@ -79,9 +82,9 @@ if (isset($_POST["bmodify"]))
     else {
         $permAll = 0;
     }
-    if ($_POST["hasAv"]) $av = 1;
+    if (isset($_POST["hasAv"])) $av = 1;
     else $av = 0;
-    if ($_POST["browseable"]) $browseable = 1;
+    if (isset($_POST["browseable"])) $browseable = 1;
     else $browseable = 0;
     
     $params = array($share, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
@@ -128,9 +131,9 @@ $p->display();
 
 ?>
 
-<? if ($_GET["action"] == "add")  { ?>
+<?php if ($_GET["action"] == "add")  { ?>
 <p>
-<?= _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
+<?php echo  _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
 </p>
 
 <?
@@ -206,7 +209,7 @@ $d->display();
     <td>
     </td>
     <td>
-        <?= _T("Permissions"); ?>
+        <?php echo  _T("Permissions"); ?>
     </td>
     </tr>
         <?php
@@ -249,13 +252,13 @@ renderTPL("groups");
 ?>
 </table>
 
-<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<div id="expertMode" class="expertMode" <?displayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
     </td>
     <td>
-        <?= _T("Users for this share"); ?>
+        <?php echo  _T("Users for this share"); ?>
     </td>
    </tr>
 
@@ -271,13 +274,13 @@ renderTPL("users");
 </div>
 </div>
 
-<div id="expertMode" class="expertMode" <?displayExpertCss();?>>
+<div id="expertMode" class="expertMode" <?displayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
     </td>
     <td>
-        <?= _T("Administrator groups for this share"); ?>
+        <?php echo  _T("Administrator groups for this share"); ?>
     </td>
    </tr>
 
@@ -308,12 +311,12 @@ renderTPL("users");
 
 </div>
 
-<? if ($_GET["action"] == "add")  { ?>
-<input name="bcreate" type="submit" class="btnPrimary" value="<?= _T("Create"); ?>" />
-<? } else { ?>
+<?php if ($_GET["action"] == "add")  { ?>
+<input name="bcreate" type="submit" class="btnPrimary" value="<?php echo  _T("Create"); ?>" />
+<?php } else { ?>
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bmodify" type="submit" class="btnPrimary" value="<?= _T("Confirm");?>" /> 
-<? }
+<input name="bmodify" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm"); ?>" /> 
+<?php }
 
 ?>
 

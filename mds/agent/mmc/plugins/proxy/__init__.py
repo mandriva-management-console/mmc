@@ -26,6 +26,7 @@ MDS proxy plugin for the MMC agent.
 
 import os
 import logging
+from mmc.core.version import scmRevision
 from mmc.support import mmctools
 from mmc.support.config import PluginConfig, ConfigException
 from ConfigParser import NoSectionError, NoOptionError
@@ -34,9 +35,9 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.proxy.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.4.0"
+VERSION = "2.4.1"
 APIVERSION = "1:1:0"
-REVISION = int("$Rev$".split(':')[1].strip(' $'))
+REVISION = scmRevision("$Rev$")
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION

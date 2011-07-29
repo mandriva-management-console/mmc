@@ -1,227 +1,350 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+## Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Mmc Mail 1.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-18 06:29+0100\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Daniele Ferro <l1ber0@hotmail.com>\n"
-"Language-Team:  <l1ber0@hotmail.com>\n"
+"Project-Id-Version: Mandriva Directory Server\n"
+"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
+"POT-Creation-Date: 2011-01-30 08:18+0100\n"
+"PO-Revision-Date: 2011-07-26 09:27+0000\n"
+"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Poedit-Language: Italian\n"
-"X-Poedit-Country: ITALY\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
-#: mail/mail/ajaxFilter.php:27
-msgid "Login"
-msgstr "Login"
-
-#: mail/mail/ajaxFilter.php:30
-msgid "Name"
-msgstr "Nome"
-
-#: mail/mail/ajaxFilter.php:31
-msgid "Mail address"
-msgstr "Indirizzo Mail"
-
-#: mail/mail/ajaxFilter.php:32
-msgid "Edit"
-msgstr "Modifica"
-
-#: mail/mail/members.php:33
-msgid "Members of "
-msgstr "Membri di"
-
-#: mail/mail/ajaxDomainFilter.php:22
-#: mail/mail/ajaxDomainFilter.php:28
-#: mail/mail/edit.php:96
-msgid "Mail domain"
-msgstr "Dominio Mail"
-
-#: mail/mail/ajaxDomainFilter.php:27
-#: mail/mail/edit.php:101
-msgid "Description"
-msgstr "Descrizione"
-
-#: mail/mail/ajaxDomainFilter.php:30
-msgid "View domain members"
-msgstr "Visualizza i membri di dominio"
-
-#: mail/mail/ajaxDomainFilter.php:31
-msgid "Edit domain"
-msgstr "Modifica dominio"
-
-#: mail/mail/ajaxDomainFilter.php:32
-#: mail/mail/delete.php:54
-msgid "Delete domain"
-msgstr "Elimina dominio"
-
-#: mail/mail/delete.php:37
-msgid "The mail domain has been deleted."
-msgstr "Il dominio mail è stato eliminato."
-
-#: mail/mail/delete.php:49
-msgid "You will delete the virtual mail domain "
-msgstr "Verrà eliminato il dominio mail virtuale"
-
-#: mail/mail/delete.php:55
-msgid "Cancel"
-msgstr "Annulla"
-
-#: mail/mail/localSidebar.php:6
-#: mail/mail/index.php:32
-#: mail/infoPackage.inc.php:57
-msgid "Mail domain list"
-msgstr "Elenco domini mail"
-
-#: mail/mail/localSidebar.php:7
-#: mail/infoPackage.inc.php:60
-msgid "Add a domain"
-msgstr "Aggiungi un dominio"
-
-#: mail/mail/edit.php:30
+#: modules/mail/mail/edit.php:30
 msgid "Add a mail domain"
 msgstr "Aggiungi un dominio mail"
 
-#: mail/mail/edit.php:32
+#: modules/mail/mail/edit.php:32
 msgid "Edit mail domain"
 msgstr "Modifica un dominio mail"
 
-#: mail/mail/edit.php:49
+#: modules/mail/mail/edit.php:49
 msgid "Invalid domain name"
 msgstr "Nome dominio no valido"
 
-#: mail/mail/edit.php:55
+#: modules/mail/mail/edit.php:55
 msgid "The mail domain has been added."
 msgstr "Il dominio mail è stato aggiunto."
 
-#: mail/mail/edit.php:68
+#: modules/mail/mail/edit.php:68
 msgid "The mail domain has been modified."
 msgstr "Il dominio mail è stato modificato."
 
-#: mail/mail/edit.php:71
+#: modules/mail/mail/edit.php:71
 msgid " The quota of all users of this mail domain have been reset."
 msgstr "La quota di tutti gli utenti di questo dominio è stata resettata."
 
-#: mail/mail/edit.php:106
+#: modules/mail/mail/edit.php:96 modules/mail/mail/ajaxDomainFilter.php:22
+#: modules/mail/mail/ajaxDomainFilter.php:28
+msgid "Mail domain"
+msgstr "Dominio Mail"
+
+#: modules/mail/mail/edit.php:101 modules/mail/mail/ajaxDomainFilter.php:27
+msgid "Description"
+msgstr "Descrizione"
+
+#: modules/mail/mail/edit.php:106
 msgid "Default mail quota for users created in this domain (in kB)"
 msgstr "Quota mail di default per gli utenti creati in questo dominio (in kB)"
 
-#: mail/mail/edit.php:112
+#: modules/mail/mail/edit.php:112
 msgid "Create"
 msgstr "Crea"
 
-#: mail/mail/edit.php:114
+#: modules/mail/mail/edit.php:114
 msgid "Reset users quota to default"
 msgstr "Reset della quota utente al valore di default"
 
-#: mail/mail/edit.php:115
+#: modules/mail/mail/edit.php:115
 msgid "Confirm"
 msgstr "Conferma"
 
-#: mail/infoPackage.inc.php:36
-msgid "Mail service"
-msgstr "Servizio mail"
+#: modules/mail/mail/ajaxFilter.php:27
+msgid "Login"
+msgstr "Login"
 
-#: mail/infoPackage.inc.php:40
-#: mail/includes/publicFunc.php:149
-msgid "Mail access"
-msgstr "Accesso mail"
+#: modules/mail/mail/ajaxFilter.php:30
+msgid "Name"
+msgstr "Nome"
 
-#: mail/infoPackage.inc.php:41
-msgid "Disable mail delivery"
-msgstr "Disabilita inoltro mail"
+#: modules/mail/mail/ajaxFilter.php:31
+msgid "Mail address"
+msgstr "Indirizzo Mail"
 
-#: mail/infoPackage.inc.php:42
-msgid "Mail aliases"
-msgstr "Alias della mail"
+#: modules/mail/mail/ajaxFilter.php:32
+msgid "Edit"
+msgstr "Modifica"
 
-#: mail/infoPackage.inc.php:43
-#: mail/includes/publicFunc.php:201
-msgid "Mail delivery path"
-msgstr "Percorso di consegna mail"
+#: modules/mail/mail/index.php:32 modules/mail/mail/localSidebar.php:6
+#: modules/mail/infoPackage.inc.php:57
+msgid "Mail domain list"
+msgstr "Elenco domini mail"
 
-#: mail/infoPackage.inc.php:44
-#: mail/includes/publicFunc.php:205
-msgid "Mail server host"
-msgstr "Server mail"
+#: modules/mail/mail/members.php:33
+msgid "Members of "
+msgstr "Membri di"
 
-#: mail/infoPackage.inc.php:45
-msgid "Mail user quota"
-msgstr "Quota utente mail"
+#: modules/mail/mail/ajaxDomainFilter.php:30
+msgid "View domain members"
+msgstr "Visualizza i membri di dominio"
 
-#: mail/infoPackage.inc.php:47
-msgid "Mail group alias access"
-msgstr "Accesso ad alias mail di gruppi"
+#: modules/mail/mail/ajaxDomainFilter.php:31
+msgid "Edit domain"
+msgstr "Modifica dominio"
 
-#: mail/infoPackage.inc.php:50
-#: mail/includes/publicFunc.php:179
-msgid "Forward to"
-msgstr "Inoltra a"
+#: modules/mail/mail/ajaxDomainFilter.php:32 modules/mail/mail/delete.php:54
+msgid "Delete domain"
+msgstr "Elimina dominio"
 
-#: mail/infoPackage.inc.php:53
-msgid "Mail"
-msgstr "Mail"
+#: modules/mail/mail/delete.php:37
+msgid "The mail domain has been deleted."
+msgstr "Il dominio mail è stato eliminato."
 
-#: mail/infoPackage.inc.php:63
-msgid "Edit a domain"
-msgstr "Modifica un dominio"
+#: modules/mail/mail/delete.php:49
+msgid "You will delete the virtual mail domain "
+msgstr "Verrà eliminato il dominio mail virtuale"
 
-#: mail/infoPackage.inc.php:67
-msgid "View members"
-msgstr "Vedi i componenti"
+#: modules/mail/mail/delete.php:55
+msgid "Cancel"
+msgstr "Annulla"
 
-#: mail/infoPackage.inc.php:71
-msgid "Delete a mail domain"
-msgstr "Elimina un dominio mail"
+#: modules/mail/mail/localSidebar.php:7 modules/mail/infoPackage.inc.php:60
+msgid "Add a domain"
+msgstr "Aggiungi un dominio"
 
-#: mail/infoPackage.inc.php:97
-#: mail/includes/publicFunc.php:183
-#: mail/includes/publicFunc.php:187
-msgid "Mail drop"
-msgstr "Mail drop"
-
-#: mail/includes/mail.inc.php:41
-#: mail/includes/mail.inc.php:51
-msgid "Unlimited quota"
-msgstr "Quota illimitata"
-
-#: mail/includes/publicFunc.php:33
-#: mail/includes/publicFunc.php:133
+#: modules/mail/includes/publicFunc.php:33
+#: modules/mail/includes/publicFunc.php:141
 msgid "Mail plugin"
 msgstr "Plugin mail"
 
-#: mail/includes/publicFunc.php:54
+#: modules/mail/includes/publicFunc.php:54
 msgid "No mail alias can be set for this group"
 msgstr "Nessun alias mail può essere impostato per questo gruppo"
 
-#: mail/includes/publicFunc.php:57
+#: modules/mail/includes/publicFunc.php:58
+msgid "Zarafa group"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:61
 msgid "Enable mail alias for users of this group "
 msgstr "Abilita l'alias mail per gli utenti di questo gruppo"
 
-#: mail/includes/publicFunc.php:69
-#: mail/includes/publicFunc.php:72
-#: mail/includes/publicFunc.php:190
-#: mail/includes/publicFunc.php:193
+#: modules/mail/includes/publicFunc.php:73
+#: modules/mail/includes/publicFunc.php:76
+#: modules/mail/includes/publicFunc.php:216
+#: modules/mail/includes/publicFunc.php:219
 msgid "Mail alias"
 msgstr "Alias mail"
 
-#: mail/includes/publicFunc.php:169
+#: modules/mail/includes/publicFunc.php:170
+#: modules/mail/infoPackage.inc.php:40
+msgid "Mail access"
+msgstr "Accesso mail"
+
+#: modules/mail/includes/publicFunc.php:195
 msgid "Mail delivery is disabled, if checked"
 msgstr "L'inoltro mail è disabilitato, se selezionato"
 
-#: mail/includes/publicFunc.php:173
+#: modules/mail/includes/publicFunc.php:199
 msgid "Mail quota (in kB)"
 msgstr "Quota mail (in kB)"
 
-#: mail/includes/publicFunc.php:245
+#: modules/mail/includes/publicFunc.php:205
+#: modules/mail/infoPackage.inc.php:50
+msgid "Forward to"
+msgstr "Inoltra a"
+
+#: modules/mail/includes/publicFunc.php:209
+#: modules/mail/includes/publicFunc.php:213
+#: modules/mail/infoPackage.inc.php:97
+msgid "Mail drop"
+msgstr "Mail drop"
+
+#: modules/mail/includes/publicFunc.php:227
+#: modules/mail/infoPackage.inc.php:43
+msgid "Mail delivery path"
+msgstr "Percorso di consegna mail"
+
+#: modules/mail/includes/publicFunc.php:231
+#: modules/mail/infoPackage.inc.php:44
+msgid "Mail server host"
+msgstr "Server mail"
+
+#: modules/mail/includes/publicFunc.php:239
+msgid "Zarafa properties"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:243
+msgid "Administrator of Zarafa"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:248
+msgid "Shared store"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:253
+msgid "Zarafa account"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:260
+msgid "Zarafa send as user list"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:301
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s non è un alias mail valido."
 
-#: mail/includes/publicFunc.php:252
+#: modules/mail/includes/publicFunc.php:309
 msgid "You must specify a valid mail address to enable mail delivery."
-msgstr "Si deve specificare un indirizzo mail valido per abilitare l'inoltro mail."
+msgstr ""
+"Si deve specificare un indirizzo mail valido per abilitare l'inoltro mail."
+
+#: modules/mail/includes/auditCodes.php:4
+msgid "Enable mail delivery"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:41
+msgid "Disable mail delivery"
+msgstr "Disabilita inoltro mail"
+
+#: modules/mail/includes/auditCodes.php:6
+msgid "Change mail drop"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:7
+msgid "Change mail alias"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:8
+msgid "Change mail box"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:9
+msgid "Change mail host"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:10
+msgid "Change mail quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:11
+msgid "Add mail attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:12
+msgid "Del mail attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:13
+msgid "Del mail group alias"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:14
+msgid "Add mail group"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:15
+msgid "Add virtual domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:16
+msgid "Del virtual domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:17
+msgid "Set domain description"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:18
+msgid "Set domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:19
+msgid "Reset domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:20
+msgid "Mail Group"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:53
+msgid "Mail"
+msgstr "Mail"
+
+#: modules/mail/includes/auditCodes.php:22
+msgid "Add Zarafa attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:23
+msgid "Del Zarafa attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:24
+msgid "Change Zarafa admin attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:25
+msgid "Change Zarafa sharedstore attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:26
+msgid "Change Zarafa account attribute "
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:27
+msgid "Change Zarafa sendas attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:28
+msgid "Virtual Mail Domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:29
+msgid "User"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:30
+msgid "mail"
+msgstr ""
+
+#: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
+msgid "Unlimited quota"
+msgstr "Quota illimitata"
+
+#: modules/mail/infoPackage.inc.php:36
+msgid "Mail service"
+msgstr "Servizio mail"
+
+#: modules/mail/infoPackage.inc.php:42
+msgid "Mail aliases"
+msgstr "Alias della mail"
+
+#: modules/mail/infoPackage.inc.php:45
+msgid "Mail user quota"
+msgstr "Quota utente mail"
+
+#: modules/mail/infoPackage.inc.php:47
+msgid "Mail group alias access"
+msgstr "Accesso ad alias mail di gruppi"
+
+#: modules/mail/infoPackage.inc.php:63
+msgid "Edit a domain"
+msgstr "Modifica un dominio"
+
+#: modules/mail/infoPackage.inc.php:67
+msgid "View members"
+msgstr "Vedi i componenti"
+
+#: modules/mail/infoPackage.inc.php:71
+msgid "Delete a mail domain"
+msgstr "Elimina un dominio mail"
+
 

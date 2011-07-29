@@ -10,7 +10,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/mmc/main.php?module=base&submod=users&action=index</td>
+	<td>/mmc/main.php?module=base&amp;submod=users&amp;action=index</td>
 	<td></td>
 </tr>
 <tr>
@@ -20,7 +20,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//a[@onclick="PopupWindow(event,'main.php?module=base&submod=users&action=delete&user=aclnoright', 300); return false;"]</td>
+	<td>//a[@onclick=&quot;PopupWindow(event,'main.php?module=base&amp;submod=users&amp;action=delete&amp;user=aclnoright', 300); return false;&quot;]</td>
 	<td></td>
 </tr>
 <tr>
@@ -29,11 +29,15 @@
 	<td></td>
 </tr>
 <tr>
+	<td>click</td>
+	<td>delfiles</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>bdeluser</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

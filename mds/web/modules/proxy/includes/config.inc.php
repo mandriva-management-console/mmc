@@ -22,7 +22,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
-<? 
+<?php 
 
 global $conf;
 $conf["proxy"]["squidguard"]="/var/lib/squidguard/db/bad.destdomainlist";

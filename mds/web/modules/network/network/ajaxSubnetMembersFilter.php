@@ -1,11 +1,7 @@
-<?
-require("../../../includes/config.inc.php");
-require("../../../includes/i18n.inc.php");
-require("../../../includes/acl.inc.php");
-require("../../../includes/session.inc.php");
-require("../../../includes/PageGenerator.php");
-require("../../../modules/network/includes/network.inc.php");
-require("../../../modules/network/includes/network-xmlrpc.inc.php");
+<?php
+
+require("modules/network/includes/network.inc.php");
+require("modules/network/includes/network-xmlrpc.inc.php");
 
 $filter = $_GET["filter"];
 $subnet = $_GET["subnet"];
@@ -45,6 +41,7 @@ foreach(getSubnetHosts($subnet, "") as $dn => $entry) {
 
 /* Get current DHCP leases info to display dynamically assigned IP addresses */
 $leases = getDhcpLeases();
+if ($leases)
 foreach($leases as $ipaddress => $infos) {
     if ($infos["state"] == "active") {
         if (ipInNetwork($ipaddress, $subnet, $netmask)) {

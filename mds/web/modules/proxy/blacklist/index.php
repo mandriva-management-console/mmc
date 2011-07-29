@@ -30,7 +30,7 @@ require("localSidebar.php");
 require("graph/navbar.inc.php");
 ?>
 
-<h2><?= _T("Blacklist management"); ?></h2>
+<h2><?php echo  _T("Blacklist management"); ?></h2>
 
 <div class="fixheight"></div>
 
@@ -51,6 +51,6 @@ $n->display();
 
 <form method="post" action="main.php?module=proxy&amp;submod=blacklist&amp;action=restart">
 <input name="goto" type="hidden" value="<?php echo $root; ?>main.php" />
-<input name="brestart" type="submit" class="btnPrimary" value="<?= _T("Restart service"); ?>" />
+<input name="brestart" type="submit" class="btnPrimary" value="<?php echo  _T("Restart service"); ?>" />
 </form>
 

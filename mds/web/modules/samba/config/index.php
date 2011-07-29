@@ -48,7 +48,7 @@ function save_smbconf() {
         $options['hasprofiles'] = false;
     else
         $options['hasprofiles'] = true;
-    if(!isset($_POST['homes']))
+    if(!isset($_POST['hashomes']))
         $options['hashomes'] = false;
     else
         $options['hashomes'] = true;

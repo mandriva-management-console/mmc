@@ -1,10 +1,6 @@
-<?
-require("../../../includes/config.inc.php");
-require("../../../includes/i18n.inc.php");
-require("../../../includes/acl.inc.php");
-require("../../../includes/session.inc.php");
-require("../../../modules/network/includes/network-xmlrpc.inc.php");
-require ("../../../includes/PageGenerator.php");
+<?php
+
+require("modules/network/includes/network-xmlrpc.inc.php");
 
 $filter = $_GET["filter"];
 $zone = $_GET["zone"];

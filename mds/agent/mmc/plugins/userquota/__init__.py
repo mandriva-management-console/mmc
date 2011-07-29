@@ -34,6 +34,8 @@ import os.path
 import grp
 import tempfile
 
+from mmc.core.version import scmRevision
+from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.config import *
 from mmc.support import mmctools
@@ -42,11 +44,11 @@ from string import Template
 
 import mmc
 
-INI = "/etc/mmc/plugins/userquota.ini"
+INI = mmcconfdir + "/plugins/userquota.ini"
 
-VERSION = "2.4.0"
+VERSION = "2.4.1"
 APIVERSION = "0:0:0"
-REVISION = int("$Rev$".split(':')[1].strip(' $'))
+REVISION = scmRevision("$Rev$")
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION
@@ -54,6 +56,12 @@ def getRevision(): return REVISION
 
 
 def activate():
+    config = UserQuotaConfig("userquota")
+    logger = logging.getLogger()
+
+    if config.disabled:
+        logger.warning("Plugin userquota: disabled by configuration.")
+        return False
     return True
 
 def getActiveComponents():
