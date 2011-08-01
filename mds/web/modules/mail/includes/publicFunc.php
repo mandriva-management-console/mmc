@@ -140,31 +140,42 @@ function _mail_baseEdit($FH, $mode) {
 
     $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
 
-    $hasMail = "";
-    $disabledMail = "";
+    // Show plugin details by default
+    $show = true;
+    // User has not mail attributes by default
+    $hasMail = false;
+    // User is not disabled by default
+    $disabledMail = false;
+
     if ($mode == "edit") {
+        // check user actual values
         $uid =  $FH->getArrayOrPostValue('uid');
-        if (hasMailObjectClass($uid))
-            $hasMail = "checked";
-        if ($FH->getArrayOrPostValue('mailenable') == "NONE")
-            $disabledMail = "checked";
+        if (hasMailObjectClass($uid)) {
+            $hasMail = true;
+        }
+        else {
+            $show = false;
+        }
+        if ($FH->getArrayOrPostValue('mailenable') == "NONE") {
+            $disabledMail = true;
+        }
     }
 
     $f->push(new Table());
     $f->add(
         new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess")),
-            array("value"=>$hasMail, "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"')
+            array("value"=> $show ? "checked": "", "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"')
     );
     $f->pop();
 
     $maildiv = new Div(array("id" => "maildiv"));
-    $maildiv->setVisibility($hasMail);
+    $maildiv->setVisibility($show);
     $f->push($maildiv);
     $f->push(new Table());
 
     $f->add(
         new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable")),
-        array("value"=> $disabledMail)
+        array("value"=> $disabledMail ? "checked": "")
     );
     $f->add(
         new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/')),
