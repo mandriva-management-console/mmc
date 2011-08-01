@@ -2,7 +2,7 @@
 
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2009 Mandriva, http://www.mandriva.com
+ * (c) 2007-2011 Mandriva, http://www.mandriva.com
  *
  * $Id$
  *
@@ -25,41 +25,39 @@
 require_once("sshlpk-xmlrpc.php");
 
 /**
- * Add form on edit user page
- *
+ * Form on user edit page
+ * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
-function _sshlpk_baseEdit($ldapArr, $postArr) {
+function _sshlpk_baseEdit($FH, $mode) {
 
-    $hassshlpk = 'checked';
-
-    if ((isset($ldapArr['uid'][0])) && (!hasSshKeyObjectClass($ldapArr['uid'][0]))) {
+    if ($FH->getArrayOrPostValue("uid") && hasSshKeyObjectClass($FH->getArrayOrPostValue("uid"))) {
+        $hassshlpk = 'checked';
+    }
+    else {
         $hassshlpk = '';
     }
-        
+
     $f = new DivForModule(_T("Public SSH keys management plugin","sshlpk"), "#DDF");
-    
+
     $f->push(new Table());
     $f->add(
         new TrFormElement(_T("Enable SSH keys management", "sshlpk"), new CheckboxTpl("showsshkey")),
         array("value"=>$hassshlpk, "extraArg"=>'onclick="toggleVisibility(\'sshkeydiv\');"')
         );
     $f->pop();
-    
+
     $sshkeydiv = new Div(array("id" => "sshkeydiv"));
     $sshkeydiv->setVisibility($hassshlpk);
     $f->push($sshkeydiv);
 
-    if (isset($ldapArr['uid'][0])) {
+    $sshkeylist = array();
+    if ($FH->getArrayOrPostValue("uid")) {
         if ($hassshlpk == 'checked') {
-            $sshkeylist = getAllSshKey($ldapArr['uid'][0]);
+            $sshkeylist = getAllSshKey($FH->getArrayOrPostValue("uid"));
         }
-        else {
-            $sshkeylist = array();
-        }
-        if(count($sshkeylist) == 0)
-            $sshkeylist = array("0" => "");
-    } else {
-        $sshkeylist = array();
+    }
+    if(count($sshkeylist) == 0) {
         $sshkeylist = array("0" => "");
     }
 
@@ -72,44 +70,41 @@ function _sshlpk_baseEdit($ldapArr, $postArr) {
 }
 
 /**
- * Check POST content
- * @param $postArr $_POST array of the page
+ * Function called before changing user attributes
+ * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
-function _sshlpk_verifInfo($postArr) {
+function _sshlpk_verifInfo($FH, $mode) {
+
     global $error;
-    /*  test if key already exist */
-    if (isset($postArr['sshkeylist'])) {
-        $doublekey = '';
-        for ( $i = 0 ; $i < count($postArr['sshkeylist']) - 1 ; $i++ ) {
-            for ( $j = $i+1 ; $j < count($postArr['sshkeylist']) ; $j++ ) {
-                if ($postArr['sshkeylist'][$i] != '' && $postArr['sshkeylist'][$j] != '' 
-                    && $postArr['sshkeylist'][$i] == $postArr['sshkeylist'][$j] ) {
-                    $postArr['sshkeylist'][$j] = '';
-                    $doublekey .= "  ".($i+1)." - ".($j+1)."<br />" ;
-                }
-            }
-        }
-        if ($doublekey != '') {
-            $error .= _T("Some SSH public keys are duplicate", "sshlpk")."<br />";
-            $error .= " (" . $doublekey . ")";
-            setFormError("sshlpk");
-        }
+
+    // Check if keys have been updated
+    if ($FH->getValue('sshkeylist')) {
+        // make keys unique
+        $keys = $FH->getValue('sshkeylist');
+        $keys = array_unique($keys);
+        $FH->setValue('sshkeylist', $keys);
     }
 }
 
 /**
- * function called when change on a user is requested
+ * Function called for changing user attributes
  * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
-function _sshlpk_changeUser($FH) {
+function _sshlpk_changeUser($FH, $mode) {
+
+    global $result;
+
     if ($FH->getPostValue("showsshkey")) {
         if ($FH->isUpdated('sshkeylist')) {
-            updateSshKeys($FH->getPostValue('nlogin'), $FH->getValue('sshkeylist'));
+            updateSshKeys($FH->getPostValue('uid'), $FH->getValue('sshkeylist'));
         }
-    } 
+    }
     else {
-        if (hasSshKeyObjectClass($FH->getPostValue('nlogin'))) {
-            delSSHKeyObjectClass($FH->getPostValue('nlogin'));
+        if (hasSshKeyObjectClass($FH->getPostValue('uid'))) {
+            delSSHKeyObjectClass($FH->getPostValue('uid'));
+            $result .= _T("SSH public keys attributes deleted.", "sshlpk")."<br />";
         }
     }
 }
