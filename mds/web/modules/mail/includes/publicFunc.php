@@ -210,55 +210,64 @@ function _mail_baseEdit($FH, $mode) {
         $f->pop();
     }
 
-  if (hasZarafaSupport()) {
-      $f->push(new DivForModule(_T("Zarafa properties", "mail"), "#FFD"));
-      $f->pop();
-      $f->push(new Table());
-      $f->add(
-              new TrFormElement(_T("Administrator of Zarafa", "mail"),
-                                new CheckboxTpl("zarafaAdmin")),
-              array("value"=> isset($ldapArr["zarafaAdmin"][0]) && $ldapArr["zarafaAdmin"][0] == "1" ? "checked" : "")
-              );
-      $f->add(
-              new TrFormElement(_T("Shared store", "mail"),
-                                new CheckboxTpl("zarafaSharedStoreOnly")),
-              array("value"=> isset($ldapArr["zarafaSharedStoreOnly"][0]) && $ldapArr["zarafaSharedStoreOnly"][0] == "1" ? "checked" : "")
-              );
-      $f->add(
-              new TrFormElement(_T("Zarafa account", "mail"),
-                                new CheckboxTpl("zarafaAccount")),
-              array("value"=> isset($ldapArr["zarafaAccount"][0]) && $ldapArr["zarafaAccount"][0] == "1" ? "checked" : "")
-              );
-      $f->pop();
+    if (hasZarafaSupport()) {
+        $f->push(new DivForModule(_T("Zarafa properties", "mail"), "#FFD"));
+        $f->pop();
+        $f->push(new Table());
+        $checked = false;
+        if($FH->getArrayOrPostValue('zarafaAdmin') == "on" ||
+           $FH->getArrayOrPostValue('zarafaAdmin') == "1")
+            $checked = true;
+        $f->add(
+            new TrFormElement(_T("Administrator of Zarafa", "mail"),
+                new CheckboxTpl("zarafaAdmin")),
+                array("value"=>  $checked ? "checked" : "")
+        );
+        $checked = false;
+        if($FH->getArrayOrPostValue('zarafaSharedStoreOnly') == "on" ||
+           $FH->getArrayOrPostValue('zarafaSharedStoreOnly') == "1")
+            $checked = true;
+        $f->add(
+            new TrFormElement(_T("Shared store", "mail"),
+                new CheckboxTpl("zarafaSharedStoreOnly")),
+                array("value"=> $checked ? "checked" : "")
+        );
+        $checked = false;
+        if($FH->getArrayOrPostValue('zarafaAccount') == "on" ||
+           $FH->getArrayOrPostValue('zarafaAccount') == "1")
+            $checked = true;
+        $f->add(
+            new TrFormElement(_T("Zarafa account", "mail"),
+                new CheckboxTpl("zarafaAccount")),
+                array("value"=> $checked == "on" ? "checked" : "")
+        );
+        $f->pop();
 
-      $sendas= new MultipleInputTpl("zarafaSendAsPrivilege",
-                                    _T("Zarafa send as user list", "mail"));
-      $sendas->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
-      $f->add(
-              new FormElement("", $sendas),
-              isset($ldapArr["zarafaSendAsPrivilege"]) ? $ldapArr["zarafaSendAsPrivilege"] : array("")
-              );
-  }
+        $sendas = new MultipleInputTpl("zarafaSendAsPrivilege", _T("Zarafa send as user list", "mail"));
+        $sendas->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
+        $f->add(
+            new FormElement("", $sendas), $FH->getArrayOrPostValue("zarafaSendAsPrivilege", "array")
+        );
+    }
 
-  $f->pop();
+    $f->pop();
+    $f->display();
 
-  $f->display();
-
-  if (($_GET['action'] == 'add') && (!hasVDomainSupport())) { //suggest only on add user
-  ?>
-  <script type="text/javascript" language="javascript">
-     function autoCreate() {
-        var firstname = $('firstname').value.toLowerCase()
-        //        firstname = firstname.replace(/( |"|')/g,'')
-        $('maildrop[0]').value = $('uid').value.toLowerCase();
-     }
-
-     Event.observe('name', 'keyup', function(e){ autoCreate(); });
-     Event.observe('uid', 'keyup', function(e){ autoCreate(); });
-     Event.observe('firstname', 'keyup', function(e){ autoCreate(); });
-  </script>
-  <?
-  }
+    if ($mode == 'add' && (!hasVDomainSupport())) {
+        //suggest only on add user
+        ?>
+        <script type="text/javascript" language="javascript">
+         function autoCreate() {
+            var firstname = $('firstname').value.toLowerCase()
+            // firstname = firstname.replace(/( |"|')/g,'')
+            $('maildrop[0]').value = $('uid').value.toLowerCase();
+         }
+         Event.observe('name', 'keyup', function(e){ autoCreate(); });
+         Event.observe('uid', 'keyup', function(e){ autoCreate(); });
+         Event.observe('firstname', 'keyup', function(e){ autoCreate(); });
+        </script>
+        <?
+    }
 }
 
 
