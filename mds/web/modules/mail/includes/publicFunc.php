@@ -2,7 +2,7 @@
 
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2008 Mandriva, http://www.mandriva.com/
+ * (c) 2007-2011 Mandriva, http://www.mandriva.com/
  *
  * $Id$
  *
@@ -124,7 +124,7 @@ function _mail_delUserFromGroup($user, $group) {
 }
 
 function _mail_delGroup($group) {
-    /** 
+    /**
      * When deleting a user group, also delete all mail aliases associated to this group
      */
     deleteMailGroupAliases($group);
@@ -132,108 +132,83 @@ function _mail_delGroup($group) {
 
 
 /**
- * display normal edit
- * @param $postArr $_POST array of the page
- * @param $ldapArr ldap array return by getDetailedUser xmlrpc function
+ * Form on user edit page
+ * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
-function _mail_baseEdit($ldapArr, $postArr) {
+function _mail_baseEdit($FH, $mode) {
 
-  $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
+    $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
 
-  if (isset($ldapArr['mailenable'][0]) && $ldapArr['mailenable'][0] == 'NONE') {
-    $checkedMail = "checked";
-  }
-  else {
-    $checkedMail = "";
-  }
-
-  if (isset($ldapArr['uid'][0]) && $ldapArr['uid'][0]) {
-    if (hasMailObjectClass($ldapArr['uid'][0])) {
-        $hasMail = "checked";
+    $hasMail = "";
+    $disabledMail = "";
+    if ($mode == "edit") {
+        $uid =  $FH->getArrayOrPostValue('uid');
+        if (hasMailObjectClass($uid))
+            $hasMail = "checked";
+        if ($FH->getArrayOrPostValue('mailenable') == "NONE")
+            $disabledMail = "checked";
     }
-    else {
-        $hasMail = "";
+
+    $f->push(new Table());
+    $f->add(
+        new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess")),
+            array("value"=>$hasMail, "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"')
+    );
+    $f->pop();
+
+    $maildiv = new Div(array("id" => "maildiv"));
+    $maildiv->setVisibility($hasMail);
+    $f->push($maildiv);
+    $f->push(new Table());
+
+    $f->add(
+        new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable")),
+        array("value"=> $disabledMail)
+    );
+    $f->add(
+        new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/')),
+        array("value" => $FH->getArrayOrPostValue('mailuserquota'))
+    );
+
+    $f->pop();
+
+    if (hasVDomainSupport()) {
+        $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
+        /* In virtual domain mode, maildrop must be an email address */
+        $m->setRegexp('/^[0-9a-zA-Z_.-+]+@[0-9a-zA-Z.-]+$/');
+    } else {
+        $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
+        $m->setRegexp('/^([0-9a-zA-Z_.-+@.])+$/');
     }
-  } else {
-        $hasMail = "checked";
-  }
-  
-  if (isset($ldapArr["mailuserquota"][0])) {
-    $mailuserquota = $ldapArr["mailuserquota"][0];
-  }
-  else {
-    $mailuserquota = "";
-  }
 
-  $f->push(new Table());
-  $f->add(
-          new TrFormElement(_T("Mail access","mail"),new CheckboxTpl("mailaccess")),
-          array("value"=>$hasMail, "extraArg"=>'onclick="toggleVisibility(\'maildiv\');"')
-          );
-  
-  $f->pop();
+    $f->add(
+        new FormElement(_T("Mail drop","mail"), $m),
+            $FH->getArrayOrPostValue('maildrop', 'array')
+    );
 
-  // Set default value
-  if (!isset($ldapArr['maildrop'])) {
-    $ldapArr['maildrop'] = array('');
-  }
-  if (!isset($ldapArr['mailalias'])) {
-    $ldapArr['mailalias'] = array('');
-  }
-  if (!isset($ldapArr['mailhost'])) {
-    $ldapArr['mailhost'] = array('');
-  }
-  if (!isset($ldapArr['mailbox'])) {
-    $ldapArr['mailbox'] = array('');
-  }
+    $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
+    $m->setRegexp('/^([0-9a-zA-Z@_.-+])+$/');
 
-  $maildiv = new Div(array("id" => "maildiv"));
-  $maildiv->setVisibility($hasMail);  
-  $f->push($maildiv);
-  $f->push(new Table());  
-  $f->add(
-          new TrFormElement(_T("Mail delivery is disabled, if checked","mail"),new CheckboxTpl("maildisable")),
-          array("value"=> $checkedMail)
-          );
-  $f->add(          
-          new TrFormElement(_T("Mail quota (in kB)", "mail"), new QuotaTpl("mailuserquota", '/^[0-9]*$/')),
-          array("value" => $mailuserquota)
-          );
-  $f->pop();
+    $f->add(
+        new FormElement(_T("Mail alias","mail"), $m),
+        $FH->getArrayOrPostValue('mailalias', 'array')
+    );
 
-  if (hasVDomainSupport()) {
-      $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
-      /* In virtual domain mode, maildrop must be an email address */
-      $m->setRegexp('/^[0-9a-zA-Z_.-+]+@[0-9a-zA-Z.-]+$/');
-  } else {
-      $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
-      $m->setRegexp('/^([0-9a-zA-Z_.-+@.])+$/');
-  }
-  $f->add(
-          new FormElement(_T("Mail drop","mail"), $m),
-          $ldapArr['maildrop']
-          );
-  $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
-  $m->setRegexp('/^([0-9a-zA-Z@_.-+])+$/');
-  $f->add(
-          new FormElement(_T("Mail alias","mail"), $m),
-          $ldapArr['mailalias']
-          );
-
-  if (hasVDomainSupport()) {
-      $f->push(new DivExpertMode());
-      $f->push(new Table());
-      $f->add(
-              new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox")),
-              array("value" => $ldapArr["mailbox"][0])
-              );
-      $f->add(
-              new TrFormElement(_T("Mail server host", "mail"),new IA5InputTpl("mailhost")),
-              array("value" => $ldapArr["mailhost"][0])
-              );
-      $f->pop();
-      $f->pop();
-  }
+    if (hasVDomainSupport()) {
+        $f->push(new DivExpertMode());
+        $f->push(new Table());
+        $f->add(
+            new TrFormElement(_T("Mail delivery path", "mail"),new InputTpl("mailbox")),
+            array("value" => $FH->getArrayOrPostValue("mailbox"))
+        );
+        $f->add(
+            new TrFormElement(_T("Mail server host", "mail"),new IA5InputTpl("mailhost")),
+            array("value" => $FH->getArrayOrPostValue("mailhost"))
+        );
+        $f->pop();
+        $f->pop();
+    }
 
   if (hasZarafaSupport()) {
       $f->push(new DivForModule(_T("Zarafa properties", "mail"), "#FFD"));
@@ -275,11 +250,11 @@ function _mail_baseEdit($ldapArr, $postArr) {
      function autoCreate() {
         var firstname = $('firstname').value.toLowerCase()
         //        firstname = firstname.replace(/( |"|')/g,'')
-        $('maildrop[0]').value = $('nlogin').value.toLowerCase();
+        $('maildrop[0]').value = $('uid').value.toLowerCase();
      }
 
      Event.observe('name', 'keyup', function(e){ autoCreate(); });
-     Event.observe('nlogin', 'keyup', function(e){ autoCreate(); });
+     Event.observe('uid', 'keyup', function(e){ autoCreate(); });
      Event.observe('firstname', 'keyup', function(e){ autoCreate(); });
   </script>
   <?
@@ -288,22 +263,26 @@ function _mail_baseEdit($ldapArr, $postArr) {
 
 
 /**
- * verification if information
- * @param $postArr $_POST array of the page
+ * Function called before changing user attributes
+ * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
-function _mail_verifInfo($postArr) {
-    if (isset($postArr["mailaccess"])) {
-        $ereg='/^([A-Za-z0-9._+-@])*$/';
-        foreach ($postArr['mailalias'] as $key => $value) {
-            if ($value && !preg_match($ereg, $postArr["mailalias"][$key]))  {
-                global $error;
-                setFormError("mailalias[$key]");
-                $error.= sprintf(_T("%s is not a valid mail alias.","mail"),$postArr["mailalias"][$key])."<br />";
+function _mail_verifInfo($FH, $mode) {
+
+    if ($FH->getPostValue("mailaccess")) {
+        $ereg = '/^([A-Za-z0-9._+-@])*$/';
+        if ($FH->getValue('mailalias')) {
+            $mails = $FH->getValue('mailalias');
+            foreach ($mails as $key => $value) {
+                if ($value && !preg_match($ereg, $mails[$key]))  {
+                    global $error;
+                    setFormError("mailalias[$key]");
+                    $error.= sprintf(_T("%s is not a valid mail alias.","mail"), $mails[$key])."<br />";
+                }
             }
         }
-        $mailreg='/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
-	if (!preg_match($mailreg, $postArr["mail"], $matches)) {
-	    print_r($matches);
+        $mailreg = '/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
+	    if (!preg_match($mailreg, $FH->getPostValue('mail'), $matches)) {
             global $error;
             setFormError("mail");
             $error.= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
@@ -313,45 +292,50 @@ function _mail_verifInfo($postArr) {
 
 
 /**
- * function call when you submit change on a user
+ * Function called for changing user attributes
  * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
-function _mail_changeUser($FH) {
+function _mail_changeUser($FH, $mode) {
+
+    global $result;
 
     if ($FH->getPostValue("mailaccess")) {
 
-        if (hasMailObjectClass($FH->getPostValue("nlogin"))) {
+        if (hasMailObjectClass($FH->getPostValue("uid"))) {
             $syncmailgroupalias = False;
             if ($FH->getValue("unlimitedquota") == "on")
+                $FH->setPostValue("mailuserquota", "0");
                 $FH->setValue("mailuserquota", "0");
         }
     	else {
-            addMailObjectClass($FH->getPostValue("nlogin"));
+            addMailObjectClass($FH->getPostValue("uid"));
+            $result .= _T("Mail attributes added.", "mail")."<br />";
             $syncmailgroupalias = True;
 	    }
-	
+
         if($FH->isUpdated("maildrop"))
-            changeMaildrop($FH->getPostValue("nlogin"), $FH->getValue('maildrop'));
+            changeMaildrop($FH->getPostValue("uid"), $FH->getValue('maildrop'));
         if($FH->isUpdated("mailalias"))
-            changeMailalias($FH->getPostValue("nlogin"), $FH->getValue('mailalias'));
+            changeMailalias($FH->getPostValue("uid"), $FH->getValue('mailalias'));
         /*
           If we are adding the user and the mailbox/mailhost attributes are
           not filled in, we don't empty them as this may clear default values
           set by the MMC agent.
         */
         if ($FH->isUpdated("mailbox"))
-            changeMailbox($FH->getPostValue("nlogin"), $FH->getPostValue('mailbox'));
+            changeMailbox($FH->getPostValue("uid"), $FH->getPostValue('mailbox'));
         if ($FH->isUpdated("mailhost"))
-            changeMailhost($FH->getPostValue("nlogin"), $FH->getPostValue("mailhost"));
+            changeMailhost($FH->getPostValue("uid"), $FH->getPostValue("mailhost"));
 
-        if (($FH->isUpdated('maildisable'))
-            || ($_GET["action"] == "add")
-            || $syncmailgroupalias) {
+        if ($FH->isUpdated('maildisable')) {
             // disable mail
-            if ($FH->getValue('maildisable') == "on")
-                changeMailEnable($FH->getPostValue("nlogin"), False);
+            if ($FH->getValue('maildisable') == "on") {
+                changeMailEnable($FH->getPostValue("uid"), False);
+                $result .= _T("Mail delivery disabled.", "mail")."<br />";
+            }
             else
-                changeMailEnable($FH->getPostValue("nlogin"), True);
+                changeMailEnable($FH->getPostValue("uid"), True);
         }
 
         /*
@@ -359,7 +343,7 @@ function _mail_changeUser($FH) {
           domain mail quota is used.
         */
         if ($FH->isUpdated("mailuserquota")) {
-            changeQuota($FH->getPostValue("nlogin"), $FH->getValue("mailuserquota"));
+            changeQuota($FH->getPostValue("uid"), $FH->getValue("mailuserquota"));
         }
 
         /* Zarafa only */
@@ -367,7 +351,7 @@ function _mail_changeUser($FH) {
             $fields = array("zarafaAdmin", "zarafaSharedStoreOnly", "zarafaAccount");
             foreach($fields as $field) {
                 if ($FH->isUpdated($field)) {
-                    modifyZarafa($FH->getPostValue("nlogin"),
+                    modifyZarafa($FH->getPostValue("uid"),
                                  $field,
                                  $FH->getValue($field) == "on" ? True : False);
                 }
@@ -378,7 +362,7 @@ function _mail_changeUser($FH) {
                 foreach($values as $value) {
                     if (!empty($value)) $newvalues[] = $value;
                 }
-                modifyZarafa($FH->getPostValue("nlogin"),
+                modifyZarafa($FH->getPostValue("uid"),
                              "zarafaSendAsPrivilege",
                              $newvalues);
             }
@@ -386,13 +370,14 @@ function _mail_changeUser($FH) {
 
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */
-            syncMailGroupAliases($FH->getPostValue("primary_autocomplete"));
+            syncMailGroupAliases($FH->getPostValue("primary"));
             foreach($FH->getPostValue("groupsselected") as $group)
                 syncMailGroupAliases($group);
         }
     } else { //mail access not checked
-        if (hasMailObjectClass($FH->getPostValue("nlogin"))) { //and mail access still present
-            removemail($FH->getPostValue("nlogin"));
+        if (hasMailObjectClass($FH->getPostValue("uid"))) { //and mail access still present
+            removemail($FH->getPostValue("uid"));
+            $result .= _T("Mail attributes deleted.", "mail")."<br />";
         }
     }
 
