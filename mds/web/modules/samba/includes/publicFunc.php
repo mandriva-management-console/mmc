@@ -226,9 +226,9 @@ function _samba_verifInfo($FH, $mode) {
 function _samba_baseEdit($FH, $mode) {
 
     // default values
-    $checked = "checked";
-    $hasSmb = true;
+    $hasSmb = false;
     $show = true;
+    $checked = "checked";
 
     // get smb config info
     $smbInfo = xmlCall("samba.getSmbInfo", null);
@@ -236,9 +236,10 @@ function _samba_baseEdit($FH, $mode) {
     // fetch ldap updated info if we can
     if ($mode == 'edit') {
         $uid = $FH->getArrayOrPostValue("uid");
-        if (!hasSmbAttr($uid)) {
+        if (hasSmbAttr($uid))
+            $hasSmb = true;
+        else {
             $checked = "";
-            $hasSmb = false;
             $show = false;
         }
         // show Samba plugin in case of error
