@@ -187,10 +187,10 @@ function _mail_baseEdit($FH, $mode) {
     if (hasVDomainSupport()) {
         $m = new MultipleInputTpl("maildrop",_T("Forward to","mail"));
         /* In virtual domain mode, maildrop must be an email address */
-        $m->setRegexp('/^[0-9a-zA-Z_.-+]+@[0-9a-zA-Z.-]+$/');
+        $m->setRegexp('/^[0-9a-zA-Z_.+\-]+@[0-9a-zA-Z.\-]+$/');
     } else {
         $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
-        $m->setRegexp('/^([0-9a-zA-Z_.-+@.])+$/');
+        $m->setRegexp('/^([0-9a-zA-Z_.+@\-])+$/');
     }
 
     $f->add(
@@ -199,7 +199,7 @@ function _mail_baseEdit($FH, $mode) {
     );
 
     $m = new MultipleInputTpl("mailalias",_T("Mail alias","mail"));
-    $m->setRegexp('/^([0-9a-zA-Z@_.-+])+$/');
+    $m->setRegexp('/^([0-9a-zA-Z@_.+\-])+$/');
 
     $f->add(
         new FormElement(_T("Mail alias","mail"), $m),
@@ -255,7 +255,7 @@ function _mail_baseEdit($FH, $mode) {
         $f->pop();
 
         $sendas = new MultipleInputTpl("zarafaSendAsPrivilege", _T("Zarafa send as user list", "mail"));
-        $sendas->setRegexp('/^([0-9a-zA-Z@_.-])+$/');
+        $sendas->setRegexp('/^([0-9a-zA-Z@_.\-])+$/');
         $f->add(
             new FormElement("", $sendas), $FH->getArrayOrPostValue("zarafaSendAsPrivilege", "array")
         );
@@ -289,25 +289,31 @@ function _mail_baseEdit($FH, $mode) {
  */
 function _mail_verifInfo($FH, $mode) {
 
+    global $error;
+    
+    $mail_errors = "";
+
     if ($FH->getPostValue("mailaccess")) {
-        $ereg = '/^([A-Za-z0-9._+-@])*$/';
+        $ereg = '/^([A-Za-z0-9._+@-])*$/';
         if ($FH->getValue('mailalias')) {
             $mails = $FH->getValue('mailalias');
             foreach ($mails as $key => $value) {
                 if ($value && !preg_match($ereg, $mails[$key]))  {
-                    global $error;
+                    $mail_errors .= sprintf(_T("%s is not a valid mail alias.","mail"), $mails[$key])."<br />";
                     setFormError("mailalias[$key]");
-                    $error.= sprintf(_T("%s is not a valid mail alias.","mail"), $mails[$key])."<br />";
                 }
             }
         }
         $mailreg = '/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
 	    if (!preg_match($mailreg, $FH->getPostValue('mail'), $matches)) {
-            global $error;
+            $mail_errors .= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
             setFormError("mail");
-            $error.= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
         }
     }
+    
+    $error .= $mail_errors;
+    
+    return $mail_errors ? 1 : 0;
 }
 
 
@@ -400,6 +406,8 @@ function _mail_changeUser($FH, $mode) {
             $result .= _T("Mail attributes deleted.", "mail")."<br />";
         }
     }
+    
+    return 0;
 
 }
 

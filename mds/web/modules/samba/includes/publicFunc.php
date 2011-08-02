@@ -29,12 +29,12 @@ function _samba_delUser($uid) {
     if (hasSmbAttr($uid)) rmSmbAttr($uid);
 }
 
-function _samba_enableUser($uid) {
-    if (hasSmbAttr($uid)) xmlCall("samba.enableUser", array($uid));
+function _samba_enableUser($paramsArr) {
+    if (hasSmbAttr($paramsArr)) return xmlCall("samba.enableUser", $paramsArr);
 }
 
-function _samba_disableUser($uid) {
-    if (hasSmbAttr($uid)) xmlCall("samba.disableUser", array($uid));
+function _samba_disableUser($paramsArr) {
+    if (hasSmbAttr($paramsArr)) return xmlCall("samba.disableUser", $paramsArr);
 }
 
 function _samba_changeUserPasswd($paramsArr) {
@@ -42,7 +42,7 @@ function _samba_changeUserPasswd($paramsArr) {
 }
 
 function _samba_changeUserPrimaryGroup($uid, $group) {
-    if (hasSmbAttr($uid)) xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
+    if (hasSmbAttr($uid)) return xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
 }
 
 
@@ -55,7 +55,6 @@ function _samba_changeUser($FH, $mode) {
 
     global $error;
     global $result;
-    if ($error) return -1;
 
     # check users profiles setup
     $globalProfiles = xmlCall("samba.isProfiles");
@@ -110,9 +109,6 @@ function _samba_changeUser($FH, $mode) {
             // Network profile path
             if($FH->isUpdated("sambaProfilePath") && !$globalProfiles) {
                 $FH->setValue("sambaProfilePath", $FH->getPostValue("sambaProfilePath"));
-            }
-            else {
-                $FH->setValue("sambaProfilePath", "");
             }
 
             // change attributes
@@ -185,6 +181,8 @@ function _samba_changeUser($FH, $mode) {
             changeSmbAttr($FH->getPostValue("uid"), $FH->getPostValues());
         }
     }
+    
+    return 0;
 }
 
 /**
@@ -194,13 +192,15 @@ function _samba_changeUser($FH, $mode) {
  */
 function _samba_verifInfo($FH, $mode) {
 
+    global $error;
+    
+    $samba_errors = "";
+
     if ($FH->getPostValue("isSamba")) {
         if (!hasSmbAttr($FH->getPostValue("uid"))) {
             if (!$FH->getValue("pass")) { // if we not precise password
-                global $error;
-                $error.= _T("You must reenter your password.","samba")."<br />\n";
+                $samba_errors .= _T("You must reenter your password.","samba")."<br />\n";
                 setFormError("pass");
-                return -1;
             }
         }
         $drive = $FH->getValue("sambaHomeDrive");
@@ -209,13 +209,15 @@ function _samba_verifInfo($FH, $mode) {
             // "X:", "U:", etc.
             $err = False;
             if (!preg_match("/^[C-Z]:$/", $drive)) {
-                global $error;
-                $error .= _T("Invalid network drive.","samba")."<br />\n";
+                $samba_errors .= _T("Invalid network drive.","samba")."<br />\n";
                 setFormError("sambaHomeDrive");
-                return -1;
             }
         }
     }
+    
+    $error .= $samba_errors;
+    
+    return $samba_errors ? 1 : 0;
 }
 
 /**

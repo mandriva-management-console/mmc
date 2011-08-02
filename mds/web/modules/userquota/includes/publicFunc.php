@@ -72,7 +72,9 @@ function displayNetworkQuotas(&$f, &$ldapArr) {
  * verification if information
  * @param $postArr $_POST array of the page
  */
-function _userquota_verifInfo($postArr) {
+function _userquota_verifInfo($FH, $mode) {
+
+    return 0;
 
 }
 
@@ -82,6 +84,10 @@ function _userquota_verifInfo($postArr) {
  */
 function _userquota_changeUser($FH) {
 
+    global $return;
+    
+    $uid = $FH->getPostValue("uid");
+
 	$components = getActiveComponents();
 	if ($components["disk"]) {
 		foreach (getDevicemap() as $device) {
@@ -89,10 +95,12 @@ function _userquota_changeUser($FH) {
 			if ($FH->isUpdated($quota->getQuotaField())) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
-					setDiskQuota($FH->getPostValue("nlogin"), $device, $quota_value);
+					setDiskQuota($uid, $device, $quota_value);
+					$result .= sprintf(_T("Disk quota set to %s.", "userquota"), $quota_value) . '<br />';
 				}
     			else {
-	    			deleteDiskQuota($FH->getPostValue("nlogin"), $device);
+	    			deleteDiskQuota($uid, $device);
+					$result .= _T("Disk quota removed.", "userquota") . '<br />';
 	    		}
 	    	}
 	    }
@@ -103,14 +111,18 @@ function _userquota_changeUser($FH) {
 			if ($FH->isUpdated($quota->getQuotaField())) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
-					setNetworkQuota($FH->getPostValue("nlogin"), $network, $quota_value);
+					setNetworkQuota($uid, $network, $quota_value);
+					$result .= sprintf(_T("Network quota set to %s on %s.", "userquota"), $quota_value, $network) . '<br />';					
 				}
     			else {
-	    			deleteNetworkQuota($postArr["nlogin"], $network);
+	    			deleteNetworkQuota($uid, $network);
+					$result .= _T("Network quota removed.", "userquota") . '<br />';
 	    		}
 	    	}
 		}
 	}
+	
+	return 0;
 
 }
 

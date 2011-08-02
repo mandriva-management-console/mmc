@@ -76,8 +76,6 @@ function _sshlpk_baseEdit($FH, $mode) {
  */
 function _sshlpk_verifInfo($FH, $mode) {
 
-    global $error;
-
     // Check if keys have been updated
     if ($FH->getValue('sshkeylist')) {
         // make keys unique
@@ -85,6 +83,8 @@ function _sshlpk_verifInfo($FH, $mode) {
         $keys = array_unique($keys);
         $FH->setValue('sshkeylist', $keys);
     }
+    
+    return 0;
 }
 
 /**
@@ -99,14 +99,17 @@ function _sshlpk_changeUser($FH, $mode) {
     if ($FH->getPostValue("showsshkey")) {
         if ($FH->isUpdated('sshkeylist')) {
             updateSshKeys($FH->getPostValue('uid'), $FH->getValue('sshkeylist'));
+            $result .= _T("SSH public keys updated.", "sshlpk") . "<br />";
         }
     }
     else {
-        if (hasSshKeyObjectClass($FH->getPostValue('uid'))) {
+        if ($mode == 'edit' && hasSshKeyObjectClass($FH->getPostValue('uid'))) {
             delSSHKeyObjectClass($FH->getPostValue('uid'));
-            $result .= _T("SSH public keys attributes deleted.", "sshlpk")."<br />";
+            $result .= _T("SSH public keys attributes deleted.", "sshlpk") . "<br />";
         }
     }
+    
+    return 0;
 }
 
 ?>
