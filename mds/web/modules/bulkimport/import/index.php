@@ -42,7 +42,7 @@ case "import":
 
 case "preimportpaging":
 case "preimport":
-    if  (key_exists("csvfile",$_FILES) && $_FILES["csvfile"]["type"] == "text/csv" || isset ($_SESSION['importusers'])) {
+    if  (key_exists("csvfile",$_FILES) || isset ($_SESSION['importusers'])) {
         $p = new PageGenerator(_T("CSV data to import", "bulkimport"));
         $p->setSideMenu($sidemenu);
         $p->display();

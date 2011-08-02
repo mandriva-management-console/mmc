@@ -21,9 +21,12 @@
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
 pluginconfdir = $(sysconfdir)/mmc/plugins
+
+if ENABLE_CONF
 dist_pluginconf_DATA = mail.ini network.ini proxy.ini sshlpk.ini \
 	userquota.ini bulkimport.ini
 nodist_pluginconf_DATA = samba.ini
+endif
 
 EXTRA_DIST = samba.ini.in
 CLEANFILES = samba.ini
