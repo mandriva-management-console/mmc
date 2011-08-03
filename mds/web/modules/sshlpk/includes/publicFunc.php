@@ -31,12 +31,11 @@ require_once("sshlpk-xmlrpc.php");
  */
 function _sshlpk_baseEdit($FH, $mode) {
 
-    if ($FH->getArrayOrPostValue("uid") && hasSshKeyObjectClass($FH->getArrayOrPostValue("uid"))) {
+    // default value
+    $hassshlpk = '';
+
+    if ($mode == 'edit' && hasSshKeyObjectClass($FH->getArrayOrPostValue("uid")))
         $hassshlpk = 'checked';
-    }
-    else {
-        $hassshlpk = '';
-    }
 
     $f = new DivForModule(_T("Public SSH keys management plugin","sshlpk"), "#DDF");
 
