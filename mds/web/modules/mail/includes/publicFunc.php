@@ -160,6 +160,10 @@ function _mail_baseEdit($FH, $mode) {
             $disabledMail = true;
         }
     }
+    
+    if ($mode == "add" && $FH->getValue('mailaccess') == 'off') {
+        $show = false;
+    }
 
     $f->push(new Table());
     $f->add(
