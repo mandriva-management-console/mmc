@@ -267,7 +267,7 @@ function _mail_baseEdit($FH, $mode) {
 
     $f->pop();
 
-    if ($mode == 'add' || !hasVDomainSupport()) {
+    if ($mode == 'add' && !hasVDomainSupport()) {
         //suggest only on add user
         ?>
         <script type="text/javascript" language="javascript">
