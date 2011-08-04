@@ -117,7 +117,7 @@ class ImportUsers {
 
     function import() {
         if (!$this->allow_import)
-            throw new Exception("Import headers not verified");		
+            throw new Exception("Import headers not verified");
         foreach ($this->users as $user) {
             $user->import();
         }
@@ -158,7 +158,7 @@ class ImportUsers {
         }
         return $l;
     }
-	
+
     function verifyImportHeaders() {
 
         foreach (self :: getImportRequiredAttributes() as $attribute) {
@@ -172,7 +172,7 @@ class ImportUsers {
         $this->allow_import = true;
         return $this->allow_import;
     }
-	
+
     function verifyHeaders($header) {
         foreach ($header as $attribute) {
             if (!in_array($attribute, self :: getValidAttributes())) {
@@ -244,7 +244,7 @@ class CSVUser {
         $this->valid = $this->checkattribute("login");
         if (!$this->valid)
             return;
-        $this->user_exists = exist_user($this->user["login"]);
+        $this->user_exists = userExists($this->user["login"]);
 
         if (!$this->user_exists) {
             $this->importable = true;
@@ -275,10 +275,10 @@ class CSVUser {
             $user = $this->user;
             $login = $user["login"];
             // the following are not permitted to be changed yet
-            unset($user["login"],  $user["firstname"], $user["surname"], 
+            unset($user["login"],  $user["firstname"], $user["surname"],
                   $user["homedir"], $user["createhomedir"], $user["primaryGroup"]);
             if (key_exists("password", $user)) {
-                $ret = callPluginFunction("changeUserPasswd", 
+                $ret = callPluginFunction("changeUserPasswd",
                                           array(array($login, prepare_string($user["password"]))));
                 if(isXMLRPCError()) {
                     foreach($ret as $info) {

@@ -25,7 +25,7 @@
 <?php
 
 function hasSmbAttr($uid) {
-    return xmlCall("samba.isSmbUser",array($uid));
+    return xmlCall("samba.isSmbUser", array($uid));
 }
 
 function addSmbAttr($uid, $passwd) {
