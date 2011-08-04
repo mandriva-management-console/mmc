@@ -34,15 +34,20 @@ function _sshlpk_baseEdit($FH, $mode) {
     // default value
     $hassshlpk = '';
 
-    if ($mode == 'edit' && hasSshKeyObjectClass($FH->getArrayOrPostValue("uid")))
+    if ($mode == 'edit' && 
+        hasSshKeyObjectClass($FH->getArrayOrPostValue("uid"))) {
         $hassshlpk = 'checked';
+    }
 
-    $f = new DivForModule(_T("Public SSH keys management plugin","sshlpk"), "#DDF");
+    $f = new DivForModule(_T("Public SSH keys management","sshlpk"), 
+        "#DDF");
 
     $f->push(new Table());
     $f->add(
-        new TrFormElement(_T("Enable SSH keys management", "sshlpk"), new CheckboxTpl("showsshkey")),
-        array("value"=>$hassshlpk, "extraArg"=>'onclick="toggleVisibility(\'sshkeydiv\');"')
+        new TrFormElement(_T("Enable SSH keys management", "sshlpk"), 
+            new CheckboxTpl("showsshkey")),
+            array("value" => $hassshlpk,
+                "extraArg"=>'onclick="toggleVisibility(\'sshkeydiv\');"')
         );
     $f->pop();
 
@@ -60,9 +65,10 @@ function _sshlpk_baseEdit($FH, $mode) {
         $sshkeylist = array("0" => "");
     }
 
-    $f->add(new TrFormElement('', new MultipleInputTpl("sshkeylist",_T("Public SSH Key", "sshlpk"))), $sshkeylist);
-
-    $f->pop();
+    $f->add(new TrFormElement('', 
+        new MultipleInputTpl("sshkeylist",_T("Public SSH Key", "sshlpk"))), 
+        $sshkeylist
+    );
 
     $f->pop();
 

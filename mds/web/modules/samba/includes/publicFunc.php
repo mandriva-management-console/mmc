@@ -251,7 +251,7 @@ function _samba_baseEdit($FH, $mode) {
         }
     }
 
-    $f = new DivForModule(_T("Samba user properties","samba"), "#EFE");
+    $f = new DivForModule(_T("Samba properties","samba"), "#EFE");
     $f->push(new Table());
 
     $f->add(
