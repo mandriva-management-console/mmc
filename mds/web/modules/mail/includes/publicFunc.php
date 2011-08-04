@@ -138,7 +138,7 @@ function _mail_delGroup($group) {
  */
 function _mail_baseEdit($FH, $mode) {
 
-    $f = new DivForModule(_T("Mail plugin","mail"), "#FFD");
+    $f = new DivForModule(_T("Mail properties","mail"), "#FFD");
 
     // Show plugin details by default
     $show = true;
@@ -227,7 +227,6 @@ function _mail_baseEdit($FH, $mode) {
 
     if (hasZarafaSupport()) {
         $f->push(new DivForModule(_T("Zarafa properties", "mail"), "#FFD"));
-        $f->pop();
         $f->push(new Table());
         $checked = false;
         if($FH->getArrayOrPostValue('zarafaAdmin') == "on" ||
@@ -263,24 +262,23 @@ function _mail_baseEdit($FH, $mode) {
         $f->add(
             new FormElement("", $sendas), $FH->getArrayOrPostValue("zarafaSendAsPrivilege", "array")
         );
+        $f->pop();
     }
 
     $f->pop();
 
-    if ($mode == 'add' && (!hasVDomainSupport())) {
+    if ($mode == 'add' || !hasVDomainSupport()) {
         //suggest only on add user
         ?>
         <script type="text/javascript" language="javascript">
-         function autoCreate() {
-            var firstname = $('firstname').value.toLowerCase()
-            // firstname = firstname.replace(/( |"|')/g,'')
-            $('maildrop[0]').value = $('uid').value.toLowerCase();
-         }
-         Event.observe('name', 'keyup', function(e){ autoCreate(); });
-         Event.observe('uid', 'keyup', function(e){ autoCreate(); });
-         Event.observe('firstname', 'keyup', function(e){ autoCreate(); });
+        var autoCreate = function(e) {
+            $('maildrop[0]').value = $F('uid').toLowerCase();
+        };
+        Event.observe(window, 'load', function() {
+            $('uid').observe('keyup', autoCreate);
+        });
         </script>
-        <?
+        <?php
     }
     
     return $f;
