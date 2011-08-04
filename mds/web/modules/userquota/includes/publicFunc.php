@@ -22,53 +22,61 @@
 
 require_once("userquota-xmlrpc.php");
 require_once("userquota.php");
+
 /**
- * display normal edit
- * @param $postArr $_POST array of the page
- * @param $ldapArr ldap array return by getDetailedUser xmlrpc function
+ * Form on user edit page
+ * @param $FH FormHandler of the page
+ * @param $mode add or edit mode
  */
 function _userquota_baseEdit($FH, $mode) {
 	
-	if (key_exists("objectClass", $ldapArr)) {
+	/*if (key_exists("objectClass", $ldapArr)) {
 		print '<input type="hidden" name="currentOC" value="'.implode(',',$ldapArr["objectClass"]).'" >';
-	}
+	}*/
 	$components = getActiveComponents();
+	if ($components) {
+        $f = new DivForModule(_T("Quota settings", "userquota"), "#FDD");
 	
-	if ($components["disk"]) {
-		$f = new DivForModule(_T("Quota plugin - Filesystem", "userquota"), "#FDD");
-		$f->push(new Table());
-		displayDiskQuotas(&$f, $ldapArr);
-		$f->pop();
-		$f->display();
+        if (isset($components["disk"])) {
+    		$f->push(new Table());
+	    	$f = addDiskQuotas($f, $FH);
+			$f->pop();
+	    }
+        if (isset($components["network"])) {
+    		$f->push(new Table());
+		    $f = addNetworkQuotas($f, $FH);
+    		$f->pop();
+	    }
 	}
-	if ($components["network"]) {
-		$f = new DivForModule(_T("Quota plugin - Network", "userquota"), "#FDD");
-		$f->push(new Table());
-		displayNetworkQuotas(&$f, $ldapArr);
-		$f->pop();
-		$f->display();
-	}
+	
+	return $f;
 }
 
 // @todo Join these two into one function.
-function displayDiskQuotas(&$f, &$ldapArr) {
+function addDiskQuotas($f, $FH) {
     
-    $quotas = isset($ldapArr["quota"]) ? $ldapArr["quota"] : array();
+    $quotas = $FH->getArrayOrPostValue("quota", "array");
 
 	foreach (getDevicemap() as $device) {
 		$quota = new DiskQuota($device);
 		$quota->setCurrentQuotas($quotas);
 		$f->add($quota->getQuotaForm(), array("value"=>$quota->getQuotaSize()));
 	}
+	
+	return $f;
 }
 
-function displayNetworkQuotas(&$f, &$ldapArr) {
+function addNetworkQuotas($f, $FH) {
+
+    $quotas = $FH->getArrayOrPostValue("networkquota", "array");
+
 	foreach (getNetworkmap() as $network) {
 		$quota = new NetworkQuota($network);
-		if(isset($ldapArr["networkquota"]))
-    		$quota->setCurrentQuotas($ldapArr["networkquota"]);
+		$quota->setCurrentQuotas($quotas);
 		$f->add($quota->getQuotaForm(), array("value"=>$quota->getQuotaSize()));
 	}
+	
+	return $f;
 }
 /**
  * verification if information
@@ -84,7 +92,7 @@ function _userquota_verifInfo($FH, $mode) {
  * function call when you submit change on a user
  * @param $postArr $_POST array of the page
  */
-function _userquota_changeUser($FH) {
+function _userquota_changeUser($FH, $mode) {
 
     global $return;
     
