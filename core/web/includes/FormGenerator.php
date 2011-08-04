@@ -197,20 +197,32 @@ class RadioTpl extends AbstractTpl {
 class ImageTpl extends AbstractTpl {
 
     function ImageTpl($name) {
-        $this->name=$name;
+        $this->name = $name;
     }
 
     function display($arrParam) {
-        if(!isset($arrParam["extraArg"])) {
-            $arrParam["extraArg"] = "";
-        }
-        print '<img src="main.php?module=base&submod=users&action=getPhoto&uid=' . $arrParam["value"] .'" '.$arrParam["extraArg"].' style="border-width: 1px; border-style: solid" />';
-    print '</td></tr><tr><td>&nbsp;</td><td><input name="photofilename" type="file" size="23" />';
-    if ($arrParam["action"] == "edit") print '<input name="deletephoto" type="submit" value="' . _("Delete photo") . '"/>';
+
+        if ($arrParam['value'])
+            $img = "data:image/jpeg;base64," . base64_encode($arrParam['value']->scalar);
+        else
+            $img = "img/users/icn_users_large.gif";
+        echo '
+                <img src=' . $img .' style="border-width: 1px; border-style: solid" />
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input name="photofilename" type="file" size="23" />';
+        if ($arrParam["action"] == "edit") 
+            echo '<input name="deletephoto" type="submit" value="' . _("Delete photo") . '"/>';
     }
 
     function displayRo($arrParam) {
-        print '<img src="main.php?module=base&submod=users&action=getPhoto&uid=' . $arrParam["value"] .'" '.$arrParam["extraArg"].' style="border-width: 1px; border-style: solid" />';
+        if ($arrParam['value'])
+            $img = "data:image/jpeg;base64," . base64_encode($arrParam['value']->scalar);
+        else
+            $img = "img/users/icn_users_large.gif";
+        echo '<img src=' . $img .' style="border-width: 1px; border-style: solid" />';
     }
 
 }
@@ -608,10 +620,9 @@ class MultipleInputTpl extends AbstractTpl {
         print '<table>';
         foreach ($arrParam as $key => $param) {
             $test = new DeletableTrFormElement($this->desc,
-                                               new InputTpl($this->name.'['.$key.']',$this->regexp),
-                                               array('key'=>$key,
-                                                     'name'=> $this->name)
-                                               );
+                new InputTpl($this->name.'['.$key.']',$this->regexp),
+                array('key'=>$key, 'name'=> $this->name)
+            );
             $test->setCssError($this->name.$key);
             $test->displayHide(array("value"=>$param));
         }
@@ -622,11 +633,133 @@ class MultipleInputTpl extends AbstractTpl {
             print '</td></tr>';
         }
         print '</table>';
-        print '</div>';
+        print '</div>';      
         print '</div>';
     }
+}
 
+class MembersTpl extends AbstractTpl {
 
+    function MembersTpl($name) {
+        $this->name = $name;
+        $this->titleLeft = "";
+        $this->titleRight = "";        
+    }
+    
+    function setTitle($titleLeft, $titleRight) {
+        $this->titleLeft = $titleLeft;
+        $this->titleRight = $titleRight;                
+    }
+    
+    function display($arrParam) {
+    
+        if(is_array($arrParam['member']))
+            $this->member = $arrParam['member'];
+        else {
+            echo 'MembersTpl: member is not an array.';
+            return 1;
+        }   
+        if(is_array($arrParam['available']))
+            $this->available = $arrParam['available'];
+        else {
+            echo 'MembersTpl: available is not an array.';
+            return 1;        
+        }
+    
+        echo '
+    <table style="border: none;" cellspacing="0">
+    <tr>
+        <td style="border: none;">
+        <div class="list">
+        <h4>' . $this->titleLeft . '</h4>';
+        if ($this->member) {
+            foreach ($this->member as $id=>$name)
+                echo '<input type="hidden" name="old_' . $this->name .'[]" value="' . $name . '" />';
+        }
+        else {
+            echo '<input type="hidden" name="old_' . $this->name .'[]" value="" />';
+        }
+        echo '
+            <select multiple size="15" class="list" name="' . $this->name .'[]" id="' . $this->name .'">';
+        foreach ($this->member as $id=>$name)
+            echo '<option value="' . $id . '">' . $name . '</option>';
+        echo '
+            </select>
+            <br />
+        </div>
+        </td>
+        <td style="border: none;">
+        <div>
+            <a href="#" onclick="switch_' . $this->name .'(\'available_'.$this->name.'\', \''.$this->name.'\'); return false;">
+                <img style="padding: 5px;" src="img/common/icn_arrowleft.gif" value="<--" />
+            </a>
+            <br/>
+            <a href="#" onclick="switch_' . $this->name .'(\''.$this->name.'\', \'available_'.$this->name.'\'); return false;">
+                <img style="padding: 5px;" src="img/common/icn_arrowright.gif" value = "-->" />
+            </a>
+        </div>
+        </td>
+        <td style="border: none;">
+        <div class="list" style="padding-left: 10px;">
+        <h4>' . $this->titleRight . '</h4>
+            <select multiple size="15" class="list" name="available_' . $this->name .'[]" id="available_' . $this->name .'">';
+        foreach ($this->available as $id=>$name)
+            echo '<option value="' . $id . '">' . $name . '</option>';
+        echo '
+            </select>
+            <br />
+        </div>
+        <div class="clearer"></div>
+        </td>
+    </tr>
+    </table>
+    <script type="text/javascript">
+        switch_' . $this->name .' = function(from, to) {
+            var toAdd = $$("#"+from+" option").findAll(
+                function(ele) { return ele.selected }
+            );
+            var len = toAdd.length;
+            for(var i=0; i<len; i++) {
+                $(to).options.add(toAdd[i]);
+            }
+        };
+    </script>';
+    }
+    
+    function displayRo($arrParam) {
+    
+        if(is_array($arrParam['member']))
+            $this->member = $arrParam['member'];
+        else {
+            echo 'MembersTpl: member is not an array.';
+            return 1;
+        }
+        
+        echo '<ul class="roACL">';
+        foreach ($this->member as $id => $name) {
+            echo '<input type="hidden" name="old_' . $this->name .'[]" value="' . $name . '" />';
+            echo '<input type="hidden" name="' . $this->name .'[]" value="' . $name . '" />';
+            echo '<li>' . $name . '</li>';
+        }
+        echo '</ul>';
+    }
+    
+    function displayHide($arrParam) {
+
+        if(is_array($arrParam['member']))
+            $this->member = $arrParam['member'];
+        else {
+            echo 'MembersTpl: member is not an array.';
+            return 1;
+        }
+        
+        foreach ($this->member as $id => $name) {
+            echo '<input type="hidden" name="old_' . $this->name .'[]" value="' . $name . '" />';
+            echo '<input type="hidden" name="' . $this->name .'[]" value="' . $name . '" />';
+        }
+        
+        echo '<div style="color: #C00;">' . _("unavailable") . '</div>';
+    }
 }
 
 /**
@@ -945,7 +1078,7 @@ class TrFormElement extends FormElement {
         else {
             $field_name = "";
         }
-        if ($field_name) {
+        if ($field_name && is_string($old_value)) {
             print '<input type="hidden" name="old_'.$field_name.'" value="'.$old_value.'" />';
         }
 

@@ -20,10 +20,10 @@
  * You should have received a copy of the GNU General Public License
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * $Id$ 
+ *
  */
-?>
-<?php
-/* $Id$ */
 
 $root = $conf["global"]["root"];
 $css = $root."graph";
@@ -78,7 +78,14 @@ cbox=document.getElementsByTagName('INPUT');
   }
 }
 
-
+// select all select with class 'list' options in the page
+// usefull to run before post a form with
+// selects in it.
+function selectAll() {
+    $$("select.list option").each(function(e) {
+        e.selected = true;
+    });
+}
 
 function getStyleObject(objectId) {
     // cross-browser function to get an object's style object given its id
@@ -122,7 +129,7 @@ function toggleVisibility(layer_ref)
 
 function PopupWindow(evt, url, width) {
     $('popup').style.width = width + "px";
-    if (!evt) evt = window.event;    
+    if (!evt) evt = window.event;
     new Ajax.Updater('__popup_container', url, { onComplete: PopupWindowDisplay(evt, width), evalScripts:true});
 }
 
@@ -166,10 +173,9 @@ function showPopupUp(evt,url) {
 }
 
 function displayPopupUp (evt) {
-    obj = document.getElementById('popup');
-    obj.style.left = parseInt(evt.clientX)+document.documentElement.scrollLeft+"px";
-    obj.style.top = (parseInt(evt.clientY)+document.documentElement.scrollTop-350)+"px";
-    getStyleObject('popup').display='inline';
+    $('popup').style.left = parseInt(evt.clientX)+document.documentElement.scrollLeft+"px";
+    $('popup').style.top = (parseInt(evt.clientY)+document.documentElement.scrollTop-350)+"px";
+    $('popup').style.display = 'inline';
 }
 
 function showPopupCenter(url) {
@@ -177,12 +183,10 @@ function showPopupCenter(url) {
 }
 
 function displayPopupCenter () {
-    obj = document.getElementById('popup');
-    var width = $('popup').style.width;
-    var widthreal = width.substr( 0, width.length - 2 );
-    obj.style.left = ((screen.width-widthreal)/2)+"px";
-    obj.style.top = 200+"px";
-    getStyleObject('popup').display='inline';
+    $('popup').style.width = '50%';
+    $('popup').style.left = '25%';
+    $('popup').style.top  = '15%';
+    $('popup').style.display = 'inline';
 }
 
 function validateForm() {
@@ -212,6 +216,7 @@ function validateForm() {
     } else {
         return true;
     }
+    return false;
 }
 
 -->

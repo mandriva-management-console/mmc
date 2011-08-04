@@ -1998,7 +1998,7 @@ class NotifyWidget {
      * private internal function
      */
     function getSize() {
-        if ($_SESSION['__notify_size']) {
+        if (isset($_SESSION['__notify_size']) && $_SESSION['__notify_size']) {
             return $_SESSION['__notify_size'];
         } else {
             return 300; //default value
@@ -2021,7 +2021,7 @@ class NotifyWidget {
      * private internal function
      */
     function getLevel() {
-        if ($_SESSION['__notify_level']) {
+        if (isset($_SESSION['__notify_level']) && $_SESSION['__notify_level']) {
             return $_SESSION['__notify_level'];
         } else {
             return 0; //default level is 0
@@ -2032,7 +2032,7 @@ class NotifyWidget {
      * private internal function
      */
     function getImgLevel() {
-        if ($this->getLevel()!=0) {
+        if ($this->getLevel() != 0) {
             return "img/common/icn_alert.gif";
         }
 
@@ -2143,14 +2143,14 @@ class NotifyWidgetWarning extends NotifyWidget {
 /**
  * Display a simple DIV with an error message
  */
-class ErrorMessage {
+class ErrorMessage extends HtmlElement {
 
     function ErrorMessage($msg) {
         $this->msg = $msg;
     }
 
     function display() {
-        return "<div id=\"errorCode\">" . $this->msg . "</div>";
+        print '<div class="errorCode">' . $this->msg . '</div>';
     }
 }
 
@@ -2438,7 +2438,7 @@ class ValidatingForm extends Form {
     function ValidatingForm($options = array()) {
         $this->Form($options);
         $this->options["id"] = "edit";
-        $this->options["onsubmit"] = "return validateForm();";
+        $this->options["onsubmit"] = "selectAll(); return validateForm();";
     }
 
     function end() {
