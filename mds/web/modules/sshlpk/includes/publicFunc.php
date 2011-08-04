@@ -65,7 +65,9 @@ function _sshlpk_baseEdit($FH, $mode) {
     $f->pop();
 
     $f->pop();
-    $f->display();
+
+    return $f;
+
 }
 
 /**

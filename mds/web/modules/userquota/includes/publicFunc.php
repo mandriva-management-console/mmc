@@ -27,11 +27,13 @@ require_once("userquota.php");
  * @param $postArr $_POST array of the page
  * @param $ldapArr ldap array return by getDetailedUser xmlrpc function
  */
-function _userquota_baseEdit($ldapArr, $postArr) {
+function _userquota_baseEdit($FH, $mode) {
+	
 	if (key_exists("objectClass", $ldapArr)) {
 		print '<input type="hidden" name="currentOC" value="'.implode(',',$ldapArr["objectClass"]).'" >';
 	}
 	$components = getActiveComponents();
+	
 	if ($components["disk"]) {
 		$f = new DivForModule(_T("Quota plugin - Filesystem", "userquota"), "#FDD");
 		$f->push(new Table());

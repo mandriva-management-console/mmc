@@ -266,7 +266,6 @@ function _mail_baseEdit($FH, $mode) {
     }
 
     $f->pop();
-    $f->display();
 
     if ($mode == 'add' && (!hasVDomainSupport())) {
         //suggest only on add user
@@ -283,6 +282,8 @@ function _mail_baseEdit($FH, $mode) {
         </script>
         <?
     }
+    
+    return $f;
 }
 
 
