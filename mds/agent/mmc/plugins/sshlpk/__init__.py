@@ -85,6 +85,7 @@ class UserSshKey(ldapUserGroupControl):
         self.configSshKey = UserSshKeyConfig("sshlpk", conffile)
         self.userUid = uid
         self.dn = 'uid=' + uid + ',' + self.baseUsersDN
+        self.hooks.update(self.configSshKey.hooks)
     
     def getSshKey(self, number = None):
         """
@@ -160,6 +161,7 @@ class UserSshKey(ldapUserGroupControl):
         # Update LDAP
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(self.dn, modlist)
+        self.runHook("sshlpk.updatesshkeys", self.userUid)
             
     def hasSshKeyObjectClass(self):
         """
