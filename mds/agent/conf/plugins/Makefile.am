@@ -59,7 +59,7 @@ network.ini: Makefile
 	  sed -i 's!/var/run/bind/run/named.pid!/var/lib/named/var/run/named.pid!g' $@; \
 	  sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@; \
 	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
-	  sed -i 's!/etc/bind/!/var/lib/named!g' $@; \
+	  sed -i 's!/etc/bind/!/var/named!g' $@; \
 	  sed -i 's!^bindgroup = bind!bindgroup = named!g' $@; \
 	fi
 
