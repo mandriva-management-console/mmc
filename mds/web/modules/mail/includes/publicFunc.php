@@ -302,11 +302,11 @@ function _mail_verifInfo($FH, $mode) {
     if ($FH->getPostValue("mailaccess")) {
         $ereg = '/^([A-Za-z0-9._+@-])*$/';
         if ($FH->getValue('mailalias')) {
-            $mails = $FH->getValue($attr['mailalias']);
+            $mails = $FH->getValue($attrs['mailalias']);
             foreach ($mails as $key => $value) {
                 if ($value && !preg_match($ereg, $mails[$key]))  {
                     $mail_errors .= sprintf(_T("%s is not a valid mail alias.","mail"), $mails[$key])."<br />";
-                    setFormError($attr['mailalias']."[".$key."]");
+                    setFormError($attrs['mailalias']."[".$key."]");
                 }
             }
         }
