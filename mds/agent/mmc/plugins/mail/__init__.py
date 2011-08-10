@@ -199,21 +199,20 @@ class MailConfig(PluginConfig):
             self.zarafa = self.getboolean("main", "zarafa")
         except NoOptionError:
             pass
-	try:
+        try:
             self.attrs = dict(self.items("mapping"))
         except NoSectionError:
             self.attrs = {}
-        else:
-            attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost"]
-            # validate attribute mapping
-            for attr, val in self.attrs.copy().items():
-                if not attr in attrs:
-                    del self.attrs[attr]
-                    logger.error("Can't map attribute %s. Attribute not supported." % attr)
-            # add all other attributes
-            for attr in attrs:
-                if not attr in self.attrs:
-                    self.attrs[attr] = attr
+        attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost"]
+        # validate attribute mapping
+        for attr, val in self.attrs.copy().items():
+            if not attr in attrs:
+                del self.attrs[attr]
+                logger.error("Can't map attribute %s. Attribute not supported." % attr)
+        # add all other attributes
+        for attr in attrs:
+            if not attr in self.attrs:
+                self.attrs[attr] = attr
 
     def setDefault(self):
         PluginConfig.setDefault(self)
