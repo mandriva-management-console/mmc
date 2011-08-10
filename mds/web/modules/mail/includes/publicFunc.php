@@ -301,9 +301,9 @@ function _mail_verifInfo($FH, $mode) {
     global $error;
     
     $mail_errors = "";
+    $attrs = getMailAttributes();
     
     if ($FH->isUpdated($attrs['mailalias'])) {
-        $attrs = getMailAttributes();
         $ereg = '/^([A-Za-z0-9._+@-])*$/';
         $mails = $FH->getValue($attrs['mailalias']);
         foreach ($mails as $key => $value) {
@@ -314,7 +314,8 @@ function _mail_verifInfo($FH, $mode) {
         }
     }
     
-    if ($FH->isUpdated('maildrop') && count($FH->getValue('maildrop')) == 0 &&
+    if ($FH->isUpdated($attrs['maildrop']) && 
+        count($FH->getValue($attrs['maildrop'])) == 0 &&
         !hasVDomainSupport()) {
         $mail_errors .= _T("You must specify at least one mail drop. Usually it has the same name as the user.","mail")."<br />";
     }
