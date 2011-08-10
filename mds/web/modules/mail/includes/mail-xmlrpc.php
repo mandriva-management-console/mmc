@@ -129,6 +129,10 @@ function computeMailGroupAlias($group) {
     return xmlCall("mail.computeMailGroupAlias", array($group));
 }
 
+function getMailAttributes() {
+    return xmlCall("mail.getMailAttributes");
+}
+
 function hasZarafaSupport() {
     return xmlCall("mail.hasZarafaSupport");
 }

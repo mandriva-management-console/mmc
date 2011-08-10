@@ -99,6 +99,11 @@
 	    <entry>Attributes and Objectclass values that are added or deleted when adding mail attributes to a user</entry>
 	    <entry>yes</entry>
 	  </row>
+	  <row>
+	    <entry>mapping</entry>
+	    <entry>Map mail.schema attributes to other existing LDAP attributes</entry>
+	    <entry>yes</entry>
+	  </row>
 	</tbody>
       </tgroup>
     </table>
@@ -226,6 +231,27 @@
       When you edit a group, you will also be able to set the
       "zarafa-group" object class to it.
     </para>
+
+  </section>
+
+  <section>
+
+    <title>Section « mapping »</title>
+
+    <para>
+      When using an existing LDAP your mail attributes may not have the same name than the attributes of our mail.schema.
+      The MDS mail plugin support attribute mapping so that you can use your LDAP without modification.
+    </para>
+    <para>
+      The following attributes can be mapped to other values: mailalias, maildrop, mailenable, mailbox, mailuserquota, mailhost
+    </para>
+    <para>
+      If your are using the zarafaAliases to store users aliases write:
+    </para>
+    <screen>
+      [mapping]
+      mailalias = zarafaAliases
+    </screen>
 
   </section>
 

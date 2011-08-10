@@ -28,7 +28,7 @@ MDS mail plugin for the MMC agent.
 import ldap.modlist
 import copy
 import logging
-from ConfigParser import NoOptionError
+from ConfigParser import NoOptionError, NoSectionError
 
 from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
@@ -169,6 +169,9 @@ def deleteMailGroupAliases(group):
 def syncMailGroupAliases(group, foruser = "*"):
     return MailControl().syncMailGroupAliases(group, foruser)
 
+def getMailAttributes():
+    return MailConfig('mail').attrs
+
 # Zarafa support
 
 def hasZarafaSupport():
@@ -186,6 +189,7 @@ def setZarafaGroup(group, value):
 class MailConfig(PluginConfig):
 
     def readConf(self):
+        logger = logging.getLogger()
         PluginConfig.readConf(self)
         try: self.vDomainSupport = self.getboolean("main", "vDomainSupport")
         except: pass
@@ -195,6 +199,21 @@ class MailConfig(PluginConfig):
             self.zarafa = self.getboolean("main", "zarafa")
         except NoOptionError:
             pass
+	try:
+            self.attrs = dict(self.items("mapping"))
+        except NoSectionError:
+            self.attrs = {}
+        else:
+            attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost"]
+            # validate attribute mapping
+            for attr, val in self.attrs.copy().items():
+                if not attr in attrs:
+                    del self.attrs[attr]
+                    logger.error("Can't map attribute %s. Attribute not supported." % attr)
+            # add all other attributes
+            for attr in attrs:
+                if not attr in self.attrs:
+                    self.attrs[attr] = attr
 
     def setDefault(self):
         PluginConfig.setDefault(self)
@@ -206,13 +225,13 @@ class MailControl(ldapUserGroupControl):
 
     def __init__(self, conffile = None, conffilebase = None):
         mmc.plugins.base.ldapUserGroupControl.__init__(self, conffilebase)
-        self.configMail = MailConfig("mail", conffile)
+        self.conf = MailConfig("mail", conffile)
 
     def hasVDomainSupport(self):
-        return self.configMail.vDomainSupport
+        return self.conf.vDomainSupport
 
     def hasZarafaSupport(self):
-        return self.configMail.zarafa
+        return self.conf.zarafa
 
     def addVDomain(self, domain):
         """
@@ -222,7 +241,7 @@ class MailControl(ldapUserGroupControl):
         @type domain: str
         """
         r = AF().log(PLUGIN_NAME, AA.MAIL_ADD_VDOMAIN, [(domain, AT.VMDOMAIN)])
-        dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
+        dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         entry = {
             "virtualdomain" : domain,
             "objectClass" :  ("mailDomain", "top")
@@ -239,7 +258,7 @@ class MailControl(ldapUserGroupControl):
         @type domain: str
         """
         r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_VDOMAIN, [(domain, AT.VMDOMAIN)])
-        dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
+        dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         self.delRecursiveEntry(dn)
         r.commit()
 
@@ -254,7 +273,7 @@ class MailControl(ldapUserGroupControl):
         @type description: unicode
         """        
         r = AF().log(PLUGIN_NAME, AA.MAIL_SET_DOMAIN_DESC, [(domain, AT.VMDOMAIN)], description)
-        dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
+        dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         description = description.encode("utf-8")
         if description:
             self.l.modify_s(dn, [(ldap.MOD_REPLACE, "virtualdomaindescription", description)])
@@ -274,15 +293,15 @@ class MailControl(ldapUserGroupControl):
         @type description: unicode
         """        
         r = AF().log(PLUGIN_NAME, AA.MAIL_SET_DOMAIN_QUOTA, [(domain, AT.VMDOMAIN)], quota)
-        dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
+        dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         try:
             int(quota)
         except ValueError:
             quota = None
         if quota:
-            self.l.modify_s(dn, [(ldap.MOD_REPLACE, "mailuserquota", quota)])
+            self.l.modify_s(dn, [(ldap.MOD_REPLACE, self.conf.attrs['mailuserquota'], quota)])
         else:
-            self.l.modify_s(dn, [(ldap.MOD_DELETE, "mailuserquota", None)])
+            self.l.modify_s(dn, [(ldap.MOD_DELETE, self.conf.attrs['mailuserquota'], None)])
         r.commit()
 
     def resetUsersVDomainQuota(self, domain):
@@ -294,9 +313,9 @@ class MailControl(ldapUserGroupControl):
         """
         r = AF().log(PLUGIN_NAME, AA.MAIL_RESET_DOMAIN_QUOTA, [(domain, AT.VMDOMAIN)])
         vdomain = self.getVDomain(domain)
-        mailuserquota = vdomain[0][1]["mailuserquota"][0]
+        mailuserquota = vdomain[0][1][self.conf.attrs['mailuserquota']][0]
         for user in self.getVDomainUsers(domain):
-            self.changeUserAttributes(user[1]["uid"][0], "mailuserquota", mailuserquota, False)
+            self.changeUserAttributes(user[1]["uid"][0], self.conf.attrs['mailuserquota'], mailuserquota, False)
         r.commit()
 
     def getVDomain(self, domain):
@@ -308,7 +327,7 @@ class MailControl(ldapUserGroupControl):
 
         @rtype: dict
         """
-        dn = "virtualdomain=" + domain + ", " + self.configMail.vDomainDN
+        dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         return self.l.search_s(dn, ldap.SCOPE_BASE)
 
     def getVDomains(self, filt = ""):
@@ -320,7 +339,7 @@ class MailControl(ldapUserGroupControl):
         filt = filt.strip()
         if not filt: filt = "*"
         else: filt = "*" + filt + "*"        
-        return self.l.search_s(self.configMail.vDomainDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailDomain)(virtualdomain=%s))" % filt)
+        return self.l.search_s(self.conf.vDomainDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailDomain)(virtualdomain=%s))" % filt)
 
     def changeMailEnable(self, uid, enabled):
         """
@@ -343,7 +362,7 @@ class MailControl(ldapUserGroupControl):
         r = AF().log(PLUGIN_NAME, action, [(uid, AT.MAIL)], enabled)        
         if not self.hasMailObjectClass(uid):
             self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'mailenable', attr_val, False)
+        self.changeUserAttributes(uid, self.conf.attrs['mailenable'], attr_val, False)
         r.commit()
 
     def changeMaildrop(self, uid, maildroplist):
@@ -358,7 +377,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_DROP, [(userdn, AT.MAIL)], maildroplist)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'maildrop', maildroplist, False)
+        self.changeUserAttributes(uid, self.conf.attrs['maildrop'], maildroplist, False)
         r.commit()
 
     def changeMailalias(self, uid, mailaliaslist):
@@ -373,7 +392,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_ALIAS, [(userdn, AT.MAIL)], mailaliaslist)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'mailalias', mailaliaslist, False)
+        self.changeUserAttributes(uid, self.conf.attrs['mailalias'], mailaliaslist, False)
         r.commit()
 
     def changeMailbox(self, uid, mailbox):
@@ -388,7 +407,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_BOX, [(userdn, AT.MAIL)], mailbox)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        if mailbox: self.changeUserAttributes(uid, 'mailbox', mailbox, False)
+        if mailbox: self.changeUserAttributes(uid, self.conf.attrs['mailbox'], mailbox, False)
         r.commit()
 
     def changeMailhost(self, uid, mailhost):
@@ -403,7 +422,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_HOST, [(userdn, AT.MAIL)], mailhost)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'mailhost', mailhost, False)
+        self.changeUserAttributes(uid, self.conf.attrs['mailhost'], mailhost, False)
         r.commit()
 
     def changeQuota(self, uid, mailuserquota):
@@ -418,7 +437,7 @@ class MailControl(ldapUserGroupControl):
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_QUOTA, [(userdn, AT.MAIL)], mailuserquota)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
-        self.changeUserAttributes(uid, 'mailuserquota', mailuserquota, False)
+        self.changeUserAttributes(uid, self.conf.attrs['mailuserquota'], mailuserquota, False)
         r.commit()
 
     def removeMail(self, uid):
@@ -469,7 +488,7 @@ class MailControl(ldapUserGroupControl):
         dn = 'uid=' + uid + ',' + self.baseUsersDN
         s = self.l.search_s(dn, ldap.SCOPE_BASE)
         c, old = s[0]
-        new = self._applyUserDefault(old, self.configMail.userDefault)
+        new = self._applyUserDefault(old, self.conf.userDefault)
 
         if not "mailAccount" in new["objectClass"]:
             new["objectClass"].append("mailAccount")
@@ -482,14 +501,14 @@ class MailControl(ldapUserGroupControl):
         # Add maildrop attribute to user if we are not in virtual domain mode
         if maildrop == None and not self.hasVDomainSupport():
             maildrop = uid
-            new["maildrop"] = maildrop
+            new[self.conf.attrs['maildrop']] = maildrop
 
         if self.hasVDomainSupport():
             # If the user has her/his mail address in a VDomain, set quota according to domain policy
             maildomain = new["mail"][0].split("@")[1]
             try:
                 vdomain = self.getVDomain(maildomain)
-                new["mailuserquota"] = vdomain[0][1]["mailuserquota"]
+                new[self.conf.attrs['mailuserquota']] = vdomain[0][1][self.conf.attrs['mailuserquota']]
             except ldap.NO_SUCH_OBJECT:
                 pass
             except KeyError:
@@ -560,10 +579,11 @@ class MailControl(ldapUserGroupControl):
         r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_GRP_ALIAS, [(group, AT.MAIL_GROUP)], group)
         if hasMailGroupObjectClass(group):
             mailgroup = self.getDetailedGroup(group)["mail"][0]
-            users = self.search("(&(uid=*)(mailalias=%s))" % mailgroup, self.baseUsersDN, ["uid", "mailalias"])
+            users = self.search("(&(uid=*)(%s=%s))" % (self.conf.attrs['mailalias'], mailgroup), 
+                self.baseUsersDN, ["uid", self.conf.attrs['mailalias']])
             for user in users:
                 uid = user[0][1]["uid"][0]
-                mailaliases = user[0][1]["mailalias"]
+                mailaliases = user[0][1][self.conf.attrs['mailalias']]
                 mailaliases.remove(mailgroup)
                 self.changeMailalias(uid, mailaliases)
         r.commit()
@@ -575,11 +595,12 @@ class MailControl(ldapUserGroupControl):
         if hasMailGroupObjectClass(group):
             mailgroup = self.getDetailedGroup(group)["mail"][0]
             groupusers = self.getMembers(group)
-            allusers = self.search("(&(uid=%s)(objectClass=mailAccount))" % foruser, self.baseUsersDN, ["uid", "mailalias"])
+            allusers = self.search("(&(uid=%s)(objectClass=mailAccount))" % foruser, self.baseUsersDN, 
+                ["uid", self.conf.attrs['mailalias']])
             for user in allusers:
                 uid = user[0][1]["uid"][0]
                 try:
-                    mailaliases = user[0][1]["mailalias"]
+                    mailaliases = user[0][1][self.conf.attrs['mailalias']]
                 except KeyError:
                     mailaliases = []
                 if uid in groupusers:
