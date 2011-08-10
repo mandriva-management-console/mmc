@@ -160,6 +160,10 @@ function _mail_baseEdit($FH, $mode) {
         }
         if ($FH->getArrayOrPostValue($attrs['mailenable']) == "NONE") {
             $disabledMail = true;
+            // Display an error message on top of the page
+            $em = new ErrorMessage(_T("Mail properties", "samba") . ' : ' .
+                _T("Mail delivery is disabled", "samba"));
+            $em->display();
         }
     }
     

@@ -117,10 +117,12 @@ function _samba_changeUser($FH, $mode) {
             if (isEnabledUser($FH->getPostValue("uid"))) {
                 if ($FH->getPostValue('isSmbDesactive')) {
                     smbDisableUser($FH->getPostValue("uid"));
+                    $result .= _T("Samba account disabled.","samba")."<br />";
                 }
             } else {
                 if (!$FH->getPostValue('isSmbDesactive')) {
                     smbEnableUser($FH->getPostValue("uid"));
+                    $result .= _T("Samba account enabled.","samba")."<br />";
                 }
             }
             if (isLockedUser($FH->getPostValue("uid"))) {
@@ -276,7 +278,13 @@ function _samba_baseEdit($FH, $mode) {
     }
 
     $checked = "";
-    if (($hasSmb && !isEnabledUser($uid)) || $FH->getArrayOrPostValue('isSmbDesactive') == 'on') $checked = "checked";
+    if (($hasSmb && !isEnabledUser($uid)) || $FH->getArrayOrPostValue('isSmbDesactive') == 'on') {
+        $checked = "checked";
+        // Display an error message on top of the page
+        $em = new ErrorMessage(_T("Samba properties", "samba") . ' : ' .
+            _T("This account is disabled", "samba"));
+        $em->display();
+    }
     $f->add(
         new TrFormElement(_T("User is disabled, if checked","samba"), new CheckboxTpl("isSmbDesactive"),
             array("tooltip" => _T("Disable samba user account",'samba'))),
@@ -284,7 +292,8 @@ function _samba_baseEdit($FH, $mode) {
     );
 
     $checked = "";
-    if (($hasSmb && isLockedUser($uid)) || $FH->getArrayOrPostValue('isSmbLocked') == 'on') $checked = "checked";
+    if (($hasSmb && isLockedUser($uid)) || $FH->getArrayOrPostValue('isSmbLocked') == 'on')
+        $checked = "checked";
     $f->add(
         new TrFormElement(_T("User is locked, if checked","samba"), new CheckboxTpl("isSmbLocked"),
             array("tooltip" => _T("Lock samba user access<p>User can be locked after too many failed log.</p>",'samba'))),
