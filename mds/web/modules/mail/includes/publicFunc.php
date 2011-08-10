@@ -301,21 +301,27 @@ function _mail_verifInfo($FH, $mode) {
     global $error;
     
     $mail_errors = "";
-    $attrs = getMailAttributes();
-
-    if ($FH->getPostValue("mailaccess")) {
+    
+    if ($FH->isUpdated($attrs['mailalias'])) {
+        $attrs = getMailAttributes();
         $ereg = '/^([A-Za-z0-9._+@-])*$/';
-        if ($FH->getValue('mailalias')) {
-            $mails = $FH->getValue($attrs['mailalias']);
-            foreach ($mails as $key => $value) {
-                if ($value && !preg_match($ereg, $mails[$key]))  {
-                    $mail_errors .= sprintf(_T("%s is not a valid mail alias.","mail"), $mails[$key])."<br />";
-                    setFormError($attrs['mailalias']."[".$key."]");
-                }
+        $mails = $FH->getValue($attrs['mailalias']);
+        foreach ($mails as $key => $value) {
+            if ($value && !preg_match($ereg, $mails[$key]))  {
+                $mail_errors .= sprintf(_T("%s is not a valid mail alias.","mail"), $mails[$key])."<br />";
+                setFormError($attrs['mailalias']."[".$key."]");
             }
         }
+    }
+    
+    if ($FH->isUpdated('maildrop') && count($FH->getValue('maildrop')) == 0 &&
+        !hasVDomainSupport()) {
+        $mail_errors .= _T("You must specify at least one mail drop. Usually it has the same name as the user.","mail")."<br />";
+    }
+    
+    if ($FH->isUpdated('mail')) {
         $mailreg = '/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
-	    if (!preg_match($mailreg, $FH->getPostValue('mail'), $matches)) {
+	    if (!preg_match($mailreg, $FH->getValue('mail'), $matches)) {
             $mail_errors .= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
             setFormError("mail");
         }
@@ -335,52 +341,45 @@ function _mail_verifInfo($FH, $mode) {
 function _mail_changeUser($FH, $mode) {
 
     global $result;
-    $attrs = getMailAttributes();
+    
+    $uid = $FH->getPostValue("uid");
 
     if ($FH->getPostValue("mailaccess")) {
+    
+        $attrs = getMailAttributes();
 
-        if (hasMailObjectClass($FH->getPostValue("uid"))) {
+        if (hasMailObjectClass($uid)) {
             $syncmailgroupalias = False;
-            if ($FH->getValue("unlimitedquota") == "on")
+            if ($FH->getValue("unlimitedquota") == "on") {
                 $FH->setPostValue($attrs["mailuserquota"], "0");
                 $FH->setValue($attrs["mailuserquota"], "0");
+            }
         }
     	else {
-            addMailObjectClass($FH->getPostValue("uid"));
+            addMailObjectClass($uid);
             $result .= _T("Mail attributes added.", "mail")."<br />";
             $syncmailgroupalias = True;
-	}
+        }
 
         if($FH->isUpdated($attrs["maildrop"]))
-            changeMaildrop($FH->getPostValue("uid"), $FH->getValue($attrs['maildrop']));
+            changeMaildrop($uid, $FH->getValue($attrs['maildrop']));
         if($FH->isUpdated($attrs["mailalias"]))
-            changeMailalias($FH->getPostValue("uid"), $FH->getValue($attrs['mailalias']));
-        /*
-          If we are adding the user and the mailbox/mailhost attributes are
-          not filled in, we don't empty them as this may clear default values
-          set by the MMC agent.
-        */
+            changeMailalias($uid, $FH->getValue($attrs['mailalias']));
         if ($FH->isUpdated($attrs["mailbox"]))
-            changeMailbox($FH->getPostValue("uid"), $FH->getValue($attrs['mailbox']));
+            changeMailbox($uid, $FH->getValue($attrs['mailbox']));
         if ($FH->isUpdated($attrs["mailhost"]))
-            changeMailhost($FH->getPostValue("uid"), $FH->getValue($attrs["mailhost"]));
+            changeMailhost($uid, $FH->getValue($attrs["mailhost"]));
+        if ($FH->isUpdated($attrs["mailuserquota"]))
+            changeQuota($uid, $FH->getValue($attrs["mailuserquota"]));
 
         if ($FH->isUpdated('maildisable')) {
             // disable mail
             if ($FH->getValue('maildisable') == "on") {
-                changeMailEnable($FH->getPostValue("uid"), False);
+                changeMailEnable($uid, False);
                 $result .= _T("Mail delivery disabled.", "mail")."<br />";
             }
             else
-                changeMailEnable($FH->getPostValue("uid"), True);
-        }
-
-        /*
-          Only change quota if it is POSTed. When adding a user, the default
-          domain mail quota is used.
-        */
-        if ($FH->isUpdated($attrs["mailuserquota"])) {
-            changeQuota($FH->getPostValue("uid"), $FH->getValue($attrs["mailuserquota"]));
+                changeMailEnable($uid, True);
         }
 
         /* Zarafa only */
@@ -388,7 +387,7 @@ function _mail_changeUser($FH, $mode) {
             $fields = array("zarafaAdmin", "zarafaSharedStoreOnly", "zarafaAccount");
             foreach($fields as $field) {
                 if ($FH->isUpdated($field)) {
-                    modifyZarafa($FH->getPostValue("uid"),
+                    modifyZarafa($uid,
                                  $field,
                                  $FH->getValue($field) == "on" ? True : False);
                 }
@@ -399,7 +398,7 @@ function _mail_changeUser($FH, $mode) {
                 foreach($values as $value) {
                     if (!empty($value)) $newvalues[] = $value;
                 }
-                modifyZarafa($FH->getPostValue("uid"),
+                modifyZarafa($uid,
                              "zarafaSendAsPrivilege",
                              $newvalues);
             }
@@ -408,12 +407,12 @@ function _mail_changeUser($FH, $mode) {
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */
             syncMailGroupAliases($FH->getPostValue("primary"));
-            foreach($FH->getPostValue("groupsselected") as $group)
+            foreach($FH->getPostValue("secondary") as $group)
                 syncMailGroupAliases($group);
         }
     } else { // mail access not checked
-        if (hasMailObjectClass($FH->getPostValue("uid"))) { //and mail access still present
-            removemail($FH->getPostValue("uid"));
+        if (hasMailObjectClass($uid)) { //and mail access still present
+            removemail($uid);
             $result .= _T("Mail attributes deleted.", "mail")."<br />";
         }
     }
