@@ -22,35 +22,26 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-if (isset($_POST["bback"]))
-{
-    header("Location: main.php?module=mail&submod=mail&action=index");
-    exit;
+if (isset($_POST["bconfirm"])) {
+    $domain = $_POST["domain"];
+    delVDomain($domain);
+    if (!isXMLRPCError()) {
+        $result = _T("The mail domain has been deleted.", "mail");
+        new NotifyWidgetSuccess($result);
+    }
+
+    header("Location: " . urlStrRedirect("mail/domains/index"));
+}
+else {
+    $domain = urldecode($_GET["domain"]);
 }
 
-if (isset($_POST["bconfirm"])) {
-    $domainname = $_POST["domainname"];
-    delVDomain($domainname);
-    if (!isXMLRPCError()) {
-        $n = new NotifyWidget();
-	$n->flush();
-	$result = _T("The mail domain has been deleted.");
-	$n->add("<div id=\"validCode\">$result</div>");
-	$n->setLevel(0);
-	$n->setSize(600);
-    }
-    header("Location: main.php?module=mail&submod=mail&action=index");
-} else {
-    $domainname = urldecode($_GET["mail"]);
-}
 ?>
 
-<p>
-<?php echo  _T("You will delete the virtual mail domain "); ?> <strong><?php echo $domainname; ?></strong>.
-</p>
+<p><?php echo  _T("You will delete the virtual mail domain ", "mail"); ?> <strong><?php echo $domain; ?></strong>.</p>
 
-<form action="main.php?module=mail&submod=mail&action=delete" method="post">
-<input type="hidden" name="domainname" value="<?php echo $domainname; ?>" />
-<input type="submit" name="bconfirm" class="btnPrimary" value="<?php echo  _T("Delete domain"); ?>" />
-<input type="submit" name="bback" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
+<form action="<?php echo urlStrRedirect('mail/domains/delete'); ?>" method="post">
+    <input type="hidden" name="domain" value="<?php echo $domain; ?>" />
+    <input type="submit" name="bconfirm" class="btnPrimary" value="<?php echo _('Delete'); ?>" />
+    <input type="submit" name="bback" class="btnSecondary" value="<?php echo _('Cancel'); ?>" onclick="new Effect.Fade('popup'); return false;" />
 </form>

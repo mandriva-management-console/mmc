@@ -37,22 +37,23 @@ $mod->setDescription(_T("Mail service","mail"));
 $mod->setAPIVersion("6:2:4");
 $mod->setPriority(600);
 
+$attrs = getMailAttributes();
+
 $mod->addACL("mailaccess", _T("Mail access","mail"));
 $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
-$mod->addACL("mailalias", _T("Mail aliases","mail"));
-$mod->addACL("mailbox", _T("Mail delivery path","mail"));
-$mod->addACL("mailhost", _T("Mail server host","mail"));
-$mod->addACL("mailuserquota", _T("Mail user quota","mail"));
-
+$mod->addACL($attrs["mailalias"], _T("Mail aliases","mail"));
+$mod->addACL($attrs["mailbox"], _T("Mail delivery path","mail"));
+$mod->addACL($attrs["mailhost"], _T("Mail server host","mail"));
+$mod->addACL($attrs["mailuserquota"], _T("Mail user quota","mail"));
 $mod->addACL("mailgroupaccess", _T("Mail group alias access", "mail"));
 
-if (hasVDomainSupport()) {
-    $mod->addACL("maildrop", _T("Forward to","mail"));
 
-    $submod = new SubModule("mail");
+if (hasVDomainSupport()) {
+
+    $submod = new SubModule("domains");
     $submod->setDescription(_T("Mail", "mail"));
     $submod->setImg('modules/mail/graph/img/mail');
-    $submod->setDefaultPage("mail/mail/index");
+    $submod->setDefaultPage("mail/domains/index");
 
     $page = new Page("index",_T("Mail domain list","mail"));
     $submod->addPage($page);
@@ -69,32 +70,52 @@ if (hasVDomainSupport()) {
     $submod->addPage($page);
 
     $page = new Page("delete",_T("Delete a mail domain", "mail"));
-    $page->setFile("modules/mail/mail/delete.php",
+    $page->setFile("modules/mail/domains/delete.php",
 		   array("noHeader"=>True, "visible"=>False)
 		   );
     $submod->addPage($page);
 
     $page = new Page("ajaxFilter");
-    $page->setFile("modules/mail/mail/ajaxFilter.php",
+    $page->setFile("modules/mail/domains/ajaxFilter.php",
 		   array("AJAX" =>True,"visible"=>False)
 		   );
     $submod->addPage($page);
 
     $page = new Page("ajaxDomainFilter");
-    $page->setFile("modules/mail/mail/ajaxDomainFilter.php",
-		   array("AJAX" =>True,"visible"=>False)
-		   );
+    $page->setFile("modules/mail/domains/ajaxDomainFilter.php",
+        array("AJAX" => True, "visible" => False)
+    );
     $submod->addPage($page);
 
     $page = new Page("ajaxMailDomainFilter");
-    $page->setFile("modules/mail/mail/ajaxMailDomainFilter.php",
+    $page->setFile("modules/mail/domains/ajaxMailDomainFilter.php",
 		   array("AJAX" =>True,"visible"=>False)
 		   );
     $submod->addPage($page);
 
     $mod->addSubmod($submod);
+
+    $mod->addACL($attrs["maildrop"], _T("Forward to","mail"));
 } else {
-    $mod->addACL("maildrop", _T("Mail drop","mail"));
+    $mod->addACL($attrs["maildrop"], _T("Mail drop","mail"));
+}
+
+if (hasVAliasesSupport()) {
+
+    $show = True;
+    if (isset($submod))
+        $show = False;
+
+    $submod = new SubModule("aliases");
+    $submod->setDescription(_T("Mail", "mail"));
+    $submod->setImg('modules/mail/graph/img/mail');
+    $submod->setVisibility($show);
+
+    /*$page = new Page("index",_T("Mail aliases list","mail"));
+    $submod->addPage($page);*/
+
+    $mod->addSubmod($submod);
+
 }
 
 $MMCApp =& MMCApp::getInstance();

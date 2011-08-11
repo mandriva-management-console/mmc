@@ -30,19 +30,19 @@ datafiles = \
 	graph/img/mail.png \
 	graph/mail/index.css \
 	infoPackage.inc.php \
+	mainSidebar.php \
 	includes/publicFunc.php \
 	includes/mail-xmlrpc.php \
 	includes/mail.inc.php \
 	includes/auditCodes.php \
-	mail/ajaxMailDomainFilter.php \
-	mail/members.php \
-	mail/ajaxDomainFilter.php \
-	mail/index.php \
-	mail/delete.php \
-	mail/ajaxFilter.php \
-	mail/localSidebar.php \
-	mail/add.php \
-	mail/edit.php
+	domains/ajaxMailDomainFilter.php \
+	domains/members.php \
+	domains/ajaxDomainFilter.php \
+	domains/index.php \
+	domains/delete.php \
+	domains/ajaxFilter.php \
+	domains/add.php \
+	domains/edit.php
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
 module = $(notdir $(realpath $(srcdir)))

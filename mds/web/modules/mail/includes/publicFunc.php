@@ -75,7 +75,7 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
       } else {
           print '<tr><td width="40%" style="text-align: right;">' . _T("Mail alias", "mail") . '</td><td>' . $mail . '<input  type="hidden" value="' . $mail . '" name="mailgroupalias">&nbsp;@&nbsp;';
 	  print '<input type="text" id="autocomplete" name="maildomain" value="' . $maildomain . '" /><div id="autocomplete_choices" class="autocomplete"></div>';
-	  print '<script type="text/javascript">new Ajax.Autocompleter("autocomplete", "autocomplete_choices", "modules/mail/mail/ajaxMailDomainFilter.php", {paramName: "value"});</script>';
+	  print '<script type="text/javascript">new Ajax.Autocompleter("autocomplete", "autocomplete_choices", "'.urlStrRedirect('mail/domains/ajaxMailDomainFilter').'", {paramName: "value"});</script>';
 	  print '</td></tr>';
       }
       print "</table>";
@@ -166,7 +166,7 @@ function _mail_baseEdit($FH, $mode) {
             $em->display();
         }
     }
-    
+
     if ($mode == "add" && $FH->getValue('mailaccess') == 'off') {
         $show = false;
     }
@@ -286,7 +286,7 @@ function _mail_baseEdit($FH, $mode) {
         </script>
         <?php
     }
-    
+
     return $f;
 }
 
@@ -299,10 +299,10 @@ function _mail_baseEdit($FH, $mode) {
 function _mail_verifInfo($FH, $mode) {
 
     global $error;
-    
+
     $mail_errors = "";
     $attrs = getMailAttributes();
-    
+
     if ($FH->isUpdated($attrs['mailalias'])) {
         $ereg = '/^([A-Za-z0-9._+@-])*$/';
         $mails = $FH->getValue($attrs['mailalias']);
@@ -313,13 +313,13 @@ function _mail_verifInfo($FH, $mode) {
             }
         }
     }
-    
-    if ($FH->isUpdated($attrs['maildrop']) && 
+
+    if ($FH->isUpdated($attrs['maildrop']) &&
         count($FH->getValue($attrs['maildrop'])) == 0 &&
         !hasVDomainSupport()) {
         $mail_errors .= _T("You must specify at least one mail drop. Usually it has the same name as the user.","mail")."<br />";
     }
-    
+
     if ($FH->isUpdated('mail')) {
         $mailreg = '/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
 	    if (!preg_match($mailreg, $FH->getValue('mail'), $matches)) {
@@ -327,9 +327,9 @@ function _mail_verifInfo($FH, $mode) {
             setFormError("mail");
         }
     }
-    
+
     $error .= $mail_errors;
-    
+
     return $mail_errors ? 1 : 0;
 }
 
@@ -342,11 +342,11 @@ function _mail_verifInfo($FH, $mode) {
 function _mail_changeUser($FH, $mode) {
 
     global $result;
-    
+
     $uid = $FH->getPostValue("uid");
 
     if ($FH->getPostValue("mailaccess")) {
-    
+
         $attrs = getMailAttributes();
 
         if (hasMailObjectClass($uid)) {
@@ -417,7 +417,7 @@ function _mail_changeUser($FH, $mode) {
             $result .= _T("Mail attributes deleted.", "mail")."<br />";
         }
     }
-    
+
     return 0;
 
 }

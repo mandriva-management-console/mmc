@@ -1,13 +1,10 @@
-<?
-require("../../../includes/config.inc.php");
-require("../../../includes/i18n.inc.php");
-require("../../../includes/acl.inc.php");
-require("../../../includes/session.inc.php");
-require("../../../modules/mail/includes/mail-xmlrpc.php");
-require ("../../../includes/PageGenerator.php");
+<?php
 
-$domain = $_GET["mail"];
-$filter = $_GET["filter"];
+$domain = $_GET["domain"];
+if (isset($_GET["filter"]))
+    $filter = $_GET["filter"];
+else
+    $filter = "";
 
 $uids = array();
 foreach(getVDomainUsers($domain, $filter) as $dn => $entries) {

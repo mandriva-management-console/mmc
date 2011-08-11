@@ -79,6 +79,10 @@ function hasGroupMailObjectClass($group) {
     return xmlCall("mail.hasMailGroupObjectClass", array($group));
 }
 
+function hasVAliasesSupport() {
+    return true;
+}
+
 function hasVDomainSupport() {
     if (!isset($_SESSION["hasVDomainSupport"])) {
         $_SESSION["hasVDomainSupport"] = xmlCall("mail.hasVDomainSupport", null);

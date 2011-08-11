@@ -1,12 +1,11 @@
-<?
-require("../../../includes/config.inc.php");
-require("../../../includes/i18n.inc.php");
-require("../../../includes/acl.inc.php");
-require("../../../includes/session.inc.php");
-require("../../../modules/mail/includes/mail-xmlrpc.php");
-require ("../../../includes/PageGenerator.php");
+<?php
 
-$filter = $_GET["filter"];
+require_once("modules/mail/includes/mail-xmlrpc.php");
+
+if (isset($_GET["filter"]))
+    $filter = $_GET["filter"];
+else
+    $filter = "";
 
 $domains = array();
 $count = array();
@@ -27,9 +26,9 @@ $n->setCssClass("domainName");
 $n->addExtraInfo(array_values($domains), _T("Description", "mail"));
 $n->setName(_T("Mail domain", "mail"));
 
-$n->addActionItem(new ActionItem(_T("View domain members", "mail"),"members","display","mail", "mail", "mail"));
-$n->addActionItem(new ActionItem(_T("Edit domain", "mail"),"edit","edit","mail", "mail", "mail"));
-$n->addActionItem(new ActionPopupItem(_T("Delete domain", "mail"),"delete","delete","mail", "mail", "mail"));
+$n->addActionItem(new ActionItem(_T("View domain members", "mail"), "members", "display", "domain", "mail", "domains"));
+$n->addActionItem(new ActionItem(_T("Edit domain", "mail"),"edit", "edit", "domain", "mail", "domains"));
+$n->addActionItem(new ActionPopupItem(_T("Delete domain", "mail"), "delete", "delete", "domain", "mail", "domains"));
 
 $n->display();
 

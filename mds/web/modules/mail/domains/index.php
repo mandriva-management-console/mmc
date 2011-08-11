@@ -1,4 +1,4 @@
-<?php
+<?
 
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
@@ -23,17 +23,16 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-require("localSidebar.php");
+require("modules/mail/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-$domain = $_GET["mail"];
-$ajax = new AjaxFilter("modules/mail/mail/ajaxFilter.php?mail=$domain");
+$ajax = new AjaxFilter(urlStrRedirect("mail/domains/ajaxDomainFilter"));
 $ajax->display();
 
-$p = new PageGenerator(_T("Members of ") . " " . $domain);
-$sidemenu->forceActiveItem("index");
+$p = new PageGenerator(_T("Mail domain list", "mail"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
 $ajax->displayDivToUpdate();
+
 ?>
