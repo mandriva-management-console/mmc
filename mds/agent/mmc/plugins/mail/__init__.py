@@ -83,21 +83,13 @@ def activate():
         # Create required OU
         head, path = config.vDomainDN.split(",", 1)
         ouName = head.split("=")[1]
-        try:
-            ldapObj.addOu(ouName, path)
-            logger.info("Created OU " + config.vDomainDN)
-        except ldap.ALREADY_EXISTS:
-            pass
+        ldapObj.addOu(ouName, path)
 
     if config.vAliasesSupport:
         # Create required OU
         head, path = config.vAliasesDN.split(",", 1)
         ouName = head.split("=")[1]
-        try:
-            ldapObj.addOu(ouName, path)
-            logger.info("Created OU " + config.vAliasesDN)
-        except ldap.ALREADY_EXISTS:
-            pass
+        ldapObj.addOu(ouName, path)
 
     return True
 
