@@ -145,11 +145,7 @@ def activate():
         # Create SAMBA computers account OU if it doesn't exist
         head, path = samba.baseComputersDN.split(",", 1)
         ouName = head.split("=")[1]
-        try:
-            samba.addOu(ouName, path)
-            logger.info("Created OU " + samba.baseComputersDN)
-        except ldap.ALREADY_EXISTS:
-            pass
+        samba.addOu(ouName, path)
         # Check that a sambaDomainName entry is in LDAP directory
         domainInfos = samba.getDomain()
         if not domainInfos:
