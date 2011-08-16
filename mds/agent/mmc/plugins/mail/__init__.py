@@ -89,6 +89,16 @@ def activate():
         except ldap.ALREADY_EXISTS:
             pass
 
+    if config.vAliasesSupport:
+        # Create required OU
+        head, path = config.vAliasesDN.split(",", 1)
+        ouName = head.split("=")[1]
+        try:
+            ldapObj.addOu(ouName, path)
+            logger.info("Created OU " + config.vAliasesDN)
+        except ldap.ALREADY_EXISTS:
+            pass
+
     return True
 
 def changeMail(uid,mail):
@@ -108,7 +118,7 @@ def changeMailbox(uid, mailbox):
 
 def changeMailhost(uid, mailhost):
     MailControl().changeMailhost(uid, mailhost)
-    
+
 def changeQuota(uid, mailuserquota):
     MailControl().changeQuota(uid, mailuserquota)
 
@@ -149,7 +159,7 @@ def resetUsersVDomainQuota(domain):
     MailControl().resetUsersVDomainQuota(domain)
 
 def getVDomain(domain):
-    return MailControl().getVDomain(domain)    
+    return MailControl().getVDomain(domain)
 
 def getVDomains(filt):
     return MailControl().getVDomains(filt)
@@ -171,6 +181,36 @@ def syncMailGroupAliases(group, foruser = "*"):
 
 def getMailAttributes():
     return MailConfig('mail').attrs
+
+def getVAliases():
+    return MailControl().getVAliases()
+
+def getVAlias(alias):
+    return MailControl().getVAlias(alias)
+
+def addVAlias(alias):
+    return MailControl().addVAlias(alias)
+
+def changeVAliasEnable(alias, enabled):
+    return MailControl().changeVAliasEnable(alias, enabled)
+
+def delVAlias(alias):
+    return MailControl().delVAlias(alias)
+
+def addVAliasUser(alias, uid):
+    return MailControl().addVAliasUser(alias, uid)
+
+def delVAliasUser(alias, uid):
+    return MailControl().delVAliasUser(alias, uid)
+
+def addVAliasExternalUser(alias, mail):
+    return MailControl().addVAliasExternalUser(alias, mail)
+
+def delVAliasExternalUser(alias, mail):
+    return MailControl().delVAliasExternalUser(alias, mail)
+
+def updateVAliasExternalUsers(alias, mails):
+    return MailControl().updateVAliasExternalUsers(alias, mails)
 
 # Zarafa support
 
@@ -195,6 +235,10 @@ class MailConfig(PluginConfig):
         except: pass
         if self.vDomainSupport:
             self.vDomainDN = self.get("main", "vDomainDN")
+        try: self.vAliasesSupport = self.getboolean("main", "vAliasesSupport")
+        except: pass
+        if self.vAliasesSupport:
+            self.vAliasesDN = self.get("main", "vAliasesDN")
         try:
             self.zarafa = self.getboolean("main", "zarafa")
         except NoOptionError:
@@ -270,7 +314,7 @@ class MailControl(ldapUserGroupControl):
 
         @param description: description
         @type description: unicode
-        """        
+        """
         r = AF().log(PLUGIN_NAME, AA.MAIL_SET_DOMAIN_DESC, [(domain, AT.VMDOMAIN)], description)
         dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         description = description.encode("utf-8")
@@ -290,7 +334,7 @@ class MailControl(ldapUserGroupControl):
 
         @param quota: created user quota in the virtual domain
         @type description: unicode
-        """        
+        """
         r = AF().log(PLUGIN_NAME, AA.MAIL_SET_DOMAIN_QUOTA, [(domain, AT.VMDOMAIN)], quota)
         dn = "virtualdomain=" + domain + ", " + self.conf.vDomainDN
         try:
@@ -333,12 +377,171 @@ class MailControl(ldapUserGroupControl):
         """
         Get virtual mail domain name list from directory
 
-        @rtype: dict
+        @rtype: list
         """
         filt = filt.strip()
         if not filt: filt = "*"
-        else: filt = "*" + filt + "*"        
+        else: filt = "*" + filt + "*"
         return self.l.search_s(self.conf.vDomainDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailDomain)(virtualdomain=%s))" % filt)
+
+    def getVAlias(self, alias):
+        """
+        Get a virtual alias entry from directory
+
+        @param alias: virtual alias name
+        @type alias: str
+
+        @rtype: dict
+        """
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        return self.l.search_s(dn, ldap.SCOPE_BASE)
+
+    def getVAliases(self, filt = ""):
+        """
+        Get virtual aliases list from directory
+
+        @rtype: list
+        """
+        filt = filt.strip()
+        if not filt: filt = "*"
+        else: filt = "*" + filt + "*"
+        return self.l.search_s(self.conf.vAliasesDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailAlias)(mailalias=%s))" % filt)
+
+    def addVAlias(self, alias):
+        """
+        Add a virtual alias entry in directory
+
+        @param alias: virtual alias name
+        @type alias: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        entry = {
+            "mailalias": alias,
+            "mailenable": "OK",
+            "objectClass":  ("mailAlias", "top")
+            }
+        modlist = ldap.modlist.addModlist(entry)
+        self.l.add_s(dn, modlist)
+        return 0
+
+    def changeVAliasEnable(self, alias, enabled):
+        """
+        Set the virtual alias mailenable attribute.
+        This tells if the alias is active or not
+
+        @param alias: alias name
+        @type alias: str
+        @param enabled: Boolean to specify if alias is enabled or not
+        @type enabled: bool
+        """
+
+        if enabled:
+            attr_val = "OK"
+        else:
+            attr_val = "NONE"
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'mailenable', attr_val)])
+        return 0
+
+    def delVAlias(self, alias):
+        """
+        Del a virtual alias entry from directory
+
+        @param alias: virtual alias name
+        @type alias: str
+        """
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        self.delRecursiveEntry(dn)
+        return 0
+
+    def addVAliasUser(self, alias, uid):
+        """
+        Add a LDAP user into a virtual alias entry
+
+        @param alias: virtual alias name
+        @type alias: str
+        @param uid: user name
+        @type uid: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        userdn = self.searchUserDN(uid)
+        try:
+            self.l.modify_s(dn, [(ldap.MOD_ADD, 'mailaliasmember', userdn)])
+        except ldap.TYPE_OR_VALUE_EXISTS:
+            # Can be safely ignored
+            pass
+        return 0
+
+    def delVAliasUser(self, alias, uid):
+        """
+        Remove a LDAP user from a virtual alias entry
+
+        @param alias: virtual alias name
+        @type alias: str
+        @param uid: user name
+        @type uid: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        userdn = self.searchUserDN(uid)
+        self.l.modify_s(dn, [(ldap.MOD_DELETE, 'mailaliasmember', userdn)])
+        return 0
+
+    def addVAliasExternalUser(self, alias, mail):
+        """
+        Add an external user into a virtual alias entry
+
+        @param alias: virtual alias name
+        @type alias: str
+        @param mail: user mail address
+        @type mail: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        try:
+            self.l.modify_s(dn, [(ldap.MOD_ADD, 'mail', mail)])
+        except ldap.TYPE_OR_VALUE_EXISTS:
+            # Can be safely ignored
+            pass
+        return 0
+
+    def delVAliasExternalUser(self, alias, mail):
+        """
+        Remove an external user from a virtual alias entry
+
+        @param alias: virtual alias name
+        @type alias: str
+        @param mail: user mail address
+        @type mail: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        self.l.modify_s(dn, [(ldap.MOD_DELETE, 'mail', mail)])
+        return 0
+
+    def updateVAliasExternalUsers(self, alias, mails):
+        """
+        Add a list of mails adresses into a virtual alias entry.
+
+        @param mails:
+        @type: list of mail adresses
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        # Get current virtual alias entry
+        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        c, old = s[0]
+
+        new = copy.deepcopy(old)
+
+        new['mail'] = mails
+
+        # Update LDAP
+        modlist = ldap.modlist.modifyModlist(old, new)
+        self.l.modify_s(dn, modlist)
 
     def changeMailEnable(self, uid, enabled):
         """
@@ -350,15 +553,15 @@ class MailControl(ldapUserGroupControl):
         @param enabled: Boolean to specify if mail is enabled or not
         @type enabled: bool
         """
-        
+
         if enabled:
             action = AA.MAIL_ENABLE
             attr_val = "OK"
         else:
             action = AA.MAIL_DISABLE
             attr_val = "NONE"
-        
-        r = AF().log(PLUGIN_NAME, action, [(uid, AT.MAIL)], enabled)        
+
+        r = AF().log(PLUGIN_NAME, action, [(uid, AT.MAIL)], enabled)
         if not self.hasMailObjectClass(uid):
             self.addMailObjectClass(uid)
         self.changeUserAttributes(uid, self.conf.attrs['mailenable'], attr_val, False)
@@ -574,11 +777,11 @@ class MailControl(ldapUserGroupControl):
     def deleteMailGroupAliases(self, group):
         """
         Remove the alias of this group from all user entries
-        """ 
+        """
         r = AF().log(PLUGIN_NAME, AA.MAIL_DEL_MAIL_GRP_ALIAS, [(group, AT.MAIL_GROUP)], group)
         if hasMailGroupObjectClass(group):
             mailgroup = self.getDetailedGroup(group)["mail"][0]
-            users = self.search("(&(uid=*)(%s=%s))" % (self.conf.attrs['mailalias'], mailgroup), 
+            users = self.search("(&(uid=*)(%s=%s))" % (self.conf.attrs['mailalias'], mailgroup),
                 self.baseUsersDN, ["uid", self.conf.attrs['mailalias']])
             for user in users:
                 uid = user[0][1]["uid"][0]
@@ -594,7 +797,7 @@ class MailControl(ldapUserGroupControl):
         if hasMailGroupObjectClass(group):
             mailgroup = self.getDetailedGroup(group)["mail"][0]
             groupusers = self.getMembers(group)
-            allusers = self.search("(&(uid=%s)(objectClass=mailAccount))" % foruser, self.baseUsersDN, 
+            allusers = self.search("(&(uid=%s)(objectClass=mailAccount))" % foruser, self.baseUsersDN,
                 ["uid", self.conf.attrs['mailalias']])
             for user in allusers:
                 uid = user[0][1]["uid"][0]
