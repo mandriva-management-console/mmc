@@ -31,18 +31,18 @@ else
 
 $aliases = array();
 $count = array();
+$active = array();
 
 foreach(getVAliases($filter) as $dn => $entry) {
     $aliases[$entry[1]["mailalias"][0]] = $entry[1]["mailalias"][0];
+    $active[] = $entry[1]["mailenable"][0] == "OK" ? true : false;
+    $count[] = ' (' . (count($entry[1]["mailaliasmember"]) + count($entry[1]["mail"])) . ')';
 }
-ksort($aliases);
-/*foreach($aliases as $domain => $info) {
-    $count[] = '<span style="font-weight: normal;">(' . getVDomainUsersCount($domain) . ')</span>';
-}*/
 
 $n = new ListInfos(array_keys($aliases), _T("Virtual alias", "mail"));
 $n->setNavBar(new AjaxNavBar(count($aliases), $filter));
-/*$n->setAdditionalInfo($count);*/
+$n->setAdditionalInfo($count);
+$n->addExtraInfo($active, _T("Enabled", "mail"));
 $n->first_elt_padding = 1;
 $n->setCssClass("virtualAlias");
 $n->setName(_T("Virtual alias", "mail"));

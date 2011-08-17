@@ -63,7 +63,6 @@ if ($_POST) {
         }
     }
     if(!$error) {
-
         if($FH->isUpdated("users")) {
             if ($mode == "edit")
                 $old = getVAliasUsers($alias);
@@ -81,6 +80,16 @@ if ($_POST) {
         if($FH->isUpdated("mail")) {
             updateVAliasExternalUsers($alias, $FH->getValue("mail"));
             $result .= _T("Virtual alias external users updated.", "mail") . "<br />";
+        }
+        if($FH->isUpdated("mailenable")) {
+            if($FH->getValue("mailenable") == "on") {
+                changeVAliasEnable($alias, true);
+                $result .= _T("Virtual alias enabled.", "mail") . "<br />";
+            }
+            else {
+                changeVAliasEnable($alias, false);
+                $result .= _T("Virtual alias disabled.", "mail") . "<br />";
+            }
         }
         if ($result)
             new NotifyWidgetSuccess($result);
@@ -108,6 +117,14 @@ else
 $f->add(
     new TrFormElement(_T("Alias name"), new MailInputTpl("mailalias")),
     array("value" => $FH->getArrayOrPostValue("mailalias"), "required" => true)
+);
+
+$checked = "checked";
+if ($FH->getArrayOrPostValue("mailenable") != 'on' && $FH->getArrayOrPostValue("mailenable") != 'OK')
+    $checked = "";
+$f->add(
+    new TrFormElement(_T("Enabled", "mail"), new CheckboxTpl("mailenable")),
+    array("value" => $checked)
 );
 
 /* LDAP Users */

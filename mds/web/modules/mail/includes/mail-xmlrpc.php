@@ -138,6 +138,10 @@ function addVAlias($alias) {
     return xmlCall("mail.addVAlias", array($alias));
 }
 
+function changeVAliasEnable($alias, $enabled) {
+    return xmlCall("mail.changeVAliasEnable", array($alias, $enabled));
+}
+
 function delVAlias($alias) {
     return xmlCall("mail.delVAlias", array($alias));
 }
