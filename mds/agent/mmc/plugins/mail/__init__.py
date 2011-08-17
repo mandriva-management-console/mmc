@@ -191,6 +191,9 @@ def getVAlias(alias):
 def addVAlias(alias):
     return MailControl().addVAlias(alias)
 
+def changeVAliasName(alias, name):
+    return MailControl().changeVAliasName(alias, name)
+
 def changeVAliasEnable(alias, enabled):
     return MailControl().changeVAliasEnable(alias, enabled)
 
@@ -452,6 +455,21 @@ class MailControl(ldapUserGroupControl):
         dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
         self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'mailenable', attr_val)])
         return 0
+
+    def changeVAliasName(self, alias, name):
+        """
+        Change the virtual alias name
+
+        @param alias: current alias name
+        @type alias: str
+        @param name: new alias name
+        @type name: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        self.l.modrdn_s(dn, "mailalias=%s" % name, True)
+        return 0
+
 
     def delVAlias(self, alias):
         """

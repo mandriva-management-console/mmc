@@ -62,6 +62,13 @@ if ($_POST) {
             setFormError("mailalias");
         }
     }
+    else {
+        if ($FH->isUpdated("mailalias")) {
+            changeVAliasName($alias, $FH->getValue("mailalias"));
+            $alias = $FH->getValue("mailalias");
+            $result .= _T("Virtual alias name updated.", "mail") . "<br />";
+        }
+    }
     if(!$error) {
         if($FH->isUpdated("users")) {
             if ($mode == "edit")
@@ -108,11 +115,6 @@ $p->display();
 
 $f = new ValidatingForm();
 $f->push(new Table());
-
-if ($mode == "add")
-    $domainTpl = new DomainInputTpl("domainname");
-else
-    $domainTpl = new HiddenTpl("domainname");
 
 $f->add(
     new TrFormElement(_T("Alias name"), new MailInputTpl("mailalias")),
