@@ -27,7 +27,7 @@ $sidemenu->setClass("domains aliases");
 
 if (hasVDomainSupport()) {
 
-    $s = new SideMenuItem(_T("Mail domain list", "mail"), "mail", "domains", "index",
+    $s = new SideMenuItem(_T("Mail domains", "mail"), "mail", "domains", "index",
         "modules/mail/graph/img/mail_active.png", "modules/mail/graph/img/mail_inactive.png");
     $s->setCssId("index_domains");
     $sidemenu->addSideMenuItem($s);
@@ -38,7 +38,7 @@ if (hasVDomainSupport()) {
     $sidemenu->addSideMenuItem($s);
 }
 if (hasVAliasesSupport()) {
-    $s = new SideMenuItem(_T("Virtual aliases list", "mail"), "mail", "aliases", "index",
+    $s = new SideMenuItem(_T("Virtual aliases", "mail"), "mail", "aliases", "index",
         "modules/mail/graph/img/mail_active.png", "modules/mail/graph/img/mail_inactive.png");
     $s->setCssId("index_aliases");
     $sidemenu->addSideMenuItem($s);

@@ -58,7 +58,7 @@ if (hasVDomainSupport()) {
     $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/domains/index");
 
-    $page = new Page("index",_T("Mail domain list","mail"));
+    $page = new Page("index",_T("Mail domains","mail"));
     $submod->addPage($page);
 
     $page = new Page("add",_T("Add a domain","mail"));
@@ -111,7 +111,7 @@ if (hasVAliasesSupport()) {
     $submod->setDefaultPage("mail/aliases/index");
     $submod->setVisibility($showAliasesModule);
 
-    $page = new Page("index",_T("Virtual aliases list", "mail"));
+    $page = new Page("index",_T("Virtual aliases", "mail"));
     $submod->addPage($page);
 
     $page = new Page("add",_T("Add a virtual alias", "mail"));

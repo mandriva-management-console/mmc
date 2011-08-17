@@ -29,7 +29,7 @@ require("graph/navbar.inc.php");
 $ajax = new AjaxFilter(urlStrRedirect("mail/domains/ajaxDomainFilter"));
 $ajax->display();
 
-$p = new PageGenerator(_T("Mail domain list", "mail"));
+$p = new PageGenerator(_T("Mail domains list", "mail"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
