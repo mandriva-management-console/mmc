@@ -183,7 +183,7 @@ function _samba_changeUser($FH, $mode) {
             changeSmbAttr($FH->getPostValue("uid"), $FH->getPostValues());
         }
     }
-    
+
     return 0;
 }
 
@@ -195,10 +195,10 @@ function _samba_changeUser($FH, $mode) {
 function _samba_verifInfo($FH, $mode) {
 
     global $error;
-    
+
     $samba_errors = "";
 
-    if ($FH->getPostValue("isSamba")) {
+    if ($FH->getPostValue("uid") && $FH->getPostValue("isSamba")) {
         if (!hasSmbAttr($FH->getPostValue("uid"))) {
             if (!$FH->getValue("pass")) { // if we not precise password
                 $samba_errors .= _T("You must reenter your password.","samba")."<br />\n";
@@ -216,9 +216,9 @@ function _samba_verifInfo($FH, $mode) {
             }
         }
     }
-    
+
     $error .= $samba_errors;
-    
+
     return $samba_errors ? 1 : 0;
 }
 
