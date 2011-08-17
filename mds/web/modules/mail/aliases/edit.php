@@ -162,8 +162,8 @@ $f->add(
 $f->pop();
 
 $f->add(
-    new FormElement(_T("External addresses", "mail"),
-        new MultipleMailInputTpl("mail", _T("External addresses", "mail"))),
+    new FormElement(_T("External mail addresses", "mail"),
+        new MultipleMailInputTpl("mail", _T("External mail addresses", "mail"))),
     $FH->getArrayOrPostValue("mail", "array")
 );
 
