@@ -26,6 +26,7 @@ MDS mail plugin for the MMC agent.
 """
 
 import ldap.modlist
+from ldap.dn import str2dn
 import copy
 import logging
 from ConfigParser import NoOptionError, NoSectionError
@@ -69,6 +70,10 @@ def activate():
                                      'zarafaAccount', 'zarafaSendAsPrivilege' ]
         mailSchema['zarafa-group'] = []
 
+    # Additional LDAP classes for virtual aliases
+    if config.vAliasesSupport:
+        mailSchema['mailAlias'] = ['mailaliasmember']
+
     for objectClass in mailSchema:
         schema = ldapObj.getSchema(objectClass)
         if not len(schema):
@@ -79,15 +84,15 @@ def activate():
                 logger.error("LDAP mail schema is not up to date: %s attribute is not included in LDAP directory" % attribute)
                 return False
 
-    if config.vDomainSupport:
-        # Create required OU
-        head, path = config.vDomainDN.split(",", 1)
-        ouName = head.split("=")[1]
-        ldapObj.addOu(ouName, path)
-
     if config.vAliasesSupport:
         # Create required OU
         head, path = config.vAliasesDN.split(",", 1)
+        ouName = head.split("=")[1]
+        ldapObj.addOu(ouName, path)
+
+    if config.vDomainSupport:
+        # Create required OU
+        head, path = config.vDomainDN.split(",", 1)
         ouName = head.split("=")[1]
         ldapObj.addOu(ouName, path)
 
@@ -174,8 +179,11 @@ def syncMailGroupAliases(group, foruser = "*"):
 def getMailAttributes():
     return MailConfig('mail').attrs
 
-def getVAliases():
-    return MailControl().getVAliases()
+def hasVAliasesSupport():
+    return MailControl().hasVAliasesSupport()
+
+def getVAliases(filt):
+    return MailControl().getVAliases(filt)
 
 def getVAlias(alias):
     return MailControl().getVAlias(alias)
@@ -188,6 +196,9 @@ def changeVAliasEnable(alias, enabled):
 
 def delVAlias(alias):
     return MailControl().delVAlias(alias)
+
+def getVAliasUsers(alias):
+    return MailControl().getVAliasUsers(alias)
 
 def addVAliasUser(alias, uid):
     return MailControl().addVAliasUser(alias, uid)
@@ -261,6 +272,9 @@ class MailControl(ldapUserGroupControl):
     def __init__(self, conffile = None, conffilebase = None):
         mmc.plugins.base.ldapUserGroupControl.__init__(self, conffilebase)
         self.conf = MailConfig("mail", conffile)
+
+    def hasVAliasesSupport(self):
+        return self.conf.vAliasesSupport
 
     def hasVDomainSupport(self):
         return self.conf.vDomainSupport
@@ -386,7 +400,9 @@ class MailControl(ldapUserGroupControl):
         @rtype: dict
         """
         dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
-        return self.l.search_s(dn, ldap.SCOPE_BASE)
+        attrib = self.l.search_s(dn, ldap.SCOPE_BASE)
+        c, attrs = attrib[0]
+        return attrs
 
     def getVAliases(self, filt = ""):
         """
@@ -447,6 +463,24 @@ class MailControl(ldapUserGroupControl):
         dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
         self.delRecursiveEntry(dn)
         return 0
+
+    def getVAliasUsers(self, alias):
+        """
+        Get the user list of a virtual alias entry
+
+        @param alias: virtual alias name
+        @type alias: str
+        """
+
+        dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
+        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        c, attrs = s[0]
+        users = []
+        if "mailaliasmember" in attrs:
+            for user in attrs["mailaliasmember"]:
+                # get the user uid
+                users.append(str2dn(user)[0][0][1])
+        return users
 
     def addVAliasUser(self, alias, uid):
         """
