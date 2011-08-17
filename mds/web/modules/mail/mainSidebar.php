@@ -27,23 +27,23 @@ $sidemenu->setClass("domains aliases");
 
 if (hasVDomainSupport()) {
 
-    $s = new SideMenuItem(_T("Mail domain list"), "mail", "domains", "index",
+    $s = new SideMenuItem(_T("Mail domain list", "mail"), "mail", "domains", "index",
         "modules/mail/graph/img/mail_active.png", "modules/mail/graph/img/mail_inactive.png");
     $s->setCssId("index_domains");
     $sidemenu->addSideMenuItem($s);
 
-    $s = new SideMenuItem(_T("Add a domain"), "mail", "domains", "add",
+    $s = new SideMenuItem(_T("Add a domain", "mail"), "mail", "domains", "add",
         "modules/mail/graph/img/mailadd_active.png", "modules/mail/graph/img/mailadd_inactive.png");
     $s->setCssId("add_domain");
     $sidemenu->addSideMenuItem($s);
 }
 if (hasVAliasesSupport()) {
-    $s = new SideMenuItem(_T("Mail aliases list"), "mail", "aliases", "index",
+    $s = new SideMenuItem(_T("Virtual aliases list", "mail"), "mail", "aliases", "index",
         "modules/mail/graph/img/mail_active.png", "modules/mail/graph/img/mail_inactive.png");
     $s->setCssId("index_aliases");
     $sidemenu->addSideMenuItem($s);
 
-    $s = new SideMenuItem(_T("Add a mail alias"), "mail", "aliases", "add",
+    $s = new SideMenuItem(_T("Add a virtual alias", "mail"), "mail", "aliases", "add",
         "modules/mail/graph/img/mailadd_active.png", "modules/mail/graph/img/mailadd_inactive.png");
     $s->setCssId("add_alias");
     $sidemenu->addSideMenuItem($s);

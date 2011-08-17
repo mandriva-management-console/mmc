@@ -31,10 +31,10 @@
 require_once("modules/mail/includes/mail-xmlrpc.php");
 
 $mod = new Module("mail");
-$mod->setVersion("2.4.0");
+$mod->setVersion("2.4.2");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Mail service","mail"));
-$mod->setAPIVersion("6:2:4");
+$mod->setAPIVersion("7:0:0");
 $mod->setPriority(600);
 
 $attrs = getMailAttributes();
@@ -47,11 +47,14 @@ $mod->addACL($attrs["mailhost"], _T("Mail server host","mail"));
 $mod->addACL($attrs["mailuserquota"], _T("Mail user quota","mail"));
 $mod->addACL("mailgroupaccess", _T("Mail group alias access", "mail"));
 
+$showAliasesModule = True;
 
 if (hasVDomainSupport()) {
 
+    $showAliasesModule = False;
+
     $submod = new SubModule("domains");
-    $submod->setDescription(_T("Mail", "mail"));
+    $submod->setDescription(_T("Mail domains", "mail"));
     $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/domains/index");
 
@@ -102,17 +105,33 @@ if (hasVDomainSupport()) {
 
 if (hasVAliasesSupport()) {
 
-    $show = True;
-    if (isset($submod))
-        $show = False;
-
     $submod = new SubModule("aliases");
-    $submod->setDescription(_T("Mail", "mail"));
+    $submod->setDescription(_T("Mail aliases", "mail"));
     $submod->setImg('modules/mail/graph/img/mail');
-    $submod->setVisibility($show);
+    $submod->setDefaultPage("mail/aliases/index");
+    $submod->setVisibility($showAliasesModule);
 
-    /*$page = new Page("index",_T("Mail aliases list","mail"));
-    $submod->addPage($page);*/
+    $page = new Page("index",_T("Virtual aliases list", "mail"));
+    $submod->addPage($page);
+
+    $page = new Page("add",_T("Add a virtual alias", "mail"));
+    $submod->addPage($page);
+
+    $page = new Page("edit",_T("Edit a virtual alias", "mail"));
+    $page->setOptions(array("visible" => False));
+    $submod->addPage($page);
+
+    $page = new Page("delete",_T("Delete a virtual alias", "mail"));
+    $page->setFile("modules/mail/aliases/delete.php",
+        array("noHeader" => True, "visible" => False)
+	);
+    $submod->addPage($page);
+
+    $page = new Page("ajaxAliasesFilter");
+    $page->setFile("modules/mail/aliases/ajaxAliasesFilter.php",
+        array("AJAX" => True, "visible" => False)
+    );
+    $submod->addPage($page);
 
     $mod->addSubmod($submod);
 

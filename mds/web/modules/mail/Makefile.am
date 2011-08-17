@@ -42,7 +42,12 @@ datafiles = \
 	domains/delete.php \
 	domains/ajaxFilter.php \
 	domains/add.php \
-	domains/edit.php
+	domains/edit.php \
+	aliases/index.php \
+	aliases/add.php \
+	aliases/edit.php \
+	aliases/delete.php \
+	aliases/ajaxAliasesFilter.php
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
 module = $(notdir $(realpath $(srcdir)))

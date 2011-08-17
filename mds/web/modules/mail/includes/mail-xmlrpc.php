@@ -80,7 +80,7 @@ function hasGroupMailObjectClass($group) {
 }
 
 function hasVAliasesSupport() {
-    return true;
+    return xmlCall("mail.hasVAliasesSupport", null);
 }
 
 function hasVDomainSupport() {
@@ -124,6 +124,38 @@ function getVDomainUsersCount($domain) {
 
 function getVDomainUsers($domain, $filter) {
     return xmlCall("mail.getVDomainUsers", array($domain, $filter));
+}
+
+function getVAliases($filter) {
+    return xmlCall("mail.getVAliases", array($filter));
+}
+
+function getVAlias($alias) {
+    return xmlCall("mail.getVAlias", array($alias));
+}
+
+function addVAlias($alias) {
+    return xmlCall("mail.addVAlias", array($alias));
+}
+
+function delVAlias($alias) {
+    return xmlCall("mail.delVAlias", array($alias));
+}
+
+function updateVAliasExternalUsers($alias, $mails) {
+    return xmlCall("mail.updateVAliasExternalUsers", array($alias, $mails));
+}
+
+function getVAliasUsers($alias) {
+    return xmlCall("mail.getVAliasUsers", array($alias));
+}
+
+function addVAliasUser($alias, $user) {
+    return xmlCall("mail.addVAliasUser", array($alias, $user));
+}
+
+function delVAliasUser($alias, $user) {
+    return xmlCall("mail.delVAliasUser", array($alias, $user));
 }
 
 function computeMailGroupAlias($group) {

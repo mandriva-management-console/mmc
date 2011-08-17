@@ -23,12 +23,21 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+class MultipleMailInputTpl extends MultipleInputTpl {
+
+    function MultipleMailInputTpl($name, $desc='', $new=false) {
+        parent::MultipleInputTpl($name, $desc, $new);
+        $this->regexp = '/^([A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+){0,1}$/';
+    }
+
+}
+
 class QuotaTpl extends InputTpl {
 
     function QuotaTpl($name, $regexp="/.*/") {
         $this->InputTpl($name, $regexp);
     }
-    
+
     function Display($arrParam) {
         if ($arrParam["value"] === "0") {
             $checked = "CHECKED";
