@@ -151,9 +151,21 @@
 	    <entry></entry>
 	  </row>
 	  <row>
+	    <entry>vAliasesSupport</entry>
+	    <entry>Is virtual aliases management enabled ?</entry>
+	    <entry>Yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>vAliasesDN</entry>
+	    <entry>Organizational Unit where virtual aliases will be stored</entry>
+	    <entry>Yes if vAliasesSupport is disabled</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
 	    <entry>zarafa</entry>
 	    <entry>Is Zarafa LDAP fields support enables ?</entry>
-	    <entry></entry>
+	    <entry>Yes</entry>
 	    <entry>0</entry>
 	  </row>
 	</tbody>
