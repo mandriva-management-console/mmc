@@ -27,6 +27,7 @@ require("graph/navbar.inc.php");
 require_once("modules/mail/includes/mail.inc.php");
 require_once("includes/FormHandler.php");
 
+global $errorStatus;
 $error = "";
 $result = "";
 
@@ -69,7 +70,7 @@ if ($_POST) {
             $result .= _T("Virtual alias name updated.", "mail") . "<br />";
         }
     }
-    if(!$error) {
+    if(!$error && !isXMLRPCError()) {
         if($FH->isUpdated("users")) {
             if ($mode == "edit")
                 $old = getVAliasUsers($alias);
@@ -98,14 +99,17 @@ if ($_POST) {
                 $result .= _T("Virtual alias disabled.", "mail") . "<br />";
             }
         }
-        if ($result)
+        if ($result && !isXMLRPCError())
             new NotifyWidgetSuccess($result);
         $FH->isError(false);
         header("Location: ". urlStrRedirect("mail/aliases/edit", array("alias" => $alias)));
     }
     else {
-        new NotifyWidgetFailure($error);
+        if ($error)
+            new NotifyWidgetFailure($error);
         $FH->isError(true);
+        // make next XML-RPC calls
+        $errorStatus = 0;
     }
 }
 
