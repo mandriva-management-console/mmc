@@ -66,7 +66,7 @@ if (isset($_POST["badd"])) {
     $hasnetmask = strlen($_POST["netmask"]) > 0;
 
     /* Check that the zone name does not already exists */
-    if (zoneexists($zonename)) {        
+    if (zoneexists($zonename)) {
         $error .= " " . _T("This zone already exists.");
         setFormError("zonename");
     }
@@ -102,7 +102,7 @@ if (isset($_POST["badd"])) {
             }
         }
     }
-        
+
     if (!isset($error)) {
         $result = "";
         if ($dhcpsubnet) {
@@ -125,6 +125,7 @@ if (isset($_POST["badd"])) {
     $description = $_POST["description"];
     $nameserverstmp = $_POST["nameservers"];
     $mxserverstmp = $_POST["mxservers"];
+    $zoneaddress = $_POST["zoneaddress"];
     $nameservers = array();
 
     if (!isARecord($zonename, $nameserver, $error)) {
@@ -156,6 +157,7 @@ if (isset($_POST["badd"])) {
         setSOANSRecord($zonename, $nameserver . ".");
         setNSRecords($zonename, $nameservers);
         setMXRecords($zonename, $mxservers);
+        setSOAARecord($zonename, $zoneaddress);
         setZoneDescription($zonename, $description);
         if (!isXMLRPCError()) {
             new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
@@ -189,7 +191,7 @@ if (($_GET["action"] == "edit") && !isset($error)) {
     if (empty($mxservers)) {
         $mxservers = array('');
     }
-
+    $zoneaddress = getSOAARecord($zonename);
     $zones = getZones($zonename);
     $description = $zones[0][1]["tXTRecord"][0];
 }
@@ -222,8 +224,8 @@ $f->add(
         new TrFormElement(_T("Primary name server host name"), $formElt2),
         array("value" => $nameserver, "required" => True)
         );
-                
-if ($_GET["action"] == "add") {    
+
+if ($_GET["action"] == "add") {
     $f->add(
             new TrFormElement(_T("Name server IP"),new IPInputTpl("nameserverip")),
             array("value" => "")
@@ -231,7 +233,7 @@ if ($_GET["action"] == "add") {
     $f->pop();
 
     $f->push(new Table());
-    $f->add(new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl("")));            
+    $f->add(new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl("")));
     $f->add(
             new TrFormElement(_T("Network address"), new IPInputTpl("netaddress")),
             array("value" => $netaddress)
@@ -239,7 +241,7 @@ if ($_GET["action"] == "add") {
     $f->add(
             new TrFormElement(_T("Network mask"), new SimpleNetmaskInputTpl("netmask")),
             array("value" => $netmask, "extra" => _T("Only 8, 16 or 24 is allowed"))
-            );    
+            );
     $f->add(
             new TrFormElement(_T("Also manage a reverse DNS zone"), new CheckboxTpl("reverse")),
             array("value" => "CHECKED")
@@ -250,13 +252,17 @@ if ($_GET["action"] == "add") {
             );
     $f->pop();
 } else {
+    $f->add(
+            new TrFormElement(_T("IP address of the zone"), new IPInputTpl("zoneaddress")),
+            array("value" => $zoneaddress)
+            );
     $f->pop();
     $f->add(
-            new FormElement(_T("Secondary name servers hosts name"), $formElt3),
+            new FormElement(_T("Secondary name servers"), $formElt3),
             $nameservers
             );
     $f->add(
-            new FormElement(_T("Secondary name servers hosts name"), $formElt4),
+            new FormElement(_T("MX records (SMTP servers)"), $formElt4),
             $mxservers
             );
 }
@@ -265,7 +271,7 @@ if ($_GET["action"] == "add") {
 if ($_GET["action"] == "add") {
     $f->addButton("badd", _("Create"));
 } else {
-    $f->addButton("bedit", _("Confirm"));    
+    $f->addButton("bedit", _("Confirm"));
 }
 $f->pop();
 $f->display();

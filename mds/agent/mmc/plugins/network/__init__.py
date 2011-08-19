@@ -115,7 +115,7 @@ def activate():
             ldapObj.addOu(ouName, path)
             logger.info("Created OU " + dn)
         except ldap.ALREADY_EXISTS:
-            pass        
+            pass
 
     # Create DHCP config base structure
     d = Dhcp()
@@ -125,11 +125,11 @@ def activate():
     except ldap.ALREADY_EXISTS:
         pass
     hostname = d.configDhcp.dhcpHostname
-    try:        
+    try:
         d.addServer(hostname)
         d.setServiceConfigStatement("not", "authoritative")
     except ldap.ALREADY_EXISTS:
-        pass        
+        pass
     d.setServicePrimaryServer("DHCP config", hostname)
     logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
 
@@ -141,7 +141,7 @@ def activate():
             logger.error('The group "%s" does not exist.' % config.bindGroup)
             return False
         gidNumber = gidNumber[2]
-    
+
         try:
             os.mkdir(config.bindLdapDir)
             os.chmod(config.bindLdapDir, 02750)
@@ -154,8 +154,8 @@ def activate():
             f = open(config.bindLdap, "w")
             f.close()
             os.chmod(config.bindLdap, 0640)
-            os.chown(config.bindLdap, -1, gidNumber)        
-    
+            os.chown(config.bindLdap, -1, gidNumber)
+
     return True
 
 # Mixed DNS/DHCP methods
@@ -175,7 +175,7 @@ def getSubnetAndZoneFreeIp(subnet, zone, current = None):
     while ip:
         if not dns.ipExists(zone, ip):
             ret = ip
-            break        
+            break
         ip = dhcp.getSubnetFreeIp(subnet, ip)
     return ret
 
@@ -220,6 +220,9 @@ def getSOARecord(zone):
 def setSOANSRecord(zone, nameserver):
     Dns().setSOANSRecord(zone, nameserver)
 
+def setSOAARecord(zone, ip):
+    Dns().setSOAARecord(zone, ip)
+
 def setNSRecords(zone, nameservers):
     Dns().setNSRecords(zone, nameservers)
 
@@ -231,6 +234,9 @@ def getNSRecords(zone):
 
 def getMXRecords(zone):
     return Dns().getMXRecords(zone)
+
+def getSOAARecord(zone):
+    return Dns().getSOAARecord(zone)
 
 def setZoneDescription(zone, description):
     Dns().setZoneDescription(zone, description)
@@ -249,7 +255,7 @@ def getZoneFreeIp(zone, startAt = None):
 
 def getResourceRecord(zone, rr):
     return Dns().getResourceRecord(zone, rr)
- 
+
 def getCNAMEs(zone, hostname):
     return Dns().getCNAMEs(zone, hostname)
 
@@ -278,7 +284,7 @@ def getSubnets(f):
 
 def setSubnetOption(subnet, option, value = None):
     Dhcp().setSubnetOption(subnet, option, value)
-    
+
 def setSubnetStatement(subnet, option, value = None):
     Dhcp().setSubnetStatement(subnet, option, value)
 
@@ -397,7 +403,7 @@ class NetworkConfig(PluginConfig):
             self.dnsType = self.get("dns", "type")
         except NoOptionError:
             self.dnsType = "bind"
-        self.dnsDN = self.getdn("dns", "dn")        
+        self.dnsDN = self.getdn("dns", "dn")
         self.dnsPidFile = self.get("dns", "pidfile")
         self.dnsInit = self.get("dns", "init")
         self.dnsLogFile = self.get("dns", "logfile")

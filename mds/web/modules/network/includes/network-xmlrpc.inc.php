@@ -60,8 +60,16 @@ function getSOARecord($zone) {
     return xmlCall("network.getSOARecord", array($zone));
 }
 
+function getSOAARecord($zone) {
+    return xmlCall("network.getSOAARecord", array($zone));
+}
+
 function setSOANSRecord($zone, $nameserver) {
     return xmlCall("network.setSOANSRecord", array($zone, $nameserver));
+}
+
+function setSOAARecord($zone, $ip) {
+    return xmlCall("network.setSOAARecord", array($zone, $ip));
 }
 
 function setNSRecords($zone, $nameservers) {
