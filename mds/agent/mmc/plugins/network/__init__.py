@@ -112,11 +112,7 @@ def activate():
     for dn in [config.dhcpDN, config.dnsDN]:
         head, path = dn.split(",", 1)
         ouName = head.split("=")[1]
-        try:
-            ldapObj.addOu(ouName, path)
-            logger.info("Created OU " + dn)
-        except ldap.ALREADY_EXISTS:
-            pass
+        ldapObj.addOu(ouName, path)
 
     # Create DHCP config base structure
     d = Dhcp()
@@ -487,7 +483,7 @@ def getInterfacesInfo():
 	    continue
 	if not needParse:
 	    continue
-	
+
 	m = re.match(NETWORK_PATTERN, line)
 	if m:
 	    ip = m.group("ip").split(".")
