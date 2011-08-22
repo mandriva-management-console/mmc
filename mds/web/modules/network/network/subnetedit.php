@@ -3,8 +3,7 @@
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
- * $Id$
- *
+ * $Id$ *
  * This file is part of Mandriva Management Console (MMC).
  *
  * MMC is free software; you can redistribute it and/or modify
@@ -24,6 +23,7 @@
 
 require("modules/network/includes/network-xmlrpc.inc.php");
 require("modules/network/includes/network.inc.php");
+require("modules/network/includes/network2.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
@@ -71,26 +71,32 @@ function checkSubnet() {
     return array(isset($error), $error);
 }
 
-function checkPool() {
+function checkPools() {
     /* Check that the given pool range is valid */
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
-
-    if (isset($_POST["badd"])) $pool = array();
-    else $pool = getPool($subnet);
-    if (isset($_POST["subnetpool"])) {
-        if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
-            $ipstart = $_POST["ipstart"];
-            $ipend = $_POST["ipend"];
-            if (!(ipLowerThan($ipstart, $ipend) && ipInNetwork($ipstart, $subnet, $netmask) && ipInNetwork($ipend, $subnet, $netmask)))
-                $error .= _T("The specified dynamic pool IP range is not valid.");
-        } else $error.= _T("No dynamic pool IP range specified.");
+    $pools = $_POST["subnetpools"];
+    $hasPools = isset($_POST["hassubnetpools"]);
+    if ($hasPools) {
+	for ($i = 0; $i < count($pools); $i++)
+	{
+	    list($ipStart, $ipEnd) = split(" ", $pools[$i]);
+	    if (isset($ipStart) && isset($ipEnd)) {
+		if (!(ipLowerThan($ipStart, $ipEnd) && ipInNetwork($ipStart, $subnet, $netmask) && ipInNetwork($ipEnd, $subnet, $netmask))){
+		    $error .= sprintf(_T("The specified dynamic pool IP range from %s to %s is not valid."), $ipStart, $ipEnd);
+		    if ($i < count($pools) -1) $error .= "<br>";
+		}
+	    } else { 
+		$error.= sprintf(_T("No IP range specified for %d dynamic pool."), $i + 1);
+		if ($i < count($pools) -1) $error .= "<br>";
+	    }
+	}
     }
     return array(isset($error), $error);
 }
 
-if (isset($_POST["badd"])) $checks = array("checkSubnet", "checkPool");
-if (isset($_POST["bedit"])) $checks = array("checkPool");
+if (isset($_POST["badd"])) $checks = array("checkSubnet", "checkPools");
+if (isset($_POST["bedit"])) $checks = array("checkPools");
 
 
 if (isset($_POST["badd"]) | isset($_POST["bedit"])) {
@@ -99,7 +105,7 @@ if (isset($_POST["badd"]) | isset($_POST["bedit"])) {
         if ($result) break;
     }
 }
-    
+
 if (!isset($error)
      & (isset($_POST["badd"]) || (isset($_POST["bedit"])))) {
     $subnet = $_POST["subnet"];
@@ -118,9 +124,9 @@ if (!isset($error)
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "netbios-name-servers", "netbios-node-type", "root-path", "tftp-server-name","local-pac-server");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
-	if (in_array($name, array("domain-name", "root-path", "tftp-server-name", "local-pac-server")))
+	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
             $value = '"' . $value . '"';
-	if (in_array($name, array("domain-name-servers", "ntp-servers", "netbios-name-servers")))
+	if (in_array($name, array("domain-name", "root-path", "tftp-server-name", "local-pac-server")))
             $value = str_replace(" ", ",", $value);
         setSubnetOption($subnet, $name, $value);
     }
@@ -137,23 +143,9 @@ if (!isset($error)
     }
     setSubnetAuthoritative($subnet, isset($_POST["authoritative"]));
     
-    /* Create or update the DHCP pool */
-    if (isset($_POST["badd"])) $pool = array();
-    else $pool = getPool($subnet);
-    if (isset($_POST["subnetpool"])) {
-        if (isset($_POST["ipstart"]) && isset($_POST["ipend"])) {
-            $ipstart = $_POST["ipstart"];
-            $ipend = $_POST["ipend"];
-            if (count($pool)) setPoolRange($subnet, $ipstart, $ipend);
-            else {
-                /* The pool needs to be created */
-                addPool($subnet, $subnet, $ipstart, $ipend);
-            }
-        }
-    } else {
-        /* Dynamic pool management is not checked */
-        if (count($pool)) delPool($subnet);
-    }
+    /* Create or update the DHCP pools */
+    $poolsRanges = (isset($_POST["hassubnetpools"])) ? $_POST["subnetpools"] : array();
+    setPoolsRanges($subnet, $poolsRanges);
     
     if (!isXMLRPCError()) {
         if (isset($_POST["badd"])) {
@@ -169,8 +161,9 @@ if (isset($error)) {
     new NotifyWidgetFailure($error);
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
-    if (isset($_POST["subnetpool"])) $hasSubnetPool = "checked";
-    else $hasSubnetPool = "";    
+    if (isset($_POST["hassubnetpools"])) $hasSubnetPools = "checked";
+    else $hasSubnetPools = "";    
+    $poolsRanges = $_POST["subnetpools"];
 }
 
 
@@ -186,13 +179,10 @@ if ($_GET["action"] == "subnetedit") {
     } else {
         $authoritative = "";
     }
-    $pool = getPool($_GET["subnet"]);
-    if (count($pool)) {
-        $hasSubnetPool = "checked";
-        $range = $pool[0][1]["dhcpRange"][0];
-        list($ipstart, $ipend) = explode(" ", $range);
-    } else $hasSubnetPool = "";
+    $poolsRanges = getPoolsRanges($subnet);
+    $hasSubnetPools = (count($poolsRanges)) ? "checked": "";
 }
+    //var_dump($pool);
 
 if ($_GET["action"] == "subnetadd") {    
     $formElt = new IPInputTpl("subnet");
@@ -262,7 +252,7 @@ $f->add(
                           ),
         array("value"=>$options["ntp-servers"])
         );
- $f->add(
+$f->add(
         new TrFormElement(_T("Proxy auto config URL"),new IA5InputTpl("local-pac-server"),
                           array(
                                 "tooltip" => _T("Automatic proxy configuration URL (PAC).")
@@ -367,28 +357,27 @@ $f->pop();
 
 $f->push(new Table());
 $f->add(
-        new TrFormElement(_T("Dynamic pool for non-registered DHCP clients", "network"),new CheckboxTpl("subnetpool")),
-        array("value"=>$hasSubnetPool, "extraArg"=>'onclick="toggleVisibility(\'pooldiv\');"')
+        new TrFormElement(_T("Dynamic pool(s) for non-registered DHCP clients", "network"),new CheckboxTpl("hassubnetpools")),
+        array("value"=>$hasSubnetPools, "extraArg"=>'onclick="toggleVisibility(\'poolsdiv\');"')
         );
+
 
 $f->pop();
 
-$pooldiv = new Div(array("id" => "pooldiv"));
-$pooldiv->setVisibility($hasSubnetPool);
-$f->push($pooldiv);
-$f->push(new Table());
-$f->add(
-        new TrFormElement(_T("IP range start"), new IPInputTpl("ipstart")),
-        array("value" => $ipstart)
-        );
-$f->add(
-        new TrFormElement(_T("IP range end"), new IPInputTpl("ipend")),
-        array("value" => $ipend)
-        );
-$f->pop();
+
+
+$poolsdiv = new Div(array("id" => "poolsdiv"));
+$poolsdiv->setVisibility($hasSubnetPools);
+$f->push($poolsdiv);
+
+$f->add(new FormElement(_T("Dynamic pools"),
+			new MultipleRangeInputTpl("subnetpools")), 
+			$poolsRanges);
 $f->pop();
 
 $f->pop(); // pop the form
+
+
 
 if ($_GET["action"] == "subnetadd") {
     $f->addButton("badd", _("Create"));

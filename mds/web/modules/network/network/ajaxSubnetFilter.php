@@ -21,13 +21,23 @@ foreach($subnets as $subnet => $infos) {
     $count[] = '<span style="font-weight: normal;">(' . getSubnetHostsCount($subnet) . ')</span>';
     $names[] = $infos["name"];
     $netmasks[] = $infos["netmask"];
-    $pool = getPool($subnet);
-    if (count($pool)) {
-        $hasSubnetPool = "checked";
-        $range = $pool[0][1]["dhcpRange"][0];
-        list($ipstart, $ipend) = explode(" ", $range);
-	$ranges[] = "$ipstart -> $ipend";
-    } else $ranges[] = _T("No dynamic address pool", "network");
+    $poolsRanges = getPoolsRanges($subnet);
+    $rangesStr = "";
+    $showedRangesCount = 2;
+    $rangesCount = count($poolsRanges);
+    for ($i = 0; $i < $rangesCount; $i++){
+        list($ipstart, $ipend) = explode(" ", $poolsRanges[$i]);
+        $rangesStr .= "$ipstart -> $ipend";
+        if ($i < $rangesCount - 1){ 
+    	    if ($i == $showedRangesCount - 1) 
+    		$rangesStr .= " <a href=\"#\" class=\"tooltip\">" . _T("More...","network") . "<span>"; 
+    	    else $rangesStr .= "<br>";	
+    	}
+    }
+    if ($rangesCount > $showedRangesCount)           
+	$rangesStr .= "</span></a>";
+    
+    $ranges[] = ($rangesCount) ? $rangesStr : _T("No dynamic address pool", "network");
 
 }
 
@@ -37,7 +47,7 @@ $n->setAdditionalInfo($count);
 $n->first_elt_padding = 1;
 $n->addExtraInfo($netmasks, _T("Netmask", "network"));
 $n->addExtraInfo($names, _T("Description", "network"));
-$n->addExtraInfo($ranges, _T("Dynamic pool range", "network"));
+$n->addExtraInfo($ranges, _T("Dynamic pool range(s)", "network"));
 $n->setName(_T("DHCP subnets", "network"));
 
 $n->addActionItem(new ActionItem(_T("View DHCP static host", "network"),"subnetmembers","display", "subnet", "network", "network"));

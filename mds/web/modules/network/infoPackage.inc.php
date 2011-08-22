@@ -62,8 +62,14 @@ $page->setFile("modules/network/network/ajaxZoneMembersFilter.php",
 	       );
 $submod->addPage($page);
 
+$page = new Page("ajaxZoneRecordsFilter");
+$page->setFile("modules/network/network/ajaxZoneRecordsFilter.php",
+	       array("AJAX" =>True,"visible"=>False)
+	       );
+$submod->addPage($page);
+
 $page = new Page("ajaxSubnetMembersFilter");
-$page->setFile("modules/network/network/ajaxSubnetMembersFilter.php",
+$page->setFile("modules/network/network/ajaxZoneMembersFilter.php",
 	       array("AJAX" =>True,"visible"=>False)
 	       );
 $submod->addPage($page);
@@ -88,7 +94,15 @@ $page = new Page("deletehost",_T("Delete a host","network"));
 $page->setOptions( array ("noHeader" => True,"visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("deleterecord",_T("Delete a record","network"));
+$page->setOptions( array ("noHeader" => True,"visible"=>False));
+$submod->addPage($page);
+
 $page = new Page("edithost",_T("Edit a DNS record","network"));
+$page->setOptions( array ("visible"=>False));
+$submod->addPage($page);
+
+$page = new Page("editrecord",_T("Edit a DNS record","network"));
 $page->setOptions( array ("visible"=>False));
 $submod->addPage($page);
 
@@ -103,7 +117,15 @@ $page = new Page("addhost",_T("Add a host to a zone", "network"));
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("addrecord",_T("Add a record to a zone", "network"));
+$page->setOptions(array("visible"=>False));
+$submod->addPage($page);
+
 $page = new Page("zonemembers",_T("Members of a zone", "network"));
+$page->setOptions(array("visible"=>False));
+$submod->addPage($page);
+
+$page = new Page("zonerecords",_T("Records of a zone", "network"));
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
@@ -160,6 +182,13 @@ $page = new Page("servicerestart",_T("Network services management","network"));
 $page->setOptions(array("noHeader" => True, "visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("serviceconfig",_T("Network services management","network"));
+$page->setOptions(array("visible"=>False));
+$submod->addPage($page);
+
+$page = new Page("dhcpconfig",_T("Network services management","network"));
+$page->setOptions(array("visible"=>False));
+$submod->addPage($page);
 
 $mod->addSubmod($submod);
 

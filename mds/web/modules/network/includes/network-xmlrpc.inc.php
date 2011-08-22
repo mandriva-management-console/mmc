@@ -16,6 +16,11 @@ function getZones($filter) {
     return xmlCall("network.getZones", array($filter));
 }
 
+function getReverseZone($zone) {
+    return xmlCall("network.getReverseZone", array($zone));
+}
+
+
 function addZone($zonename, $network, $netmask, $reverse, $description, $nameserver, $nameserverip) {
     xmlCall("network.addZone", array($zonename, $network, $netmask, $reverse, $description, $nameserver, $nameserverip));
 }
@@ -34,6 +39,26 @@ function getAllZonesNetworkAddresses() {
 
 function getZoneNetworkAddress($zone) {
     return xmlCall("network.getZoneNetworkAddress", array($zone));
+}
+
+function getZoneRecords($zone, $filter) {
+    return xmlCall("network.getZoneRecords", array($zone, $filter));
+}
+
+function getZoneRecord($zone, $recordId) {
+    return xmlCall("network.getZoneRecord", array($zone, $recordId));
+}
+
+function addRecord($zone, $recordType, $hostname, $recordValue) {
+    return xmlCall("network.addRecord", array($zone, $recordType, $hostname, $recordValue));
+}
+
+function modifyRecordById($zone, $recordId, $hostname, $recordValue) {
+    return xmlCall("network.modifyRecordById", array($zone, $recordId, $hostname, $recordValue));
+}
+
+function delRecordById($zone, $id) {
+    xmlCall("network.delRecordById", array($zone, $id));
 }
 
 function addRecordA($zone, $hostname, $ip) {
@@ -205,6 +230,14 @@ function setPoolRange($poolname, $start, $end) {
     xmlCall("network.setPoolRange", array($poolname, $start, $end));
 }
 
+function getPoolsRanges($subnet){
+    return xmlCall("network.getPoolsRanges", array($subnet));
+}
+
+function setPoolsRanges($subnet, $ranges){
+    xmlCall("network.setPoolsRanges", array($subnet, $ranges));
+}
+
 /* Host */
 
 function addHostToSubnet($subnet, $hostname) {
@@ -251,6 +284,20 @@ function getSubnetFreeIp($subnet, $ipstart = null) {
 /* DHCP leases */
 function getDhcpLeases() {
     return xmlCall("network.getDhcpLeases");
+}
+
+/* DHCP launch config */
+
+function getDhcpLaunchConfig() {
+    return xmlCall("network.getDhcpLaunchConfig");
+}
+
+function setDhcpInterfaces($interfaces){
+    return xmlCall("network.setDhcpInterfaces", array($interfaces));
+}
+
+function getInterfacesInfo(){
+    return xmlCall("network.getInterfacesInfo");
 }
 
 /* Service management RPCs */

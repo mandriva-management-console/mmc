@@ -42,7 +42,7 @@ global $error;
 if (isset($_POST["badd"])) {
     $hostname = $_POST["hostname"];
     $ipaddress = $_POST["ipaddress"];
-    
+
     /* Basic checks */
     if (hostExists($zone, $hostname)) {
         $error = _T("The specified hostname has been already recorded in this zone.") . " ";
@@ -53,7 +53,7 @@ if (isset($_POST["badd"])) {
         $error .= _T("The specified IP address has been already recorded in this zone.");
         setFormError("address");
     } else $keepaddress = True;
-    
+
     if (!isset($error)) {
         $ret = addRecordA($zone, $hostname, $ipaddress);
         if (!isXMLRPCError()) {
@@ -71,7 +71,7 @@ if (isset($_POST["badd"])) {
 /* Editing a record */
 if (isset($_POST["bedit"])) {
     $aliases = $_POST["hostalias"];
-    
+
     $ret = setHostAliases($zone, $_POST["hostname"], $aliases);
     if (!isXMLRPCError()) {
         if (empty($ret)) {
@@ -122,7 +122,7 @@ if ($_GET["action"] == "addhost") {
 $a = array("value" => $hostname, "extra" => "." . $zone);
 if ($_GET["action"] == "addhost") {
     $formElt = new HostnameInputTpl("hostname");
-    $a["required"] = True;    
+    $a["required"] = True;
     if (isset($_GET["host"])) $a["value"] = $_GET["host"]; /* pre-fill hostname field when adding a host */
 } else {
     $formElt = new HiddenTpl("hostname");
@@ -131,21 +131,26 @@ if ($_GET["action"] == "addhost") {
 $f->add(new TrFormElement(_T("Host name"), $formElt), $a);
 
 /* Prepare IP address input field content */
-if ($_GET["action"] == "addhost") {
+if ($_GET["action"] == "addhost" && count($zoneaddress) > 0) {
     if (isset($_GET["ipaddress"])) $network = $_GET["ipaddress"]; /* pre-fill IP address field when adding a host */
     else {
         if (isset($error) && isset($keepaddress))
             $network = $ipaddress;
-        else {            
+        else {
             if (!count($zoneaddress)) $network = "";
-            else $network = getZoneFreeIp($zone);            
+            else $network = getZoneFreeIp($zone);
         }
     }
     $a = array("value"=>$network, "required" => True);
     $a["zone"] = $zone;
     $a["ajaxurl"] = "ajaxDnsGetZoneFreeIp";
     $formElt = new GetFreeIPInputTpl();
-} else {
+}
+else if ($_GET["action"] == "addhost") {
+    $a = array("value" => "", "required" => True);
+    $formElt = new IPInputTpl("ipaddress");
+}
+else {
     $a = array("value"=>$ipaddress);
     $formElt = new HiddenTpl("ipaddress");
 }
@@ -158,11 +163,11 @@ if ($_GET["action"] == "addhost") {
     /* On edit mode, the user can setup host aliases */
     $m = new MultipleInputTpl("hostalias",_T("Hostname alias"));
     $m->setRegexp('/^[a-z][a-z0-9-]*[a-z0-9]$/');
-    if (empty($cnames)) $cnames = array("");        
+    if (empty($cnames)) $cnames = array("");
     $f->add(
             new FormElement(_T("Hostname alias"), $m),
             $cnames
-            );    
+            );
     $f->addValidateButton("bedit");
 }
 $f->display();

@@ -25,6 +25,8 @@ DHCP related methods and classes for the network plugin.
 """
 
 import ldap
+import re
+import os.path
 from mmc.plugins.base import ldapUserGroupControl, LogView
 from tools import ipNext, ipInRange
 from mmc.support.mmctools import ServiceManager
@@ -313,8 +315,25 @@ class Dhcp(ldapUserGroupControl):
             poolDN = pools[0][0]
             self.setObjectStatement(poolDN, option, value)
 
+    def getPoolsRanges(self, subnet):
+        pools = self.l.search_s("cn=%s,cn=DHCP Config,%s" % (subnet, self.configDhcp.dhcpDN), ldap.SCOPE_SUBTREE, "(objectClass=dhcpPool)", None)
+        ret = []
+        for p in pools:
+    	    ret.append(p[1]["dhcpRange"][0])
+    	return ret
+    
+    def setPoolsRanges(self, subnet, ranges):
+	pools = self.l.search_s("cn=%s,cn=DHCP Config,%s" % (subnet, self.configDhcp.dhcpDN), ldap.SCOPE_SUBTREE, "(objectClass=dhcpPool)", None)
+	for p in pools:
+	    self.l.delete_s(p[0])
+	id = 1
+	for r in ranges:
+	    start, end = r.split(" ")
+	    self.addPool(subnet, str(id), start, end)
+	    id = id + 1
+
     def addPool(self, subnet, poolname, start, end):
-        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_POOL, [(subnet, AT.SUBNET),(poolname, AT.POOL)])
+	r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_POOL, [(subnet, AT.SUBNET),(poolname, AT.POOL)])
         dhcprange = start + " " + end
         subnets = self.getSubnet(subnet)
         dn = "cn=" + poolname + "," + subnets[0][0]
@@ -326,7 +345,7 @@ class Dhcp(ldapUserGroupControl):
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)    
         r.commit()
-        
+
     def delPool(self, poolname):
         pools = self.getPool(poolname)
         for pool in pools:
@@ -562,6 +581,49 @@ class DhcpLeases:
     def get(self):
         return self.leases
 
+class DhcpLaunchConfig:
+    def __init__(self, conffile = "/etc/sysconfig/dhcpd"):
+        self.filename = conffile
+        self.config = {};
+        self.config["interfaces"] = [];
+        self.patterns = { 
+    	    "interfaces" : "\s*(?P<disabled>\#)?\s*INTERFACES\s*=\s*\"?(?P<interfaces>[a-zA-Z0-9, -]*)\"?"
+    	    }
+	self.__parse()
+        
+    def __parse(self):
+	if not os.path.exists(self.filename):
+	    return
+    
+	dhcpdFile = file(self.filename)
+	for line in dhcpdFile:
+	    m = re.match(self.patterns["interfaces"], line)
+	    if m:
+		if not m.group("disabled"):
+		    if len(m.group("interfaces")):
+			self.config["interfaces"] = re.split('[, ]+',m.group("interfaces"))
+		    else:
+			self.config["interfaces"] = []
+	dhcpdFile.close()
+	
+    def data(self):
+	return self.config
+    
+    def setInterfaces(self, interfaces):
+	replacement = "INTERFACES=\"" + ",".join(interfaces) + "\""
+	if not os.path.exists(self.filename):
+	    newdata = replacement + "\n"
+	else:
+	    dhcpdFile = open(self.filename,"r")
+	    data = dhcpdFile.read()
+	    newdata = re.sub(self.patterns["interfaces"],"\n"+replacement,data)
+	    dhcpdFile.close()
+
+	    dhcpdFile = open(self.filename,"w")
+	    dhcpdFile.writelines(newdata)
+	    dhcpdFile.close()
+	return ""
+
 
 class DhcpService(ServiceManager):
 
@@ -584,3 +646,4 @@ class DhcpLogView(LogView):
             "dhcpd-syslog1" : "^(?P<b>[A-z]{3}) *(?P<d>[0-9]+) (?P<H>[0-9]{2}):(?P<M>[0-9]{2}):(?P<S>[0-9]{2}) .* dhcpd: (?P<op>DHCP[A-Z]*) (?P<extra>.*)$",
             "dhcpd-syslog2" : "^(?P<b>[A-z]{3}) *(?P<d>[0-9]+) (?P<H>[0-9]{2}):(?P<M>[0-9]{2}):(?P<S>[0-9]{2}) .* dhcpd: (?P<extra>.*)$",
             }
+

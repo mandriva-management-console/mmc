@@ -50,14 +50,14 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
         $error = _T("The specified IP address does not belong to the subnet.") . " ";
         setFormError("ipaddress");
     }
-    /* Check that the given address is not in the dynamic pool range */
-    $pool = getPool($subnet);
-    if (count($pool)) {
-        $range = $pool[0][1]["dhcpRange"][0];
-        list($ipstart, $ipend) = explode(" ", $range);
+    /* Check that the given address is not in dynamic pool ranges */
+    $poolsRanges = getPoolsRanges($subnet);
+    foreach($poolsRanges as $r){
+        list($ipstart, $ipend) = explode(" ", $r);
         if (ipInRange($ipaddress, $ipstart, $ipend)) {
             $error .= _T("The specified IP address belongs to the dynamic pool range of the subnet.") . " ";
             setFormError("ipaddress");
+            break;
         }
     }
 

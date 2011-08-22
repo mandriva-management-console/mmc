@@ -12,7 +12,7 @@ foreach(getZones($filter) as $dn => $entry) {
         $zonename = $entry[1]["zoneName"][0];
     }
     $zones[$zonename] = array();
-    $zones[$zonename]["description"] = "";    
+    $zones[$zonename]["description"] = "";
     if (isset($entry[1]["tXTRecord"])) {
         foreach($entry[1]["tXTRecord"] as $value) {
             $zones[$zonename]["description"] .= $value . " ";
@@ -20,10 +20,12 @@ foreach(getZones($filter) as $dn => $entry) {
     }
 }
 
+
 ksort($zones);
 $descriptions = array();
 $reverses = array();
 $count = array();
+
 foreach($zones as $zone => $infos) {
     $count[] = '<span style="font-weight: normal;">(' . getZoneObjectsCount($zone) . ')</span>';
     $descriptions[] = $infos["description"];
@@ -40,8 +42,9 @@ $n->addExtraInfo($reverses, _T("Network prefix", "network"));
 $n->addExtraInfo($descriptions, _T("Description", "network"));
 $n->setName(_T("DNS zones", "network"));
 
-$n->addActionItem(new ActionItem(_T("View zone records", "network"),"zonemembers","display","zone", "network", "network"));
-$n->addActionItem(new ActionItem(_T("Edit zone", "network"),"edit","edit","zone", "network", "network"));
+$n->addActionItem(new ActionItem(_T("View zone members", "network"),"zonemembers","zonemembers", "zone", "network", "network"));
+$n->addActionItem(new ActionItem(_T("View zone records", "network"),"zonerecords", "display", "zone", "network", "network"));
+$n->addActionItem(new ActionItem(_T("Edit zone", "network"),"edit","edit", "zone", "network", "network"));
 $n->addActionItem(new ActionItem(_T("Add host", "network"),"addhost","addhost","zone", "network", "network"));
 $n->addActionItem(new ActionPopupItem(_T("Delete zone", "network"),"delete","delete","zone", "network", "network"));
 

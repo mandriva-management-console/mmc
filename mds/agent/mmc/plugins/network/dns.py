@@ -126,9 +126,7 @@ zone "%(zone)s" {
             search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=%s))" % (name, filt), None)
         ret = []
         for result in search:
-            relative = result[1][self.relativeDomainNameField][0]
-            # Don't count these entries
-            if relative != "@" and relative != name + ".":
+            if "cNAMERecord" in result[1] or ("aRecord" in result[1] and result[1][self.relativeDomainNameField][0] != "@"):
                 ret.append(result)
         return ret
 
@@ -136,19 +134,225 @@ zone "%(zone)s" {
         """
         Return the number of objects defined in a zone
         """
-        count = 0
-        if self.pdns:
-            print "dc=" + name + "," + self.configDns.dnsDN
-            search = self.l.search_s("dc=" + name + "," + self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSDomain2)(associatedDomain=*.%s))" % (name), ["associatedDomain"])
-        else:
-            search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s))" % (name), ["relativeDomainName"])
+        return len(self.getZoneObjects(name))
 
+    def getZoneData(self, name, filt = None):
+        """
+        Return data of a zone
+        """
+        if filt:
+            filt = "*" + filt.strip() + "*"
+        else:
+            filt = "*"
+	if self.pdns:
+            search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s.%s))" % (filt, name), None)
+        else:
+            search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=%s))" % (name, filt), None)
+        ret = []
         for result in search:
-            relative = result[1][self.relativeDomainNameField][0]
-            # Don't count these entries
-            if relative != "@" and relative != name + ".":
-                count = count + 1
-        return count
+            ret.append(result)
+        return ret
+
+    def getZoneRecords(self, zone, filt = None):
+	"""
+	Return records defined in a zone
+	"""
+	data = self.getZoneData(zone, filt)
+	result = []
+	id = 1
+	for entry in data:
+	    hostname = entry[1]["relativeDomainName"][0]
+	    keys = entry[1].keys()
+	    needle = "Record";
+	    for k in keys:
+		index = k.rfind(needle)
+		if (index >= 0):
+		    type = k[0:index].upper()
+		    for value in entry[1][k]:
+			rec = {
+                    	    "id" : str(id),
+                            "hostname" : hostname,
+                            "type" : type,
+                            "value" : value
+                            }
+                        result.append(rec)
+                        id = id + 1
+	return result
+
+    def getZoneRecord(self, zone, id):
+	"""
+	Return zone record by id
+	"""
+	records = self.getZoneRecords(zone)
+	for r in records:
+	    if (r["id"] == id):
+		return r
+	return None
+
+    def getRecordMetadata(self, zoneData, recordId ):
+	"""
+	Return metadata of a record with specific Id
+	"""
+	result = {}
+	targetId = int(recordId)
+	id = 0
+
+	for i in range(len(zoneData)):
+	    keys = zoneData[i][1].keys()
+	    for k in keys:
+		index = k.rfind("Record")
+		if (index >= 0):
+		    recordsCount = len(zoneData[i][1][k])
+		    if (targetId > id) and (targetId <= id + recordsCount):
+			subIndex = targetId - id - 1
+			result["key"] = k
+	    		result["index"] = subIndex
+	    		result["rootIndex"] = i
+			return result
+		    id = id + recordsCount
+	return result
+
+    def addRecord(self, zoneName, type, hostname, value):
+	"""
+	Add record to ldap
+	"""
+	data = self.getZoneData(zoneName, "")
+
+    	key = type.capitalize().swapcase() + "Record"
+
+    	for entry in data:
+	    if (entry[1]["relativeDomainName"][0] == hostname):
+		added = self.addRecordToEntry(entry, key, value)
+		if added:
+		    self.updateZoneSerial(zoneName)
+		return
+
+	domainExample = data[0][0]
+	domainSuffix = domainExample[domainExample.find(","):]
+	addedDomain = "relativeDomainName=" + hostname + domainSuffix
+
+	created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
+	if created:
+    	    self.updateZoneSerial(zoneName)
+
+
+    def createEntryWithRecord(self, zoneName, domain, hostname, key, value, dnsClass = "IN"):
+	"""
+	Create new entry with new record into ldap
+	"""
+	addedEntry = {
+        	    "zoneName" : zoneName,
+        	    "objectClass" : ["top", "dNSZone"],
+        	    "relativeDomainName" : hostname,
+        	    "dnsClass" : dnsClass,
+        	    key : value
+        	    }
+    	attributes = [ (k,v) for k,v in addedEntry.items() ]
+    	try:
+    	    self.l.add_s(domain, attributes)
+    	except ldap.UNDEFINED_TYPE:
+    	    raise "Can't create record.";
+    	    return False
+    	return True
+
+    def addRecordToEntry(self, entry, key, value):
+	"""
+	Add record into existing entry
+	"""
+	if not (key in entry[1]):
+	    print "add attr with new key to new entry"
+	    try:
+		self.l.modify_s(entry[0], [(ldap.MOD_ADD, key, value)])
+	    except:
+		raise "Can't create record.";
+    		return False
+	    return True
+
+	values = entry[1][key]
+	if not (value in values):
+	    values.append(value)
+	    try:
+		self.l.modify_s(entry[0], [(ldap.MOD_REPLACE, key, values)])
+	    except:
+		raise "Can't create record.";
+    		return False
+	    return True
+	return False
+
+    def modifyRecordById(self, zoneName, recordId, hostname, value):
+	"""
+	Modify record with specific id
+	"""
+	data = self.getZoneData(zoneName, "")
+	md = self.getRecordMetadata(data, recordId)
+	if not md:
+	    return
+
+	entryIndex = md["rootIndex"]
+	entry = data[entryIndex]
+	key = md["key"]
+	index = md["index"]
+
+	domainFound = False
+    	for e in data:
+	    if (e[1]["relativeDomainName"][0] == hostname):
+		domainFound = True
+		added = self.addRecordToEntry(e, key, value)
+		if not added:
+		    return
+		break
+
+	if (not domainFound):
+	    addedDomainSuffix = entry[0][entry[0].find(","):]
+	    addedDomain = "relativeDomainName=" + hostname + addedDomainSuffix
+	    created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
+	    if not created:
+		return
+
+	self.deleteRecord(entry, key, index)
+	self.updateZoneSerial(zoneName)
+
+
+    def deleteRecord(self, entry, key, index):
+	"""
+	Delete record from ldap
+	"""
+	entryRecordsCount = 0
+	for k in entry[1].keys():
+	    i = k.rfind("Record")
+	    if (i >= 0):
+	        entryRecordsCount = entryRecordsCount + len(entry[1][k])
+		if (entryRecordsCount > 1):
+		    break
+
+    	if (entryRecordsCount == 1):
+	    self.l.delete_s(entry[0])
+	    return
+
+	if (len(entry[1][key]) == 1):
+		self.l.modify_s(entry[0], [(ldap.MOD_DELETE, key, entry[1][key][0])])
+		return
+
+	values = entry[1][key]
+	values.pop(index)
+	self.l.modify_s(entry[0], [(ldap.MOD_REPLACE, key , values)])
+
+
+    def delRecordById(self, zoneName, recordId):
+	"""
+	Delete record with specific id
+	"""
+	data = self.getZoneData(zoneName, "")
+	md = self.getRecordMetadata(data, recordId)
+	if not md:
+	    return
+
+	entryIndex = md["rootIndex"]
+	entry = data[entryIndex]
+	key = md["key"]
+	index = md["index"]
+	self.deleteRecord(entry, key, index)
+        self.updateZoneSerial(zoneName)
 
     def getZone(self, zoneName):
         if self.pdns:
@@ -886,22 +1090,27 @@ zone "%(zone)s" {
         """
         ret = ""
         networks = self.getZoneNetworkAddress(zone)
-        # We support only one single reverse zone, that's why we do [0]
-        basenetwork = networks[0]
-        dotcount = basenetwork.count(".")
-        # Build a netmask
-        netmask = (dotcount + 1) * 8
-        # Build a quad dotted network address
-        network = basenetwork + ((3 - dotcount) * ".0")
-        if startAt: ip = startAt
-        else: ip = network
-        ip = ipNext(network, netmask, ip)
-        while ip:
-            if not self.ipExists(zone, ip):
-                ret = ip
-                break
+        if networks:
+            # We support only one single reverse zone, that's why we do [0]
+            basenetwork = networks[0]
+            dotcount = basenetwork.count(".")
+            # Build a netmask
+            netmask = (dotcount + 1) * 8
+            # Build a quad dotted network address
+            network = basenetwork + ((3 - dotcount) * ".0")
+            if startAt: ip = startAt
+            else: ip = network
             ip = ipNext(network, netmask, ip)
-        return ret
+            while ip:
+                if not self.ipExists(zone, ip):
+                    ret = ip
+                    break
+                ip = ipNext(network, netmask, ip)
+            return ret
+        else:
+            # return nothing if you don't have any
+            # reverse zone
+            return ""
 
     def getResourceRecord(self, zone, rr):
         """

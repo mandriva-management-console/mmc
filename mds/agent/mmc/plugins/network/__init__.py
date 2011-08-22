@@ -30,12 +30,13 @@ import ldap
 import logging
 import os.path
 import grp
+import re
+from mmc.support.mmctools import shlaunch
 from ConfigParser import NoOptionError
-
 from mmc.core.version import scmRevision
 from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
+from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases, DhcpLaunchConfig
 from mmc.plugins.network.dns import Dns, DnsService, DnsLogView
 from mmc.support.config import PluginConfig
 
@@ -205,6 +206,27 @@ def getZoneObjectsCount(zone):
 def getZoneObjects(zone, filt):
     return Dns().getZoneObjects(zone, filt)
 
+def getReverseZone(zone):
+    return Dns().getReverseZone(zone)
+
+def getZoneData(zone, filt):
+    return Dns().getZoneData(zone, filt)
+
+def getZoneRecords(zone, filt):
+    return Dns().getZoneRecords(zone, filt)
+
+def getZoneRecord(zone, recordId):
+    return Dns().getZoneRecord(zone, recordId)
+
+def modifyRecordById(zone, id, hostname, value):
+    return Dns().modifyRecordById(zone, id, hostname, value)
+
+def addRecord(zone, type, hostname, value):
+    return Dns().addRecord(zone, type, hostname, value)
+
+def delRecordById(zone, id):
+    return Dns().delRecordById(zone, id)
+
 def addRecordA(zone, hostname, ip):
     return Dns().addRecordA(zone, hostname, ip)
 
@@ -303,6 +325,12 @@ def getSubnetHosts(network, filter):
 def getSubnetHostsCount(zone):
     return Dhcp().getSubnetHostsCount(zone)
 
+def getPoolsRanges(subnet):
+    return Dhcp().getPoolsRanges(subnet)
+
+def setPoolsRanges(subnet, ranges):
+    return Dhcp().setPoolsRanges(subnet, ranges)
+
 def addPool(subnet, poolname, start, end):
     Dhcp().addPool(subnet, poolname, start, end)
 
@@ -349,6 +377,14 @@ def getSubnetFreeIp(subnet, startAt):
 
 def getDhcpLeases():
     return DhcpLeases().get()
+
+# DHCP launch configuration
+
+def getDhcpLaunchConfig():
+    return DhcpLaunchConfig().data()
+
+def setDhcpInterfaces(interfaces):
+    return DhcpLaunchConfig().setInterfaces(interfaces)
 
 # Log
 
@@ -398,7 +434,7 @@ class NetworkConfig(PluginConfig):
             self.dhcpHostname = self.get("dhcp", "hostname")
         except NoOptionError:
             self.dhcpHostname = socket.gethostname()
-        # DNS conf
+	# DNS conf
         try:
             self.dnsType = self.get("dns", "type")
         except NoOptionError:
@@ -428,3 +464,40 @@ class NetworkConfig(PluginConfig):
         PluginConfig.setDefault(self)
         self.dnsReader = None
         self.dnsReaderPassword = None
+
+# Another functions
+
+def getInterfacesInfo():
+    output = shlaunch('ifconfig')
+    ETH_INTERFACE = "Link encap:Ethernet"
+    NETWORK_PATTERN = "\s*inet addr:(?P<ip>\S+)\s*\S*\s*Mask:(?P<mask>\S+)"
+    infos = []
+    currentInterface = ""
+    needParse = True
+    for line in output:
+	firstWhiteSpacePos = line.find(" ")
+	if firstWhiteSpacePos > 0:
+	    if line.find(ETH_INTERFACE, firstWhiteSpacePos+1) >= 0:
+		currentInterface = line[0:firstWhiteSpacePos]
+	    else:
+		needParse = False
+	    continue
+	elif firstWhiteSpacePos < 0:
+	    needParse = True
+	    continue
+	if not needParse:
+	    continue
+	
+	m = re.match(NETWORK_PATTERN, line)
+	if m:
+	    ip = m.group("ip").split(".")
+	    mask = m.group("mask").split(".")
+	    subnet = []
+	    for i in range(len(mask)):
+		subnet.append(str(int(ip[i]) & int(mask[i])))
+	    info = {}
+	    info["interface"] = currentInterface
+	    info["subnet"] = ".".join(subnet)
+	    infos.append(info);
+	    needParse = False
+    return infos
