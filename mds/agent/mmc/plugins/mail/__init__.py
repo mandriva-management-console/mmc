@@ -242,7 +242,7 @@ class MailConfig(PluginConfig):
         if self.vDomainSupport:
             self.vDomainDN = self.get("main", "vDomainDN")
         try: self.vAliasesSupport = self.getboolean("main", "vAliasesSupport")
-        except: pass
+        except: self.vAliasesSupport = False
         if self.vAliasesSupport:
             self.vAliasesDN = self.get("main", "vAliasesDN")
         try:
