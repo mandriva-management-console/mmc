@@ -27,6 +27,9 @@ require("modules/network/includes/network.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
+global $error;
+global $result;
+
 $p = new PageGenerator();
 if ($_GET["action"] == "add") $title =  _T("Add a DNS zone");
 else {
@@ -37,23 +40,23 @@ $p->setTitle($title);
 $p->setSideMenu($sidemenu);
 $p->display();
 
-function isARecord($zone, $name, &$error) {
+function hasARecord($zone, $name) {
+
+    global $error;
+
     $msg = sprintf(_T("%s is not a A record of this zone."), $name) . '<br/>';
-    if (strpos($name, $zone) === False) {
-        $error .= $msg;
-        return False;
-    }
-    $rname = str_replace('.' . $zone, '', $name);
-    $ret = True;
-    $rr = getResourceRecord($zone, $rname);
-    if (empty($rr) || !isset($rr[0][1]['aRecord'])) {
+    # remove current zone name from the host name
+    $name = str_replace("." . $zone, "", $name);
+    if (!hasRecord($zone, "a", $name)) {
         $error .= $msg;
         $ret = False;
     }
+    else
+        $ret = $name;
+
     return $ret;
 }
 
-global $error;
 if (isset($_POST["badd"])) {
     $zonename = $_POST["zonename"];
     $netaddress = $_POST["netaddress"];
@@ -123,38 +126,39 @@ if (isset($_POST["badd"])) {
     $zonename = $_POST["zonename"];
     $nameserver = $_POST["nameserver"];
     $description = $_POST["description"];
-    $nameserverstmp = $_POST["nameservers"];
-    $mxserverstmp = $_POST["mxservers"];
+    $nameserverstmp = array_unique($_POST["nameservers"]);
+    $mxserverstmp = array_unique($_POST["mxservers"]);
     $zoneaddress = $_POST["zoneaddress"];
-    $nameservers = array();
 
-    if (!isARecord($zonename, $nameserver, $error)) {
+    $nameserver = hasARecord($zonename, $nameserver);
+    if (!$nameserver)
         setFormError('nameserver');
-    }
 
+    $nameservers = array();
     foreach($nameserverstmp as $ns) {
-        if (!empty($ns) && !in_array($ns, $nameservers) && ($ns != $nameserver)) {
-            if (!isARecord($zonename, $ns, $error)) {
+        if (!empty($ns) && $ns != $nameserver) {
+            $nsName = hasARecord($zonename, $ns);
+            if (!$nsName)
                 setFormError('nameservers0');
-            } else {
-                $nameservers[] = $ns . ".";
-            }
+            else
+                $nameservers[] = $ns;
         }
     }
     $mxservers = array();
     foreach($mxserverstmp as $mx) {
         if (!empty($mx)) {
-            $mxhostname = explode(' ', $mx);
-            $mxhostname = $mxhostname[1];
-            if (!isARecord($zonename, $mxhostname, $error)) {
+            $mxInfo = explode(' ', $mx);
+            $mxPriority = $mxInfo[0];
+            $mxName = $mxInfo[1];
+            $mxName = hasARecord($zonename, $mxName);
+            if (!$mxName)
                 setFormError('mxservers0');
-            } else {
-                $mxservers[] = $mx . ".";
-            }
+            else
+                $mxservers[] = $mxPriority . ' ' . $mxName;
         }
     }
     if (!isset($error)) {
-        setSOANSRecord($zonename, $nameserver . ".");
+        setSOANSRecord($zonename, $nameserver);
         setNSRecords($zonename, $nameservers);
         setMXRecords($zonename, $mxservers);
         setSOAARecord($zonename, $zoneaddress);
@@ -221,7 +225,7 @@ $f->add(
         array("value" => $description)
         );
 $f->add(
-        new TrFormElement(_T("Primary name server host name"), $formElt2),
+        new TrFormElement(_T("Primary name server host name"), $formElt2, array("tooltip" => _T("The primary name server for this zone. The host must exists in zone (A record)."))),
         array("value" => $nameserver, "required" => True)
         );
 
@@ -253,16 +257,16 @@ if ($_GET["action"] == "add") {
     $f->pop();
 } else {
     $f->add(
-            new TrFormElement(_T("IP address of the zone"), new IPInputTpl("zoneaddress")),
+            new TrFormElement(_T("IP address of the zone"), new IPInputTpl("zoneaddress"), array("tooltip" => _T("Your zone name will be resolved to this IP address."))),
             array("value" => $zoneaddress)
             );
     $f->pop();
     $f->add(
-            new FormElement(_T("Secondary name servers"), $formElt3),
+            new FormElement(_T("Secondary name servers"), $formElt3, array("tooltip" => _T("Name of other name servers in the zone. The hosts must exist in the zone (A record)."))),
             $nameservers
             );
     $f->add(
-            new FormElement(_T("MX records (SMTP servers)"), $formElt4),
+            new FormElement(_T("MX records (SMTP servers)"), $formElt4, array("tooltip" => _T("Example : <strong>10 smtp</strong><br />Where '10' is the priority and 'smtp' the name of your mail server. The host 'smtp' must exists in the zone (A record)."))),
             $mxservers
             );
 }
