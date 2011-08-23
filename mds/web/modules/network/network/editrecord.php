@@ -144,7 +144,7 @@ if (isset($_POST["bedit"])) {
 
 
 if ($_GET["action"] == "editrecord" && !isset($_POST["bedit"])) {
-    $record = getZoneRecord($curzone, $recordId);
+    $record = getZoneRecordById($curzone, $recordId);
     if ($record){
 	$hostname = $record["hostname"];
 	$type = $record["type"];

@@ -51,7 +51,7 @@ if (isset($_POST["bconfirm"])) {
 } 
 
 
-$record = getZoneRecord($curzone, $id);
+$record = getZoneRecordById($curzone, $id);
 $hostname = $record["hostname"];
 $type = $record["type"];
 $f = new PopupForm(_T("Delete a DNS record"));
