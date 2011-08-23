@@ -1533,18 +1533,22 @@
 
     <section>
 
-      <title>Debian packages for patched versions of BIND and DHCP</title>
+      <title>Debian packages for patched versions of BIND</title>
 
       <para>
-  We provide Debian (Sarge/Etch) packages for LDAP patched versions of BIND and DHCP.
+  We provide Debian Lenny packages for the LDAP patched version of BIND. This packages work on Squeeze too.
       </para>
       <para>
-  Configure your APT repository as in <xref linkend="MDS_DEBIAN" />, and type:
+  Configure your APT repository as in <xref linkend="MDS_DEBIAN" />. And add in /etc/apt/preferences :
       </para>
       <screen>
+  Package: *
+  Pin: origin mds.mandriva.org
+  Pin-Priority: 1001
+      </screen>
+      <para>Then install the packages :</para>
+      <screen>
   # apt-get update
-  # apt-get install dhcp3-server
-  # apt-get install dhcp3-server-ldap
   # apt-get install bind9
       </screen>
 
