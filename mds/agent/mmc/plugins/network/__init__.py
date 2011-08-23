@@ -125,9 +125,10 @@ def activate():
     try:
         d.addServer(hostname)
         d.setServiceConfigStatement("not", "authoritative")
+        logging.info("The DHCP server '%s' was added." % hostname)
     except ldap.ALREADY_EXISTS:
         pass
-    d.setServicePrimaryServer("DHCP config", hostname)
+    d.setServerStatus(hostname, "primary")
     logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
 
     # Create DNS config base structure
@@ -290,6 +291,21 @@ def setHostAliases(zone, host, aliases):
     return Dns().setHostAliases(zone, host, aliases)
 
 # DHCP exported call
+
+def addSecondaryServer(serverName):
+    Dhcp().addSecondaryServer(serverName)
+
+def setServerFailover(serverName, type, serverIp, peerIp):
+    Dhcp().setServerFailover(serverName, type, serverIp, peerIp)
+
+def delServerFailover(serverName):
+    Dhcp().delServerFailover(serverName)
+
+def setPoolFailover(pool = None):
+    Dhcp().setPoolFailover(pool)
+
+def delPoolFailover(pool = None):
+    Dhcp().delPoolFailover(pool)
 
 def addSubnet(network, netmask, name):
     Dhcp().addSubnet(network, netmask, name)

@@ -118,11 +118,28 @@ class Dhcp(ldapUserGroupControl):
 
     # DHCP server management
 
+    def getServers(self):
+        """
+        Return all available DHCP server config containers
+        """
+        return self.l.search_s(self.configDhcp.dhcpDN, ldap.SCOPE_SUBTREE, "(objectClass=dhcpServer)", None)
+
+    def getServer(self, serverName):
+        serverDN = ""
+        for server in self.getServers():
+            if server[1]["cn"][0] == serverName:
+                serverDN = server[0]
+                break
+        if not serverDN:
+            raise DhcpError("DHCP server %s does not exists" % serverName)
+
+        return server
+
     def addServer(self, name, dhcpServiceDN = None):
         """
         Add a DHCP server in directory
         """
-        if dhcpServiceDN: raise "NYI"
+        if dhcpServiceDN: raise DhcpError("Not implemented")
         else:
             dhcpServiceDN = self.getServiceConfig()[0][0]
         dn = "cn=" + name + "," + self.configDhcp.dhcpDN
@@ -135,23 +152,72 @@ class Dhcp(ldapUserGroupControl):
         attributes=[ (k,v) for k,v in entry.items() ]
         self.l.add_s(dn, attributes)
 
-    def getServer(self):
+    def addSecondaryServer(self, serverName, dhcpServiceDN = None):
         """
-        Return all available DHCP server config containers
+        Add a secondary DHCP server for failover
         """
-        return self.l.search_s(self.configDhcp.dhcpDN, ldap.SCOPE_SUBTREE, "(objectClass=dhcpServer)", None)
-        
-    def setServicePrimaryServer(self, serviceName, serverName):
-        serverDN = ""
-        for server in self.getServer():
-            if server[1]["cn"][0] == serverName:
-                serverDN = server[0]
+        if dhcpServiceDN: raise DhcpError("Not implemented")
+        # Check server is not primary
+        serverDN = self.getServer(serverName)[0]
+        if self.getServiceConfig()[0][1]["dhcpPrimaryDN"][0] == serverDN:
+            raise DhcpError("Server %s already set as primary." % serverName)
+        # Add the container if not exists
+        try:
+            self.addServer(serverName)
+            logging.info("The secondary DHCP server '%s' was added." % serverName)
+        except ldap.ALREADY_EXISTS:
+            pass
+        self.setServerStatus(serverName, "secondary")
+
+    def setServerStatus(self, serverName, status = "primary", serviceName = "DHCP config"):
+        serverDN = self.getServer(serverName)
         serviceDN = ""
         for service in self.getServiceConfig():
             if service[1]["cn"][0] == serviceName:
                 serviceDN = service[0]
         if serverDN and serviceDN:
-            self.l.modify_s(serviceDN, [(ldap.MOD_REPLACE, "dhcpPrimaryDN", serverDN)])
+            self.l.modify_s(serviceDN, [(ldap.MOD_REPLACE, "dhcp%sDN" % status.capitalize(), serverDN)])
+
+    def setServerFailover(self, serverName, type, serverIp, peerIp):
+        """
+        Set failover configuration on server
+        """
+        serverDN = self.getServer(serverName)[0]
+
+        if type not in ['primary', 'secondary']:
+            raise DhcpError("%s is not a valid type (primary or secondary)" % type)
+
+        failover_config = """"dhcp-failover" { %s; address %s; port 647; peer address %s; peer port 647; max-response-delay 30; max-unacked-updates 10; load balance max seconds 3; mclt 1800; split 128; }""" % (type, serverIp, peerIp)
+
+        self.setObjectStatement(serverDN, 'failover peer', failover_config)
+        self.setObjectStatement(serverDN, 'server-identifier', serverName)
+
+    def delServerFailover(self, serverName):
+        """
+        Remove failover configuration on server
+        """
+        serverDN = self.getServer(serverName)[0]
+        self.setObjectStatement(serverDN, 'failover peer', '')
+        self.setObjectStatement(serverDN, 'server-identifier', '')
+
+    def setPoolFailover(self, pool = None):
+        """
+        Activate failover on pool(s)
+        """
+        pools = self.getPool(pool)
+        for poolDN, poolData in pools:
+            self.setObjectStatement(poolDN, 'failover peer', '"dhcp-failover"')
+            # BOOTP not compatible with failover
+            self.setObjectStatement(poolDN, 'deny', 'dynamic bootp clients')
+
+    def delPoolFailover(self, pool = None):
+        """
+        Deactivate failover on pool(s)
+        """
+        pools = self.getPool(pool)
+        for poolDN, poolData in pools:
+            self.setObjectStatement(poolDN, 'failover peer', '')
+            self.setObjectStatement(poolDN, 'deny', '')
 
     def getServiceConfigOption(self):
         try:
@@ -258,7 +324,7 @@ class Dhcp(ldapUserGroupControl):
             "objectClass" : ["top", "dhcpSubnet", "dhcpOptions"]
             }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)    
+        self.l.add_s(dn, attributes)
         r.commit()
 
     def delSubnet(self, network):
@@ -321,19 +387,19 @@ class Dhcp(ldapUserGroupControl):
         for p in pools:
     	    ret.append(p[1]["dhcpRange"][0])
     	return ret
-    
+
     def setPoolsRanges(self, subnet, ranges):
-	pools = self.l.search_s("cn=%s,cn=DHCP Config,%s" % (subnet, self.configDhcp.dhcpDN), ldap.SCOPE_SUBTREE, "(objectClass=dhcpPool)", None)
-	for p in pools:
-	    self.l.delete_s(p[0])
-	id = 1
-	for r in ranges:
-	    start, end = r.split(" ")
-	    self.addPool(subnet, str(id), start, end)
-	    id = id + 1
+        pools = self.l.search_s("cn=%s,cn=DHCP Config,%s" % (subnet, self.configDhcp.dhcpDN), ldap.SCOPE_SUBTREE, "(objectClass=dhcpPool)", None)
+        for p in pools:
+            self.l.delete_s(p[0])
+        id = 1
+        for r in ranges:
+            start, end = r.split(" ")
+            self.addPool(subnet, str(id), start, end)
+            id = id + 1
 
     def addPool(self, subnet, poolname, start, end):
-	r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_POOL, [(subnet, AT.SUBNET),(poolname, AT.POOL)])
+        r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_POOL, [(subnet, AT.SUBNET),(poolname, AT.POOL)])
         dhcprange = start + " " + end
         subnets = self.getSubnet(subnet)
         dn = "cn=" + poolname + "," + subnets[0][0]
@@ -341,9 +407,9 @@ class Dhcp(ldapUserGroupControl):
             "cn" : poolname,
             "dhcpRange" : dhcprange,
             "objectClass" : ["top", "dhcpPool", "dhcpOptions"]
-            }            
+        }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)    
+        self.l.add_s(dn, attributes)
         r.commit()
 
     def delPool(self, poolname):
@@ -351,7 +417,7 @@ class Dhcp(ldapUserGroupControl):
         for pool in pools:
             if pool[1]["cn"][0] == poolname:
                 self.delRecursiveEntry(pool[0])
-                break        
+                break
 
     def setPoolRange(self, pool, start, end):
         r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_POOLRANGE, [(pool, AT.POOL)])
@@ -366,7 +432,7 @@ class Dhcp(ldapUserGroupControl):
         Return the IP range of a pool
         """
         ret = None
-        pools = self.getPool(pool)        
+        pools = self.getPool(pool)
         if pools:
             fields = pools[0][1]
             try:
@@ -376,7 +442,7 @@ class Dhcp(ldapUserGroupControl):
             else:
                 ret = dhcpRange.split()
         return ret
-            
+
     # DHCP group management
 
     def getGroup(self, group = None):
@@ -402,16 +468,16 @@ class Dhcp(ldapUserGroupControl):
         entry = {
             "cn" : groupname,
             "objectClass" : ["top", "dhcpGroup", "dhcpOptions"]
-            }            
+            }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)    
-        
+        self.l.add_s(dn, attributes)
+
     def delGroup(self, groupname):
         groups = self.getGroup(groupname)
         for group in groups:
             if group[1]["cn"][0] == groupname:
                 self.delRecursiveEntry(group[0])
-                break        
+                break
 
     # DHCP host management
 
@@ -466,9 +532,9 @@ class Dhcp(ldapUserGroupControl):
         entry = {
             "cn" : hostname,
             "objectClass" : ["top", "dhcpHost", "dhcpOptions"]
-            }            
+            }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)    
+        self.l.add_s(dn, attributes)
         r.commit()
 
     def addHostToGroup(self, groupname, hostname):
@@ -477,9 +543,9 @@ class Dhcp(ldapUserGroupControl):
         entry = {
             "cn" : hostname,
             "objectClass" : ["top", "dhcpHost", "dhcpOptions"]
-            }            
+            }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)    
+        self.l.add_s(dn, attributes)
 
     def delHost(self, subnet, hostname):
         r = AF().log(PLUGIN_NAME, AA.NETWORK_DEL_HOST, [(subnet, AT.SUBNET)], hostname)
@@ -586,15 +652,15 @@ class DhcpLaunchConfig:
         self.filename = conffile
         self.config = {};
         self.config["interfaces"] = [];
-        self.patterns = { 
+        self.patterns = {
     	    "interfaces" : "\s*(?P<disabled>\#)?\s*INTERFACES\s*=\s*\"?(?P<interfaces>[a-zA-Z0-9, -]*)\"?"
     	    }
 	self.__parse()
-        
+
     def __parse(self):
 	if not os.path.exists(self.filename):
 	    return
-    
+
 	dhcpdFile = file(self.filename)
 	for line in dhcpdFile:
 	    m = re.match(self.patterns["interfaces"], line)
@@ -605,10 +671,10 @@ class DhcpLaunchConfig:
 		    else:
 			self.config["interfaces"] = []
 	dhcpdFile.close()
-	
+
     def data(self):
 	return self.config
-    
+
     def setInterfaces(self, interfaces):
 	replacement = "INTERFACES=\"" + ",".join(interfaces) + "\""
 	if not os.path.exists(self.filename):
@@ -647,3 +713,10 @@ class DhcpLogView(LogView):
             "dhcpd-syslog2" : "^(?P<b>[A-z]{3}) *(?P<d>[0-9]+) (?P<H>[0-9]{2}):(?P<M>[0-9]{2}):(?P<S>[0-9]{2}) .* dhcpd: (?P<extra>.*)$",
             }
 
+class DhcpError(BaseException):
+
+    def __init__(self, err):
+        self.err = err
+
+    def __str__(self):
+        return self.err
