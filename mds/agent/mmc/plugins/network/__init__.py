@@ -211,11 +211,14 @@ def getZoneData(zone, filt):
 def getZoneRecords(zone, filt):
     return Dns().getZoneRecords(zone, filt)
 
-def getZoneRecord(zone, recordId):
-    return Dns().getZoneRecord(zone, recordId)
+def getZoneRecordById(zone, id):
+    return Dns().getZoneRecordById(zone, id)
 
 def modifyRecordById(zone, id, hostname, value):
     return Dns().modifyRecordById(zone, id, hostname, value)
+
+def hasRecord(zone, type, hostname):
+    return Dns().hasRecord(zone, type, hostname)
 
 def addRecord(zone, type, hostname, value):
     return Dns().addRecord(zone, type, hostname, value)
