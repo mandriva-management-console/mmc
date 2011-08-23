@@ -50,10 +50,12 @@ class Dns(ldapUserGroupControl):
             self.pdns = True
             self.zoneNameField = "associatedDomain"
             self.relativeDomainNameField = "associatedDomain"
+            self.dnsObjClass = "dnsdomain2"
         else:
             self.pdns = False
             self.zoneNameField = "zoneName"
             self.relativeDomainNameField = "relativeDomainName"
+            self.dnsObjClass = "dNSZone"
 
         self.reverseMarkup = "Reverse:"
         self.reversePrefix = ".in-addr.arpa"
@@ -112,9 +114,25 @@ zone "%(zone)s" {
                 if zoneName.endswith(self.reversePrefix): ret.append(zoneName)
         return ret
 
-    def getZoneObjects(self, name, filt = None):
+    def getZone(self, zoneName):
+        if self.pdns:
+            return self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s))" % (zoneName), None)
+        else:
+            return self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=%s))" % (zoneName, zoneName + "."), None)
+
+    def getZoneSOA(self, zoneName):
+        if self.pdns:
+            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s)(soarecord=*))" % zoneName, None)
+        else:
+            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
+        if soa[0][0]:
+            return (soa[0][0], soa[0][1])
+        else:
+            return (False, False)
+
+    def getZoneData(self, name, filt = None):
         """
-        Return the objects defined in a zone
+        Return data of a zone
         """
         if filt:
             filt = "*" + filt.strip() + "*"
@@ -126,6 +144,16 @@ zone "%(zone)s" {
             search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=%s))" % (name, filt), None)
         ret = []
         for result in search:
+            ret.append(result)
+        return ret
+
+    def getZoneObjects(self, name, filt = None):
+        """
+        Return the objects defined in a zone
+        """
+        ret = []
+        search = self.getZoneData(name, filt)
+        for result in search:
             if "cNAMERecord" in result[1] or ("aRecord" in result[1] and result[1][self.relativeDomainNameField][0] != "@"):
                 ret.append(result)
         return ret
@@ -136,23 +164,6 @@ zone "%(zone)s" {
         """
         return len(self.getZoneObjects(name))
 
-    def getZoneData(self, name, filt = None):
-        """
-        Return data of a zone
-        """
-        if filt:
-            filt = "*" + filt.strip() + "*"
-        else:
-            filt = "*"
-	if self.pdns:
-            search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s.%s))" % (filt, name), None)
-        else:
-            search = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=%s))" % (name, filt), None)
-        ret = []
-        for result in search:
-            ret.append(result)
-        return ret
-
     def getZoneRecords(self, zone, filt = None):
         """
         Return records defined in a zone
@@ -161,7 +172,7 @@ zone "%(zone)s" {
         result = []
         id = 1
         for entry in data:
-            hostname = entry[1]["relativeDomainName"][0]
+            hostname = entry[1][self.relativeDomainNameField][0]
             keys = entry[1].keys()
             needle = "Record";
             for k in keys:
@@ -220,7 +231,7 @@ zone "%(zone)s" {
         key = type.capitalize().swapcase() + "Record"
 
         for entry in data:
-            if (entry[1]["relativeDomainName"][0] == hostname):
+            if (entry[1][self.relativeDomainNameField][0] == hostname):
                 added = self.addRecordToEntry(entry, key, value)
                 if added:
                     self.updateZoneSerial(zoneName)
@@ -228,7 +239,7 @@ zone "%(zone)s" {
 
         domainExample = data[0][0]
         domainSuffix = domainExample[domainExample.find(","):]
-        addedDomain = "relativeDomainName=" + hostname + domainSuffix
+        addedDomain = self.relativeDomainNameField + "=" + hostname + domainSuffix
 
         created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
         if created:
@@ -239,10 +250,10 @@ zone "%(zone)s" {
         Create new entry with new record into ldap
         """
         addedEntry = {
-            "zoneName" : zoneName,
-            "objectClass" : ["top", "dNSZone"],
-            "relativeDomainName" : hostname,
-            "dnsClass" : dnsClass,
+            self.zoneNameField: zoneName,
+            "objectClass": ["top", self.dnsObjClass],
+            self.relativeDomainNameField: hostname,
+            "dnsClass": dnsClass,
             key : value
         }
         attributes = [ (k,v) for k,v in addedEntry.items() ]
@@ -293,7 +304,7 @@ zone "%(zone)s" {
 
         domainFound = False
         for e in data:
-            if (e[1]["relativeDomainName"][0] == hostname):
+            if (e[1][self.relativeDomainNameField][0] == hostname):
                 domainFound = True
                 added = self.addRecordToEntry(e, key, value)
                 if not added:
@@ -302,7 +313,7 @@ zone "%(zone)s" {
 
         if (not domainFound):
             addedDomainSuffix = entry[0][entry[0].find(","):]
-            addedDomain = "relativeDomainName=" + hostname + addedDomainSuffix
+            addedDomain = self.relativeDomainNameField + "=" + hostname + addedDomainSuffix
             created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
             if not created:
                 return
@@ -350,12 +361,6 @@ zone "%(zone)s" {
         self.deleteRecord(entry, key, index)
         self.updateZoneSerial(zoneName)
 
-    def getZone(self, zoneName):
-        if self.pdns:
-            return self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s))" % (zoneName), None)
-        else:
-            return self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=%s))" % (zoneName, zoneName + "."), None)
-
     def getZones(self, filt = "", reverse = False, base = None):
         """
         Return all available DNS zones. Reverse zones are returned only if reverse = True
@@ -366,7 +371,7 @@ zone "%(zone)s" {
         if not base: base = self.configDns.dnsDN
         ret = []
         if self.configDns.dnsType == "pdns":
-            search = self.l.search_s(base, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(soarecord=*)(associatedDomain=%s))" %filt, None)
+            search = self.l.search_s(base, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(soarecord=*)(associatedDomain=%s))" % filt, None)
             for result in search:
                 if self.reversePrefix in result[1][self.zoneNameField][0]:
                     # Reverse zone
@@ -552,16 +557,10 @@ zone "%(zone)s" {
             self.l.add_s(dn, attributes)
 
     def setSOARecord(self, zoneName, record):
-        if self.pdns:
-            zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
-            s = "%(nameserver)s %(emailaddr)s %(serial)s %(refresh)s %(retry)s %(expiry)s %(minimum)s" % record
-            self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, "soarecord", [s])])
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-            if soa:
-                soaDN = soa[0][0]
-                s = "%(nameserver)s %(emailaddr)s %(serial)s %(refresh)s %(retry)s %(expiry)s %(minimum)s" % record
-                self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "sOARecord", [s])])
+        s = "%(nameserver)s %(emailaddr)s %(serial)s %(refresh)s %(retry)s %(expiry)s %(minimum)s" % record
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
+            self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "sOARecord", [s])])
 
     def setSOANSRecord(self, zoneName, nameserver):
         """
@@ -570,14 +569,8 @@ zone "%(zone)s" {
         of this given zone.
         """
         r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_SOA, [(zoneName, AT.ZONE)], nameserver)
-        if self.pdns:
-            zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
-            self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, "nsrecord", [nameserver])])
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-            if soa:
-                soaDN = soa[0][0]
-                self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "nSRecord", [nameserver])])
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "nSRecord", [nameserver])])
         # Also sync SOA record if there is one
         soaRecord = self.getSOARecord(zoneName)
         if soaRecord:
@@ -592,20 +585,13 @@ zone "%(zone)s" {
         It updates the SOARecord field and nsRecord field of the @ LDAP entry
         of this given zone.
         """
-        if self.pdns:
-            zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
-            attr = "arecord"
-        else:
-            attr = "aRecord"
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-            if soa:
-                zoneDN = soa[0][0]
-
-        if ip and zoneDN:
-            self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, attr, [ip])])
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if ip and soaDN:
+            self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "aRecord", [ip])])
+            self.updateZoneSerial(zoneName)
         else:
             try:
-                self.l.modify_s(zoneDN, [(ldap.MOD_DELETE, attr, [ip])])
+                self.l.modify_s(zoneDN, [(ldap.MOD_DELETE, "aRecord", [ip])])
             except ldap.NO_SUCH_ATTRIBUTE:
                 pass
 
@@ -616,18 +602,16 @@ zone "%(zone)s" {
         SOARecord field won't be deleted. Use the setSOANSRecord to update it.
         """
         r = AF().log(PLUGIN_NAME, AA.NETWORK_SET_NS, [(zoneName, AT.ZONE)], nameservers)
-        if self.pdns:
-            zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
-            self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, "nsrecord", nameservers)])
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-            if soa:
-                soaDN = soa[0][0]
-                soanameserver = soa[0][1]["sOARecord"][0].split()[0]
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
+            if self.pdns:
+                self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "nSRecord", nameservers)])
+            else:
+                soaNameServer = soaData["sOARecord"][0].split()[0]
                 # Assert that the name server contained into the SOA record won't
                 # be deleted
-                if soanameserver not in nameservers:
-                    nameservers.append(soanameserver)
+                if soaNameServer not in nameservers:
+                    nameservers.append(soaNameServer)
                 self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "nSRecord", nameservers)])
                 self.updateZoneSerial(zoneName)
         r.commit()
@@ -636,12 +620,8 @@ zone "%(zone)s" {
         """
         Update the mXRecord fields of the @ LDAP entry of the given zone.
         """
-        if self.pdns:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s)(soarecord=*))" % zoneName, None)
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-        if soa:
-            soaDN = soa[0][0]
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
             self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "mXRecord", mxservers)])
             self.updateZoneSerial(zoneName)
 
@@ -650,6 +630,7 @@ zone "%(zone)s" {
         Set a zone description using the txTRecord attribute
         """
         zone = self.getZone(zoneName)
+        print zone
         if zone:
             zoneDN = zone[0][0]
             if description:
@@ -669,13 +650,10 @@ zone "%(zone)s" {
         @rtype: dict
         """
         ret = {}
-        if self.pdns:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s))" % zoneName, ["soaRecord"])
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, ["soaRecord"])
-        if soa:
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
             try:
-                ret["nameserver"], ret["emailaddr"], ret["serial"], ret["refresh"], ret["retry"], ret["expiry"], ret["minimum"] = soa[0][1]["sOARecord"][0].split()
+                ret["nameserver"], ret["emailaddr"], ret["serial"], ret["refresh"], ret["retry"], ret["expiry"], ret["minimum"] = soaData["sOARecord"][0].split()
             except KeyError:
                 pass
         return ret
@@ -685,12 +663,12 @@ zone "%(zone)s" {
         Get the name servers of a zone
         """
         ret = []
-        if self.pdns:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associateddomain=%s))" % zoneName, None)
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-        if soa:
-            ret = soa[0][1]["nSRecord"]
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
+            try:
+                ret = soaData["nSRecord"]
+            except KeyError:
+                pass
         return ret
 
     def getMXRecords(self, zoneName):
@@ -698,13 +676,10 @@ zone "%(zone)s" {
         Get the MX servers of a zone
         """
         ret = []
-        if self.pdns:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associateddomain=%s))" % zoneName, None)
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-        if soa:
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
             try:
-                ret = soa[0][1]["mXRecord"]
+                ret = soaData["nXRecord"]
             except KeyError:
                 pass
         return ret
@@ -714,15 +689,12 @@ zone "%(zone)s" {
         Get the A record for the zone (@)
         """
         ret = []
-        if self.pdns:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associateddomain=%s))" % zoneName, None)
-        else:
-            soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-        if soa:
+        soaDN, soaData = self.getZoneSOA(zoneName);
+        if soaDN:
             try:
-                ret = soa[0][1]["aRecord"][0]
-            except:
-                ret = ""
+                ret = soaData["aRecord"]
+            except KeyError:
+                pass
         return ret
 
     def searchReverseZone(self, ip):
