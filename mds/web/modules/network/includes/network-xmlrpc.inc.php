@@ -45,8 +45,12 @@ function getZoneRecords($zone, $filter) {
     return xmlCall("network.getZoneRecords", array($zone, $filter));
 }
 
-function getZoneRecord($zone, $recordId) {
-    return xmlCall("network.getZoneRecord", array($zone, $recordId));
+function getZoneRecordById($zone, $id) {
+    return xmlCall("network.getZoneRecordById", array($zone, $id));
+}
+
+function hasRecord($zone, $recordType, $hostname) {
+    return xmlCall("network.hasRecord", array($zone, $recordType, $hostname));
 }
 
 function addRecord($zone, $recordType, $hostname, $recordValue) {
