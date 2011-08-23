@@ -154,204 +154,200 @@ zone "%(zone)s" {
         return ret
 
     def getZoneRecords(self, zone, filt = None):
-	"""
-	Return records defined in a zone
-	"""
-	data = self.getZoneData(zone, filt)
-	result = []
-	id = 1
-	for entry in data:
-	    hostname = entry[1]["relativeDomainName"][0]
-	    keys = entry[1].keys()
-	    needle = "Record";
-	    for k in keys:
-		index = k.rfind(needle)
-		if (index >= 0):
-		    type = k[0:index].upper()
-		    for value in entry[1][k]:
-			rec = {
-                    	    "id" : str(id),
+        """
+        Return records defined in a zone
+        """
+        data = self.getZoneData(zone, filt)
+        result = []
+        id = 1
+        for entry in data:
+            hostname = entry[1]["relativeDomainName"][0]
+            keys = entry[1].keys()
+            needle = "Record";
+            for k in keys:
+                index = k.rfind(needle)
+                if (index >= 0):
+                    type = k[0:index].upper()
+                    for value in entry[1][k]:
+                        rec = {
+                            "id" : str(id),
                             "hostname" : hostname,
                             "type" : type,
                             "value" : value
-                            }
+                        }
                         result.append(rec)
                         id = id + 1
-	return result
+        return result
 
     def getZoneRecord(self, zone, id):
-	"""
-	Return zone record by id
-	"""
-	records = self.getZoneRecords(zone)
-	for r in records:
-	    if (r["id"] == id):
-		return r
-	return None
+        """
+        Return zone record by id
+        """
+        records = self.getZoneRecords(zone)
+        for r in records:
+            if (r["id"] == id):
+                return r
+        return None
 
     def getRecordMetadata(self, zoneData, recordId ):
-	"""
-	Return metadata of a record with specific Id
-	"""
-	result = {}
-	targetId = int(recordId)
-	id = 0
+        """
+        Return metadata of a record with specific Id
+        """
+        result = {}
+        targetId = int(recordId)
+        id = 0
 
-	for i in range(len(zoneData)):
-	    keys = zoneData[i][1].keys()
-	    for k in keys:
-		index = k.rfind("Record")
-		if (index >= 0):
-		    recordsCount = len(zoneData[i][1][k])
-		    if (targetId > id) and (targetId <= id + recordsCount):
-			subIndex = targetId - id - 1
-			result["key"] = k
-	    		result["index"] = subIndex
-	    		result["rootIndex"] = i
-			return result
-		    id = id + recordsCount
-	return result
+        for i in range(len(zoneData)):
+            keys = zoneData[i][1].keys()
+            for k in keys:
+                index = k.rfind("Record")
+                if (index >= 0):
+                    recordsCount = len(zoneData[i][1][k])
+                    if (targetId > id) and (targetId <= id + recordsCount):
+                        subIndex = targetId - id - 1
+                        result["key"] = k
+                        result["index"] = subIndex
+                        result["rootIndex"] = i
+                        return result
+                    id = id + recordsCount
+        return result
 
     def addRecord(self, zoneName, type, hostname, value):
-	"""
-	Add record to ldap
-	"""
-	data = self.getZoneData(zoneName, "")
+        """
+        Add record to ldap
+        """
+        data = self.getZoneData(zoneName, "")
+        key = type.capitalize().swapcase() + "Record"
 
-    	key = type.capitalize().swapcase() + "Record"
+        for entry in data:
+            if (entry[1]["relativeDomainName"][0] == hostname):
+                added = self.addRecordToEntry(entry, key, value)
+                if added:
+                    self.updateZoneSerial(zoneName)
+                return
 
-    	for entry in data:
-	    if (entry[1]["relativeDomainName"][0] == hostname):
-		added = self.addRecordToEntry(entry, key, value)
-		if added:
-		    self.updateZoneSerial(zoneName)
-		return
+        domainExample = data[0][0]
+        domainSuffix = domainExample[domainExample.find(","):]
+        addedDomain = "relativeDomainName=" + hostname + domainSuffix
 
-	domainExample = data[0][0]
-	domainSuffix = domainExample[domainExample.find(","):]
-	addedDomain = "relativeDomainName=" + hostname + domainSuffix
-
-	created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
-	if created:
-    	    self.updateZoneSerial(zoneName)
-
+        created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
+        if created:
+            self.updateZoneSerial(zoneName)
 
     def createEntryWithRecord(self, zoneName, domain, hostname, key, value, dnsClass = "IN"):
-	"""
-	Create new entry with new record into ldap
-	"""
-	addedEntry = {
-        	    "zoneName" : zoneName,
-        	    "objectClass" : ["top", "dNSZone"],
-        	    "relativeDomainName" : hostname,
-        	    "dnsClass" : dnsClass,
-        	    key : value
-        	    }
-    	attributes = [ (k,v) for k,v in addedEntry.items() ]
-    	try:
-    	    self.l.add_s(domain, attributes)
-    	except ldap.UNDEFINED_TYPE:
-    	    raise "Can't create record.";
-    	    return False
-    	return True
+        """
+        Create new entry with new record into ldap
+        """
+        addedEntry = {
+            "zoneName" : zoneName,
+            "objectClass" : ["top", "dNSZone"],
+            "relativeDomainName" : hostname,
+            "dnsClass" : dnsClass,
+            key : value
+        }
+        attributes = [ (k,v) for k,v in addedEntry.items() ]
+        try:
+            self.l.add_s(domain, attributes)
+        except ldap.UNDEFINED_TYPE:
+            raise "Can't create record.";
+            return False
+        return True
 
     def addRecordToEntry(self, entry, key, value):
-	"""
-	Add record into existing entry
-	"""
-	if not (key in entry[1]):
-	    print "add attr with new key to new entry"
-	    try:
-		self.l.modify_s(entry[0], [(ldap.MOD_ADD, key, value)])
-	    except:
-		raise "Can't create record.";
-    		return False
-	    return True
+        """
+        Add record into existing entry
+        """
+        if not (key in entry[1]):
+            try:
+                self.l.modify_s(entry[0], [(ldap.MOD_ADD, key, value)])
+            except:
+                raise "Can't create record.";
+                return False
+            return True
 
-	values = entry[1][key]
-	if not (value in values):
-	    values.append(value)
-	    try:
-		self.l.modify_s(entry[0], [(ldap.MOD_REPLACE, key, values)])
-	    except:
-		raise "Can't create record.";
-    		return False
-	    return True
-	return False
+        values = entry[1][key]
+        if not (value in values):
+            values.append(value)
+            try:
+                self.l.modify_s(entry[0], [(ldap.MOD_REPLACE, key, values)])
+            except:
+                raise "Can't create record.";
+                return False
+            return True
+
+        return False
 
     def modifyRecordById(self, zoneName, recordId, hostname, value):
-	"""
-	Modify record with specific id
-	"""
-	data = self.getZoneData(zoneName, "")
-	md = self.getRecordMetadata(data, recordId)
-	if not md:
-	    return
+        """
+        Modify record with specific id
+        """
+        data = self.getZoneData(zoneName, "")
+        md = self.getRecordMetadata(data, recordId)
+        if not md:
+            return
 
-	entryIndex = md["rootIndex"]
-	entry = data[entryIndex]
-	key = md["key"]
-	index = md["index"]
+        entryIndex = md["rootIndex"]
+        entry = data[entryIndex]
+        key = md["key"]
+        index = md["index"]
 
-	domainFound = False
-    	for e in data:
-	    if (e[1]["relativeDomainName"][0] == hostname):
-		domainFound = True
-		added = self.addRecordToEntry(e, key, value)
-		if not added:
-		    return
-		break
+        domainFound = False
+        for e in data:
+            if (e[1]["relativeDomainName"][0] == hostname):
+                domainFound = True
+                added = self.addRecordToEntry(e, key, value)
+                if not added:
+                    return
+                break
 
-	if (not domainFound):
-	    addedDomainSuffix = entry[0][entry[0].find(","):]
-	    addedDomain = "relativeDomainName=" + hostname + addedDomainSuffix
-	    created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
-	    if not created:
-		return
+        if (not domainFound):
+            addedDomainSuffix = entry[0][entry[0].find(","):]
+            addedDomain = "relativeDomainName=" + hostname + addedDomainSuffix
+            created = self.createEntryWithRecord(zoneName, addedDomain, hostname, key, value)
+            if not created:
+                return
 
-	self.deleteRecord(entry, key, index)
-	self.updateZoneSerial(zoneName)
-
+        self.deleteRecord(entry, key, index)
+        self.updateZoneSerial(zoneName)
 
     def deleteRecord(self, entry, key, index):
-	"""
-	Delete record from ldap
-	"""
-	entryRecordsCount = 0
-	for k in entry[1].keys():
-	    i = k.rfind("Record")
-	    if (i >= 0):
-	        entryRecordsCount = entryRecordsCount + len(entry[1][k])
-		if (entryRecordsCount > 1):
-		    break
+        """
+        Delete record from ldap
+        """
+        entryRecordsCount = 0
+        for k in entry[1].keys():
+            i = k.rfind("Record")
+            if (i >= 0):
+                entryRecordsCount = entryRecordsCount + len(entry[1][k])
+                if (entryRecordsCount > 1):
+                    break
 
-    	if (entryRecordsCount == 1):
-	    self.l.delete_s(entry[0])
-	    return
+        if (entryRecordsCount == 1):
+            self.l.delete_s(entry[0])
+            return
 
-	if (len(entry[1][key]) == 1):
-		self.l.modify_s(entry[0], [(ldap.MOD_DELETE, key, entry[1][key][0])])
-		return
+        if (len(entry[1][key]) == 1):
+            self.l.modify_s(entry[0], [(ldap.MOD_DELETE, key, entry[1][key][0])])
+            return
 
-	values = entry[1][key]
-	values.pop(index)
-	self.l.modify_s(entry[0], [(ldap.MOD_REPLACE, key , values)])
-
+        values = entry[1][key]
+        values.pop(index)
+        self.l.modify_s(entry[0], [(ldap.MOD_REPLACE, key , values)])
 
     def delRecordById(self, zoneName, recordId):
-	"""
-	Delete record with specific id
-	"""
-	data = self.getZoneData(zoneName, "")
-	md = self.getRecordMetadata(data, recordId)
-	if not md:
-	    return
+        """
+        Delete record with specific id
+        """
+        data = self.getZoneData(zoneName, "")
+        md = self.getRecordMetadata(data, recordId)
+        if not md:
+            return
 
-	entryIndex = md["rootIndex"]
-	entry = data[entryIndex]
-	key = md["key"]
-	index = md["index"]
-	self.deleteRecord(entry, key, index)
+        entryIndex = md["rootIndex"]
+        entry = data[entryIndex]
+        key = md["key"]
+        index = md["index"]
+        self.deleteRecord(entry, key, index)
         self.updateZoneSerial(zoneName)
 
     def getZone(self, zoneName):
