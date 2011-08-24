@@ -259,6 +259,7 @@ class Dhcp(ldapUserGroupControl):
         # apply configuration
         self.setObjectStatement(serverDN, 'failover peer', failover_config)
         self.setObjectStatement(serverDN, 'server-identifier', serverName)
+        self.setPoolFailover()
 
     def getFailoverConfig(self):
         """
@@ -298,6 +299,7 @@ class Dhcp(ldapUserGroupControl):
         for serverDN in [primaryDN, secondaryDN]:
             self.setObjectStatement(serverDN, 'failover peer', '')
             self.setObjectStatement(serverDN, 'server-identifier', '')
+        self.delPoolFailover()
 
     def setPoolFailover(self, pool = None):
         """
