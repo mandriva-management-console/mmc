@@ -18,8 +18,10 @@ function updateFailoverConfig($FH) {
     global $error;
 
     setFailoverConfig($FH->getPostValue("primaryIp"), $FH->getPostValue("secondaryIp"));
-    if(!isXMLRPCError())
+    if(!isXMLRPCError()) {
         $result .= _T("Failover configuration updated.") . "<br />";
+        $result .= _T("You must restart DHCP services.") . "<br />";
+    }
     else
         $error .= _T("Failed to update the failover configuration.") . "<br />";
 
