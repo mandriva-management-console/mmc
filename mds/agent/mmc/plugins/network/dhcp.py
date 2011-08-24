@@ -255,7 +255,11 @@ class Dhcp(ldapUserGroupControl):
         Set failover configuration on server
         """
         # failover configuration template
-        failover_config = """"dhcp-failover" { %s; address %s; port 647; peer address %s; peer port 647; max-response-delay 30; max-unacked-updates 10; load balance max seconds 3; mclt 1800; split 128; }""" % (type, serverIp, peerIp)
+        failover_config = """"dhcp-failover" { %s; address %s; port 647; peer address %s; peer port 647; max-response-delay 30; max-unacked-updates 10; """ % (type, serverIp, peerIp)
+        if type == "primary":
+            failover_config += "load balance max seconds 3; mclt 1800; split 128; }"
+        else:
+            failover_config += "}"
         # apply configuration
         self.setObjectStatement(serverDN, 'failover peer', failover_config)
         self.setObjectStatement(serverDN, 'server-identifier', serverName)
@@ -402,7 +406,7 @@ class Dhcp(ldapUserGroupControl):
 
     def addSubnet(self, network, netmask, name = None):
         r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_SUBNET, [(network, AT.SUBNET)], name)
-        serviceDN = self.getServiceConfig()[0][0]
+        serviceDN = self.getService()[0]
         if not name: name = network + "/" + str(netmask)
         dn = "cn=" + network + "," + serviceDN
         entry = {
