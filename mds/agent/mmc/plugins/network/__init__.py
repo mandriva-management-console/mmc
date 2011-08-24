@@ -295,11 +295,14 @@ def setHostAliases(zone, host, aliases):
 def getService():
     return Dhcp().getService()
 
+def updateSecondaryServer(serverName):
+    return Dhcp().updateSecondaryServer(serverName)
+
 def addSecondaryServer(serverName):
     return Dhcp().addSecondaryServer(serverName)
 
-def delSecondaryServer(serverName):
-    return Dhcp().delSecondaryServer(serverName)
+def delSecondaryServer():
+    return Dhcp().delSecondaryServer()
 
 def setFailoverConfig(primaryIp, secondaryIp):
     return Dhcp().setFailoverConfig(primaryIp, secondaryIp)

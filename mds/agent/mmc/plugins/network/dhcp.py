@@ -202,15 +202,25 @@ class Dhcp(ldapUserGroupControl):
             pass
         self.setServiceServerStatus(serverName, "secondary")
 
-    def delSecondaryServer(self, serverName, serviceName = None):
+    def delSecondaryServer(self, serviceName = None):
         """
         Remove the secondary DHCP server
         """
         if serviceName: raise DhcpError("Not implemented")
-        serverDN = self.getServer(serverName)[0]
         serviceDN = self.getService()[0]
-        self.l.modify_s(serviceDN, [(ldap.MOD_DELETE, "dhcpSecondaryDN", serverDN)])
-        self.l.delete_s(serverDN)
+        serviceData = self.getService()[1]
+        if 'dhcpSecondaryDN' in serviceData:
+            secondaryDN = serviceData['dhcpSecondaryDN'][0]
+            self.l.delete_s(secondaryDN)
+            self.l.modify_s(serviceDN, [(ldap.MOD_DELETE, "dhcpSecondaryDN", secondaryDN)])
+
+    def updateSecondaryServer(self, serverName, serviceName = None):
+        """
+        Update the secondary DHCP server
+        """
+        if serviceName: raise DhcpError("Not implemented")
+        self.delSecondaryServer()
+        self.addSecondaryServer(serverName)
 
     def setServiceServerStatus(self, serverName, type, serviceName = None):
         """
@@ -255,18 +265,27 @@ class Dhcp(ldapUserGroupControl):
         Return failover configuration of server
         """
         serviceData = self.getService()[1]
-        if 'dhcpPrimaryDN' in serviceData and 'dhcpSecondaryDN' in serviceData:
+        primaryDN = False
+        if 'dhcpPrimaryDN' in serviceData:
             primaryDN = serviceData['dhcpPrimaryDN'][0]
-            secondaryDN = serviceData['dhcpSecondaryDN'][0]
             primaryName = str2dn(primaryDN)[0][0][1]
+        secondaryDN = False
+        if 'dhcpSecondaryDN' in serviceData:
+            secondaryDN = serviceData['dhcpSecondaryDN'][0]
             secondaryName = str2dn(secondaryDN)[0][0][1]
+        if primaryDN and secondaryDN:
             pattern = 'failover.*address (?P<primaryIp>[0-9.]+);.*address (?P<secondaryIp>[0-9.]+);'
             for statement in self.getObjectStatements(primaryDN):
                 m = re.match(pattern, statement)
                 if m:
-                    return [primaryName, secondaryName, m.group("primaryIp"), m.group("secondaryIp")]
-
-        return False
+                    return { 'primary': [primaryName], 'secondary': [secondaryName],
+                             'primaryIp': [m.group("primaryIp")],
+                             'secondaryIp': [m.group("secondaryIp")] }
+            return { 'primary': [primaryName], 'secondary': [secondaryName] }
+        elif primaryDN:
+            return { 'primary': [primaryName] }
+        else:
+            return False
 
     def delFailoverConfig(self):
         """
