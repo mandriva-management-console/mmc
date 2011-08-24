@@ -25,6 +25,7 @@ DHCP related methods and classes for the network plugin.
 """
 
 import ldap
+from ldap.dn import str2dn
 import re
 import os.path
 from mmc.plugins.base import ldapUserGroupControl, LogView
@@ -33,6 +34,9 @@ from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.network.audit import AT, AA, PLUGIN_NAME
+import logging
+
+logger = logging.getLogger()
 
 class Dhcp(ldapUserGroupControl):
 
@@ -97,24 +101,50 @@ class Dhcp(ldapUserGroupControl):
 
     # DHCP service config management
 
-    def addServiceConfig(self, name):
+    def addServiceConfig(self, serviceName):
         """
         Add a DHCP service config container entry in directory
         """
-        dn = "cn=" + name + "," + self.configDhcp.dhcpDN
+        serviceDN = "cn=" + serviceName + "," + self.configDhcp.dhcpDN
         entry = {
-            "cn" : name,
+            "cn" : serviceName,
             "dhcpPrimaryDN" : self.configDhcp.dhcpDN,
             "objectClass" : ["top", "dhcpService"]
             }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)
+        self.l.add_s(serviceDN, attributes)
 
-    def getServiceConfig(self):
+    def getServices(self):
         """
         Return all available DHCP service config containers
         """
         return self.l.search_s(self.configDhcp.dhcpDN, ldap.SCOPE_SUBTREE, "(objectClass=dhcpService)", None)
+
+    def getService(self, serviceName = "DHCP config"):
+        """
+        Return a DHCP service entry
+        """
+        for service in self.getServices():
+            if service[1]["cn"][0] == serviceName:
+                return service
+        raise DhcpError("DHCP service %s does not exists" % serviceName)
+
+    def getServiceConfigStatements(self):
+        """
+        Return dhcpStatements from DHCP service config
+        """
+        try:
+            ret = self.getService()[1]["dhcpStatements"]
+        except KeyError:
+            ret = []
+        return ret
+
+    def setServiceConfigStatement(self, option, value):
+        """
+        Set dhcpStatement option on DHCP service config
+        """
+        serviceDN = self.getService()[0]
+        self.setObjectStatement(serviceDN, option, value)
 
     # DHCP server management
 
@@ -125,80 +155,130 @@ class Dhcp(ldapUserGroupControl):
         return self.l.search_s(self.configDhcp.dhcpDN, ldap.SCOPE_SUBTREE, "(objectClass=dhcpServer)", None)
 
     def getServer(self, serverName):
-        serverDN = ""
         for server in self.getServers():
             if server[1]["cn"][0] == serverName:
-                serverDN = server[0]
-                break
-        if not serverDN:
-            raise DhcpError("DHCP server %s does not exists" % serverName)
+                return server
+        raise DhcpError("DHCP server %s does not exists" % serverName)
 
-        return server
-
-    def addServer(self, name, dhcpServiceDN = None):
+    def addServer(self, serverName, serviceName = None):
         """
         Add a DHCP server in directory
         """
-        if dhcpServiceDN: raise DhcpError("Not implemented")
+        if serviceName: raise DhcpError("Not implemented")
         else:
-            dhcpServiceDN = self.getServiceConfig()[0][0]
-        dn = "cn=" + name + "," + self.configDhcp.dhcpDN
+            serviceDN = self.getService()[0]
+        serverDN = "cn=" + serverName + "," + self.configDhcp.dhcpDN
         entry = {
-            "cn" : name,
-            "dhcpServiceDN" : dhcpServiceDN,
+            "cn" : serverName,
+            "dhcpServiceDN" : serviceDN,
             "objectClass" : ["top", "dhcpServer", "dhcpOptions"],
             "dhcpOption" : "local-pac-server code 252 = text"
             }
         attributes=[ (k,v) for k,v in entry.items() ]
-        self.l.add_s(dn, attributes)
+        self.l.add_s(serverDN, attributes)
 
-    def addSecondaryServer(self, serverName, dhcpServiceDN = None):
+    def addSecondaryServer(self, serverName, serviceName = None):
         """
-        Add a secondary DHCP server for failover
+        Add a secondary DHCP server for failover on service
         """
-        if dhcpServiceDN: raise DhcpError("Not implemented")
+        if serviceName: raise DhcpError("Not implemented")
+
+        serviceData = self.getService()[1]
+        # Check there isn't any secondary servers already
+        if "dhcpSecondaryDN" in serviceData:
+            raise DhcpError("A secondary server is already configured.")
         # Check server is not primary
-        serverDN = self.getServer(serverName)[0]
-        if self.getServiceConfig()[0][1]["dhcpPrimaryDN"][0] == serverDN:
+        try:
+            serverDN = self.getServer(serverName)[0]
+        except DhcpError:
+            serverDN = False
+        if serverDN and serviceData["dhcpPrimaryDN"][0] == serverDN:
             raise DhcpError("Server %s already set as primary." % serverName)
         # Add the container if not exists
         try:
             self.addServer(serverName)
-            logging.info("The secondary DHCP server '%s' was added." % serverName)
+            logger.info("The secondary DHCP server '%s' was added." % serverName)
         except ldap.ALREADY_EXISTS:
             pass
-        self.setServerStatus(serverName, "secondary")
+        self.setServiceServerStatus(serverName, "secondary")
 
-    def setServerStatus(self, serverName, status = "primary", serviceName = "DHCP config"):
-        serverDN = self.getServer(serverName)
-        serviceDN = ""
-        for service in self.getServiceConfig():
-            if service[1]["cn"][0] == serviceName:
-                serviceDN = service[0]
+    def delSecondaryServer(self, serverName, serviceName = None):
+        """
+        Remove the secondary DHCP server
+        """
+        if serviceName: raise DhcpError("Not implemented")
+        serverDN = self.getServer(serverName)[0]
+        serviceDN = self.getService()[0]
+        self.l.modify_s(serviceDN, [(ldap.MOD_DELETE, "dhcpSecondaryDN", serverDN)])
+        self.l.delete_s(serverDN)
+
+    def setServiceServerStatus(self, serverName, type, serviceName = None):
+        """
+        Set primary/secondary servers for DHCP service
+        """
+        if serviceName: raise DhcpError("Not implemented")
+        if type not in ["primary", "secondary"]:
+            raise DhcpError("%s is not a valid type (primary or secondary)" % type)
+
+        serverDN = self.getServer(serverName)[0]
+        serviceDN = self.getService()[0]
         if serverDN and serviceDN:
-            self.l.modify_s(serviceDN, [(ldap.MOD_REPLACE, "dhcp%sDN" % status.capitalize(), serverDN)])
+            self.l.modify_s(serviceDN, [(ldap.MOD_REPLACE, "dhcp%sDN" % type.capitalize(), serverDN)])
 
-    def setServerFailover(self, serverName, type, serverIp, peerIp):
+    def setFailoverConfig(self, masterIp, slaveIp):
+        """
+        Setup the failover configuration on servers
+        """
+        serviceData = self.getService()[1]
+        if 'dhcpPrimaryDN' in serviceData and 'dhcpSecondaryDN' in serviceData:
+            primaryDN = serviceData['dhcpPrimaryDN'][0]
+            secondaryDN = serviceData['dhcpSecondaryDN'][0]
+            primaryName = str2dn(primaryDN)[0][0][1]
+            secondaryName = str2dn(secondaryDN)[0][0][1]
+            self.setServerFailover(primaryDN, primaryName, "primary", masterIp, slaveIp)
+            self.setServerFailover(secondaryDN, secondaryName, "secondary", slaveIp, masterIp)
+        else:
+            return False
+
+    def setServerFailover(self, serverDN, serverName, type, serverIp, peerIp):
         """
         Set failover configuration on server
         """
-        serverDN = self.getServer(serverName)[0]
-
-        if type not in ['primary', 'secondary']:
-            raise DhcpError("%s is not a valid type (primary or secondary)" % type)
-
+        # failover configuration template
         failover_config = """"dhcp-failover" { %s; address %s; port 647; peer address %s; peer port 647; max-response-delay 30; max-unacked-updates 10; load balance max seconds 3; mclt 1800; split 128; }""" % (type, serverIp, peerIp)
-
+        # apply configuration
         self.setObjectStatement(serverDN, 'failover peer', failover_config)
         self.setObjectStatement(serverDN, 'server-identifier', serverName)
 
-    def delServerFailover(self, serverName):
+    def getFailoverConfig(self):
         """
-        Remove failover configuration on server
+        Return failover configuration of server
         """
-        serverDN = self.getServer(serverName)[0]
-        self.setObjectStatement(serverDN, 'failover peer', '')
-        self.setObjectStatement(serverDN, 'server-identifier', '')
+        serviceData = self.getService()[1]
+        if 'dhcpPrimaryDN' in serviceData and 'dhcpSecondaryDN' in serviceData:
+            primaryDN = serviceData['dhcpPrimaryDN'][0]
+            secondaryDN = serviceData['dhcpSecondaryDN'][0]
+            primaryName = str2dn(primaryDN)[0][0][1]
+            secondaryName = str2dn(secondaryDN)[0][0][1]
+            pattern = 'failover.*address (?P<primaryIp>[0-9.]+);.*address (?P<secondaryIp>[0-9.]+);'
+            for statement in self.getObjectStatements(primaryDN):
+                m = re.match(pattern, statement)
+                if m:
+                    return [primaryName, secondaryName, m.group("primaryIp"), m.group("secondaryIp")]
+
+        return False
+
+    def delFailoverConfig(self):
+        """
+        Remove failover configuration
+        """
+        serviceData = self.getService()[1]
+        if 'dhcpPrimaryDN' in serviceData and 'dhcpSecondaryDN' in serviceData:
+            primaryDN = serviceData['dhcpPrimaryDN'][0]
+            secondaryDN = serviceData['dhcpSecondaryDN'][0]
+        for serverDN in [primaryDN, secondaryDN]:
+            self.setObjectStatement(serverDN, 'failover peer', '')
+            self.setObjectStatement(serverDN, 'server-identifier', '')
 
     def setPoolFailover(self, pool = None):
         """
@@ -218,19 +298,6 @@ class Dhcp(ldapUserGroupControl):
         for poolDN, poolData in pools:
             self.setObjectStatement(poolDN, 'failover peer', '')
             self.setObjectStatement(poolDN, 'deny', '')
-
-    def getServiceConfigOption(self):
-        try:
-            ret = self.getServiceConfig()[0][1]["dhcpStatements"]
-        except KeyError:
-            ret = []
-        return ret
-
-    def setServiceConfigStatement(self, option, value):
-        services = self.getServiceConfig()
-        if services:
-            serviceDN = services[0][0]
-            self.setObjectStatement(serviceDN, option, value)
 
     # DHCP subnet management
 
