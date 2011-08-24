@@ -170,6 +170,28 @@ function setHostAliases($zone, $host, $aliases) {
 
 /* DHCP RPCs */
 
+/* Failover */
+
+function getFailoverConfig() {
+   return xmlCall("network.getFailoverConfig", null);
+}
+
+function setFailoverConfig($primaryIp, $secondaryIp) {
+   return xmlCall("network.setFailoverConfig", array($primaryIp, $secondaryIp));
+}
+
+function delFailoverConfig() {
+   return xmlCall("network.delFailoverConfig", null);
+}
+
+function updateSecondaryServer($name) {
+   return xmlCall("network.updateSecondaryServer", array($name));
+}
+
+function delSecondaryServer() {
+   return xmlCall("network.delSecondaryServer", null);
+}
+
 /* Subnet */
 
 function addSubnet($network, $netmask, $name) {

@@ -50,7 +50,7 @@ $emptyAction = new EmptyActionItem();
 
 $status = array();
 
-$actionsConfig[] = $configAction; 
+$actionsConfig[] = $configAction;
 $actionsReload[] = $emptyAction;
 $actionsLog[] = $logAction;
 if (dhcpService("status")) {
@@ -65,7 +65,7 @@ if (dhcpService("status")) {
     $actionsRestart[] = $emptyAction;
 }
 
-$actionsConfig[] = $emptyAction; 
+$actionsConfig[] = $emptyAction;
 $actionsLog[] = $logAction;
 $actionsReload[] = $reloadAction;
 if (dnsService("status")) {
@@ -95,5 +95,7 @@ $l->addActionItemArray($actionsConfig);
 $l->addActionItemArray($actionsLog);
 
 $l->display(0);
+
+include("servicedhcpfailover.php");
 
 ?>

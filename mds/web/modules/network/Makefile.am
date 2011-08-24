@@ -34,8 +34,8 @@ datafiles = \
 	includes/network-xmlrpc.inc.php \
 	includes/auditCodes.php \
 	includes/network.inc.php \
-        includes/network2.inc.php \
-        includes/ajaxRecordHandler.js \
+    includes/network2.inc.php \
+    includes/ajaxRecordHandler.js \
 	dhcplogview/ajax_setSearch.php \
 	dhcplogview/ajax_showlog.php \
 	dhcplogview/index.php \
@@ -68,18 +68,19 @@ datafiles = \
 	network/ajaxSubnetMembersFilter.php \
 	network/edit.php \
 	network/services.php \
+	network/servicedhcpfailover.php \
 	network/subnetedithost.php \
 	network/servicestop.php \
 	network/deletehost.php \
-        network/deleterecord.php \
-        network/ajaxZoneRecordsFilter.php \
-        network/ajaxMultipleRange.php \
-        network/serviceconfig.php \
-        network/zonerecords.php \
-        network/dhcpconfig.php \
-        network/ajaxRecordTypeContentRequests.php \
-        network/editrecord.php \
-        network/addrecord.php \
+    network/deleterecord.php \
+    network/ajaxZoneRecordsFilter.php \
+    network/ajaxMultipleRange.php \
+    network/serviceconfig.php \
+    network/zonerecords.php \
+    network/dhcpconfig.php \
+    network/ajaxRecordTypeContentRequests.php \
+    network/editrecord.php \
+    network/addrecord.php \
 	network/dnsrecords/a.php \
 	network/dnsrecords/aaaa.php \
 	network/dnsrecords/afsdb.php \
