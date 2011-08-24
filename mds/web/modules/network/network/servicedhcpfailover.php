@@ -12,6 +12,19 @@ if ($_POST)
 else
     $FH = new FormHandler("dhcpFailover");
 
+function updateFailoverConfig($FH) {
+
+    global $result;
+    global $error;
+
+    setFailoverConfig($FH->getPostValue("primaryIp"), $FH->getPostValue("secondaryIp"));
+    if(!isXMLRPCError())
+        $result .= _T("Failover configuration updated.") . "<br />";
+    else
+        $error .= _T("Failed to update the failover configuration.") . "<br />";
+
+}
+
 // get current configuration
 $failoverConfig = getFailoverConfig();
 $FH->setArr($failoverConfig);
@@ -38,21 +51,13 @@ if ($_POST) {
             updateSecondaryServer($FH->getValue("secondary"));
             if(!isXMLRPCError()) {
                 $result .= _T(sprintf("%s set as the secondary DHCP server.", $FH->getValue("secondary"))) . "<br />";
-                setFailoverConfig($FH->getPostValue("primaryIp"), $FH->getPostValue("secondaryIp"));
-                if(!isXMLRPCError())
-                    $result .= _T("Failover configuration updated.") . "<br />";
-                else
-                    $error .= _T("Failed to update the failover configuration.") . "<br />";
+                updateFailoverConfig($FH);
             }
             else
                 $error .= _T(sprintf("Failed to set %s as the secondary DHCP server.", $FH->getValue("secondary"))) . "<br />";
         }
         else if ($FH->isUpdated("secondaryIp") or $FH->isUpdated("primaryIp")) {
-            setFailoverConfig($FH->getPostValue("primaryIp"), $FH->getPostValue("secondaryIp"));
-            if(!isXMLRPCError())
-                $result .= _T("Failover configuration updated.") . "<br />";
-            else
-                $error .= _T("Failed to update the failover configuration.") . "<br />";
+            updateFailoverConfig($FH);
         }
     }
 
