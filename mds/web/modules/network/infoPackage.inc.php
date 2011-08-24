@@ -69,7 +69,7 @@ $page->setFile("modules/network/network/ajaxZoneRecordsFilter.php",
 $submod->addPage($page);
 
 $page = new Page("ajaxSubnetMembersFilter");
-$page->setFile("modules/network/network/ajaxZoneMembersFilter.php",
+$page->setFile("modules/network/network/ajaxSubnetMembersFilter.php",
 	       array("AJAX" =>True,"visible"=>False)
 	       );
 $submod->addPage($page);
@@ -209,7 +209,7 @@ $page->setFile("modules/network/dhcplogview/ajax_showlog.php",
 	       array("AJAX" =>True,"visible"=>False)
 	       );
 $logview->addPage($page);
-	       
+
 $page = new Page("dhcpsetsearch");
 $page->setFile("modules/network/dhcplogview/ajax_setSearch.php",
 	       array("AJAX" =>True,"visible"=>False)
@@ -227,7 +227,7 @@ $page->setFile("modules/network/dnslogview/ajax_showlog.php",
 	       array("AJAX" =>True,"visible"=>False)
 	       );
 $logview->addPage($page);
-	       
+
 $page = new Page("dnssetsearch");
 $page->setFile("modules/network/dnslogview/ajax_setSearch.php",
 	       array("AJAX" =>True,"visible"=>False)
