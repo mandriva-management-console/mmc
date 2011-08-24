@@ -743,50 +743,6 @@ class DhcpLeases:
     def get(self):
         return self.leases
 
-class DhcpLaunchConfig:
-    def __init__(self, conffile = "/etc/sysconfig/dhcpd"):
-        self.filename = conffile
-        self.config = {};
-        self.config["interfaces"] = [];
-        self.patterns = {
-    	    "interfaces" : "\s*(?P<disabled>\#)?\s*INTERFACES\s*=\s*\"?(?P<interfaces>[a-zA-Z0-9, -]*)\"?"
-    	    }
-	self.__parse()
-
-    def __parse(self):
-	if not os.path.exists(self.filename):
-	    return
-
-	dhcpdFile = file(self.filename)
-	for line in dhcpdFile:
-	    m = re.match(self.patterns["interfaces"], line)
-	    if m:
-		if not m.group("disabled"):
-		    if len(m.group("interfaces")):
-			self.config["interfaces"] = re.split('[, ]+',m.group("interfaces"))
-		    else:
-			self.config["interfaces"] = []
-	dhcpdFile.close()
-
-    def data(self):
-	return self.config
-
-    def setInterfaces(self, interfaces):
-	replacement = "INTERFACES=\"" + ",".join(interfaces) + "\""
-	if not os.path.exists(self.filename):
-	    newdata = replacement + "\n"
-	else:
-	    dhcpdFile = open(self.filename,"r")
-	    data = dhcpdFile.read()
-	    newdata = re.sub(self.patterns["interfaces"],"\n"+replacement,data)
-	    dhcpdFile.close()
-
-	    dhcpdFile = open(self.filename,"w")
-	    dhcpdFile.writelines(newdata)
-	    dhcpdFile.close()
-	return ""
-
-
 class DhcpService(ServiceManager):
 
     def __init__(self, conffile = None):

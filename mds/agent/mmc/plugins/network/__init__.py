@@ -36,7 +36,7 @@ from ConfigParser import NoOptionError
 from mmc.core.version import scmRevision
 from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases, DhcpLaunchConfig
+from mmc.plugins.network.dhcp import Dhcp, DhcpService, DhcpLogView, DhcpLeases
 from mmc.plugins.network.dns import Dns, DnsService, DnsLogView
 from mmc.support.config import PluginConfig
 
@@ -446,41 +446,6 @@ def dnsService(command):
     if command != 'status':
         r.commit()
     return ret
-
-def getInterfacesInfo():
-    output = shlaunch('ifconfig')
-    ETH_INTERFACE = "Link encap:Ethernet"
-    NETWORK_PATTERN = "\s*inet addr:(?P<ip>\S+)\s*\S*\s*Mask:(?P<mask>\S+)"
-    infos = []
-    currentInterface = ""
-    needParse = True
-    for line in output:
-        firstWhiteSpacePos = line.find(" ")
-        if firstWhiteSpacePos > 0:
-            if line.find(ETH_INTERFACE, firstWhiteSpacePos+1) >= 0:
-                currentInterface = line[0:firstWhiteSpacePos]
-            else:
-                needParse = False
-            continue
-        elif firstWhiteSpacePos < 0:
-            needParse = True
-            continue
-        if not needParse:
-            continue
-
-        m = re.match(NETWORK_PATTERN, line)
-        if m:
-            ip = m.group("ip").split(".")
-            mask = m.group("mask").split(".")
-            subnet = []
-            for i in range(len(mask)):
-                subnet.append(str(int(ip[i]) & int(mask[i])))
-            info = {}
-            info["interface"] = currentInterface
-            info["subnet"] = ".".join(subnet)
-            infos.append(info);
-            needParse = False
-    return infos
 
 
 class NetworkConfig(PluginConfig):
