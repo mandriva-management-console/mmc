@@ -487,8 +487,12 @@ class Dhcp(ldapUserGroupControl):
         id = 1
         for r in ranges:
             start, end = r.split(" ")
-            self.addPool(subnet, str(id), start, end)
+            self.addPool(subnet, "pool%s" % str(id), start, end)
             id = id + 1
+        # If on failover mode, set the failover configuration
+        # on all pools
+        if self.getFailoverConfig():
+            self.setPoolFailover()
 
     def addPool(self, subnet, poolname, start, end):
         r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_POOL, [(subnet, AT.SUBNET),(poolname, AT.POOL)])
