@@ -306,24 +306,9 @@ function getSubnetFreeIp($subnet, $ipstart = null) {
     return xmlCall("network.getSubnetFreeIp", array($subnet, $ipstart));
 }
 
-
 /* DHCP leases */
 function getDhcpLeases() {
     return xmlCall("network.getDhcpLeases");
-}
-
-/* DHCP launch config */
-
-function getDhcpLaunchConfig() {
-    return xmlCall("network.getDhcpLaunchConfig");
-}
-
-function setDhcpInterfaces($interfaces){
-    return xmlCall("network.setDhcpInterfaces", array($interfaces));
-}
-
-function getInterfacesInfo(){
-    return xmlCall("network.getInterfacesInfo");
 }
 
 /* Service management RPCs */

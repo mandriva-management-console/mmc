@@ -32,15 +32,12 @@ $p->display();
 
 /* Set the available action items according to the service status */
 $params = array();
-$actionsConfig = array();
 $actionsStart = array();
 $actionsStop = array();
 $actionsReload = array();
 $actionsRestart = array();
 $actionsLog = array();
 
-
-$configAction = new ActionItem(_T("Configure service"),"serviceconfig","edit", "");
 $startAction = new ActionItem(_T("Start service"),"servicestart","start", "");
 $stopAction = new ActionItem(_T("Stop service"),"servicestop","stop","");
 $reloadAction = new ActionItem(_T("Reload service"),"servicereload","reload","");
@@ -50,7 +47,6 @@ $emptyAction = new EmptyActionItem();
 
 $status = array();
 
-$actionsConfig[] = $configAction;
 $actionsReload[] = $emptyAction;
 $actionsLog[] = $logAction;
 if (dhcpService("status")) {
@@ -65,7 +61,6 @@ if (dhcpService("status")) {
     $actionsRestart[] = $emptyAction;
 }
 
-$actionsConfig[] = $emptyAction;
 $actionsLog[] = $logAction;
 $actionsReload[] = $reloadAction;
 if (dnsService("status")) {
@@ -91,7 +86,6 @@ $l->addActionItemArray($actionsStart);
 $l->addActionItemArray($actionsStop);
 $l->addActionItemArray($actionsRestart);
 $l->addActionItemArray($actionsReload);
-$l->addActionItemArray($actionsConfig);
 $l->addActionItemArray($actionsLog);
 
 $l->display(0);

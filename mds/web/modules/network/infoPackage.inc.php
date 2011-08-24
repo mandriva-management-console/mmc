@@ -182,14 +182,6 @@ $page = new Page("servicerestart",_T("Network services management","network"));
 $page->setOptions(array("noHeader" => True, "visible"=>False));
 $submod->addPage($page);
 
-$page = new Page("serviceconfig",_T("Network services management","network"));
-$page->setOptions(array("visible"=>False));
-$submod->addPage($page);
-
-$page = new Page("dhcpconfig",_T("Network services management","network"));
-$page->setOptions(array("visible"=>False));
-$submod->addPage($page);
-
 $mod->addSubmod($submod);
 
 $MMCApp =&MMCApp::getInstance();
