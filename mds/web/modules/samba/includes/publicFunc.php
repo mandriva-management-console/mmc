@@ -146,41 +146,52 @@ function _samba_changeUser($FH, $mode) {
             }
             # Add SAMBA attributes
             addSmbAttr($FH->getPostValue("uid"),$FH->getPostValue("pass"));
-            $result .= _T("Samba attributes added.","samba")."<br />";
+            if(!isXMLRPCError()) {
+                // Format samba attributes
+                if($FH->getPostValue("sambaPwdLastSet") == "on") {
+                    $FH->setPostValue("sambaPwdLastSet", "0");
+                }
+                if($FH->getPostValue("sambaPwdCanChange") == "on") {
+                    $FH->setPostValue("sambaPwdCanChange", "");
+                }
+                else {
+                    $FH->setPostValue("sambaPwdCanChange", "9999999999");
+                }
+                // Account expiration
+                if($FH->isUpdated("sambaKickoffTime")) {
+                    $datetime = $FH->getValue("sambaKickoffTime");
+                    // 2010-09-23 18:32:00
+                    if (strlen($datetime) == 19) {
+                        $timestamp = mktime(substr($datetime, -8, 2),
+                            substr($datetime, -5, 2), substr($datetime, -2, 2),
+                            substr($datetime, 5, 2), substr($datetime, 8, 2),
+                            substr($datetime, 0, 4));
+                        $FH->setPostValue("sambaKickoffTime", "$timestamp");
+                    }
+                    // not a valid value
+                    else {
+                        $FH->setPostValue("sambaKickoffTime", "");
+                    }
+                }
+                // Network profile
+                // Clear profile path if global profiles are on
+                if(!$FH->getPostValue("hasProfile") == "on" || $globalProfiles) {
+                    $FH->setPostValue("sambaProfilePath", "");
+                }
 
-            // Format samba attributes
-            if($FH->getPostValue("sambaPwdLastSet") == "on") {
-                $FH->setPostValue("sambaPwdLastSet", "0");
-            }
-            if($FH->getPostValue("sambaPwdCanChange") == "on") {
-                $FH->setPostValue("sambaPwdCanChange", "");
+                changeSmbAttr($FH->getPostValue("uid"), $FH->getPostValues());
+                if(!isXMLRPCError())
+                    $result .= _T("Samba attributes added.","samba")."<br />";
+                else
+                    $error .= _T("Failed to add Samba attributes.","samba")."<br />";
             }
             else {
-                $FH->setPostValue("sambaPwdCanChange", "9999999999");
+                // rollback operation
+                global $errorStatus;
+                $errorStatus = 0;
+                rmSmbAttr($FH->getPostValue("uid"));
+                $error .= _T("Failed to add Samba attributes.","samba")."<br />";
             }
-            // Account expiration
-            if($FH->isUpdated("sambaKickoffTime")) {
-                $datetime = $FH->getValue("sambaKickoffTime");
-                // 2010-09-23 18:32:00
-                if (strlen($datetime) == 19) {
-                    $timestamp = mktime(substr($datetime, -8, 2),
-                        substr($datetime, -5, 2), substr($datetime, -2, 2),
-                        substr($datetime, 5, 2), substr($datetime, 8, 2),
-                        substr($datetime, 0, 4));
-                    $FH->setPostValue("sambaKickoffTime", "$timestamp");
-                }
-                // not a valid value
-                else {
-                    $FH->setPostValue("sambaKickoffTime", "");
-                }
-            }
-            // Network profile
-            // Clear profile path if global profiles are on
-            if(!$FH->getPostValue("hasProfile") == "on" || $globalProfiles) {
-                $FH->setPostValue("sambaProfilePath", "");
-            }
-
-            changeSmbAttr($FH->getPostValue("uid"), $FH->getPostValues());
         }
     }
 
