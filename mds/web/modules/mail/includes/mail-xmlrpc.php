@@ -126,7 +126,7 @@ function getVDomainUsers($domain, $filter) {
     return xmlCall("mail.getVDomainUsers", array($domain, $filter));
 }
 
-function getVAliases($filter) {
+function getVAliases($filter = '') {
     return xmlCall("mail.getVAliases", array($filter));
 }
 
@@ -164,6 +164,10 @@ function addVAliasUser($alias, $user) {
 
 function delVAliasUser($alias, $user) {
     return xmlCall("mail.delVAliasUser", array($alias, $user));
+}
+
+function delVAliasesUser($user) {
+    return xmlCall("mail.delVAliasesUser", array($user));
 }
 
 function computeMailGroupAlias($group) {

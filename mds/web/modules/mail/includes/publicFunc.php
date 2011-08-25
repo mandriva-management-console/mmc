@@ -123,6 +123,10 @@ function _mail_delUserFromGroup($user, $group) {
     syncMailGroupAliases($group, $user);
 }
 
+function _mail_delUser($uid) {
+    delVAliasesUser($uid);
+}
+
 function _mail_delGroup($group) {
     /**
      * When deleting a user group, also delete all mail aliases associated to this group

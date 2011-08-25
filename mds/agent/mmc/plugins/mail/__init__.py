@@ -209,6 +209,9 @@ def addVAliasUser(alias, uid):
 def delVAliasUser(alias, uid):
     return MailControl().delVAliasUser(alias, uid)
 
+def delVAliasesUser(uid):
+    return MailControl().delVAliasesUser(uid)
+
 def addVAliasExternalUser(alias, mail):
     return MailControl().addVAliasExternalUser(alias, mail)
 
@@ -532,6 +535,19 @@ class MailControl(ldapUserGroupControl):
         dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
         userdn = self.searchUserDN(uid)
         self.l.modify_s(dn, [(ldap.MOD_DELETE, 'mailaliasmember', userdn)])
+        return 0
+
+    def delVAliasesUser(self, uid):
+        """
+        Remove a LDAP user from all virtual aliases entries
+
+        @param uid: the user uid
+        @type uid: str
+        """
+        userdn = self.searchUserDN(uid)
+        for aliasDN, aliasData in self.getVAliases():
+            if 'mailaliasmember' in aliasData and userdn in aliasData['mailaliasmember']:
+                self.delVAliasUser(aliasData['mailalias'][0], uid)
         return 0
 
     def addVAliasExternalUser(self, alias, mail):
