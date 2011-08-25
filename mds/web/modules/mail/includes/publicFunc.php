@@ -324,10 +324,12 @@ function _mail_verifInfo($FH, $mode) {
         $mail_errors .= _T("You must specify at least one mail drop. Usually it has the same name as the user.","mail")."<br />";
     }
 
-    $mailreg = '/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
-    if (!preg_match($mailreg, $FH->getPostValue('mail'), $matches)) {
-        $mail_errors .= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
-        setFormError("mail");
+    if ($FH->getPostValue("mailaccess") == "on") {
+        $mailreg = '/^([A-Za-z0-9._+-]+@[A-Za-z0-9.-]+)$/';
+        if (!preg_match($mailreg, $FH->getPostValue('mail'), $matches)) {
+            $mail_errors .= _T("You must specify a valid mail address to enable mail delivery.","mail")."<br />";
+            setFormError("mail");
+        }
     }
 
     $error .= $mail_errors;
