@@ -986,7 +986,7 @@
     </para>
 
     <para>
-      The Python SQLAlchemy library version 0.4.x is required for the audit
+      The Python SQLAlchemy library version 0.5.x/0.6.x is required for the audit
       framework. The Python / MySQL bindings are also needed.
     </para>
 
@@ -1105,7 +1105,7 @@
       <title>Password Policy checker module</title>
 
       <para>
-  This module has only been built and tested on Mandriva. It is
+  This module has only been built and tested on Mandriva and Debian. It is
   installed as <filename>/usr/lib/openldap/mmc-check-password.so</filename>.
       </para>
       <para>
@@ -1132,7 +1132,7 @@
 
     <section>
 
-      <title>the mmc-password-helper tool</title>
+      <title>The mmc-password-helper tool</title>
 
       <para>
   This tool allows to check a password from the command line.
@@ -1193,7 +1193,7 @@
 
       <para>
   You need to import the SAMBA schema into the LDAP directory.
-  The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/samba.schema</filename>.
+  The schema file is provided into the mmc-core tarball: <filename>agent/contrib/ldap/samba.schema</filename>.
   But you can also use the schema provided by the SAMBA project.
       </para>
 
@@ -1259,7 +1259,7 @@
       </para>
 
       <para>
-  Now the smbldap-tools conf file need to be edited. Put this in <filename>/etc/opt/IDEALX/smbldap-tools/smbldap_bind.conf</filename>:
+  Now the smbldap-tools conf file need to be edited. Put this in <filename>/etc/smbldap-tools/smbldap_bind.conf</filename>:
       </para>
 
       <screen>
@@ -1294,7 +1294,7 @@
       </para>
 
       <screen>
-  # /opt/IDEALX/sbin/smbldap-populate -m 512 -a administrator
+  # smbldap-populate -m 512 -a administrator
       </screen>
 
       <para>
@@ -1433,7 +1433,7 @@
 
       <para>
   You need to import our mail schema into the LDAP directory.
-  The schema file is provided into the MMC agent tarball: <filename>contrib/ldap/mail.schema</filename>.
+  The schema file is provided into the mmc-core tarball: <filename>agent/contrib/ldap/mail.schema</filename>.
       </para>
       <para>
   Once this schema is imported, you will be able to manage mail delivery attributes thanks to the MMC.
@@ -1446,7 +1446,7 @@
       <title>Postfix/LDAP configuration</title>
 
       <para>
-  Example Postfix configuration files are included into the MMC agent tarball: <filename>contrib/postfix/</filename>.
+  Example Postfix configuration files are included into the mds tarball: <filename>agent/contrib/postfix/</filename>.
       </para>
       <para>
   We provide two kinds of configuration:
@@ -1569,7 +1569,7 @@
       </screen>
 
       <para>
-  An example of <filename>named.conf</filename> filename for Debian based system is available in the directory <filename>contrib/bind/</filename> of the mmc-agent tarball.
+  An example of <filename>named.conf</filename> filename for Debian based system is available in the directory <filename>agent/contrib/bind/</filename> of the mds tarball.
       </para>
 
       <note>
@@ -1593,7 +1593,7 @@
 
       <para>
   The DHCP server needs to know how to load its configuration from LDAP.
-  Here is a typical <filename>/etc/dhcp3/dhcpd.conf</filename>:
+  Here is a typical <filename>/etc/dhcp3/dhcpd.conf</filename> (<filename>/etc/dhcp/dhcpd.conf</filename> in Debian Squeeze):
       </para>
       <screen>
   ldap-server "localhost";
@@ -1604,9 +1604,14 @@
   ldap-method dynamic;
   ldap-debug-file "/var/log/dhcp-ldap-startup.log";
       </screen>
-
       <para>
-  An example of <filename>dhcpd.conf</filename> filename is available in the directory <filename>contrib/dhcpd/</filename> of the mmc-agent tarball.
+  The dhcpd service will try to find an LDAP entry for the machine hostname. If the entry name is different, you can set in <filename>dhcpd.conf</filename>:
+      </para>
+      <screen>
+  ldap-dhcp-server-cn "dhcp_server_name";
+      </screen>
+      <para>
+  An example of <filename>dhcpd.conf</filename> filename is available in the directory <filename>contrib/dhcpd/</filename> of the mds tarball.
       </para>
 
     </section>
@@ -1619,7 +1624,8 @@
   Two new LDAP schemas must be imported into your LDAP directory: dnszone.schema and dhcp.schema.
       </para>
       <para>
-  Both are available in the directory <filename>contrib/ldap</filename> of the mmc-agent tarball.
+  Both are available in the directory <filename>/usr/share/doc/python-mmc-base/contrib/ldap</filename>. Using the sources you
+  can find them in <filename>agent/contrib/ldap</filename> of the mmc-core tarball.
       </para>
       <para>
   To speed up LDAP search, you can index these attributes: zoneName, relativeDomainName, dhcpHWAddress, dhcpClassData.
