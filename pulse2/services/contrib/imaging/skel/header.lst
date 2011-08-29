@@ -1,0 +1,17 @@
+[header]
+item=timeout 10
+item=color 7/1 15/3
+item=default DEFNUM
+
+
+[menu1]
+def=yes
+visu=yes
+image=Normal-Startup
+include=Normal-Startup/conf.txt
+
+[menu2]
+def=no
+visu=yes
+image=Pulse2-Boot-Services
+include=image=Pulse2-Boot-Services/conf.txt

@@ -1,0 +1,426 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.4.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-08 09:20+0200\n"
+"PO-Revision-Date: 2010-08-08 07:45+0100\n"
+"Last-Translator: Mario Fetka <mario.fetka@gmail.com>\n"
+"Language-Team: Mario Fetka <mario.fetka@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: AUSTRIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: web/modules/pkgs/pkgs/localSidebar.php:28 web/modules/pkgs/pkgs/edit.php:79
+#: web/modules/pkgs/infoPackage.inc.php:44
+msgid "Add a package"
+msgstr "Hinzufügen eines Pakets"
+
+#: web/modules/pkgs/pkgs/associate_files.php:120
+msgid "Associate"
+msgstr "Assoziieren"
+
+#: web/modules/pkgs/pkgs/edit.php:179
+msgid "Associate files"
+msgstr "Dateien Assoziieren"
+
+#: web/modules/pkgs/infoPackage.inc.php:49
+msgid "Associate files to a package"
+msgstr "Dateien zu einem Paket Assoziieren"
+
+#: web/modules/pkgs/pkgs/associate_files.php:79
+#, php-format
+msgid "Associate files to package <b>%s (%s)</b>"
+msgstr "Dateien Assoziieren in Paket <b>%s (%s)</b>"
+
+#: web/modules/pkgs/pkgs/ajaxPendingPackageList.php:50
+msgid "Associate package"
+msgstr "Paket Assoziieren"
+
+#: web/modules/pkgs/pkgs/edit.php:139
+msgid "Command : "
+msgstr "Command:"
+
+#: web/modules/pkgs/pkgs/edit.php:139
+msgid "Command's name : "
+msgstr "Command Name:"
+
+#: web/modules/pkgs/pkgs/associate_files.php:121
+#, fuzzy
+msgid "Create an empty package"
+msgstr "Paket löschen"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:79
+#: web/modules/pkgs/pkgs/ajaxPendingPackageList.php:79
+#: web/modules/pkgs/infoPackage.inc.php:59
+msgid "Delete a package"
+msgstr "Paket löschen"
+
+#: web/modules/pkgs/pkgs/remove.php:42
+msgid "Delete this package"
+msgstr "dieses Paket löschen"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:69
+#: web/modules/pkgs/pkgs/ajaxPendingPackageList.php:69
+#: web/modules/pkgs/pkgs/edit.php:135
+msgid "Description"
+msgstr "Beschreibung"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:78
+#: web/modules/pkgs/pkgs/edit.php:96 web/modules/pkgs/infoPackage.inc.php:46
+msgid "Edit a package"
+msgstr "Edit einem Paket"
+
+#: web/modules/pkgs/pkgs/associate_files.php:72
+msgid "Failed to associate files"
+msgstr "Dateiassoziierung fehlgeschlagen"
+
+#: web/modules/pkgs/pkgs/associate_files.php:69
+#, php-format
+msgid "Failed to associate files%s"
+msgstr "Dateiassoziierung fehlgeschlagen %s"
+
+#: web/modules/pkgs/pkgs/associate_files.php:62
+#, php-format
+msgid "Files successfully associated with package <b>%s (%s)</b>%s"
+msgstr "Dateien erfolgreich Verbinden mit Paket <b>t%s (%s)</b> %s"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:53
+#: web/modules/pkgs/pkgs/index.php:45
+#, php-format
+msgid "MMC failed to contact package server %s."
+msgstr "MMC konnte sich nicht mit dem Paket-Server %s verbinden"
+
+#: web/modules/pkgs/pkgs/edit.php:147
+msgid "Need a reboot ?"
+msgstr "Braucht einen Neustart?"
+
+#: web/modules/pkgs/pkgs/edit.php:122
+msgid "Package API"
+msgstr "Paket API"
+
+#: web/modules/pkgs/pkgs/edit.php:70
+msgid "Package failed to save"
+msgstr "Paket speicher fehlgeschlagen"
+
+#: web/modules/pkgs/pkgs/edit.php:133
+msgid "Package label"
+msgstr "Paket Beschriftung"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:66
+#: web/modules/pkgs/pkgs/ajaxPendingPackageList.php:66
+#, fuzzy
+msgid "Package name"
+msgstr "Paket Beschriftung"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:71
+msgid "Package size"
+msgstr "Paket Größe"
+
+#: web/modules/pkgs/pkgs/edit.php:60
+msgid "Package successfully edited"
+msgstr "Paket erfolgreich bearbeitet"
+
+#: web/modules/pkgs/pkgs/edit.php:134
+msgid "Package version"
+msgstr "Paket Version"
+
+#: web/modules/pkgs/infoPackage.inc.php:32
+#: web/modules/pkgs/infoPackage.inc.php:38
+msgid "Packages"
+msgstr "Pakete"
+
+#: web/modules/pkgs/pkgs/localSidebar.php:27
+#: web/modules/pkgs/pkgs/index.php:29
+msgid "Packages list"
+msgstr "Pakete Liste"
+
+#: web/modules/pkgs/pkgs/localSidebar.php:29
+#: web/modules/pkgs/pkgs/pending.php:29
+msgid "Pending packages list"
+msgstr "noch nicht erledigt Pakete Liste"
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:63
+#: web/modules/pkgs/pkgs/index.php:53
+msgid "Please contact your administrator."
+msgstr "Bitte wenden Sie sich an Ihren Administrator."
+
+#: web/modules/pkgs/infoPackage.inc.php:52
+msgid "See pending packages"
+msgstr "noch nicht erledigt Pakete anzeigen"
+
+#: web/modules/pkgs/pkgs/associate_files.php:99
+msgid "Select the directory you want for this package"
+msgstr "Wählen Sie das gewünschte Verzeichnis für dieses Paket"
+
+#: web/modules/pkgs/infoPackage.inc.php:42
+msgid "Show all packages"
+msgstr "Alle Pakete anzeigen"
+
+#: web/modules/pkgs/infoPackage.inc.php:55
+msgid "Show mirror status"
+msgstr "Spiegel-Status anzeigen"
+
+#: web/modules/pkgs/pkgs/ajaxPendingPackageList.php:78
+msgid "Show mirrors"
+msgstr "Spiegel anzeigen"
+
+#: web/modules/pkgs/pkgs/rsync.php:32
+#, php-format
+msgid "The package %s (%s) is not associated"
+msgstr "Das Paket %s (%s) ist nicht verbunden"
+
+#: web/modules/pkgs/pkgs/remove.php:34
+msgid "The package failed to delete"
+msgstr "Das Paket konnte nicht gelöscht werden"
+
+#: web/modules/pkgs/pkgs/remove.php:33
+msgid "The package has been deleted."
+msgstr "Das Paket wurde gelöscht."
+
+#: web/modules/pkgs/pkgs/ajaxPackageList.php:70
+#: web/modules/pkgs/pkgs/ajaxPendingPackageList.php:70
+#, fuzzy
+msgid "Version"
+msgstr "Versionen"
+
+#, fuzzy
+#~ msgid "Add a profile"
+#~ msgstr "Hinzufügen eines Pakets"
+
+#, fuzzy
+#~ msgid "Add a value"
+#~ msgstr "Hinzufügen eines Pakets"
+
+#, fuzzy
+#~ msgid "BiosVersion"
+#~ msgstr "Versionen"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Command:"
+
+#, fuzzy
+#~ msgid "Command expiry date"
+#~ msgstr "Command:"
+
+#, fuzzy
+#~ msgid "Command line to run"
+#~ msgstr "Command Name:"
+
+#, fuzzy
+#~ msgid "Command name"
+#~ msgstr "Command Name:"
+
+#, fuzzy
+#~ msgid "Command parameters"
+#~ msgstr "Command Name:"
+
+#, fuzzy
+#~ msgid "Command start date"
+#~ msgstr "Command:"
+
+#, fuzzy
+#~ msgid "Command status"
+#~ msgstr "Command:"
+
+#, fuzzy
+#~ msgid "Delete failed"
+#~ msgstr "Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete file"
+#~ msgstr "dieses Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete image"
+#~ msgstr "Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete in progress"
+#~ msgstr "dieses Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete master"
+#~ msgstr "Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete the image"
+#~ msgstr "dieses Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete this group"
+#~ msgstr "dieses Paket löschen"
+
+#, fuzzy
+#~ msgid "Delete this profile"
+#~ msgstr "dieses Paket löschen"
+
+#~ msgid "Descriptions"
+#~ msgstr "Beschreibungen"
+
+#, fuzzy
+#~ msgid "Edit a profile"
+#~ msgstr "Edit einem Paket"
+
+#, fuzzy
+#~ msgid "Edit a static group"
+#~ msgstr "Edit einem Paket"
+
+#, fuzzy
+#~ msgid "Edit image"
+#~ msgstr "Edit einem Paket"
+
+#, fuzzy
+#~ msgid "Edition of image"
+#~ msgstr "Edit einem Paket"
+
+#, fuzzy
+#~ msgid "ExpandedDescription"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "ExtendedDescription"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Group failed to share"
+#~ msgstr "Paket speicher fehlgeschlagen"
+
+#, fuzzy
+#~ msgid "Group successfully created"
+#~ msgstr "Paket erfolgreich bearbeitet"
+
+#, fuzzy
+#~ msgid "Group successfully modified"
+#~ msgstr "Paket erfolgreich bearbeitet"
+
+#, fuzzy
+#~ msgid "Group successfully shared"
+#~ msgstr "Paket erfolgreich bearbeitet"
+
+#, fuzzy
+#~ msgid "HardwareVersion"
+#~ msgstr "Versionen"
+
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid "Name :"
+#~ msgstr "Namen"
+
+#~ msgid "Names"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid "Package"
+#~ msgstr "Pakete"
+
+#, fuzzy
+#~ msgid "ProductVersion"
+#~ msgstr "Versionen"
+
+#, fuzzy
+#~ msgid "Profile successfully created"
+#~ msgstr "Paket erfolgreich bearbeitet"
+
+#, fuzzy
+#~ msgid "Profile successfully modified"
+#~ msgstr "Paket erfolgreich bearbeitet"
+
+#, fuzzy
+#~ msgid "Profiles list"
+#~ msgstr "Pakete Liste"
+
+#, fuzzy
+#~ msgid "Restoration"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Restoration options"
+#~ msgstr "Beschreibungen"
+
+#, fuzzy
+#~ msgid "Select the file you want to import"
+#~ msgstr "Wählen Sie das gewünschte Verzeichnis für dieses Paket"
+
+#, fuzzy
+#~ msgid "Select the imaging server for this profile."
+#~ msgstr "Wählen Sie das gewünschte Verzeichnis für dieses Paket"
+
+#, fuzzy
+#~ msgid "Select this hard disk"
+#~ msgstr "dieses Paket löschen"
+
+#, fuzzy
+#~ msgid "Server status"
+#~ msgstr "Spiegel-Status anzeigen"
+
+#, fuzzy
+#~ msgid "Show all logs"
+#~ msgstr "Alle Pakete anzeigen"
+
+#, fuzzy
+#~ msgid "Show all pending task's logs"
+#~ msgstr "Alle Pakete anzeigen"
+
+#, fuzzy
+#~ msgid "Show all task logs"
+#~ msgstr "Alle Pakete anzeigen"
+
+#, fuzzy
+#~ msgid "Show package's details"
+#~ msgstr "Alle Pakete anzeigen"
+
+#, fuzzy
+#~ msgid "Show pending task's logs"
+#~ msgstr "noch nicht erledigt Pakete anzeigen"
+
+#, fuzzy
+#~ msgid "SmbVersion"
+#~ msgstr "Versionen"
+
+#, fuzzy
+#~ msgid "StandardDescription"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Synchronization failed for package server: %s"
+#~ msgstr "MMC konnte sich nicht mit dem Paket-Server %s verbinden"
+
+#, fuzzy
+#~ msgid "The file has been deleted."
+#~ msgstr "Das Paket wurde gelöscht."
+
+#, fuzzy
+#~ msgid "The package '%s' is not available on any mirror."
+#~ msgstr "Das Paket %s (%s) ist nicht verbunden"
+
+#~ msgid "Versions"
+#~ msgstr "Versionen"
+
+#, fuzzy
+#~ msgid "computers successfully deployed"
+#~ msgstr "Paket erfolgreich bearbeitet"
+
+#, fuzzy
+#~ msgid "designation"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "logs list"
+#~ msgstr "Pakete Liste"
+
+#, fuzzy
+#~ msgid "os_version"
+#~ msgstr "Versionen"

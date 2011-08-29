@@ -1,0 +1,21 @@
+Pulse 2 Inventory Database Cleanup Script
+
+This script will purge all I-am-not-the-last-inventory in the database, and related informations:
+ - orphaned has* tables,
+ - orphaned *tables.
+It then optimize the database tables to recoverlost space.
+
+Modus operandi example:
+python clean-inventory.py [mysql_uri] 2>&1 | tee /path/to/log/file | grep -v DEBUG
+
+With [mysql_uri]:
+mysql://<user>:<password>@127.0.0.1/<inventory_database>
+
+Some advices:
+- before any use, dont' forget to modify:
+ + mandatory_elements = ["Hardware"] (if relevent)
+ + split_on = 1000 (to tune in some way, keep as low for SA 0.3-)
+ + do_execute = False (set to True for real work)
+- backup your database before using this script !
+- if the script is interrupted, it will continue from where it stops,
+- avoid to run the script with the inventory server running.
