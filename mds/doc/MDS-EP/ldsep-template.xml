@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LDSEP title</title>
+
+  <subtitle>New feature| Informational | Process / Draft | Active | Accepted | Deferred | Rejected Final | Replaced</subtitle>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Firstname</firstname>
+      <surname>Name</surname>
+      <email>email</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Firstname Name - Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>LDS component this LDSEP applies</productname>
+    <productnumber>LDS component version this LDSEP applies</productnumber>
+
+    <abstract>
+      <para>Abstract</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+    
+    <para>
+    </para>
+
+  </section>
+
+</article>

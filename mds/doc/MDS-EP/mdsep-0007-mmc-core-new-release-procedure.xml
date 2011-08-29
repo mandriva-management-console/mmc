@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MMC CORE release guidelines</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2010 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>This MDSEP applies to MMC core</productname>
+    <productnumber>MMC core component version this MDSEP applies: all versions</productnumber>
+
+    <abstract>
+      <para>This document explains how to release a new MMC core version.</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+
+    <title>MMC Core release components</title>
+
+    <para>
+      What we release is a single tarball called mmc-core-VERSION.tar.gz.
+    </para>
+    <para>
+      This tarball contains:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>
+	  the MMC agent, the core MMC modules (audit framework) and
+	  the core plugins "base" and "ppolicy" ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  the MMC web interface framework, with the "base" and "ppolicy" web
+	  modules.
+	</para>
+      </listitem>
+    </itemizedlist>
+
+  </section>
+
+  <section>
+
+    <title>Release Requirements</title>
+
+    <para>
+      Beware that mmc-agent requirements must be met before mmc-web-* one.
+    </para>
+
+    <section>
+
+      <title>Requirements for the MMC agent (mmc-core/agent)</title>
+
+      <para>
+	Please check the requirements in the given order.
+      </para>
+      <para>
+	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+      </para>
+      <para>
+	The default shipped configuration files are updated if needed (a new
+	option is available in a plugin or the MMC agent for example).
+      </para>
+      <para>
+	For the agent and each plugin, the VERSION attribute must be updated to the version number we release, in those files: <filename>mmc/agent.py mmc/plugin/base/__init__.py mmc/plugin/ppolicy/__init__.py</filename>.
+      </para>
+      <para>
+	For each plugin, the APIVERSION attribute may be updated. The APIVERSION string is similar to libtool library versions: current:revision:age.
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    current : The most recent interface number that this library implements.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    revision : The most recent interface number that this library implements.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    age : The difference between the newest and oldest interfaces that this library implements. In other words, the library implements all the interface numbers in the range from number current - age to current.
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	Here are a set of rules to update the APIVERSION string:
+      </para>
+      <orderedlist>
+	<listitem>
+	  <para>
+	    If a Python plugin source code has changed at all since the last release, then increment revision (c:r:a becomes c:r+1:a)
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If any interfaces have been added, removed, or changed since the last release, increment current, and set revision to 0
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If any interfaces have been added since the last release, then increment age
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If any interfaces have been removed since the last public release, then set age to 0.
+	  </para>
+	</listitem>
+      </orderedlist>
+
+      <para>
+	All the Python unit tests runs succesfully.
+      </para>
+
+    </section>
+
+    <section>
+
+      <title>Requirements for the MMC web interface</title>
+
+      <para>
+	Please check the requirements in the given order.
+      </para>
+      <para>
+	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+      </para>
+      <para>
+	The default shipped mmc.ini configuration file is updated if needed.
+      </para>
+      <para>
+	The version attribute contained in each infoPackage.inc.php file of each web modules ("base" and "ppolicy") must be updated to the version we release, thanks to the setVersion method.
+      </para>
+      <para>
+	Each web module must be able to interact with their corresponding MMC agent plugin we are going to release. For example, the "base" web module must be compatible with the "base" plugin of the MMC agent. The APIVersion variable contained in each infoPackage.inc.php file of each web modules must be equal to the APIVERSION attribute of the corresponding MMC agent Python plugin. This is done thanks to the setAPIVersion method.
+      </para>
+      <para>
+	Each new page or field of the web interface must be protected
+	by an ACL.
+      </para>
+      <para>
+	The web selenium tests are successful with the MMC agent revision we are going to release and that met the release requirement.
+      </para>
+      <para>
+	The manual tests of the web interface are successful.
+      </para>
+
+    </section>
+
+  </section>
+
+  <section>
+
+    <title>Documentation update</title>
+
+    <para>
+      All the installation/configuration manuals must be updated and checked.
+    </para>
+    <para>
+      The Python API documentation must be regenerated. (This is done automatically every day.)
+    </para>
+    <para>
+      The PHP API documentation must be regenerated. (This is done automatically every day.)
+    </para>
+    <para>
+      The upgrade procedure is updated: http://mds.mandriva.org/wiki/UpgradeProcedure.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Trac update</title>
+
+    <para>
+
+    </para>
+
+    <para>
+      Via trac-admin, a new version number must be added to the project, associated with a release date.
+    </para>
+    <screen>
+      # trac-admin .
+      # version add "MMC-CORE X.Y.Z" "Jul 27, 2006"
+      # quit
+    </screen>
+
+    <para>
+      If this release adds a new component, it must be added to the project.
+    </para>
+
+    <screen>
+      # trac-admin .
+      # component add mmc-component-name
+      # quit
+    </screen>
+
+  </section>
+
+  <section>
+
+    <title>Making the mmc-core tarball</title>
+
+    <para>
+      The <filename>mmc-core/trunk</filename> directory of the SVN repository is tagged into <filename>mmc-core/tags</filename> according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
+    </para>
+    <para>
+      We export the source code from the SVN repository with the tag
+      we just set, to a directory
+      called <filename>mmc-core-x.y.z</filename>. The mmc-core/tests
+      directory is removed from the source code. It is rather large,
+      and its content is not needed.
+    </para>
+    <para>
+      A tarball called mmc-core-x.y.z.tar.gz is built from this directory.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Publishing the release</title>
+
+    <para>
+      The tarballs are put in the public download place.
+    </para>
+    <para>
+      The debian packages repository is updated, for Etch and Lenny
+      (Cédric Delfosse).
+    </para>
+    <para>
+      The RPMs packages repository for Mandriva MES5 and Mandriva Cooker are
+      updated (Oden Eriksson).
+    </para>
+    <para>
+      The demo VMware image is updated thanks to the RPM packages.
+    </para>
+    <para>
+      A mail is sent to the mds-announce mailing list.
+    </para>
+    <para>
+      The freshmeat entry is updated.
+    </para>
+
+  </section>
+
+</article>

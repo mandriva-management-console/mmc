@@ -1,0 +1,148 @@
+mds 2.4.0 (MMC agent)
+---------------------
+
+ * New userquota module (Glen Ogilvie)
+   * To set disk and network quota to users
+ * New bulkimport mode (Glen Ogilvie)
+   * To massively import/update users from a CSV file
+ * New sshlpk module to manage OpenSSH LDAP public keys
+ * French translation update (Mandriva)
+ * German translation update (Mario Fetka)
+ * Spanish translation update (Francisco Garcia)
+ * Brazilian Portuguese translation update (Sergio Rafael Lemke)
+
+mmc-agent 2.3.2
+---------------
+
+ * Multi-threading support
+ * TLS support with certificate check for incoming XML-RPC connections
+ * base plugin:
+   * Add change password hook for changeUserPasswd in base plugin
+     (Original patch from Jan Gehring)
+   * Default used LDAP user password scheme is now SSHA instead of CRYPT
+ * network plugin:
+   * Add support for NS and MX records edition
+   * Fix issues with 64 bits platform when computing the next free IP address
+     of a zone
+ * samba plugin
+   * SAMBA configuration parser is more robust
+ * provisioning:
+   * Add profile to group mapping capability when provisioning a user from a
+     external LDAP
+   * Network timeout for external LDAP connection
+
+mmc-agent 2.3.1
+---------------
+
+ * minor bug fix release
+ * obfuscated password support in configuration file
+ * hook scripts for SAMBA remote share and printer management
+
+mmc-agent 2.3.0
+---------------
+
+ * external authentication and provisioning support
+ * server-side session security context support
+ * base plugin:
+   o issue an error when the backup directory for user's home doesn't exist
+   o Fix loginShell attribute problem when getting users list (Manuel Zach)
+ * SAMBA plugin:
+   o the path of a new SAMBA share can now be specified instead of using a
+     default location
+   o the OU that stores the SAMBA computer accounts is now read from samba.ini
+ * mail plugin:
+   o the mail LDAP schema features the mailhost attributes
+   o the attribute mailhost is now managed
+
+mmc-agent 2.2.0
+---------------
+
+ * server-side session management with the MMC web interface
+ * a user must now be authenticated before any XML-RPC calls
+ * put back HTTP basic authentication between the agent and the interface
+ * SAMBA plugin:
+   o issue a warning if NSCD is detected 
+ * network plugin:
+   o Make "get next free IP address feature" works with Python 2.4
+   o DHCP: authoritative flag management for subnet
+   o DNS: allow to specify a DNS zone reader for BIND zone configuration files (initial patch by Josef Boleininger)
+   o DNS: chrooted bind support 
+
+mmc-agent 2.1.0
+---------------
+
+ * LMC to MMC rename
+ * configuration files have been relocated
+
+lmc-agent 2.0.0
+---------------
+
+ * network plugin
+   o new module for DNS and DHCP management
+ * base plugin
+   o skelDir option bug fix
+ * ox plugin
+   o more provide the Open-Xchange plugin
+
+lmc-agent 1.1.4
+---------------
+
+ * No changes
+
+lmc-agent 1.1.3
+---------------
+
+ * XML-RPC agent:
+   o allow transfert of binary values in XML-RPC stream
+ * some bug fixes
+
+lmc-agent 1.1.2
+---------------
+
+ * base plugin:
+   o simple bug fixes for Fedora Directory Server (FDS) support
+   o do cn="givenName sn" when adding a user
+ * SAMBA plugin
+   o more checks when SAMBA plugin starts
+   o move machines management stuff from base plugin
+ * mail plugin:
+   o mail alias management for group
+   o plugin can now be disabled by configuration
+ * proxy plugin:
+   o plugin can now be disabled by configuration
+ * ox plugin:
+   o plugin can now be disabled by configuration
+
+lmc-agent 1.1.1
+---------------
+
+ * base plugin:
+   o the POSIX primary group of a user can be changed
+   o starting uid and gid numbers can now be configured
+   o extra modifiers are now available when setting default attributes for new
+     users 
+ * SAMBA plugin:
+   o SAMBA user primary group can be changed
+   o extra LDAP checks when activating module
+   o joined machines on the domain are now added to the 'Domain Computers'
+     group 
+ * mail plugin: virtual mail domain support
+ * assorted bug fixes 
+
+lmc-agent 1.1.0
+---------------
+
+ * New mail plugin to manage user email delivery with postfix
+ * SAMBA plugin: shares connections and session status are now available
+ * base plugin: All log files can now be accessed
+
+lmc-agent 1.0.1
+---------------
+
+ * No changes in this release.
+
+
+lmc-agent 1.0.0
+---------------
+
+ * Initial release.

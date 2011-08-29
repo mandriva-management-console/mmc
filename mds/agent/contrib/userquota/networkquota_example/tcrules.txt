@@ -1,0 +1,75 @@
+
+# remove the existing classless qdisc
+tc qdisc del dev eth1 root
+
+# print status
+tc -s qdisc ls dev eth1
+
+# add new root qdisc
+tc qdisc add dev eth1 root handle 1: htb default 1
+
+# add classes
+tc class add dev eth1 parent 1: classid 1:1 htb rate 100Mbit burst 15k
+tc class add dev eth1 parent 1: classid 1:2 htb rate 20kbps burst 5k
+
+# add qdiscs
+tc qdisc add dev eth1 parent 1:1 handle 10: sfq perturb 10
+tc qdisc add dev eth1 parent 1:2 handle 20: sfq perturb 10
+
+# add filter for second flow.
+tc filter add dev eth1 parent 1: protocol ip prio 1 handle 0x2828 fw flowid 1:2
+
+# other traffic defaults to the 1:1 class
+
+# print the status
+tc -s qdisc ls dev eth1
+tc filter show dev eth1
+tc class show dev eth1
+
+# another user, add, remove to the same class (shared bandwidth)
+tc filter add dev eth1 parent 1: protocol ip prio 1 handle 10356 fw flowid 1:2
+tc filter del dev eth1 parent 1: protocol ip prio 1 handle 10356 fw flowid 1:2
+
+# Add another user to their own
+tc class add dev eth1 parent 1: classid 1:250 htb rate 20kbps burst 5k
+tc qdisc add dev eth1 parent 1:250 handle 250: sfq perturb 10
+tc filter add dev eth1 parent 1: protocol ip prio 1 handle 10356 fw flowid 1:250
+
+tc filter del dev eth1 parent 1: protocol ip prio 1 handle 10356 fw flowid 1:250
+tc qdisc del dev eth1 parent 1:250 handle 250: sfq perturb 10
+tc class del dev eth1 parent 1: classid 1:250 htb rate 20kbps burst 5k
+
+
+
+# FW Marks.
+
+For the fw filter, used here. handle is the fw mark,  The source code indicates a that a mask is possible by using a slash (/).
+
+File: git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git/iproute2/tc/f_fw.c
+
+static int fw_parse_opt(struct filter_util *qu, char *handle, int argc, char **argv, struct nlmsghdr *n)
+{
+        struct tc_police tp;
+        struct tcmsg *t = NLMSG_DATA(n);
+        struct rtattr *tail;
+        __u32 mask = 0;
+        int mask_set = 0;
+
+        memset(&tp, 0, sizeof(tp));
+
+        if (handle) {
+                char *slash;
+                if ((slash = strchr(handle, '/')) != NULL)
+                        *slash = '\0';
+                if (get_u32(&t->tcm_handle, handle, 0)) {
+                        fprintf(stderr, "Illegal \"handle\"\n");
+                        return -1;
+                }
+                if (slash) {
+                        if (get_u32(&mask, slash+1, 0)) {
+                                fprintf(stderr, "Illegal \"handle\" mask\n");
+                                return -1;
+                        }
+                        mask_set = 1;
+                }
+        }

@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>002_changeACL</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">002_changeACL</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=base&amp;submod=users&amp;action=editacl&amp;user=aclsamba')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;checkAll('acl[base][users]',1);checkAll('acltab[base][users]',1);&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;checkAll('acl[samba][shares]',1);checkAll('acltab[samba][shares]',1);&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;checkAll('acl[samba][machines]',1);checkAll('acltab[samba][machines]',1);&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;checkAll('acl[samba][config]',1);checkAll('acltab[samba][config]',1);&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='aclattr[isSamba]' and @name='aclattr[isSamba]' and @value='rw']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>buser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>//input[@id='aclattr[isSamba]' and @name='aclattr[isSamba]' and @value='rw']</td>
+	<td>on</td>
+</tr>
+</tbody></table>
+</body>
+</html>

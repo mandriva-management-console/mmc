@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MMC userquota plugin configuration file</title>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Jean-Philippe</firstname>
+      <surname>Braun</surname>
+      <email>jpbraun@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2010 Jean-Philippe Braun - Mandriva</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the MMC userquota plugin configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+    
+    <para>
+      The « userquota » plugin allows the MMC to set filesystem quotas to users. The plugin provides LDAP attributes for storing quota information. The plugin allows also to store network quotas in the LDAP directory for external tools. It uses the « base » plugin for all its related LDAP operations.
+    </para>
+    <para>
+      The plugin configuration file is <filename>/etc/mmc/plugins/userquota.ini</filename>.
+    </para>
+    <para>
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+    </para>
+    <para>
+      For example:
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+	
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+    </para>
+  </section>
+  <section>
+    <title>Configuration file sections</title>
+    <para>
+      Here are all the userquota.ini available sections
+    </para>
+    
+    <table>
+      <title>
+	userquota.ini available sections
+      </title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>main</entry>
+	    <entry>global userquota plugin configuration</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>diskquota</entry>
+	    <entry>filesystem quota configuration</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>networkquota</entry>
+	    <entry>network quota configuration</entry>
+	    <entry>yes</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « main »</title>
+
+    <para>
+      This sections defines the global options of the mail plugin
+    </para>
+
+    <table>
+      <title>
+	Available options for the « main » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>disable</entry>
+	    <entry>Is this plugin disabled ?</entry>
+	    <entry>Yes</entry>
+	    <entry>1</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+  </section>
+
+  <section>
+    
+    <title>Section « diskquota »</title>
+  
+      <table>
+      <title>
+	Available options for the « diskquota » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>enable</entry>
+	    <entry>Is this plugin enabled ?</entry>
+	    <entry>No</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>devicemap</entry>
+	    <entry>The definition of the filesystems using quotas</entry>
+	    <entry>No</entry>
+	    <entry>/dev/sda1:1024:Root</entry>
+	  </row>
+	  <row>
+	    <entry>softquotablocks</entry>
+	    <entry>Coef used to calculate the soft blocks limit</entry>
+	    <entry>No</entry>
+	    <entry>0.95</entry>
+	  </row>
+	  <row>
+	    <entry>softquotainodes</entry>
+	    <entry>Coef used to calculate the soft inodes limit</entry>
+	    <entry>No</entry>
+	    <entry>0.95</entry>
+	  </row>
+	  <row>
+	    <entry>inodesperblock</entry>
+	    <entry>Coef used to calculate the inodes limit from the blocks limit</entry>
+	    <entry>No</entry>
+	    <entry>1.60</entry>
+	  </row>
+	  <row>
+	    <entry>setquotascript</entry>
+	    <entry>Command template for applying quotas on filesystem</entry>
+	    <entry>No</entry>
+	    <entry>/usr/sbin/setquota $uid $softblocks $blocks $softinodes $inodes $devicepath</entry>
+	  </row>
+	  <row>
+	    <entry>delquotascript</entry>
+	    <entry>Command template for removing quotas on filesystem</entry>
+	    <entry>No</entry>
+	    <entry>/usr/sbin/setquota $uid 0 0 0 0 $devicepath</entry>
+	  </row>	  	  
+	  <row>
+	    <entry>runquotascript</entry>
+	    <entry>Script for setting quotas</entry>
+	    <entry>No</entry>
+	    <entry>/bin/sh</entry>
+	  </row>	  	  
+	</tbody>
+      </tgroup>
+    </table>
+    <para>
+      This section define the mountpoints on which you want to use filesystem quotas. If you are using an ext3 or xfs filesystem you should add the "usrquota" option to the mountpoint(s) in /etc/fstab.
+    </para>
+    <para>
+      If you are using an XFS filesystem, you must remount manually the partition after adding the "usrquota" option to the mountpoint in /etc/fstab. On ext3 filesystems, you can remount the filesystem dynamicaly with the usrquota option using the following command :
+    </para>
+    <screen>mount -o remount,usrquota /path/to/mount/point</screen>
+    <para>On ext filesystems you have to create quota files on your mountpoints :</para>
+    <screen>quotacheck -cum /path/to/mount/point</screen>
+    <para>
+      The devicemap option use the following format :
+    </para>
+    <screen>device1:blocksize:displayname,device2:blocksize:displayname,...</screen>    
+    <para>
+      The device is the unix name of the partition (eg: "/dev/sda1"). The displayname is a string representing the device (eg: "Root"). The iquota blocksize value is 1024 on Linux x86.
+    </para>
+    <para>
+      The soft limits of the quotas are calculated using the softquotablocks and softquotainodes coefs. The inode limit is calculated using the inodesperblock coef.
+    </para>
+    <para>
+      The inode limits protects the filesystem if some user create to much hardlinks as a hardlink use one inode but no block on the filesystem.
+    </para>
+    <para>
+      The setquotascript and delquotascript options define the commands templates used to apply or remove quotas on the filesystem. The runquotascript is the name of a shell script which contain the quota commands to be run on the system. If it is set to /bin/sh, then quotas will be applied on the local system. Check the applyquotas.sh example script to see how you can apply quotas on a different server. This is useful if your mmc-agent does not run on your file server.
+    </para>
+  </section>
+  
+  <section>
+    
+    <title>Section « networkquota »</title>
+      <table>
+      <title>
+	Available options for the « networkquota » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>enable</entry>
+	    <entry>Is this plugin enabled ?</entry>
+	    <entry>No</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>networkmap</entry>
+	    <entry>The definition of networks using quotas</entry>
+	    <entry>No</entry>
+	    <entry>Internet:0.0.0.0/0:any</entry>
+	  </row>  	  
+	</tbody>
+      </tgroup>
+    </table>    
+    <para>
+      This section define the networks on which you want to use quotas. This allows you to store differents quotas values for differents network/protocol pair. This plugin will update the ldap records for network quotas for each user, but does not attempt to apply these quotas to a firewall, as this will be different for most people.
+    </para>
+    <para>
+      The networkmap option must be formatted with the following format :
+    </para>
+    <screen>displayName:network:protocol,...
+----------------------
+Internet:0.0.0.0/0:any,Local:192.168.0.0/24:any</screen>
+  </section>  
+</article>

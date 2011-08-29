@@ -1,0 +1,9 @@
+Ajoutez ces lignes au sudo de la machine
+
+www-data ALL=(proxy)NOPASSWD:/usr/bin/squidGuard
+www-data ALL=(root)NOPASSWD:/etc/init.d/squid
+
+le fichier bad.destdomainlist doit avoir les droits suivant
+-rw-r--r--  1 www-data proxy  bad.destdomainlist
+
+

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MDS Style Guide for PHP Code</title>
+
+  <articleinfo>
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2009 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>MDS components written in PHP</productname>
+    <productnumber>All MDS component version</productnumber>
+
+    <abstract>
+      <para>Coding conventions for the PHP code of all MDS components</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+    <title>Introduction</title>
+
+    <para>This document sets the coding conventions for the PHP code of all
+    MDS components (like the MMC web interface for example).</para>
+
+    <para>Convention from http://pear.php.net/manual/en/standards.php apply
+    too.</para>
+  </section>
+
+  <section>
+    <title>Code layout</title>
+
+    <para>Indentation: use 4 spaces per indentation level, no tabs
+    allowed.</para>
+
+    <para>Encoding: the source code must always use the UTF-8 encoding.</para>
+
+    <para>For long html code, templates and views prefer using "short PHP
+    tags":</para>
+
+    <programlisting>&lt;body&gt;
+    &lt;h1&gt;&lt;?= $title ?&gt;&lt;/h1&gt;
+    &lt;ul&gt;
+    &lt;? foreach ($arr as $value) { ?&gt;
+       &lt;li&gt;&lt;?= $value ?&gt;&lt;/li&gt;
+    &lt;? } ?&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;</programlisting>
+
+    <para>Code is more explicit and preserve html code source
+    indentation.</para>
+  </section>
+
+  <section>
+    <title>Code indentation and organisation</title>
+
+    <para>block "for", "function", "switch", "if",etc... always end with
+    opening braces on the same line.</para>
+
+    <programlisting>if ($val == value) {
+   echo $val;
+} else {
+   return -1;
+}
+
+foreach ($arrParam as $singleItem) {
+    print $singleItem;
+}</programlisting>
+
+    <para> Function with long args (more than one line size)</para>
+
+    <programlisting>myFunction($value1,
+           $value2,
+           $morevalue4,
+           $val5);</programlisting>
+  </section>
+
+  <section>
+    <title>Comments</title>
+
+    <para>They are written in english.</para>
+
+    <para>They always start with a capitalized first word.</para>
+
+    <para>There is always a space between the // and the begin of the comment.
+    // and /* are fine. Don't use #.</para>
+
+    <para>All functions must have a correct doxygen header.</para>
+  </section>
+
+  <section>
+    <title>Naming conventions</title>
+
+    <para>ClassName : CapitalizedWords</para>
+
+    <para>functionName : mixedCase for all function name</para>
+
+    <para>_membersValue : member value of a class begin with a "_"</para>
+  </section>
+
+  <section>
+
+    <title>PHP language version compatibility</title>
+
+    <para>
+      The code must be compatible with PHP 5.0.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>PHP error reporting level</title>
+
+    <para>
+      All possible PHP errors, warnings and notices must be fixed in the PHP code. Use these lines in your <filename>php.ini</filename> file when working on the code to find them all:
+    </para>
+
+    <screen>
+error_reporting = E_ALL
+display_errors = On
+    </screen>
+    
+  </section>
+
+  <section>
+    
+    <title>PHP code copyright header</title>
+    
+    <para>
+      Here is the header that must be used:
+    </para>
+    
+    <screen>
+/**
+ * (c) 2004-2007 Linbox / Free&amp;ALter Soft, http://linbox.com
+ * (c) 2007-2009 Mandriva, http://www.mandriva.com
+ *
+ * $Id$
+ *
+ * This file is part of Mandriva Management Console (MMC).
+ *
+ * MMC is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * MMC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MMC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+    </screen>
+
+  </section>
+  
+</article>

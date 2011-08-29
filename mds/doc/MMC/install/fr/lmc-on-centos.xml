@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+  <title>Linbox Management Console sur CentOS 4.3</title>
+
+  <articleinfo>
+    <author>
+      <firstname>Adam Cécile</firstname>
+
+      <email>&lt;adam.cecile@linbox.com&gt;</email>
+    </author>
+    <author>
+      <firstname>Kevin Denis</firstname>
+
+      <email>&lt;kevin.denis@linbox.com&gt;</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+
+      <address>152 rue de Grigy - Metz F-57230</address>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Adam Cécile - Linbox F&amp;AS</year>
+    </copyright>
+
+    <legalnotice>
+      <para></para>
+    </legalnotice>
+
+    <revhistory>
+      <revision revisionflag="off">
+        <revnumber>1.0</revnumber>
+
+        <date>2006-06-14</date>
+
+        <authorinitials>AC</authorinitials>
+
+        <revdescription>
+          <para>Première version</para>
+        </revdescription>
+      </revision>
+      <revision>
+       <revnumber>1.2</revnumber>
+       <date>2006-09-18</date>
+       <authorinitials>CD</authorinitials>
+       <revdescription>
+         <para>Ajout conf nss_ldap</para>
+       </revdescription>
+      </revision>
+      <revision>
+       <revnumber>1.1</revnumber>
+       <date>2006-07-08</date>
+       <authorinitials>KD</authorinitials>
+       <revdescription>
+         <para>Correction orthographique</para>
+       </revdescription>
+      </revision>
+
+    </revhistory>
+
+    <abstract>
+      <para>Guide d'installation de la LMC sur CentOS 4.3</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+    <title>Introduction</title>
+
+    <para>La Linbox Management Console est un outil puissant d'administration
+    centralisé qui se base sur un annuaire LDAP.</para>
+
+    <para>Elle est découpée en deux parties :</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>un agent en Python installé sur chaque serveur qui sera
+        administré par la LMC.</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>une interface d'administration PHP, qui permettra de configurer
+        tous les serveurs possédant l'agent.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Ces deux modules communiquent via XML/RPC.</para>
+
+    <para>Ce document a été réalisé sur une CentOS 4.3 fraîchement installée
+    avec l'option minimale.</para>
+  </section>
+
+  <section>
+    <title>Installation de l'agent LMC</title>
+
+    <section>
+      <title>Préparation du système pour l'agent LMC</title>
+
+      <para>L'agent LMC est écrit en python et utilise le framework
+      python-twisted. Nous allons donc tout d'abord procéder à l'installation
+      de tous les modules python nécessaires à l'installation de l'agent de
+      base, et de son module Samba.</para>
+
+      <section>
+        <title>Installation des modules python</title>
+
+        <para>CentOS ne propose que très peu de modules python dans ses
+        paquets de bases. Nous allons donc ajouter le repository "DAG" à la
+        liste des repository de Yum.</para>
+
+        <para>Créez un fichier /etc/yum.repos.d/DAG.repo et remplissez-le ainsi
+        :</para>
+
+        <screen># DAG Repository for RedHat Enterprise 4 / CentOS 4
+[dag]
+name=DAG Repository
+baseurl = http://apt.sw.be/redhat/el$releasever/en/$basearch/dag
+gpgkey=http://dag.wieers.com/packages/RPM-GPG-KEY.dag.txt
+gpgcheck=1
+enabled=0</screen>
+
+        <para>L'option enabled=0 désactive ce repository si il n'est pas
+        activé explicitement depuis la ligne de commande yum. Ceci vous
+        évitera d'écraser par erreur des paquets officiels présents sur votre
+        système par ceux de DAG.</para>
+
+        <para>On peut maintenant procéder à l'installation de toutes les
+        dépendances python requises :</para>
+
+        <screen>yum install python-ldap python-twisted python-psycopg python-libacl postgresql-python --enablerepo=dag</screen>
+      </section>
+
+      <section>
+        <title>Dépendances de compilation C</title>
+
+        <para>Le lmc-agent inclut un petit binaire en C pour la gestion des
+        backups. Nous allons avoir besoin d'un compilateur C et des headers de
+        la glib2 :</para>
+
+        <screen>yum install gcc glib2-devel</screen>
+      </section>
+    </section>
+
+    <section>
+      <title>Installation du lmc-agent</title>
+
+      <para>Votre système est maintenant prêt pour l'installation de l'agent
+      LMC.</para>
+
+      <screen>tar xvzf lmc-agent-1.0.0.tar.gz
+cd lmc-agent-1.0.0
+make install</screen>
+
+      <para>Vous pouvez maintenant effectuer un premier test : la commande
+      "lmc-agent" devrait retourner :</para>
+
+      <screen>  File "/usr/lib/python2.3/site-packages/ldap/ldapobject.py", line 94, in _ldap_call
+    result = func(*args,**kwargs)
+SERVER_DOWN: {'desc': "Can't contact LDAP server"}
+LMC agent can't run without the base plugin. Exiting.</screen>
+
+      <para>Cette erreur est absolument normale car l'agent tente de contacter
+      un serveur LDAP, or nous n'avons pas encore procédé à son installation.
+      Si vous obtenez un message similaire, c'est que tout c'est bien passé
+      pour l'instant et que le lmc-agent est fonctionnel.</para>
+    </section>
+
+    <section>
+      <title>Installation du serveur OpenLDAP</title>
+
+      <para>Note : Cette section peut être facultative si vous possédez déjà
+      un serveur LDAP correctement configuré ou si vous souhaitez utiliser une
+      autre machine comme serveur LDAP.</para>
+
+      <para>OpenLDAP est présent dans les paquets de base de CentOS 4.3
+      :</para>
+
+      <screen>yum install openldap-servers openldap-clients nss_ldap</screen>
+
+      <section>
+        <title>Configuration de slapd.conf</title>
+
+        <para>Il faut maintenant renseigner correctement le fichier slapd.conf
+        avec le dc qui sera utilisé et le compte de l'administrateur de ce
+        serveur LDAP.</para>
+
+        <para>Editez le fichier /etc/openldap/slapd.conf et renseignez les
+        lignes suivantes (elles sont deja présentes mais commentées dans le
+        fichier) :</para>
+
+        <screen>suffix          "dc=linbox,dc=com"
+rootdn          "cn=admin,dc=linbox,dc=com"
+rootpw          {SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
+
+        <para>Vous pouvez obtenir un hash SSHA du mot de passe en utilisant la
+        commande slappasswd :</para>
+
+        <screen>[root@centos-01 lmc-agent-1.0.0]# slappasswd -s LiNBoX
+{SSHA}gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
+
+        <para>Il ne reste plus qu'à copier le schéma LDAP de la LMC :</para>
+
+        <screen>cp contrib/ldap/lmc.schema /etc/openldap/schema/</screen>
+
+        <para>Puis à l'activer dans slapd.conf en ajoutant la ligne :</para>
+
+        <screen>include         /etc/openldap/schema/lmc.schema</screen>
+
+        <para>Redémarrage du serveur OpenLDAP :</para>
+
+        <screen>/etc/init.d/ldap restart</screen>
+      </section>
+
+      <section>
+        <title>Remplissage initial de l'annuaire LDAP</title>
+
+        <para>On ajoute le dc et l'administrateur LDAP dans l'annuaire. Créez
+        un fichier /tmp/lmc-initial.ldif et remplissez-le ainsi :</para>
+
+        <screen>dn: dc=linbox,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: linbox
+o: linbox
+
+dn: cn=admin,dc=linbox,dc=com
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP Administrator
+userPassword: gqNR92aL44vUg8aoQ9wcZYzvUxMqU6/8</screen>
+
+        <para>Notez que le champ userPassword doit être rempli avec ce que la
+        commande slappasswd vous a retourné précédemment mais sans le suffixe
+        "{SSHA}".</para>
+
+        <para>On peut maintenant injecter ce fichier ldif dans notre annuaire
+        LDAP :</para>
+
+        <screen>slapadd -l /tmp/lmc-initial.ldif</screen>
+
+        <para>On peut maintenant vérifier que l'utilisateur admin fonctionne
+        bien :</para>
+
+        <screen>[root@centos-01 lmc-agent-1.0.0]# ldapwhoami -x -W -D "cn=admin,dc=linbox,dc=com"
+Enter LDAP Password: 
+dn:cn=admin,dc=linbox,dc=com</screen>
+
+        <para>Si ldapwhoami renvoit "ldap_bind: Invalid credentials (49)"
+        c'est que l'utilisateur n'est pas présent ou qu'il n'a pas été créé
+        correctement. Ce n'est pas la peine d'aller plus loin... Recommencez
+        cette étape en vérifiant bien que vous n'avez pas fait une erreur de
+        frappe par exemple.</para>
+      </section>
+    </section>
+
+    <section>
+      <title>Fin de l'installation</title>
+
+      <para>On peut maintenant redémarrer le serveur LDAP</para>
+      <screen>[root@centos-01 lmc-agent-1.0.0]# /etc/init.d/ldap restart
+Arrêt de slapd :                                           [  OK  ]
+Démarrage de slapd :                                       [  OK  ]</screen>
+      <para>Note: Il
+      semblerait que CentOS ne place pas les bons droits pour la hiérarchie
+      /var/lib/ldap. Si vous obtenez
+      :</para>
+      <screen>[root@centos-01 lmc-agent-1.0.0]# /etc/init.d/ldap restart
+Arrêt de slapd :                                           [  OK  ]
+/var/lib/ldap/cn.bdb is not owned by "ldap"                [AVERTISSEMENT]
+/var/lib/ldap/objectClass.bdb is not owned by "ldap"       [AVERTISSEMENT]
+Vérification des fichiers de configuration pour slapd :config file testing succeeded
+Démarrage de slapd :                                       [  OK  ]</screen>
+
+      <para>Procédez ainsi
+      :</para>
+
+      <screen>chown -R ldap /var/lib/ldap/; /etc/init.d/ldap restart</screen>
+
+      <para>L'agent LMC peut maintenant lui aussi être démarré. Pour ce premier lancement, nous n'utiliserons pas le script d'init automatique. Cela 
+permettra de vérifier son bon fonctionnement, ses sorties et erreur étant 
+visibles :</para>
+
+      <screen>killall lmc-agent; lmc-agent</screen>
+
+      <para>Lorsque tout fonctionnera bien, vous DEVREZ utiliser le script
+      pour lancer ou arrêter l'agent LMC.</para>
+
+      <para>Pour enregistrer le script d'init.d dans les runlevels, utilisez
+      la commande suivante :</para>
+
+      <screen>chkconfig --add lmc-agent</screen>
+
+      <para>Il pourrait aussi être intéressant de démarrer OpenLDAP dans les
+      runlevels 3-4-5.</para>
+
+      <para>Editez /etc/init.d/ldap et modifier la ligne chkconfig de cette
+      façon :</para>
+
+      <screen># chkconfig: 345 29 61</screen>
+
+      <para>On peut alors recréer les liens dans les rc :</para>
+
+      <screen>chkconfig --del ldap; chkconfig --add ldap</screen>
+    </section>
+   
+    <section>
+
+      <title>Configuration de NSS</title>
+
+      <para>
+	Le système d'exploitation doit utiliser l'annuaire LDAP pour récupérer les utilisateurs et les groupes.
+	Pour cela, les fichiers <filename>/etc/nsswitch.conf</filename> et <filename>/etc/ldap.conf</filename> doivent être configurés.
+      </para>
+      <para>
+	Voilà à quoi doit ressembler le fichier <filename>/etc/nsswitch.conf</filename>:
+      </para>
+      <screen>
+passwd:     files ldap
+shadow:     files ldap
+group:      files ldap
+
+hosts:      files dns
+
+bootparams: files
+ethers:     files
+netmasks:   files
+networks:   files
+protocols:  files
+rpc:        files
+services:   files
+netgroup:   files
+publickey:  files
+automount:  files
+aliases:    files
+      </screen>
+      <para>
+	Et le fichier <filename>/etc/ldap.conf</filename>:
+      </para>
+      <screen>
+host 127.0.0.1
+base dc=linbox,dc=com
+      </screen>
+
+    </section>
+
+  </section>
+
+  <section>
+    <title>Installation de l'interface LMC</title>
+
+    <para>Nous allons maintenant procéder à l'installation de l'interface Web
+    utilisateurs. Cette étape est facultative si vous possédez déjà une
+    interface LMC installée sur un de vos serveurs Web.</para>
+
+    <section>
+      <title>Apache2 &amp; PHP4</title>
+
+      <para>La mise en place de l'interface Web ne nécessite pas grand chose.
+      Elle demande simplement un serveur Web avec PHP4 ou supérieur.</para>
+
+      <screen>yum install httpd php php-xmlrpc</screen>
+    </section>
+
+    <section>
+      <title>Installation de l'interface</title>
+
+      <para>On peut maintenant procéder à l'installation de l'interface.
+      Récupérez l'archive lmc-base, décompressez-la puis lancez l'installation
+      :</para>
+
+      <screen>tar xvzpf lmc-web-base-1.0.0.tar.gz
+cd lmc-web-base-1.0.0
+make install HTTPDUSER=apache</screen>
+
+      <para>On va ajouter un alias /lmc/ sur le serveur Web :</para>
+
+      <screen>cp debian/apache.conf /etc/httpd/conf.d/lmc.conf</screen>
+
+      <para>Editez /etc/httpd/conf.d/lmc.conf pour l'ajuster à nos chemins. Si
+      vous n'avez pas modifier le prefix, voila comment le fichier doit être
+      modifié :</para>
+
+      <screen>Alias /lmc /usr/local/share/lmc/</screen>
+
+      <para>Il ne reste plus qu'a relancer le serveur web :</para>
+
+      <screen>/etc/init.d/httpd restart</screen>
+
+      <para>L'interface LMC est maintenant fonctionnelle et vous pouvez
+      l'essayer dès maintenant en vous connectant sur
+      http://ip_du_serveur/lmc.</para>
+
+      <para>Le login est toujours "root". Pour le mot de passe il s'agit de
+      celui de l'administrateur du serveur LDAP (généré par la commande
+      slappasswd). Dans notre exemple nous allons donc nous logguer avec le
+      couple "root" et "LiNBoX".</para>
+
+      <para>Une fois authentifié, vous vous apercevrez que l'onglet Samba
+      n'est pas disponible. En effet étant donné que Samba n'est pas présent
+      et/ou pas configuré, l'agent LMC a automatiquement désactivé le module
+      Samba.</para>
+
+      <para>Il ne reste plus qu'à activer le démarrage d'Apache lors du boot
+      de la machine. Editez /etc/init.d/httpd et modifiez la ligne de
+      chkconfig de cette façon :</para>
+
+      <screen># chkconfig: 345 85 15</screen>
+
+      <para>On recrée les liens dans les rc :</para>
+
+      <screen>chkconfig --del httpd; chkconfig --add httpd</screen>
+    </section>
+
+    <section>
+      <title>Installation &amp; configuration du module Samba</title>
+
+      <para>L'agent LMC contient déjà le module Samba. Cependant étant donné
+      que Samba n'était pas présent lors de son lancement, le plugin a été
+      désactivé. Nous reviendrons plus tard sur ce point.</para>
+
+      <para>La première chose qui va être abordée dans cette section est
+      l'installation du module Samba pour l'interface Web lmc.</para>
+
+      <section>
+        <title>Module Samba pour l'interface lmc</title>
+
+        <para>L'installation du module lmc-samba est en tout point identique à
+        celle de lmc-base :</para>
+
+        <screen>tar xvzpf lmc-web-samba-1.0.0.tar.gz
+cd lmc-web-samba-1.0.0
+make install</screen>
+
+        <para>Il faut maintenant modifier le fichier de configuration du
+        plugin pour l'adapter à l'arborescence CentOS.</para>
+
+        <para>Editez le fichier /etc/lmc/plugins/samba.ini et modifiez les
+        lignes de la façon suivante :</para>
+
+        <screen>sambaInitScript = /etc/init.d/smb
+#sambaClamavSo = /usr/lib/samba/vfs/vscan-clamav.so</screen>
+
+        <para>C'est tout pour l'installation du module. Nous allons maintenant
+        procéder successivement à l'installation de Samba, puis à la
+        configuration du serveur LDAP pour que le module puisse fonctionner
+        correctement.</para>
+      </section>
+
+      <section>
+        <title>Installation et configuration de Samba</title>
+
+        <para>Samba 3.0.10 est présent dans CentOS. On peut donc l'installer
+        via yum :</para>
+
+        <screen>yum install samba</screen>
+
+        <para>On peut ensuite installer une configuration générique pour
+        samba+ldap. Un exemple est fourni dans les sources du lmc-agent.
+        Retournez dans les répertoires ou vous avez décompressé
+        lmc-agent-1.0.0.tar.gz puis faites :</para>
+
+        <screen>cp contrib/samba/smb.conf /etc/samba/smb.conf</screen>
+
+        <para>Editez ce fichier et commentez la ligne "enable privileges =
+        yes". En effet la version de Samba présente dans CentOS 4.3 est trop
+        ancienne pour cette fonctionnalité.</para>
+
+        <para>Vous pouvez maintenant éventuellement modifier les champs
+        "workgroup", "ldap admin dn" et "ldap suffix" pour les adapter à votre
+        configuration.</para>
+
+        <para>Pour la suite de cette documentation nous utiliserons les
+        valeurs fournies dans l'exemple.</para>
+
+        <para>Samba doit connaître les mot de passe de l'administrateur du
+        LDAP. On l'ajoute à la base de passwords de Samba via smbpasswd
+        :</para>
+
+        <screen>[root@centos-01 lmc-agent-1.0.0]# smbpasswd -w LiNBoX
+Setting stored password for "cn=admin,dc=linbox,dc=com" in secrets.tdb</screen>
+      </section>
+
+      <section>
+        <title>Configuration du serveur LDAP pour Samba</title>
+
+        <para>La première chose à faire est d'ajouter le schéma SAMBA dans le
+        slapd.conf. Celui-ci est fourni dans les sources du lmc-agent :</para>
+
+        <screen>cp contrib/ldap/samba.schema /etc/openldap/schema/</screen>
+
+        <para>Il faut ensuite éditer /etc/openldap/slapd.conf et y ajouter la
+        ligne suivante :</para>
+
+        <screen>include         /etc/openldap/schema/samba.schema</screen>
+
+        <para>Il ne reste plus qu'à redémarrer le serveur LDAP :</para>
+
+        <screen>/etc/init.d/ldap restart</screen>
+
+        <para>On peut maintenant créer un SID pour notre workgroup :</para>
+
+        <screen>[root@centos-01 lmc-agent-1.0.0]# net getlocalsid LINBOX
+SID for domain LINBOX is: S-1-5-21-128599351-419866736-2079179792</screen>
+
+        <para>Vous pouvez maintenant vérifier avec slapcat qu'une entrée "dn:
+        sambaDomainName=LINBOX,dc=linbox,dc=com" est bien présente.</para>
+
+        <para>Il ne reste plus qu'à relancer les démons Samba :</para>
+
+        <screen>/etc/init.d/smb restart</screen>
+      </section>
+
+      <section>
+        <title>Support des ACLs</title>
+
+        <para>Pour que le module samba fonctionne correctement, les ACLs
+        doivent être supportées sur la partition /home.</para>
+
+        <para>Si le système de fichier est XFS, il n'y à rien à faire puisque
+        le support des ACLs est présent d'origine. Par contre en ext3, il faut
+        monter la partition avec une option "acl". Dans notre exemple, nous
+        utilisons /dev/hda6 comme partition home.</para>
+
+        <para>Editez /etc/fstab. La ligne suivante :</para>
+
+        <screen>/dev/hda6 /home ext3 defaults 1 2</screen>
+
+        <para>Devient :</para>
+
+        <screen>/dev/hda6 /home ext3 defaults,acl 1 2</screen>
+
+        <para>Il faut maintenant remonter la partition pour que le changement
+        soit pris en compte :</para>
+
+        <screen>mount -o remount /dev/hda6</screen>
+      </section>
+
+      <section>
+        <title>Remplissage de l'annuaire LDAP via les smbldap-tools
+        d'IDEALX</title>
+
+        <para>Maintenant que notre domaine Samba est présent dans le LDAP,
+        nous allons y ajouter l'ensemble des OU (Organization Unit) utilisées
+        dans un domaine. Cette opération va être effectuée par des outils
+        appelés smbldap-tools.</para>
+
+        <para>Vous trouverez un RPM chez IDEALX à l'adresse suivante :</para>
+
+        <screen>http://www.idealx.com/downloads/smbldap-tools-0.9.2-1.noarch.rpm</screen>
+
+        <para>Installez les dépendances requises puis le rpm :</para>
+
+        <screen>yum install perl-Digest-SHA1 perl-LDAP perl-Crypt-SmbHash perl-Unicode-MapUTF8 perl-IO-Socket-SSL --enablerepo=dag
+rpm -i smbldap-tools-0.9.2-1.noarch.rpm</screen>
+
+        <para>Il faut maintenant configurer ces outils pour notre arborescence
+        LDAP. Commencez par éditer
+        "/etc/opt/IDEALX/smbldap-tools/smbldap_bind.conf" et remplissez-le
+        ainsi :</para>
+
+        <screen>slaveDN="cn=admin,dc=linbox,dc=com"
+slavePw="LiNBoX"
+masterDN="cn=admin,dc=linbox,dc=com"
+masterPw="LiNBoX"</screen>
+
+        <para>Editez ensuite "/etc/opt/IDEALX/smbldap-tools/smbldap.conf" et
+        modifiez les champs suivants :</para>
+
+        <screen>SID="S-1-5-21-128599351-419866736-2079179792"
+sambaDomain="LINBOX"
+ldapTLS="0"
+suffix="dc=linbox,dc=com
+sambaUnixIdPooldn="sambaDomainName=LINBOX,${suffix}"
+#defaultMaxPasswordAge="45"
+userSmbHome=""
+userProfile=""
+userHomeDrive=""</screen>
+
+        <para>La configuration est maintenant terminée. On peut lancer le
+        remplissage de l'annuaire en tapant :</para>
+
+        <screen>/opt/IDEALX/sbin/smbldap-populate -a administrateur</screen>
+
+        <para>Un utilisateur "administrateur" est créé. Vous devrez saisir son
+        mot de passe.</para>
+      </section>
+
+      <section>
+        <title>Faire en sorte que les mots de passe utilisateurs n'expirent
+        jamais.</title>
+
+        <para>Même si à la création d'un compte, on fait en sorte que le mot
+        de passe n'expire jamais (X dans les smbAcctFlags et pas d'entrée
+        smbPwdMustChange), le problème est que si on change le mot de passe
+        d'un utilisateur avec smbpasswd, SAMBA va mettre à jour ces attributs
+        selon ses «accounts policies». Par défaut, dans SAMBA (comme sous un
+        PDC NT4), les utilisateurs doivent changer leurs mots de passe tous
+        les 42 jours.</para>
+
+        <para>On peut vérifier le temps d'expiration des mots de passe de
+        cette façon:</para>
+
+        <screen>[root@centos-01 ~]# pdbedit -P "maximum password age"
+Searching for:[(&amp;(objectClass=sambaDomain)(sambaDomainName=LINBOX))]
+smbldap_open_connection: connection opened
+ldap_connect_system: succesful connection to the LDAP server
+Searching for:[(&amp;(objectClass=sambaDomain)(sambaDomainName=LINBOX))]
+smbldap_open_connection: connection opened
+ldap_connect_system: succesful connection to the LDAP server
+account policy value for maximum password age is 4294967295</screen>
+
+        <para>On va forcer la valeur à 0 (n'expire jamais) :</para>
+
+        <screen>pdbedit -P "maximum password age" -C 0</screen>
+      </section>
+
+      <section>
+        <title>Fin de l'installation</title>
+
+        <para>Les utilisateurs créés par l'interface Web lmc devraient être
+        automatiquement ajoutés à l'OU "Domain users". On peut activer cette
+        fonctionnalité en éditant "/etc/lmc/plugins/base.ini" puis en
+        décommentant la ligne :</para>
+
+        <screen>defaultUserGroup = Domain users</screen>
+
+        <para>Il ne reste plus qu'à redémarrer l'agent LMC et à se relogguer
+        sur l'interface Web d'administration. Un nouveau module devrait être
+        présent.</para>
+
+        <screen>killall lmc-agent; lmc-agent</screen>
+
+        <para>Notez que si tout s'est bien passé vous devriez voir le message
+        suivant lors du lancement de l'agent :</para>
+
+        <screen>Plugin samba loaded, API version: 1 build(451)</screen>
+
+        <para>Il ne reste plus qu'à activer le démarrage de Samba lors du boot
+        de la machine. Editez /etc/init.d/smb et modifiez la ligne de
+        chkconfig de cette façon :</para>
+
+        <screen># chkconfig: 345 91 35</screen>
+
+        <para>On recrée les liens dans les rc :</para>
+
+        <screen>chkconfig --del smb; chkconfig --add smb</screen>
+      </section>
+    </section>
+  </section>
+</article>

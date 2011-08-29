@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>050_edit_zone</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">050_edit_zone</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>//li[@id='navbarnetwork']/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='container']/form/table/tbody/tr/td[4]/ul/li[3]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>ns2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=DNS zones</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='container']/form/table/tbody/tr/td[4]/ul/li[2]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameserver</td>
+	<td>ns2.example.net</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameservers[0]</td>
+	<td>ns.example.net</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bnameservers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameservers[1]</td>
+	<td>ns2.example.net</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mxservers[0]</td>
+	<td>10 smtp.example.net</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bedit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>smtp.example.net is not a A record of this zone.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=DNS zones</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='container']/form/table/tbody/tr/td[4]/ul/li[3]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostname</td>
+	<td>smtp</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>badd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=DNS zones</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='container']/form/table/tbody/tr/td[4]/ul/li[2]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameserver</td>
+	<td>ns2.example.net</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameservers[0]</td>
+	<td>ns.example.net</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bnameservers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nameservers[1]</td>
+	<td>ns2.example.net</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mxservers[0]</td>
+	<td>10 smtp.example.net</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bedit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>DNS zone successfully modified.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='container']/form/table/tbody/tr/td[4]/ul/li[2]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>nameserver</td>
+	<td>ns2.example.net</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>nameservers[0]</td>
+	<td>ns.example.net</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>mxservers[0]</td>
+	<td>10 smtp.example.net</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+

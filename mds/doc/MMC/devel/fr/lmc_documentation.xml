@@ -1,0 +1,3094 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="specification" lang="fr">
+  <title>Documentation Linbox Management Console</title>
+
+  <articleinfo>
+    <author>
+      <firstname>Jérôme</firstname>
+
+      <surname>WAX</surname>
+
+      <email>jerome.wax@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+
+      <address>152 rue de Grigy - Metz F-57230</address>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Linbox F&amp;AS</year>
+    </copyright>
+
+    <legalnotice>
+      <para></para>
+    </legalnotice>
+
+    <revhistory>
+      <revision>
+        <revnumber>1.2</revnumber>
+
+        <date>juillet 2005</date>
+      </revision>
+
+      <revision revisionflag="off">
+        <revnumber>1.3</revnumber>
+
+        <date>11 aout 2005</date>
+      </revision>
+
+      <revision>
+        <revnumber>1.4</revnumber>
+
+        <date>12 aout 2005</date>
+      </revision>
+
+      <revision>
+        <revnumber>1.5</revnumber>
+
+        <date>14 juin 2006</date>
+      </revision>
+
+      <revision>
+        <revnumber>1.6</revnumber>
+
+        <date>01 septembre 2006</date>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>Documentation Linbox Management Console.</para>
+
+      <para>LMC est un logiciel visant à plus simplement configurer un serveur
+      ou un ensemble de serveur sous GNU/Linux. Il est principalement séparé
+      en deux parties distinctes. Une partie dite cliente, lmc-web-base qui
+      gère les graphismes et l'accès au(x) serveur(s), écrite en PHP. Une
+      partie serveur qui effectue les commandes XMLRPC, écrite en
+      Python.</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+    <title>lmc-web-base</title>
+
+    <para>Ici nous allons regrouper toute la documentation sur la partie
+    cliente de la LMC.</para>
+
+    <section>
+      <title>Premier pas dans l'interface</title>
+
+      <section>
+        <title>Organisation générale</title>
+
+        <figure>
+          <title>organisation générale</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/lmagentcorg.png" format="PNG"
+                         scalefit="1" width="100%" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para></para>
+
+        <variablelist>
+          <varlistentry>
+            <term>includes</term>
+
+            <listitem>
+              <para>Regroupe les fichiers d'inclusion commun. PageGenerator,
+              FormGenerator, gestion de session, fonction de base en XMLRPC...
+              etc</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>img</term>
+
+            <listitem>
+              <para>Répertoires d'images communes.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>graph</term>
+
+            <listitem>
+              <para>Toutes les fonctions relatives au design, ainsi que tout
+              les éléments de design factorisable. header, footer ainsi que
+              les feuilles de style.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>modules</term>
+
+            <listitem>
+              <para>Répertoire où sont stockés la totalité des modules. (nous
+              verrons leurs organisations dans la partie "Création d'un
+              nouveau module").</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <warning>
+          <para>lmc-web-base est la base de l'interface web. Même si lmc-base
+          est requis pour tout autre modules, il n'en reste pas moins un
+          module lui même, il est donc normal d'avoir un modules "base" après
+          l'installation dans le répertoire
+          <filename>"modules/</filename>".</para>
+        </warning>
+      </section>
+
+      <section>
+        <title>Fenêtre de login</title>
+
+        <figure>
+          <title>Fenêtre de login</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/loginscreen.png" format="PNG"
+                         scalefit="1" width="100%" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Cette fenêtre offre la possibilité de se connecter à plusieurs
+        serveurs, de manière crypté ou non en fonction du fichier de
+        configuration spécifié dans
+        <filename>"/etc/lmc/lmc.ini"</filename>.</para>
+
+        <para>L'authentification se fait en fonction des utilisateurs LDAP
+        spécifiée dans l'agent (lmc-agent) spécifié dans le fichier de
+        configuration de la machine. Si l'utilisateur spécifie
+        <varname>"root"</varname> comme identifiant, alors il se loggue comme
+        administrateur (le compte administrateur LDAP est spécifié dans la
+        configuration du LMC-Agent).</para>
+
+        <para>Une fois correctement authentifié, l'application enregistre le
+        serveur choisit, effectue une requête XMLRPC pour récupérer les ACL de
+        l'utilisateur et le stocke dans la session PHP de l'utilisateur.
+        L'utilisateur est ensuite redirigé vers la page
+        <filename>"main.php"</filename>.</para>
+      </section>
+
+      <section>
+        <title>Le fichier "main.php"</title>
+
+        <para>Ce fichier centralise tout les accès possible à l'interface. Ce
+        fichier pourrait inclure les fichiers de cette manière:</para>
+
+        <para><filename>"main.php?includefile=modules/bases/edit.php"</filename></para>
+
+        <para>En effet ce fichier utilise la directive include en fonction des
+        paramètres qui lui sont fournis.</para>
+
+        <simplesect>
+          <title>Comment se comporte main.php ?</title>
+
+          <para><filename>"main.php"</filename> inclus les fichiers en
+          fonction des paramètres qui lui sont fournit. En général, une url
+          LMC se présente sous cette forme :</para>
+
+          <para><filename>"http://rayburst/lmc/main.php?module=base&amp;submod=users&amp;action=index"</filename></para>
+
+          <para>Afin d'organiser l'application, 3 paramètres lui sont
+          fournit:</para>
+
+          <variablelist>
+            <varlistentry>
+              <term>module</term>
+
+              <listitem>
+                <para>Définit le module en cours d'utilisation. Il représente
+                aussi le chemin physique du script, qui est alors dans le
+                répertoire
+                <filename>"modules/{MODULE_NAME}"</filename>.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>submod</term>
+
+              <listitem>
+                <para>Ce paramètre a été gardé dans un but de compatibilité
+                avec le module "base" qui gère groupes et utilisateurs. Ce
+                paramètre peut toutefois être utilisé pour un module
+                complexe.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>action</term>
+
+              <listitem>
+                <para>Définit un fichier précis.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+
+          <para>En général cette organisation engendre une arborescence du
+          type
+          <filename>"modules/{module}/{submod}/{action}.php"</filename>.</para>
+        </simplesect>
+
+        <simplesect>
+          <title>Comment inclus t'il le fichier ?</title>
+
+          <para>En fonction d'un tableau d'inclusion, de type:</para>
+
+          <programlisting>$redirArray["base"]["users"]["index"]=
+        "modules/base/users/index.php";</programlisting>
+
+          <para>Il associe une combinaison modules/submod/action à un
+          fichier.</para>
+        </simplesect>
+
+        <simplesect>
+          <title>Pourquoi ne pas inclure directement le fichier dans l'url
+          ?</title>
+
+          <para>Il est vrai que dans le code php, j'aurais pu faire:</para>
+
+          <programlisting>include('modules/'.$_GET["modules"].'/'
+        .$_GET["submod"].'/'.$_GET["action"].'.php');</programlisting>
+
+          <para>Ce qui aurait pu nous affranchir d'un tableau d'association,
+          mais 2 raisons m'ont poussé a faire cela.</para>
+
+          <orderedlist>
+            <listitem>
+              <para>Ce fichier est nécessaire pour créer un tableau d'ACL sur
+              les fichiers. Dans tout les cas un listing de fichier est
+              nécessaire.</para>
+            </listitem>
+
+            <listitem>
+              <para>Pour évitez des attaques douteuses du style:</para>
+
+              <para><programlisting><filename>"main.php?module=base&amp;submod=
+        users&amp;action=../../../includes/config.inc.inc"</filename></programlisting></para>
+
+              <para>Qui aurait pour conséquence d'inclure un fichier qui n'est
+              pas prévu dans l'utilisation normal de l'application.</para>
+
+              <para>Il est vrai que ce genre d'attaque n'est pas
+              potentiellement grave, (à moins d'avoir un fichier
+              <filename>"drop_entire_database_without_prompt.inc.php"</filename>)
+              mais il doit être pris toutefois en considération.</para>
+            </listitem>
+          </orderedlist>
+        </simplesect>
+      </section>
+    </section>
+
+    <section>
+      <title>Création d'un nouveau module</title>
+
+      <section>
+        <title>Squelette d'un module</title>
+
+        <para>Voici un squelette d'un module par défaut.</para>
+
+        <para><inlinemediaobject>
+            <imageobject>
+              <imagedata fileref="images/lmcmoduleorg.png" format="PNG"
+                         scalefit="1" width="100%" />
+            </imageobject>
+          </inlinemediaobject></para>
+
+        <variablelist>
+          <varlistentry>
+            <term>submod1</term>
+
+            <listitem>
+              <para>Répertoires pour les actions du sous module
+              "submod1"</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>includes</term>
+
+            <listitem>
+              <para>Fichier d'inclusion. Primitives d'accès XMLRPC pour le
+              module</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>img</term>
+
+            <listitem>
+              <para>images propres au module</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>graph</term>
+
+            <listitem>
+              <para>styles CSS propres au module</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>infoPackage.inc.php</term>
+
+            <listitem>
+              <para>fichier INDISPENSABLE qui définit le module (page, ACL,
+              etc...)</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <caution>
+          <para>Seul le fichier <filename>"infoPackage.inc.php"</filename> est
+          réellement nécessaire. En effet, un module ne rajoute pas
+          obligatoirement un menu "navbar" ou effectue des actions sur des
+          pages propres au module. On prendra l'exemple du module OX qui ne
+          fait que modifier les pages d'éditions de l'utilisateur.</para>
+        </caution>
+      </section>
+
+      <section>
+        <title>Le fichier "infoPackage.inc.php"</title>
+
+        <para>Chaque module doit contenir un fichier
+        <filename>"infoPackage.inc.php"</filename> à la racine de son dossier.
+        Il sert a l'affichage des différentes pages du modules mais aussi à la
+        définition des ACL de ce module, tant sur les pages que sur les champs
+        de formulaire.</para>
+
+        <para>Le fichier se présente sous la forme suivante :</para>
+
+        <programlisting>&lt;?
+
+        /**
+         * module declaration
+         */
+        $mod = new Module("proxy");
+        $mod-&gt;setVersion("1.0.0");
+        $mod-&gt;setRevision("$Rev: 63 $");
+        $mod-&gt;setDescription(_T("Web proxy"),"proxy");
+        $mod-&gt;setAPIVersion('1:0:0');
+
+        /**
+         * user submod definition
+         */
+
+        $submod = new SubModule("blacklist");
+        $submod-&gt;setDescription(_T("Proxy","proxy"));
+        $submod-&gt;setImg('img/navbar/proxy');
+        $submod-&gt;setDefaultPage("proxy/blacklist/statut");
+        $submod-&gt;setPriority(300);
+
+
+        $page = new Page("index",_T("Blacklist","proxy"));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("delete",_T("Remove a domain in the blacklist","proxy"));
+        $page-&gt;setOptions( array ("noHeader" =&gt; True,"visible"=&gt;False));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("add",_T("Add a domain in the blacklist","proxy"));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("restart",_T("Restart proxy web service","proxy"));
+        $page-&gt;setOptions(array("visible"=&gt;False));
+        $submod-&gt;addPage($page);
+
+        $page = new Page("statut",_T("Proxy status page","proxy"));
+        $submod-&gt;addPage($page);
+
+        $mod-&gt;addSubmod($submod);
+
+        $LMCApp =&amp;LMCApp::getInstance();
+        $LMCApp-&gt;addModule(&amp;$mod);
+?&gt;</programlisting>
+
+        <para>Le fichier "main.php" charge automatiquement les fichiers
+        contenus dans chaque package.</para>
+
+        <para>Le fichier "infoPackage.inc.php" définit depuis la version 1.0.0
+        de la lmc les inclusions à faire en fonction des paramètres donnés
+        mais aussi toutes les informations relatives aux modules.</para>
+
+        <para>Chaque modules est composé de sous modules et chaque sous
+        modules est composé de page.</para>
+
+        <para>Mettons nous en situation l'url
+        "http://192.168.0.247/lmc/main.php?module=proxy&amp;submod=blacklist&amp;action=statut"
+        appelle le sous module blacklist du module proxy avec comme action
+        "status".</para>
+
+        <para>Par défaut, sans précision, le fichier est
+        "modules/[module_name]/[submod_name]/[action_name].php", on peut
+        toutefois le préciser de cette manière</para>
+
+        <programlisting>      $page = new Page("index",_("Default status page"));
+      $page-&gt;setFile("modules/base/status/index.php");
+      $page-&gt;setOptions(array("visible"=&gt;False,"AJAX" =&gt;True))
+
+      $submod-&gt;addPage($page);</programlisting>
+
+        <para>Une page peut avoir des options comme:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>"visible": Afficher ou non sur la page principale (tout
+            actions d'édition/suppresion demandant un paramètre, elles ne sont
+            pas visible sur la page d'accueil. "True" par défaut.</para>
+          </listitem>
+
+          <listitem>
+            <para>"noHeader": N'affiche pas les headers/footer (pour l'ajax
+            entre autre). "False" par défaut.</para>
+          </listitem>
+
+          <listitem>
+            <para>"noACL": La page n'a pas d'acl. "False" par défaut.</para>
+          </listitem>
+
+          <listitem>
+            <para>"AJAX": equivaut à noHeader/noAcl à True. "False" par
+            défaut.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Ensuite on ajoute le module à un sous module.</para>
+
+        <para>Un sous module définit concretement la séparation de
+        fonctionnalités entre un module mais aussi les onglets en haut de la
+        barre de navigation. Par exemple le module base à 3 sous modules
+        "User", "Group" et "Status".</para>
+
+        <programlisting>        $submod = new SubModule("status");
+        $submod-&gt;setVisibility(True);
+        $submod-&gt;setDescription(_("Status"));
+        $submod-&gt;setImg('img/navbar/load');
+        $submod-&gt;setDefaultPage("base/status/index");
+        $submod-&gt;setPriority(10000);
+        
+        $mod-&gt;addSubmod($submod);</programlisting>
+
+        <para>On peut définir dans un sous module:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Sa visibilité. Si l'icone en haut de page est visible ou
+            non</para>
+          </listitem>
+
+          <listitem>
+            <para>Son icone (image). "img/navbar/load" implique d'aller
+            chercher "img/navbar/load.png" en apparence normale
+            "load_select.png" si selectionné et "load_hover.png" lorsque
+            l'utilisateur passe son curseur au dessus.</para>
+          </listitem>
+
+          <listitem>
+            <para>SetDefaultPage indique la page par defaut pour le sous
+            module lorsque l'on clique dessus.</para>
+          </listitem>
+
+          <listitem>
+            <para>Setpriority définit la priorité dans la barre de navigation,
+            1 (premier éléments) à 10 000 (derniers élements).</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Finallement on définit le module</para>
+
+        <programlisting>        /**
+         * module declaration
+         */
+        $mod = new Module("base");
+        $mod-&gt;setVersion("1.0.0");
+        $mod-&gt;setRevision("$Rev: 427 $");
+        $mod-&gt;setAPIVersion('1:0:0');
+        $mod-&gt;setDescription(_("User and group"));
+        $mod-&gt;setPriority(1);
+
+        $mod-&gt;addACL("isBaseDesactive",_("Enable/Disable user account"));</programlisting>
+
+        <para>Définition de numéro de version, revision etc..., le seul
+        élement à noté est la priorité qui là définit l'ordre de charge des
+        modules sur une page contenant plusieurs fonctions partagés (editions
+        d'utilisateurs).</para>
+
+        <programlisting>        $LMCApp =&amp; LMCApp::getInstance();
+        $LMCApp-&gt;addModule($mod);</programlisting>
+
+        <para>Le module est ensuite ajouter au singleton qui gère la totalité
+        de la LMC.</para>
+      </section>
+    </section>
+
+    <section>
+      <title>la class PageGenerator</title>
+
+      <section>
+        <title>Présentation</title>
+
+        <para>PageGenerator est un ensemble de classes crées dans le but de
+        simplifier et d'uniformiser la création de page pour lmc.</para>
+
+        <para>Toutes ces classes se trouvent dans le fichier
+        "PageGenerator.php" qui se trouve dans le répertoire include du
+        package "lmc-base". Nous allons donc voir brièvement l'ensemble de ces
+        classes.</para>
+
+        <figure>
+          <title>Schéma d'une page lmc</title>
+
+          <screenshot>
+            <mediaobject>
+              <imageobject>
+                <imagedata align="center" fileref="images/schema.png"
+                           format="PNG" scalefit="1" srccredit="wax jerome"
+                           width="100%" />
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </figure>
+      </section>
+
+      <section>
+        <title>class SideMenu<anchor id="anchor-sidemenu" /></title>
+
+        <para>L'objet SideMenu a pour objectif de simplifier l'affichage des
+        Menu de gauche. Cette classe est par conséquent utilisé dans le
+        fichier commun pour les menus latéraux.</para>
+
+        <para>L'exemple qui suit illustre son utilisation, il représente la
+        quasi totalité du contenu de <filename>localSideBar.php</filename>
+        dans le module proxy, sous module blacklist.</para>
+
+        <programlisting>$sidemenu= new SideMenu();
+
+$sidemenu-&gt;setClass("blacklist");
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("Statut du proxy","proxy","blacklist","statut"));
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("Gestion de la liste noire","proxy","blacklist",
+  "index"));
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("Ajout d'une entrée dans la liste noire","proxy",
+  "blacklist","add"));</programlisting>
+
+        <para>Cette portion de code créee un objet SideMenu qui pourra soit
+        être utilisé par la class PageGenerator, soit être directement affiché
+        en utilisant la méthode display(). Nous verrons un exemple d'affichage
+        <link linkend="anchor-chap2-directlink">à la fin de ce
+        chapitre</link>.</para>
+      </section>
+
+      <section>
+        <title>class ListInfos</title>
+
+        <section>
+          <title>Présentation</title>
+
+          <para>Cette classe fournit la création automatique de tableau avec
+          différente action associée</para>
+
+          <programlisting>/**
+ * Create list
+ */
+// $arrUser is the list of all Users
+$n = new ListInfos($arrUser);<co id="createlistinfo" />
+
+//add a list with all homeDir
+$n-&gt;addExtraInfo($homeDirArr);<co id="addextrainfo" />
+
+$n-&gt;addActionItem(new ActionItem(_("Edit"),"edit","afficher","base") );<co
+              id="addactionitem" />
+$n-&gt;addActionItem(new ActionItem(_("Edit ACL"),"editacl","editacl","base") );
+$n-&gt;addActionItem(new ActionPopupItem<co id="actionpopupitem" />(_("Delete"),"delete","supprimer","base") );
+$n-&gt;addActionItem(new ActionPopupItem(_("Backup","backup","archiver","base") );
+
+$n-&gt;setName("Gestion des utilisateurs");<co id="setlistinfoname" />
+$n-&gt;display();<co id="displaylistinfo" /></programlisting>
+
+          <para><calloutlist>
+              <callout arearefs="createlistinfo">
+                <para>Crée l'objet ListInfos avec comme paramètre la liste des
+                utilisateurs.</para>
+              </callout>
+
+              <callout arearefs="addextrainfo">
+                <para>Ajoute des informations supplémentaires sous forme de
+                liste (ici les répertoires utilisateurs). Il est possible
+                d'ajouter autant d'extrainfo que l'on souhaite.</para>
+              </callout>
+
+              <callout arearefs="addactionitem">
+                <para>Ajoute les actions. Le premier argument est vide car
+                trop d'icone seront afficher donc pour plus de commedité,
+                aucun texte ne lui est associé. Les images quand à elle sont
+                définit en CSS, le 3eme paramètres définit la class CSS
+                .</para>
+              </callout>
+
+              <callout arearefs="actionpopupitem">
+                <para>Affichage de l'action dans une popup</para>
+              </callout>
+
+              <callout arearefs="setlistinfoname">
+                <para>Définit l'en tête de l'objet List Info. Information
+                qu'il affiche avant l'affichage de la table
+                d'information.</para>
+              </callout>
+
+              <callout arearefs="displaylistinfo">
+                <para>Méthode qui affiche l'objet.</para>
+              </callout>
+            </calloutlist>Pour plus d'information, veuillez consulter la
+          documentation "doxygen".</para>
+
+          <para><programlisting>&lt;tr&gt;
+  &lt;td class="userName"&gt;wax&lt;/td&gt;
+  &lt;td&gt;Wax Jerome&lt;/td&gt;
+  &lt;td&gt;/home/wax&lt;/td&gt; 
+  &lt;td class="action"&gt;
+    &lt;ul class="action"&gt;
+      &lt;li class="afficher"&gt;
+        &lt;a href="main.php?module=base&amp;submod=users&amp;action=edit&amp;user=wax"&gt;&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="editacl"&gt;
+        &lt;a href="main.php?module=base&amp;submod=users&amp;action=editacl&amp;user=wax"&gt;&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="supprimer"&gt;
+        &lt;a href="main.php?module=base&amp;submod=users&amp;action=delete&amp;user=wax"&gt;&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="archiver"&gt;
+        &lt;a href="main.php?module=base&amp;submod=users&amp;action=backup&amp;user=wax"&gt;&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;</programlisting></para>
+
+          <para>Voici le résultat d'une entrée dans le navigateur.</para>
+        </section>
+
+        <section>
+          <title>Fonctions supplémentaires</title>
+
+          <programlisting>$n-&gt;setName(_("Users list"));</programlisting>
+
+          <para>Cette ligne permet de générer la ligne "Users list 1 on 10
+          with a total of 64 items (page 1 / 7) " au début</para>
+
+          <programlisting>$n-&gt;display(0)</programlisting>
+
+          <para>Cette appel spécifie que l'on ne veut pas d'affichage de
+          "précédent", "suivant"... Ce qui est utile pour une surcharge ajax
+          par exemple.</para>
+        </section>
+      </section>
+
+      <section>
+        <title>Exemple d'utilisation</title>
+
+        <para>Nous allons ici, afin de mieux comprendre, regarder et commenter
+        une page. Nous allons voir ensemble, la page d'index du module
+        "proxy".</para>
+
+        <programlisting>&lt;?php
+/* $Id: index.php 269 2005-05-10 10:08:38Z jwax $ */
+require("modules/proxy/includes/config.inc.php");<co id="co-proxyheader" />
+require("modules/proxy/includes/proxy.inc.php");
+
+
+$path = array(array("name" =&gt; "Accueil",<co id="co-proxypath" />
+                    "link" =&gt; "main.php"),
+              array("name" =&gt; "Gestion de la liste noire"));
+
+require("localSidebar.php");
+
+require("graph/navbar.inc.php");
+
+?&gt;
+
+&lt;h2&gt;Gestion de la liste noire&lt;/h2&gt;<co id="co-proxytitle" />
+
+&lt;div class="fixheight"&gt;&lt;/div&gt;
+
+&lt;?php 
+
+$arrB = get_nonIndexBlackList();
+
+$p = new PageGenerator();
+?&gt;
+
+
+/**
+ * Affichage du menu
+ */
+$p-&gt;setSideMenu($sidemenu)<anchor id="anchor-chap2-directlink" />; //$sidemenu inclus dans localSideBar.php <co
+            id="co-proxymenu" />
+$p-&gt;displaySideMenu();
+
+/**
+ * Création de la liste
+ */
+$n = new ListInfos($arrB);<co id="co-chap2example-listinfo" />
+$n-&gt;addActionItem(new ActionItem("Supprimer","delete","supprimer","param") );
+$n-&gt;setName("Element de la liste noire");
+$n-&gt;display();
+?&gt;
+
+</programlisting>
+
+        <para><calloutlist>
+            <callout arearefs="co-proxyheader">
+              <para>Inclusion des fichiers de config et des primitives propres
+              au modules.</para>
+            </callout>
+
+            <callout arearefs="co-proxypath">
+              <para>Création du chemin en tête "Accueil&gt;Gestion de la liste
+              noire" dans cet exemple. Chargement de la sideBar local et
+              inclusion des primitives pour l'affichage des navbar.</para>
+            </callout>
+
+            <callout arearefs="co-proxytitle">
+              <para>Ici nous créons l'en tête et nous recupérons un tableau
+              d'informations (non indexé par clef). Le tableau se présente
+              sous forme d'element de 0 à X.</para>
+            </callout>
+
+            <callout arearefs="co-proxymenu">
+              <para>Le code est très clair. On assigne le menu définit dans
+              <filename>localSideBar.php</filename> (inclusion plus haute dans
+              le texte) et on l'affiche. Pour savoir de quoi se compose le
+              fichier <filename>localSideBar.php</filename> referrez vous ou
+              point suivant ou à la <link linkend="anchor-sidemenu">class
+              SideMenu</link></para>
+            </callout>
+
+            <callout arearefs="co-chap2example-listinfo">
+              <para>On associe le tableau d'élement à un objet ListInfos. On
+              définit une action "delete", puis on affiche l'objet. Pour être
+              plus clair, le code générer pour une action est le
+              suivant:</para>
+
+              <programlisting>&lt;li class="supprimer"&gt;
+&lt;a href="main.php?module=proxy&amp;submod=blacklist
+&amp;action=delete&amp;param=monhostblackliste"&gt; Supprimer&lt;/a&gt;&lt;/li&gt;</programlisting>
+            </callout>
+          </calloutlist></para>
+      </section>
+
+      <section>
+        <title>localSidebar.php</title>
+
+        <para>Maintenant que nous avons vu la structure d'une page avec nos
+        objets. Intéressons nous à l'inclusion d'un fichier de type
+        "localSidebar.php" qui dans la plupart des cas est commun à tout un
+        module.</para>
+
+        <programlisting>&lt;style type="text/css"&gt;
+&lt;!--
+&lt;?php
+printSidebarCss($_GET["submod"],$_GET["action"]);
+?&gt;
+--&gt;
+&lt;/style&gt;</programlisting>
+
+        <para>Cette portion de code crée automatiquement les CSS propre à la
+        page (menu sélectionné d'une autre couleur etc...)</para>
+
+        <programlisting>$sidemenu= new SideMenu();
+
+$sidemenu-&gt;setClass("blacklist");
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("Statut du proxy","proxy","blacklist","statut"));
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("Gestion de la liste noire","proxy","blacklist",
+   "index"));
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("Ajout d'une entrée dans la liste noire","proxy",
+   "blacklist","add"));</programlisting>
+
+        <para>Cette objet sera ajouté au pageGenerator.</para>
+
+        <warning>
+          <para>Même si les menus sont crées, les entrées dans infoPackage.php
+          doivent être renseignés pour que l'inclusion des fichiers se
+          déroulent correctement.</para>
+        </warning>
+      </section>
+
+      <section>
+        <title>class SelectItem</title>
+
+        <para>La class SelectItem permet de faciliter la création de
+        formulaire en générant des menus de choix déroulant.</para>
+
+        <para>Voici un exemple d'utilisation.</para>
+
+        <programlisting>$checkbox = new SelectItem("timezone");
+  $OxTzArr=array("Europe/Paris","Europe/Berlin","Europe/Madrid");
+
+  $checkbox-&gt;setElements($OxTzArr);
+  $checkbox-&gt;setSelected("Europe/Paris");
+  $checkbox-&gt;display();</programlisting>
+      </section>
+
+      <section>
+        <title>class NotifyWidget</title>
+
+        <para>Cette classe permet de générer automatiquement une popup au
+        prochain update de page (ajax ou non). Il suffit d'instancier l'objet
+        puis d'ajouter une chaîne de caractère. Cela permet d'afficher des
+        statuts sans obliger de casser la navigation avec une page avec peu
+        d'information ou d'informer l'utilisateur sur une mise a jour
+        d'éléments qui n'ont pas de rapport direct avec l'action qu'il est en
+        train d'effectué.</para>
+
+        <programlisting>$n = new NotifyWidget();
+$n-&gt;add($str);</programlisting>
+
+        <para>Des fonctions "get" et "flush" permettent respectivement de
+        récupérer la totalité des chaînes ajouté dans un tableau ou de
+        supprimé tout les éléments de notifications.</para>
+      </section>
+
+      <section>
+        <title>liveSearch</title>
+
+        <para>La plupart des modules LMC propose un système de liveSearch
+        (auto filtre en cours de frappe). Pour aider le développement voici
+        une petite fonction qui génère une boite de saisie pour la recherche
+        automatique</para>
+
+        <programlisting>displayInputLiveSearch('modules/printers/printers/indexAjaxFilter.php');</programlisting>
+
+        <para>Si l'utilisateur n'a pas tapé pendant plus de 500ms, la fonction
+        chargera la page passé en paramètre avec un paramètre $_GET['filter']
+        qui est le contenu du champ de recherche. Le résultat sera placé dans
+        le "div" ayant comme identifiant "container". Il vous faut donc
+        déclarer une partie de code html de ce type.</para>
+
+        <programlisting>&lt;div id="container"&gt;
+   ici votre contenu
+&lt;/div&gt;</programlisting>
+      </section>
+    </section>
+
+    <section>
+      <title>Thèmes personnalisés</title>
+
+      <para>Vous pouvez personnaliser le thème de la LMC. Pour personnaliser
+      la LMC, vous pouvez modifier les fichiers "graph/header.inc.php",
+      "graph/footer.inc.php" pour modifier les en têtes et pieds de pages
+      ainsi que le fichier "graph/navbar.inc.php" pour modifier la barre de
+      navigation en haut de chaque pages.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Interaction entre modules</title>
+
+    <para>Il pourrait être intéressant qu'un module ne crée pas une
+    arborescence propre à lui mais modifie des pages déjà existantes.
+    L'exemple le plus simple est l'édition d'un utilisateur. Le module
+    lmc-web-ox ne crée pas de nouvel onglet, il modifie principalement
+    l'apparence de la page d'ajout/édition d'un utilisateur.</para>
+
+    <section>
+      <title>Les fonctions publiques.</title>
+
+      <para>Les fonctions publiques sont définit pour être utilisées par
+      d'autre modules (ou par eux même). Il serait idéal dans le développement
+      que toutes les primitives d'appels graphiques générant la totalité de la
+      page/ fonctions de vérification de données etc... Soit définit comme
+      fonction publique (nous verrons pourquoi plus loin).</para>
+
+      <programlisting>/**
+ * include publicFunc.php
+ * @param $dirA directory array returned by fetchModulesList
+ */
+function includePublicFunc($dirA) {
+   foreach ($dirA as $path) {
+      if (file_exists("$path/includes/publicFunc.php")) {
+           include("$path/includes/publicFunc.php");
+      } 
+   }
+}</programlisting>
+
+      <para>Pour définir une fonction "publique" il suffit:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>qu'elle soit définit ou inclus dans le fichier
+          "/{MODULE_NAME}/includes/publicFunc.php".</para>
+        </listitem>
+
+        <listitem>
+          <para>que son nom soit du type "_{MODULENAME}_FUNCTIONNAME"</para>
+        </listitem>
+      </orderedlist>
+
+      <para>Exemple:</para>
+
+      <programlisting>/**
+ * vérification method if we delete an user
+ */
+function _ox_delUser($uid) {
+  if  (hasOxAttr($uid)) { //if it is an oxbUser
+    rmOxAttr($uid);
+  }
+}</programlisting>
+    </section>
+
+    <section>
+      <title>Appel de fonction pour d'autre module.</title>
+
+      <para>Si vous souhaitez à un moment faire un appel a une fonction
+      publique il suffit d'écrire</para>
+
+      <programlisting>callPluginFunction("ma_fonction",array($monparam1,$monparam2));</programlisting>
+
+      <para>Cette ligne aura pour effet d'appeler toutes les fonctions
+      "_{MODULENAME}_ma_fonction" qui seront définis dans les fonctions
+      publiques de chaque modules.</para>
+
+      <note>
+        <para>Les paramètres doivent être fournis dans un tableau mais seront
+        traités comme des arguments normaux pour les fonctions
+        appelées.</para>
+      </note>
+    </section>
+  </section>
+
+  <section>
+    <title>Internationalisations</title>
+
+    <section>
+      <title>Prérequis</title>
+
+      <para>La lmc doit être installé sur un serveur apache2 supportant
+      gettext et avec une version de PHP qui supporte gettext elle aussi
+      (apparemment sans problème avec les packages Debian). Il faut toutefois
+      noter que les fichiers d'internationalisation ne sont pas pris en compte
+      avant le redémarrage d'apache2.</para>
+    </section>
+
+    <section>
+      <title>Faire du texte internationalisé</title>
+
+      <para>L'application a deux raccourcis possible pour faire du texte
+      internationalisé. La première est classique a gettext</para>
+
+      <programlisting>_("hello world");</programlisting>
+
+      <para>Permet de traduire le texte "hello world". Il se réference au
+      fichier "base.mo" qui se situe dans le répertoire
+      "modules/base/locale/[lang]/LC_MESSAGES/".</para>
+
+      <para>La deuxième syntaxe est propre a la LMC</para>
+
+      <programlisting>_T("hello world");
+_T("hello world","monModule")
+</programlisting>
+
+      <para>La première est un alias pour _T("hello world",$_GET["module"]);
+      ce qui permet d'alleger le code. En cas d'ambiguité comme pour
+      "infoPackage.inc.php" ou "localNavbar.php" qui sont appelé depuis le
+      module de base, il est important de lui spécifier le nom du
+      module.</para>
+
+      <para>Cette syntaxe aura pour effet de chercher la traduction dans
+      "[module name]/locale/[lang]/LC_MESSAGES/[module name].po".</para>
+    </section>
+
+    <section>
+      <title>Arborescence</title>
+
+      <para>Chaque fichiers placés dans l'arborescence [module
+      name]/locale/[lang]/LC_MESSAGES/[module name].po sera pris en compte
+      pour la traduction de l'application. Par exemple
+      "base/locale/fr_FR.utf8/LC_MESSAGES/base.po" est un fichier de
+      traduction valide. Il en est de même pour
+      "samba/locale/C/LC_MESSAGES/samba.po" Attention cependant, la "locale"
+      correspondante doit être installé sur le serveur. Il est grandement
+      recommandé de n'utiliser que des locales utf8.</para>
+    </section>
+
+    <section>
+      <title>Génération du .pot</title>
+
+      <para>Le fichier po "template" se génère à la racine d'un module LMC par
+      la commande "make build_pot". Cette commande a pour effet de générer le
+      fichier template a la racine du répertoire "locale/" mais aussi de
+      mettre à jour tout les fichiers ".po" des sous répertoires.</para>
+    </section>
+
+    <section>
+      <title>Edition du .po</title>
+
+      <para>Vous pouvez ensuite traduire le fichier .po avec votre éditeur
+      préféré (KBabel, PoEdit?, etc...). Si votre langue n'existe pas, il
+      suffit tout simplement de créer le répertoire correspondant et de copier
+      le fichier en prenant soin de renommer le ".pot" en ".po". Si elle
+      existe, le fichier est automatiquement mis à jour par la commande "make
+      build_pot" donc il suffit ensuite de l'éditer.</para>
+    </section>
+
+    <section>
+      <title>Création des .mo</title>
+
+      <para>Les fichiers de traduction nécessite une compilation. Pour cela
+      vous avez deux possibilités 1) Créer le paquet (la commande "make
+      build_mo" créer tout les .mo a partir des .po mais effacera les fichiers
+      source) 2) Le crée avec la commande msgfmt [module].po -o [module].mo
+      Toute modification d'un fichier .mo déjà chargé nécessite un redémarrage
+      du serveur apache2 avant qu'il soit pris en compte. La liste des langues
+      est pris en compte en fonction des langues disponibles pour le module
+      "lmc_base". Il faudra bien prendre en considération que toute langue
+      ajouté dans "lmc_base" doit l'être dans tout les autres modules, si ce
+      n'est pas le cas, la langue "C" sera choisit par défaut.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>L'API Python LMC</title>
+
+    <section>
+      <title>Introduction</title>
+
+      <para>Cette API est au coeur de la LMC et du LDS. Elle permet de
+      simplifier énormément les opérations de gestion LDAP, SAMBA, etc.</para>
+
+      <para>Cette API est modulaire. Un système de plugin permet de lui
+      rajouter des fonctionnalité très simplement.</para>
+
+      <para>Cette API est servie à des machines distantes grâce l'agent LMC,
+      ce qui permet d'interagir à distance avec une machine.</para>
+    </section>
+
+    <section>
+      <title>Implémentation</title>
+
+      <para>L'API Python de la LMC s'installe généralement dans
+      /usr/lib/pythonX.Y/site-packages/lmc.</para>
+
+      <para>Voici une description des principaux module Python:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>lmc.plugins.base: module essentiel dont dépend certains autres
+          modules. Il permet toutes les opérations LDAP de base: gestion des
+          utilisateurs et des groupes, etc...</para>
+        </listitem>
+
+        <listitem>
+          <para>lmc.plugins.samba: module de gestion des utilisateurs SAMBA,
+          des partages SAMBA, etc ...</para>
+        </listitem>
+
+        <listitem>
+          <para>lmc.plugins.ox: module de gestion des utilisateurs
+          Open-Xchange.</para>
+        </listitem>
+
+        <listitem>
+          <para>lmc.plugins.proxy: module de gestion de blacklist
+          squidGuard.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>L'agent LMC ne servira que les modules disponibles dans
+      lmc.plugins.</para>
+    </section>
+
+    <section>
+      <title>Créer un plugin</title>
+
+      <para>Pour créer un nouveau plugin, il suffit de créer un nouveau module
+      dans le répertoire
+      <filename>/usr/lib/pythonX.Y/site-packages/lmc/plugins</filename>.</para>
+
+      <para>Cela se traduit dans les fait par la création d'un répertoire
+      ayant le nom du module dans
+      <filename>/usr/lib/pythonX.Y/site-packages/lmc/plugins</filename>, et la
+      création dans ce répertoire d'un fichier
+      <filename>__init__.py</filename></para>
+
+      <para>Par exemple, nous allons créer un module hello dont la méthode
+      helloWorld renvoie un message:</para>
+
+      <screen>
+	# mkdir /usr/lib/python2.3/site-packages/lmc/plugins/hello
+	# cat &gt; /usr/lib/python2.3/site-packages/lmc/plugins/hello/__init__.py
+	&gt; def helloWorld():
+	&gt;     return "Hello world"
+	&gt; EOF
+      </screen>
+
+      <para>Pour essayer interactivement ce nouveau module:</para>
+
+      <screen>
+	# python	
+	&gt;&gt;&gt; import lmc.plugins.hello
+	&gt;&gt;&gt; lmc.plugins.hello.helloWorld()
+	'Hello world'
+      </screen>
+
+      <para>Pour que l'agent LMC utilise ce module, il doit savoir si il peut
+      activer ou pas. Pour cela, le module doit avoir une fonction "activate"
+      qui renvoie "True". Dans notre cas, en restant très simple:</para>
+
+      <screen>
+	# cat &gt; /usr/lib/python2.3/site-packages/lmc/plugins/hello/__init__.py
+	&gt; def activate():
+	&gt;     return True
+	&gt;
+	&gt; def helloWorld():
+	&gt;     return "Hello world"
+	&gt; EOF
+      </screen>
+
+      <para>L'agent LMC exportera alors ce module via XMLRPC.</para>
+
+      <para>La fonction définie dans ce module sera accessible via l'appel
+      XMLRPC <function>hello.helloWorld</function>.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>LMC-Agent (coté serveur)</title>
+
+    <section>
+      <title>Présentation</title>
+
+      <para>L'agent LMC permet d'intéragir à distance avec l'API Python
+      LMC.</para>
+
+      <para>Le LMC-Agent est un serveur XML-RPC écrit en python qui utilise le
+      framework twisted (<ulink
+      url="http://twistedmatrix.com/">http://twistedmatrix.com/</ulink>).</para>
+
+      <para>Le framework twisted est très souple et supporte de nombreux
+      protocoles. A l'heure actuel, le LMC-Agent ne supporte que les requètes
+      XML-RPC mais il serait très facile de rajouter d'autre protocole tel que
+      SOAP, ou encore de rajouter des fonctionnalités tel que des
+      avertissements mail/irc ou autres.</para>
+
+      <para>Le framework Twisted offre donc une grande souplesse dans son
+      développement, d'autant plus que de nouveaux protocoles non implémentés
+      dans Twisted, sont simples à réaliser.</para>
+    </section>
+
+    <section>
+      <title>Le daemon</title>
+
+      <para>LMC-Agent se lance en daemon (service UNIX). Il utilise la
+      technique du double fork. Un script pour lancer, arrêter le daemon et
+      fournit au moment de l'installation dans
+      <filename>"/etc/init.d/lmc-agent/"</filename>. Il utilise les commandes
+      standards "start|stop|restart".</para>
+    </section>
+
+    <section>
+      <title>fichier de configuration de l'agent LMC</title>
+
+      <para>Le fichier de configuration se trouve dans le répertoire
+      <filename>"/etc/lmc/agent/config.ini"</filename>. Vous pouvez en trouvez
+      une version complete dans les <link
+      linkend="chap7_etclmc_ini">annèxes</link>.</para>
+
+      <para>Il définit l'hôte/port sur lequel le serveur écoute (utile si le
+      serveur possède plusieurs carte réseau ou si le serveur ne doit écouter
+      que l'ip 127.0.0.1). Il définit aussi les certificats, les systèmes de
+      logs, la configuration LDAP et le répertoire où se trouvent les
+      modules.</para>
+    </section>
+
+    <section>
+      <title>modules/plugins</title>
+
+      <para>La totalité des modules sont dans le répertoire
+      "/usr/lib/python2.3/site-packages/lmc/plugins/". Si un module Python est
+      présent dans ce répertoire, alors il est automatiquement pris en
+      considération. Pour qu'un fonctionne il faudra toutefois lui ajouter une
+      fonction "activate" qui retournera un booléen
+      "<returnvalue>True</returnvalue>" ou "<returnvalue>False</returnvalue>"
+      pour savoir si le module pourra être activé ou non.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Appel XMLRPC</title>
+
+    <para>Comme on a pu le voir avec le schéma de la structure du LMC, tous
+    les appels et commande sont effectués en XML RPC.</para>
+
+    <section>
+      <title>la fonction xmlCall en php</title>
+
+      <para>La fonction xmlCall se trouve dans "includes/xmlrpc.inc.php".
+      C'est elle qui assure l'envoie et la reception de requête xmlrpc au
+      serveur lmc-agent. L'ip de ce dernier est définit dans le fichier de
+      configuration "/etc/lmc.ini".</para>
+
+      <section>
+        <title>appelle avec xmlCall</title>
+
+        <para>La fonction xmlCall prend 2 arguments. Le nom de la fonction
+        distante à appeler et un tableau représentant les paramètres. Voici
+        deux exemples simples.</para>
+
+        <programlisting>$tab = xmlCall("ldapcontrol.getUsersLdap",null);</programlisting>
+
+        <para>Ici nous invoquons la méthode ldapcontrol.getUsersLdap sans
+        paramètre. <warning>
+            <para>Attention lors d'appelle de fonction sans paramètre, il est
+            obligatoire de donner une liste d'arguments, meme si il n'y en a
+            pas. En l'occurence on fournit "null".</para>
+          </warning></para>
+
+        <programlisting>$param= array($login,$pass,$name,$firstname);
+$ret = xmlCall("ldapcontrol.createUser",$param);</programlisting>
+
+        <para>Ici un exemple qui illustre bien la liste d'arguments.
+        ldapcontrol.createUser prend 4 paramètres qui lui sont fournit par un
+        tableau de 4 éléments.</para>
+      </section>
+
+      <section>
+        <title>réponse de xmlCall</title>
+
+        <para>La fonction xmlCall retourne un résultat dépendant de l'apel
+        effectué. En effet, une fonction d'authentification retournera un
+        booléen, alors qu'une fonction récuperant la liste des utilisateurs
+        LDAP peut retourné un tableau a plusieurs dimensions. Cependant la
+        fonction xmlCall gère un mini système d'erreur.</para>
+
+        <para>En effet, la fonction vérifie si la variable
+        $xmlResponse["errorCodeXMLRPC"] existe dans le type de retour. Si oui,
+        alors le message retourné est une erreur. Le résultat est donc
+        instantanément affiché.</para>
+
+        <note>
+          <para>Dans une utilisation future, les messages d'erreurs pourront
+          être stocké et affiché a un endroit précis de la page html, grace a
+          la fonction de callback fournit en démarrant ob_start() au debut de
+          la page main.php</para>
+        </note>
+      </section>
+    </section>
+
+    <section>
+      <title>définition des fonctions avec lmc-agent</title>
+
+      <section>
+        <title>le système de log</title>
+
+        <para>Il est bon dans une application de pouvoir logguer des
+        informations afin de prevenir l'utilisateur qui maintient le serveur
+        que des erreurs, informations sont survenus. Pour cela il suffit de
+        faire appelle a l'objet</para>
+
+        <programlisting>#import si necessaire
+import logging
+logger = logging.getLogger()</programlisting>
+
+        <para>Cette methode est statique et renvoie l'objet "logging" définit
+        a l'initialisation de lmc-agent.</para>
+
+        <programlisting>logger.info("montest.mafonction &gt;&gt; test log");</programlisting>
+
+        <para>Ensuite il suffit d'appeler la methode qui convient pour
+        rajouter une entrée au fichier de log. Pour plus d'information sur les
+        fichiers de log, veuillez vous referez a la documentation de l'objet
+        logging de python.</para>
+
+        <screen>2005-06-23 09:20:28,001 DEBUG Calling samba.getDetailedShares()
+2005-06-23 09:20:29,305 DEBUG Calling ldapcontrol.getGroupsLdap()
+2005-06-23 09:20:30,208 DEBUG Calling ldapcontrol.getGroupsLdap()
+2005-06-23 09:20:31,048 DEBUG Calling ldapcontrol.getUsersLdap()
+2005-06-23 09:20:37,090 DEBUG Calling ldapcontrol.delUser('jwax', 1)
+2005-06-23 09:20:37,134 INFO lmctools.shlaunch("rm -rf /home/jwax")
+2005-06-23 09:23:29,082 DEBUG Calling ldapcontrol.getUsersLdap()
+2005-06-23 09:23:31,140 DEBUG Calling ldapcontrol.getGroupsLdap()
+</screen>
+
+        <para>Voici un exemple d'entrée dans le fichier de log. Toute fonction
+        appelé est déjà loggué, il est donc inutile de le refaire.</para>
+      </section>
+
+      <section>
+        <title>gestion d'erreur</title>
+
+        <para>Pour utiliser les messages d'erreur de lmc-agent il faut
+        importer l'exception</para>
+
+        <programlisting>from support.lmcException import lmcException</programlisting>
+
+        <para>Cette objet est dérivé de la classe Exception de python. Chaque
+        exception est catché dans le système de rendu de LMC-Agent. Pour lever
+        une exception il suffit d'écrire :</para>
+
+        <programlisting>raise lmcException("mon message d'erreur")</programlisting>
+
+        <tip>
+          <para>Si une exception n'est pas catchée dans le code source, elle
+          sera récupérée au niveau du "render" du lmc-agent et affichée. Vous
+          n'avez donc pas à vous en souciez, mais faites attention à ce qu'une
+          traceback python ne puisse pas remonter une information confidentiel
+          tout de même.</para>
+        </tip>
+      </section>
+    </section>
+
+    <section>
+      <title>Example d'ajout et d'utilisation d'une fonction.</title>
+
+      <para>Nous allons voir ensemble, comment ajouter une fonction au sein du
+      lmc-agent.</para>
+
+      <section>
+        <title>Création de votre première fonction XMLRPC</title>
+
+        <para>Pour créer un nouveau plugins, il suffit de créer le fichier
+        python dans le repertoire plugins. Nous allons prendre l'exemple
+        simple d'une fonction qui additionne 2 nombres et retourne le
+        résultat. On nommera ce plugins "math".</para>
+
+        <para><emphasis>contenu du fichier plugins/math.py</emphasis></para>
+
+        <programlisting># -*- coding: utf-8; -*
+
+def add(a,b):
+    return (a+b)
+</programlisting>
+      </section>
+
+      <section>
+        <title>Appel de votre première fonction XMLRPC</title>
+
+        <para>Une fois votre fonction créer vous devriez voir lors du
+        chargement de lmc-agent.</para>
+
+        <screen>/etc/init.d# ./lmc-agent restart
+Restarting lmc-agent XMLRPC server
+Daemon PID 25099
+Plugin __init__ loaded.
+Plugin ldapcontrol loaded.
+Plugin proxy loaded.
+Plugin ldapauth loaded.
+Plugin samba loaded.
+Plugin math loaded.
+</screen>
+
+        <para>une fois la module detecté, il suffit d'utiliser la primitive
+        xmlCall dans votre page de cette manière.</para>
+
+        <programlisting>echo xmlCall("math.add",array(1,2));</programlisting>
+      </section>
+
+      <section>
+        <title>Page d'exemple test.</title>
+
+        <para>Voici le contenu de la page test.php qui implemente l'apelle xml
+        de "math.add"</para>
+
+        <para><emphasis>test.php</emphasis></para>
+
+        <programlisting>&lt;?php
+$path = array(array("name" =&gt; "Accueil",
+                    "link" =&gt; "main.php"),
+              array("name" =&gt; "Page de test"));
+
+
+/***** style css ******/
+?&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+&lt;?php
+printSidebarCss($_GET["submod"],$_GET["action"]);
+?&gt;
+--&gt;
+&lt;/style&gt;
+&lt;?
+
+
+
+//require("localSidebar.php"); replace with a local sideBar
+// for best comprehension
+/*************************************************/
+//création d'un menu local SideMenu
+require("includes/PageGenerator.php");
+
+$sidemenu= new SideMenu();
+
+$sidemenu-&gt;setClass("testSideBar");
+$sidemenu-&gt;addSideMenuItem(new SideMenuItem("page de test",
+"base","main","test"));
+/*************************************************/
+
+require("graph/navbar.inc.php");
+
+
+$p = new PageGenerator();
+
+/**
+ * draw menu
+ */
+$p-&gt;setSideMenu($sidemenu); 
+$p-&gt;displaySideMenu();
+
+?&gt;
+
+&lt;h2&gt;Page de test&lt;/h2&gt;
+
+&lt;div class="fixheight"&gt;&lt;/div&gt;
+
+&lt;?  
+echo xmlCall("math.add",array(1,2));
+?&gt;</programlisting>
+      </section>
+    </section>
+  </section>
+
+  <section>
+    <title>Introduction à Python/LDAP</title>
+
+    <para>Le package Python/LDAP possède malheureusement très peu de
+    documentation. Afin de mieux comprendre le code existant ou pour faciliter
+    la création de code futur, voici une petite introduction à Python/LDAP. Il
+    est aussi fortement conseiller de regarder la documentation officiel
+    Python/LDAP même si elle reste assez pauvre, à l'adresse suivante <ulink
+    url="http://python-ldap.sourceforge.net/docs.shtml">http://python-ldap.sourceforge.net/docs.shtml</ulink></para>
+
+    <para>Dans les exemples qui suivront nous considererons
+    "<varname>self.l</varname>" comme une connexion initialisé en tant
+    qu'administrateur.</para>
+
+    <section>
+      <title>premier bind LDAP</title>
+
+      <programlisting>        config = ConfigParser.ConfigParser()<co
+          id="chap5-bind-config" />
+        config.read(INI)
+            
+        baseDN = config.get("ldap", "baseDN")<co id="chap5-bind-mainconfig" />
+        ldapHost = config.get("ldap", "host")
+            
+        l = ldap.open(ldapHost)<co id="chap5-bind-openldap" />
+            
+        # connect to an ldap V3 (correct if not v3)
+        l.protocol_version = ldap.VERSION3  
+        
+        username = 'uid=' + login + ', ' + baseDN<co id="chap5-bind-username" />
+        
+        # Any errors will throw an ldap.LDAPError exception
+        try: 
+            self.result=l.simple_bind_s(username, password)<co
+          id="chap5-bind-simple-bind-s" />
+        except:
+            self.result = -1</programlisting>
+
+      <calloutlist>
+        <callout arearefs="chap5-bind-config">
+          <para>Initialisation d'un fichier d'un
+          <classname>ConfigParser</classname> pour plus de comodité.</para>
+        </callout>
+
+        <callout arearefs="chap5-bind-mainconfig">
+          <para>Récupération du baseDN (ou=Users, dc=lo2k , dc=net), ainsi que
+          le host.</para>
+        </callout>
+
+        <callout arearefs="chap5-bind-openldap">
+          <para>Ouverture de la connexion LDAP</para>
+        </callout>
+
+        <callout arearefs="chap5-bind-username">
+          <para>le username est initialisé a une variable du type "uid=foobar
+          , ou=Users, dc=lo2k, dc=net"</para>
+        </callout>
+
+        <callout arearefs="chap5-bind-simple-bind-s">
+          <para>bind synchronisé LDAP (<function>simple_bind</function>
+          n'étant pas synchronisé). La valeur retourné est
+          "<returnvalue>None</returnvalue>" si aucun problème n'est survenu
+          dans la connexion LDAP.</para>
+        </callout>
+      </calloutlist>
+
+      <caution>
+        <para>Même si une erreur survient lors du bind LDAP, une connexion
+        LDAP active vous sera surement retourné. En effet en cas d'erreur a la
+        connexion, LDAP vous retourne une connexion "invité" qui vous permet
+        de lire les entrées LDAP mais en aucun cas de les modifier.</para>
+      </caution>
+    </section>
+
+    <section>
+      <title>Ajout d'une entrée</title>
+
+      <para>Cette fonction permet de rajouter une "organizational Unit" dans
+      un répertoire LDAP.</para>
+
+      <programlisting>    def addOu(self, ouname, ldappath):
+        """
+         add an organizational Unit to an ldap entry
+         
+         @param ouname: organizational unit name
+         @type ouname: str
+         
+         @param ldappath: ldap full path
+         @type ldappath: str
+        """
+        addrdn = 'ou=' + ouname + ', ' + ldappath<co id="chap5-add-addrdn" />
+        addr_info = {'ou':ouname,<co id="chap5-add-info" />
+                    'objectClass':('organizationalUnit','top')}
+        attributes=[ (k,v) for k,v in addr_info.items() ]<co
+          id="chap5-add-attributes" />
+        
+        self.l.add_s(addrdn,attributes)<co id="chap5-add-add_s" /></programlisting>
+
+      <calloutlist>
+        <callout arearefs="chap5-add-addrdn">
+          <para>Création du distinguish name.</para>
+        </callout>
+
+        <callout arearefs="chap5-add-info">
+          <para>Création des attributs dans un dict python.</para>
+        </callout>
+
+        <callout arearefs="chap5-add-attributes">
+          <para>Transformation des entités pour compatibilité avec la
+          primitive d'ajout Python/LDAP.</para>
+        </callout>
+
+        <callout arearefs="chap5-add-add_s">
+          <para>Ajout synchronisé des données.</para>
+        </callout>
+      </calloutlist>
+    </section>
+
+    <section>
+      <title>Ajout d'un utilisateur</title>
+
+      <para>L'ajout d'un utilisateur est sensiblement identique a l'ajout
+      d'une "organization Unit". Les différences se posent sur les attributs
+      necessaires au schema LDAP.</para>
+
+      <programlisting>    def addUser(self, uid, password, firstN, lastN):
+        """
+        Add an user in ldap directory
+        
+        accent remove for gecos entry in ldap directory
+        
+        @param uid: login of the user
+        @type uid: str
+        
+        @param password: user's password
+        @type password : str
+        
+        @param firstN: unicode string with first name
+        @type firstN: str
+        
+        @param lastN: unicode string with last name
+        @type lastN: str
+        """
+
+        uidNumber=self.maxUID()+1<co id="chap5-adduser-uidNumber" />
+        gidNumber=self.addGroup(uid)
+
+        # error in group creation ?
+        if (gidNumber == -1):
+            raise('group error: already exist or cannot instanciate')
+        
+        # For the gecos LDAP field, make a full ASCII string
+        gecosFirstN=str(suppression_diacritics((firstN.encode("UTF-8"))))<co
+          id="chap5-adduser-diacritics" />
+        gecosLastN=str(suppression_diacritics((lastN.encode("UTF-8"))))
+        gecos = gecosFirstN + ' ' + gecosLastN
+
+        # Build a UTF-8 representation of the unicode strings
+        lastN = str(lastN.encode("utf-8"))
+        firstN = str(firstN.encode("utf-8"))
+
+        #create insertion array in ldap dir<co id="chap5-adduser-info" />
+        user_info = {'shadowMin':'-1', 
+                     'loginShell':'/bin/false',
+                     'userPassWord':"{crypt}" + crypt.crypt(password, self.getSalt()),
+                     'uidNumber':str(uidNumber),
+                     'gidnumber':str(gidNumber),
+                     'shadowFlag':'134538308',
+                     'shadowExpire':'-1',
+                     'shadowMax':'99999',
+                     'objectclass':('inetOrgPerson','posixAccount','shadowAccount','top','person'),
+                     'uid':uid,
+                     'gecos':gecos,
+                     'shadowLastChange':'11192',
+                     'cn':uid,
+                     'sn':lastN,
+                     'givenName':firstN,
+                     'shadowInactive':'-1',
+                     'homeDirectory':'/home/'+uid,
+                     'shadowWarning':'7'
+                     }
+
+        try:
+            ident = 'uid=' + uid + ',' + baseDN
+            attributes=[ (k,v) for k,v in user_info.items() ]
+            self.l.add_s(ident, attributes)<co id="chap5-adduser-add_s" />
+            </programlisting>
+
+      <calloutlist>
+        <callout arearefs="chap5-adduser-uidNumber">
+          <para>Récupération des UID et GID number. Création du groupe associé
+          a l'utilisateur via une primitive.</para>
+        </callout>
+
+        <callout arearefs="chap5-adduser-diacritics">
+          <para>L'attribut gecos n'accepte pas les accents, nous devons doncs
+          les enlever.</para>
+        </callout>
+
+        <callout arearefs="chap5-adduser-info">
+          <para>Création du tableau des attributs LDAP. (un peu plus fournis
+          que le tableau pour les "ou")</para>
+        </callout>
+
+        <callout arearefs="chap5-adduser-add_s">
+          <para>Ajout synchronisé.</para>
+        </callout>
+      </calloutlist>
+    </section>
+
+    <section>
+      <title>Modification d'attributs</title>
+
+      <para>Il peut être intéressant de modifier un attribut. Le code est
+      assez simple.</para>
+
+      <programlisting>    def changeUserAttributes(self,uid,attr,attrVal):
+        """
+         change an user attributes
+         
+         @param uid: uid of this user (not full ldap path)
+         @type  uid: str
+         
+         @param attr: attribute name
+         @type  attr: str
+         
+         @param attrVal: attribute value
+         @type  attrVal: object
+        """
+        self.l.modify_s('uid='+uid+','+baseDN, [(ldap.MOD_REPLACE,attr,attrVal)]) </programlisting>
+
+      <para>Le paramètre <varname>ldap.MOD_REPLACE</varname>, peut être
+      remplacé par <varname>ldap.MOD_ADD</varname> pour ajouter des attributs
+      qui ne sont pas en "SINGLE-VALUE".</para>
+    </section>
+
+    <section>
+      <title>Recherche d'utilisateur et formatage de données</title>
+
+      <para>Nous allons voir ensemble comment rechercher des utilisateurs en
+      fonction d'un filtre et stoquer les informations voulues dans un
+      tableau.</para>
+
+      <programlisting>    def searchUser(self, pattern = ''):
+        """ 
+        search a user in ldapdirectory
+        @param pattern : pattern for search filter
+          ex: *admin*, luc*
+        @type pattern : str
+         
+         if empty, return all user
+         
+        search begin at baseDN (defines in INIFILE)
+        
+        @return :list of all users correspond criteria
+        @rtype: list
+        """
+        searchScope = ldap.SCOPE_SUBTREE<co id="chap5-search-scope" />
+        retrieveAttributes = None
+
+        if (pattern==''): searchFilter = "cn=*"
+        else: searchFilter = "cn=*"+pattern+"*"<co id="chap5-search-filter" />
+
+        try:
+            ldap_result_id = self.l.search(baseDN, searchScope, searchFilter, retrieveAttributes)<co
+          id="chap5-search-searchcmd" />
+            result_set = []
+            while 1:
+                try:
+                    result_type, result_data = self.l.result(ldap_result_id, 0)
+                except ldap.NO_SUCH_OBJECT:
+                    result_data = []
+                if (result_data == []):
+                    break
+                else:
+                    if result_type == ldap.RES_SEARCH_ENTRY:
+                        result_set.append(result_data)<co
+          id="chap5-search-resultset" />
+
+        except ldap.LDAPError, e:
+            raise lmcException(e)
+
+        # prepare array for processing
+        resArr=[]
+
+        for i in range(len(result_set)):<co id="chap5-search-forresultset" />
+            for entry in result_set[i]:
+                try:
+                    localArr= []<co id="chap5-search-localArr" />
+
+                    gecos='';
+                    homeDirectory='';
+
+                    uid = entry[1]['uid'][0]
+                    homeDirectory =  entry[1]['homeDirectory'][0]
+                    gecos =  entry[1]['gecos'][0]
+                    obj =  entry[1]['objectClass']
+
+                    localArr.append(uid)
+                    localArr.append(gecos)
+                    localArr.append(homeDirectory)
+                    localArr.append(obj)
+
+                    #if user not contain "$" for first character
+                    if (re.search('([^$])$',uid)): resArr.append(localArr)<co
+          id="chap5-search-addifnotmachine" />
+
+                except:
+                    pass
+
+        resArr.sort()<co id="chap5-search-sort" />
+        return resArr</programlisting>
+
+      <calloutlist>
+        <callout arearefs="chap5-search-scope">
+          <para>Définition du scope (type de parcours). Ici nous définissions
+          un parcours total dans les sous arbres.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-filter">
+          <para>Définition du filtre.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-searchcmd">
+          <para>Lancement de la recherche en synchrone.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-resultset">
+          <para>Ajout du résultat a une liste.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-forresultset">
+          <para>On parcours chaque element de la liste.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-localArr">
+          <para>On crée un tableau local dans lequel on stoquera les elements
+          que l'on a voulu recupérer.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-addifnotmachine">
+          <para>On ajoute le tableau local si il n'y a pas de "$" terminal a
+          la fin de la chaine. En effet samba peut utiliser la même OU pour
+          les utilisateurs et les machines.</para>
+        </callout>
+
+        <callout arearefs="chap5-search-sort">
+          <para>Le tableau est trié puis retourné.</para>
+        </callout>
+      </calloutlist>
+    </section>
+
+    <section>
+      <title>Suppression d'une entrée</title>
+
+      <para>Ldap repose sur une architecture sous forme d'arbre. Il est
+      impossible de supprimer un element si toutes ses feuilles n'ont pas été
+      supprimé préalablement. Malheureusement Python/LDAP ne supporte pas la
+      suppression recursive. Cette fonction palie a ce problème. La
+      suppression effective est assez clair, la fonction
+      <function>delete_s</function> s'occupe de supprimer l'entrée.</para>
+
+      <programlisting>    def delRecursiveEntry(self,path):
+        """
+        Delete an entry, del recursive leaf
+        
+        @param path: credential name in an ldap directory
+            ex: "cn=admin, ou=Users, ou=ExObject, dc = lo2k, dc= net"
+        @type path: str
+        """      
+        
+        #getAllLeaf and delete it
+        for entry in self.getAllLeafs(path):
+            self.delRecursiveEntry(entry)
+        
+        self.l.delete_s(path)
+        return 0
+</programlisting>
+
+      <para>Voici la fonction qui recupère toutes les feuilles.</para>
+
+      <programlisting>def getAllLeafs(self,path):
+        """
+         return all leafs of a specified path
+    
+            @param path: credential name in an ldap directory
+            ex: "ou=addr, cn=admin, ou=Users, ou=ExObject, dc = lo2k, dc= net"
+
+        """
+        
+        searchScope = ldap.SCOPE_ONELEVEL<co id="chap5-delentry-scope" />
+        retrieveAttributes = None 
+        
+        try:
+            ldap_result_id = self.l.search(path, searchScope)
+            result_set = []
+            while 1:
+                result_type, result_data = self.l.result(ldap_result_id, 0)
+                if (result_data == []):
+                    break
+                else:
+                    if result_type == ldap.RES_SEARCH_ENTRY:
+                        result_set.append(result_data)
+                        
+        except ldap.LDAPError, e:
+            print e
+            
+        #prepare array for processing
+        resArr=[]
+        
+        for i in range(len(result_set)):
+            for entry in result_set[i]:
+                    resArr.append(entry[0])
+                    
+        resArr.sort()
+        
+        return resArr</programlisting>
+
+      <calloutlist>
+        <callout arearefs="chap5-delentry-scope">
+          <para>Définition du "scope" (type de parcours) en parcours simple
+          avec une profondeur de un.</para>
+        </callout>
+      </calloutlist>
+    </section>
+  </section>
+
+  <section>
+    <title>ACL<anchor id="acl" /></title>
+
+    <para>Dans ce chapitre, nous allons voir ensemble, comment sont gérés les
+    ACL (access control list) propre au LMC. Nous allons voir comment le
+    client et l'agent gèrent l'accès aux pages et aux champs de formulaires de
+    l'application.</para>
+
+    <section>
+      <title>Le schema LDAP</title>
+
+      <programlisting># Attributes
+attributetype ( 1.3.6.1.4.1.40098.1.1.12.1 NAME 'lmcACL'<co
+          id="co-schemaldapname" />
+        DESC 'LMC acl entry'
+        EQUALITY caseIgnoreMatch 
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE<co
+          id="co-schemaldapsinglevalue" />)
+
+attributetype ( 1.3.6.1.4.1.40098.1.1.12.2 NAME 'lmcPrefMode'
+        DESC 'LMC user'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE)
+
+# Objectclasses
+objectclass ( 1.3.6.1.4.1.40098.1.2.1.19.1 NAME 'lmcUserObject' AUXILIARY<co
+          id="co-schemaldapaux" />
+        DESC 'Objectclass for lmc user settings '
+        <co id="co-schemaldapmay" />MAY  ( lmcACL $ lmcPrefMode))
+</programlisting>
+
+      <para>Nous allons détaillé ensemble le schema LDAP:</para>
+
+      <calloutlist>
+        <callout arearefs="co-schemaldapname">
+          <para>Nous définissons ici le nom de l'attribut lmcACL qui
+          contiendra les ACL.</para>
+        </callout>
+
+        <callout arearefs="co-schemaldapsinglevalue">
+          <para>Ce mot clef le définit comme attribut unique.</para>
+        </callout>
+
+        <callout arearefs="co-schemaldapaux">
+          <para>Définition de l'objetClass lmcUserObject qui n'est pas un
+          objet "primaire", c'est à dire qu'il ne peut pas être seul sans un
+          objet d'organisation primaire comme inetOrgPerson ou person</para>
+        </callout>
+
+        <callout arearefs="co-schemaldapmay">
+          <para>le mot clef "may" indique que les attributs sont optionnels et
+          non nécessaire.</para>
+        </callout>
+      </calloutlist>
+
+      <para>Nous remarquons que pour bénéficier des acl, chaque entrée LDAP se
+      verra attribuer un objetClass "lmcUserObject".</para>
+    </section>
+
+    <section>
+      <title>structure de lmcACL</title>
+
+      <para><screen>:base#main#default:base#users#index:base#users#edit:base#users#editacl:base#groups#index:samba#shares#details:samba#shares#index:samba#shares#add:samba#shares#backup:samba#shares#delete:samba#config#index:samba#config#restart:samba#machines#index:samba#machines#add/:nlogin=ro:name=ro:firstname=ro:homeDir=ro:isOX=ro:timezone=ro:lang=ro:mDomain=ro:isSamba=ro</screen></para>
+
+      <para>Le champ lmcACL est séparé par un caractère "/" en deux parties.
+      [droit sur les pages]/[droits sur les champs].</para>
+
+      <para>Pourquoi avoir choisit cette methode de stockage des acls ? Nous
+      aurions pu stocker chaques ACLs dans un attribut LDAP (ne pas mettre
+      lmcACL). Il fallait donc choisir entre laisser LDAP découper les ACL ou
+      le faire nous même avec la fonction split en PHP.</para>
+
+      <para>Le tout en un champ a été retenu. En effet si nous voulons ajouter
+      des ACLs plus spécifiques, nous devons modifier le schema LDAP...
+      opération lourde et qui demande de redémarrer le serveur LDAP, alors que
+      dans notre cas, seul la méthode de parsage du champ change.</para>
+
+      <section>
+        <title>droits sur les pages</title>
+
+        <screenshot>
+          <screeninfo>screenshot des droits sur les pages</screeninfo>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/lmcacl.png" format="PNG" scalefit="1"
+                         width="100%" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+
+        <para>Voici un exemple simple de droits sur les pages extraits d'une
+        chaine lmcACL.</para>
+
+        <para><screen>:base#main#default:base#users#index:base#users#edit</screen></para>
+
+        <para>Dans cette exemple nous avons 3 définitions d'acl, chacunes
+        séparées par un ":". Isolons "<emphasis>base#users#edit</emphasis>".
+        Cette acl donne le droit d'accès à la page
+        "/lmc/main.php?module=<emphasis
+        role="bold">base</emphasis>&amp;submod=<emphasis
+        role="bold">users</emphasis>&amp;action=<emphasis
+        role="bold">edit</emphasis>". Si l'acl est présente, l'utilisateur à
+        accès a la page, dans le cas contraire, cette page lui est
+        interdite.</para>
+      </section>
+
+      <section>
+        <title>droits sur les champs</title>
+
+        <screenshot>
+          <screeninfo>screen shot du droit sur les champs</screeninfo>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/lmcacl1.png" scalefit="1"
+                         width="100%" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+
+        <screen>nlogin=ro:name=ro:firstname=rw</screen>
+
+        <para>La séparation des ACL sur les champs se fait aussi par un
+        caractère ":". La syntaxe est simple. "nlogin=ro" signifie que le
+        champ "nlogin" est en readOnly (lecture seule), rw signifiant
+        (lecture/écriture). Si le champs n'est pas présent, alors il est
+        interdit.</para>
+      </section>
+
+      <section>
+        <title>Ajout de nouvelle ACL</title>
+
+        <para>Vous pourriez être interessés par rajouter vos propres
+        ACL.</para>
+
+        <programlisting>global $redirArray;
+global $descArray;
+        
+   $redirArray["samba"]["shares"]["details"]="modules/samba/shares/details.php";
+   $descArray["samba"]["shares"]["details"]="[page par defaut] detail des services";
+        
+   $redirArray["samba"]["shares"]["index"]="modules/samba/shares/index.php";
+   $descArray["samba"]["shares"]["index"]="Liste des partages";
+        
+   $redirArray["samba"]["shares"]["add"]="modules/samba/shares/add.php";
+   $descArray["samba"]["shares"]["add"]="Ajout d'un partage";
+        
+        
+
+global $aclArray;
+        
+   $aclArray["samba"]["isSamba"]="Ajout/suppression des attributs samba";</programlisting>
+
+        <para>L'ajout d'ACL sur les pages est automatique, en effet, si vous
+        ajoutez une page, vous devez la spécifier dans le fichier
+        infoPackage.inc.php du module correspondant, ayant pour effet
+        automatique de l'ajouter dans les ACL.</para>
+
+        <para>Le tableau $aclArray regroupe les droits sur les formulaires
+        (que l'on verra plus loin). Si vous voulez ajouter des droits sur un
+        champ "isSamba" d'un formulaire (en l'occurence une checkbox), il
+        suffit de rajouter cette ligne:</para>
+
+        <para><programlisting>$aclArray[MONMODULE][MAVAR]="ma description";</programlisting></para>
+
+        <para>Ensuite, le formulaire devra être crée avec les primitives
+        acceptant les ACL, voir "<link linkend="modifuser">Modification de
+        l'édition/ajout d'utilisateurs</link>".</para>
+      </section>
+    </section>
+  </section>
+
+  <section>
+    <title>Modification de l'édition/ajout d'utilisateurs<anchor
+    id="modifuser" /></title>
+
+    <para>Nous allons voir ensemble comment modifier la page d'ajout/édition
+    d'un utilisateur, respectivement
+    <filename>"main.php?module=base&amp;submod=users&amp;action=add"</filename>
+    et <filename>
+    "main.php?module=base&amp;submod=users&amp;action=edit&amp;user=_USER"</filename>,
+    afin que chaques modules puissent ajouter ses propres fonctions/champs de
+    formulaires.</para>
+
+    <note>
+      <para><filename>"main.php?module=base&amp;submod=users&amp;action=add"</filename>
+      n'est qu'un alias pour la page
+      <filename>"main.php?module=base&amp;submod=users&amp;action=edit&amp;user=_USER"</filename></para>
+
+      <para>Toute modification d'une page, entraine la modification de l'autre
+      page.</para>
+    </note>
+
+    <section>
+      <title>Présentation générale de la page<anchor
+      id="chap6-schema1" /></title>
+
+      <screenshot>
+        <screeninfo>Organisation de la page d'édition
+        d'utilisateur</screeninfo>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/pluginmethodscreen.png" format="PNG"
+                       width="100%" />
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+
+      <para>La zone en rouge de la page représente la partie générée par le
+      script en lui même. (cette partie aurait pu être définit dans la
+      fonction _base_baseEdit).</para>
+
+      <para>Les zones en bleue et vert sont respectivement générées par le
+      module ox et le module samba.</para>
+    </section>
+
+    <section>
+      <title>Les fonctions disponibles</title>
+
+      <para>Voici les différentes fonctions qu'il est possible d'implementé
+      dans votre module, ces fonctions sont déjà déclaré fonction publique
+      dans le code existant. Voici donc leur nom, paramètre et leur
+      utilités.</para>
+
+      <informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry>_{MODULENAME)_baseEdit($ldapArr,$postArr)</entry>
+
+              <entry>affichage du formulaire d'édition des utilisateurs pour
+              un module.</entry>
+            </row>
+
+            <row>
+              <entry>_{MODULENAME)_changeUser($postArr)</entry>
+
+              <entry>appelé lorsqu'un utilisateur est modifié</entry>
+            </row>
+
+            <row>
+              <entry>_{MODULENAME)_verifInfo($postArr)</entry>
+
+              <entry>vérification des informations du formulaire.</entry>
+            </row>
+
+            <row>
+              <entry>_{MODULENAME)_delUser($uid)</entry>
+
+              <entry>appelé lors de la suppression d'un utilisateur</entry>
+            </row>
+
+            <row>
+              <entry>_{MODULENAME)_infoUser($userObjClass)</entry>
+
+              <entry>affichage d'icones/autres dans la liste d'index des
+              utilisateurs</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+
+    <section>
+      <title>Les paramètres de fonctions</title>
+
+      <para>Voici les 2 paramètres les plus courrants :</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>$postArr : Tableau des élements postés. Ce paramètre est
+          l'équivalent de "$_POST".</para>
+        </listitem>
+
+        <listitem>
+          <para>$ldapArr : Tableau des élements LDAP. Il se présente sous la
+          forme d'un dictionnaire de liste.</para>
+
+          <para>Ex1 : <emphasis>$ldapArr["uid"][0]</emphasis> retourne l'uid
+          de l'utilisateur.</para>
+
+          <para>Ex2 : <emphasis>$ldapArr["objectClass"]</emphasis> retourne la
+          liste des objectClass.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Exemple rapide (_samba_baseEdit)</title>
+
+      <para>Pour mieux comprendre ce que doit faire une fonction d'edition,
+      voici un exemple simple.</para>
+
+      <programlisting>function _samba_baseEdit($ldapArr,$postArr) {
+  $checked = "checked"; //default value
+  
+  
+  //fetch ldap updated info if we can
+  if ($ldapArr["uid"][0]) {<co id="chap6-baseedit-fetchldap" />
+      if  (hasSmbAttr($ldapArr["uid"][0]))   {
+        $checked = "checked";
+      }
+      else {
+        $checked = "";<co id="chap6-baseedit-default" />
+      }
+  } 
+  
+  //if we update a user but error when updating
+  if ($postArr["buser"]) {<co id="chap6-baseedit-post" />
+        if ($postArr["isSamba"]) {
+          $checked = "checked";
+        }
+        else {
+          $checked = "";
+        }
+    }
+
+  print "&lt;br/&gt;&lt;h3&gt; samba plugin&lt;/h3&gt;\n";<co
+          id="chap6-baseedit-html" />
+  print '&lt;table cellspacing="0"&gt;';
+           
+  $test = new TrFormElement("Accès samba",new CheckboxTpl("isSamba"));
+  $test-&gt;setCssError("accesSmb");
+  $param=array("value"=&gt;$checked);
+  $test-&gt;display($param);
+
+}</programlisting>
+
+      <para>Cette fonction est séparée en 4 parties.</para>
+
+      <calloutlist>
+        <callout arearefs="chap6-baseedit-fetchldap">
+          <para>Récupération et initialisation de variables en fonction des
+          données LDAP.</para>
+        </callout>
+
+        <callout arearefs="chap6-baseedit-default">
+          <para>Assignation de la valeur par défault.</para>
+        </callout>
+
+        <callout arearefs="chap6-baseedit-post">
+          <para>Mise à jour des variables postés. Ce cas est obligatoire si
+          les informations sont postées mais la modification est impossible
+          (format des données non standard, mail non valide...). Dans ce cas,
+          nous remplissons à nouveau les champs.</para>
+        </callout>
+
+        <callout arearefs="chap6-baseedit-html">
+          <para>Affichage de la portion de formulaire.</para>
+        </callout>
+      </calloutlist>
+
+      <para>Cette fonction affiche la partie verte de la capture d'ecran dans
+      la partie <link linkend="chap6-schema1">"présentation générale de la
+      page"</link>.</para>
+    </section>
+
+    <section>
+      <title>Création d'un formulaire</title>
+
+      <para>Si vous désirez que votre application supporte les ACL (décrites
+      <link linkend="acl">ici</link>), il est fortement conseillé d'utiliser
+      les primitives de création de formulaire propre au LMC.</para>
+
+      <section>
+        <title>les objets templates</title>
+
+        <para>Pourquoi avoir des objets templates pour afficher un formulaire
+        ?</para>
+
+        <para>Parce que vous ne connaissez pas les droits de l'utilisateur,
+        vous ne pouvez pas affichez le contenu d'un formulaire de la même
+        manière. Pour simplifier la lisibilité du code et evité de faire des
+        taches répétitives, la plupart des élements de formulaire sont
+        encapsulés dans une class <classname>FormElement</classname> ou
+        <classname>TrFormElement</classname>. Voici le contenu de
+        <function>FormElement-&gt;display($param)</function></para>
+
+        <programlisting>  /**
+   *  display input Element
+   *  $arrParam accept ["value"] to corresponding value 
+   */
+  function display($arrParam) {
+    
+    $existACL=existAclAttr($this-&gt;template-&gt;name);<co
+            id="co-chap6-templates-xmlrpc" />
+    
+    //if not 
+    if (!$existACL) {<co id="co-chap6-templates-existacl" />
+      $aclattrright="rw";
+      $isAclattrright=true;
+    } else {
+      $aclattrright=(getAclAttr($this-&gt;template-&gt;name));<co
+            id="co-chap6-templates-getuseracl" />
+      $isAclattrright=$aclattrright!='';
+    }
+    
+    //if correct acl and exist acl
+    if ($isAclattrright) {<co id="co-chap6-templates-aclright" />
+      //if read only
+      if ($aclattrright=="ro") {<co id="co-chap6-templates-ro" />
+        $this-&gt;template-&gt;displayRo($arrParam);
+        //if all right
+      } else if ($aclattrright=="rw") {<co id="co-chap6-templates-rw" />
+        $this-&gt;template-&gt;display($arrParam);
+      }
+      //if no right at all
+    } else {
+      $this-&gt;template-&gt;displayHide($arrParam);<co
+            id="co-chap6-templates-hide" />
+    }
+  
+  }
+}</programlisting>
+
+        <calloutlist>
+          <callout arearefs="co-chap6-templates-xmlrpc">
+            <para>Verifie si le nom de champ existe dans les ACL.
+            <parameter>$this-&gt;template-&gt;name</parameter> correspond au
+            nom donnée au template (objet passé en paramètre du constructeur
+            de <classname>FormElement</classname>).</para>
+          </callout>
+
+          <callout arearefs="co-chap6-templates-existacl">
+            <para>Si le champ n'existe pas dans les ACL, alors on donne les
+            plein pouvoir.</para>
+          </callout>
+
+          <callout arearefs="co-chap6-templates-getuseracl">
+            <para>Dans le cas contraire, nous récuperons l'acl de
+            l'utilisateur. Aucun appel XMLRPC, les ACLs sont stoquées dans une
+            variable de session. Création ensuite dans la variable
+            <varname>$isAclattrright</varname> qui indique si l'utilisateur a
+            des droits sur ce champ.</para>
+          </callout>
+
+          <callout arearefs="co-chap6-templates-aclright">
+            <para>Si l'utilisateur à des droits sur le champ spécifié.</para>
+          </callout>
+
+          <callout arearefs="co-chap6-templates-ro">
+            <para>Si l'utilisateur n'a les droits qu'en lecture, alors la
+            methode <function>displayRo($arrParam)</function> du template est
+            appelée. Elle affiche l'information et un élement de formulaire en
+            hidden.</para>
+          </callout>
+
+          <callout arearefs="co-chap6-templates-rw">
+            <para>Dans le cas contraire, l'objet template est affiché
+            normalement.</para>
+          </callout>
+
+          <callout arearefs="co-chap6-templates-hide">
+            <para>Si l'utilisateur n'a aucun droit, alors la methode
+            <function>displayHide($arrParam)</function> du template est
+            appelée.</para>
+          </callout>
+        </calloutlist>
+      </section>
+
+      <section>
+        <title>Example rapide (edit.php)</title>
+
+        <programlisting>      //display form
+    
+      $test = new TrFormElement("Identifiant",new InputTpl("nlogin"));
+      $test-&gt;setCssError("login");
+      $test-&gt;display(array("value"=&gt;$detailArr["cn"][0]));
+
+      $test = new TrFormElement("Nom",new InputTpl("name"));
+      $test-&gt;display(array("value"=&gt;$detailArr["givenName"][0]));
+      
+      $test = new TrFormElement("Prénom",new InputTpl("firstname"));
+      $test-&gt;display(array("value"=&gt;$detailArr["sn"][0]));
+      
+      $test = new TrFormElement("Mot de passe",new PasswordTpl("pass"));
+      $test-&gt;setCssError("pass");
+      $test-&gt;display(null);</programlisting>
+
+        <para><emphasis>new InputTpl("nlogin");</emphasis> définit un champ
+        input ayant comme nom "nlogin". Cette élement est ensuite encapsulé
+        dans un objet new TrFormElement. Le reste est je pense, assez
+        explicite. Pour plus d'information, consultez la documentation
+        doxygen.</para>
+      </section>
+
+      <section>
+        <title>Les différents type d'objets</title>
+
+        <para>Vous avez le choix entre 2 objets pour encapsuler les objets
+        template:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>FormElement: un élement simple, qui affichera le template
+            qui lui sera associé, en fonction des ACL définit.</para>
+          </listitem>
+
+          <listitem>
+            <para>TrFormElement: Dérivé de "FormElement", TrFormElement se
+            distingue en insérant cela dans un tableau avec des
+            balises&lt;tr&gt;&lt;td&gt;.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Voici la liste des objets "template" utilisable pour les
+        formulaires:</para>
+
+        <informaltable>
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>InputTpl</entry>
+
+                <entry>Simple champ input.</entry>
+              </row>
+
+              <row>
+                <entry>PasswordTpl</entry>
+
+                <entry>Champ de mot de passe masqué.</entry>
+              </row>
+
+              <row>
+                <entry>CheckboxTpl</entry>
+
+                <entry>Case à cocher</entry>
+              </row>
+
+              <row>
+                <entry>SelectItem</entry>
+
+                <entry>Drop down box</entry>
+              </row>
+
+              <row>
+                <entry>MultipleInputTpl</entry>
+
+                <entry>Champ multiple</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>Il est évident que tout les types possibles dans un formulaire
+        ne sont pas présent à l'heure où j'écrit ces lignes.*</para>
+
+        <para>Une expression regulière peut être ajouter pour verifier la
+        validité de l'entrée:</para>
+
+        <programlisting>  new InputTpl("mail",'/^([A-Za-z0-9._%-]+@[A-Za-z0-9.-]+){0,1}$/')</programlisting>
+
+        <para>ou alors de cette manière</para>
+
+        <programlisting>  $m = new MultipleInputTpl("maildrop",_T("Mail drop","mail"));
+  $m-&gt;setRegexp('/^([0-9a-zA-Z@.])+$/');</programlisting>
+
+        <tip>
+          <para>Si vous désirez ajouter vos propres Objets, n'oubliez pas de
+          les faire dériver d'<classname>AbstracTpl</classname>.</para>
+        </tip>
+      </section>
+    </section>
+  </section>
+
+  <section>
+    <title>FAQ</title>
+
+    <qandaset>
+      <qandadiv>
+        <qandaentry>
+          <question>
+            <para>Mon module ne s'affiche pas dans l'interface.</para>
+          </question>
+
+          <answer>
+            <para>Avez vous bien les droits ACL requis pour acceder au module
+            ? Etes vous sûr que la fonction activate du module python
+            correspond renvoit-elle True ? Il est important que le nom du
+            module web et du module python soit en accord.</para>
+          </answer>
+        </qandaentry>
+      </qandadiv>
+    </qandaset>
+  </section>
+
+  <section>
+    <title>Annexes</title>
+
+    <section>
+      <title>Fichiers de configuration</title>
+
+      <section id="chap7_etclmc_ini">
+        <title>/etc/lmc/lmc.ini</title>
+
+        <programlisting>[global]
+backend = xmlrpc
+locale = fr_FR@euro
+
+#root-url 
+# url like http://myhost.com/root-url
+# root= /lmc/ for http://127.0.0.1/lmc/
+root = /lmc/
+
+#root of application in the filesystem
+# ex : /user/share/linbox/lmc/modules/
+rootfs = /usr/share/lmc/
+rootfsmodules = /usr/share/lmc/modules/
+
+maxperpage = 10
+
+[deny]
+
+#debug section
+[debug]
+# 0 : no information
+# 1 : xmlrpc Call and result display on screen
+level = 0
+
+
+[server_01]
+description = ox
+url = http://172.20.0.102:7080
+
+[server_02]
+description = rayburst
+url = http://127.0.0.1:7080</programlisting>
+      </section>
+
+      <section>
+        <title>/etc/lmc/agent/config.ini</title>
+
+        <programlisting>[main]
+enablessl = 1
+privkey = /etc/lmc/keys/agent.key
+certfile = /etc/lmc/keys/agent.cert
+host = 172.20.0.102
+port = 7080
+
+[ldap]
+host = 127.0.0.1
+baseDN = ou=People, dc=ldap, dc=linbox
+baseGroupsDN = ou=Group, dc=ldap, dc=linbox
+rootName = cn=admin, dc=ldap, dc=linbox
+password = secret
+
+[plugins]
+pathini = /etc/lmc/agent/plugins/
+
+[log]
+name = lmc-agent
+pathfs=/usr/share/lmc-agent
+path = /var/log/lmc
+pidfile= /var/run/lmc-agent.pid
+
+[backup-tools]
+#path = /usr/lib/lmc/backup-tools
+path = /usr/lib/lmc/backup-tools
+destpath = /home/archives</programlisting>
+      </section>
+
+      <section>
+        <title>/etc/samba/smb.conf</title>
+
+        <programlisting>[homes]
+        comment = Repertoires utilisateurs
+        browseable = no
+        directory mask = 0700
+        writeable = yes
+        create mask = 0700
+
+[hotbackup]
+        comment = Sauvegarde à chaud
+        path = /srv/snapshots
+        browseable = yes
+        writeable = no
+        public = yes
+
+[global]
+        ldap admin dn = cn=admin,dc=ldap,dc=linbox
+        ldap user suffix = ou=People
+        ldap machine suffix = ou=People
+        ldap group suffix = ou=Group
+        ldap suffix = dc=ldap,dc=linbox
+        ldap ssl = off
+        domain logons = yes
+        passdb backend = ldapsam:ldap://127.0.0.1
+        logon path = \\%N\profiles\%u
+        workgroup = XBGROUP
+        map acl inherit = yes
+        netbiosname = RAYBURST
+        name resolve order = bcast host
+        unix charset = UTF-8
+        null passwords = yes
+        logon script = logon.bat
+        printcap name = cups
+        nt acl support = yes
+        printing = cups
+        domain master = yes
+        log level = 3
+
+[public]
+        comment = Répertoire public
+        path = /srv/shares/public
+        browseable = yes
+        writeable = yes
+        public = yes
+
+[print$]
+        comment = Pilotes
+        browseable = yes
+        printer admin = root,@lpadmin
+        write list = root,@lpadmin
+        guest ok = yes
+        path = /etc/samba/drivers
+        read only = yes
+
+[printers]
+        comment = Imprimantes
+        writeable = no
+        printer admin = root,@lpadmin
+        printable = yes
+        browseable = no
+        guest ok = yes
+        path = /var/spool/samba
+        public = yes
+
+[publictest]
+        comment = canard
+        writeable = yes
+        browseable = yes
+        public = yes
+        path = /home/samba/publictest
+
+[netlogon]
+        writeable = no
+        path = /home/samba/netlogon
+        browsable = no
+        public = no
+
+[archive]
+        comment = Répertoire d'archivage
+        path = /srv/shares/archive
+        browseable = yes
+        writeable = no
+        public = no
+</programlisting>
+      </section>
+
+      <section>
+        <title>/etc/ldap/slapd.conf</title>
+
+        <programlisting># This is the main slapd configuration file. See slapd.conf(5) for more
+# info on the configuration options.
+
+#######################################################################
+# Global Directives:
+
+# Features to permit
+#allow bind_v2
+
+# Schema and objectClass definitions
+include         /etc/ldap/schema/core.schema
+include         /etc/ldap/schema/cosine.schema
+include         /etc/ldap/schema/nis.schema
+include         /etc/ldap/schema/inetorgperson.schema
+include		/etc/ldap/schema/samba.schema
+<emphasis role="bold">include         /etc/ldap/schema/lmc.schema</emphasis>
+
+# Schema check allows for forcing entries to
+# match schemas for their objectClasses's
+schemacheck     on
+
+# Where the pid file is put. The init.d script
+# will not stop the server if you change this.
+pidfile         /var/run/slapd/slapd.pid
+
+# List of arguments that were passed to the server
+argsfile        /var/run/slapd.args
+
+# Read slapd.conf(5) for possible values
+loglevel        0
+
+# Where the dynamically loaded modules are stored
+modulepath	/usr/lib/ldap
+moduleload	back_bdb
+
+#######################################################################
+# Specific Backend Directives for bdb:
+# Backend specific directives apply to this backend until another
+# 'backend' directive occurs
+backend		bdb
+checkpoint 512 30
+
+#######################################################################
+# Specific Backend Directives for 'other':
+# Backend specific directives apply to this backend until another
+# 'backend' directive occurs
+#backend		&lt;other&gt;
+
+#######################################################################
+# Specific Directives for database #1, of type bdb:
+# Database specific directives apply to this databasse until another
+# 'database' directive occurs
+database        bdb
+
+# The base of your directory in database #1
+suffix          "dc=ldap,dc=linbox"
+
+# Where the database file are physically stored for database #1
+directory       "/var/lib/ldap"
+
+# Indexing options for database #1
+index           objectClass eq
+
+# Save the time that the entry gets modified, for database #1
+lastmod         on
+
+# Where to store the replica logs for database #1
+# replogfile	/var/lib/ldap/replog
+
+# The userPassword by default can be changed
+# by the entry owning it if they are authenticated.
+# Others should not be able to see it, except the
+# admin entry below
+# These access lines apply to database #1 only
+access to attrs=userPassword
+        by dn="cn=admin,dc=ldap,dc=linbox" write
+        by anonymous auth
+        by self write
+        by * none
+
+# Ensure read access to the base for things like
+# supportedSASLMechanisms.  Without this you may
+# have problems with SASL not knowing what
+# mechanisms are available and the like.
+# Note that this is covered by the 'access to *'
+# ACL below too but if you change that as people
+# are wont to do you'll still need this if you
+# want SASL (and possible other things) to work 
+# happily.
+access to dn.base="" by * read
+
+# The admin dn has full write access, everyone else
+# can read everything.
+access to *
+        by dn="cn=admin,dc=ldap,dc=linbox" write
+	by dn="uid=admin,ou=people,dc=ldap,dc=linbox" write
+        by * read
+
+# For Netscape Roaming support, each user gets a roaming
+# profile for which they have write access to
+#access to dn=".*,ou=Roaming,o=morsnet"
+#        by dn="cn=admin,dc=ldap,dc=linbox" write
+#        by dnattr=owner write
+
+#######################################################################
+# Specific Directives for database #2, of type 'other' (can be bdb too):
+# Database specific directives apply to this databasse until another
+# 'database' directive occurs
+#database        &lt;other&gt;
+
+# The base of your directory for database #2
+#suffix		"dc=debian,dc=org"
+</programlisting>
+      </section>
+
+      <section>
+        <title>/etc/ldap/schema/lmc.schema</title>
+
+        <para>Les OID reste à être définit. De manière arbitraite j'ai choisis
+        40098.</para>
+
+        <programlisting>##
+## Needed attributes for LMC (Linbox Management Console)
+##
+## Version 0.1
+##
+## Jérôme Wax (jerome.wax@linbox.com)
+##
+
+# Attributes
+attributetype ( 1.3.6.1.4.1.40098.1.1.12.1 NAME 'lmcACL'
+        DESC 'LMC acl entry'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
+attributetype ( 1.3.6.1.4.1.40098.1.1.12.2 NAME 'lmcPrefMode'
+        DESC 'LMC user'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
+# Objectclasses
+objectclass ( 1.3.6.1.4.1.40098.1.2.1.19.1 NAME 'lmcUserObject' AUXILIARY
+        DESC 'Objectclass for lmc user settings '
+        MAY  ( lmcACL $ lmcPrefMode))
+</programlisting>
+      </section>
+    </section>
+
+    <section>
+      <title>Structure d'une page (ancienne version)</title>
+
+      <para>Cette section reste dans la documentation car (à l'heure ou
+      j'ecrit ses lignes), la plupart de l'application en outre lmc-base n'a
+      pas codé en utilisant les class que j'ai developpé. Il est bon d'avoir
+      l'analyse faite avant le developpement.</para>
+
+      <section>
+        <title>Introduction</title>
+
+        <para>Je vais ennoncé ici la structure générique des anciennes page
+        lmc (lmc-samba et lmc-base). Pour ce faire, on prend en exemple la
+        page "blacklist/index.php" du module lmc-proxy dans son ancienne
+        version afin de ne pas rendre l'exemple trop complexe.<warning>
+            <para>Les chemins considérés dans tous les fichiers doivent
+            prendre en considération 2 paths. <itemizedlist>
+                <listitem>
+                  <para>Le path de "main.php" qui est a la racine de
+                  l'application, d'où chaque fichier de l'application est
+                  inclus.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Le path du PHP en lui même... qui doit être lui aussi
+                  pris en compte.</para>
+                </listitem>
+              </itemizedlist>.</para>
+          </warning></para>
+
+        <para>Pour information, une page minimaliste de lmc n'a besoin de ne
+        strictement rien contenir. A part peut être... le div fixheight
+        expliqué plus loin, et l'intégration des barres de navigation.</para>
+      </section>
+
+      <section>
+        <title>En-tête</title>
+
+        <para>Une page générique commence généralement de cette
+        façon<programlisting>&lt;?php
+/* $Id: index.php 269 2005-05-10 10:08:38Z jwax $ */
+
+require("modules/proxy/includes/config.inc.php");
+require("modules/proxy/includes/proxy.inc.php");
+?&gt;</programlisting></para>
+
+        <para>Les differents includes necessaire, sauf "gestion de session,
+        module et internationalisation" qui eux sont chargé au niveau de
+        "main.php". On remarquera ici, le chargement des primitives pour le
+        proxy.</para>
+      </section>
+
+      <section>
+        <title>L'inclusion du style</title>
+
+        <programlisting>&lt;style type="text/css"&gt;
+&lt;!--
+
+&lt;?php
+require("modules/proxy/graph/blacklist/index.css");
+
+?&gt;</programlisting>
+
+        <para>Ici nous avons l'inclusion du style spécifique a la page.
+        <warning>
+            <para>Ici nous n'incluons que les css susceptibles de changer
+            (menu surligné etc..) en aucun cas nous définissons le style
+            général de la page... qui lui est définit dans global.css</para>
+          </warning></para>
+      </section>
+
+      <section>
+        <title>Affichage des barres de navigation</title>
+
+        <para>La procédure ensuite et d'afficher les barres de
+        navigation</para>
+
+        <programlisting>&lt;?php
+$path = array(array("name" =&gt; "Accueil",
+                    "link" =&gt; "main.php"),
+              array("name" =&gt; "Gestion du proxy"));
+
+require("localSidebar.php");
+require("graph/navbar.inc.php");
+?&gt;</programlisting>
+
+        <para>Ces lignes définissent les barres de navigation et les
+        affiches</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>$path définit la barre de navigation en haut a gauche du
+            type "accueil&gt;gestion du proxy"</para>
+          </listitem>
+
+          <listitem>
+            <para>$sidebar contient la barre du coté. On ne remarque pas son
+            chargement car il est contenu dans "localSidebar.php"</para>
+          </listitem>
+
+          <listitem>
+            <para>require("graph/navbar.inc.php"); s'occupe d'afficher la
+            totalité des menus.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Pour information voici le "localSidebar.php" situé dans la
+        racine.</para>
+
+        <programlisting>&lt;? 
+$sidebar = array("class" =&gt; "blacklist",
+                 "content" =&gt; array(array("id" =&gt; "status","text" =&gt; "Status du proxy",
+                              "link" =&gt; "main.php?module=proxy&amp;submod=blacklist&amp;action=status"),
+    array("id" =&gt; "global","text" =&gt; "Gestion de la liste noire",
+                              "link" =&gt; "main.php?module=proxy&amp;submod=blacklist&amp;action=index"),
+    array("id" =&gt; "addbl","text" =&gt; "Ajout d'une entrée à la liste noire",
+                              "link" =&gt; "main.php?module=proxy&amp;submod=blacklist&amp;action=add")));
+?&gt;</programlisting>
+
+        <warning>
+          <para>les id du tableau, sont les idées qui seront utilisés pour
+          l'affichage au niveau des style CSS.</para>
+        </warning>
+
+        <note>
+          <para>Il serait interessant d'automatisé cette partie dans le futur
+          via un fichier de configuration XML.</para>
+        </note>
+      </section>
+
+      <section>
+        <title>Traitement des informations</title>
+
+        <para>On procède ensuite a l'extraction des informations pour
+        l'affichage de la page.</para>
+
+        <programlisting>&lt;h2&gt;Gestion des blacklist&lt;/h2&gt;
+
+&lt;div class="fixheight"&gt;&lt;/div&gt;
+
+&lt;? 
+ global $conf;
+ $file = $conf["proxy"]["squidguard"];
+
+
+
+if (!isset($_GET["items"]))
+{
+  if (!isset($_POST["start"]))
+  {
+    $arrB = get_nonIndexBlackList();
+    $start = 0;
+
+    if (count($arrB) &gt; 0)
+      {
+ $end = $conf["global"]["maxperpage"] - 1;
+      }
+    else
+      {
+ $end = 0;
+      }
+  }
+}
+else
+{
+  $arrB = unserialize(base64_decode(urldecode($_GET["items"])));
+  $start = $_GET["start"];
+  $end = $_GET["end"];
+}
+
+
+
+print_nav($start, $end, $arrB);
+
+global $maxperpage;</programlisting>
+
+        <para>On notera plusieurs elements qui sont recurrent dans les
+        pages.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>$maxperpage qui est une variable définit dans $conf. Elle
+            définit le nombre maximale d'element par page</para>
+          </listitem>
+
+          <listitem>
+            <para>$conf qui est un tableau de variables globales.</para>
+          </listitem>
+
+          <listitem>
+            <para>la fixation de $start et $stop.</para>
+          </listitem>
+
+          <listitem>
+            <para>La récupération d'une liste d'élements comme $arrB qui
+            contientra la liste des elements blacklistés, sous la forme d'un
+            tableau.<warning>
+                <para>le tableau fournit devra etre indexé de 0 à X. Une
+                indexation par clef poserait problème.</para>
+              </warning></para>
+          </listitem>
+
+          <listitem>
+            <para>la fonction "print_nav($start, $end, $arrB);" qui affiche
+            une barre de navigation "&lt;précedent-suivant&gt;" (au moment ou
+            j'ecris ces lignes.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Le div "fixheight", fixe la hauteur de la page, de manière a ce
+        que le design de la page ne soit pas "écrasé".</para>
+      </section>
+
+      <section>
+        <title>Génération des informations sur la liste</title>
+
+        <programlisting>&lt;p class="listInfos"&gt;
+Elements &lt;strong&gt;&lt;?php echo min(($start + 1), count($arrB)); ?&gt;&lt;/strong&gt;
+à &lt;strong&gt;&lt;?php echo min(($end + 1), count($arrB)); ?&gt;&lt;/strong&gt;
+sur un total de &lt;strong&gt;&lt;?php echo count($arrB); ?&gt;&lt;/strong&gt;
+(page &lt;?php printf("%.0f", ($end + 1) / $maxperpage); ?&gt; 
+sur
+&lt;?php
+ $pages = count($arrB) / $maxperpage;
+ if ((count($arrB) % $maxperpage &gt; 0) &amp;&amp; (count($arrB) &gt; $maxperpage))
+   {
+     $pages++;
+   }
+ if ((count($arrB) &gt; 0) &amp;&amp; ($pages &lt; 1))
+   {
+     $pages = 1;
+   }
+ printf("%.0f", $pages);
+?&gt; )</programlisting>
+
+        <para>Un morceau de code qui pourrait facilement etre factorisé car il
+        se charge uniquement d'afficher ceci:</para>
+
+        <screen>Elements 1 à 6 sur un total de 7 (page 1 sur 2)</screen>
+      </section>
+
+      <section>
+        <title>Interaction</title>
+
+        <programlisting>&lt;table border="1" cellspacing="0" cellpadding="5"&gt;
+
+
+&lt;?php
+for ($idx = $start;
+     ($idx &lt; count($arrB)) &amp;&amp; ($idx &lt;= $end);
+     $idx++)
+{
+  if (($start - $idx) % 2)
+    {
+      echo "&lt;tr&gt;";
+    }
+  else
+    {
+      echo "&lt;tr class=\"alternate\"&gt;";
+    }
+
+  echo "&lt;td class=\"shareName\"&gt;".$arrB[$idx]."&lt;/td&gt;";
+  echo "&lt;td class=\"shareAction\"&gt;";
+  echo "&lt;ul class=\"action\"&gt;";
+  echo "&lt;li class=\"supprimer\"&gt;
+    &lt;a href=\"main.php?module=proxy&amp;submod=blacklist&amp;action=delete&amp;blacklist="
+    .urlencode($arrB[$idx])."\"&gt;Supprimer&lt;/a&gt;&lt;/li&gt;";
+  echo "&lt;/ul&gt;";
+  echo "&lt;/td&gt;";
+  echo "&lt;/tr&gt;\n";
+}
+?&gt;
+
+&lt;/table&gt;
+
+&lt;?php
+print_nav($start, $end, $arrB);
+?&gt;</programlisting>
+
+        <para>Ici nous parcourons notre tableau a partir de $start jusqu'a
+        $end. On propose des actions en parcourant le tableau. Les actions
+        sont toujours du type :</para>
+
+        <para><programlisting>&lt;a href=\"main.php?module=proxy&amp;submod=blacklist
+&amp;action=delete&amp;blacklist=".urlencode($arrB[$idx])."\"&gt;</programlisting></para>
+
+        <para>On notera un "print_nav" a la fin pour afficher le systeme de
+        navigation.</para>
+      </section>
+
+      <section>
+        <title>Exemple de formulaire rapide</title>
+
+        <programlisting>&lt;form method="post" action="main.php?module=proxy&amp;submod=blacklist&amp;action=restart"&gt;
+&lt;input name="goto" type="hidden" value="&lt;?php echo $root; ?&gt;main.php" /&gt;
+&lt;input name="brestart" type="submit" class="btnPrimary" value="Redémarrer le service" /&gt;
+&lt;/form&gt;</programlisting>
+
+        <para>Le systeme d'action est toujours le meme "module, submod et
+        action".</para>
+      </section>
+    </section>
+  </section>
+</article>

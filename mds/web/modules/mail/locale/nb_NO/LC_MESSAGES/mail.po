@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+## Translators:
+#  <>, 2007.
+# <>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mandriva Directory Server\n"
+"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
+"POT-Creation-Date: 2011-01-30 08:18+0100\n"
+"PO-Revision-Date: 2011-07-26 09:27+0000\n"
+"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb_NO\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: modules/mail/mail/edit.php:30
+msgid "Add a mail domain"
+msgstr "Legg til epostdomene"
+
+#: modules/mail/mail/edit.php:32
+msgid "Edit mail domain"
+msgstr "Rediger epostdomene"
+
+#: modules/mail/mail/edit.php:49
+msgid "Invalid domain name"
+msgstr "Ugyldig domenenavn"
+
+#: modules/mail/mail/edit.php:55
+msgid "The mail domain has been added."
+msgstr "Epostdomenet har blitt lagt til."
+
+#: modules/mail/mail/edit.php:68
+msgid "The mail domain has been modified."
+msgstr "Epostdomenet har blitt endret."
+
+#: modules/mail/mail/edit.php:71
+msgid " The quota of all users of this mail domain have been reset."
+msgstr "Kvotene til alle brukere i dette epostdomenet har blitt tilbakestilt."
+
+#: modules/mail/mail/edit.php:96 modules/mail/mail/ajaxDomainFilter.php:22
+#: modules/mail/mail/ajaxDomainFilter.php:28
+msgid "Mail domain"
+msgstr "Epostdomene"
+
+#: modules/mail/mail/edit.php:101 modules/mail/mail/ajaxDomainFilter.php:27
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: modules/mail/mail/edit.php:106
+msgid "Default mail quota for users created in this domain (in kB)"
+msgstr "Standard epostkvote for brukere opprettet i dette domenet (i kB)"
+
+#: modules/mail/mail/edit.php:112
+msgid "Create"
+msgstr "Legg til"
+
+#: modules/mail/mail/edit.php:114
+msgid "Reset users quota to default"
+msgstr "Tilbakestill brukeres epostkvoter til standard"
+
+#: modules/mail/mail/edit.php:115
+msgid "Confirm"
+msgstr "Bekreft"
+
+#: modules/mail/mail/ajaxFilter.php:27
+msgid "Login"
+msgstr "Brukernavn"
+
+#: modules/mail/mail/ajaxFilter.php:30
+msgid "Name"
+msgstr "Navn"
+
+#: modules/mail/mail/ajaxFilter.php:31
+msgid "Mail address"
+msgstr "Epostadresse"
+
+#: modules/mail/mail/ajaxFilter.php:32
+msgid "Edit"
+msgstr "Rediger"
+
+#: modules/mail/mail/index.php:32 modules/mail/mail/localSidebar.php:6
+#: modules/mail/infoPackage.inc.php:57
+msgid "Mail domain list"
+msgstr "Epostdomene liste"
+
+#: modules/mail/mail/members.php:33
+msgid "Members of "
+msgstr "Medlemmer av "
+
+#: modules/mail/mail/ajaxDomainFilter.php:30
+msgid "View domain members"
+msgstr "Vis domenemedlemmer"
+
+#: modules/mail/mail/ajaxDomainFilter.php:31
+msgid "Edit domain"
+msgstr "Rediger domene"
+
+#: modules/mail/mail/ajaxDomainFilter.php:32 modules/mail/mail/delete.php:54
+msgid "Delete domain"
+msgstr "Slett domene"
+
+#: modules/mail/mail/delete.php:37
+msgid "The mail domain has been deleted."
+msgstr "Epostdomenet ble slettet."
+
+#: modules/mail/mail/delete.php:49
+msgid "You will delete the virtual mail domain "
+msgstr "Du vil slette det virtuelle epostdomenet "
+
+#: modules/mail/mail/delete.php:55
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: modules/mail/mail/localSidebar.php:7 modules/mail/infoPackage.inc.php:60
+msgid "Add a domain"
+msgstr "Legg til domene"
+
+#: modules/mail/includes/publicFunc.php:33
+#: modules/mail/includes/publicFunc.php:141
+msgid "Mail plugin"
+msgstr "Epost plugin"
+
+#: modules/mail/includes/publicFunc.php:54
+msgid "No mail alias can be set for this group"
+msgstr "Ingen epost alias kan settes for denne gruppen"
+
+#: modules/mail/includes/publicFunc.php:58
+msgid "Zarafa group"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:61
+msgid "Enable mail alias for users of this group "
+msgstr "Aktiver epost alias for brukere i denne gruppen "
+
+#: modules/mail/includes/publicFunc.php:73
+#: modules/mail/includes/publicFunc.php:76
+#: modules/mail/includes/publicFunc.php:216
+#: modules/mail/includes/publicFunc.php:219
+msgid "Mail alias"
+msgstr "Epost alias"
+
+#: modules/mail/includes/publicFunc.php:170
+#: modules/mail/infoPackage.inc.php:40
+msgid "Mail access"
+msgstr "Epost tilgang"
+
+#: modules/mail/includes/publicFunc.php:195
+msgid "Mail delivery is disabled, if checked"
+msgstr "Epost levering er deaktivert, hvis valgt"
+
+#: modules/mail/includes/publicFunc.php:199
+msgid "Mail quota (in kB)"
+msgstr "Epostkvote (i kB)"
+
+#: modules/mail/includes/publicFunc.php:205
+#: modules/mail/infoPackage.inc.php:50
+msgid "Forward to"
+msgstr "Videresend til"
+
+#: modules/mail/includes/publicFunc.php:209
+#: modules/mail/includes/publicFunc.php:213
+#: modules/mail/infoPackage.inc.php:97
+msgid "Mail drop"
+msgstr "Mail drop"
+
+#: modules/mail/includes/publicFunc.php:227
+#: modules/mail/infoPackage.inc.php:43
+msgid "Mail delivery path"
+msgstr "Sti for epostlevering"
+
+#: modules/mail/includes/publicFunc.php:231
+#: modules/mail/infoPackage.inc.php:44
+msgid "Mail server host"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:239
+msgid "Zarafa properties"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:243
+msgid "Administrator of Zarafa"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:248
+msgid "Shared store"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:253
+msgid "Zarafa account"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:260
+msgid "Zarafa send as user list"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:301
+#, php-format
+msgid "%s is not a valid mail alias."
+msgstr "%s er ikke et gyldig epost alias."
+
+#: modules/mail/includes/publicFunc.php:309
+msgid "You must specify a valid mail address to enable mail delivery."
+msgstr ""
+"Du må spesifisere en gyldig epostadresse for å aktivere epostlevering."
+
+#: modules/mail/includes/auditCodes.php:4
+msgid "Enable mail delivery"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:41
+msgid "Disable mail delivery"
+msgstr "Deaktivere epostlevering"
+
+#: modules/mail/includes/auditCodes.php:6
+msgid "Change mail drop"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:7
+msgid "Change mail alias"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:8
+msgid "Change mail box"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:9
+msgid "Change mail host"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:10
+msgid "Change mail quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:11
+msgid "Add mail attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:12
+msgid "Del mail attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:13
+msgid "Del mail group alias"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:14
+msgid "Add mail group"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:15
+msgid "Add virtual domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:16
+msgid "Del virtual domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:17
+msgid "Set domain description"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:18
+msgid "Set domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:19
+msgid "Reset domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:20
+msgid "Mail Group"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:53
+msgid "Mail"
+msgstr "Epost"
+
+#: modules/mail/includes/auditCodes.php:22
+msgid "Add Zarafa attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:23
+msgid "Del Zarafa attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:24
+msgid "Change Zarafa admin attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:25
+msgid "Change Zarafa sharedstore attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:26
+msgid "Change Zarafa account attribute "
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:27
+msgid "Change Zarafa sendas attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:28
+msgid "Virtual Mail Domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:29
+msgid "User"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:30
+msgid "mail"
+msgstr ""
+
+#: modules/mail/includes/mail.inc.php:43 modules/mail/includes/mail.inc.php:55
+msgid "Unlimited quota"
+msgstr "Ubegrenset kvote"
+
+#: modules/mail/infoPackage.inc.php:36
+msgid "Mail service"
+msgstr "Eposttjeneste"
+
+#: modules/mail/infoPackage.inc.php:42
+msgid "Mail aliases"
+msgstr "Epost alias"
+
+#: modules/mail/infoPackage.inc.php:45
+msgid "Mail user quota"
+msgstr "Epostbrukers kvote"
+
+#: modules/mail/infoPackage.inc.php:47
+msgid "Mail group alias access"
+msgstr "Epostgruppes alias tilgang"
+
+#: modules/mail/infoPackage.inc.php:63
+msgid "Edit a domain"
+msgstr "Rediger et domene"
+
+#: modules/mail/infoPackage.inc.php:67
+msgid "View members"
+msgstr "Vis medlemmer"
+
+#: modules/mail/infoPackage.inc.php:71
+msgid "Delete a mail domain"
+msgstr "Slett et epostdomene"
+
+

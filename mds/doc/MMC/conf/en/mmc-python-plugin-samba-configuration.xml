@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MMC SAMBA plugin configuration file</title>
+
+  <articleinfo>
+    
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision: 1420 $</revnumber>
+        <date>$Date: 2008-04-02 09:14:22 +0200 (mer. 02 avril 2008) $</date>
+        <authorinitials>$Author: cdelfosse $</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the MMC SAMBA plugin configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+    
+    <para>
+      The « samba » plugin allows the MMC to add/remove SAMBA attributes to users and groups, to manage SAMBA share, etc. It uses the « base » plugin for all its related LDAP operations.
+    </para>
+    <para>
+      The plugin configuration file is <filename>/etc/mmc/plugins/samba.ini</filename>.
+    </para>
+    <para>
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+    </para>
+    <para>
+      For example:
+
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Configuration file sections</title>
+
+    <para>
+      Here are all the samba.ini available sections
+    </para>
+    
+    <table>
+      <title>
+	samba.ini available sections
+      </title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>main</entry>
+	    <entry>global SAMBA plugin configuration</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>hooks</entry>
+	    <entry>Hooks for scripts that interacts with the MMC</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>userdefault</entry>
+	    <entry>Attributes and Objectclass values that are added or deleted when adding a new user into the LDAP</entry>
+	    <entry>yes</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+  
+  <section>
+
+    <title>Section « main »</title>
+
+    <para>
+      This sections defines the global options of the SAMBA plugin
+    </para>
+
+    <table>
+      <title>
+	Available options for the "main" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>baseComputersDN</entry>
+	    <entry>LDAP organisational unit DN where the SAMBA computer accounts are located</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>sambaConfFile</entry>
+	    <entry>Main SAMBA configuration file path</entry>
+	    <entry>yes</entry>
+	    <entry>/etc/samba/smb.conf</entry>
+	  </row>
+	  <row>
+	    <entry>sambaInitScript</entry>
+	    <entry>System SAMBA initialization script</entry>
+	    <entry>yes</entry>
+	    <entry>/etc/init.d/samba</entry>
+	  </row>
+	  <row>
+	    <entry>sambaAvSo</entry>
+	    <entry>VFS shared library location for anti-virus check on shares (scannedonly, vscan-clamav...). If this file is present, we can enable anti-virus check when creating a SAMBA share. This results to an option on the share : vfs object = libname (without .so suffix)</entry>
+	    <entry>yes</entry>
+	    <entry>/usr/lib/samba/vfs/vscan-clamav.so</entry>
+	  </row>
+	  <row>
+	    <entry>defaultSharesPath</entry>
+	    <entry>Directory where the SAMBA shares are created, if no path is specified</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>authorizedSharePaths</entry>
+	    <entry>Comma-separated list of directories where SAMBA shares are allowed to be created.</entry>
+	    <entry>yes</entry>
+	    <entry>The value of defaultSharesPath</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+  </section>
+
+
+  <section>
+    
+    <title>Section « hooks »</title>
+    
+    <para>
+      The hooks system allow you to run external script when doing some operations with the MMC.
+    </para>
+    <para>
+      The script will be run as root user, with as only argument the full LDIF of the LDAP user. For the « addsmbattr » and « changeuserpasswd » hook, the LDIF file will contains the userPassword attributes in cleartext.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "hooks" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>	  
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>addsmbattr</entry>
+	    <entry>path to the script launched when the SAMBA LDAP attributes has been added to a user</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>changesambaattributes</entry>
+	    <entry>path to the script launched when the SAMBA LDAP attributes has been changed on a user</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>changeuserpasswd</entry>
+	    <entry>path to the script launched when the SAMBA password of a user is changed</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+    
+  </section>
+
+  <section>
+
+    <title>Section « userdefault »</title>
+
+    <para>
+      When adding the SAMBA attributes to a user, you may want to change the value of the attribute that are added. Please look at the « MMC base plugin configuration file » for a look at how this section works.
+    </para>
+    <para>
+      For example, if you want to delete the sambaPwdMustChange attribute of a user entry:
+    </para>
+    <screen>
+      sambaPwdMustChange = DELETE
+    </screen>
+
+  </section>
+  
+
+</article>

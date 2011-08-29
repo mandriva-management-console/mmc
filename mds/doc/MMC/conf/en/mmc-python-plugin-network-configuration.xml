@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MMC network plugin configuration file</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007,2008,2010 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the MMC network plugin configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>
+      The « network » plugin allows the MMC Python API to manage DNS
+      zones and hosts, DHCP subnet and hosts, into a LDAP. Patched
+      version of ISC BIND (with LDAP sdb backend) and ISC DHCP (with
+      LDAP configuration file backend) are needed. PowerDNS support
+      is also available.
+    </para>
+    <para>
+      The plugin configuration file is <filename>/etc/mmc/plugins/network.ini</filename>.
+    </para>
+    <para>
+      Like all MMC related configuration file, its file format is INI
+      style. The file is made of sections, each one starting with a «
+      [sectionname] » header. In each section options can be defined
+      like this « option = value ».
+    </para>
+    <para>
+      For example:
+
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Configuration file sections</title>
+
+    <para>
+      Here are all the network.ini available sections
+    </para>
+
+    <table>
+      <title>
+	network.ini available sections
+      </title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>main</entry>
+	    <entry>global network plugin configuration</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>dns</entry>
+	    <entry>DNS related configuration</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>dhcp</entry>
+	    <entry>DHCP related configuration</entry>
+	    <entry>no</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « main »</title>
+
+    <para>
+      This sections defines the global options of the network plugin.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "main" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>disable</entry>
+	    <entry>Is the plugin disabled</entry>
+	    <entry>yes</entry>
+	    <entry>1</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+  </section>
+
+  <section>
+
+    <title>Section « dns »</title>
+
+    <para>
+      This section defines where DNS needed files, directories and LDAP entities are located.
+    </para>
+    <para>
+      When the plugin starts for the first time, it creates:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>the directory <filename>bindroot/named.ldap</filename>. This directory will contains all zones definitions</para>
+      </listitem>
+      <listitem>
+	<para>the file <filename>bindroot/named.conf.ldap</filename>. This file will include all the zone definitions stored into <filename>bindroot/named.ldap</filename>/</para>
+      </listitem>
+    </itemizedlist>
+
+    <table>
+      <title>
+	Available options for the "dns" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>type</entry>
+	    <entry>DNS server type: "bind" or "pdns" (PowerDNS)</entry>
+	    <entry>yes</entry>
+	    <entry>bind</entry>
+	  </row>
+	  <row>
+	    <entry>dn</entry>
+	    <entry>LDAP DN where the DNS zones are stored</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>logfile</entry>
+	    <entry>path to BIND log file</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>pidfile</entry>
+	    <entry>path to BIND pid file</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>init</entry>
+	    <entry>BIND init script</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>bindchrootconfpath</entry>
+	    <entry>path to the named.ldap directory inside the BIND chroot. Don't set it if BIND is not into a chroot.</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>bindroot</entry>
+	    <entry>path to the BIND configuration file directory</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>bindgroup</entry>
+	    <entry>gid which BIND is running ("bind" or "named")</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dnsreader</entry>
+	    <entry>LDAP user DN to use to read zone info</entry>
+	    <entry>yes</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>dnsreaderpassword</entry>
+	    <entry>password of the user specified in dnsreader</entry>
+	    <entry>not if dnsreader is set</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      Here is an example for BIND on a Mandriva Corporate Server 4:
+    </para>
+    <screen>
+      [dns]
+      type = bind
+      dn = ou=DNS,dc=mandriva,dc=com
+      pidfile = /var/lib/named/var/run/named.pid
+      init = /etc/rc.d/init.d/named
+      logfile = /var/log/messages
+      bindroot = /var/lib/named/etc/
+      bindchrootconfpath = /etc
+      bindgroup = named
+      dnsreader = uid=DNS Reader,ou=System Accounts,dc=mandriva,dc=com
+      dnsreaderpassword = s3cr3t
+    </screen>
+
+  </section>
+
+  <section>
+
+    <title>Section « dhcp »</title>
+
+    <para>
+      This section defines where DHCP related files and LDAP entities are located.
+    </para>
+
+    <table>
+      <title>
+	Available options for the "backup-tools" section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>dn</entry>
+	    <entry>LDAP DN where the DHCP server configuration is stored</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>pidfile</entry>
+	    <entry>path to DHCP server pidfile</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>init</entry>
+	    <entry>path to DHCP service init script</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>logfile</entry>
+	    <entry>path to DHCP service log file</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>leases</entry>
+	    <entry>path to DHCP service leases file</entry>
+	    <entry>no</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>hostname</entry>
+	    <entry>name of the DHCP server to user</entry>
+	    <entry>no</entry>
+	    <entry>Set manually the master DHCP hostname in the LDAP. If not set, DHCP name will be the local hostname. If set, you can configure the "ldap-dhcp-server-cn" option in dhcpd.conf to match this setting</entry>
+	  </row>
+	  
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+</article>

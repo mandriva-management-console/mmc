@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>How to translate the MDS web interface</title>
+
+  <subtitle>Informational / Draft</subtitle>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007-2008,2010 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>MMC CORE and MDS</productname>
+    <productnumber>1.x</productnumber>
+
+    <abstract>
+      <para>This document explains how to help the MDS project to make the MMC support more languages</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>
+      You don't need to be a programmer to do some translation works.
+    </para>
+    <para>
+      Please subscribe to the <ulink url="http://mds.mandriva.org/wiki/MailingLists">MDS i18n mailing list</ulink>, and tell us about the language you want to work on (somebody else may already translates this language).
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>How to translate the MDS (easy)</title>
+
+    <para>
+      Connect to <ulink url="http://mds.mandriva.org/custom/mmc-i18n.php">the MDS translation status page</ulink> and download the .po file corresponding to your language and the module you want to translate. If your language is not listed, download the template file available at the beginning of the status page.
+    </para>
+    <para>
+      You can then start to translate the file with applications like <ulink url="http://www.poedit.net">poedit</ulink> or kbabel.
+    </para>
+    <para>
+      Once finished, send the file to the MDS i18n or the MDS devel <ulink url="http://mds.mandriva.org/wiki/MailingLists">mailing list</ulink>, and we will integrate your work.
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>How to translate the MDS (harder)</title>
+
+    <para>
+      This section is for people with some development background. The translation process is harder, but it will allow you to display and test your translations in the MMC web interface.
+    </para>
+    <para>
+    The MMC web interface uses the PHP gettext library to provide a multilanguage experience.</para>
+    <para>
+      Please note that gettext requires the locales you want to use to be installed on your system. For example, to have the french locale working, you must install the "fr_FR.UTF-8" locale.
+    </para>
+    <para>
+      If you want to do some translation works:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>
+	  Tell us you want to do it ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Export the SVN repository of the interface part you want to translate ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Rebuild the template file that contains all the translation ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Translate the po file with a dedicated application (kbabel, poedit ...) ;
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  Test it, and send us the translated file (.po file).
+	</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      For example, you want to translate the MMC "base" plugin into Spanish:
+    </para>
+
+    <screen>
+      $ cd /tmp
+      $ svn export http://mds.mandriva.org/svn/mmc-projects/mmc-core/trunk/
+      ### For other MDS modules:
+      ### $ svn export http://mds.mandriva.org/svn/mmc-projects/mds/trunk/
+      $ cd trunk/web
+      $ make build_pot # Will build the translation template
+      $ mkdir -p modules/base/locale/es_ES/LC_MESSAGES
+      $ cp modules/base/locale/base.pot modules/base/locale/es_ES/LC_MESSAGES/base.po
+      # use your favorite editor to translate modules/base/locale/es_ES/LC_MESSAGES/base.po
+      $ kbabel modules/base/locale/es_ES/LC_MESSAGES/base.po
+      # Compile the .mo file and copy it to your running MMC
+      $ make build_mo
+      $ cp -r modules/base/locale/es_ES /usr/share/mmc/modules/base/locale
+      # Install the spanish es_ES.UTF-8 on your system
+      # Your apache2 must be restarted to use the new .mo file
+      $ /etc/init.d/apache2 restart
+    </screen>
+
+    <para>
+      Now if you point your navigator to the MMC login page, your newly translated language should be available.
+    </para>
+
+  </section>
+
+</article>

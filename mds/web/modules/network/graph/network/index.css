@@ -1,0 +1,21 @@
+li.addhost a {
+    padding: 11px 0px 30px 40px;
+    margin: 0 0px 0 0px;
+    background-image: url("img/machines/icn_addMachines_active.gif");
+    background-repeat: no-repeat;
+    background-position: left top;
+    line-height: 18px;
+    text-decoration: none;
+    color: #FFF;
+}
+
+li.zonemembers a {
+    padding: 3px 7px 5px 20px;
+    margin: 0 0px 0 0px;
+    background-image: url("modules/network/graph/img/icn_zoneMembers.gif");
+    background-repeat: no-repeat;
+    background-position: left top;
+    line-height: 18px;
+    text-decoration: none;
+    color: #FFF;
+}

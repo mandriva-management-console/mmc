@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>040_alias_checks</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">040_alias_checks</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=network&amp;submod=network&amp;action=index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=network&amp;submod=network&amp;action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=example.net</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=network&amp;submod=network&amp;action=edithost&amp;host=testhost1&amp;zone=example.net')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostalias[0]</td>
+	<td>alias1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bhostalias</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostalias[1]</td>
+	<td>alias2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bhostalias</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bhostalias</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>hostalias[3]</td>
+	<td>alias3</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bhostalias</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bedit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>DNS record successfully modified.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>alias3 (alias of testhost1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>alias2 (alias of testhost1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>alias1 (alias of testhost1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;PopupWindow(event,'main.php?module=network&amp;submod=network&amp;action=deletehost&amp;host=alias3&amp;zone=example.net&amp;mod=', 300); return false;&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bconfirm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>The record has been deleted.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>alias2 (alias of testhost1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>alias1 (alias of testhost1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;PopupWindow(event,'main.php?module=network&amp;submod=network&amp;action=deletehost&amp;host=testhost1&amp;zone=example.net&amp;mod=', 300); return false;&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>The linked CNAME records will also be deleted: alias1 alias2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bconfirm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>The record has been deleted.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>breset</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

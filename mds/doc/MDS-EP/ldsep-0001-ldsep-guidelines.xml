@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LDS-EP guidelines</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Cédric Delfosse - Linbox F&amp;AS</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>LDS component this LDSEP applies</productname>
+    <productnumber>LDS component version this LDSEP applies</productnumber>
+
+    <abstract>
+      <para>Linbox Directory Server Enhancement Proposal guidelines</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+    
+    <title>Introduction</title>
+
+    <para>The LDS-EP idea has been completely stolen from Python PEP (Python Enhancement Proposals).</para>
+    <para>They will be used to drive the LDS project.</para>
+    <para>To be done.</para>
+
+  </section>
+
+</article>

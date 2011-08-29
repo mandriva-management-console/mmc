@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>tests/selenium/suite//035_sambaShares/107_modifyAccessExpert</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tests/selenium/suite//035_sambaShares/107_modifyAccessExpert</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Click to switch to expert mode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=samba&amp;submod=shares&amp;action=details&amp;share=selenium2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=samba&amp;submod=shares&amp;action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=List shares</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=samba&amp;submod=shares&amp;action=details&amp;share=selenium2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autouser</td>
+	<td>nobody</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>badduser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>autoadminselect</td>
+	<td>label=Domain Admins</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Admins</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bdeladmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bmodify</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Share selenium2 successfully modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>nobody</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autoadmin</td>
+	<td>Domain Guests</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>baddadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Guests</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bmodify</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Share selenium2 successfully modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Guests</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Click to switch to standard mode</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

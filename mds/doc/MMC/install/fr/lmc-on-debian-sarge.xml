@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+  <title>Installation et configuration de la LMC sur Debian Sarge</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+
+      <surname>Delfosse</surname>
+
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <author>
+      <surname>Jérôme Wax</surname>
+
+      <email>jerome.wax@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+
+      <address>152 rue de Grigy - Metz F-57230</address>
+    </affiliation>
+
+    <copyright>
+      <year>2005-2006 Cédric Delfosse - Linbox F&amp;AS</year>
+    </copyright>
+
+    <legalnotice>
+      <para></para>
+    </legalnotice>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>Ce document est un guide d'installation et de configuration de la
+      LMC: la Linbox Management Console</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+    <title>Introduction sur la LMC</title>
+
+    <para>La LMC est principalement une interface de gestion d'annuaire LDAP
+    et de serveur de fichiers (via SAMBA).</para>
+
+    <para>La LMC est composée de deux parties: un agent LMC qui est en fait le
+    coeur du système, et un frontal web qui permet de piloter cet
+    agent.</para>
+
+    <para>Ces deux parties communiquent via le protocole XML-RPC.</para>
+  </section>
+
+  <section>
+    <title>Installation et configuration de OpenLDAP et de SAMBA</title>
+
+    <para>L'agent LMC interagit avec principalement avec OpenLDAP et SAMBA. Ce
+    chapitre détaille l'installation de ces deux logiciels.</para>
+
+    <section>
+      <title>Première installation de l'agent LMC</title>
+
+      <para>Le paquet de Debian l'agent LMC contient les fichiers
+      configurations OpenLDAP et SAMBA à utiliser. Nous allons donc
+      l'installer, mais le laisser non configurer pour le moment.</para>
+
+      <para>Je suppose ici que vous êtes sur le réseau interne de Linbox, et
+      sur une machine en Debian Sarge. Mettre ceci dans le fichier
+      /etc/apt/sources.list:</para>
+
+      <screen>
+	deb ftp://lds.linbox.org/pub/lds/debian sarge main 
+      </screen>
+
+      <para>Puis:</para>
+
+      <screen>
+# apt-get update
+# apt-get install lmc-agent
+Lecture des listes de paquets... Fait
+Construction de l'arbre des dépendances... Fait
+Les paquets supplémentaires suivants seront installés&nbsp;:
+  libldap2 libsasl2 mkisofs python-ldap python-lmc-base python-lmc-plugins-tools python-pyopenssl
+  python-twisted python2.3-ldap
+Paquets suggérés&nbsp;:
+  cdrecord cdrtools-doc python-tk python-gtk2 python-glade-1.2 python-glade2 python-qt3 libwxgtk2.4-python
+  python-profiler python-ldap-doc
+Paquets recommandés&nbsp;:
+  libsasl2-modules python-pam python-serial
+Les NOUVEAUX paquets suivants seront installés&nbsp;:
+  libldap2 libsasl2 lmc-agent mkisofs python-ldap python-lmc-base python-lmc-plugins-tools python-pyopenssl
+  python-twisted python2.3-ldap
+0 mis à jour, 10 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 28,6ko/1049ko dans les archives.
+Après dépaquetage, 2728ko d'espace disque supplémentaires seront utilisés.
+Souhaitez-vous continuer&nbsp;? [O/n] o
+Réception de&nbsp;: 1 ftp://neon sarge/main python-lmc-plugins-tools 0.464-1 [1274B]
+Réception de&nbsp;: 2 ftp://neon sarge/main python-lmc-base 0.464-1 [18,3kB]
+Réception de&nbsp;: 3 ftp://neon sarge/main lmc-agent 0.464-1 [9052B]
+28,6ko réceptionnés en 0s (393ko/s)
+Sélection du paquet libsasl2 précédemment désélectionné.
+(Lecture de la base de données... 18001 fichiers et répertoires déjà installés.)
+Dépaquetage de libsasl2 (à partir de .../libsasl2_2.1.19-1.5sarge1_i386.deb) ...
+Sélection du paquet libldap2 précédemment désélectionné.
+Dépaquetage de libldap2 (à partir de .../libldap2_2.1.30-8_i386.deb) ...
+Sélection du paquet python-twisted précédemment désélectionné.
+Dépaquetage de python-twisted (à partir de .../python-twisted_1.3.0-8_all.deb) ...
+Sélection du paquet python-pyopenssl précédemment désélectionné.
+Dépaquetage de python-pyopenssl (à partir de .../python-pyopenssl_0.6-2_all.deb) ...
+Sélection du paquet python2.3-ldap précédemment désélectionné.
+Dépaquetage de python2.3-ldap (à partir de .../python2.3-ldap_2.0.4-1_i386.deb) ...
+Sélection du paquet python-ldap précédemment désélectionné.
+Dépaquetage de python-ldap (à partir de .../python-ldap_2.0.4-1_all.deb) ...
+Sélection du paquet mkisofs précédemment désélectionné.
+Dépaquetage de mkisofs (à partir de .../mkisofs_4%3a2.01+01a01-2_i386.deb) ...
+Sélection du paquet python-lmc-plugins-tools précédemment désélectionné.
+Dépaquetage de python-lmc-plugins-tools (à partir de .../python-lmc-plugins-tools_0.464-1_i386.deb) ...
+Sélection du paquet python-lmc-base précédemment désélectionné.
+Dépaquetage de python-lmc-base (à partir de .../python-lmc-base_0.464-1_all.deb) ...
+Sélection du paquet lmc-agent précédemment désélectionné.
+Dépaquetage de lmc-agent (à partir de .../lmc-agent_0.464-1_all.deb) ...
+Paramétrage de libsasl2 (2.1.19-1.5sarge1) ...
+
+Paramétrage de libldap2 (2.1.30-8) ...
+
+Paramétrage de python-twisted (1.3.0-8) ...
+Paramétrage de python-pyopenssl (0.6-2) ...
+Paramétrage de python2.3-ldap (2.0.4-1) ...
+
+Paramétrage de python-ldap (2.0.4-1) ...
+
+Paramétrage de mkisofs (2.01+01a01-2) ...
+Paramétrage de python-lmc-plugins-tools (0.464-1) ...
+Paramétrage de python-lmc-base (0.464-1) ...
+
+Paramétrage de lmc-agent (0.464-1) ...
+Starting Linbox Management Console XML-RPC Agent: lmc-agent starting...
+Error while trying to load plugin base
+{'desc': "Can't contact LDAP server"}
+Traceback (most recent call last):
+  File "/usr/lib/python2.3/site-packages/lmc/agent.py", line 271, in agentService
+    if (func()):
+  File "/usr/lib/python2.3/site-packages/lmc/plugins/base/__init__.py", line 109, in activate
+    ldapObj = ldapUserGroupControl()
+  File "/usr/lib/python2.3/site-packages/lmc/plugins/base/__init__.py", line 543, in __init__
+    self.l.simple_bind_s(username, password)
+  File "/usr/lib/python2.3/site-packages/ldap/ldapobject.py", line 175, in simple_bind_s
+    msgid = self.simple_bind(who,cred,serverctrls,clientctrls)
+  File "/usr/lib/python2.3/site-packages/ldap/ldapobject.py", line 169, in simple_bind
+    return self._ldap_call(self._l.simple_bind,who,cred,serverctrls,clientctrls)
+  File "/usr/lib/python2.3/site-packages/ldap/ldapobject.py", line 94, in _ldap_call
+    result = func(*args,**kwargs)
+SERVER_DOWN: {'desc': "Can't contact LDAP server"}
+LMC agent can't run without the base plugin. Exiting.
+failed.   
+      </screen>
+
+      <para>Ou alors si vous disposez du paquet Debian lmc-agent:</para>
+
+      <screen>
+	# dpkg -i lmc-agent_version-1_all.deb 
+      </screen>
+
+      <para>Les erreurs au lancement de l'agent LMC sont normales car les
+      paramètres d'accès au LDAP par la LMC n'ont pas encore été
+      paramétrés.</para>
+    </section>
+
+    <section>
+      <title>Installation de openLDAP</title>
+
+      <para>Le serveur LDAP peut être installé sur une autre machine que
+      l'agent LMC.</para>
+
+      <screen>
+	# apt-get install slapd ldap-utils db4.2-util
+      </screen>
+
+      <para>Répondre aux questions debconf comme ceci: <itemizedlist>
+          <listitem>
+            <para>Nom de domaine: Mettre le nom de domaine correspondant à
+            l'annuaire LDAP. Si vous mettez linbox.com, la racine de
+            l'annuaire sera « dc=linbox, dc=com ».</para>
+          </listitem>
+
+          <listitem>
+            <para>Nom de votre organisation: Mettre le nom de la
+            société.</para>
+          </listitem>
+
+          <listitem>
+            <para>Mot de passe de l'administrateur: Mettre un bon mot de
+            passe.</para>
+          </listitem>
+
+          <listitem>
+            <para>Autoriser le protocole LDAPv2: Non</para>
+          </listitem>
+        </itemizedlist></para>
+    </section>
+
+    <section>
+      <title>Configuration des schémas OpenLDAP</title>
+
+      <para>La LMC a besoin de plusieurs schémas.</para>
+
+      <para>Pour installer le schéma de base:</para>
+
+      <screen>
+	  # cp /usr/share/doc/python-lmc-base/contrib/ldap/lmc.schema /etc/ldap/schema
+	</screen>
+
+      <para>Puis modifier le fichier <filename>/etc/ldap/slapd.conf</filename>
+      et ajouter à la ligne des includes au début du fhicer:</para>
+
+      <screen>
+	  include         /etc/ldap/schema/lmc.schema
+	</screen>
+
+      <para>Si la LMC gère un serveur SAMBA :</para>
+
+      <screen># apt-get install python-lmc-samba
+Lecture des listes de paquets... Fait
+Construction de l'arbre des dépendances... Fait
+Les paquets supplémentaires suivants seront installés&nbsp;:
+  libkrb53 python-pylibacl python2.3-pylibacl samba-common
+Paquets suggérés&nbsp;:
+  krb5-doc krb5-user
+Les NOUVEAUX paquets suivants seront installés&nbsp;:
+  libkrb53 python-lmc-samba python-pylibacl python2.3-pylibacl samba-common
+0 mis à jour, 5 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 2388ko dans les archives.
+Après dépaquetage, 5825ko d'espace disque supplémentaires seront utilisés.
+</screen>
+
+      <para>Puis ensuite copier les schemas:</para>
+
+      <screen>
+	  # cp /usr/share/doc/python-lmc-base/contrib/ldap/samba.schema.gz /etc/ldap/schema/
+	  # gunzip /etc/ldap/schema/samba.schema.gz
+	</screen>
+
+      <para>Puis modifier le fichier <filename>/etc/ldap/slapd.conf</filename>
+      et ajouter à la ligne des includes au début du fhicer:</para>
+
+      <screen>
+	  include         /etc/ldap/schema/samba.schema
+	</screen>
+
+      <para>Si la LMC gère OX aussi, voir le chapitre « paramétrage OX
+      ».</para>
+
+      <para>On redémarre openldap ensuite:</para>
+
+      <screen>
+	# /etc/init.d/slapd restart
+	Stopping OpenLDAP: slapd.
+	Starting OpenLDAP: running BDB recovery, slapd.	
+	</screen>
+
+      <para>Faites un slapcat pour vérifier que le LDAP répond bien:</para>
+
+      <screen>
+	  # slapcat
+	  ...
+	  ...
+	</screen>
+    </section>
+
+    <section>
+      <title>Mise en place du SAMBA/LDAP</title>
+
+      <para>Si la LMC ne va pas gérer de domaine SAMBA, cette section peut
+      être sauté.</para>
+
+      <section>
+        <title>Installation de SAMBA</title>
+
+        <screen>
+	  # apt-get install samba smbclient
+	</screen>
+
+        <para>Au question debconf: <itemizedlist>
+            <listitem>
+              <para>Comment voulez-vous lancer Samba&nbsp;? Répondre « démons
+              »</para>
+            </listitem>
+
+            <listitem>
+              <para>Faut-il créer une base de données
+              /var/lib/samba/passdb.tdb&nbsp;? « Oui »</para>
+            </listitem>
+          </itemizedlist></para>
+
+        <para>On va arrêter SAMBA, pour mettre une configuration LDAP
+        standard:</para>
+
+        <screen>
+	  # /etc/init.d/samba stop
+	  # cp /usr/share/doc/python-lmc-base/contrib/samba/smb.conf /etc/samba/smb.conf
+	</screen>
+
+        <para>Modifier <filename>/etc/samba/smb.conf</filename> pour les
+        options workgroup, netbiosname, ldap suffix et ldap admin dn.</para>
+
+	<para>Donnons au serveur SAMBA le mot de passe de l'admin LDAP.</para>
+	<para>Il s'agit du même mot de passe que l'administrateur du LDAP que vous avez renseigné lors de l'installation du paquet Debian slapd.</para>
+
+        <screen>
+	  # smbpasswd -w s3cr3t
+	  Setting stored password for "cn=admin,dc=linbox,dc=com" in secrets.tdb
+	</screen>
+
+        <para>Avec la commande suivante, SAMBA va créer un SID pour le
+        workgroup défini dans smb.conf, et le mettre dans le LDAP</para>
+
+        <screen>
+	  # net getlocalsid LINBOX
+	  [2006/03/10 10:19:44, 0] lib/smbldap_util.c:smbldap_search_domain_info(265)
+	  Adding domain account policies for LINBOX failed with NT_STATUS_UNSUCCESSFUL
+	  SID for domain LINBOX is: S-1-5-21-3405915509-4048122344-409562039
+	</screen>
+
+        <para>Vérifier avec un slapcat que l'on a une entrée dn:
+        sambaDomainName=LINBOX,dc=linbox,dc=com</para>
+
+        <screen>
+	  dn: sambaDomainName=LINBOX,dc=linbox,dc=com
+	  sambaDomainName: LINBOX
+	  sambaSID: S-1-5-21-3405915509-4048122344-409562039
+	  sambaAlgorithmicRidBase: 1000
+	  objectClass: sambaDomain
+	  structuralObjectClass: sambaDomain
+	  entryUUID: c1bff3dc-4462-102a-9ec2-914d9e93834f
+	  creatorsName: cn=admin,dc=linbox,dc=com
+	  createTimestamp: 20060310091944Z
+	  entryCSN: 20060310091944Z#000001#00#000000
+	  modifiersName: cn=admin,dc=linbox,dc=com
+	  modifyTimestamp: 20060310091944Z	
+	</screen>
+
+        <para>Et on peut démarrer SAMBA alors:</para>
+
+        <screen>
+	  # /etc/init.d/samba start
+	</screen>
+      </section>
+
+      <section>
+        <title>Création des utilisateurs et groupes de bases dans le LDAP pour
+        SAMBA</title>
+
+        <para>Si le couple SAMBA-LDAP est utilise pour la gestion des comptes
+        sur un reseau Windows (et c'est generalement le cas !), des groupes
+        speciaux pour Windows avec des SID bien definis doivent etre crees
+        (par exemple, "Administrateurs du domaines", "Utilisateurs du
+        domaines", ...)</para>
+
+        <para>On va utiliser smbldap-tools pour cela. Pour l'installer:</para>
+
+        <screen>
+	  # apt-get install smbldap-tools
+	  ...
+	  # cp /usr/share/doc/smbldap-tools/examples/smbldap.conf.gz /etc/smbldap-tools/
+	  # cp /usr/share/doc/smbldap-tools/examples/smbldap_bind.conf /etc/smbldap-tools/
+	  # gunzip /etc/smbldap-tools/smbldap.conf.gz
+	</screen>
+
+        <para>Modifier masterDN/masterPw dans
+        <filename>/etc/smbldap-tools/smbldap_bind.conf</filename>.</para>
+
+        <screen>############################
+# Credential Configuration #
+############################
+# Notes: you can specify two differents configuration if you use a
+# master ldap for writing access and a slave ldap server for reading access
+# By default, we will use the same DN (so it will work for standard Samba
+# release)
+slaveDN="cn=admin,dc=linbox,dc=com"
+slavePw="votrepass"
+masterDN="cn=admin,dc=linbox,dc=com"
+masterPw="votrepass"
+</screen>
+
+        <para>Dans <filename>/etc/smbldap-tools/smbldap.conf</filename>,
+        modifier les options:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>SID : mettre le SID du domaine SAMBA. On peut l'avoir grâce
+            à la commande: net getlocalsid LINBOX</para>
+          </listitem>
+
+          <listitem>
+            <para>suffix : mettre le suffixe du LDAP</para>
+          </listitem>
+
+          <listitem>
+            <para>sambaUnixIdPooldn: mettre le bon nom de workgroup</para>
+          </listitem>
+
+          <listitem>
+            <para>defaultMaxPasswordAge : commenter cette ligne</para>
+          </listitem>
+
+          <listitem>
+            <para>userSmbHome, userProfile, userHomeDrive, userScript: mettre
+            ""</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Ensuite, on lance:</para>
+
+        <screen>
+	  # smbldap-populate -a administrateur
+	</screen>
+
+        <para>La commande crée alors un compte administrateur, nobody; ainsi
+        que les groupes Domain Admins, Domain Users, etc.</para>
+      </section>
+
+      <section>
+        <title>Récupération d'un domaine déjà existant</title>
+
+        <para></para>
+
+        <para>Si vous récupérez les comptes d'un domaine déjà existant, il
+        faut que le SID du domaine SAMBA soit identique au SID du domaine sur
+        lequel vous récupérez les comptes. Vous pouvez même changer le nom du
+        domaine tant que le SID reste le même. Pour faire ça, il faut aller
+        taper directement dans le LDAP au niveau de l'entrée
+        sambaDomainName.</para>
+
+        <para>Pour récupérer l'entrée LDAP correspondante au domaine
+        SAMBA:</para>
+
+        <screen>
+	  # ldapsearch -x -LLL -b "dc=linbox,dc=com" "(&amp;(objectClass=sambaDomain)(sambaDomainName=LINBOX))"
+	  dn: sambaDomainName=LINBOX,dc=linbox,dc=com
+	  sambaDomainName: LINBOX
+	  sambaSID: S-1-5-21-1978799741-4176278664-1621471151
+	  sambaAlgorithmicRidBase: 1000
+	  objectClass: sambaDomain
+	</screen>
+
+        <para>Nous voulons modifier le SID du domaine LINBOX. On écrit ces
+        commandes de modifications dans un fichier
+        <filename>/tmp/modentry</filename>:</para>
+
+        <screen>
+	  dn: sambaDomainName=LINBOX,dc=linbox,dc=com
+	  changetype: modify
+	  replace: sambaSID
+	  sambaSID: S-1-5-21-2089755249-2118814440-3863059391
+	  -
+	</screen>
+
+        <para>Ensuite, on lance ldapmodify sur le fichier:</para>
+
+        <screen>
+	  # ldapmodify -x -D "cn=admin,dc=linbox,dc=com" -w "s3cr3t" &lt; /tmp/entrymods
+	  modifying entry "sambaDomainName=LINBOX,dc=linbox,dc=com"
+
+	</screen>
+
+        <para>Ensuite on peut vérifier que le bon SID est pris en
+        compte:</para>
+
+        <screen>
+	  # net getlocalsid LINBOX
+	  SID for domain LINBOX is: S-1-5-21-2089755249-2118814440-3863059391
+	</screen>
+      </section>
+
+      <section>
+        <title>Faire en sorte que les mots de passe utilisateurs n'expirent
+        jamais</title>
+
+        <para>Même si à la création d'un compte, on fait en sorte que le mot
+        de passe n'expire jamais (X dans les smbAcctFlags et pas d'entrée
+        smbPwdMustChange), le problème est que si on change le mot de passe
+        d'un utilisateur avec smbpasswd, SAMBA va mettre à jour ces attributs
+        selon ses «accounts policies». Par défaut, dans SAMBA (comme sous un
+        PDC NT4), les utilisateurs doivent changer leurs mots de passe tous
+        les 42 jours.</para>
+
+        <para>On peut vérifier le temps d'expiration des mots de passe de
+        cette façon:</para>
+
+        <screen>
+	  # pdbedit -P "maximum password age"
+	  ...
+	  account policy value for maximum password age is 4294967295
+	</screen>
+
+        <para>4294967295 est une valeur particulière ! Cela veut dire que le
+        mot de passe n'expire jamais (à vérifier). Mais le mieux est de passer
+        la valeur à 0.</para>
+
+        <screen>
+	  # pdbedit -P "maximum password age" -C 0
+	  ...
+	  account policy value for maximum password age was 4294967295
+	  account policy value for maximum password age is now 0
+	</screen>
+      </section>
+
+      <section>
+        <title>Au niveau SAMBA, donner les droits root à un autre
+        utilisateur/groupe pour l'inscription de machine</title>
+
+        <para>L'utilisateur «root» ne doit pas être dans le LDAP.
+        Malheureusement, cet utilisateur est obligatoire pour ajouter une
+        machine au domaine SAMBA par exemple, ou pour installer des pilotes
+        d'imprimantes. Pour donner les droits root au membre du groupe "Domain
+        Admins" pour l'ajout de machine par exemple, tapez la commande
+        suivante sur le serveur SAMBA:</para>
+
+        <para><screen>
+# net -U administrateur rpc rights grant 'DOMAIN\Domain Admins' SeMachineAccountPrivilege SePrintOperatorPrivilege
+Password:
+Successfully granted rights.
+      </screen></para>
+
+        <para>L'utilisateur « administrateur » doit être dans le groupe «
+        Domain Admins » pour que cette commande fonctionne. Il faut le
+        rajouter dans le groupe à partir de l'interface web LMC.</para>
+      </section>
+    </section>
+  </section>
+
+  <section>
+    <title>Configuration des services de nom (nsswitch.conf,
+    libnss-ldap)</title>
+
+    <para>Cette section ne s'applique qu'aux installations avec SAMBA, ou
+    installation avec authentification PAM-LDAP.</para>
+
+    <screen>
+	# apt-get install libnss-ldap nscd
+      </screen>
+
+    <para>Aux ecrans de configuration, renseigner correctement le DN de la
+    base de recherche, et prendre les réponses par défaut. nscd sert à cacher
+    les requêtes LDAP.</para>
+
+    <screen>
+	# cp /usr/share/doc/python-lmc-base/contrib/ldap/nsswitch.conf /etc/nsswitch.conf
+      </screen>
+  </section>
+
+  <section>
+    <title>Fin de l'installation et configuration de l'agent LMC</title>
+
+    <para>L'agent LMC est un serveur XML-RPC écrit en Python. Les plugins
+    suivants sont disponibles: base (plugin de base pour la gestion d'un
+    annuaire LDAP), samba (plugin pour la gestion SAMBA), ox (plugin pour
+    openXchange), proxy (gestion simple d'une blacklist squidguard).</para>
+
+    <para>Assurons-nous qu'il est arrêté:</para>
+
+    <screen>
+	# /etc/init.d/lmc-agent stop
+      </screen>
+
+    <para>Le répertoire de configuration des plugins de l'agent LMC est
+    <filename>/etc/lmc/plugins</filename>. Le fichier
+    <filename>base.ini</filename> contient les paramètres de base pour se
+    connecter au LDAP, et est très documenté.</para>
+
+    <para>Si la LMC doit gérer SAMBA, décommenter la ligne:</para>
+
+    <screen>
+# defaultUserGroup = Domain users
+      </screen>
+
+    <para>Ainsi, les utilisateurs créés par la LMC appartiendront à ce groupe.
+    Si pas de SAMBA, alors mettre un groupe, « users » par exemple, et le
+    créer ensuite via l'interface de la LMC.</para>
+
+    <para>Désactiver les plugins dont vous ne vous servez pas. Pour cela,
+    mettre disable=1 dans le fichier .ini correspondant au plugin.</para>
+
+    <para>Une fois configuré, taper ceci pour lancer l'agent:</para>
+
+    <screen>
+# /etc/init.d/lmc-agent start
+Starting Linbox Management Console XML-RPC Agent: lmc-agent starting...
+Plugin base loaded, API version: 1:0:0 build(462)
+Plugin samba loaded, API version: 1:0:0 build(451)
+Daemon PID 2211
+done.
+      </screen>
+
+    <para>Si vous avez une phrase du style: <screen>
+	  error: {'info': '', 'desc': 'Invalid credentials'}
+	</screen> l'accès au LDAP n'a pas réussi car vous n'avez pas fourni le bon
+    login/mot de passe pour vous connecter au LDAP. Si le message "Plugin base
+    not loaded." s'affiche, la connexion au LDAP a échoué.</para>
+  </section>
+
+  <section>
+    <title>Installation des interfaces web de la LMC</title>
+
+    <para>Attention, pas besoin de tout installer forcément. Très
+    simplement:</para>
+
+    <screen>
+	# apt-get install lmc-web-base lmc-web-samba
+      </screen>
+
+    <para>Le fichier de conf de l'interface web est
+    <filename>/etc/lmc/lmc.ini</filename>. La partie importante de ce fichier
+    est la liste des agents LMC que l'on peut contacter. Par defaut, cette
+    liste vaut:</para>
+
+    <screen>
+	[server_01]
+	description = localhost
+	url = https://127.0.0.1:7080
+      </screen>
+
+    <para>Cela signifie que le premier agent de liste des agents LMC s'appelle
+    "localhost", et est disponible en https sur le port 7080 de l'IP
+    127.0.0.1. La section commence toujours par "server_", suivi du
+    positionnement du serveur dans la liste des serveurs fournis a
+    l'utilisateur.</para>
+
+    <para>Voici un exemple d'un deuxieme agent:</para>
+
+    <screen>
+	[server_02]
+	description = Serveur LDAP
+	url = http://10.0.12.5:7080
+      </screen>
+
+    <para>Si vous souhaitez avoir l'interface dans d'autre langue que la
+    langue anglaise, vous devez installer les locale correspondantes via la
+    commande "dpkg-reconfigure locales". Pour la version française vous devez
+    installer la locale "fr_FR.utf8"</para>
+  </section>
+
+  <section>
+    <title>Connexion à l'interface web</title>
+
+    <para>Aller sur http://IP/lmc, et logguer vous en tant que root, avec le
+    mot de passe de l'admin de LDAP. Si SAMBA, dans la liste des utilisateurs
+    nobody et administrateur apparaissent, dans la liste des groupes les
+    groupes SAMBA spéciaux s'affichent.</para>
+
+    <para>On paramètre maintenant le compte administrateur:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Éditer le compte administrateur, et cliquer sur « Activer
+        ».</para>
+      </listitem>
+
+      <listitem>
+        <para>Lui mettre un mot de passe, et cliquer sur « Valider ».</para>
+      </listitem>
+
+      <listitem>
+        <para>Éditer les ACLs de l'utilisateur, tout sélectionner et mettre en
+        lecture/écriture, puis valider.</para>
+      </listitem>
+
+      <listitem>
+        <para>Vérifier que administrateur est dans le groupe « Domain Admins
+        ».</para>
+      </listitem>
+
+      <listitem>
+        <para>Se déconnecter de la LMC, et se logguer en administrateur.
+        Vérifier que tous les droits d'accès sont bons.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+</article>

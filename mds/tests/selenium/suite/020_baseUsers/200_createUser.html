@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>200_createUser</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">200_createUser</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=base&amp;submod=users&amp;action=index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Add user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>nlogin</td>
+	<td>jbond</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Bond</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>James</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>pass</td>
+	<td>coin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>confpass</td>
+	<td>coin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mail</td>
+	<td>jbond@example.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>title</td>
+	<td>Queen's spy</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>telephoneNumber[0]</td>
+	<td>666 777</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mobile</td>
+	<td>12345</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>facsimileTelephoneNumber</td>
+	<td>6789</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>homePhone</td>
+	<td>13579</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@name='buser' and @value='Confirm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>jbond</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>firstname</td>
+	<td>James</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name</td>
+	<td>Bond</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>mail</td>
+	<td>jbond@example.com</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>title</td>
+	<td>Queen's spy</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>telephoneNumber[0]</td>
+	<td>666 777</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>mobile</td>
+	<td>12345</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>facsimileTelephoneNumber</td>
+	<td>6789</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>homePhone</td>
+	<td>13579</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>primary_autocomplete</td>
+	<td>Domain Users</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Edit user</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

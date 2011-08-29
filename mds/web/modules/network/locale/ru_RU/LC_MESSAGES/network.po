@@ -1,0 +1,2029 @@
+# Translation of MDS (Mandriva Directory Server) - network module
+# Copyright (C) 2008
+# This file is distributed under the same license as the MDS network package.
+# Vitaly Kolomeytsev <nvalka@gmail.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-14 15:45+0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: smth <smth@mail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+#: includes/auditCodes.php:26
+msgid "Add zone"
+msgstr "Добавить зону"
+
+#: includes/auditCodes.php:27
+msgid "Del zone"
+msgstr "Удалить зону"
+
+#: includes/auditCodes.php:28
+msgid "Add subnet"
+msgstr "Добавитьподсеть"
+
+#: includes/auditCodes.php:29
+msgid "Del subnet"
+msgstr "Удалить подсеть"
+
+#: includes/auditCodes.php:30
+msgid "Set host"
+msgstr "Задать узел"
+
+#: includes/auditCodes.php:31
+msgid "Set host statement"
+msgstr ""
+
+#: includes/auditCodes.php:32
+msgid "Set host hardware address"
+msgstr "Задать МАС-адрес узла"
+
+#: includes/auditCodes.php:33
+msgid "Set subnet"
+msgstr "Задать подсеть"
+
+#: includes/auditCodes.php:34
+msgid "Set subnet statement"
+msgstr "Задать положение подсети"
+
+#: includes/auditCodes.php:35
+msgid "Set subnet description"
+msgstr "Задать описание подсети"
+
+#: includes/auditCodes.php:36
+msgid "Set subnet authoritative flag"
+msgstr ""
+
+#: includes/auditCodes.php:37
+msgid "Set subnet netmask"
+msgstr ""
+
+#: includes/auditCodes.php:38
+msgid "Set SOA record"
+msgstr "Задать SOA-запись"
+
+#: includes/auditCodes.php:39
+msgid "Set NS record"
+msgstr "Задать NS-запись"
+
+#: includes/auditCodes.php:40
+msgid "Add SOA record"
+msgstr "Добавить SOA-запись"
+
+#: includes/auditCodes.php:41
+msgid "Modify record"
+msgstr "Изменить запись"
+
+#: includes/auditCodes.php:42
+msgid "Add pool"
+msgstr "Добавить узел"
+
+#: includes/auditCodes.php:43
+msgid "Set pool range"
+msgstr "Диапазон динамического пула"
+
+#: includes/auditCodes.php:44
+msgid "Add host to subnet"
+msgstr "Добавить статический узел в подсеть"
+
+#: includes/auditCodes.php:45
+msgid "Del host"
+msgstr "Удалить узел"
+
+#: includes/auditCodes.php:46
+msgid "Set host aliases"
+msgstr "Задать псевдоним имени узла"
+
+#: includes/auditCodes.php:47
+msgid "Add CNAME record"
+msgstr "Добавить CNAME-запись"
+
+#: includes/auditCodes.php:48
+msgid "Add A record"
+msgstr "Добавить А DNS-запись"
+
+#: includes/auditCodes.php:49
+msgid "Start DHCP service"
+msgstr "Запустить службу"
+
+#: includes/auditCodes.php:50
+msgid "Stop DHCP service"
+msgstr "Остановить службу"
+
+#: includes/auditCodes.php:51
+msgid "Restart DHCP service"
+msgstr "Перезапустить службу"
+
+#: includes/auditCodes.php:52
+msgid "Reload DHCP service"
+msgstr "Перезагрузить службу"
+
+#: includes/auditCodes.php:53
+msgid "Start DNS service"
+msgstr "Запустить службу"
+
+#: includes/auditCodes.php:54
+msgid "Stop DNS service"
+msgstr "Остановить службу"
+
+#: includes/auditCodes.php:55
+msgid "Restart DNS service"
+msgstr "Перезапустить службу"
+
+#: includes/auditCodes.php:56
+msgid "Reload DNS service"
+msgstr "Перезагрузить службу"
+
+#: includes/auditCodes.php:57
+msgid "DNS zone"
+msgstr "DNS-зона"
+
+#: includes/auditCodes.php:58
+msgid "CNAME record"
+msgstr "Удалить псевдоним (CNAME-запись)"
+
+#: includes/auditCodes.php:59
+msgid "A record"
+msgstr "А DNS-запись"
+
+#: includes/auditCodes.php:60
+msgid "DHCP host"
+msgstr "DHCP-подсети"
+
+#: includes/auditCodes.php:61
+msgid "DHCP subnet"
+msgstr "DHCP-подсети"
+
+#: includes/auditCodes.php:62
+msgid "DHCP pool"
+msgstr "DHCP-пул"
+
+#: includes/auditCodes.php:63
+msgid "network"
+msgstr "сеть"
+
+#: includes/network.inc.php:87
+msgid "Get next free IP address"
+msgstr "Получить следующий свободный IP-адрес"
+
+#: includes/network2.inc.php:188
+msgid "IP range start: "
+msgstr "Начало IP-диапазона"
+
+#: includes/network2.inc.php:189
+msgid "IP range end: "
+msgstr "Конец IP-диапазона"
+
+#: includes/network2.inc.php:322
+msgid "Days: "
+msgstr "Дней: "
+
+#: includes/network2.inc.php:322
+msgid "Hours: "
+msgstr "Часов: "
+
+#: includes/network2.inc.php:323
+msgid "Minutes: "
+msgstr "Минут: "
+
+#: includes/network2.inc.php:323
+msgid "Seconds: "
+msgstr "Секунд: "
+
+#: includes/network2.inc.php:395
+msgid "week(s)"
+msgstr "нед."
+
+#: includes/network2.inc.php:398
+msgid "day(s)"
+msgstr "дн."
+
+#: includes/network2.inc.php:400
+msgid "hr"
+msgstr "ч"
+
+#: includes/network2.inc.php:402
+msgid "min"
+msgstr "мин"
+
+#: includes/network2.inc.php:404
+msgid "sec"
+msgstr "сек"
+
+#: includes/network2.inc.php:544
+#: network/ajaxSubentFilter.php:38
+msgid "More..."
+msgstr "Больше..."
+
+#: includes/network2.inc.php:581
+msgid "It should be relative name (e.g., %s), FQDN (e.g., %s) or %s"
+msgstr "Здесь может быть относительное имя (например, %s), FQDN (например, %s) или %s"
+
+#: includes/network2.inc.php:588
+msgid "It should be relative name (e.g., %s) or %s"
+msgstr "Здесь может быть относительное имя (например, %s) или %s"
+
+#: includes/network2.inc.php:593
+msgid "It should be relative name (e.g., %s) or FQDN (e.g., %s)"
+msgstr "Здесь может быть относительное имя (например, %s) или FQDN (например, %s)"
+
+#: includes/network2.inc.php:598
+msgid "It should be relative name (e.g., %s)"
+msgstr "Здесь может быть относительное имя (например, %s)"
+
+#: includes/network2.inc.php:602
+msgid "It should be FQDN (e.g., %s)"
+msgstr "Здесь может быть FQDN (например, %s)"
+
+#: includes/network2.inc.php:617
+msgid "Couldn't determine record parameters. Incorrect ldap data:"
+msgstr "Не получилось распознать параметры записи. Некорректные данные ldap:"
+
+#: network/localSidebar.php:27
+#: network/ajaxZoneFilter.php:42
+#: network/ajaxZoneFilter.php:48
+#: infoPackage.inc.php:44
+msgid "DNS zones"
+msgstr "DNS-зоны"
+
+#: network/localSidebar.php:28
+msgid "Add DNS zone"
+msgstr "Добавить DNS-зону"
+
+#: network/localSidebar.php:29
+#: network/ajaxSubnetFilter.php:49
+#: network/ajaxSubnetFilter.php:56
+#: infoPackage.inc.php:133
+msgid "DHCP subnets"
+msgstr "DHCP-подсети"
+
+#: network/localSidebar.php:30
+msgid "Add DHCP subnet"
+msgstr "Добавить DHCP-подсеть"
+
+#: network/localSidebar.php:31
+#: network/services.php:29
+#: infoPackage.inc.php:156
+#: infoPackage.inc.php:159
+#: infoPackage.inc.php:163
+#: infoPackage.inc.php:167
+#: infoPackage.inc.php:171
+#: infoPackage.inc.php:175
+#: infoPackage.inc.php:179
+#: infoPackage.inc.php:183
+msgid "Network services management"
+msgstr "Управление службами сети"
+
+#: network/ajaxSubnetFilter.php:45
+msgid "No dynamic address pool"
+msgstr "Нет динамического пула адресов"
+
+#: network/ajaxSubnetFilter.php:53
+#: network/subnetedit.php:203
+msgid "Netmask"
+msgstr "Маска"
+
+#: network/ajaxSubnetFilter.php:54
+#: network/edit.php:218
+#: network/ajaxZoneFilter.php:47
+#: network/subnetedit.php:207
+msgid "Description"
+msgstr "Описание"
+
+#: network/ajaxSubnetFilter.php:55
+msgid "Dynamic pool range(s)"
+msgstr "Диапазон(ы) динамического пула"
+
+#: network/ajaxSubnetFilter.php:58
+msgid "View DHCP static host"
+msgstr "Просмотр статического узла DHCP"
+
+#: network/ajaxSubnetFilter.php:59
+msgid "Edit subnet"
+msgstr "Изменить подсеть"
+
+#: network/ajaxSubnetFilter.php:60
+msgid "Add static host to subnet"
+msgstr "Добавить статический узел в подсеть"
+
+#: network/ajaxSubnetFilter.php:61
+#: network/delete.php:43
+#: network/ajaxZoneFilter.php:54
+msgid "Delete zone"
+msgstr "Удалить зону"
+
+#: network/dhcpconfig.php:30
+msgid "DHCP launch configuration"
+msgstr "Конфигурация запуска DHCP"
+
+#: network/dhcpconfig.php:45
+msgid "Some of interfaces are not set"
+msgstr "Некоторые из интерфейсов не установлены"
+
+#: network/dhcpconfig.php:55
+msgid "DHCP launch configuration successfully modified. You must restart the DHCP service"
+msgstr "Конфигурация запуска DHCP успешно изменена. Вы должны перезапустить службу DHCP."
+
+#: network/dhcpconfig.php:58
+msgid "DHCP launch configuration can't be modified"
+msgstr "Конфигурация запуска DHCP не может быть изменена."
+
+#: network/dhcpconfig.php:81
+msgid "Listen all interfaces"
+msgstr "Слушать все интерфейсы"
+
+#: network/dhcpconfig.php:90
+msgid "interfaces"
+msgstr "интерфейсы"
+
+#: network/dhcpconfig.php:90
+msgid "Listened interfaces"
+msgstr "Прослушиваемые интерфейсы"
+
+#: network/dhcpconfig.php:93
+msgid "Current system Ethernet interfaces"
+msgstr "Текущие системные Ethernet-интерфейсы"
+
+#: network/dhcpconfig.php:101
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: network/subnetdelete.php:31
+msgid "The DHCP subnet has been deleted. You must restart the DHCP service."
+msgstr "DHCP-подсеть была удалена. Вы должны перезапустить службу DHCP."
+
+#: network/subnetdelete.php:40
+msgid "You will delete the DHCP subnet %s."
+msgstr "Вы удалите DHCP-подсеть %s."
+
+#: network/subnetdelete.php:45
+msgid "Delete subnet"
+msgstr "Удалить подсеть"
+
+#: network/zonemembers.php:33
+msgid "Members of zone %s"
+msgstr "Члены зоны %s"
+
+#: network/zonemembers.php:41
+msgid "Add a host"
+msgstr "Добавить узел"
+
+#: network/edithost.php:32
+msgid "Add a host to zone %s"
+msgstr "Добавить узел в зону %s"
+
+#: network/edithost.php:33
+msgid "Edit host"
+msgstr "Изменить узел"
+
+#: network/edithost.php:53
+msgid "The specified IP address has been already recorded in this zone."
+msgstr "указанный IP-адрес уже записан в этой зоне."
+
+#: network/edithost.php:60
+msgid "Host successfully added to DNS zone."
+msgstr "Узел успешно добавлен в DNS-зону."
+
+#: network/edithost.php:61
+msgid "Host successfully added to DNS zone and corresponding reverse zone."
+msgstr "Узел успешно добавлен в DNS-зону и соответсвующую reverse-зону."
+
+#: network/edithost.php:78
+#: network/subnetedithost.php:139
+msgid "DNS record successfully modified."
+msgstr "DNS-запись успешно изменена."
+
+#: network/edithost.php:81
+msgid "The following aliases have not been set because a DNS record with the same name already exists:"
+msgstr "Следующие псевдонимы не были заданы, потому что DNS-запись с некоторыми именами уже сужествует:"
+
+#: network/edithost.php:119
+msgid "A reverse DNS record will be automatically created for this host."
+msgstr "Обратная DNS запись будет автоматически создана для этого узла."
+
+#: network/edithost.php:131
+#: network/ajaxZoneMembersFilter.php:83
+#: network/dnsrecords/custom.php:33
+#: network/dnsrecords/a.php:23
+#: network/dnsrecords/loc.php:68
+#: network/dnsrecords/aaaa.php:21
+#: network/subnetedithost.php:188
+#: network/ajaxZoneRecordsFilter.php:168
+#: network/ajaxSubnetMembersFilter.php:107
+msgid "Host name"
+msgstr "Имя узла"
+
+#: network/edithost.php:152
+#: network/edit.php:236
+msgid "Network address"
+msgstr "Сетевой адрес"
+
+#: network/edithost.php:159
+#: network/edithost.php:163
+msgid "Hostname alias"
+msgstr "Псевдоним имени узла"
+
+#: network/delete.php:30
+msgid "The DNS zone has been deleted."
+msgstr "DNS-зона была удалена."
+
+#: network/delete.php:38
+msgid "You will delete the DNS zone %s."
+msgstr "Вы удалите DNS-зону %s."
+
+#: network/ajaxZoneMembersFilter.php:49
+msgid "Delete host (A record)"
+msgstr "Удалить узел (запись)"
+
+#: network/ajaxZoneMembersFilter.php:50
+msgid "Delete alias (CNAME record)"
+msgstr "Удалить псевдоним (CNAME-запись)"
+
+#: network/ajaxZoneMembersFilter.php:52
+msgid "edit record"
+msgstr "изменить запись"
+
+#: network/ajaxZoneMembersFilter.php:69
+msgid "(alias of %s)"
+msgstr "(псевдоним %s)"
+
+#: network/ajaxZoneMembersFilter.php:80
+#: network/dnsrecords/a.php:25
+#: network/dnsrecords/a.php:36
+#: network/subnetedithost.php:194
+#: network/ajaxSubnetMembersFilter.php:103
+msgid "IP address"
+msgstr "IP-адрес"
+
+#: network/ajaxZoneMembersFilter.php:84
+#: network/ajaxZoneRecordsFilter.php:177
+#: network/ajaxSubnetMembersFilter.php:110
+msgid "Host"
+msgstr "Узел"
+
+#: network/zonerecords.php:48
+msgid "Records of reverse zone for zone %s"
+msgstr "Записи обратной зоны для зоны %s"
+
+#: network/zonerecords.php:49
+msgid "Records of zone %s"
+msgstr "Записи зоны %s"
+
+#: network/zonerecords.php:59
+msgid "Manage zone records"
+msgstr "Управление записями зоны"
+
+#: network/zonerecords.php:59
+msgid "Manage reverse zone records"
+msgstr "Управление записями обратной зоны"
+
+#: network/zonerecords.php:64
+msgid "Add a record"
+msgstr "Добавить запись"
+
+#: network/dnsrecords/sig.php:21
+#: network/dnsrecords/rrsig.php:21
+#: network/dnsrecords/cert.php:16
+msgid "Custom type is no setted"
+msgstr "Пользовательский тип не задан"
+
+#: network/dnsrecords/sig.php:23
+#: network/dnsrecords/rrsig.php:23
+#: network/dnsrecords/cert.php:18
+#: network/dnsrecords/ds.php:20
+#: network/dnsrecords/key.php:18
+#: network/dnsrecords/sshfp.php:15
+msgid "Custom algorithm is no setted"
+msgstr "Пользовательский алгоритм не задан"
+
+#: network/dnsrecords/sig.php:25
+#: network/dnsrecords/rrsig.php:25
+msgid "Signature inception time is incorrect"
+msgstr "Некорректное время начала действия сигнатуры"
+
+#: network/dnsrecords/sig.php:27
+#: network/dnsrecords/rrsig.php:27
+msgid "Signature expiration time is incorrect"
+msgstr "Некорректное время окончания действия сигнатуры"
+
+#: network/dnsrecords/sig.php:29
+#: network/dnsrecords/rrsig.php:29
+#: network/dnsrecords/key.php:23
+msgid "Signature is no setted"
+msgstr "Сигнатура не задана"
+
+#: network/dnsrecords/sig.php:32
+#: network/dnsrecords/rrsig.php:32
+#: network/dnsrecords/key.php:26
+msgid "Signature is incorrect"
+msgstr "Неверная сигнатура"
+
+#: network/dnsrecords/sig.php:122
+#: network/dnsrecords/rrsig.php:123
+#: network/dnsrecords/kx.php:28
+#: network/dnsrecords/cert.php:104
+#: network/dnsrecords/naptr.php:51
+#: network/dnsrecords/nsec.php:42
+#: network/dnsrecords/ds.php:86
+#: network/dnsrecords/mx.php:29
+#: network/dnsrecords/key.php:137
+#: network/dnsrecords/ns.php:21
+#: network/dnsrecords/sshfp.php:82
+#: network/subnetedit.php:223
+msgid "Domain name"
+msgstr "Имя домена"
+
+#: network/dnsrecords/sig.php:124
+#: network/dnsrecords/sig.php:211
+#: network/dnsrecords/rrsig.php:125
+#: network/dnsrecords/rrsig.php:212
+msgid "Domain name of the signer, generating this SIG"
+msgstr "Доменное имя подписывающего, генерирующего эту SIG"
+
+#: network/dnsrecords/sig.php:128
+#: network/dnsrecords/sig.php:204
+#: network/dnsrecords/rrsig.php:129
+#: network/dnsrecords/rrsig.php:205
+msgid "Record type covered by this SIG"
+msgstr "Тип записи, защищаемой этой SIG"
+
+#: network/dnsrecords/sig.php:135
+#: network/dnsrecords/rrsig.php:136
+msgid "Custom record type"
+msgstr "Пользовательский тип записи"
+
+#: network/dnsrecords/sig.php:140
+#: network/dnsrecords/sig.php:205
+#: network/dnsrecords/rrsig.php:141
+#: network/dnsrecords/rrsig.php:206
+#: network/dnsrecords/cert.php:122
+#: network/dnsrecords/cert.php:165
+#: network/dnsrecords/ds.php:106
+#: network/dnsrecords/ds.php:152
+#: network/dnsrecords/key.php:156
+#: network/dnsrecords/key.php:231
+#: network/dnsrecords/sshfp.php:102
+#: network/dnsrecords/sshfp.php:141
+msgid "Algorithm"
+msgstr "Алгоритм"
+
+#: network/dnsrecords/sig.php:148
+#: network/dnsrecords/rrsig.php:149
+#: network/dnsrecords/cert.php:130
+#: network/dnsrecords/ds.php:114
+#: network/dnsrecords/key.php:164
+#: network/dnsrecords/sshfp.php:110
+msgid "Custom algorithm"
+msgstr "Пользовательский алгоритм"
+
+#: network/dnsrecords/sig.php:150
+#: network/dnsrecords/rrsig.php:151
+#: network/dnsrecords/cert.php:132
+#: network/dnsrecords/ds.php:116
+#: network/dnsrecords/key.php:166
+#: network/dnsrecords/sshfp.php:112
+msgid "Algorithm ranges from 0 to 255"
+msgstr "Алгоритм варьируется от 0 до 255"
+
+#: network/dnsrecords/sig.php:156
+#: network/dnsrecords/sig.php:206
+#: network/dnsrecords/rrsig.php:157
+#: network/dnsrecords/rrsig.php:207
+msgid "Labels"
+msgstr "Метки"
+
+#: network/dnsrecords/sig.php:158
+#: network/dnsrecords/rrsig.php:159
+msgid "Define an unsigned count of how many labels there are in the original SIG record owner name not counting the null label for root and not counting any initial \"*\" for a wildcard."
+msgstr "Определяет количество меток, которое есть в имени владельца оригинальной SIG-записи, не считая 0 метку для корня и не считая любой начальный знак \"*\" для шаблона."
+
+#: network/dnsrecords/sig.php:159
+#: network/dnsrecords/rrsig.php:160
+msgid "Labels count ranges from 0 to 255"
+msgstr "Число меток варьируется от 0 до 255"
+
+#: network/dnsrecords/sig.php:163
+#: network/dnsrecords/sig.php:207
+#: network/dnsrecords/rrsig.php:164
+#: network/dnsrecords/rrsig.php:208
+msgid "Original TTL"
+msgstr "Оригинальный TTL"
+
+#: network/dnsrecords/sig.php:165
+#: network/dnsrecords/sig.php:208
+#: network/dnsrecords/rrsig.php:166
+#: network/dnsrecords/rrsig.php:209
+msgid "Signature inception time"
+msgstr "Время вступления в силу сигнатуры"
+
+#: network/dnsrecords/sig.php:167
+#: network/dnsrecords/sig.php:209
+#: network/dnsrecords/rrsig.php:168
+#: network/dnsrecords/rrsig.php:210
+msgid "Signature expiration time"
+msgstr "Время истечения срока действия сигнатуры"
+
+#: network/dnsrecords/sig.php:170
+#: network/dnsrecords/sig.php:210
+#: network/dnsrecords/rrsig.php:171
+#: network/dnsrecords/rrsig.php:211
+#: network/dnsrecords/cert.php:139
+#: network/dnsrecords/cert.php:166
+#: network/dnsrecords/ds.php:123
+#: network/dnsrecords/ds.php:154
+msgid "Key tag"
+msgstr "Признак ключа"
+
+#: network/dnsrecords/sig.php:172
+#: network/dnsrecords/rrsig.php:173
+#: network/dnsrecords/cert.php:141
+#: network/dnsrecords/ds.php:125
+msgid "Key tag is a decimal number that ranges from 0 to 65535"
+msgstr "Признак ключа это десятичное число, которое варьируется от 0 до 65535"
+
+#: network/dnsrecords/sig.php:175
+#: network/dnsrecords/sig.php:212
+#: network/dnsrecords/rrsig.php:176
+#: network/dnsrecords/rrsig.php:213
+#: network/dnsrecords/key.php:203
+#: network/dnsrecords/key.php:238
+msgid "Signature"
+msgstr "Сигнатура"
+
+#: network/dnsrecords/sig.php:217
+#: network/dnsrecords/rrsig.php:218
+#: network/dnsrecords/cert.php:172
+#: network/dnsrecords/ds.php:160
+#: network/dnsrecords/key.php:245
+msgid "RSA/MD5"
+msgstr ""
+
+#: network/dnsrecords/sig.php:218
+#: network/dnsrecords/rrsig.php:219
+#: network/dnsrecords/cert.php:173
+#: network/dnsrecords/ds.php:161
+#: network/dnsrecords/key.php:246
+msgid "Diffie-Hellman"
+msgstr "Диффи-Хелман"
+
+#: network/dnsrecords/sig.php:219
+#: network/dnsrecords/rrsig.php:220
+#: network/dnsrecords/cert.php:174
+#: network/dnsrecords/ds.php:162
+#: network/dnsrecords/key.php:247
+msgid "DSA"
+msgstr ""
+
+#: network/dnsrecords/sig.php:220
+#: network/dnsrecords/rrsig.php:221
+#: network/dnsrecords/cert.php:175
+#: network/dnsrecords/ds.php:163
+#: network/dnsrecords/key.php:248
+msgid "Elliptic curve crypto"
+msgstr "Криптография эллиптический кривых"
+
+#: network/dnsrecords/sig.php:221
+#: network/dnsrecords/rrsig.php:222
+#: network/dnsrecords/cert.php:176
+#: network/dnsrecords/ds.php:164
+#: network/dnsrecords/key.php:249
+msgid "Indirect key format"
+msgstr "Формат непрямого ключа"
+
+#: network/dnsrecords/sig.php:222
+#: network/dnsrecords/rrsig.php:223
+#: network/dnsrecords/cert.php:177
+#: network/dnsrecords/ds.php:165
+#: network/dnsrecords/key.php:250
+msgid "Domain name (Private)"
+msgstr "Имя домена (Частное)"
+
+#: network/dnsrecords/sig.php:223
+#: network/dnsrecords/rrsig.php:224
+#: network/dnsrecords/cert.php:178
+#: network/dnsrecords/ds.php:166
+#: network/dnsrecords/key.php:251
+msgid "OID (Private)"
+msgstr "OID (Частный)"
+
+#: network/dnsrecords/sig.php:224
+#: network/dnsrecords/rrsig.php:225
+#: network/dnsrecords/afsdb.php:122
+#: network/dnsrecords/cert.php:180
+#: network/dnsrecords/cert.php:200
+#: network/dnsrecords/ds.php:167
+#: network/dnsrecords/key.php:252
+#: network/dnsrecords/key.php:271
+#: network/dnsrecords/sshfp.php:150
+msgid "custom"
+msgstr "пользовательский"
+
+#: network/dnsrecords/sig.php:230
+#: network/dnsrecords/rrsig.php:250
+#: network/dnsrecords/afsdb.php:112
+#: network/dnsrecords/cert.php:248
+#: network/dnsrecords/ds.php:199
+#: network/dnsrecords/key.php:258
+#: network/dnsrecords/key.php:277
+#: network/dnsrecords/sshfp.php:164
+msgid "Unknown"
+msgstr "Неизвестный"
+
+#: network/dnsrecords/custom.php:30
+msgid "Type name"
+msgstr "Тип"
+
+#: network/dnsrecords/custom.php:35
+#: network/dnsrecords/custom.php:49
+msgid "Value"
+msgstr "Значение"
+
+#: network/dnsrecords/txt.php:13
+msgid "Text field can't be empty"
+msgstr "Поле текста не может быть пустым"
+
+#: network/dnsrecords/txt.php:24
+#: network/dnsrecords/txt.php:25
+msgid "Domain Name"
+msgstr "Имя домена"
+
+#: network/dnsrecords/txt.php:30
+#: network/dnsrecords/txt.php:40
+msgid "Text"
+msgstr "Текст"
+
+#: network/dnsrecords/afsdb.php:13
+msgid "Custom subtype is no setted"
+msgstr "Пользовательский подтип не задан"
+
+#: network/dnsrecords/afsdb.php:62
+msgid "Owner name"
+msgstr "Имя владельца"
+
+#: network/dnsrecords/afsdb.php:64
+#: network/dnsrecords/afsdb.php:104
+msgid "Subtype"
+msgstr "Подтип"
+
+#: network/dnsrecords/afsdb.php:72
+msgid "Custom subtype"
+msgstr "Пользовательский подтип"
+
+#: network/dnsrecords/afsdb.php:74
+msgid "Custom subtype ranges from 0 to 65535"
+msgstr "Пользовательский подтип варьируется от 0 до 65535"
+
+#: network/dnsrecords/afsdb.php:81
+#: network/dnsrecords/afsdb.php:102
+msgid "Domain name of a host that has a server for the cell named by the owner name"
+msgstr "Доменное имя узла, у которого есть сервер для ячейки, названной именем владельца"
+
+#: network/dnsrecords/afsdb.php:120
+msgid "AFS cell database server"
+msgstr "AFS-ячеистый сервер БД"
+
+#: network/dnsrecords/afsdb.php:121
+msgid "DCE authenticated server"
+msgstr "DCE аутентифицированный сервер"
+
+#: network/dnsrecords/kx.php:30
+#: network/dnsrecords/kx.php:53
+msgid "Exchanger"
+msgstr "Узел для обмена"
+
+#: network/dnsrecords/kx.php:33
+#: network/dnsrecords/kx.php:53
+#: network/dnsrecords/srv.php:145
+#: network/dnsrecords/srv.php:171
+#: network/dnsrecords/naptr.php:60
+#: network/dnsrecords/naptr.php:91
+#: network/dnsrecords/mx.php:34
+#: network/dnsrecords/mx.php:53
+msgid "Priority"
+msgstr "Приоритет"
+
+#: network/dnsrecords/kx.php:35
+#: network/dnsrecords/naptr.php:62
+#: network/dnsrecords/mx.php:36
+msgid "Priority ranges from 0 to 65535"
+msgstr "Приоритет варьируется от 0 до 65535"
+
+#: network/dnsrecords/cert.php:20
+msgid "Certificate is no setted"
+msgstr "Сертификат не задан"
+
+#: network/dnsrecords/cert.php:23
+msgid "Certificate is incorrect"
+msgstr "Сертификат некорректен"
+
+#: network/dnsrecords/cert.php:106
+#: network/ajaxSubnetMembersFilter.php:109
+msgid "Type"
+msgstr "Тип"
+
+#: network/dnsrecords/cert.php:114
+msgid "Custom type"
+msgstr "Пользовательский тип"
+
+#: network/dnsrecords/cert.php:116
+msgid "Type ranges from 0 to 65535"
+msgstr "Тип варьируется от 0 до 65535"
+
+#: network/dnsrecords/cert.php:146
+#: network/dnsrecords/cert.php:167
+msgid "Certificate"
+msgstr "Сертификат"
+
+#: network/dnsrecords/cert.php:164
+msgid "Certificate type"
+msgstr "Тип сертификата"
+
+#: network/dnsrecords/cert.php:179
+msgid "Unknown to a secure DNS"
+msgstr "Неизвестен для защиты DNS"
+
+#: network/dnsrecords/cert.php:190
+msgid "X.509 as per PKIX"
+msgstr "X.509 как с помощью PKIX"
+
+#: network/dnsrecords/cert.php:191
+msgid "SPKI certificate"
+msgstr "SPKI сертификат"
+
+#: network/dnsrecords/cert.php:192
+msgid "Open PGP packet"
+msgstr "Open PGP пакет"
+
+#: network/dnsrecords/cert.php:193
+msgid "The URL of an X.509 data object"
+msgstr "URL X.509-объекта данных"
+
+#: network/dnsrecords/cert.php:194
+msgid "The URL of SPKI certificate"
+msgstr "URL SPKI-сертификата"
+
+#: network/dnsrecords/cert.php:195
+msgid "The fingerprint and URL of Open PGP packet"
+msgstr "Отпечаток и URL Open PGP пакета"
+
+#: network/dnsrecords/cert.php:196
+msgid "Attribute certificate"
+msgstr "Сертификат атрибута"
+
+#: network/dnsrecords/cert.php:197
+msgid "The URL of attribute certificate"
+msgstr "URL сертификата атрибута"
+
+#: network/dnsrecords/cert.php:198
+msgid "URI private"
+msgstr "URI частный"
+
+#: network/dnsrecords/cert.php:199
+msgid "OID private"
+msgstr "OID частный"
+
+#: network/dnsrecords/srv.php:17
+msgid "It is need to enter custom protocol name"
+msgstr "Необходимо ввести имя протокола пользователя"
+
+#: network/dnsrecords/srv.php:19
+msgid "It is need to enter service name"
+msgstr "Необходимо ввести имя службы"
+
+#: network/dnsrecords/srv.php:21
+msgid "It is need to enter the name of  host that will provide this service"
+msgstr "Необходимо ввести имя узла, который будет предоставлять эту службу. "
+
+#: network/dnsrecords/srv.php:23
+msgid "Priority can't be more than 65535"
+msgstr "Приоритет не может быть больше 65535"
+
+#: network/dnsrecords/srv.php:25
+msgid "Weight can't be more than 65535"
+msgstr "Вес не может быть больше, чем 65535"
+
+#: network/dnsrecords/srv.php:27
+msgid "Port can't be more than 65535"
+msgstr "Порт не может быть больше, чем 65535"
+
+#: network/dnsrecords/srv.php:104
+msgid "It can be an any service, if checked"
+msgstr "Любая служба, если отмечено"
+
+#: network/dnsrecords/srv.php:113
+msgid "Service"
+msgstr "Служба"
+
+#: network/dnsrecords/srv.php:118
+#: network/dnsrecords/key.php:140
+#: network/dnsrecords/key.php:232
+msgid "Protocol"
+msgstr "Протокол"
+
+#: network/dnsrecords/srv.php:126
+msgid "Custom protocol name"
+msgstr "Пользовательское имя протокола"
+
+#: network/dnsrecords/srv.php:131
+msgid "There is host that will provide this service, if checked"
+msgstr "Есть узел, который будет предоставлять эту службу, если отмечено"
+
+#: network/dnsrecords/srv.php:138
+#: network/dnsrecords/srv.php:169
+msgid "Host that will provide this service"
+msgstr "Узел, который будет предоставлять эту службу"
+
+#: network/dnsrecords/srv.php:143
+msgid "Port"
+msgstr "Порт"
+
+#: network/dnsrecords/srv.php:147
+#: network/dnsrecords/srv.php:172
+msgid "Weight"
+msgstr "Вес"
+
+#: network/dnsrecords/srv.php:168
+msgid "no"
+msgstr "нет"
+
+#: network/dnsrecords/srv.php:170
+msgid "Service port"
+msgstr "Порт службы"
+
+#: network/dnsrecords/naptr.php:54
+#: network/dnsrecords/naptr.php:95
+msgid "Next domain-name to query"
+msgstr "Следующее доменное имя для запроса"
+
+#: network/dnsrecords/naptr.php:64
+#: network/dnsrecords/naptr.php:90
+msgid "Order"
+msgstr "Порядок"
+
+#: network/dnsrecords/naptr.php:66
+#: network/dnsrecords/naptr.php:92
+msgid "Flags"
+msgstr "Флаги"
+
+#: network/dnsrecords/naptr.php:68
+#: network/dnsrecords/naptr.php:94
+msgid "Regular expression"
+msgstr "Регулярное выражение"
+
+#: network/dnsrecords/naptr.php:70
+#: network/dnsrecords/naptr.php:93
+#: network/services.php:83
+msgid "Services"
+msgstr "Службы"
+
+#: network/dnsrecords/nsec.php:44
+#: network/dnsrecords/nsec.php:65
+msgid "Next domain name"
+msgstr "Следующее имя домена"
+
+#: network/dnsrecords/nsec.php:47
+#: network/dnsrecords/nsec.php:66
+msgid "Types that exist at the record's owner name"
+msgstr "Типы, которые существует в имени владельца записи"
+
+#: network/dnsrecords/nsec.php:48
+msgid "Types"
+msgstr "Типы"
+
+#: network/dnsrecords/ptr.php:22
+msgid "Name"
+msgstr "Имя"
+
+#: network/dnsrecords/dname.php:21
+msgid "Subdomain alias"
+msgstr "Псевдоним поддомена"
+
+#: network/dnsrecords/dname.php:23
+#: network/dnsrecords/dname.php:36
+msgid "Subdomain"
+msgstr "Поддомен"
+
+#: network/dnsrecords/ds.php:16
+msgid "Custom digest type is no setted"
+msgstr "Пользовательский тип подписи не задан"
+
+#: network/dnsrecords/ds.php:18
+msgid "Custom digest type value out of range"
+msgstr "Пользовательский тип подписи выходит за границы"
+
+#: network/dnsrecords/ds.php:22
+msgid "Digest is no setted"
+msgstr "Подпись не задана"
+
+#: network/dnsrecords/ds.php:25
+msgid "Digest is incorrect"
+msgstr "Подпись некорректна"
+
+#: network/dnsrecords/ds.php:90
+msgid "SHA-1 digest"
+msgstr "SHA-1 подпись"
+
+#: network/dnsrecords/ds.php:98
+msgid "Custom digest type"
+msgstr "Пользовательский тип записи"
+
+#: network/dnsrecords/ds.php:100
+msgid "Digest type ranges from 0 to 255"
+msgstr "Тип записи варьируется от 0 до 255"
+
+#: network/dnsrecords/ds.php:130
+#: network/dnsrecords/ds.php:155
+msgid "Digest"
+msgstr "Подпись"
+
+#: network/dnsrecords/ds.php:132
+msgid "The Digest MUST be represented as a sequence of case-insensitive hexadecimal digits"
+msgstr "Подпись должна быть представлена как последовательность нечувствительных к регистру шестнадцатеричных символов"
+
+#: network/dnsrecords/ds.php:153
+msgid "Digest type"
+msgstr "Тип подписи"
+
+#: network/dnsrecords/ds.php:195
+#: network/dnsrecords/sshfp.php:160
+msgid "SHA-1"
+msgstr ""
+
+#: network/dnsrecords/mx.php:31
+#: network/dnsrecords/mx.php:53
+msgid "Mail server"
+msgstr "Сервер почты"
+
+#: network/dnsrecords/key.php:16
+msgid "Custom protocol is no setted"
+msgstr "Пользовательский протокол не задан"
+
+#: network/dnsrecords/key.php:148
+msgid "Custom protocol"
+msgstr "Пользовательский протокол"
+
+#: network/dnsrecords/key.php:150
+msgid "Protocol ranges from 0 to 255"
+msgstr "Протокол варьируется от 0 до 255"
+
+#: network/dnsrecords/key.php:172
+#: network/dnsrecords/key.php:233
+msgid "Use policy"
+msgstr "Политика использования"
+
+#: network/dnsrecords/key.php:175
+#: network/dnsrecords/key.php:234
+msgid "Name type"
+msgstr "Тип имени"
+
+#: network/dnsrecords/key.php:179
+#: network/dnsrecords/key.php:235
+msgid "Update mode for this zone"
+msgstr "Режим обновления для этой зоны"
+
+#: network/dnsrecords/key.php:181
+msgid "If checked, this key is authorized to attach, detach, and move zones by creating and deleting NS, glue A, and zone record(s).  If unchecked, the key can not authorize any update that would effect such records"
+msgstr "Если выбрано, то этот ключ допущен для присоединения, отсоединения и перемещения зон, путем создания и удаления NS, склеивающих А и записи(ей) зоны. Если не выбрано, ключ не может авторизовать любое обновление, которое могут совершать такие записи"
+
+#: network/dnsrecords/key.php:186
+#: network/dnsrecords/key.php:236
+msgid "Strong update"
+msgstr "Обновление, обладающее преимуществом"
+
+#: network/dnsrecords/key.php:188
+msgid "If checked, this key is authorized to add and delete records even if there are other records with the same owner name and class that are authenticated by a SIG signed with a different dynamic update KEY. If unchecked, the key can only authorize updates where any existing records of the same owner and class are authenticated by a SIG using the same key."
+msgstr "Если отмечено, то это ключ допущен для добавления и удаления записей, даже в том случае, если есть другие записи с тем же именем владельца и классом, которые аутентифицированы SIG записью, подписаны с отличающимся ключом динамического обновления. Если не отмечено, то ключ может только разрешить обновления, где любые существующие записи  одного владельца и класса, аутентифицированы SIG, использующей единый ключ. "
+
+#: network/dnsrecords/key.php:193
+#: network/dnsrecords/key.php:237
+msgid "Unique name update"
+msgstr "Обновление только для одного имени"
+
+#: network/dnsrecords/key.php:195
+msgid "If checked, this key is authorized to add and update records for only a single owner name."
+msgstr "Если отмечено, то это ключ разрешен для добавления и обновления записей только одним владельцем."
+
+#: network/dnsrecords/key.php:235
+#: network/dnsrecords/key.php:236
+#: network/dnsrecords/key.php:237
+msgid "Yes"
+msgstr "Да"
+
+#: network/dnsrecords/key.php:235
+#: network/dnsrecords/key.php:236
+#: network/dnsrecords/key.php:237
+#: network/dnsrecords/key.php:238
+msgid "No"
+msgstr "Нет"
+
+#: network/dnsrecords/key.php:266
+msgid "TLS"
+msgstr ""
+
+#: network/dnsrecords/key.php:267
+msgid "Email"
+msgstr ""
+
+#: network/dnsrecords/key.php:268
+msgid "DNSSEC"
+msgstr ""
+
+#: network/dnsrecords/key.php:269
+msgid "IPSEC"
+msgstr ""
+
+#: network/dnsrecords/key.php:270
+msgid "Any"
+msgstr "Любой"
+
+#: network/dnsrecords/key.php:307
+msgid "Permitted for authentication and/or confidentiality"
+msgstr "Разрешено для аутентификации и/или конфиденциальности"
+
+#: network/dnsrecords/key.php:308
+msgid "Prohibited for confidentiality"
+msgstr "Не разрешено для конфиденциальности"
+
+#: network/dnsrecords/key.php:309
+msgid "Prohibited for authentication"
+msgstr "Не разрешено для аутентификации"
+
+#: network/dnsrecords/key.php:310
+msgid "No key"
+msgstr "Ключ отсутствует"
+
+#: network/dnsrecords/key.php:316
+msgid "User/Account"
+msgstr "Пользовательское/Учетная запись"
+
+#: network/dnsrecords/key.php:317
+msgid "Zone"
+msgstr "Для зоны"
+
+#: network/dnsrecords/key.php:318
+msgid "Non-zone entity"
+msgstr "Объект, не принадлежащий зоне"
+
+#: network/dnsrecords/soa.php:58
+msgid "Zone name"
+msgstr "Имя зоны"
+
+#: network/dnsrecords/soa.php:60
+#: network/dnsrecords/soa.php:102
+#: network/dnsrecords/ns.php:23
+#: network/dnsrecords/ns.php:35
+msgid "Name server"
+msgstr "Сервер имен"
+
+#: network/dnsrecords/soa.php:65
+#: network/dnsrecords/soa.php:103
+msgid "Responsible person e-mail"
+msgstr "E-mail ответственного за зону"
+
+#: network/dnsrecords/soa.php:70
+#: network/dnsrecords/soa.php:104
+msgid "Time interval before the zone should be refreshed"
+msgstr "Временной интервал до того как зона должна быть обновлена"
+
+#: network/dnsrecords/soa.php:72
+#: network/dnsrecords/soa.php:105
+msgid "Time interval that should elapse before a failed refresh should be retried"
+msgstr "Временной интервал, который должен пройти, перед тем, как после неудачного обновления должно быть выполнено повторное"
+
+#: network/dnsrecords/soa.php:74
+#: network/dnsrecords/soa.php:106
+msgid "Expiry time"
+msgstr "Время истечения срока"
+
+#: network/dnsrecords/soa.php:76
+#: network/dnsrecords/soa.php:107
+msgid "Minimum TTL"
+msgstr "Минимальное TTL"
+
+#: network/dnsrecords/soa.php:78
+#: network/dnsrecords/soa.php:108
+msgid "Serial number"
+msgstr "Серийный номер"
+
+#: network/dnsrecords/loc.php:33
+msgid "Host name is incrorrect"
+msgstr "Имя узла некорректно"
+
+#: network/dnsrecords/loc.php:61
+#: network/dnsrecords/loc.php:129
+#: network/dnsrecords/loc.php:149
+msgid "cm"
+msgstr "см"
+
+#: network/dnsrecords/loc.php:61
+#: network/dnsrecords/loc.php:129
+#: network/dnsrecords/loc.php:149
+msgid "m"
+msgstr "м"
+
+#: network/dnsrecords/loc.php:70
+#: network/dnsrecords/loc.php:154
+msgid "Latitude"
+msgstr "Широта"
+
+#: network/dnsrecords/loc.php:72
+#: network/dnsrecords/loc.php:155
+msgid "Longitude"
+msgstr "Долгота"
+
+#: network/dnsrecords/loc.php:74
+#: network/dnsrecords/loc.php:156
+msgid "Altitude"
+msgstr "Высота"
+
+#: network/dnsrecords/loc.php:76
+#: network/dnsrecords/loc.php:159
+msgid "Diameter of a sphere enclosing the described entity"
+msgstr "Диаметр сферы, охватывающий описанный объект"
+
+#: network/dnsrecords/loc.php:78
+#: network/dnsrecords/loc.php:161
+msgid "Horizontal precision"
+msgstr "Точность по горизонтали"
+
+#: network/dnsrecords/loc.php:80
+#: network/dnsrecords/loc.php:163
+msgid "Vertical precision"
+msgstr "Точность по вертикали"
+
+#: network/dnsrecords/loc.php:301
+msgid "Degr.: "
+msgstr "Град.: "
+
+#: network/dnsrecords/loc.php:302
+msgid "Min.: "
+msgstr "Мин.: "
+
+#: network/dnsrecords/loc.php:303
+msgid "Sec.: "
+msgstr "Сек.: "
+
+#: network/dnsrecords/loc.php:362
+msgid "N"
+msgstr "С"
+
+#: network/dnsrecords/loc.php:362
+msgid "S"
+msgstr "Ю"
+
+#: network/dnsrecords/loc.php:362
+msgid "W"
+msgstr "З"
+
+#: network/dnsrecords/loc.php:362
+msgid "E"
+msgstr "В"
+
+#: network/dnsrecords/loc.php:504
+msgid "incorrect"
+msgstr "неверно"
+
+#: network/dnsrecords/aaaa.php:23
+#: network/dnsrecords/aaaa.php:33
+msgid "IPv6 address"
+msgstr "IPV6-адрес"
+
+#: network/dnsrecords/sshfp.php:18
+msgid "Fingerprint is no setted"
+msgstr "Отпечаток не задан"
+
+#: network/dnsrecords/sshfp.php:21
+msgid "Fingerprint is incorrect"
+msgstr "Некорректный отпечаток"
+
+#: network/dnsrecords/sshfp.php:86
+msgid "SHA-1 fingerprint"
+msgstr "SHA-1 отпечаток"
+
+#: network/dnsrecords/sshfp.php:94
+msgid "Custom fingerprint type"
+msgstr "Пользовательский тип отпечатка"
+
+#: network/dnsrecords/sshfp.php:96
+msgid "Fingerprint type ranges from 0 to 255"
+msgstr "Тип отпечатка варьируется от 0 до 255"
+
+#: network/dnsrecords/sshfp.php:120
+#: network/dnsrecords/sshfp.php:143
+msgid "Fingerprint"
+msgstr "Отпечаток"
+
+#: network/dnsrecords/sshfp.php:122
+msgid "The Fingerprint MUST be represented as a sequence of case-insensitive hexadecimal digits"
+msgstr "Отпечаток должен быть представлен как последовательность независимых к регистру шестнадцатеричных символов."
+
+#: network/dnsrecords/sshfp.php:142
+msgid "Fingerprint type"
+msgstr "Тип отпечатка"
+
+#: network/dnsrecords/sshfp.php:148
+msgid "RSA"
+msgstr ""
+
+#: network/dnsrecords/sshfp.php:149
+msgid "DSS"
+msgstr ""
+
+#: network/dnsrecords/cname.php:20
+msgid "Alias name"
+msgstr "Имя псеводнима"
+
+#: network/dnsrecords/cname.php:22
+#: network/dnsrecords/cname.php:34
+#: network/dnsrecords/ptr.php:24
+#: network/dnsrecords/ptr.php:35
+msgid "Canonical name"
+msgstr "Канонического имя"
+
+#: network/subnetedithost.php:23
+msgid "Add a DHCP host to subnet %s / %s"
+msgstr "Добавить DHCP-узел в подсеть %s / %s"
+
+#: network/subnetedithost.php:24
+msgid "Edit DHCP host of subnet %s"
+msgstr "Изменить DHCP-узел подсети %s"
+
+#: network/subnetedithost.php:50
+msgid "The specified IP address does not belong to the subnet."
+msgstr "Указанный IP-адрес не может принадлежать подсети."
+
+#: network/subnetedithost.php:58
+msgid "The specified IP address belongs to the dynamic pool range of the subnet."
+msgstr "Заданный IP-адрес принадлежит диапазону динамического пула подсети."
+
+#: network/subnetedithost.php:68
+msgid "The specified hostname has been already registered in this DHCP subnet."
+msgstr "Указанное имя узла уже зарегестрированно в этой DHCP-подсети."
+
+#: network/subnetedithost.php:73
+#: network/subnetedithost.php:98
+msgid "The specified IP address has been already registered in this DHCP subnet."
+msgstr "Указанный IP-адрес уже зарегестрирован в этой DHCP-подсети."
+
+#: network/subnetedithost.php:83
+msgid "The specified hostname has been already registered in DNS zone %s."
+msgstr "Указанное имя узла уже зарегестрировано в  DNS-зоне %s."
+
+#: network/subnetedithost.php:88
+msgid "The specified IP address has been already registered in DNS zone %s."
+msgstr "Указанный IP-адрес уже зарегестрирован в DNS-зоне %s."
+
+#: network/subnetedithost.php:111
+msgid "The IP address %s is already registered in DNS zone %s"
+msgstr "IP-адрес %s уже зарегестрирован в DNS-зоне %s"
+
+#: network/subnetedithost.php:137
+msgid "Host successfully added."
+msgstr "Узел успешно добавлен."
+
+#: network/subnetedithost.php:138
+msgid "Host successfully modified."
+msgstr "Узел успешно изменен."
+
+#: network/subnetedithost.php:201
+#: network/ajaxSubnetMembersFilter.php:108
+msgid "MAC address"
+msgstr "MAC-адрес"
+
+#: network/subnetedithost.php:217
+msgid "Also records this machine into DNS zone %s"
+msgstr "Также записать этот компьютер в DNS-зону %s"
+
+#: network/subnetedithost.php:227
+msgid "This host name is also registered in DNS zone %s"
+msgstr "Этот узел также зарегестрирован в DNS-зоне %s"
+
+#: network/subnetedithost.php:230
+msgid "but with another IP address (%s)"
+msgstr "но с другим IP-адресом (%s)"
+
+#: network/subnetedithost.php:234
+msgid "This host is not registered in DNS zone %s"
+msgstr "Этот узел не зарегестрирован в DNS-зоне %s"
+
+#: network/subnetedithost.php:237
+msgid "Click here to add it"
+msgstr "Нажмите, чтобы добавить"
+
+#: network/subnetedithost.php:246
+#: network/subnetedit.php:281
+msgid "Other DHCP options"
+msgstr "Другие параметры DHCP"
+
+#: network/subnetedithost.php:247
+#: network/subnetedit.php:282
+msgid "Specify the name of the initial boot file which is to be loaded by a client."
+msgstr "Определите имя файла начального запуска, который должен быть загружен клиентом."
+
+#: network/subnetedithost.php:249
+#: network/subnetedit.php:284
+msgid "The filename should be a filename recognizable to whatever file transfer protocol the client can be expected to use to load the file."
+msgstr "\"Имя файла\" должно быть именем файла, которое может быть распознано любым FTP клиентом, который может быть ожидаем к использованию для загрузки файла."
+
+#: network/subnetedithost.php:251
+#: network/subnetedit.php:286
+msgid "(DHCP option number 67)"
+msgstr "(DHCP опция № 67)"
+
+#: network/subnetedithost.php:254
+#: network/subnetedit.php:289
+msgid "Initial boot file name"
+msgstr "Имя файла начального запуска"
+
+#: network/subnetedithost.php:259
+#: network/subnetedit.php:294
+msgid "Path-name that contains the client's root disk."
+msgstr "Путь-имя, которое содержит клиентский корневой диск."
+
+#: network/subnetedithost.php:261
+#: network/subnetedit.php:296
+msgid "(DHCP option number 17)"
+msgstr "(DHCP опция № 17)"
+
+#: network/subnetedithost.php:264
+#: network/subnetedit.php:299
+msgid "Path to the root filesystem"
+msgstr "Путь к корневой файловой системе"
+
+#: network/subnetedithost.php:269
+#: network/subnetedit.php:304
+msgid "Server from which the initial boot file is to be loaded"
+msgstr "Сервер с которого файл начального запуска должен быть загружен"
+
+#: network/subnetedithost.php:271
+#: network/subnetedit.php:306
+msgid "Next server"
+msgstr "Следующий сервер"
+
+#: network/subnetedithost.php:276
+#: network/subnetedit.php:311
+msgid "Trivial File Transfer Protocol server name from which the client is booting."
+msgstr "Имя сервера TFTP  с которого запускается клиент."
+
+#: network/subnetedithost.php:278
+#: network/subnetedit.php:313
+msgid "(DHCP option number 66)"
+msgstr "(DHCP опция №66)"
+
+#: network/subnetedithost.php:281
+#: network/subnetedit.php:316
+msgid "TFTP server name"
+msgstr "Имя TFTP-сервера"
+
+#: network/index.php:32
+msgid "DNS zones management"
+msgstr "Управление DNS-зонами"
+
+#: network/edit.php:31
+#: infoPackage.inc.php:103
+msgid "Add a DNS zone"
+msgstr "Добавить DNS-зону"
+
+#: network/edit.php:33
+msgid "Edit DNS zone"
+msgstr "Изменить DNS-зону"
+
+#: network/edit.php:41
+msgid "%s is not a A record of this zone."
+msgstr "%s не является A-записью для этой зоны."
+
+#: network/edit.php:70
+msgid "This zone already exists."
+msgstr "Такая зона уже существует."
+
+#: network/edit.php:79
+msgid "The network address and the network mask fields must be filled in if you also want to create a reverse zone."
+msgstr "Поля сетевого адреса и и сетевой маски должны быть заполнены, если вы хотите создать и обратную зону"
+
+#: network/edit.php:88
+msgid "The network address and the network mask fields must be filled in if you also want to create a DHCP subnet."
+msgstr "поля Сетевого адреса и маски подсети должны быть заполнены, если вы хотите создать DHCP-подсеть."
+
+#: network/edit.php:100
+#: network/subnetedit.php:62
+msgid "The given network address belongs to the already existing DHCP subnet %s / %s."
+msgstr "Данный сетевой адрес принадлежит к уже существующей DHCP-подсети %s / %s"
+
+#: network/edit.php:110
+msgid "DHCP subnet and DNS zone successfully added. The DHCP service must be restarted."
+msgstr "DHCP-подсеть и DNS-зона успешно добавлены. Служба DHCP должна быть перезапущена."
+
+#: network/edit.php:113
+msgid "DNS zone successfully added."
+msgstr "DNS-зона успешно добавлена."
+
+#: network/edit.php:115
+msgid "The DNS service must be reloaded."
+msgstr "Служба DNS должна быть перезагружена."
+
+#: network/edit.php:161
+msgid "DNS zone successfully modified."
+msgstr "DNS-зона успешно изменена"
+
+#: network/edit.php:207
+msgid "Secondary name servers"
+msgstr "Вторичные сервера  имен"
+
+#: network/edit.php:209
+msgid "MX records (SMTP servers)"
+msgstr "MX-записи (SMTP-серверы)"
+
+#: network/edit.php:214
+msgid "DNS zone FQDN"
+msgstr "FQDN DNS-зоны"
+
+#: network/edit.php:222
+msgid "Primary name server host name"
+msgstr "Имя первичного сервера имен"
+
+#: network/edit.php:228
+msgid "Name server IP"
+msgstr "IP-адрес сервера имен"
+
+#: network/edit.php:234
+msgid "The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."
+msgstr "Поля сетевого адреса и и сетевой маски должны быть заполнены, если вы также хотите создать обратную зону или DHCP-подсеть, привязанную к этой DNS-зоне"
+
+#: network/edit.php:240
+msgid "Network mask"
+msgstr "Маска подсети"
+
+#: network/edit.php:241
+msgid "Only 8, 16 or 24 is allowed"
+msgstr "Разрешены значения  8, 16 или 24"
+
+#: network/edit.php:244
+msgid "Also manage a reverse DNS zone"
+msgstr "Также управлять обратной DNS-зоной"
+
+#: network/edit.php:248
+msgid "Also create a related DHCP subnet"
+msgstr "Также создать связанную DHCP-подсеть"
+
+#: network/edit.php:255
+#: network/edit.php:259
+msgid "Secondary name servers hosts name"
+msgstr "Имя вторичного сервера имен"
+
+#: network/ajaxZoneFilter.php:46
+msgid "Network prefix"
+msgstr "Префикс подсети"
+
+#: network/ajaxZoneFilter.php:50
+msgid "View zone members"
+msgstr "Просмотр членов зоны"
+
+#: network/ajaxZoneFilter.php:51
+msgid "View zone records"
+msgstr "Просмотр записей зоны"
+
+#: network/ajaxZoneFilter.php:52
+msgid "Edit zone"
+msgstr "Изменить зону"
+
+#: network/ajaxZoneFilter.php:53
+msgid "Add host"
+msgstr "Добавить узел"
+
+#: network/subnetmembers.php:34
+msgid "Members of DHCP subnet"
+msgstr "Члены DHCP-подсети"
+
+#: network/subnetmembers.php:42
+msgid "Add a static host"
+msgstr "Добавить статический узел"
+
+#: network/subnetedit.php:31
+#: infoPackage.inc.php:126
+msgid "Add a DHCP subnet"
+msgstr "Добавить DHCP-подсеть"
+
+#: network/subnetedit.php:32
+#: infoPackage.inc.php:129
+msgid "Edit DHCP subnet"
+msgstr "Изменить DHCP-подсеть"
+
+#: network/subnetedit.php:87
+msgid "The specified dynamic pool IP range from %s to %s is not valid."
+msgstr "Заданный диапазон IP динамического пула от %s до %s некорректен."
+
+#: network/subnetedit.php:91
+msgid "No IP range specified for %d dynamic pool."
+msgstr "Отсутствует диапазон IP, заданный для %d динамического пула. "
+
+#: network/subnetedit.php:153
+msgid "Subnet successfully added. You must restart the DHCP service."
+msgstr "Подсеть успешно добавлена. Вы должны перезапустить службу DHCP."
+
+#: network/subnetedit.php:155
+msgid "Subnet successfully modified. You must restart the DHCP service."
+msgstr "Подсеть успешно изменена. Вы должны перезапустить службу DHCP."
+
+#: network/subnetedit.php:199
+msgid "DHCP subnet address"
+msgstr "Адрес DHCP-подсети"
+
+#: network/subnetedit.php:204
+msgid "(e.g. 24 for a /24 network)"
+msgstr "(например, 24 для /24 сети)"
+
+#: network/subnetedit.php:211
+msgid "Authoritative"
+msgstr "Авторитетный"
+
+#: network/subnetedit.php:217
+msgid "DHCP options related to clients network parameters"
+msgstr "Опции DHCP относятся к клиентским параметрам сети"
+
+#: network/subnetedit.php:219
+msgid "Broadcast address"
+msgstr "Широковещательный адрес"
+
+#: network/subnetedit.php:225
+msgid "Domain name that will be appended to the client's hostname to form a fully-qualified domain-name (FQDN)."
+msgstr "Доменное имя, которое будет присоединено к имени узла клиента, чтобы сформировать FQDN."
+
+#: network/subnetedit.php:226
+msgid "If the domain name is a registered DNS domain, the subnet will be associated to the DNS domain."
+msgstr "Если имя домена является зарегистрированным, то подсеть будет связана c этим доменом."
+
+#: network/subnetedit.php:227
+msgid "You can set more than one domain, separated by spaces. They will be added to the DHCP client DNS domain search path."
+msgstr "Вы можете задать несколько доменов, разделенных пробелами. Они будут добавлены к путям для поиска домена DNS клиента DHCP."
+
+#: network/subnetedit.php:230
+msgid "Links the subnet to a DNS zone"
+msgstr "Связывает подсеть с DNS-зоной"
+
+#: network/subnetedit.php:233
+msgid "Routers"
+msgstr "Маршрутизаторы"
+
+#: network/subnetedit.php:235
+msgid "List of routers (gateways) on client's subnet."
+msgstr "Список маршрутизаторов (шлюзов) клиентской подсети."
+
+#: network/subnetedit.php:241
+msgid "Domain name servers"
+msgstr "Сервера доменных имен"
+
+#: network/subnetedit.php:243
+msgid "DNS name servers available to the client."
+msgstr "DNS-серверы имен, доступные клиенту."
+
+#: network/subnetedit.php:249
+msgid "NTP servers"
+msgstr "Серверы NTP"
+
+#: network/subnetedit.php:251
+msgid "Network Time Protocol servers available to the client."
+msgstr "NTP серверы, доступные клиенту"
+
+#: network/subnetedit.php:257
+msgid "WINS servers"
+msgstr "Серверы WINS"
+
+#: network/subnetedit.php:259
+msgid "Netbios name servers available to Windows clients, listed in order of preference."
+msgstr "Netbios серверы имен, доступные для клиентов Windows, прослушиваемые в порядке, определенном привилегиями."
+
+#: network/subnetedit.php:266
+msgid "Broadcast only"
+msgstr "Только Broadcast"
+
+#: network/subnetedit.php:266
+msgid "WINS only"
+msgstr "Только WINS"
+
+#: network/subnetedit.php:266
+msgid "Broadcast, then WINS"
+msgstr "Broadcast, затем WINS"
+
+#: network/subnetedit.php:266
+msgid "WINS, then broadcast"
+msgstr "WINS, затем broadcast"
+
+#: network/subnetedit.php:270
+msgid "WINS resolution and registration method"
+msgstr "WINS разрешения и метод регистрации"
+
+#: network/subnetedit.php:272
+msgid "Specify how NetBIOS name resolution is performed. Auto: the client OS will automatically select a method. Broadcast only (B-node): use broadcast for name resolution and registration. Peer node (P-node): use the specified WINS servers. Mixed node (M-node): use broadcast, then the specified WINS servers. Hybrid node (H-node): use the specified WINS server, then broadcast."
+msgstr "Определяет как выполняется разрешение имен NetBIOS. Автоматическое: ОС клиента автоматически будет выбирать метод. Только широковещание (B-узел): использование широковещания для разрешения имен и регистрации. Каждый узел (P-узел): использование определенных WINS-серверов. Смешанный узел (M-узел): использование широковещания, а затем - определенных WINS-серверов. Гибридный узел (H-node): использование определенного WINS-сервера, а затем - широковещания. "
+
+#: network/subnetedit.php:324
+msgid "DHCP client lease time (in seconds)"
+msgstr "Время аренды DHCP-клиента (в секундах)"
+
+#: network/subnetedit.php:326
+msgid "Minimum lease time"
+msgstr "Минимальное время аренды"
+
+#: network/subnetedit.php:328
+msgid "Minimum length in seconds that will be assigned to a lease."
+msgstr "Минимальная длительность (в секундах), которая будет назначена аренде."
+
+#: network/subnetedit.php:334
+msgid "Default lease time"
+msgstr "Время аренды по умолчанию"
+
+#: network/subnetedit.php:336
+msgid "Lengh in seconds that will be assigned to a lease if the client requesting the lease does not ask for a specific expiration time."
+msgstr "Длительность (в секундах), которая будет назначена аренде, если клиент, запрашивая аренду, не спрашивает о заданном времени прекращения срока действия."
+
+#: network/subnetedit.php:342
+msgid "Maximum lease time"
+msgstr "Максимальное время аренды"
+
+#: network/subnetedit.php:344
+msgid "Maximum length in seconds that will be assigned to a lease."
+msgstr "Максимальное время (в секундах), которое может быть назначено для аренды"
+
+#: network/subnetedit.php:353
+msgid "Dynamic pool(s) for non-registered DHCP clients"
+msgstr "Динамический пул(ы) для незарегистрированных DHCP-клиентов"
+
+#: network/subnetedit.php:366
+msgid "Dynamic pools"
+msgstr "Динамические пулы"
+
+#: network/deleterecord.php:42
+#: network/editrecord.php:51
+msgid "Zone data was updated. Selected record may be incorrect."
+msgstr "Данные зоны были обновлены. Выбранная запись может быть некорректна."
+
+#: network/deleterecord.php:49
+#: network/deletehost.php:31
+msgid "The record has been deleted."
+msgstr "Запись была удалена."
+
+#: network/deleterecord.php:57
+#: network/deletehost.php:37
+msgid "Delete a DNS record"
+msgstr "Удалить DNS-запись"
+
+#: network/deleterecord.php:58
+msgid "You will delete the %s record for %s host"
+msgstr "Вы удалите запись %s для узла %s"
+
+#: network/servicestop.php:32
+msgid "The service has been asked to stop."
+msgstr "Служба запрашивает останов."
+
+#: network/subnetindex.php:32
+msgid "DHCP subnet management"
+msgstr "Управление DHCP-подсетями"
+
+#: network/ajaxZoneRecordsFilter.php:139
+msgid "Delete record"
+msgstr "Удалить запись"
+
+#: network/ajaxZoneRecordsFilter.php:141
+msgid "Edit record"
+msgstr "Изменить запись"
+
+#: network/ajaxZoneRecordsFilter.php:175
+#: network/editrecord.php:168
+#: network/editrecord.php:174
+msgid "Record type"
+msgstr "Тип записи"
+
+#: network/ajaxZoneRecordsFilter.php:176
+msgid "Record parameters"
+msgstr "Параметры записи"
+
+#: network/ajaxSubnetMembersFilter.php:33
+#: network/ajaxSubnetMembersFilter.php:92
+msgid "Static"
+msgstr "Статический"
+
+#: network/ajaxSubnetMembersFilter.php:53
+msgid "Dynamic"
+msgstr "Динамический"
+
+#: network/ajaxSubnetMembersFilter.php:80
+#: network/subnetdeletehost.php:72
+msgid "Delete host"
+msgstr "Удалить узел"
+
+#: network/ajaxSubnetMembersFilter.php:81
+msgid "Add static host"
+msgstr "Добавить статический узел"
+
+#: network/ajaxSubnetMembersFilter.php:82
+msgid "edit static host"
+msgstr "Изменить статический узел"
+
+#: network/servicereload.php:32
+msgid "The service has been asked to reload."
+msgstr "Служба запросила перезагрузку."
+
+#: network/servicerestart.php:32
+msgid "The service has been asked to restart."
+msgstr "Служба запрашывает перезапуск."
+
+#: network/servicestart.php:32
+msgid "The service has been asked to start."
+msgstr "Служба запраштвает запуск."
+
+#: network/subnetdeletehost.php:32
+msgid "The host has been deleted."
+msgstr "Узел был удален."
+
+#: network/subnetdeletehost.php:35
+msgid "The DNS record has been deleted."
+msgstr "DNS-запись была удалена."
+
+#: network/subnetdeletehost.php:59
+msgid "You will delete the host %s from the DHCP subnet."
+msgstr "Вы удалите узел %s из DHCP-подсети."
+
+#: network/subnetdeletehost.php:66
+msgid "Also unregister this host from DNS zone %s"
+msgstr "Также отменить регистрацию этого узла в DNS-зоне %s"
+
+#: network/deletehost.php:38
+msgid "You will delete the %s record"
+msgstr "Вы удалите запись %s"
+
+#: network/deletehost.php:43
+msgid "The linked CNAME records will also be deleted:"
+msgstr "Также будут удалены связанные CNAME-записи :"
+
+#: network/editrecord.php:58
+msgid "Add record to reverse zone for zone %s"
+msgstr "Добавить запись в обратную зону для зоны %s"
+
+#: network/editrecord.php:59
+msgid "Edit record of reverse zone for zone %s"
+msgstr "Изменить запись обратной зоны для зоны %s"
+
+#: network/editrecord.php:62
+msgid "Add record to zone %s"
+msgstr "Добавить запись в зону %s"
+
+#: network/editrecord.php:63
+msgid "Edit record of zone %s"
+msgstr "Изменить запись зоны %s"
+
+#: network/editrecord.php:62
+msgid "Edit record of %s"
+msgstr "Изменить DNS-запись %s"
+
+#: network/services.php:43
+msgid "Configure service"
+msgstr "Настроить службу"
+
+#: network/services.php:44
+msgid "Start service"
+msgstr "Запустить службу"
+
+#: network/services.php:45
+msgid "Stop service"
+msgstr "Остановить службу"
+
+#: network/services.php:46
+msgid "Reload service"
+msgstr "Перезагрузить службу"
+
+#: network/services.php:47
+msgid "Restart service"
+msgstr "Перезапустить службу"
+
+#: network/services.php:48
+msgid "View log"
+msgstr "Просмотр Журнала"
+
+#: network/services.php:57
+#: network/services.php:72
+msgid "Started"
+msgstr "Запущено"
+
+#: network/services.php:62
+#: network/services.php:77
+msgid "Stopped"
+msgstr "Останов"
+
+#: network/services.php:84
+msgid "Network services status"
+msgstr "Состояние служб сети"
+
+#: network/services.php:85
+msgid "Status"
+msgstr "Состояние"
+
+#: infoPackage.inc.php:31
+msgid "Network management"
+msgstr "Управление сетью"
+
+#: infoPackage.inc.php:39
+msgid "Network"
+msgstr "Сеть"
+
+#: infoPackage.inc.php:83
+msgid "Delete a DNS zone"
+msgstr "Удалить DNS-зону"
+
+#: infoPackage.inc.php:87
+msgid "Delete a host"
+msgstr "Удалить узел"
+
+#: infoPackage.inc.php:91
+msgid "Delete a record"
+msgstr "Удалить DNS-запись"
+
+#: infoPackage.inc.php:95
+#: infoPackage.inc.php:99
+msgid "Edit a DNS record"
+msgstr "Изменить DNS-запись"
+
+#: infoPackage.inc.php:106
+msgid "Edit a DNS zone"
+msgstr "Изменить DNS-зону"
+
+#: infoPackage.inc.php:110
+msgid "Add a host to a zone"
+msgstr "Добавить узел в зону"
+
+#: infoPackage.inc.php:114
+msgid "Add a record to a zone"
+msgstr "Добавить запись в зону"
+
+#: infoPackage.inc.php:118
+msgid "Members of a zone"
+msgstr "Члены зоны"
+
+#: infoPackage.inc.php:122
+msgid "Records of a zone"
+msgstr "Записи зоны"
+
+#: infoPackage.inc.php:136
+msgid "Delete a subnet"
+msgstr "Удалить подсеть"
+
+#: infoPackage.inc.php:140
+msgid "Add a host to a DHCP subnet"
+msgstr "Добавить узел в DHCP-подсеть"
+
+#: infoPackage.inc.php:144
+msgid "Edit a host from a DHCP subnet"
+msgstr "Изменить узел из DHCP-подсети"
+
+#: infoPackage.inc.php:148
+msgid "Delete a host from a subnet"
+msgstr "Удалить узел из подсети"
+
+#: infoPackage.inc.php:152
+msgid "Members of a DHCP subnet"
+msgstr "Члены DHCP-подсети"
+
+#: infoPackage.inc.php:197
+msgid "DHCP service log"
+msgstr "Журнал службы DHCP"
+
+#: infoPackage.inc.php:215
+msgid "DNS service log"
+msgstr "Журнал службы DNS"
+
+#: dhcplogview/index.php:36
+msgid "DHCP service log view"
+msgstr "Просмотр журнала службы DHCP"
+
+#: dhcplogview/ajax_showlog.php:40
+#: dnslogview/ajax_showlog.php:38
+msgid "Date"
+msgstr "Дата"
+
+#: dhcplogview/ajax_showlog.php:41
+msgid "Operations"
+msgstr "Операции"
+
+#: dhcplogview/ajax_showlog.php:42
+#: dnslogview/ajax_showlog.php:39
+msgid "Informations"
+msgstr "Информация"
+
+#: dnslogview/index.php:35
+msgid "DNS service log view"
+msgstr "Прсмотр журнала службы DNS"
+
+#~ msgid "Cancel"
+#~ msgstr "Отмена"
+
+#~ msgid "Create"
+#~ msgstr "Создать"
+
+#~ msgid "The specified hostname has been already recorded in this zone."
+#~ msgstr "Указанное имя узла уже записано в этой зоне."

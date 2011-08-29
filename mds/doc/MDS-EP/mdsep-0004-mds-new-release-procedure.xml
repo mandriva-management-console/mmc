@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MMC release guidelines</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date$</date>
+        <authorinitials>$Author$</authorinitials>
+      </revision>
+    </revhistory>
+
+    <productname>MDS component this MDSEP applies: MMC agent and MMC web</productname>
+    <productnumber>MDS component version this MDSEP applies: 1.x</productnumber>
+
+    <abstract>
+      <para>This document explains how to release a new MMC version.</para>
+    </abstract>
+  </articleinfo>
+
+  <section>
+
+    <title>MMC Release components</title>
+
+    <para>
+      What we release are:
+    </para>
+    <itemizedlist>
+      <listitem>
+	<para>
+	  A tarball called mmc-agent-VERSION.tar.gz. It contains the mmc-agent and all its Python plugins.
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  A tarball called mmc-web-base-VERSION.tar.gz. It contains the base MMC web administration framework and the base LDAP related management functions.
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  A tarball called mmc-web-samba-VERSION.tar.gz. It contains the SAMBA web administration module.
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  A tarball called mmc-web-ox-VERSION.tar.gz. It contains the Open-Xchange web administration module.
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  A tarball called mmc-web-proxy-VERSION.tar.gz. It contains the proxy blacklist (squid/squidguard) administration module.
+	</para>
+      </listitem>
+      <listitem>
+	<para>
+	  A tarball called mmc-doc-VERSION.tar.gz. It contains all the MMC related documentation.
+	</para>
+      </listitem>
+    </itemizedlist>
+      
+  </section>
+
+  <section>
+    
+    <title>Requirements for each component</title>
+
+    <para>
+      Beware that mmc-agent requirements must be met before mmc-web-* one.
+    </para>
+
+    <section>
+      
+      <title>Requirements for mmc-agent</title>
+
+      <para>
+	Please check the requirements in this order.
+      </para>
+      <para>
+	All the python unit tests runs succesfully.
+      </para>
+      <para>
+	For the agent and each plugin, the VERSION attribute must be updated to the version number we release, in those files: <filename>mmc/agent.py mmc/plugin/base/__init__.py mmc/plugin/samba/__init__.py mmc/plugin/proxy/__init__.py mmc/plugin/ox/__init__.py</filename>.
+      </para>
+      <para>
+	For each plugin, the APIVERSION attribute may be updated. The APIVERSION string is similar to libtool library versions: current:revision:age.
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    current : The most recent interface number that this library implements.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    revision : The most recent interface number that this library implements.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    age : The difference between the newest and oldest interfaces that this library implements. In other words, the library implements all the interface numbers in the range from number current - age to current.
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+	Here are a set of rules to update the APIVERSION string:
+      </para>
+      <orderedlist>
+	<listitem>
+	  <para>
+	    If a Python plugin source code has changed at all since the last release, then increment revision (c:r:a becomes c:r+1:a)
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If any interfaces have been added, removed, or changed since the last release, increment current, and set revision to 0
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If any interfaces have been added since the last release, then increment age
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    If any interfaces have been removed since the last public release, then set age to 0.
+	  </para>
+	</listitem>
+      </orderedlist>
+    </section>
+
+    <section>
+      
+      <title>Requirements for mmc-web-* components</title>
+      
+      <para>
+	Please check the requirements in this order.
+      </para>
+      <para>
+	The version attribute contained in each infoPackage.inc.php file from each mmc-web-* component must be updated to the version we release, thanks to the setVersion method.
+      </para>
+      <para>
+	Each mmc-web-* must be able to interact with their corresponding plugin we are going to release. For example, mmc-web-base must be compatible with the base plugin of the mmc-agent. The APIVersion variable contained in each infoPackage.inc.php file from each mmc-web-* must be equal to the APIVERSION attribute of the corresponding mmc-agent Python plugin. This is done thanks to the setAPIVersion method.
+      </para>
+      <para>
+	The web selenium tests are successful with the mmc-agent revision we are going to release and that met the release requirement.
+      </para>
+      <para>
+	The manual tests of the web interface are successful.
+      </para>
+      
+    </section>
+    
+  </section>
+
+  <section>
+
+    <title>Updating mmc-doc</title>
+
+    <para>
+      All the installation/configuration manuals must be updated and checked.
+    </para>
+    <para>
+      The Python API documentation must be regenerated. This is done automatically every day.
+    </para>
+    <para>
+      The PHP API documentation must be regenerated. This is done automatically every day.
+    </para>
+    
+  </section>
+
+  <section>
+
+    <title>Making the release</title>
+    
+    <section>
+      
+      <title>Releasing mmc-agent</title>
+      
+      <para>
+	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+      </para>
+      <para>
+	The mmc-agent SVN repository is tagged according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
+      </para>
+      <para>
+	We export the source code from the SVN repository with the tag we just set, to a directory called <filename>mmc-agent-x.y.z</filename>.
+      </para>
+      <para>
+	A tarball called mmc-agent-x.y.z.tar.gz is built from this directory.
+      </para>
+		
+    </section>
+    
+    <section>
+      
+      <title>Releasing mmc-web-* components</title>
+      
+      <para>
+      The Changelog file of each component must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+      </para>
+      <para>
+	All the mmc-web-* SVN repositories are tagged according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
+      </para>
+      <para>
+	We export the source code from the SVN repositories with the tag we just set, to directories called <filename>mmc-web-*-x.y.z</filename> (for example <filename>mmc-web-base-1.2.3</filename>).
+      </para>
+      <para>
+	Tarballs called mmc-web-*-x.y.z.tar.gz are built from this directory.
+      </para>
+		
+    </section>
+
+    <section>
+      
+      <title>Releasing mmc-doc</title>
+      
+      <para>
+	The Changelog file must be updated. If an entry in the changelog is a bugfix of a bug reported in the bug tracking system, the ticket number must be written.
+      </para>
+      <para>
+	The mmc-doc SVN repository is tagged according to the version number of the release. The tag format is MMC_x_y_z. For example, if the version we release is 1.2.3, the tag is MMC_1_2_3.
+      </para>
+      <para>
+	We export the source code from the SVN repository with the tag we just set, to a directory called <filename>mmc-doc-x.y.z</filename>.
+      </para>
+      <para>
+	A tarball called mmc-doc-x.y.z.tar.gz is built from this directory.
+      </para>
+
+    </section>
+
+  </section>
+
+  <section>
+    
+    <title>Publishing the release</title>
+    
+    <para>
+      The tarballs are put in the public download place.
+    </para>
+    <para>
+      The debian packages repository is updated, for Sarge and Etch (Cédric Delfosse).
+    </para>
+    <para>
+      The RPMs packages repository for Mandriva CS4 and Mandriva 2008 are updateed (Oden Eriksson).
+    </para>
+    <para>
+      The VMware image is updated thanks to the RPM packages.
+    </para>
+    <para>
+      A mail is sent to the mds-announce mailing list.
+    </para>
+    <para>
+      The freshmeat entry is updated.
+    </para>
+
+  </section>
+  
+  <section>
+
+    <title>Trac update</title>
+
+    <para>
+      Via trac-admin, a new version number must be added to the project, associated with a release date.
+    </para>
+    <screen>
+      # trac-admin .
+      # version add 1.0.1 "Jul 27, 2006"
+      # quit
+    </screen>
+
+    <para>
+      If this release adds a new component, it must be added to the project.
+    </para>
+
+    <screen>
+      # trac-admin .
+      # component add mmc-component-name
+      # quit
+    </screen>
+    
+  </section>
+  
+</article>

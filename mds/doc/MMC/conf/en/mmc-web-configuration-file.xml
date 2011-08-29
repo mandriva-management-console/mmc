@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>MMC web configuration file</title>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cdelfosse@mandriva.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Mandriva</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2007,2008,2009 Cédric Delfosse - Mandriva</year>
+    </copyright>
+
+    <revhistory>
+      <revision>
+        <revnumber>$Revision$</revnumber>
+        <date>$Date: 2009-04-23 12:07:02 +0200 (jeu. 23 avril 2009) $</date>
+        <authorinitials>$Author: cdelfosse $</authorinitials>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>This document explains the content of the MMC web configuration file</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>
+      The MMC web interface communicates with MMC agents to manage LDAP directories, services and ressources.
+    </para>
+
+    <para>
+      Its configuration file is <filename>/etc/mmc/mmc.ini</filename>.
+      This file must be readable only by the Apache web server, as it contains the login and password required to connect to MMC agents.
+    </para>
+
+    <para>
+      Like all MMC related configuration file, its file format is INI style. The file is made of sections, each one starting with a « [sectionname] » header. In each section options can be defined like this « option = value ».
+    </para>
+    <para>
+      For example:
+
+      <screen>
+	[section1]
+	option1 = 1
+	option2 = 2
+
+	[section2]
+	option1 = foo
+	option2 = plop
+      </screen>
+
+    </para>
+
+  </section>
+
+  <section>
+
+    <title>Configuration file sections</title>
+
+    <table>
+      <title>
+	/etc/mmc/mmc.ini available sections
+      </title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry>Section name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>global</entry>
+	    <entry>MMC web interface global options</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>debug</entry>
+	    <entry>debug options</entry>
+	    <entry>no</entry>
+	  </row>
+	  <row>
+	    <entry>logintitle</entry>
+	    <entry>Login page title</entry>
+	    <entry>yes</entry>
+	  </row>
+	  <row>
+	    <entry>server_x</entry>
+	    <entry>MMC agent XMLRPC server connection options</entry>
+	    <entry>no</entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « global »</title>
+
+    <table>
+      <title>
+	Available options for the « global » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>backend</entry>
+	    <entry>Which RPC backend to use. Only xmlrpc backend is available.</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>login</entry>
+	    <entry>credential to authenticate with the MMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>password</entry>
+	    <entry>credential to authenticate with the MMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>root</entry>
+	    <entry>Root URL where the MMC web pages are installed</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>rootfsmodules</entry>
+	    <entry>Filesystem path where the MMC web modules are installed</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>maxperpage</entry>
+	    <entry>Number of items (users, groups, ...) in displayed lists on the web interface</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+      </row>
+      <row>
+        <entry>community</entry>
+        <entry>It's a yes or no flag, it set the fact the installed version is a community one or not </entry>
+        <entry>yes</entry>
+        <entry>yes</entry>
+      </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « debug »</title>
+
+    <para>
+      For debugging purpose only. The XML-RPC calls and results will be displayed on the MMC web interface.
+    </para>
+
+    <table>
+      <title>
+	Available options for the « debug » section
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>level</entry>
+	    <entry>Wanted debug level. 0 to disable debug. 1 to enable debug.</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+  </section>
+
+  <section>
+
+    <title>Section « logintitle »</title>
+
+    <para>
+      This section allows to customize the title of the login box of the MMC web interface login page. By default, there is no title.
+    </para>
+    <para>
+      A title can be defined for each supported locales, like this: "localename = Title_for_this_locale". The title string must be encoded in UTF-8.
+    </para>
+    <para>
+      For example:
+    </para>
+    <screen>
+[logintitle]
+; Default page title for English and non-translated languages
+C = Welcome
+; French title
+fr_FR = Bienvenue
+; Spanish title
+es_ES = Bienvenido
+    </screen>
+
+  </section>
+
+  <section>
+
+    <title>Section « server_x »</title>
+
+    <para>
+      You can set multiple sections called « server_01 », « server_02 » ... to specify a list of MMC agents to connect to.
+    </para>
+    <para>
+      On the MMC login web page, all the specified MMC agents will be displayed, and you will be able to select the one you want to be connected to.
+    </para>
+
+    <table>
+      <title>
+	Available options for the « server_x » sections
+      </title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry>Option name</entry>
+	    <entry>Description</entry>
+	    <entry>Optional</entry>
+	    <entry>Default value</entry>
+	  </row>
+	</thead>
+	<tbody>
+	  <row>
+	    <entry>description</entry>
+	    <entry>label to display on the MMC login web page</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>url</entry>
+	    <entry>How to connect the XMLRPC server of this MMC agent</entry>
+	    <entry>No</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>timeout</entry>
+	    <entry>Timeout in seconds for all socket I/O operations. Beware that timeout on a SSL socket only works with PHP >= 5.2.1.</entry>
+	    <entry>Yes</entry>
+	    <entry>300</entry>
+	  </row>
+	  <row>
+	    <entry>verifypeer</entry>
+	    <entry>If verifypeer is enabled, the TLS protocol is used, and the XML-RPC server must provide a valid certificate.</entry>
+	    <entry>Yes</entry>
+	    <entry>0</entry>
+	  </row>
+	  <row>
+	    <entry>localcert</entry>
+	    <entry>If verifypeer = 1, path to the file (PEM format) containing the private key and the public certificate used to authenticate with the MMC agent</entry>
+	    <entry>No if verifypeer = 1</entry>
+	    <entry></entry>
+	  </row>
+	  <row>
+	    <entry>cacert</entry>
+	    <entry>Path to the file (PEM format) containing the public certificate of the Certificate Authority that produced the certificate defined by the localcert option. The certificate provided by the MMC agent will be validated by this CA.</entry>
+	    <entry>No if verifypeer = 1</entry>
+	    <entry></entry>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      For example, to define a local MMC agent:
+    </para>
+
+    <screen>
+      [server_01]
+      description = Local MMC agent
+      url = http://127.0.0.1:7080
+    </screen>
+
+    <para>
+      To use SSL between the web interface and the MMC agent (SSL must be enabled on the MMC agent):
+    </para>
+
+    <screen>
+      [server_01]
+      description = Local MMC agent
+      url = https://127.0.0.1:7080
+    </screen>
+
+    <para>
+      To use TLS with certificate check:
+    </para>
+
+    <screen>
+      [server_01]
+      description = MMC agent
+      url = https://10.0.0.1:7080
+      verifypeer = 1
+      cacert = /etc/mmc/certs/demoCA/cacert.pem
+      localcert = /etc/mmc/certs/client.pem
+    </screen>
+
+
+  </section>
+
+</article>

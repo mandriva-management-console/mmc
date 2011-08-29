@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>tests/selenium/suite//035_sambaShares/105_modifyAccess</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tests/selenium/suite//035_sambaShares/105_modifyAccess</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/mmc/main.php?module=samba&amp;submod=shares&amp;action=index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, '/mmc/main.php?module=samba&amp;submod=shares&amp;action=index')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>selenium2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(@href, 'main.php?module=samba&amp;submod=shares&amp;action=details&amp;share=selenium2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>autogroupselect</td>
+	<td>label=Domain Guests</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bdelgroup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>autogroupselect</td>
+	<td>label=grouptest</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bdelgroup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>autogroup</td>
+	<td>Domain Users</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>baddgroup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>bmodify</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Share selenium2 successfully modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>permAll</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Domain Users</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

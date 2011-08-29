@@ -1,0 +1,121 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+## Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mandriva Directory Server\n"
+"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
+"POT-Creation-Date: 2011-01-30 08:17+0100\n"
+"PO-Revision-Date: 2011-07-26 10:14+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb_NO\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: modules/bulkimport/import/index.php:34
+msgid "CSV import result"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:46
+msgid "CSV data to import"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:55
+msgid "Bulk account modification from CSV file"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:104
+msgid "CSV import results"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:138
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:140
+msgid "CSV Import"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:146
+#: modules/bulkimport/import/index.php:148
+msgid "Import"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:154
+#: modules/bulkimport/import/index.php:156
+msgid "Modify"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:162
+#: modules/bulkimport/import/index.php:164
+msgid "Delete"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:166
+msgid "Cancel"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:199
+msgid "CSV file : "
+msgstr ""
+
+#: modules/bulkimport/import/index.php:204
+msgid "Load CSV"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:218
+msgid "Unvalidated"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:221
+msgid "Invalid"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:225
+msgid "Importable"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:228
+msgid "Deletable or Modifiable"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:231
+msgid "Deletable"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:234
+msgid "Modifiable"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:237
+msgid "Unable to validate"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:285
+msgid "Password not updated"
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:293
+msgid "Password updated."
+msgstr ""
+
+#: modules/bulkimport/includes/importUsers.php:306
+msgid "Attribute(s) modified"
+msgstr ""
+
+#: modules/bulkimport/infoPackage.inc.php:29
+msgid "Bulk user manager via CSV files"
+msgstr ""
+
+#: modules/bulkimport/infoPackage.inc.php:38
+msgid "Bulk import (CSV)"
+msgstr ""
+
+

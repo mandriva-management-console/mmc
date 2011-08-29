@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article class="whitepaper">
+
+  <title>LDS Enhancement Proposals Index</title>
+
+  <subtitle>Informational / Draft</subtitle>
+
+  <articleinfo>
+
+    <author>
+      <firstname>Cédric</firstname>
+      <surname>Delfosse</surname>
+      <email>cedric.delfosse@linbox.com</email>
+    </author>
+
+    <affiliation>
+      <orgname>Linbox / Free &amp; ALter Soft</orgname>
+    </affiliation>
+
+    <copyright>
+      <year>2006 Cédric Delfosse - Linbox F&amp;AS</year>
+    </copyright>
+
+    <legalnotice>
+      <para></para>
+    </legalnotice>
+
+    <revhistory>
+      
+      <revision>
+        <revnumber>$Revision$</revnumber>
+
+        <date>$Date$</date>
+
+        <authorinitials>$Author$</authorinitials>
+
+      </revision>
+    </revhistory>
+
+    <productname>All LDS component</productname>
+    <productnumber>All LDS components version</productnumber>
+
+
+    <abstract>
+      <para>LDS-EP Index</para>
+    </abstract>
+
+  </articleinfo>
+
+  <section>
+    <title>LDS-EP index</title>
+
+    <para>To be done.</para>
+
+  </section>
+
+</article>
