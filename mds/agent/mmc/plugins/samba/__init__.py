@@ -98,7 +98,7 @@ def activate():
             logger.error("The authorized share path '%s' does not exist" % cpath)
             return False
 
-    # For each share, test if it sharePath exists 
+    # For each share, test if it sharePath exists
     for share in getDetailedShares():
         shareName = share[0]
         infos = shareInfo(shareName)
@@ -154,7 +154,7 @@ def activate():
         smbconfbasesuffix = smbconf.getContent("global", "ldap suffix")
         if smbconfbasesuffix == -1:
             logger.error("SAMBA 'ldap suffix' option is not setted.")
-            return False            
+            return False
         if ldap.explode_dn(samba.baseDN) != ldap.explode_dn(smbconfbasesuffix):
             logger.error("SAMBA 'ldap suffix' option is not equal to MMC 'baseDN' option.")
             return False
@@ -264,7 +264,7 @@ def shareInfo(name):
     """get an array of information about a share"""
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
     return smbObj.shareInfo(name)
-    
+
 def shareCustomParameters(name):
     """get an array of additionnal params about a share"""
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
@@ -284,7 +284,7 @@ def isPdc():
     try: smbObj = smbConf(SambaConfig("samba").samba_conf_file)
     except: raise Exception("Can't open SAMBA configuration file")
     return smbObj.isPdc()
-    
+
 def isProfiles():
     """ check if global profiles are setup """
     smbObj = smbConf(SambaConfig("samba").samba_conf_file)
@@ -295,7 +295,7 @@ def backupShare(share, media, login):
     Launch as a background process the backup of a share
     """
     r = AF().log(PLUGIN_NAME, AA.SAMBA_BACKUP_SHARE, [(share, AT.SHARE), (login, AT.USER)], media)
-    config = BasePluginConfig("base")    
+    config = BasePluginConfig("base")
     cmd = os.path.join(config.backuptools, "backup.sh")
     if share == "homes":
         # FIXME: Maybe we should have a configuration directive to tell that
@@ -305,7 +305,7 @@ def backupShare(share, media, login):
         smbObj = smbConf(SambaConfig("samba").samba_conf_file)
         savedir = smbObj.getContent(share, "path")
     # Run backup process in background
-    mmctools.shlaunchBackground(cmd + " " + share + " " + savedir + " " + config.backupdir + " " + login + " " + media + " " + config.backuptools, "backup share " + share, mmctools.progressBackup)    
+    mmctools.shlaunchBackground(cmd + " " + share + " " + savedir + " " + config.backupdir + " " + login + " " + media + " " + config.backuptools, "backup share " + share, mmctools.progressBackup)
     r.commit()
     return os.path.join(config.backupdir, "%s-%s-%s" % (login, share, strftime("%Y%m%d")))
 
@@ -532,7 +532,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             'homeDirectory':'/dev/null',
             'loginShell':'/bin/false'
             }
-        
+
         ident = 'uid=' + uid + ',' + self.baseComputersDN
         attributes=[ (k,v) for k,v in user_info.items() ]
         self.l.add_s(ident,attributes)
@@ -548,7 +548,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 
         r.commit()
         return 0
-        
+
     def delMachine(self, uid):
         """
         Remove a computer account from LDAP
@@ -562,26 +562,26 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         self.l.delete_s('uid=' + uid + ',' + self.baseComputersDN)
         r.commit()
         return 0
-        
+
     def getMachine(self, uid, base = None):
         """
         Return a computer account from LDAP
-        
+
         @param uid: computer name
         @type uid: string
         """
         if not base: base = self.baseComputersDN
         return self.getEntry("uid=%s$,%s" % (uid, base))
-        
+
     def changeMachine(self, uid, options, base = None):
-    
+
         logs = []
         if not base: base = self.baseComputersDN
-        
+
         if options['disable']:
-            # String of 11 characters surrounded by square brackets [ ] 
-            # representing account flags such as U (user), W (workstation), 
-            # X (no password expiration), I (domain trust account), 
+            # String of 11 characters surrounded by square brackets [ ]
+            # representing account flags such as U (user), W (workstation),
+            # X (no password expiration), I (domain trust account),
             # H (home dir required), S (server trust account), and D (disabled).
             options['sambaAcctFlags'] = "[DW         ]"
         else:
@@ -599,20 +599,20 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                 # Maybe delete this SAMBA LDAP attribute
                 try:
                     del new[key]
-                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_ATTR, 
+                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_ATTR,
                         [(dn, AT.MACHINE), (key, AT.ATTRIBUTE)], value))
                 except KeyError:
                     pass
             else:
                 # Update this SAMBA LDAP attribute
                 new[key] = value
-                logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR, 
+                logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR,
                     [(dn, AT.MACHINE), (key, AT.ATTRIBUTE)], value))
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(dn, modlist)
         for log in logs:
             log.commit()
-        
+
         return 0
 
     def searchMachine(self, pattern = '', base = None):
@@ -641,7 +641,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                     active = False
                 localArr.append(uid[0:-1])
                 localArr.append(displayName)
-                localArr.append(active)                
+                localArr.append(active)
                 resArr.append(localArr)
         resArr.sort()
         return resArr
@@ -652,7 +652,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         # If the password has been encoded in the XML-RPC stream, decode it
         if isinstance(password, xmlrpclib.Binary):
             password = str(password)
-        
+
         cmd = 'smbpasswd -s -a '+uid
         shProcess = generateBackgroundProcess(cmd)
         shProcess.write(password+"\n")
@@ -695,9 +695,9 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         @param attributes: dictionnary of the SAMBA attributes
         @type attributes: dict
         """
-        
+
         logs = []
-        userdn = self.searchUserDN(uid)        
+        userdn = self.searchUserDN(uid)
         dn = 'uid=' + uid + ',' + self.baseUsersDN
         s = self.l.search_s(dn, ldap.SCOPE_BASE)
         c, old = s[0]
@@ -711,7 +711,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                     # Maybe delete this SAMBA LDAP attribute
                     try:
                         del new[key]
-                        logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_ATTR, 
+                        logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_DEL_ATTR,
                             [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
                     except KeyError:
                         pass
@@ -720,7 +720,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                         value = value.replace("\\\\", "\\")
                     # Update this SAMBA LDAP attribute
                     new[key] = value
-                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR, 
+                    logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR,
                         [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
 
         modlist = ldap.modlist.modifyModlist(old, new)
@@ -764,7 +764,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 
         @return: SID number, or None if no corresponding SID found
         @rtype: str
-        """        
+        """
         group = self.getDetailedGroupById(gidNumber)
         try:
             sid = group["sambaSID"][0]
@@ -794,7 +794,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         # If the passwd has been encoded in the XML-RPC stream, decode it
         if isinstance(passwd, xmlrpclib.Binary):
             passwd = str(passwd)
-            
+
         cmd = 'smbpasswd -s -a '+uid
         shProcess = generateBackgroundProcess(cmd)
         shProcess.write(passwd+"\n")
@@ -960,7 +960,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         @return: the SAMBA net process exit code
         """
         return mmctools.shLaunch(self._getMakeSambaGroupCommand(group)).exitCode
-    
+
     def makeSambaGroup(self, group):
         """
         Transform a POSIX group as a SAMBA group.
@@ -1030,7 +1030,7 @@ class smbConf:
                 if stmt:
                     option = stmt.group(1).strip()
                     value = stmt.group(2).strip()
-                    contentArr[section][option] = value            
+                    contentArr[section][option] = value
         return contentArr
 
     def outputSmbConfFile(self):
@@ -1217,7 +1217,7 @@ class smbConf:
                 pass
 
         if current["pdc"] != options['pdc']:
-            if options['pdc']: 
+            if options['pdc']:
                 self.setContent('global','domain logons','yes')
                 self.setContent('global', 'os level', '255')
             else:
@@ -1240,11 +1240,11 @@ class smbConf:
                 self.delShare('homes',0)
             except:
                 pass
-                        
+
         # disable global profiles
         if not options['hasprofiles']:
             self.setContent('global','logon path', ' ')
-            
+
         # Save file
         self.save()
         return 0
@@ -1304,8 +1304,8 @@ class smbConf:
             if os.path.exists(path):
                 shutil.rmtree(path)
             else:
-                logger = logging.getLogger() 
-                logger.error('The "%s" share path does not exist.' % path) 
+                logger = logging.getLogger()
+                logger.error('The "%s" share path does not exist.' % path)
         r.commit()
 
     def shareInfo(self, name):
@@ -1334,7 +1334,7 @@ class smbConf:
             returnArr["browseable"] = 1
         else:
             returnArr["browseable"] = 0
-            
+
         # Get the directory group owner
         if os.path.exists(str(returnArr['sharePath'])):
             stat_info = os.stat(returnArr['sharePath'])
@@ -1343,18 +1343,17 @@ class smbConf:
 
         return returnArr
 
-    def shareCustomParameters(self, name):    
+    def shareCustomParameters(self, name):
         """
         Get additional parameters about a share
         """
-        
+
         returnArr = []
-        logger = logging.getLogger()
         for key, value in self.contentArrVerbose[name].iteritems():
             print key+" = "+value
             if key not in self.supportedOptions:
                 returnArr.append(key + " = " + value)
-                
+
         return returnArr
 
     def addShare(self, name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = False, customparameters = None, mod = False):
@@ -1362,14 +1361,14 @@ class smbConf:
         add a share in smb.conf
         and create it physicaly
         """
-        
+
         if mod:
             action = AA.SAMBA_MOD_SHARE
             oldPath = self.contentArr[name]['path']
         else:
             action = AA.SAMBA_ADD_SHARE
         r = AF().log(PLUGIN_NAME, action, [(name, AT.SHARE)], path)
-        
+
         if self.contentArr.has_key(name) and not mod:
             raise Exception('This share already exist')
         if not self.contentArr.has_key(name) and mod:
@@ -1395,7 +1394,7 @@ class smbConf:
             if errno != 17:
                 raise OSError(errno, strerror + ' ' + path)
             else: pass
-        
+
         # Directory is owned by root
         os.chown(path, 0, 0)
 
@@ -1405,9 +1404,9 @@ class smbConf:
 
         # create table and fix permission
         tmpInsert = {}
-        
-    	# We insert first custom parameters, so if the user has 
-    	# entered manually any reserved key, that key is overriden 
+
+    	# We insert first custom parameters, so if the user has
+    	# entered manually any reserved key, that key is overriden
     	# below, with the values of specific fields.
         if customparameters is not None:
             for line in customparameters:
@@ -1418,9 +1417,9 @@ class smbConf:
                             tmpInsert[parts[0].strip()] = parts[1].strip()
                     else:
                         raise Exception("invalid samba parameter format")
-        
+
         tmpInsert['comment'] = comment
-        
+
         if permAll:
             tmpInsert['public'] = 'yes'
             mmctools.shlaunch("setfacl -b %s" % path)
@@ -1464,7 +1463,7 @@ class smbConf:
                 e.qualifier = int(uidNumber)
                 # FIXME
                 # howto use posix1e for this ?
-                mmctools.shlaunch("setfacl -d -m u:%s:rwx %s" % (str(uidNumber), path))            
+                mmctools.shlaunch("setfacl -d -m u:%s:rwx %s" % (str(uidNumber), path))
             # Test if our ACLs are valid
             if acl1.valid():
                 acl1.applyto(path)
@@ -1510,7 +1509,7 @@ class smbConf:
                 if e.tag_type == posix1e.ACL_USER:
                     res = ldapobj.getDetailedUserById(str(e.qualifier))
                     ret[1].append(res['uid'][0])
-                    
+
         return ret
 
     def getAdminUsersOnShare(self, name):
@@ -1539,7 +1538,7 @@ class smbConf:
     def isBrowseable(self, name):
         """
         Return true if the share is browseable
-        
+
         @param name: name of the share (last component of the path)
         @type name: str
 
@@ -1670,4 +1669,3 @@ class sambaLog:
                         if len(line): l["msg"] = l["msg"] + line
             f.close()
         return logs
-
