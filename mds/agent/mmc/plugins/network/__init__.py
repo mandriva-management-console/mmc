@@ -30,8 +30,6 @@ import ldap
 import logging
 import os.path
 import grp
-import re
-from mmc.support.mmctools import shlaunch
 from ConfigParser import NoOptionError
 from mmc.core.version import scmRevision
 from mmc.site import mmcconfdir
@@ -404,14 +402,6 @@ def getSubnetFreeIp(subnet, startAt):
 
 def getDhcpLeases():
     return DhcpLeases().get()
-
-# DHCP launch configuration
-
-def getDhcpLaunchConfig():
-    return DhcpLaunchConfig().data()
-
-def setDhcpInterfaces(interfaces):
-    return DhcpLaunchConfig().setInterfaces(interfaces)
 
 # Log
 
