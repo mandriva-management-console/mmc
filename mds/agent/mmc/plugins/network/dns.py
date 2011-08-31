@@ -604,7 +604,7 @@ zone "%(zone)s" {
             self.updateZoneSerial(zoneName)
         else:
             try:
-                self.l.modify_s(zoneDN, [(ldap.MOD_DELETE, "aRecord", [ip])])
+                self.l.modify_s(soaDN, [(ldap.MOD_DELETE, "aRecord", [ip])])
             except ldap.NO_SUCH_ATTRIBUTE:
                 pass
 

@@ -27,7 +27,6 @@ DHCP related methods and classes for the network plugin.
 import ldap
 from ldap.dn import str2dn
 import re
-import os.path
 from mmc.plugins.base import ldapUserGroupControl, LogView
 from tools import ipNext, ipInRange
 from mmc.support.mmctools import ServiceManager
