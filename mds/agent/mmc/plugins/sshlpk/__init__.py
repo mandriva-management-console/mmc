@@ -32,7 +32,7 @@ import copy
 import ldap
 import logging
 
-from ldap import modlist
+import ldap.modlist
 from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.config import PluginConfig
@@ -56,7 +56,7 @@ def activate():
     if config.disabled:
         logger.warning("Plugin sshlpk: disabled by configuration.")
         return False
-    
+
     sshkeySchema = ['posixAccount', 'ldapPublicKey']
 
     for objectClass in sshkeySchema:
@@ -73,11 +73,11 @@ class UserSshKey(ldapUserGroupControl):
     """
     Class to manage the LDAP public keys attributes of a user
     """
-    
+
     def __init__(self, uid, conffile = None):
         """
         Class constructor.
-        
+
         @param uid: User id
         @type uid: str
         """
@@ -86,7 +86,7 @@ class UserSshKey(ldapUserGroupControl):
         self.userUid = uid
         self.dn = 'uid=' + uid + ',' + self.baseUsersDN
         self.hooks.update(self.configSshKey.hooks)
-    
+
     def getSshKey(self, number = None):
         """
         Returns all the public SSH keys of a user, or just one if number is
@@ -109,7 +109,7 @@ class UserSshKey(ldapUserGroupControl):
                 return None
         except KeyError:
             return []
-        
+
     def addSshKey(self, value):
         """
         Store a new public SSH key to the current user.
@@ -124,14 +124,14 @@ class UserSshKey(ldapUserGroupControl):
                 logging.getLogger().error("Attribute sshPublicKey isn't defined on LDAP")
             except ldap.INVALID_SYNTAX:
                 logging.getLogger().error("Invalid syntax for the attribute value of sshPublicKey on LDAP")
-            
-    
+
+
     def delSshKey(self, value):
         """
         Delete a public SSH key from the current user.
 
         @param value: public SSH key
-        @type value: str        
+        @type value: str
         """
         if value != None:
             try:
@@ -140,12 +140,12 @@ class UserSshKey(ldapUserGroupControl):
                 logging.getLogger().error("Attribute sshPublicKey isn't defined on LDAP")
             except ldap.INVALID_SYNTAX:
                 logging.getLogger().error("Invalid syntax from the attribute value of sshPublicKey on LDAP")
-    
+
     def updateSshKeys(self, sshKeysList):
         """
         Add a list of public SSH keys to the current user.
 
-        @param sshKeysList: 
+        @param sshKeysList:
         @type: list of public SSH keys
         """
         if not self.hasSshKeyObjectClass():
@@ -153,16 +153,16 @@ class UserSshKey(ldapUserGroupControl):
         # Get current user entry
         s = self.l.search_s(self.dn, ldap.SCOPE_BASE)
         c, old = s[0]
-        
+
         new = copy.deepcopy(old)
 
         new['sshPublicKey'] = sshKeysList
-        
+
         # Update LDAP
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(self.dn, modlist)
         self.runHook("sshlpk.updatesshkeys", self.userUid)
-            
+
     def hasSshKeyObjectClass(self):
         """
         Return true if the user owns the ldapPublicKey objectClass.
@@ -171,7 +171,7 @@ class UserSshKey(ldapUserGroupControl):
         @rtype: boolean
         """
         return "ldapPublicKey" in self.getDetailedUser(self.userUid)["objectClass"]
-        
+
     def addSshKeyObjectClass(self):
         """
         Add the ldapPublicKey object class to the current user.
@@ -179,7 +179,7 @@ class UserSshKey(ldapUserGroupControl):
         # Get current user entry
         s = self.l.search_s(self.dn, ldap.SCOPE_BASE)
         c, old = s[0]
-        
+
         new = copy.deepcopy(old)
 
         if not "ldapPublicKey" in new["objectClass"]:
@@ -201,22 +201,22 @@ class UserSshKey(ldapUserGroupControl):
 # XML-RPC function
 def hasSshKeyObjectClass(uid):
     return UserSshKey(uid).hasSshKeyObjectClass()
-    
+
 def addSshKeyObjectClass(uid):
     UserSshKey(uid).addSshKeyObjectClass()
 
 def getSshKey (uid, number):
     return UserSshKey(uid).getSshKey(number)
-    
+
 def getAllSshKey (uid):
     return UserSshKey(uid).getSshKey(None)
-    
+
 def addSshKey (uid, value):
     UserSshKey(uid).addSshKey(value)
-    
+
 def updateSshKeys (uid, keylist):
     UserSshKey(uid).updateSshKeys(keylist)
-    
+
 def delSshKey (uid, value):
     UserSshKey(uid).delSshKey(value)
 
@@ -228,4 +228,3 @@ if __name__ == "__main__":
     if not hasSshKeyObjectClass("user1"):
         addSshKeyObjectClass("user1")
     print getAllSshKey("user1")
-    
