@@ -103,7 +103,7 @@ def activate():
         shareName = share[0]
         infos = shareInfo(shareName)
         sharePath = infos['sharePath']
-        if sharePath != -1 and not os.path.exists(sharePath):
+        if sharePath and not os.path.exists(sharePath):
             # only show error
             logger.error("The samba share path '%s' does not exist." % sharePath)
 
@@ -148,11 +148,13 @@ def activate():
         samba.addOu(ouName, path)
         # Check that a sambaDomainName entry is in LDAP directory
         domainInfos = samba.getDomain()
+        # Reset domain policy
+        samba.resetDomainPolicy()
         if not domainInfos:
             logger.error("Can't find sambaDomainName entry in LDAP for domain %s. Please check your SAMBA LDAP configuration." % smbconf.getContent("global", "workgroup"));
             return False
         smbconfbasesuffix = smbconf.getContent("global", "ldap suffix")
-        if smbconfbasesuffix == -1:
+        if not smbconfbasesuffix:
             logger.error("SAMBA 'ldap suffix' option is not setted.")
             return False
         if ldap.explode_dn(samba.baseDN) != ldap.explode_dn(smbconfbasesuffix):
@@ -161,7 +163,7 @@ def activate():
         # Check that SAMBA and MMC given OU are in sync
         for option in [("ldap user suffix", "baseUsersDN", samba.baseUsersDN), ("ldap group suffix", "baseGroupsDN", samba.baseGroupsDN), ("ldap machine suffix", "baseComputersDN", samba.baseComputersDN)]:
             smbconfsuffix = smbconf.getContent("global", option[0])
-            if smbconfsuffix == -1:
+            if not smbconfsuffix:
                 logger.error("SAMBA '" + option[0] + "' option is not setted")
                 return False
             # Do a case insensitive comparison of the corresponding MMC / SAMBA options
@@ -440,8 +442,10 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         domain = self.getDomain()
         sambaSID = domain["sambaSID"][0]
         result = self.search("(&(objectClass=sambaGroupMapping)(sambaSID=%s-512))" % sambaSID)
-        if len(result): ret = result[0][0][1]
-        else: ret = {}
+        if len(result):
+            ret = result[0][0][1]
+        else:
+            ret = {}
         return ret
 
     def getDomainUsersGroup(self):
@@ -499,6 +503,29 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         if len(result): ret = result[0][0][1]
         else: ret = {}
         return ret
+
+    def resetDomainPolicy(self):
+        """
+        Reset SAMBA domain policy since we want to use only OpenLDAP policies
+        """
+        conf = smbConf()
+        domain = conf.getContent("global", "workgroup")
+        result = self.search("(&(objectClass=sambaDomain)(sambaDomainName=%s))" % domain)
+        dn, old = result[0][0]
+        # update the old attributes
+        new = old.copy()
+        options = {
+            "sambaMaxPwdAge": ["-1"],
+            "sambaMinPwdAge": ["0"],
+            "sambaPwdHistoryLength": ["0"],
+            "sambaLockoutThreshold": ["0"],
+            "sambaLockoutDuration": ["-1"]
+        }
+        for key in options.keys():
+            # Update this SAMBA LDAP attribute
+            new[key] = options[key]
+        modlist = ldap.modlist.modifyModlist(old, new)
+        self.l.modify_s(dn, modlist)
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
@@ -1104,9 +1131,12 @@ class smbConf:
         $rtype: int
         """
         string = str(string).lower()
-        if string in ["yes", "true", "1", "on"]: return 1
-        elif string in ["no", "false", "0"]: return 0
-        else: return -1
+        if string in ["yes", "true", "1", "on"]:
+            return 1
+        elif string in ["no", "false", "0"]:
+            return 0
+        else:
+            return -1
 
     def isValueAuto(self, string):
         """
@@ -1164,11 +1194,10 @@ class smbConf:
 
     def getContent(self, section, content):
         """get information from self.contentArr[section][content]"""
-        # FIXME: shouldn't return -1 but keep the exception raised
         try:
             return self.contentArrVerbose[section][content]
         except KeyError:
-            return -1
+            return False
 
     def setContent(self, section, content, value):
         """set a content in self.contentArr[section][content]=value"""
@@ -1256,7 +1285,7 @@ class smbConf:
                 localArr = []
                 localArr.append(section)
                 comment = self.getContent(section, 'comment' )
-                if (comment != -1):
+                if comment:
                     localArr.append(comment)
                 resList.append(localArr)
 
@@ -1291,11 +1320,10 @@ class smbConf:
         @param remove: If true, we physically remove the directory
         """
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SHARE, [(name, AT.SHARE)], remove)
-        try:
-            path = self.getContent(name, 'path')
-            del self.contentArr[name]
-        except KeyError:
-            raise Exception('share "'+ name+'" does not exist')
+        path = self.getContent(name, 'path')
+        if not path:
+            raise Exception('Share "'+ name+'" does not exist')
+        del self.contentArr[name]
 
         if remove:
             if os.path.exists(path):
@@ -1311,21 +1339,23 @@ class smbConf:
         """
         returnArr = {}
         returnArr['desc'] = self.getContent(name,'comment')
+        if not returnArr['desc']:
+            returnArr['desc'] = ""
         returnArr['sharePath'] = self.getContent(name,'path')
-        if returnArr['desc'] == -1: returnArr['desc'] = ""
         if self.isValueTrue(self.getContent(name,'public')) == 1:
             returnArr['permAll'] = 1
         elif self.isValueTrue(self.getContent(name,'guest ok')) == 1:
             returnArr['permAll'] = 1
-        else: returnArr['permAll'] = 0
+        else: 
+            returnArr['permAll'] = 0
 
         # If we cannot find it
-        if (self.getContent(name, 'vfs objects') == -1):
+        if not self.getContent(name, 'vfs objects'):
             returnArr['antivirus'] = 0
         else:
             returnArr['antivirus'] = 1
 
-        if self.getContent(name, 'browseable') == -1:
+        if not self.getContent(name, 'browseable'):
             returnArr["browseable"] = 1
         elif self.isValueTrue(self.getContent(name, 'browseable')):
             returnArr["browseable"] = 1
@@ -1347,7 +1377,6 @@ class smbConf:
 
         returnArr = []
         for key, value in self.contentArrVerbose[name].iteritems():
-            print key+" = "+value
             if key not in self.supportedOptions:
                 returnArr.append(key + " = " + value)
 
@@ -1377,8 +1406,9 @@ class smbConf:
         path = os.path.realpath(path)
 
         # Check that the path is authorized
-        if not self.isAuthorizedSharePath(path):
-            raise path + " is not an authorized share path."
+        # FIXME: handle correctly archives in base plugin
+        if not self.isAuthorizedSharePath(path) and "/home/archives" not in path:
+            raise Exception("%s is not an authorized share path.")
 
         # Create or move samba share directory, if it does not exist
         try:
@@ -1521,7 +1551,7 @@ class smbConf:
         """
         adminusers = self.getContent(name, "admin users")
         ret = []
-        if adminusers != -1:
+        if adminusers:
             for item in adminusers.split(","):
                 item = item.strip().strip('"')
                 if item.startswith("+"):
@@ -1543,8 +1573,10 @@ class smbConf:
         @return: False if browseable = No
         """
         state = self.getContent(name, "browseable")
-        if state == -1: ret = True
-        else: ret = bool(self.isValueTrue(state))
+        if not state: 
+            ret = True
+        else: 
+            ret = bool(self.isValueTrue(state))
         return ret
 
     def getSmbStatus(self):
