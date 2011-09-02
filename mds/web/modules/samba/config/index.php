@@ -149,9 +149,14 @@ $f->pop();
 $f->push(new DivExpertMode());
 $f->push(new Table());
 
+$syncTpl = new SelectItem("ldap passwd sync");
+$labels = array(_T('Yes'), _T('No'), _T('Only (for smbk5pwd)'));
+$values = array('yes', 'no', 'only');
+$syncTpl->setElements($labels);
+$syncTpl->setElementsVal($values);
 $f->add(
-        new TrFormElement(_T("LDAP password sync"), new CheckboxTpl("ldap passwd sync")),
-        array("value" => getCheckedState($smb, "ldap passwd sync"))
+        new TrFormElement(_T("LDAP password sync"), $syncTpl),
+        array("value" => $smb["ldap passwd sync"])
 );
 
 $d = array(_T("Opening script session") => "logon script",
