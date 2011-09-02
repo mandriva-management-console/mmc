@@ -286,10 +286,19 @@ renderTPL("users");
 
 <?php
     if ($_GET["action"] == "add") {
-      $domadmin = getDomainAdminsGroup();
-      setVar("tpl_groups", array($domadmin["cn"][0]));
-    } else setVar("tpl_groups", getAdminUsersOnShare($share));
-
+        $domadmin = getDomainAdminsGroup();
+        if ($domadmin)
+            setVar("tpl_groups", array($domadmin["cn"][0]));
+        else
+            setVar("tpl_groups", array());
+    } 
+    else {
+        $domadmin = getAdminUsersOnShare($share);
+        if ($domadmin)
+            setVar("tpl_groups", $domadmin);
+        else
+            setVar("tpl_groups", array());
+    }
     global $__TPLref;
     $__TPLref["autocomplete"] = "admin";
     renderTPL("groups");
