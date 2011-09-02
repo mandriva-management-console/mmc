@@ -389,9 +389,9 @@ function _samba_baseEdit($FH, $mode) {
         }
 
         $f->pop();
-        $f->pop();
-        $f->pop();
     }
+    $f->pop();
+    $f->pop();
 
     return $f;
 
