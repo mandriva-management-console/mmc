@@ -647,34 +647,27 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         return resArr
 
     def addSmbAttr(self, uid, password):
-        userdn = self.searchUserDN(uid)
-        r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SAMBA_CLASS, [(userdn,AT.USER)])
-        # If the password has been encoded in the XML-RPC stream, decode it
-        if isinstance(password, xmlrpclib.Binary):
-            password = str(password)
+        """
+        Add SAMBA password and attributes on a new user
+        """
 
-        cmd = 'smbpasswd -s -a '+uid
-        shProcess = generateBackgroundProcess(cmd)
-        shProcess.write(password+"\n")
-        shProcess.write(password+"\n")
-        ret = shProcess.getExitCode()
+        ret = self.changeUserPassword(uid, password)
 
-        if ret != 0:
-            raise Exception("Failed to modify password entry\n" + shProcess.stdall)
-
-        if not ret:
-            # Command was successful, now set default attributes
+        # Command was successful, now set default attributes
+        if ret == 0:
             # Get current user entry
-            dn = 'uid=' + uid + ',' + self.baseUsersDN
-            s = self.l.search_s(dn, ldap.SCOPE_BASE)
+            userdn = self.searchUserDN(uid)
+            r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SAMBA_CLASS, [(userdn,AT.USER)])
+            s = self.l.search_s(userdn, ldap.SCOPE_BASE)
             c, old = s[0]
             new = self._applyUserDefault(old.copy(), self.configSamba.userDefault)
             # Update LDAP
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
-        self.runHook("samba.addsmbattr", uid, password)
-        r.commit()
-        return 0
+            self.l.modify_s(userdn, modlist)
+            self.runHook("samba.addsmbattr", uid, password)
+            r.commit()
+
+        return ret
 
     def isSmbUser(self, uid):
         """
@@ -789,23 +782,27 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         @param passwd: non encrypted password
         @type  passwd: str
         """
-        userdn = self.searchUserDN(uid)
-        r = AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_USER_PASS, [(userdn,AT.USER)])
-        # If the passwd has been encoded in the XML-RPC stream, decode it
-        if isinstance(passwd, xmlrpclib.Binary):
-            passwd = str(passwd)
+        
+        # Don't update the password if we are using smbk5passwd
+        conf = smbConf()
+        if conf.getContent("global", "ldap passwd sync").lower() != "only":
+            userdn = self.searchUserDN(uid)
+            r = AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_USER_PASS, [(userdn,AT.USER)])
+            # If the passwd has been encoded in the XML-RPC stream, decode it
+            if isinstance(passwd, xmlrpclib.Binary):
+                passwd = str(passwd)
 
-        cmd = 'smbpasswd -s -a '+uid
-        shProcess = generateBackgroundProcess(cmd)
-        shProcess.write(passwd+"\n")
-        shProcess.write(passwd+"\n")
-        ret = shProcess.getExitCode()
+            cmd = 'smbpasswd -s -a '+uid
+            shProcess = generateBackgroundProcess(cmd)
+            shProcess.write(passwd+"\n")
+            shProcess.write(passwd+"\n")
+            ret = shProcess.getExitCode()
 
-        if ret != 0:
-            raise Exception("Failed to modify password entry\n" + shProcess.stdall)
+            if ret != 0:
+                raise Exception("Failed to modify password entry\n" + shProcess.stdall)
+            self.runHook("samba.changeuserpasswd", uid, passwd)
+            r.commit()
 
-        self.runHook("samba.changeuserpasswd", uid, passwd)
-        r.commit()
         return 0
 
     def isEnabledUser(self, uid):
