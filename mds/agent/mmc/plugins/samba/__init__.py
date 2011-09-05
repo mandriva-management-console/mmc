@@ -332,8 +332,8 @@ def isSmbUser(uid):
 def userPasswdHasExpired(uid):
     return sambaLdapControl().userPasswdHasExpired(uid)
 
-def changeUserPasswd(uid, password):
-    return sambaLdapControl().changeUserPasswd(uid, password)
+def changeUserPasswd(uid, password, oldpasswd = None, bind = False):
+    return sambaLdapControl().changeUserPasswd(uid, password, oldpasswd, bind)
 
 def changeSambaAttributes(uid, attributes):
     return sambaLdapControl().changeSambaAttributes(uid, attributes)
@@ -799,7 +799,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         r.commit()
         return mmctools.shlaunch("/usr/bin/smbpasswd -x " + uid)
 
-    def changeUserPasswd(self, uid, passwd):
+    def changeUserPasswd(self, uid, passwd, oldpasswd = None, bind = False):
         """
         change SAMBA user password
 
@@ -809,7 +809,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         @param passwd: non encrypted password
         @type  passwd: str
         """
-        
+
         # Don't update the password if we are using smbk5passwd
         conf = smbConf()
         if conf.getContent("global", "ldap passwd sync").lower() != "only":
@@ -1346,7 +1346,7 @@ class smbConf:
             returnArr['permAll'] = 1
         elif self.isValueTrue(self.getContent(name,'guest ok')) == 1:
             returnArr['permAll'] = 1
-        else: 
+        else:
             returnArr['permAll'] = 0
 
         # If we cannot find it
@@ -1573,9 +1573,9 @@ class smbConf:
         @return: False if browseable = No
         """
         state = self.getContent(name, "browseable")
-        if not state: 
+        if not state:
             ret = True
-        else: 
+        else:
             ret = bool(self.isValueTrue(state))
         return ret
 
