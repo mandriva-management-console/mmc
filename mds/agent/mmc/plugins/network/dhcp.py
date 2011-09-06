@@ -234,7 +234,8 @@ class Dhcp(ldapUserGroupControl):
         if serverDN and serviceDN:
             self.l.modify_s(serviceDN, [(ldap.MOD_REPLACE, "dhcp%sDN" % type.capitalize(), serverDN)])
 
-    def setFailoverConfig(self, masterIp, slaveIp):
+    def setFailoverConfig(self, masterIp, slaveIp, serverPort = 647, peerPort = 647,
+        delay = 30, update = 10, balance = 3, mclt = 1800, split = 128):
         """
         Setup the failover configuration on servers
         """
@@ -244,25 +245,36 @@ class Dhcp(ldapUserGroupControl):
             secondaryDN = serviceData['dhcpSecondaryDN'][0]
             primaryName = str2dn(primaryDN)[0][0][1]
             secondaryName = str2dn(secondaryDN)[0][0][1]
-            self.setServerFailover(primaryDN, primaryName, "primary", masterIp, slaveIp)
-            self.setServerFailover(secondaryDN, secondaryName, "secondary", slaveIp, masterIp)
+            self.setServerFailover(primaryDN, primaryName, "primary", masterIp, slaveIp,
+                int(serverPort), int(peerPort), int(delay), int(update), int(balance), int(mclt), int(split))
+            self.setServerFailover(secondaryDN, secondaryName, "secondary", slaveIp, masterIp,
+                int(peerPort), int(serverPort), int(delay), int(update), int(balance), int(mclt), int(split))
         else:
             return False
 
-    def setServerFailover(self, serverDN, serverName, type, serverIp, peerIp):
+    def setServerFailover(self, serverDN, serverName, type, serverIp, peerIp,
+            serverPort, peerPort, delay, update, balance, mclt, split):
         """
         Set failover configuration on server
         """
         # failover configuration template
-        failover_config = """"dhcp-failover" { %s; address %s; port 647; peer address %s; peer port 647; max-response-delay 30; max-unacked-updates 10; """ % (type, serverIp, peerIp)
+        failover_config = """"dhcp-failover" { %s; address %s; port %i; peer address %s; peer port %i; max-response-delay %i; max-unacked-updates %i; """ % (type, serverIp, serverPort, peerIp, peerPort, delay, update)
         if type == "primary":
-            failover_config += "load balance max seconds 3; mclt 1800; split 128; }"
+            failover_config += "load balance max seconds %i; mclt %i; split %i; }" % (balance, mclt, split)
         else:
             failover_config += "}"
         # apply configuration
         self.setObjectStatement(serverDN, 'failover peer', failover_config)
         self.setObjectStatement(serverDN, 'server-identifier', serverName)
         self.setPoolFailover()
+
+    def getFailoverDefaultValues(self):
+        """
+        Return usual settings for DHCP failover
+        """
+        return { 'primaryPort': ['647'], 'secondaryPort': ['647'],
+                 'delay': ['30'], 'update': ['10'], "balance": ['3'],
+                 'mclt': ['1800'], "split": ['128'] }
 
     def getFailoverConfig(self):
         """
@@ -278,18 +290,20 @@ class Dhcp(ldapUserGroupControl):
             secondaryDN = serviceData['dhcpSecondaryDN'][0]
             secondaryName = str2dn(secondaryDN)[0][0][1]
         if primaryDN and secondaryDN:
-            pattern = 'failover.*address (?P<primaryIp>[0-9.]+);.*address (?P<secondaryIp>[0-9.]+);'
+            pattern = 'failover.*address (?P<primaryIp>[0-9.]+); port (?P<primaryPort>[0-9]+); peer address (?P<secondaryIp>[0-9.]+); peer port (?P<secondaryPort>[0-9]+); max-response-delay (?P<delay>[0-9]+); max-unacked-updates (?P<update>[0-9]+); load balance max seconds (?P<balance>[0-9]+); mclt (?P<mclt>[0-9]+); split (?P<split>[0-9]+);'
             for statement in self.getObjectStatements(primaryDN):
                 m = re.match(pattern, statement)
                 if m:
                     return { 'primary': [primaryName], 'secondary': [secondaryName],
-                             'primaryIp': [m.group("primaryIp")],
-                             'secondaryIp': [m.group("secondaryIp")] }
-            return { 'primary': [primaryName], 'secondary': [secondaryName] }
+                             'primaryIp': [m.group("primaryIp")], 'secondaryIp': [m.group("secondaryIp")],
+                             'primaryPort': [m.group("primaryPort")], 'secondaryPort': [m.group("secondaryPort")],
+                             'delay': [m.group("delay")], 'update': [m.group("update")], "balance": [m.group("balance")],
+                             'mclt': [m.group("mclt")], "split": [m.group("split")] }
+            return dict({ 'primary': [primaryName], 'secondary': [secondaryName] }.items() + self.getFailoverDefaultValues().items())
         elif primaryDN:
-            return { 'primary': [primaryName] }
+            return dict({ 'primary': [primaryName] }.items() + self.getFailoverDefaultValues().items())
         else:
-            return False
+            return self.getFailoverDefaultValues()
 
     def delFailoverConfig(self):
         """

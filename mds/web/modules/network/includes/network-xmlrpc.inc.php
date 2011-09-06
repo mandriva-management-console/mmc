@@ -176,8 +176,8 @@ function getFailoverConfig() {
    return xmlCall("network.getFailoverConfig", null);
 }
 
-function setFailoverConfig($primaryIp, $secondaryIp) {
-   return xmlCall("network.setFailoverConfig", array($primaryIp, $secondaryIp));
+function setFailoverConfig($primaryIp, $secondaryIp, $primaryPort, $secondaryPort, $delay, $update, $balance, $mclt, $split) {
+   return xmlCall("network.setFailoverConfig", array($primaryIp, $secondaryIp, $primaryPort, $secondaryPort, $delay, $update, $balance, $mclt, $split));
 }
 
 function delFailoverConfig() {

@@ -302,8 +302,10 @@ def addSecondaryServer(serverName):
 def delSecondaryServer():
     return Dhcp().delSecondaryServer()
 
-def setFailoverConfig(primaryIp, secondaryIp):
-    return Dhcp().setFailoverConfig(primaryIp, secondaryIp)
+def setFailoverConfig(primaryIp, secondaryIp, serverPort = 647, peerPort = 647,
+        delay = 30, update = 10, balance = 3, mclt = 1800, split = 128):
+    return Dhcp().setFailoverConfig(primaryIp, secondaryIp, serverPort, peerPort,
+        delay, update, balance, mclt, split)
 
 def delFailoverConfig():
     return Dhcp().delFailoverConfig()
