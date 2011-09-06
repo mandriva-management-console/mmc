@@ -1165,6 +1165,71 @@
 
     </section>
 
+    <section>
+
+        <title>Using password policies with SAMBA</title>
+
+        <para>If the samba module is installed you can benefit of the LDAP password policies
+        when a user changes his password from any Windows machine in the domain or via the
+        MMC web interface.</para>
+
+        <para>Since SAMBA can't handle multiple password policies the MMC won't set any SAMBA
+        password policies in the SAMBA domain ldap entry. But when SAMBA will try to change
+        the user password in the LDAP, standard LDAP password policies applies.</para>
+
+        <para>The OpenLDAP password policies applies when the user password is changed with
+        the "passmod" LDAP operation and when the user running the "passmod" is not the
+        OpenLDAP rootdn.</para>
+
+        <para>If the MMC is binded to OpenLDAP with the rootdn as the administrator you will
+        be able to change passwords from the MMC interface without any password policy checks.
+        However, password poclicy is applied on the "change user password page" for normal users.</para>
+
+        <note>
+            <title>Password synchronization</title>
+
+            <para>Usually the password synchronisation between the SAMBA password and
+            the LDAP password is done by SAMBA itself. When a user changes his password
+            SAMBA updates the sambaNTPassword attribute and run the "passmod" LDAP operation
+            to change the userPassword attribute. This synchronization is done when
+            <filename>ldap sync password = yes</filename> is set in SAMBA configuration.
+            The problem with this method is that if the password does not pass the password
+            policy check, the SAMBA password will be updated (as it is not changed by a "passmod"
+            operation) but the userPassword attribute won't.</para>
+
+            <para>The second method to synchronize the password is to set <filename>ldap sync password = only</filename>
+            in SAMBA configuration. In this case, SAMBA will only run the "passmod" LDAP operation
+            when the user changes his password and won't update the sambaNTPassword attribute of the user.
+            To update this attribute the OpenLDAP overlay smbk5pwd must be used. This overlay will
+            intercept "passmod" operations and update the SAMBA password automatically.</para>
+        </note>
+
+        <para>In conclusion, in order to use LDAP password policies with SAMBA you have to make sure that :</para>
+        <itemizedlist>
+            <listitem><para>SAMBA is not binded to OpenLDAP with the rootdn</para></listitem>
+            <listitem><para>The <filename>password scheme</filename> option is set to "passmod" in <filename>/etc/mmc/plugins/base.ini</filename></para></listitem>
+            <listitem><para>Prefer using the <filename>ldap sync password = only</filename> method with the smbk5pwd
+            overlay to make sure that passwords are always in sync (Shares -> General options -> Expert mode -> LDAP password sync)</para></listitem>
+        </itemizedlist>
+
+        <para>The configuration of the smbk5pwd overlay is pretty forward. In your slapd.conf just add :</para>
+        <screen>  moduleload    smbk5pwd.la
+
+  [ ... ]
+
+  overlay smbk5pwd
+  smbk5pwd-enable samba
+
+  overlay ppolicy
+  ppolicy_default "cn=default,ou=Password Policies,dc=mandriva,dc=com"
+
+  [ ... ]</screen>
+
+        <note><para>The overlays order is important. Overlays will be called in the reverse order
+        that they are defined.</para></note>
+
+    </section>
+
   </section>
 
   <section id="MDS_SAMBA">
