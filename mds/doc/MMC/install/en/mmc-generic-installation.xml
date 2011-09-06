@@ -324,7 +324,7 @@
             </para>
             <screen>
   # apt-get install ldap-utils
-  # mmc-add-schema /usr/share/doc/python-mmc-base/contrib/ldap/mmc.schema /etc/ldap/schemas/</screen>
+  # mmc-add-schema /usr/share/doc/python-mmc-base/contrib/ldap/mmc.schema /etc/ldap/schema/</screen>
             <para>
                 You can also write a regular slapd.conf file like before, and issue
                 the followind commands to convert the file in the new format:
