@@ -1660,20 +1660,18 @@
   The DHCP server needs to know how to load its configuration from LDAP.
   Here is a typical <filename>/etc/dhcp3/dhcpd.conf</filename> (<filename>/etc/dhcp/dhcpd.conf</filename> in Debian Squeeze):
       </para>
-      <screen>
-  ldap-server "localhost";
+      <screen>  ldap-server "localhost";
   ldap-port 389;
   ldap-username "cn=admin, dc=mandriva, dc=com";
   ldap-password "secret";
   ldap-base-dn "dc=mandriva, dc=com";
   ldap-method dynamic;
-  ldap-debug-file "/var/log/dhcp-ldap-startup.log";
-      </screen>
+  ldap-debug-file "/var/log/dhcp-ldap-startup.log";</screen>
       <para>
   The dhcpd service will try to find an LDAP entry for the machine hostname. If the entry name is different, you can set in <filename>dhcpd.conf</filename>:
       </para>
       <screen>
-  ldap-dhcp-server-cn "dhcp_server_name";
+  ldap-dhcp-server-cn "DHCP_SERVER_NAME";
       </screen>
       <para>
   An example of <filename>dhcpd.conf</filename> filename is available in the directory <filename>contrib/dhcpd/</filename> of the mds tarball.
@@ -1737,6 +1735,34 @@
   Plugin network loaded ...
   ...
       </screen>
+
+    </section>
+
+    <section>
+
+        <title>DHCP failover configuration</title>
+
+        <para>The DHCP failover can be done directly from the MMC interface on the page
+        "Network -> Network services management".</para>
+
+        <para>The primary DHCP server name is by default the hostname of the server where
+        the mmc-agent is running. You can override this by setting the "hostname" option in
+        <filename>/etc/mmc/plugins/network.ini</filename></para>
+
+        <para>To configure DHCP failover you need at least the name of your secondary DHCP server
+        and the IP addresses of the two DHCP servers. In expert mode you can set any parameter of
+        the failover configuration.</para>
+
+        <para>The secondary ISC dhcpd configuration is almost the same as the primary DHCP:</para>
+
+        <screen>  ldap-server "LDAP_SERVER_IP";
+  ldap-port 389;
+  ldap-username "cn=admin, dc=mandriva, dc=com";
+  ldap-password "secret";
+  ldap-base-dn "dc=mandriva, dc=com";
+  ldap-dhcp-server-cn "SECONDARY_DHCP_SERVER_NAME";
+  ldap-method dynamic;
+  ldap-debug-file "/var/log/dhcp-ldap-startup.log";</screen>
 
     </section>
 
