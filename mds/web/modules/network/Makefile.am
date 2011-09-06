@@ -36,6 +36,7 @@ datafiles = \
 	includes/network.inc.php \
 	includes/network2.inc.php \
 	includes/ajaxRecordHandler.js \
+    includes/errorHandling.php \
 	dhcplogview/ajax_setSearch.php \
 	dhcplogview/ajax_showlog.php \
 	dhcplogview/index.php \
