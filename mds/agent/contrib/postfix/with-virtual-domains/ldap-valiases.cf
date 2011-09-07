@@ -1,0 +1,6 @@
+server_host = 127.0.0.1
+search_base = ou=mailAliases,dc=mandriva,dc=com
+query_filter = (&(objectClass=mailAlias)(mailalias=%s)(mailenable=OK))
+result_attribute = mail
+special_result_attribute = mailaliasmember
+version = 3

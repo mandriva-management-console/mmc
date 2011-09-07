@@ -22,7 +22,7 @@ luser_relay =
 # Virtual Domains Control
 virtual_mailbox_domains = ldap:/etc/postfix/ldap-domains.cf
 virtual_mailbox_maps = ldap:/etc/postfix/ldap-accounts.cf
-virtual_alias_maps = ldap:/etc/postfix/ldap-aliases.cf, ldap:/etc/postfix/ldap-maildrop.cf
+virtual_alias_maps = ldap:/etc/postfix/ldap-aliases.cf, ldap:/etc/postfix/ldap-maildrop.cf, ldap:/etc/postfix/ldap-valiases.cf
 virtual_mailbox_base = /
 virtual_alias_domains =
 virtual_minimum_uid = 100

@@ -11,7 +11,7 @@ append_at_myorigin = yes
 #delay_warning_time = 4h
 
 myhostname = debian_sarge.mandriva.com
-alias_maps = ldap:/etc/postfix/ldap-aliases.cf,  hash:/etc/aliases
+alias_maps = ldap:/etc/postfix/ldap-aliases.cf, ldap:/etc/postfix/ldap-valiases.cf, hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
 mydestination = mandriva.com,localhost.localdomain,localhost
