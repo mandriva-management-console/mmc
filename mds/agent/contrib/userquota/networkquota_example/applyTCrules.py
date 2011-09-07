@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8; -*-                                                                
 # Example to apply network quotas from ldap to tc traffic shaping rules.
 #
