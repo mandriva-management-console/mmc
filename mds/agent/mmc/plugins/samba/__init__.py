@@ -678,7 +678,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         Add SAMBA password and attributes on a new user
         """
 
-        ret = self.changeUserPassword(uid, password)
+        ret = self.changeUserPasswd(uid, password)
 
         # Command was successful, now set default attributes
         if ret == 0:
