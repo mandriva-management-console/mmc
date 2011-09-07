@@ -148,7 +148,7 @@
 	    <entry>vDomainDN</entry>
 	    <entry>Organizational Unit where virtual mail domains will be stored</entry>
 	    <entry>Yes if vDomainSupport is disabled</entry>
-	    <entry></entry>
+	    <entry>ou=mailDomains, %(baseDN)s</entry>
 	  </row>
 	  <row>
 	    <entry>vAliasesSupport</entry>
@@ -160,7 +160,7 @@
 	    <entry>vAliasesDN</entry>
 	    <entry>Organizational Unit where virtual aliases will be stored</entry>
 	    <entry>Yes if vAliasesSupport is disabled</entry>
-	    <entry></entry>
+	    <entry>ou=mailAliases, %(baseDN)s</entry>
 	  </row>
 	  <row>
 	    <entry>zarafa</entry>
