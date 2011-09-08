@@ -32,32 +32,36 @@ require_once("sshlpk-xmlrpc.php");
 function _sshlpk_baseEdit($FH, $mode) {
 
     // default value
-    $hassshlpk = '';
+    $show = false;
 
-    if ($mode == 'edit' && 
+    if ($mode == 'edit' &&
         hasSshKeyObjectClass($FH->getArrayOrPostValue("uid"))) {
-        $hassshlpk = 'checked';
+        $show = true;
+    }
+    else {
+        if ($FH->getValue("showsshkey") == "on")
+            $show = true;
     }
 
-    $f = new DivForModule(_T("Public SSH keys management","sshlpk"), 
+    $f = new DivForModule(_T("Public SSH keys management","sshlpk"),
         "#DDF");
 
     $f->push(new Table());
     $f->add(
-        new TrFormElement(_T("Enable SSH keys management", "sshlpk"), 
+        new TrFormElement(_T("Enable SSH keys management", "sshlpk"),
             new CheckboxTpl("showsshkey")),
-            array("value" => $hassshlpk,
+            array("value" => $show ? "checked" : "",
                 "extraArg"=>'onclick="toggleVisibility(\'sshkeydiv\');"')
         );
     $f->pop();
 
     $sshkeydiv = new Div(array("id" => "sshkeydiv"));
-    $sshkeydiv->setVisibility($hassshlpk);
+    $sshkeydiv->setVisibility($show);
     $f->push($sshkeydiv);
 
     $sshkeylist = array();
     if ($FH->getArrayOrPostValue("uid")) {
-        if ($hassshlpk == 'checked') {
+        if ($show && $mode == "edit") {
             $sshkeylist = getAllSshKey($FH->getArrayOrPostValue("uid"));
         }
     }
@@ -65,8 +69,8 @@ function _sshlpk_baseEdit($FH, $mode) {
         $sshkeylist = array("0" => "");
     }
 
-    $f->add(new TrFormElement('', 
-        new MultipleInputTpl("sshkeylist",_T("Public SSH Key", "sshlpk"))), 
+    $f->add(new TrFormElement('',
+        new MultipleInputTpl("sshkeylist",_T("Public SSH Key", "sshlpk"))),
         $sshkeylist
     );
 
@@ -90,7 +94,7 @@ function _sshlpk_verifInfo($FH, $mode) {
         $keys = array_unique($keys);
         $FH->setValue('sshkeylist', $keys);
     }
-    
+
     return 0;
 }
 
@@ -115,7 +119,7 @@ function _sshlpk_changeUser($FH, $mode) {
             $result .= _T("SSH public keys attributes deleted.", "sshlpk") . "<br />";
         }
     }
-    
+
     return 0;
 }
 

@@ -243,7 +243,6 @@ function _samba_baseEdit($FH, $mode) {
     // default values
     $hasSmb = false;
     $show = true;
-    $checked = "checked";
 
     // get smb config info
     $smbInfo = xmlCall("samba.getSmbInfo", null);
@@ -253,15 +252,15 @@ function _samba_baseEdit($FH, $mode) {
         $uid = $FH->getArrayOrPostValue("uid");
         if (hasSmbAttr($uid))
             $hasSmb = true;
-        else {
-            $checked = "";
+        else
             $show = false;
-        }
         // show Samba plugin in case of error
-        if ($FH->getValue("isSamba") == "on") {
-            $checked = "checked";
+        if ($FH->getValue("isSamba") == "on")
             $show = true;
-        }
+    }
+    else {
+        if ($FH->getValue("isSamba") == "off")
+            $show = false;
     }
 
     $f = new DivForModule(_T("Samba properties","samba"), "#EFE");
@@ -269,7 +268,7 @@ function _samba_baseEdit($FH, $mode) {
 
     $f->add(
         new TrFormElement(_T("SAMBA access","samba"), new CheckboxTpl("isSamba")),
-        array("value"=>$checked, "extraArg"=>'onclick="toggleVisibility(\'smbdiv\');"')
+        array("value"=> $show ? "checked" : "", "extraArg"=>'onclick="toggleVisibility(\'smbdiv\');"')
     );
 
     $f->pop();
