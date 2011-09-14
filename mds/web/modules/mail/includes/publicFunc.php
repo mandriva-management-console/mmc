@@ -411,9 +411,14 @@ function _mail_changeUser($FH, $mode) {
 
         if ($syncmailgroupalias) {
             /* When mail service is activated for an user, add mail group aliases */
-            syncMailGroupAliases($FH->getPostValue("primary"));
-            foreach($FH->getPostValue("secondary") as $group)
-                syncMailGroupAliases($group);
+            if ($FH->isUpdated('primary'))
+                syncMailGroupAliases($FH->getPostValue("primary"));
+            if ($FH->isUpdated('secondary')) {
+                if ($FH->getValue("secondary")) {
+                    foreach($FH->getValue("secondary") as $group)
+                        syncMailGroupAliases($group);
+                }
+            }
         }
     } else { // mail access not checked
         if (hasMailObjectClass($uid)) { //and mail access still present
