@@ -138,14 +138,8 @@ function _samba_changeUser($FH, $mode) {
     }
     else { //if not have smb attributes
         if ($FH->getPostValue("isSamba")) {
-
-            # if the user password doesn't match the pwd policies
-            # we set a random password for the samba user
-            if($FH->getValue("randomSmbPwd") == 1) {
-                $FH->setPostValue("pass", uniqid(rand(), true));
-            }
             # Add SAMBA attributes
-            addSmbAttr($FH->getPostValue("uid"),$FH->getPostValue("pass"));
+            addSmbAttr($FH->getPostValue("uid"), $FH->getPostValue("pass"));
             if(!isXMLRPCError()) {
                 // Format samba attributes
                 if($FH->getPostValue("sambaPwdLastSet") == "on") {
