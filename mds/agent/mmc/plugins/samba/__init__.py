@@ -38,6 +38,7 @@ from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl, BasePluginConfig
 from time import mktime, strptime, time, strftime
 import xmlrpclib
+import smbpasswd
 
 # Try to import module posix1e
 try:
@@ -504,6 +505,20 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         else: ret = {}
         return ret
 
+    def updateDomainNextRID(self):
+        """
+        Increment sambaNextRID
+        """
+        conf = smbConf()
+        domain = conf.getContent("global", "workgroup")
+        result = self.search("(&(objectClass=sambaDomain)(sambaDomainName=%s))" % domain)
+        dn, old = result[0][0]
+        # update the old attributes
+        new = old.copy()
+        new['sambaNextRid'] = [ str(int(old['sambaNextRid'][0]) + 1) ]
+        modlist = ldap.modlist.modifyModlist(old, new)
+        self.l.modify_s(dn, modlist)
+
     def resetDomainPolicy(self):
         """
         Reset SAMBA domain policy since we want to use only OpenLDAP policies
@@ -677,24 +692,58 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         Add SAMBA password and attributes on a new user
         """
+        # Get domain info
+        domainInfo = self.getDomain()
+        # Get current user entry
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SAMBA_CLASS, [(userdn,AT.USER)])
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
+        c, old = s[0]
+        new = self._applyUserDefault(old.copy(), self.configSamba.userDefault)
+        if not "sambaSamAccount" in new['objectClass']:
+            new['objectClass'].append("sambaSamAccount")
+        new["sambaAcctFlags"] = ["[U          ]"]
+        new["sambaSID"] = [domainInfo['sambaSID'][0] + '-' + str(int(domainInfo['sambaNextRid'][0]) + 1)]
+        new['sambaLMPassword'] = smbpasswd.lmhash(password)
+        new['sambaNTPassword'] = smbpasswd.nthash(password)
+        # Update LDAP
+        modlist = ldap.modlist.modifyModlist(old, new)
+        self.l.modify_s(userdn, modlist)
+        self.updateDomainNextRID()
+        self.runHook("samba.addsmbattr", uid, password)
+        r.commit()
 
-        ret = self.changeUserPasswd(uid, password)
+    def changeUserPasswd(self, uid, passwd, oldpasswd = None, bind = False):
+        """
+        change SAMBA user password
 
-        # Command was successful, now set default attributes
-        if ret == 0:
-            # Get current user entry
+        @param uid: user name
+        @type  uid: str
+
+        @param passwd: non encrypted password
+        @type  passwd: str
+        """
+
+        # Don't update the password if we are using smbk5passwd
+        conf = smbConf()
+        if conf.getContent("global", "ldap passwd sync").lower() != "only":
             userdn = self.searchUserDN(uid)
-            r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_SAMBA_CLASS, [(userdn,AT.USER)])
+            r = AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_USER_PASS, [(userdn,AT.USER)])
+            # If the passwd has been encoded in the XML-RPC stream, decode it
+            if isinstance(passwd, xmlrpclib.Binary):
+                passwd = str(passwd)
             s = self.l.search_s(userdn, ldap.SCOPE_BASE)
             c, old = s[0]
-            new = self._applyUserDefault(old.copy(), self.configSamba.userDefault)
+            new = old.copy()
+            new['sambaLMPassword'] = smbpasswd.lmhash(passwd)
+            new['sambaNTPassword'] = smbpasswd.nthash(passwd)
             # Update LDAP
             modlist = ldap.modlist.modifyModlist(old, new)
             self.l.modify_s(userdn, modlist)
-            self.runHook("samba.addsmbattr", uid, password)
+            self.runHook("samba.changeuserpasswd", uid, passwd)
             r.commit()
 
-        return ret
+        return 0
 
     def isSmbUser(self, uid):
         """
@@ -718,8 +767,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 
         logs = []
         userdn = self.searchUserDN(uid)
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
 
         # We update the old attributes array with the new SAMBA attributes
@@ -744,7 +792,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                         [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
 
         modlist = ldap.modlist.modifyModlist(old, new)
-        if modlist: self.l.modify_s(dn, modlist)
+        if modlist: self.l.modify_s(userdn, modlist)
         self.runHook("samba.changesambaattributes", uid)
         for log in logs:
             log.commit()
@@ -798,39 +846,6 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SAMBA_CLASS, [(userdn,AT.USER)])
         r.commit()
         return mmctools.shlaunch("/usr/bin/smbpasswd -x " + uid)
-
-    def changeUserPasswd(self, uid, passwd, oldpasswd = None, bind = False):
-        """
-        change SAMBA user password
-
-        @param uid: user name
-        @type  uid: str
-
-        @param passwd: non encrypted password
-        @type  passwd: str
-        """
-
-        # Don't update the password if we are using smbk5passwd
-        conf = smbConf()
-        if conf.getContent("global", "ldap passwd sync").lower() != "only":
-            userdn = self.searchUserDN(uid)
-            r = AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_USER_PASS, [(userdn,AT.USER)])
-            # If the passwd has been encoded in the XML-RPC stream, decode it
-            if isinstance(passwd, xmlrpclib.Binary):
-                passwd = str(passwd)
-
-            cmd = 'smbpasswd -s -a '+uid
-            shProcess = generateBackgroundProcess(cmd)
-            shProcess.write(passwd+"\n")
-            shProcess.write(passwd+"\n")
-            ret = shProcess.getExitCode()
-
-            if ret != 0:
-                raise Exception("Failed to modify password entry\n" + shProcess.stdall)
-            self.runHook("samba.changeuserpasswd", uid, passwd)
-            r.commit()
-
-        return 0
 
     def isEnabledUser(self, uid):
         """
