@@ -354,7 +354,6 @@ function _mail_changeUser($FH, $mode) {
         $attrs = getMailAttributes();
 
         if (hasMailObjectClass($uid)) {
-            $syncmailgroupalias = False;
             if ($FH->getValue("unlimitedquota") == "on") {
                 $FH->setPostValue($attrs["mailuserquota"], "0");
                 $FH->setValue($attrs["mailuserquota"], "0");
@@ -363,7 +362,6 @@ function _mail_changeUser($FH, $mode) {
     	else {
             addMailObjectClass($uid);
             $result .= _T("Mail attributes added.", "mail")."<br />";
-            $syncmailgroupalias = True;
         }
 
         if($FH->isUpdated($attrs["maildrop"]))
@@ -383,8 +381,10 @@ function _mail_changeUser($FH, $mode) {
                 changeMailEnable($uid, False);
                 $result .= _T("Mail delivery disabled.", "mail")."<br />";
             }
-            else
+            else {
                 changeMailEnable($uid, True);
+                $result .= _T("Mail delivery enabled.", "mail")."<br />";
+            }
         }
 
         /* Zarafa only */
