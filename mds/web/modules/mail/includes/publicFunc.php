@@ -409,15 +409,12 @@ function _mail_changeUser($FH, $mode) {
             }
         }
 
-        if ($syncmailgroupalias) {
-            /* When mail service is activated for an user, add mail group aliases */
-            if ($FH->isUpdated('primary'))
-                syncMailGroupAliases($FH->getPostValue("primary"));
-            if ($FH->isUpdated('secondary')) {
-                if ($FH->getValue("secondary")) {
-                    foreach($FH->getValue("secondary") as $group)
-                        syncMailGroupAliases($group);
-                }
+        /* When mail service is activated for an user, add mail group aliases */
+        syncMailGroupAliases($FH->getPostValue("primary"));
+        if ($FH->isUpdated('secondary')) {
+            if ($FH->getValue("secondary")) {
+                foreach($FH->getValue("secondary") as $group)
+                    syncMailGroupAliases($group);
             }
         }
     } else { // mail access not checked
