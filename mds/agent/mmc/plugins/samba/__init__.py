@@ -39,6 +39,7 @@ from mmc.plugins.base import ldapUserGroupControl, BasePluginConfig
 from time import mktime, strptime, time, strftime
 import xmlrpclib
 import smbpasswd
+from time import time
 
 # Try to import module posix1e
 try:
@@ -704,8 +705,12 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             new['objectClass'].append("sambaSamAccount")
         new["sambaAcctFlags"] = ["[U          ]"]
         new["sambaSID"] = [domainInfo['sambaSID'][0] + '-' + str(int(domainInfo['sambaNextRid'][0]) + 1)]
-        new['sambaLMPassword'] = smbpasswd.lmhash(password)
-        new['sambaNTPassword'] = smbpasswd.nthash(password)
+        # If the passwd has been encoded in the XML-RPC stream, decode it
+        if isinstance(password, xmlrpclib.Binary):
+            password = str(password)
+        new['sambaLMPassword'] = [smbpasswd.lmhash(password)]
+        new['sambaNTPassword'] = [smbpasswd.nthash(password)]
+        new['sambaPwdLastSet'] = [str(int(time()))]
         # Update LDAP
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(userdn, modlist)
@@ -735,8 +740,9 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             s = self.l.search_s(userdn, ldap.SCOPE_BASE)
             c, old = s[0]
             new = old.copy()
-            new['sambaLMPassword'] = smbpasswd.lmhash(passwd)
-            new['sambaNTPassword'] = smbpasswd.nthash(passwd)
+            new['sambaLMPassword'] = [smbpasswd.lmhash(passwd)]
+            new['sambaNTPassword'] = [smbpasswd.nthash(passwd)]
+            new['sambaPwdLastSet'] = [str(int(time()))]
             # Update LDAP
             modlist = ldap.modlist.modifyModlist(old, new)
             self.l.modify_s(userdn, modlist)
