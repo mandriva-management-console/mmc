@@ -22,6 +22,7 @@
 
 require_once("userquota-xmlrpc.php");
 require_once("userquota.php");
+require_once("includes/FormHandler.php");
 
 /**
  * Form on user edit page
@@ -29,32 +30,32 @@ require_once("userquota.php");
  * @param $mode add or edit mode
  */
 function _userquota_baseEdit($FH, $mode) {
-	
+
 	/*if (key_exists("objectClass", $ldapArr)) {
 		print '<input type="hidden" name="currentOC" value="'.implode(',',$ldapArr["objectClass"]).'" >';
 	}*/
 	$components = getActiveComponents();
 	if ($components) {
         $f = new DivForModule(_T("Quota settings", "userquota"), "#FDD");
-	
-        if (isset($components["disk"])) {
+
+        if ($components["disk"]) {
     		$f->push(new Table());
 	    	$f = addDiskQuotas($f, $FH);
 			$f->pop();
 	    }
-        if (isset($components["network"])) {
+        if ($components["network"]) {
     		$f->push(new Table());
 		    $f = addNetworkQuotas($f, $FH);
     		$f->pop();
 	    }
 	}
-	
+
 	return $f;
 }
 
 // @todo Join these two into one function.
 function addDiskQuotas($f, $FH) {
-    
+
     $quotas = $FH->getArrayOrPostValue("quota", "array");
 
 	foreach (getDevicemap() as $device) {
@@ -62,7 +63,7 @@ function addDiskQuotas($f, $FH) {
 		$quota->setCurrentQuotas($quotas);
 		$f->add($quota->getQuotaForm(), array("value"=>$quota->getQuotaSize()));
 	}
-	
+
 	return $f;
 }
 
@@ -75,7 +76,7 @@ function addNetworkQuotas($f, $FH) {
 		$quota->setCurrentQuotas($quotas);
 		$f->add($quota->getQuotaForm(), array("value"=>$quota->getQuotaSize()));
 	}
-	
+
 	return $f;
 }
 /**
@@ -95,7 +96,7 @@ function _userquota_verifInfo($FH, $mode) {
 function _userquota_changeUser($FH, $mode) {
 
     global $return;
-    
+
     $uid = $FH->getPostValue("uid");
 
 	$components = getActiveComponents();
@@ -122,7 +123,7 @@ function _userquota_changeUser($FH, $mode) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
 					setNetworkQuota($uid, $network, $quota_value);
-					$result .= sprintf(_T("Network quota set to %s on %s.", "userquota"), $quota_value, $network) . '<br />';					
+					$result .= sprintf(_T("Network quota set to %s on %s.", "userquota"), $quota_value, $network) . '<br />';
 				}
     			else {
 	    			deleteNetworkQuota($uid, $network);
@@ -131,7 +132,7 @@ function _userquota_changeUser($FH, $mode) {
 	    	}
 		}
 	}
-	
+
 	return 0;
 
 }
@@ -139,11 +140,15 @@ function _userquota_changeUser($FH, $mode) {
 
 
 function _userquota_baseGroupEdit($ldapArr, $postArr) {
+
+    $FH = new FormHandler("editGroupQuota", $postArr);
+    $FH->setArr($ldapArr);
+
 	$components = getActiveComponents();
 	if ($components["disk"]) {
-		$f = new DivForModule(_T("Quota plugin - Filesystem", "userquota"), "#FFD");
+		$f = new DivForModule(_T("Quota plugin - Filesystem", "userquota"), "#FDD");
 		$f->push(new Table());
-		displayDiskQuotas(&$f, $ldapArr);
+		$f = addDiskQuotas($f, $FH);
 		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group", "userquota")));
 		$overwrite = new RadioTpl("diskoverwrite");
 		$overwrite->setChoices(array(_T("Overwrite all existing quotas", "userquota"), _T("Current quota is smaller than the new quota, or does not exist", "userquota"), _T("Current quota is larger than the new quota, or does not exist", "userquota"), _T("Don't overwrite any existing quotas", "userquota")));
@@ -156,7 +161,7 @@ function _userquota_baseGroupEdit($ldapArr, $postArr) {
 	if ($components["network"]) {
 		$f = new DivForModule(_T("Quota plugin - Network", "userquota"), "#FFD");
 		$f->push(new Table());
-		displayNetworkQuotas(&$f, $ldapArr);
+		$f = addNetworkQuotas($f, $FH);
 		$f->add(new TrCommentElement(_T("Quota's applied here affect all members of the group", "userquota")));
 		$overwrite = new RadioTpl("networkoverwrite");
 		$overwrite->setChoices(array(_T("Overwrite all existing quotas", "userquota"), _T("Current quota is smaller than the new quota, or does not exist", "userquota"), _T("Current quota is larger than the new quota, or does not exist", "userquota"), _T("Don't overwrite any existing quotas", "userquota")));
