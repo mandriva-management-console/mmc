@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-01-30 08:18+0100\n"
+"POT-Creation-Date: 2011-09-06 15:54+0200\n"
 "PO-Revision-Date: 2011-07-26 09:28+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-
-#: modules/proxy/blacklist/restart.php:56
-#: modules/proxy/blacklist/restart.php:67
-msgid "Restart squidGuard server"
-msgstr "Restart squidGuard tjener"
-
-#: modules/proxy/blacklist/restart.php:78
-msgid "Back"
-msgstr "Tilbake"
 
 #: modules/proxy/blacklist/add.php:40
 msgid "Invalid domain name"
@@ -51,14 +42,36 @@ msgstr "Navn"
 msgid "Create"
 msgstr "Opprett"
 
+#: modules/proxy/blacklist/delete.php:39
+msgid "Remove a squidGuard domain"
+msgstr "Slett et squidGuard domene"
+
+#: modules/proxy/blacklist/delete.php:48
+#, php-format
+msgid "You will remove <b>%s</b> entry"
+msgstr "Du sletter oppføringen <b>%s</b>"
+
+#: modules/proxy/blacklist/delete.php:53
+msgid "Are you sure ?"
+msgstr "Er du sikker?"
+
+#: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
+msgid "Delete"
+msgstr "Slett"
+
+#: modules/proxy/blacklist/delete.php:58
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: modules/proxy/blacklist/delete.php:67
+#, php-format
+msgid "Domain %s has been removed"
+msgstr "Domenet %s har blitt slettet"
+
 #: modules/proxy/blacklist/index.php:33
 #: modules/proxy/blacklist/localSidebar.php:28
 msgid "Blacklist management"
 msgstr "Svarteliste"
-
-#: modules/proxy/blacklist/index.php:44 modules/proxy/blacklist/delete.php:57
-msgid "Delete"
-msgstr "Slett"
 
 #: modules/proxy/blacklist/index.php:45
 msgid "Blacklist entries"
@@ -68,10 +81,23 @@ msgstr "Svartelisteoppføringer"
 msgid "Restart service"
 msgstr "Restart tjenester"
 
-#: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 #: modules/proxy/blacklist/localSidebar.php:27
+#: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 msgid "Proxy status"
 msgstr "Proxy status"
+
+#: modules/proxy/blacklist/localSidebar.php:29
+msgid "Add an entry in blacklist"
+msgstr "Legg til i svarteliste"
+
+#: modules/proxy/blacklist/restart.php:56
+#: modules/proxy/blacklist/restart.php:67
+msgid "Restart squidGuard server"
+msgstr "Restart squidGuard tjener"
+
+#: modules/proxy/blacklist/restart.php:78
+msgid "Back"
+msgstr "Tilbake"
 
 #: modules/proxy/blacklist/statut.php:42
 msgid "enabled"
@@ -88,32 +114,6 @@ msgstr "Tjenester"
 #: modules/proxy/blacklist/statut.php:52
 msgid "Status"
 msgstr "Status"
-
-#: modules/proxy/blacklist/delete.php:39
-msgid "Remove a squidGuard domain"
-msgstr "Slett et squidGuard domene"
-
-#: modules/proxy/blacklist/delete.php:48
-#, php-format
-msgid "You will remove <b>%s</b> entry"
-msgstr "Du sletter oppføringen <b>%s</b>"
-
-#: modules/proxy/blacklist/delete.php:53
-msgid "Are you sure ?"
-msgstr "Er du sikker?"
-
-#: modules/proxy/blacklist/delete.php:58
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: modules/proxy/blacklist/delete.php:67
-#, php-format
-msgid "Domain %s has been removed"
-msgstr "Domenet %s har blitt slettet"
-
-#: modules/proxy/blacklist/localSidebar.php:29
-msgid "Add an entry in blacklist"
-msgstr "Legg til i svarteliste"
 
 #: modules/proxy/includes/auditCodes.php:4
 msgid "Add blacklist"

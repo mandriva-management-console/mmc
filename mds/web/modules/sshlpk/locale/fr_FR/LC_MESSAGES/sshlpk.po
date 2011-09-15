@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
+#   <jpbraun@mandriva.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-06-17 10:02+0000\n"
+"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"PO-Revision-Date: 2011-09-07 13:51+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,21 +18,25 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: modules/sshlpk/includes/publicFunc.php:39
-msgid "Public SSH keys management plugin"
-msgstr "Plugin de gestion des clés SSH"
+#: modules/sshlpk/includes/publicFunc.php:42
+msgid "Public SSH keys management"
+msgstr "Gestion des clés publiques SSH"
 
-#: modules/sshlpk/includes/publicFunc.php:43
+#: modules/sshlpk/includes/publicFunc.php:47
 msgid "Enable SSH keys management"
 msgstr "Activer la gestion des clés SSH"
 
-#: modules/sshlpk/includes/publicFunc.php:66
+#: modules/sshlpk/includes/publicFunc.php:69
 msgid "Public SSH Key"
 msgstr "Clé publique SSH"
 
-#: modules/sshlpk/includes/publicFunc.php:93
-msgid "Some SSH public keys are duplicate"
-msgstr "Des clés SSH sont dupliquées"
+#: modules/sshlpk/includes/publicFunc.php:109
+msgid "SSH public keys updated."
+msgstr "Clés publiques SSH mises à jour."
+
+#: modules/sshlpk/includes/publicFunc.php:115
+msgid "SSH public keys attributes deleted."
+msgstr "Attributs des clés publiques SSH supprimés."
 
 #: modules/sshlpk/infoPackage.inc.php:34
 msgid "LDAP Public SSH key management"

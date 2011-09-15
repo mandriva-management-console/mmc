@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-09-15 12:52+0000\n"
+"POT-Creation-Date: 2011-09-15 15:15+0200\n"
+"PO-Revision-Date: 2011-09-15 13:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,8 +51,12 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:117
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/index.php:31
+msgid "Virtual aliases list"
+msgstr ""
+
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:117
 msgid "Add a virtual alias"
 msgstr ""
 
@@ -114,10 +118,6 @@ msgstr ""
 
 #: modules/mail/aliases/edit.php:177 modules/mail/domains/edit.php:131
 msgid "Confirm"
-msgstr ""
-
-#: modules/mail/aliases/index.php:31
-msgid "Virtual aliases list"
 msgstr ""
 
 #: modules/mail/domains/ajaxDomainFilter.php:21
@@ -275,7 +275,8 @@ msgstr ""
 msgid "Mail Group"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:21
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:57
+#: modules/mail/infoPackage.inc.php:109
 msgid "Mail"
 msgstr ""
 
@@ -420,23 +421,39 @@ msgstr ""
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:365
+#: modules/mail/includes/publicFunc.php:364
 msgid "Mail attributes added."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:384
+#: modules/mail/includes/publicFunc.php:382
 msgid "Mail delivery disabled."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:421
+#: modules/mail/includes/publicFunc.php:386
+msgid "Mail delivery enabled."
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:423
 msgid "Mail attributes deleted."
+msgstr ""
+
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:61
+msgid "Mail domains"
+msgstr ""
+
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:64
+msgid "Add a domain"
+msgstr ""
+
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:114
+msgid "Virtual aliases"
 msgstr ""
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail service"
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:44 modules/mail/infoPackage.inc.php:109
+#: modules/mail/infoPackage.inc.php:44
 msgid "Mail aliases"
 msgstr ""
 
@@ -446,15 +463,6 @@ msgstr ""
 
 #: modules/mail/infoPackage.inc.php:48
 msgid "Mail group alias access"
-msgstr ""
-
-#: modules/mail/infoPackage.inc.php:57 modules/mail/infoPackage.inc.php:61
-#: modules/mail/mainSidebar.php:30
-msgid "Mail domains"
-msgstr ""
-
-#: modules/mail/infoPackage.inc.php:64 modules/mail/mainSidebar.php:35
-msgid "Add a domain"
 msgstr ""
 
 #: modules/mail/infoPackage.inc.php:67
@@ -467,10 +475,6 @@ msgstr ""
 
 #: modules/mail/infoPackage.inc.php:75
 msgid "Delete a mail domain"
-msgstr ""
-
-#: modules/mail/infoPackage.inc.php:114 modules/mail/mainSidebar.php:41
-msgid "Virtual aliases"
 msgstr ""
 
 #: modules/mail/infoPackage.inc.php:120

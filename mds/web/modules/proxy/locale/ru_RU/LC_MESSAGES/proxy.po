@@ -9,24 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-07-26 09:27+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"PO-Revision-Date: 2011-08-02 06:36+0000\n"
+"Last-Translator: Irina Sikach <i.sence.i@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-
-#: modules/proxy/blacklist/restart.php:56
-#: modules/proxy/blacklist/restart.php:67
-msgid "Restart squidGuard server"
-msgstr "Перезапустить сервер squidGuard"
-
-#: modules/proxy/blacklist/restart.php:78
-msgid "Back"
-msgstr "Назад"
 
 #: modules/proxy/blacklist/add.php:40
 msgid "Invalid domain name"
@@ -53,14 +44,36 @@ msgstr "Имя"
 msgid "Create"
 msgstr "Создать"
 
+#: modules/proxy/blacklist/delete.php:39
+msgid "Remove a squidGuard domain"
+msgstr "Удалить домен squidGuard"
+
+#: modules/proxy/blacklist/delete.php:48
+#, php-format
+msgid "You will remove <b>%s</b> entry"
+msgstr "Вы удалите запись <b>%s</b>"
+
+#: modules/proxy/blacklist/delete.php:53
+msgid "Are you sure ?"
+msgstr "Вы уверены?"
+
+#: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
+msgid "Delete"
+msgstr "Удалить"
+
+#: modules/proxy/blacklist/delete.php:58
+msgid "Cancel"
+msgstr "Отмена"
+
+#: modules/proxy/blacklist/delete.php:67
+#, php-format
+msgid "Domain %s has been removed"
+msgstr "Домен %s был удален"
+
 #: modules/proxy/blacklist/index.php:33
 #: modules/proxy/blacklist/localSidebar.php:28
 msgid "Blacklist management"
 msgstr "Управление черным списком"
-
-#: modules/proxy/blacklist/index.php:44 modules/proxy/blacklist/delete.php:57
-msgid "Delete"
-msgstr "Удалить"
 
 #: modules/proxy/blacklist/index.php:45
 msgid "Blacklist entries"
@@ -70,10 +83,23 @@ msgstr "Записи черного списка"
 msgid "Restart service"
 msgstr "Перезапустить службу"
 
-#: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 #: modules/proxy/blacklist/localSidebar.php:27
+#: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 msgid "Proxy status"
 msgstr "Состояние прокси-сервера"
+
+#: modules/proxy/blacklist/localSidebar.php:29
+msgid "Add an entry in blacklist"
+msgstr "Добавить запись в черный список"
+
+#: modules/proxy/blacklist/restart.php:56
+#: modules/proxy/blacklist/restart.php:67
+msgid "Restart squidGuard server"
+msgstr "Перезапустить сервер squidGuard"
+
+#: modules/proxy/blacklist/restart.php:78
+msgid "Back"
+msgstr "Назад"
 
 #: modules/proxy/blacklist/statut.php:42
 msgid "enabled"
@@ -90,32 +116,6 @@ msgstr "Службы"
 #: modules/proxy/blacklist/statut.php:52
 msgid "Status"
 msgstr "Состояние"
-
-#: modules/proxy/blacklist/delete.php:39
-msgid "Remove a squidGuard domain"
-msgstr "Удалить домен squidGuard"
-
-#: modules/proxy/blacklist/delete.php:48
-#, php-format
-msgid "You will remove <b>%s</b> entry"
-msgstr "Вы удалите запись <b>%s</b>"
-
-#: modules/proxy/blacklist/delete.php:53
-msgid "Are you sure ?"
-msgstr "Вы уверены?"
-
-#: modules/proxy/blacklist/delete.php:58
-msgid "Cancel"
-msgstr "Отмена"
-
-#: modules/proxy/blacklist/delete.php:67
-#, php-format
-msgid "Domain %s has been removed"
-msgstr "Домен %s был удален"
-
-#: modules/proxy/blacklist/localSidebar.php:29
-msgid "Add an entry in blacklist"
-msgstr "Добавить запись в черный список"
 
 #: modules/proxy/includes/auditCodes.php:4
 msgid "Add blacklist"
@@ -144,7 +144,7 @@ msgstr "Веб прокси-сервер"
 
 #: modules/proxy/infoPackage.inc.php:38
 msgid "Proxy"
-msgstr ""
+msgstr "Прокси-сервер"
 
 #: modules/proxy/infoPackage.inc.php:47
 msgid "Remove a domain in the blacklist"

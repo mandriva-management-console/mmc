@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-09-12 07:50+0000\n"
-"Last-Translator: Rueff Nicolas <nrueff@mandriva.com>\n"
+"POT-Creation-Date: 2011-09-15 15:15+0200\n"
+"PO-Revision-Date: 2011-09-15 13:16+0000\n"
+"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,8 +53,12 @@ msgstr "Supprimer"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:117
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/index.php:31
+msgid "Virtual aliases list"
+msgstr "Liste des alias virtuels"
+
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:117
 msgid "Add a virtual alias"
 msgstr "Ajouter un alias virtuel"
 
@@ -117,10 +121,6 @@ msgstr "Créer"
 #: modules/mail/aliases/edit.php:177 modules/mail/domains/edit.php:131
 msgid "Confirm"
 msgstr "Valider"
-
-#: modules/mail/aliases/index.php:31
-msgid "Virtual aliases list"
-msgstr "Liste des alias virtuels"
 
 #: modules/mail/domains/ajaxDomainFilter.php:21
 #: modules/mail/domains/ajaxDomainFilter.php:27
@@ -280,9 +280,10 @@ msgstr "Réinitialisation des quotas du domaine"
 msgid "Mail Group"
 msgstr "Groupe de messagerie"
 
-#: modules/mail/includes/auditCodes.php:21
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:57
+#: modules/mail/infoPackage.inc.php:109
 msgid "Mail"
-msgstr "email"
+msgstr "Mail"
 
 #: modules/mail/includes/auditCodes.php:22
 msgid "Add Zarafa attributes"
@@ -318,7 +319,7 @@ msgstr "Utilisateur"
 
 #: modules/mail/includes/auditCodes.php:30
 msgid "mail"
-msgstr "Mail"
+msgstr "mail"
 
 #: modules/mail/includes/mail.inc.php:52 modules/mail/includes/mail.inc.php:64
 msgid "Unlimited quota"
@@ -429,23 +430,39 @@ msgstr ""
 "Une adresse email valide doit être renseignée pour activer la messagerie de "
 "l'utilisateur."
 
-#: modules/mail/includes/publicFunc.php:365
+#: modules/mail/includes/publicFunc.php:364
 msgid "Mail attributes added."
 msgstr "Attributs de messagerie ajoutés."
 
-#: modules/mail/includes/publicFunc.php:384
+#: modules/mail/includes/publicFunc.php:382
 msgid "Mail delivery disabled."
 msgstr "Livraison de la messagerie désactivée."
 
-#: modules/mail/includes/publicFunc.php:421
+#: modules/mail/includes/publicFunc.php:386
+msgid "Mail delivery enabled."
+msgstr "Livraison d'email activée."
+
+#: modules/mail/includes/publicFunc.php:423
 msgid "Mail attributes deleted."
 msgstr "Attributs de messagerie supprimés."
+
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:61
+msgid "Mail domains"
+msgstr "Domaines de messagerie"
+
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:64
+msgid "Add a domain"
+msgstr "Ajouter un domaine"
+
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:114
+msgid "Virtual aliases"
+msgstr "Alias virtuels"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail service"
 msgstr "Service de messagerie"
 
-#: modules/mail/infoPackage.inc.php:44 modules/mail/infoPackage.inc.php:109
+#: modules/mail/infoPackage.inc.php:44
 msgid "Mail aliases"
 msgstr "Alias de messagerie"
 
@@ -456,15 +473,6 @@ msgstr "Quota de messagerie de l'utilisateur"
 #: modules/mail/infoPackage.inc.php:48
 msgid "Mail group alias access"
 msgstr "Accès aux alias de messagerie pour groupes"
-
-#: modules/mail/infoPackage.inc.php:57 modules/mail/infoPackage.inc.php:61
-#: modules/mail/mainSidebar.php:30
-msgid "Mail domains"
-msgstr "Domaines de messagerie"
-
-#: modules/mail/infoPackage.inc.php:64 modules/mail/mainSidebar.php:35
-msgid "Add a domain"
-msgstr "Ajouter un domaine"
 
 #: modules/mail/infoPackage.inc.php:67
 msgid "Edit a domain"
@@ -477,10 +485,6 @@ msgstr "Voir les membres"
 #: modules/mail/infoPackage.inc.php:75
 msgid "Delete a mail domain"
 msgstr "Supprimer un domaine"
-
-#: modules/mail/infoPackage.inc.php:114 modules/mail/mainSidebar.php:41
-msgid "Virtual aliases"
-msgstr "Alias virtuels"
 
 #: modules/mail/infoPackage.inc.php:120
 msgid "Edit a virtual alias"
