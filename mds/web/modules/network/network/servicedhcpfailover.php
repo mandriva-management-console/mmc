@@ -2,7 +2,7 @@
 
 <?php
 
-include("includes/FormHandler.php");
+require_once("includes/FormHandler.php");
 
 global $result;
 global $error;
