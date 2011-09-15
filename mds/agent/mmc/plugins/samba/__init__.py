@@ -1283,10 +1283,7 @@ class smbConf:
             if os.path.exists(SambaConfig("samba").av_so):
                 self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
         else:
-            try:
-                self.delShare('homes',0)
-            except:
-                pass
+            del self.contentArr["homes"]
 
         # disable global profiles
         if not options['hasprofiles']:
