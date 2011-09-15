@@ -136,7 +136,7 @@ $f->add(
 /* LDAP Users */
 $users = get_users();
 $usersTpl = new MembersTpl("users");
-$usersTpl->setTitle(_("Alias users"), _("All users"));
+$usersTpl->setTitle(_T("Alias users", "mail"), _T("All users", "mail"));
 // get the alias users
 if ($FH->getPostValue("users"))
     $alias_users = $FH->getPostValue("users");

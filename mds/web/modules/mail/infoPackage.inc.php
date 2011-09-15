@@ -54,7 +54,7 @@ if (hasVDomainSupport()) {
     $showAliasesModule = False;
 
     $submod = new SubModule("domains");
-    $submod->setDescription(_T("Mail domains", "mail"));
+    $submod->setDescription(_T("Mail", "mail"));
     $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/domains/index");
 
@@ -106,7 +106,7 @@ if (hasVDomainSupport()) {
 if (hasVAliasesSupport()) {
 
     $submod = new SubModule("aliases");
-    $submod->setDescription(_T("Mail aliases", "mail"));
+    $submod->setDescription(_T("Mail", "mail"));
     $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/aliases/index");
     $submod->setVisibility($showAliasesModule);
