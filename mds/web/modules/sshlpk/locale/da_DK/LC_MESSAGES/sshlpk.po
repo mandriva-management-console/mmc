@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-01-30 08:18+0100\n"
-"PO-Revision-Date: 2011-07-26 10:14+0000\n"
+"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"PO-Revision-Date: 2011-09-15 12:52+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,20 +17,24 @@ msgstr ""
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: modules/sshlpk/includes/publicFunc.php:39
-msgid "Public SSH keys management plugin"
+#: modules/sshlpk/includes/publicFunc.php:42
+msgid "Public SSH keys management"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:43
+#: modules/sshlpk/includes/publicFunc.php:47
 msgid "Enable SSH keys management"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:66
+#: modules/sshlpk/includes/publicFunc.php:69
 msgid "Public SSH Key"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:93
-msgid "Some SSH public keys are duplicate"
+#: modules/sshlpk/includes/publicFunc.php:109
+msgid "SSH public keys updated."
+msgstr ""
+
+#: modules/sshlpk/includes/publicFunc.php:115
+msgid "SSH public keys attributes deleted."
 msgstr ""
 
 #: modules/sshlpk/infoPackage.inc.php:34
