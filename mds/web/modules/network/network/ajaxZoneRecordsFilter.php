@@ -66,18 +66,8 @@ if ($reverse){
 
 
 $records = getZoneRecords($curzone, "");
-$serial = "";
-foreach($records as $r){
-    $type = $r["type"];
-    $value = $r["value"];
-    if ($type == "SOA"){
-	$params = split(" ", $value);
-	if (count($params) > 2)
-	    $serial = $params[2];
-	break;
-    }
-}
-
+$soa = getSOARecord($curzone);
+$serial = $soa["serial"];
 
 if ($filter){
     $tmprecords = array();
