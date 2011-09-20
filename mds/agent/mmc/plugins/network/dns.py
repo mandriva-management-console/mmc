@@ -265,7 +265,7 @@ zone "%(zone)s" {
             entry = {
                 "associateddomain" : hostname + "." + zoneName,
                 "objectClass" : ["top", "domainrelatedobject", "dnsdomain2"],
-                "dc" : zoneName,
+                "dc" : hostname,
                 key : value,
             }
         else:
@@ -649,7 +649,6 @@ zone "%(zone)s" {
         Set a zone description using the txTRecord attribute
         """
         zone = self.getZone(zoneName)
-        print zone
         if zone:
             zoneDN = zone[0][0]
             if description:
