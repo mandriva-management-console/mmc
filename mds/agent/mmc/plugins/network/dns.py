@@ -245,10 +245,12 @@ zone "%(zone)s" {
         """
         data = self.getZoneData(zoneName, "")
         key = type.capitalize().swapcase() + "Record"
+        fqdn = hostname + "." + zoneName
 
         # check if entry exists in zone
         for entry in data:
-            if entry[1][self.relativeDomainNameField][0] == hostname:
+            if entry[1][self.relativeDomainNameField][0] == hostname or \
+               entry[1][self.relativeDomainNameField][0] == fqdn:
                 return self.addRecordToEntry(zoneName, entry, key, value)
 
         # if entry doesn't exists
