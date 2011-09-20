@@ -622,6 +622,8 @@ zone "%(zone)s" {
         soaDN, soaData = self.getZoneSOA(zoneName);
         if soaDN:
             if self.pdns:
+                soaRecord = self.getSOARecord(zoneName)
+                nameservers.append(soaRecord["nameserver"])
                 self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "nSRecord", nameservers)])
             else:
                 soaNameServer = soaData["sOARecord"][0].split()[0]
