@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-09-14 08:48+0000\n"
+"PO-Revision-Date: 2011-09-20 12:52+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -577,7 +577,7 @@ msgstr "Éditer la zone"
 
 #: modules/network/network/ajaxZoneFilter.php:48
 msgid "Add host"
-msgstr "Ajouter un hôe"
+msgstr "Ajouter un hôte"
 
 #: modules/network/network/ajaxZoneMembersFilter.php:45
 msgid "Delete host (A record)"
@@ -652,8 +652,8 @@ msgstr "Les enregistrements CNAME associés seront aussi supprimés."
 #: modules/network/network/editrecord.php:50
 msgid "Zone data was updated. Selected record may be incorrect."
 msgstr ""
-"Les données de la zone ont été mises à jour. L'enregistrement lectectionné "
-"peut être invalide."
+"Les données de la zone ont été mises à jour. L'enregistrement sélectionné "
+"est peut être invalide."
 
 #: modules/network/network/deleterecord.php:58
 #, php-format
@@ -1254,7 +1254,7 @@ msgstr "invalide"
 #: modules/network/network/dnsrecords/mx.php:31
 #: modules/network/network/dnsrecords/mx.php:53
 msgid "Mail server"
-msgstr "Serveur de courier"
+msgstr "Serveur de courrier"
 
 #: modules/network/network/dnsrecords/naptr.php:54
 #: modules/network/network/dnsrecords/naptr.php:95
@@ -1384,7 +1384,7 @@ msgstr "Nom de zone"
 #: modules/network/network/dnsrecords/soa.php:65
 #: modules/network/network/dnsrecords/soa.php:103
 msgid "Responsible person e-mail"
-msgstr "Email de la personne responsable"
+msgstr "Email du responsable"
 
 #: modules/network/network/dnsrecords/soa.php:70
 #: modules/network/network/dnsrecords/soa.php:104
