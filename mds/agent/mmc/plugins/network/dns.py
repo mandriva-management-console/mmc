@@ -125,7 +125,7 @@ zone "%(zone)s" {
             soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dnsdomain2)(associatedDomain=%s)(soarecord=*))" % zoneName, None)
         else:
             soa = self.l.search_s(self.configDns.dnsDN, ldap.SCOPE_SUBTREE, "(&(objectClass=dNSZone)(zoneName=%s)(relativeDomainName=@))" % zoneName, None)
-        if soa[0][0]:
+        if soa:
             return (soa[0][0], soa[0][1])
         else:
             return (False, False)
@@ -203,8 +203,6 @@ zone "%(zone)s" {
     def getRecordMetadataById(self, zoneData, id):
         """
         Return metadata of a record with specific Id
-
-
         """
         result = {}
         targetId = int(id)
@@ -231,10 +229,12 @@ zone "%(zone)s" {
         """
         data = self.getZoneData(zoneName, "")
         key = type.capitalize().swapcase() + "Record"
+        fqdn = hostname + "." + zoneName
 
         # check if entry exists in zone
         for entry in data:
-            if entry[1][self.relativeDomainNameField][0] == hostname and key in entry[1]:
+            if key in entry[1] and (entry[1][self.relativeDomainNameField][0] == hostname or
+                entry[1][self.relativeDomainNameField][0] == fqdn):
                 return True
 
         return False
@@ -571,9 +571,13 @@ zone "%(zone)s" {
 
     def setSOARecord(self, zoneName, record):
         s = "%(nameserver)s %(emailaddr)s %(serial)s %(refresh)s %(retry)s %(expiry)s %(minimum)s" % record
-        soaDN, soaData = self.getZoneSOA(zoneName);
-        if soaDN:
-            self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "sOARecord", [s])])
+        if self.pdns:
+            zoneDN = "dc=" + zoneName + "," + self.configDns.dnsDN
+            self.l.modify_s(zoneDN, [(ldap.MOD_REPLACE, "soarecord", [s])])
+        else:
+            soaDN, soaData = self.getZoneSOA(zoneName);
+            if soaDN:
+                self.l.modify_s(soaDN, [(ldap.MOD_REPLACE, "sOARecord", [s])])
 
     def setSOANSRecord(self, zoneName, nameserver):
         """
