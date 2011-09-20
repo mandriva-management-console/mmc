@@ -463,14 +463,15 @@ class NetworkConfig(PluginConfig):
         self.dnsPidFile = self.get("dns", "pidfile")
         self.dnsInit = self.get("dns", "init")
         self.dnsLogFile = self.get("dns", "logfile")
-        self.bindRootPath = self.get("dns", "bindroot")
-        self.bindGroup = self.get("dns", "bindgroup")
-        self.bindLdap = os.path.join(self.bindRootPath, "named.conf.ldap")
-        self.bindLdapDir = os.path.join(self.bindRootPath, "named.ldap")
-        try:
-            self.bindLdapChrootConfPath = os.path.join(self.get("dns", "bindchrootconfpath"), "named.ldap")
-        except NoOptionError:
-            self.bindLdapChrootConfPath = self.bindLdapDir
+        if self.dnsType == "bind":
+            self.bindRootPath = self.get("dns", "bindroot")
+            self.bindGroup = self.get("dns", "bindgroup")
+            self.bindLdap = os.path.join(self.bindRootPath, "named.conf.ldap")
+            self.bindLdapDir = os.path.join(self.bindRootPath, "named.ldap")
+            try:
+                self.bindLdapChrootConfPath = os.path.join(self.get("dns", "bindchrootconfpath"), "named.ldap")
+            except NoOptionError:
+                self.bindLdapChrootConfPath = self.bindLdapDir
         try:
             self.dnsReader = self.getdn("dns", "dnsreader")
         except NoOptionError:
