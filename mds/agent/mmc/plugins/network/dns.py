@@ -297,6 +297,7 @@ zone "%(zone)s" {
         try:
             values = entryData[key]
             if not value in values: values.append(value)
+            else: return False
         except KeyError:
             values = value
         self.l.modify_s(entryDN, [(ldap.MOD_REPLACE, key, values)])
