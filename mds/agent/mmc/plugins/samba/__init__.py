@@ -39,7 +39,6 @@ from mmc.plugins.base import ldapUserGroupControl, BasePluginConfig
 from time import mktime, strptime, time, strftime
 import xmlrpclib
 import smbpasswd
-from time import time
 
 # Try to import module posix1e
 try:
