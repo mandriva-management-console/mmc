@@ -504,7 +504,7 @@ class Dhcp(ldapUserGroupControl):
             id = id + 1
         # If on failover mode, set the failover configuration
         # on all pools
-        if self.getFailoverConfig():
+        if 'secondaryIp' in self.getFailoverConfig():
             self.setPoolFailover()
 
     def addPool(self, subnet, poolname, start, end):
