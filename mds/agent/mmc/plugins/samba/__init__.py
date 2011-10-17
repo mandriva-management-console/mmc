@@ -1281,7 +1281,7 @@ class smbConf:
             # Set the vscan-av plugin if available
             if os.path.exists(SambaConfig("samba").av_so):
                 self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
-        else:
+        elif 'homes' in self.contentArr:
             del self.contentArr["homes"]
 
         # disable global profiles
