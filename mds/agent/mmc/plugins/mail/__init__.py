@@ -245,7 +245,7 @@ class MailConfig(PluginConfig):
         if self.vDomainSupport:
             self.vDomainDN = self.get("main", "vDomainDN")
         try: self.vAliasesSupport = self.getboolean("main", "vAliasesSupport")
-        except: self.vAliasesSupport = False
+        except: pass
         if self.vAliasesSupport:
             self.vAliasesDN = self.get("main", "vAliasesDN")
         try:
@@ -270,6 +270,7 @@ class MailConfig(PluginConfig):
     def setDefault(self):
         PluginConfig.setDefault(self)
         self.vDomainSupport = False
+        self.vAliasesSupport = False
         self.userDefault = {}
         self.zarafa = False
 
@@ -419,7 +420,10 @@ class MailControl(ldapUserGroupControl):
         filt = filt.strip()
         if not filt: filt = "*"
         else: filt = "*" + filt + "*"
-        return self.l.search_s(self.conf.vAliasesDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailAlias)(mailalias=%s))" % filt)
+        if self.conf.vAliasesSupport:
+            return self.l.search_s(self.conf.vAliasesDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailAlias)(mailalias=%s))" % filt)
+        else:
+            return ()
 
     def addVAlias(self, alias):
         """
