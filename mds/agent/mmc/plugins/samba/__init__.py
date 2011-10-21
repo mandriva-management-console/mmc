@@ -540,7 +540,11 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             # Update this SAMBA LDAP attribute
             new[key] = options[key]
         modlist = ldap.modlist.modifyModlist(old, new)
-        self.l.modify_s(dn, modlist)
+        try:
+            self.l.modify_s(dn, modlist)
+        except ldap.ldap.UNDEFINED_TYPE:
+            # don't fail if attributes don't exist
+            pass
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
