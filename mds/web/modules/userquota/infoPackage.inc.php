@@ -27,7 +27,7 @@
  * module declaration
  */
 $mod = new Module("userquota");
-$mod->setVersion("2.4.2");
+$mod->setVersion("2.4.2.1");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Manage user quotas for filesystems and networks", "userquota"));
 $mod->setAPIVersion('0:0:0');

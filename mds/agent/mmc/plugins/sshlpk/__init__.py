@@ -37,7 +37,7 @@ from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.config import PluginConfig
 
-VERSION = "2.4.2"
+VERSION = "2.4.2.1"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 
