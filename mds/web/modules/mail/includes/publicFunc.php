@@ -386,7 +386,7 @@ function _mail_changeUser($FH, $mode) {
                 $result .= _T("Mail delivery enabled.", "mail")."<br />";
             }
         }
-        else if ($mode == "add") {
+        else {
             changeMailEnable($uid, True);
         }
 
