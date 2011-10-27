@@ -1,3 +1,28 @@
+mds 2.4.2.1
+-----------
+
+ * bugfix release : http://mds.mandriva.org/milestone/MDS%202.4.2.1
+
+mds 2.4.2
+---------
+
+ * New extention for managing mail aliases
+ * New extention for managing all types of DNS records (thanks to Maxim Nikitin)
+ * Configuration of DHCP failover in the MMC interface
+ * Creation of multiple DHCP pools in DHCP subnets (thanks to Elena Kabanova)
+ * Ability to create multiple password policies and assign them to users
+ * New language field in the user edit page
+
+mds 2.4.1
+---------
+
+ * Zarafa support in the mail module
+ * ACL improvements on SAMBA shares
+ * Custom parameters on SAMBA shares
+ * SAMBA computer accounts can be disabled
+ * More control on SAMBA accounts (must change password option, password expiration option)
+ * The network module supports the local-pac-server DHCP option (automatic proxy configuration URL)
+
 mds 2.4.0 (MMC agent)
 ---------------------
 
