@@ -683,7 +683,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                 except KeyError:
                     displayName = ""
                 active = True
-                if "D" in entry[1]['sambaAcctFlags'][0]:
+                if 'sambaAcctFlags' in entry[1] and "D" in entry[1]['sambaAcctFlags'][0]:
                     active = False
                 localArr.append(uid[0:-1])
                 localArr.append(displayName)
