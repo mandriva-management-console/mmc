@@ -542,7 +542,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         modlist = ldap.modlist.modifyModlist(old, new)
         try:
             self.l.modify_s(dn, modlist)
-        except ldap.ldap.UNDEFINED_TYPE:
+        except ldap.UNDEFINED_TYPE:
             # don't fail if attributes don't exist
             pass
 
