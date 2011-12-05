@@ -1,105 +1,101 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-## Translators:
+#
+# # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-05 14:49+0100\n"
 "PO-Revision-Date: 2011-06-17 10:27+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
-"Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
+"Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/"
+"mds/team/de_DE/)\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: modules/bulkimport/import/index.php:34
-msgid "CSV import result"
-msgstr "CSV Import Resultat"
-
-#: modules/bulkimport/import/index.php:46
-msgid "CSV data to import"
-msgstr "CSV Informationen zu importieren"
+#: modules/bulkimport/includes/importUsers.php:306
+msgid "Attribute(s) modified"
+msgstr "Attribute bearbeitet"
 
 #: modules/bulkimport/import/index.php:55
 msgid "Bulk account modification from CSV file"
 msgstr "Massen Benutzer Veränderung über CSV Datei"
 
-#: modules/bulkimport/import/index.php:104
-msgid "CSV import results"
-msgstr "CSV Import Resultate"
+#: modules/bulkimport/infoPackage.inc.php:38
+msgid "Bulk import (CSV)"
+msgstr "Massen Import (CSV)"
 
-#: modules/bulkimport/import/index.php:138
-msgid ""
-"Warning: This is a big list so could take a long time. You may need to "
-"increase the timeout settings on your web server and browser"
-msgstr ""
-"Warnung: Dies ist eine große Liste. Es könnte sehr lange dauern. "
-"Möglicherweise müssen Sie die Timeout-Einstellungen Ihres Webserver und "
-"Browser erhöhen"
+#: modules/bulkimport/infoPackage.inc.php:29
+msgid "Bulk user manager via CSV files"
+msgstr "Massen Benutzer Verwaltung (CSV Datei)"
 
 #: modules/bulkimport/import/index.php:140
 msgid "CSV Import"
 msgstr "CSV Import"
 
-#: modules/bulkimport/import/index.php:146
-#: modules/bulkimport/import/index.php:148
-msgid "Import"
-msgstr "Import"
+#: modules/bulkimport/import/index.php:46
+msgid "CSV data to import"
+msgstr "CSV Informationen zu importieren"
 
-#: modules/bulkimport/import/index.php:154
-#: modules/bulkimport/import/index.php:156
-msgid "Modify"
-msgstr "Ändern"
+#: modules/bulkimport/import/index.php:199
+msgid "CSV file : "
+msgstr "CSV Datei :"
+
+#: modules/bulkimport/import/index.php:34
+msgid "CSV import result"
+msgstr "CSV Import Resultat"
+
+#: modules/bulkimport/import/index.php:104
+msgid "CSV import results"
+msgstr "CSV Import Resultate"
+
+#: modules/bulkimport/import/index.php:166
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: modules/bulkimport/includes/importUsers.php:231
+msgid "Deletable"
+msgstr "Löschbar"
+
+#: modules/bulkimport/includes/importUsers.php:228
+msgid "Deletable or Modifiable"
+msgstr "Löschbar oder veränderbar"
 
 #: modules/bulkimport/import/index.php:162
 #: modules/bulkimport/import/index.php:164
 msgid "Delete"
 msgstr "Entfernen"
 
-#: modules/bulkimport/import/index.php:166
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: modules/bulkimport/import/index.php:199
-msgid "CSV file : "
-msgstr "CSV Datei :"
-
-#: modules/bulkimport/import/index.php:204
-msgid "Load CSV"
-msgstr "Lade CSV"
-
-#: modules/bulkimport/includes/importUsers.php:218
-msgid "Unvalidated"
-msgstr "nicht überprüft"
-
-#: modules/bulkimport/includes/importUsers.php:221
-msgid "Invalid"
-msgstr "Ungültig"
+#: modules/bulkimport/import/index.php:146
+#: modules/bulkimport/import/index.php:148
+msgid "Import"
+msgstr "Import"
 
 #: modules/bulkimport/includes/importUsers.php:225
 msgid "Importable"
 msgstr "Importierbare"
 
-#: modules/bulkimport/includes/importUsers.php:228
-msgid "Deletable or Modifiable"
-msgstr "Löschbar oder veränderbar"
+#: modules/bulkimport/includes/importUsers.php:221
+msgid "Invalid"
+msgstr "Ungültig"
 
-#: modules/bulkimport/includes/importUsers.php:231
-msgid "Deletable"
-msgstr "Löschbar"
+#: modules/bulkimport/import/index.php:204
+msgid "Load CSV"
+msgstr "Lade CSV"
 
 #: modules/bulkimport/includes/importUsers.php:234
 msgid "Modifiable"
 msgstr "Modifizierbar"
 
-#: modules/bulkimport/includes/importUsers.php:237
-msgid "Unable to validate"
-msgstr "Überprüfung nicht möglich"
+#: modules/bulkimport/import/index.php:154
+#: modules/bulkimport/import/index.php:156
+msgid "Modify"
+msgstr "Ändern"
 
 #: modules/bulkimport/includes/importUsers.php:285
 msgid "Password not updated"
@@ -109,16 +105,19 @@ msgstr "Passwort nicht aktualisiert"
 msgid "Password updated."
 msgstr "Passwort aktualisiert"
 
-#: modules/bulkimport/includes/importUsers.php:306
-msgid "Attribute(s) modified"
-msgstr "Attribute bearbeitet"
+#: modules/bulkimport/includes/importUsers.php:237
+msgid "Unable to validate"
+msgstr "Überprüfung nicht möglich"
 
-#: modules/bulkimport/infoPackage.inc.php:29
-msgid "Bulk user manager via CSV files"
-msgstr "Massen Benutzer Verwaltung (CSV Datei)"
+#: modules/bulkimport/includes/importUsers.php:218
+msgid "Unvalidated"
+msgstr "nicht überprüft"
 
-#: modules/bulkimport/infoPackage.inc.php:38
-msgid "Bulk import (CSV)"
-msgstr "Massen Import (CSV)"
-
-
+#: modules/bulkimport/import/index.php:138
+msgid ""
+"Warning: This is a big list so could take a long time. You may need to "
+"increase the timeout settings on your web server and browser"
+msgstr ""
+"Warnung: Dies ist eine große Liste. Es könnte sehr lange dauern. "
+"Möglicherweise müssen Sie die Timeout-Einstellungen Ihres Webserver und "
+"Browser erhöhen"
