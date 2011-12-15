@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
 "POT-Creation-Date: 2011-09-15 15:15+0200\n"
-"PO-Revision-Date: 2011-09-15 13:15+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"PO-Revision-Date: 2011-11-17 14:04+0000\n"
+"Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,32 +22,32 @@ msgstr ""
 #: modules/mail/aliases/ajaxAliasesFilter.php:42
 #: modules/mail/aliases/ajaxAliasesFilter.php:48
 msgid "Virtual alias"
-msgstr ""
+msgstr "Virtualles Alias"
 
 #: modules/mail/aliases/ajaxAliasesFilter.php:45
 #: modules/mail/aliases/edit.php:132
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 #: modules/mail/aliases/ajaxAliasesFilter.php:50
 msgid "Edit alias"
-msgstr ""
+msgstr "Alias editieren"
 
 #: modules/mail/aliases/ajaxAliasesFilter.php:51
 msgid "Delete alias"
-msgstr ""
+msgstr "Alias löschen"
 
 #: modules/mail/aliases/delete.php:29
 msgid "The virtual mail alias has been deleted."
-msgstr ""
+msgstr "Das virtuelle Mailalias wurde gelöscht."
 
 #: modules/mail/aliases/delete.php:40
 msgid "You will delete the virtual mail alias "
-msgstr ""
+msgstr "Sie werden das virtuelle Mail-Alias löschen"
 
 #: modules/mail/aliases/delete.php:44 modules/mail/domains/delete.php:45
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: modules/mail/aliases/delete.php:45 modules/mail/domains/delete.php:46
 msgid "Cancel"
@@ -55,64 +55,64 @@ msgstr "abbrechen"
 
 #: modules/mail/aliases/index.php:31
 msgid "Virtual aliases list"
-msgstr ""
+msgstr "Virtuelle Aliase Liste"
 
 #: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
 #: modules/mail/infoPackage.inc.php:117
 msgid "Add a virtual alias"
-msgstr ""
+msgstr "Ein virtuelles Alias hinzufügen"
 
 #: modules/mail/aliases/edit.php:48
 msgid "Edit virtual alias"
-msgstr ""
+msgstr "Virtuelles Alias editieren"
 
 #: modules/mail/aliases/edit.php:59
 msgid "The virtual alias has been created."
-msgstr ""
+msgstr "Das virtuelle Alias wurde erstellt."
 
 #: modules/mail/aliases/edit.php:62
 msgid "The alias name is required."
-msgstr ""
+msgstr "Der Aliasname wird benötigt."
 
 #: modules/mail/aliases/edit.php:70
 msgid "Virtual alias name updated."
-msgstr ""
+msgstr "Name des virtuellen Alias aktualisiert."
 
 #: modules/mail/aliases/edit.php:86
 msgid "Virtual alias users updated."
-msgstr ""
+msgstr "Nutzer des virtuellen Alias aktualisiert."
 
 #: modules/mail/aliases/edit.php:90
 msgid "Virtual alias external users updated."
-msgstr ""
+msgstr "Externe Nutzer des virtuellen Alias aktualisiert."
 
 #: modules/mail/aliases/edit.php:95
 msgid "Virtual alias enabled."
-msgstr ""
+msgstr "Virtuelles Alias aktiviert."
 
 #: modules/mail/aliases/edit.php:99
 msgid "Virtual alias disabled."
-msgstr ""
+msgstr "Virtuelles Alias deaktiviert."
 
 #: modules/mail/aliases/edit.php:124
 msgid "Alias name"
-msgstr ""
+msgstr "Alias Name"
 
 #: modules/mail/aliases/edit.php:139
 msgid "Alias users"
-msgstr ""
+msgstr "Alias Benutzer"
 
 #: modules/mail/aliases/edit.php:139
 msgid "All users"
-msgstr ""
+msgstr "Alle Benutzer"
 
 #: modules/mail/aliases/edit.php:162
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: modules/mail/aliases/edit.php:169 modules/mail/aliases/edit.php:170
 msgid "External mail addresses"
-msgstr ""
+msgstr "Externe Mailadressen"
 
 #: modules/mail/aliases/edit.php:175 modules/mail/domains/edit.php:127
 msgid "Create"
@@ -204,7 +204,7 @@ msgstr "Setze Benutzer Quota auf Standard"
 
 #: modules/mail/domains/index.php:32
 msgid "Mail domains list"
-msgstr ""
+msgstr "Maildomänen-Liste"
 
 #: modules/mail/domains/members.php:33
 msgid "Members of "
@@ -349,11 +349,11 @@ msgstr "E-Mail Alias"
 #: modules/mail/includes/publicFunc.php:147
 #: modules/mail/includes/publicFunc.php:168
 msgid "Mail properties"
-msgstr ""
+msgstr "Mail Eigenschaften"
 
 #: modules/mail/includes/publicFunc.php:169
 msgid "Mail delivery is disabled"
-msgstr ""
+msgstr "Mail-Lieferung ist deaktiviert"
 
 #: modules/mail/includes/publicFunc.php:180
 #: modules/mail/infoPackage.inc.php:42
@@ -419,6 +419,8 @@ msgid ""
 "You must specify at least one mail drop. Usually it has the same name as the"
 " user."
 msgstr ""
+"Sie müssen mindestens einen Mail-Drop angeben. Normalerweise hat dieses den "
+"selben Namen wie der Benutzer."
 
 #: modules/mail/includes/publicFunc.php:330
 msgid "You must specify a valid mail address to enable mail delivery."
@@ -428,23 +430,23 @@ msgstr ""
 
 #: modules/mail/includes/publicFunc.php:364
 msgid "Mail attributes added."
-msgstr ""
+msgstr "Mail-Attribute hinzugefügt."
 
 #: modules/mail/includes/publicFunc.php:382
 msgid "Mail delivery disabled."
-msgstr ""
+msgstr "Mail-Lieferung deaktiviert."
 
 #: modules/mail/includes/publicFunc.php:386
 msgid "Mail delivery enabled."
-msgstr ""
+msgstr "Maillieferung aktiviert."
 
 #: modules/mail/includes/publicFunc.php:423
 msgid "Mail attributes deleted."
-msgstr ""
+msgstr "Mail-Attribute gelöscht."
 
 #: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:61
 msgid "Mail domains"
-msgstr ""
+msgstr "Maildomänen"
 
 #: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:64
 msgid "Add a domain"
@@ -452,7 +454,7 @@ msgstr "eine Domäne hinzufügen"
 
 #: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:114
 msgid "Virtual aliases"
-msgstr ""
+msgstr "Virtuelle Aliase"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail service"
@@ -484,10 +486,10 @@ msgstr "eine E-Mail Domäne löschen"
 
 #: modules/mail/infoPackage.inc.php:120
 msgid "Edit a virtual alias"
-msgstr ""
+msgstr "Bearbeiten eines virtuellen Alias"
 
 #: modules/mail/infoPackage.inc.php:124
 msgid "Delete a virtual alias"
-msgstr ""
+msgstr "Löschen eines virtuellen Alias"
 
 

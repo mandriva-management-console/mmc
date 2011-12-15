@@ -1,85 +1,83 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-## Translators:
+#
+# # Translators:
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-05 14:49+0100\n"
 "PO-Revision-Date: 2011-08-24 16:11+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: modules/userquota/includes/publicFunc.php:38
-msgid "Quota settings"
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
+msgid "Current quota is larger than the new quota, or does not exist"
+msgstr "A cota atual é maior que a nova cota, ou não existe."
+
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "A cota atual é menor que a nova cota, ou não existe."
+
+#: modules/userquota/includes/publicFunc.php:114
+msgid "Disk quota removed."
 msgstr ""
 
-#: modules/userquota/includes/publicFunc.php:109
+#: modules/userquota/includes/publicFunc.php:110
 #, php-format
 msgid "Disk quota set to %s."
 msgstr ""
 
-#: modules/userquota/includes/publicFunc.php:113
-msgid "Disk quota removed."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:125
-#, php-format
-msgid "Network quota set to %s on %s."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:129
-msgid "Network quota removed."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:144
-msgid "Quota plugin - Filesystem"
-msgstr "Plugin de Cota - Sistema de arquivos"
-
-#: modules/userquota/includes/publicFunc.php:147
-#: modules/userquota/includes/publicFunc.php:160
-msgid "Quota's applied here affect all members of the group"
-msgstr "Cotas aplicadas aqui afetam todos os membros do grupo"
-
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
-msgid "Overwrite all existing quotas"
-msgstr "Sobrescrever todas as cotas existentes"
-
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
-msgid "Current quota is smaller than the new quota, or does not exist"
-msgstr "A cota atual é menor que a nova cota, ou não existe."
-
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
-msgid "Current quota is larger than the new quota, or does not exist"
-msgstr "A cota atual é maior que a nova cota, ou não existe."
-
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Don't overwrite any existing quotas"
 msgstr "Não substitua qualquer cota existente"
-
-#: modules/userquota/includes/publicFunc.php:152
-#: modules/userquota/includes/publicFunc.php:165
-msgid "Overwrite mode for existing quotas"
-msgstr "Modo de substituição para as cotas existentes"
-
-#: modules/userquota/includes/publicFunc.php:157
-msgid "Quota plugin - Network"
-msgstr "Plugin de Cota - Rede"
 
 #: modules/userquota/infoPackage.inc.php:32
 msgid "Manage user quotas for filesystems and networks"
 msgstr "Gerencie cotas para sistemas de arquivos e redes"
 
+#: modules/userquota/includes/publicFunc.php:130
+msgid "Network quota removed."
+msgstr ""
 
+#: modules/userquota/includes/publicFunc.php:126
+#, php-format
+msgid "Network quota set to %s on %s."
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
+msgid "Overwrite all existing quotas"
+msgstr "Sobrescrever todas as cotas existentes"
+
+#: modules/userquota/includes/publicFunc.php:157
+#: modules/userquota/includes/publicFunc.php:170
+msgid "Overwrite mode for existing quotas"
+msgstr "Modo de substituição para as cotas existentes"
+
+#: modules/userquota/includes/publicFunc.php:149
+msgid "Quota plugin - Filesystem"
+msgstr "Plugin de Cota - Sistema de arquivos"
+
+#: modules/userquota/includes/publicFunc.php:162
+msgid "Quota plugin - Network"
+msgstr "Plugin de Cota - Rede"
+
+#: modules/userquota/includes/publicFunc.php:39
+msgid "Quota settings"
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:152
+#: modules/userquota/includes/publicFunc.php:165
+msgid "Quota's applied here affect all members of the group"
+msgstr "Cotas aplicadas aqui afetam todos os membros do grupo"
