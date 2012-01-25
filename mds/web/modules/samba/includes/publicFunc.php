@@ -145,6 +145,9 @@ function _samba_changeUser($FH, $mode) {
                 if($FH->getPostValue("sambaPwdLastSet") == "on") {
                     $FH->setPostValue("sambaPwdLastSet", "0");
                 }
+                else {
+                    $FH->setPostValue("sambaPwdLastSet", "9999999999");
+                }
                 if($FH->getPostValue("sambaPwdCanChange") == "on") {
                     $FH->setPostValue("sambaPwdCanChange", "");
                 }
