@@ -95,7 +95,7 @@ function _userquota_verifInfo($FH, $mode) {
  */
 function _userquota_changeUser($FH, $mode) {
 
-    global $return;
+    global $result;
 
     $uid = $FH->getPostValue("uid");
 
@@ -107,7 +107,7 @@ function _userquota_changeUser($FH, $mode) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
 					setDiskQuota($uid, $device, $quota_value);
-					$result .= sprintf(_T("Disk quota set to %s.", "userquota"), $quota_value) . '<br />';
+                    $result .= sprintf(_T("Disk quota set to %sMo.", "userquota"), $quota_value) . '<br />';
 				}
     			else {
 	    			deleteDiskQuota($uid, $device);
@@ -122,8 +122,8 @@ function _userquota_changeUser($FH, $mode) {
 			if ($FH->isUpdated($quota->getQuotaField())) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
-					setNetworkQuota($uid, $network, $quota_value);
-					$result .= sprintf(_T("Network quota set to %s on %s.", "userquota"), $quota_value, $network) . '<br />';
+				    setNetworkQuota($uid, $network, $quota_value)
+                    $result .= sprintf(_T("Network quota set to %sMo on %s.", "userquota"), $quota_value, $network) . '<br />';
 				}
     			else {
 	    			deleteNetworkQuota($uid, $network);

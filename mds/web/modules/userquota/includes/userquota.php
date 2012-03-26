@@ -73,7 +73,7 @@ class NetworkQuota {
 		return $e;
 	}
 	function getQuotaSize() {
-		return $this->quotasize;
+		return (string)$this->quotasize;
 	}
 	function setCurrentQuotas($quotas) {
 		if (count($quotas) > 0) {
@@ -112,7 +112,7 @@ class DiskQuota {
 	}
 
 	function getQuotaSize() {
-		return $this->quotasize;
+		return (string)$this->quotasize;
 	}
 	function setCurrentQuotas($quotas) {
 		if (count($quotas) > 0) {
