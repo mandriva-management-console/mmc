@@ -8,4 +8,6 @@ Pulse 2
    :maxdepth: 2
    :glob:
 
+   intro
+   install/index
    config/index
