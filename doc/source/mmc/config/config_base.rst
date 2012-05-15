@@ -162,9 +162,16 @@ The hooks system allow you to run external script when doing some
 operations with the MMC.
 
 The script will be run as root user, with as only argument the path
-to a temporary file containing the full LDIF export of the LDAP user. For
-the « adduser » and « changeuserpassword » hooks, the LDIF file will
+to a temporary file containing the full LDIF export of the LDAP user.
+
+For the « adduser » and « changeuserpassword » hooks, the LDIF file will
 contain the userPassword attribute in cleartext.
+
+For the « usertoken » hook the userPassword attribute will contain the
+authentication token for the user. This token is valid for 5 minutes. Using
+this token a link can be send to the user (email, sms...) so that he can login 
+in the MMC interface and change his password trough the "Reset password page".
+The link is in the form: ``http://SERVER/mmc/token.php?token=<TOKEN>``.
 
 The executable bit must be set on the script to run. The temporary
 LDIF file is removed once the script has been executed.
@@ -177,6 +184,7 @@ Option name        Description                                                  
 adduser            path to the script launched when a user has been added into the LDAP directory         yes
 changeuserpassword path to the script launched when a user has been changed into the LDAP directory       yes
 deluser            path to the script launched when a user is going to be removed from the LDAP directory yes
+usertoken          path to the script launched when an authentication token has been created for a user   yes
 ================== ====================================================================================== ========
 
 Here is a hook example written in BASH for « adduser »:
