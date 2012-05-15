@@ -122,7 +122,7 @@ function _userquota_changeUser($FH, $mode) {
 			if ($FH->isUpdated($quota->getQuotaField())) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
-				    setNetworkQuota($uid, $network, $quota_value)
+				    setNetworkQuota($uid, $network, $quota_value);
                     $result .= sprintf(_T("Network quota set to %sMo on %s.", "userquota"), $quota_value, $network) . '<br />';
 				}
     			else {
