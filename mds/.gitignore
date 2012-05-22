@@ -1,6 +1,7 @@
 *~
 *.0
 *.mo
+*.pot
 Makefile.in
 Makefile
 aclocal.m4
