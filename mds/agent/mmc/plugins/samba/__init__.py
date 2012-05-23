@@ -39,12 +39,14 @@ from mmc.plugins.base import ldapUserGroupControl, BasePluginConfig
 from time import mktime, strptime, time, strftime
 import xmlrpclib
 import smbpasswd
+from configobj import ConfigObj, ParseError
+
+logger = logging.getLogger()
 
 # Try to import module posix1e
 try:
     import posix1e
 except ImportError:
-    logger = logging.getLogger()
     logger.error("\nPython module pylibacl not found...\nPlease install :\n  * python-pylibacl on Debian/Ubuntu\n  * python-libacl on CentOS 4.3\n  * pylibacl on Mandriva 2006\n")
     raise
 
@@ -77,7 +79,6 @@ def activate():
      @rtype: boolean
     """
     config = SambaConfig("samba")
-    logger = logging.getLogger()
 
     if config.disabled:
         logger.info("samba plugin disabled by configuration.")
@@ -98,6 +99,18 @@ def activate():
         if not os.path.exists(cpath):
             logger.error("The authorized share path '%s' does not exist" % cpath)
             return False
+
+    # Verify if samba conf file exist
+    conf = config.samba_conf_file
+    if not os.path.exists(conf):
+        logger.error(conf + " does not exist")
+        return False
+
+    # validate smb.conf
+    smbconf = smbConf()
+    if not smbconf.validate(conf):
+        logger.error("SAMBA configuration file is not valid")
+        return False
 
     # For each share, test if it sharePath exists
     for share in getDetailedShares():
@@ -130,17 +143,7 @@ def activate():
         logger.error(init + " does not exist")
         return False
 
-    # Verify if samba conf file exist
-    conf = config.samba_conf_file
-    if not os.path.exists(conf):
-        logger.error(conf + " does not exist")
-        return False
-
     # If SAMBA is defined as a PDC, make extra checks
-    smbconf = smbConf()
-    if not smbconf.validate(conf):
-        logger.error("SAMBA configuration file is not valid")
-        return False
     if smbconf.isPdc():
         samba = sambaLdapControl()
         # Create SAMBA computers account OU if it doesn't exist
@@ -1079,71 +1082,16 @@ class smbConf:
         self.authorizedSharePaths = config.authorizedSharePaths
         self.conffilebase = conffilebase
         self.smbConfFile = smbconffile
-        # Parse SAMBA configuration files
-        smbConfVerbose = self.getVerboseTestparmOutput()
-        self.contentArrVerbose = self._parseSmbConfFile(smbConfVerbose)
-        smbConf = self.getTestparmOutput()
-        self.contentArr = self._parseSmbConfFile(smbConf)
-
-    def _parseSmbConfFile(self, confString):
-        """
-        Parse SAMBA configuration file content
-        """
-        contentArr = {}
-        section = None
-        for line in confString.split("\n"):
-            line = line.strip()
-            s = re.search("^\[(.+?)\].*$", line)
-            if s:
-                # Get section
-                section = s.group(1)
-                contentArr[section] = {}
-            else:
-                # Get statement
-                stmt = re.search("^(.+?)=(.*)$", line)
-                if stmt:
-                    option = stmt.group(1).strip()
-                    value = stmt.group(2).strip()
-                    contentArr[section][option] = value
-        return contentArr
-
-    def outputSmbConfFile(self):
-        """
-        Output as a string smb.conf file content
-        """
-        if self.getContent("global","unix charset") == "UTF-8":
-            encode_method = "utf8"
-        else:
-            encode_method = "iso-8859-1"
-
-        out = ""
-        # Begin by the [global] section
-        k = "global"
-        out = out + '[' + k + ']\n'
-        for (k2,v2) in self.contentArr[k].items():
-            encodeS='\t'+k2+' = '+v2+'\n'
-            if isinstance(encodeS,str) :
-                encodeS = unicode(encodeS,'utf8',"replace")
-            encodeS = encodeS.encode(encode_method,'replace')
-            out = out + encodeS
-        out = out + "\n"
-
-        # Do the rest
-        del self.contentArr[k]
-        for (k,v) in self.contentArr.items():
-            out = out + '[' + k + ']\n'
-            for (k2,v2) in v.items():
-                encodeS='\t'+k2+' = '+v2+'\n'
-                if isinstance(encodeS,str) :
-                    encodeS = unicode(encodeS,"utf8","replace")
-                encodeS = encodeS.encode(encode_method,'replace')
-                out = out + encodeS
-            out = out + "\n"
-        return out
+        # Parse SAMBA configuration file
+        try:
+            self.config = ConfigObj(self.smbConfFile, interpolation=False, list_values=False)
+        except ParseError, e:
+            logger.error("Failed to parse %s : %s " % (self.smbConfFile, e))
 
     def validate(self, conffile = "/etc/samba/smb.conf"):
         """
         Validate SAMBA configuration file with testparm.
+        Try also to parse the configuration with configObj
 
         @return: Return True if smb.conf has been validated, else return False
         """
@@ -1152,26 +1100,15 @@ class smbConf:
             ret = False
         elif "Unknown" in cmd.err or "ERROR:" in cmd.err or "Ignoring badly formed line" in cmd.err:
             ret = False
-        else: ret = True
+        else:
+            ret = True
+
+        try:
+            ConfigObj(conffile, interpolation=False, list_values=False)
+        except ParseError:
+            ret = False
+
         return ret
-
-    def getVerboseTestparmOutput(self, conffile = "/etc/samba/smb.conf"):
-        """
-        Get verbose SAMBA configuration file with testparm.
-
-        @return: Return the smb.conf file formatted by testparm in verbose mode
-        """
-        cmd = mmctools.shLaunch("/usr/bin/testparm -v -s %s" % conffile)
-        return cmd.out
-
-    def getTestparmOutput(self, conffile = "/etc/samba/smb.conf"):
-        """
-        Get SAMBA configuration file with testparm.
-
-        @return: Return the smb.conf file formatted by testparm
-        """
-        cmd = mmctools.shLaunch("/usr/bin/testparm -s %s" % conffile)
-        return cmd.out
 
     def isValueTrue(self, string):
         """
@@ -1198,13 +1135,6 @@ class smbConf:
         string = string.lower()
         return string == "auto"
 
-    def getBooleanValue(self, section, option):
-        """
-        Return the boolean value of an option in a section.
-
-        """
-        pass
-
     def mapOptionValue(self, value):
         """
         Translate option value to SAMBA value
@@ -1225,7 +1155,7 @@ class smbConf:
         resArray['master'] = self.isValueTrue(self.getContent('global','domain master'))
         if resArray['master'] == -1:
             resArray["master"] = self.isValueAuto(self.getContent('global','domain master'))
-        resArray['hashomes'] = self.contentArr.has_key('homes')
+        resArray['hashomes'] = self.config.has_key('homes')
         resArray['pdc'] = (resArray['logons']) and (resArray['master'])
         for option in self.supportedGlobalOptions:
             resArray[option] = self.getContent("global", option)
@@ -1242,27 +1172,25 @@ class smbConf:
         else:
             return False
 
-    def getContent(self, section, content):
-        """get information from self.contentArr[section][content]"""
+    def getContent(self, section, option):
         try:
-            return self.contentArrVerbose[section][content]
+            return self.config[section][option]
         except KeyError:
             return False
 
-    def setContent(self, section, content, value):
-        """set a content in self.contentArr[section][content]=value"""
+    def setContent(self, section, option, value):
         try:
-            self.contentArr[section][content]=value;
+            self.config[section][option] = value;
         except KeyError:
-            self.contentArr[section] = {}
-            self.setContent(section,content,value)
+            self.config[section] = {}
+            self.setContent(section, option, value)
 
     def remove(self, section, option):
         """
         Remove an option from a section.
         """
         try:
-            del self.contentArr[section][option]
+            del self.config[section][option]
         except KeyError:
             pass
 
@@ -1311,8 +1239,8 @@ class smbConf:
             # Set the vscan-av plugin if available
             if os.path.exists(SambaConfig("samba").av_so):
                 self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
-        elif 'homes' in self.contentArr:
-            del self.contentArr["homes"]
+        elif 'homes' in self.config:
+            del self.config["homes"]
 
         # disable global profiles
         if not options['hasprofiles']:
@@ -1326,7 +1254,7 @@ class smbConf:
         """return detailed list of shares"""
         resList = []
         #foreach element in smb.conf
-        # so for each element in self.contentArr
+        # so for each element in self.config
         for section in self.getSectionList():
             if not section in ["global", "printers", "print$"]:
                 localArr = []
@@ -1340,20 +1268,21 @@ class smbConf:
         return resList
 
     def getSectionList(self):
-        returnArr = list()
-        for (k,v) in self.contentArr.items():
-            returnArr.append(k)
-        return returnArr
+        section_list = []
+        for k, v in self.config.items():
+            section_list.append(k)
+        return section_list
 
     def save(self):
         """
         Write SAMBA configuration file (smb.conf) to disk
         """
+
         handle, tmpfname = tempfile.mkstemp("mmc")
-        f = os.fdopen(handle, "w")
-        f.write(self.outputSmbConfFile())
-        f.close()
-        if not self.validate(tmpfname): raise Exception("smb.conf file is not valid")
+        self.config.filename = tmpfname
+        self.config.write()
+        if not self.validate(tmpfname):
+            raise Exception("smb.conf file is not valid")
         shutil.copy(tmpfname, self.smbConfFile)
         os.remove(tmpfname)
 
@@ -1370,13 +1299,12 @@ class smbConf:
         path = self.getContent(name, 'path')
         if not path:
             raise Exception('Share "'+ name+'" does not exist')
-        del self.contentArr[name]
+        del self.config[name]
 
         if remove:
             if os.path.exists(path):
                 shutil.rmtree(path)
             else:
-                logger = logging.getLogger()
                 logger.error('The "%s" share path does not exist.' % path)
         r.commit()
 
@@ -1423,7 +1351,7 @@ class smbConf:
         """
 
         returnArr = []
-        for key, value in self.contentArrVerbose[name].iteritems():
+        for key, value in self.config[name].iteritems():
             if key not in self.supportedOptions:
                 returnArr.append(key + " = " + value)
 
@@ -1437,14 +1365,14 @@ class smbConf:
 
         if mod:
             action = AA.SAMBA_MOD_SHARE
-            oldPath = self.contentArr[name]['path']
+            oldPath = self.config[name]['path']
         else:
             action = AA.SAMBA_ADD_SHARE
         r = AF().log(PLUGIN_NAME, action, [(name, AT.SHARE)], path)
 
-        if self.contentArr.has_key(name) and not mod:
+        if name in self.config and not mod:
             raise Exception('This share already exist')
-        if not self.contentArr.has_key(name) and mod:
+        if not name in self.config and mod:
             raise Exception('This share does not exist')
 
         # If no path is given, create a default one
@@ -1474,7 +1402,7 @@ class smbConf:
 
         if mod:
             # Delete the old share
-        	del self.contentArr[name]
+        	del self.config[name]
 
         # create table and fix permission
         tmpInsert = {}
@@ -1542,7 +1470,6 @@ class smbConf:
             if acl1.valid():
                 acl1.applyto(path)
             else:
-                logger = logging.getLogger()
                 logger.error("Cannot save ACL on folder " + path)
 
         tmpInsert['writeable'] = 'yes'
@@ -1556,9 +1483,11 @@ class smbConf:
         if admingroups:
             tmpInsert["admin users"] = ""
             for group in admingroups:
-                tmpInsert["admin users"] = tmpInsert["admin users"] + '"+' + group + '", '
+                tmpInsert["admin users"] += '"+' + group + '",'
+            # remove the last comma
+            tmpInsert["admin users"] = tmpInsert["admin users"][:-1]
 
-        self.contentArr[name] = tmpInsert
+        self.config[name] = tmpInsert
         r.commit()
 
     def getACLOnShare(self, name):
