@@ -34,17 +34,6 @@ class NetmaskInputTpl extends InputTpl {
 }
 
 /**
- * Input with a check for a valid simple net mask (8, 16, or 24)
- */
-class SimpleNetmaskInputTpl extends InputTpl {
-
-    function SimpleNetmaskInputTpl($name) {
-        $this->InputTpl($name, '/^(8|16|24)$/');
-    }
-
-}
-
-/**
  * Input with a check for a valid MX record (eg "10 smtp.example.net")
  */
 class MXRecordInputTpl extends InputTpl {

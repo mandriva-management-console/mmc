@@ -243,8 +243,8 @@ if ($_GET["action"] == "add") {
             array("value" => $netaddress)
             );
     $f->add(
-            new TrFormElement(_T("Network mask"), new SimpleNetmaskInputTpl("netmask")),
-            array("value" => $netmask, "extra" => _T("Only 8, 16 or 24 is allowed"))
+            new TrFormElement(_T("Network mask"), new NetmaskInputTpl("netmask")),
+            array("value" => $netmask, "extra" => _T("(e.g. 24 for a /24 network)"))
             );
     $f->add(
             new TrFormElement(_T("Also manage a reverse DNS zone"), new CheckboxTpl("reverse")),
