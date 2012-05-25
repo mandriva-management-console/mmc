@@ -149,8 +149,8 @@ def activate():
         samba.addOu(ouName, path)
         # Check that a sambaDomainName entry is in LDAP directory
         domainInfos = samba.getDomain()
-        # Reset domain policy
-        samba.resetDomainPolicy()
+        # Set domain policy
+        samba.setDomainPolicy()
         if not domainInfos:
             logger.error("Can't find sambaDomainName entry in LDAP for domain %s. Please check your SAMBA LDAP configuration." % smbconf.getContent("global", "workgroup"));
             return False
@@ -519,9 +519,9 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         modlist = ldap.modlist.modifyModlist(old, new)
         self.l.modify_s(dn, modlist)
 
-    def resetDomainPolicy(self):
+    def setDomainPolicy(self):
         """
-        Reset SAMBA domain policy since we want to use only OpenLDAP policies
+        Try to sync the samba domain policy with the default OpenLDAP policy
         """
         conf = smbConf()
         domain = conf.getContent("global", "workgroup")
@@ -529,22 +529,48 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         dn, old = result[0][0]
         # update the old attributes
         new = old.copy()
-        options = {
-            "sambaMaxPwdAge": ["-1"],
-            "sambaMinPwdAge": ["0"],
-            "sambaPwdHistoryLength": ["0"],
-            "sambaLockoutThreshold": ["0"],
-            "sambaLockoutDuration": ["-1"]
-        }
-        for key in options.keys():
-            # Update this SAMBA LDAP attribute
-            new[key] = options[key]
-        modlist = ldap.modlist.modifyModlist(old, new)
+        # get the default ppolicy values
         try:
-            self.l.modify_s(dn, modlist)
-        except ldap.UNDEFINED_TYPE:
-            # don't fail if attributes don't exist
+            from mmc.plugins.ppolicy import getDefaultPPolicy
+        except ImportError:
+            # don't try to change samba policies
             pass
+        finally:
+            ppolicy = getDefaultPPolicy()[1]
+            # samba default values
+            options = {
+                "sambaMinPwdLength": ["5"],
+                "sambaMaxPwdAge": ["-1"],
+                "sambaMinPwdAge": ["0"],
+                "sambaPwdHistoryLength": ["0"],
+                "sambaLockoutThreshold": ["0"],
+                "sambaLockoutDuration": ["30"]
+            }
+            if 'pwdMinLength' in ppolicy:
+                options['sambaMinPwdLength'] = ppolicy['pwdMinLength']
+            if 'pwdMaxAge' in ppolicy and ppolicy['pwdMaxAge'][0] != "0":
+                options['sambaMaxPwdAge'] = ppolicy['pwdMaxAge']
+            if 'pwdMinAge' in ppolicy:
+                options['sambaMinPwdAge'] = ppolicy['pwdMinAge']
+            if 'pwdInHistory' in ppolicy:
+                options['sambaPwdHistoryLength'] = ppolicy['pwdInHistory']
+            if 'pwdLockout' in ppolicy and ppolicy['pwdLockout'][0] == "TRUE" \
+                and 'pwdMaxFailure' in ppolicy and ppolicy['pwdMaxFailure'][0] != '0':
+                    if 'pwdLockoutDuration' in ppolicy:
+                        options['sambaLockoutDuration'] = ppolicy['pwdLockoutDuration']
+                    options['sambaLockoutThreshold'] = ppolicy['pwdMaxFailure']
+            else:
+                options['sambaLockoutThreshold'] = ["0"]
+
+            for key in options.keys():
+                # Update this SAMBA LDAP attribute
+                new[key] = options[key]
+            modlist = ldap.modlist.modifyModlist(old, new)
+            try:
+                self.l.modify_s(dn, modlist)
+            except ldap.UNDEFINED_TYPE:
+                # don't fail if attributes don't exist
+                pass
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
