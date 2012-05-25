@@ -86,7 +86,7 @@ function checkPools() {
 		    $error .= sprintf(_T("The specified dynamic pool IP range from %s to %s is not valid."), $ipStart, $ipEnd);
 		    if ($i < count($pools) -1) $error .= "<br>";
 		}
-	    } else { 
+	    } else {
 		$error.= sprintf(_T("No IP range specified for %d dynamic pool."), $i + 1);
 		if ($i < count($pools) -1) $error .= "<br>";
 	    }
@@ -111,10 +111,10 @@ if (!isset($error)
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
     $description = stripslashes($_POST["description"]);
-    
+
     /* edit the subnet */
     if (isset($_POST["badd"])) {
-        addSubnet($subnet, $netmask, $description);        
+        addSubnet($subnet, $netmask, $description);
     } else {
         setSubnetNetmask($subnet, $netmask);
         setSubnetDescription($subnet, $description);
@@ -124,11 +124,11 @@ if (!isset($error)
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "netbios-name-servers", "netbios-node-type", "root-path", "tftp-server-name","local-pac-server");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
-	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
+    	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
             $value = '"' . $value . '"';
-	if (in_array($name, array("domain-name", "root-path", "tftp-server-name", "local-pac-server")))
+    	if (in_array($name, array("domain-name", "root-path", "tftp-server-name", "local-pac-server")))
             $value = str_replace(" ", ",", $value);
-        setSubnetOption($subnet, $name, $value);
+        setSubnetOption($subnet, $name, str_replace(" ", "", $value));
     }
 
     /* Update the DHCP statements */
@@ -142,11 +142,11 @@ if (!isset($error)
         setSubnetStatement($subnet, $name, $value);
     }
     setSubnetAuthoritative($subnet, isset($_POST["authoritative"]));
-    
+
     /* Create or update the DHCP pools */
     $poolsRanges = (isset($_POST["hassubnetpools"])) ? $_POST["subnetpools"] : array();
     setPoolsRanges($subnet, $poolsRanges);
-    
+
     if (!isXMLRPCError()) {
         if (isset($_POST["badd"])) {
             new NotifyWidgetSuccess(_T("Subnet successfully added. You must restart the DHCP service."));
@@ -154,7 +154,7 @@ if (!isset($error)
             new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
         }
         header("Location: " . urlStrRedirect("network/network/subnetindex"));
-    }    
+    }
 }
 
 if (isset($error)) {
@@ -162,7 +162,7 @@ if (isset($error)) {
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
     if (isset($_POST["hassubnetpools"])) $hasSubnetPools = "checked";
-    else $hasSubnetPools = "";    
+    else $hasSubnetPools = "";
     $poolsRanges = $_POST["subnetpools"];
 }
 
@@ -184,7 +184,7 @@ if ($_GET["action"] == "subnetedit") {
 }
     //var_dump($pool);
 
-if ($_GET["action"] == "subnetadd") {    
+if ($_GET["action"] == "subnetadd") {
     $formElt = new IPInputTpl("subnet");
     $authoritative = "";
 } else {
@@ -323,7 +323,7 @@ $f->add(
         new TrFormElement(_T("TFTP server name"),new IA5InputTpl("tftp-server-name"),
                           array("tooltip" => $tooltip )
                           ),
-        array("value"=>$options["tftp-server-name"])   
+        array("value"=>$options["tftp-server-name"])
         );
 $f->pop();
 
@@ -333,7 +333,7 @@ $f->add(
         new TrFormElement(_T("Minimum lease time"), new NumericInputTpl("min-lease-time"),
                           array(
                                 "tooltip" => _T("Minimum length in seconds that will be assigned to a lease.")
-                                )                          
+                                )
                           ),
         array("value"=>$statements["min-lease-time"])
         );
@@ -371,7 +371,7 @@ $poolsdiv->setVisibility($hasSubnetPools);
 $f->push($poolsdiv);
 
 $f->add(new FormElement(_T("Dynamic pools"),
-			new MultipleRangeInputTpl("subnetpools")), 
+			new MultipleRangeInputTpl("subnetpools")),
 			$poolsRanges);
 $f->pop();
 

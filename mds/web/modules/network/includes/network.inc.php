@@ -15,9 +15,9 @@ class HostnameInputTpl extends InputTpl {
  * Input with a basic check for a colon separated list of host name and/or IP
  */
 class HostIpListInputTpl extends InputTpl {
-    
+
     function HostIpListInputTpl($name) {
-        $this->InputTpl($name, '/^[0-9a-z,.-]*$/');
+        $this->InputTpl($name, '/^[0-9a-z, .-]*$/');
     }
 
 }
@@ -48,7 +48,7 @@ class MXRecordInputTpl extends InputTpl {
 class GetFreeIPInputTpl extends IPInputTpl {
 
     function getFreeIPInputTpl() {
-        parent::IPInputTpl("ipaddress");        
+        parent::IPInputTpl("ipaddress");
     }
 
     function display($arrParam) {
@@ -83,7 +83,7 @@ function setZoneFreeAddress(t) {
 
 /**
  * Return True if an IP is in a network
- * 
+ *
  * If $acceptBoundaries is True, the base network address and the broadcast address are accepted
  */
 function ipInNetwork($ip, $network, $mask, $acceptBoundaries = False) {
@@ -102,7 +102,7 @@ function ipInNetwork($ip, $network, $mask, $acceptBoundaries = False) {
             $ret = False;
             break;
         }
-    }    
+    }
     return $ret;
 }
 
@@ -133,7 +133,7 @@ function getSubnetOptions($subnet) {
     if (isset($options["domain-name"])) {
         $tmp = explode(" ", $options["domain-name"]);
         $options["primarydomainname"] = $tmp[0];
-    }    
+    }
     return $options;
 }
 
