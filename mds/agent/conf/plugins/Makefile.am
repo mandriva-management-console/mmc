@@ -53,10 +53,10 @@ samba.ini: Makefile
 network.ini: Makefile
 	if [ -f /etc/mandriva-release ]; then \
 	  sed -i 's!/var/run/dhcpd.pid!/var/run/dhcpd/dhcpd.pid!g' $@; \
-	  sed -i 's!/etc/init.d/dhcp3-server!/etc/rc.d/init.d/dhcpd!g' $@; \
+	  sed -i 's!/etc/init.d/isc-dhcp-server!/etc/rc.d/init.d/dhcpd!g' $@; \
 	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
-	  sed -i 's!/var/lib/dhcp3/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@; \
-	  sed -i 's!/var/run/bind/run/named.pid!/var/lib/named/var/run/named.pid!g' $@; \
+	  sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@; \
+	  sed -i 's!/var/run/named/named.pid!/var/lib/named/var/run/named.pid!g' $@; \
 	  sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@; \
 	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
 	  sed -i 's!/etc/bind/!/var/named!g' $@; \
