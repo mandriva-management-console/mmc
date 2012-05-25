@@ -39,16 +39,16 @@ edit = sed \
         -e 's|@libdir[@]|$(libdir)|g'
 
 samba.ini: Makefile
-	if [ -f /etc/mandriva-release ]; then \
-	  sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@.in; \
-	  sed -i 's!ou=Computers!ou=Hosts!g' $@.in; \
-	fi
 	rm -f $@ $@.tmp
 	$(MKDIR_P) $(@D)
 	srcdir=''; \
 	  test -f ./$@.in || srcdir=$(srcdir)/; \
 	  $(edit) $${srcdir}$@.in >$@.tmp
 	mv $@.tmp $@
+	if [ -f /etc/mandriva-release ]; then \
+	  sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@; \
+	  sed -i 's!ou=Computers!ou=Hosts!g' $@; \
+	fi
 
 network.ini: Makefile
 	if [ -f /etc/mandriva-release ]; then \
