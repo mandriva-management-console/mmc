@@ -196,7 +196,7 @@ function uploadFormView() {
         <input type="hidden" name="stage" value="preimport"/>
         <table cellspacing="0">
 <?
-    $test = new TrFormElement(_T("CSV file : ", "bulkimport"), new FileTpl("csvfile"));
+    $test = new TrFormElement(_T("CSV file: ", "bulkimport"), new FileTpl("csvfile"));
     $test->display(null);
 ?>
 
@@ -205,36 +205,35 @@ function uploadFormView() {
         <table cellspacing="0">
             <tr>
                 <td>
-                    <p><strong>Description:</strong></p>
-                    You can import, modify and delete user accounts using a CSV file.
+                    <p><strong><?=_T("Description:", "bulkimport")?></strong></p>
+                    <?=_T("You can import, modify and delete user accounts using a CSV file.", "bulkimport")?>
                     <ol>
-                        <li>If the users in the CSV file don't exist, you can import them.</li>
-                        <li>If the users in the CSV file exist, you can modify them or delete them.</li>
+                        <li><?=_T("If the users in the CSV file don't exist, you can import them.", "bulkimport")?></li>
+                        <li><?=_T("If the users in the CSV file exist, you can modify them or delete them.", "bulkimport")?></li>
                     </ol>
-                    <strong>CSV Header requirements:</strong>
+                    <strong><?=_T("CSV Header requirements:", "bulkimport")?></strong>
                     <ul>
-                        <li>Required attribute: "login"</li>
-                        <li>Require for import: "password","firstname","surname"</li>
-                        <li>Additional headers can be set and must match the attribute name in LDAP, for example:
-                    "login","password","firstname","surname","primaryGroup","mail"</li>
+                        <li><?=_T("Required attribute:", "bulkimport")?> "login"</li>
+                        <li><?=_T("Required for import:", "bulkimport")?> "password", "firstname", "surname"</li>
+                        <li><?=_T("Additional headers can be set and must match the attribute name in LDAP, for example:", "bulkimport")?> "login", "password", "firstname", "surname", "primaryGroup", "mail"</li>
                     </ul>
-                    <strong>CSV Formatting:</strong>
+                    <strong><?=_T("CSV Formatting:", "bulkimport")?></strong>
                     <ul>
-                        <li>Delimiter: ,</li>
-                        <li>Wrapper: &quot;</li>
-                        <li>Escape character: \</li>
+                        <li><?=_T("Delimiter:", "bulkimport")?> ,</li>
+                        <li><?=_T("Wrapper:", "bulkimport")?> &quot;</li>
+                        <li><?=_T("Escape character:", "bulkimport")?> \</li>
                     </ul>
-                    <strong>Special attributes</strong> (yes or no)<strong>:</strong>
+                    <strong><?=_T("Special attributes", "bulkimport")?></strong> ('yes' <?=_T("or", "bulkimport")?> 'no')<strong>:</strong>
                     <ul>
-                        <li>createhomedir (yes by default)</li>
-                        <li>files (default set to yes for delete operation, users home directory will be removed.)</li>
+                        <li>createhomedir ('yes' <?=_T("by default", "bulkimport")?>)</li>
+                        <li>files ('yes' <?=_T("by default for delete operation, users home directory will be removed.", "bulkimport")?>)</li>
                     </ul>
-                    <strong>Defaults:</strong>
+                    <strong><?=_T("Defaults:", "bulkimport")?></strong>
                     <ul>
-                        <li>homedir (homedir/username by default)</li>
-                        <li>primaryGroup (default primary group as per base.ini plugin config)</li>
+                        <li>homedir (<?=_T("the default home directory path", "bulkimport")?>)</li>
+                        <li>primaryGroup (<?=_T("the default primary group", "bulkimport")?>)</li>
                     </ul>
-                    <strong>Supported attributes:</strong>
+                    <strong><?=_T("Supported attributes:", "bulkimport")?></strong>
                     <ul class="attributelist">
                     <?php foreach (importusers::getValidAttributes() as $attribute) echo "<li>".$attribute."</li>"; ?>
                     </ul>
