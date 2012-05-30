@@ -55,6 +55,7 @@ Option name                  Description                                        
 ============================ ===================================================================================================== ======== =============
 disable                      Whenever use this plugin (or not)                                                                     yes      0
 dyngroup_activate            Tell if the dynamic group part is activated or if there is only the static group part                 yes      1
+profiles_enabled             Allow imaging fonctionnality on a profile, that is not available on static, and dynamic group         yes      0				
 default_module               Set the module that is going to be automatically selected is more than one dyngroup module is defined yes
 max_elements_for_static_list The maximum number of elements that have to be display in the static group creation list              yes      2000
 ============================ ===================================================================================================== ======== =============
