@@ -20,6 +20,7 @@ Repo setup
   ::
 
     git remote add mmc git@github.com:mandriva-management-console/mmc.git
+    git remote update
 
 3. Create a local branch that is tracking the main repository
 
