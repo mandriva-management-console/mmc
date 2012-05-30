@@ -116,10 +116,13 @@ def activate():
     for share in getDetailedShares():
         shareName = share[0]
         infos = shareInfo(shareName)
-        sharePath = infos['sharePath']
-        if sharePath and not os.path.exists(sharePath):
-            # only show error
-            logger.error("The samba share path '%s' does not exist." % sharePath)
+        if infos:
+            sharePath = infos['sharePath']
+            if sharePath and not os.path.exists(sharePath):
+                # only show error
+                logger.error("The samba share path '%s' does not exist." % sharePath)
+        else:
+            return False
 
     try:
         ldapObj = ldapUserGroupControl()
@@ -1341,7 +1344,11 @@ class smbConf:
         if os.path.exists(str(returnArr['sharePath'])):
             stat_info = os.stat(returnArr['sharePath'])
             gid = stat_info.st_gid
-            returnArr['group'] = grp.getgrgid(gid)[0]
+            try:
+                returnArr['group'] = grp.getgrgid(gid)[0]
+            except:
+                logger.error("Can't find the primary group of %s. Check your libnss settings." % returnArr['sharePath'])
+                return False
 
         return returnArr
 
