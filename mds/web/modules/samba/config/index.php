@@ -86,8 +86,13 @@ $smb = get_smbconf();
 $f = new ValidatingForm();
 $f->push(new Table());
 
+if ($smb["pdc"])
+    $workgroupTpl = new HiddenTpl("workgroup");
+else
+    $workgroupTpl = new NetbiosUppercaseInputTpl("workgroup");
+
 $f->add(
-        new TrFormElement(_T("Domain name"), new NetbiosUppercaseInputTpl("workgroup")),
+        new TrFormElement(_T("Domain name"), $workgroupTpl),
         array("value" => $smb["workgroup"], "required" => True)
 );
 
