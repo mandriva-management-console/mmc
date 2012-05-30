@@ -1223,12 +1223,12 @@ class smbConf:
         if current["pdc"] != options['pdc']:
             if options['pdc']:
                 self.setContent('global','domain logons','yes')
+                self.setContent('global','domain master','yes')
                 self.setContent('global', 'os level', '255')
             else:
                 self.setContent('global','domain logons','no')
+                self.remove("global", "domain master")
                 self.remove('global', 'os level')
-            # Default value of domain master (auto) is sufficient
-            self.remove("global", "domain master")
 
         if options['hashomes']:
             self.setContent('homes','comment','User shares')
