@@ -548,10 +548,11 @@ class MailControl(ldapUserGroupControl):
         @param uid: the user uid
         @type uid: str
         """
-        userdn = self.searchUserDN(uid)
-        for aliasDN, aliasData in self.getVAliases():
-            if 'mailaliasmember' in aliasData and userdn in aliasData['mailaliasmember']:
-                self.delVAliasUser(aliasData['mailalias'][0], uid)
+        if self.conf.vAliasesSupport:
+            userdn = self.searchUserDN(uid)
+            for aliasDN, aliasData in self.getVAliases():
+                if 'mailaliasmember' in aliasData and userdn in aliasData['mailaliasmember']:
+                    self.delVAliasUser(aliasData['mailalias'][0], uid)
         return 0
 
     def addVAliasExternalUser(self, alias, mail):
