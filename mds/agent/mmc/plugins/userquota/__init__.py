@@ -339,14 +339,14 @@ class UserQuotaControl(ldapUserGroupControl):
          if not self.tempdelfilename:
             return
          logger = logging.getLogger()
-         shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
+         shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempdelfilename)
          logger.debug("DelQuotaScript: " + shellscript);
          def cb(shprocess):
               # The callback just return the process outputs
               if shprocess.exitCode != 0:
                   logger.error("Error applying del quotas: " + shprocess.err)
                   logger.debug("shell result:" + shprocess.out)
-                  logger.error("See: " + self.tempfilename + " for details of the commands run")
+                  logger.error("See: " + self.tempdelfilename + " for details of the commands run")
               else:
                   os.remove(self.tempdelfilename)
 
