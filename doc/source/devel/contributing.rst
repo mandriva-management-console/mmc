@@ -7,7 +7,7 @@ MMC source code is hosted on github: https://github.com/mandriva-management-cons
 Repo setup
 ##########
 
-1. Setup an account on github and fork https://github.com/mandriva-management-console/mmc. 
+1. Setup an account on github and fork https://github.com/mandriva-management-console/mmc.
 
   Then checkout your fork:
 
@@ -68,13 +68,43 @@ Fixing a bug or developping a new feature in master
 
 5. Test your fix or feature ! (others can also test it by merging your branch since its public now)
 
-6. If everything is fine, in the github interface, select the fix-blah-blah (or feature-blah-blah) branch and click on pull request. 
+6. If everything is fine, in the github interface, select the fix-blah-blah (or feature-blah-blah) branch and click on pull request.
 
 Github will try to create a pull request on the master branch by default
 
 In the pull request you can explain what your commit is fixing and how
 to reproduce the bug if needed.r
 
+Commit format
+#############
+
+You should type in the commit title the name of the module that is concerned by
+the commit. A commit usually fix or add a feature in a specific module
+(inventory, samba, etc...). If the commit target is not a single module you can
+use the project name (pulse2, core, mds).
+
+  ::
+
+    <module|project>: <title> (70 chars max)
+    <blank line>
+    <detailed description>
+
+If the commit is releated to an reported issue on http://projects.mandriva.org
+reference the issue number in the commit title or the commit body like this:
+
+  ::
+
+    Fixes #1000
+
+Will close the issue #1000 and make a relation between the commit and the issue
+in Redmine.
+
+  ::
+
+    Refs #1000
+
+Will just make a relation between the commit and the issue. The issue state
+won't be changed.
 
 Commit directly in master
 #########################
@@ -83,7 +113,7 @@ If you have the rights to commit to the main repository and you are sure of
 your fix, you might want to commit directly in the main repo directly instead
 of creating a pull request.
 
-Use the following procedure to keep a clean history on the main branch 
+Use the following procedure to keep a clean history on the main branch
 (ie: no merge commits)
 
 1. Always create a branch for working on your fix
@@ -106,7 +136,7 @@ Use the following procedure to keep a clean history on the main branch
 4. Rebase your branch on top of master-mmc
 
   ::
-    
+
     git checkout fix-foo
     git rebase master-mmc
 
