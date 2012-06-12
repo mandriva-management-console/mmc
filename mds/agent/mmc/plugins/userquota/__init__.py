@@ -39,9 +39,6 @@ from mmc.support.config import PluginConfig
 from mmc.support import mmctools
 from string import Template
 
-
-import mmc
-
 INI = mmcconfdir + "/plugins/userquota.ini"
 
 VERSION = "2.4.2.2"
@@ -156,7 +153,7 @@ class UserQuotaConfig(PluginConfig):
 
 class UserQuotaControl(ldapUserGroupControl):
      def __init__(self, conffile=None, conffilebase=None):
-        mmc.plugins.base.ldapUserGroupControl.__init__(self, conffilebase)
+        ldapUserGroupControl.__init__(self, conffilebase)
         self.configuserquota = UserQuotaConfig("userquota", conffile)
         self.tempfilename = False
         self.tempdelfilename = False
