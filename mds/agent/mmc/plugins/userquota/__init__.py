@@ -77,6 +77,22 @@ def activate():
         logger.exception("Invalid schema")
         return False
 
+    # Check local file systems
+    if config.runquotascript == "/bin/sh":
+        for device in getDevicemap():
+            dev, blocksize, name = device.split(':')
+            if not os.path.exists(dev):
+                logger.error("%s does not exists");
+                return False
+            lines = mmctools.shlaunch('mount | grep %s' % dev)
+            if len(lines) == 1:
+                if not 'usrquota' in lines[0]:
+                    logger.error("The mount option 'usrquota' is not enabled on %s" % dev);
+                    return False
+            elif not lines:
+                logger.error("%s is not mounted");
+                return False
+
     return True
 
 def getActiveComponents():
@@ -105,7 +121,6 @@ def setGroupNetworkQuota(group, network, quota, overwrite):
 
 def deleteGroupNetworkQuota(cn, device):
     return UserQuotaControl().deleteGroupNetworkQuotas(cn, device)
-
 
 def deleteDiskQuota(uid, device):
     return UserQuotaControl().deleteDiskQuota(uid, device)
@@ -319,11 +334,9 @@ class UserQuotaControl(ldapUserGroupControl):
          shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
          logger.debug("ApplyQuotas: " + shellscript);
          def cb(shprocess):
-              # The callback just return the process outputs
-              #
               if shprocess.exitCode != 0:
                   logger.error("Error applying quotas: " + shprocess.err)
-                  logger.debug("shell result:" + shprocess.out)
+                  logger.debug("Shell result:" + shprocess.out)
                   logger.error("See: " + self.tempfilename + " for details of the commands run")
               else:
                   os.remove(self.tempfilename)
