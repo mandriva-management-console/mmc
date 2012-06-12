@@ -60,6 +60,23 @@ def activate():
     if config.disabled:
         logger.warning("Plugin userquota: disabled by configuration.")
         return False
+
+    try:
+        ldapObj = ldapUserGroupControl()
+    except ldap.INVALID_CREDENTIALS:
+        logger.error("Can't bind to LDAP: invalid credentials.")
+        return False
+
+    # Test if the quota LDAP schema is available in the directory
+    try:
+         schema = ldapObj.getSchema("systemQuotas")
+         if len(schema) <= 0:
+             logger.error("Quota schema is not included in LDAP directory");
+             return False
+    except:
+        logger.exception("Invalid schema")
+        return False
+
     return True
 
 def getActiveComponents():
