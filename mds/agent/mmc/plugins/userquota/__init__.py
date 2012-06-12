@@ -52,10 +52,10 @@ def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION
 def getRevision(): return REVISION
 
+logger = logging.getLogger()
 
 def activate():
     config = UserQuotaConfig("userquota")
-    logger = logging.getLogger()
 
     if config.disabled:
         logger.warning("Plugin userquota: disabled by configuration.")
@@ -187,7 +187,6 @@ class UserQuotaControl(ldapUserGroupControl):
          return True
 
      def deleteDiskQuota(self, uid, device, single=True):
-         logger = logging.getLogger()
 #         logger.info("Deleting quota for: "+ uid)
          devicepath = device.split(':')[0]
          try:
@@ -216,7 +215,6 @@ class UserQuotaControl(ldapUserGroupControl):
 
 
      def setNetworkQuota(self, uid, network, quota, overwrite = "all"):
-         logger = logging.getLogger()
          ldapquota = '%s,%s' % (network, str(int(quota) * 1048576))
          logger.debug("Network Quota:" + ldapquota)
 
@@ -258,7 +256,6 @@ class UserQuotaControl(ldapUserGroupControl):
          return True
 
      def setDiskQuota(self, uid, device, quota, overwrite = "all",single = True):
-         logger = logging.getLogger()
          logger.debug("received quota for " + uid + ", device: " + device + ", size: " + quota)
          blocks = self.convertMBtoBlocks(quota, device);
          softblocks = int (blocks * self.configuserquota.softquotablocks)
@@ -313,7 +310,6 @@ class UserQuotaControl(ldapUserGroupControl):
          return True
 
      def appendQuotatasks(self, uid, blocks, softblocks, inodes, softinodes, devicepath):
-         logger = logging.getLogger()
          if not self.tempfilename:
             self.tempfilename = tempfile.mktemp()
             logger.debug("Temp file: %s" % (self.tempfilename))
@@ -330,15 +326,15 @@ class UserQuotaControl(ldapUserGroupControl):
      def applyQuotaToFS(self):
          if not self.tempfilename:
             return
-         logger = logging.getLogger()
          shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
          logger.debug("ApplyQuotas: " + shellscript);
          def cb(shprocess):
               if shprocess.exitCode != 0:
                   logger.error("Error applying quotas: " + shprocess.err)
-                  logger.debug("Shell result:" + shprocess.out)
                   logger.error("See: " + self.tempfilename + " for details of the commands run")
+                  raise Exception("Error applying quotas: %s" % shprocess.err)
               else:
+                  logger.debug("Applied quotas: " + shprocess.out)
                   os.remove(self.tempfilename)
 
               self.tempfilename = False
@@ -352,7 +348,6 @@ class UserQuotaControl(ldapUserGroupControl):
          return d
 
      def appendDeleteQuotatasks(self, uid, devicepath):
-         logger = logging.getLogger()
          if not self.tempdelfilename:
             self.tempdelfilename = tempfile.mktemp()
             logger.debug("Temp file: %s" % (self.tempdelfilename))
@@ -368,7 +363,6 @@ class UserQuotaControl(ldapUserGroupControl):
      def deleteQuotaOnFS(self):
          if not self.tempdelfilename:
             return
-         logger = logging.getLogger()
          shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempdelfilename)
          logger.debug("DelQuotaScript: " + shellscript);
          def cb(shprocess):
@@ -426,7 +420,6 @@ class UserQuotaControl(ldapUserGroupControl):
          @return: return True if the object class is able to be removed
          @rtype: boolean
          """
-         logger = logging.getLogger()
          user = self.getDetailedUser(uid)
          logger.debug("Del object class")
 
@@ -447,7 +440,6 @@ class UserQuotaControl(ldapUserGroupControl):
          @return: return True if the object class is able to be removed
          @rtype: boolean
          """
-         logger = logging.getLogger()
          group = self.getDetailedGroup(cn)
          logger.debug("Del Group object class")
          logger.debug("group keys" + str(group.keys()))
@@ -471,7 +463,6 @@ class UserQuotaControl(ldapUserGroupControl):
 
 
      def setGroupDiskQuota(self, group, device, quota, overwrite):
-         logger = logging.getLogger()
          logger.debug("SetGroupDiskQuota: Overwrite mode: " + overwrite)
          logger.debug("ldap timeout:" + str(self.l.timeout))
          self.l.set_option(ldap.OPT_NETWORK_TIMEOUT, 100)
@@ -518,7 +509,6 @@ class UserQuotaControl(ldapUserGroupControl):
          return True
 
      def setGroupNetworkQuota(self, group, network, quota, overwrite):
-         logger = logging.getLogger()
          logger.debug("SetGroupNetworkQuota Overwrite mode: " + overwrite)
          self.addGroupDefaultDiskQuotaObjectClass(group)
          ldapquota = '%s,%s' % (network, str(int(quota) * 1048576))
@@ -549,7 +539,6 @@ class UserQuotaControl(ldapUserGroupControl):
 
      def setUserQuotaDefaults(self, uid, group):
          # @todo: unfinished, does nothing yet.
-         logger = logging.getLogger()
          logger.debug("Set user quota defaults: user: " + uid + " group: " + group)
          keys = []
          # don't set the quota if one has been set before.
@@ -589,7 +578,6 @@ class UserQuotaControl(ldapUserGroupControl):
          self.l.modify_ext_s('cn=' + cn + ',' + self.baseGroupsDN, [(ldap.MOD_REPLACE, attr, attrval)])
 
      def deleteGroupDiskQuotas(self, cn, device):
-         logger = logging.getLogger()
          devicepath = device.split(':')[0]
          logger.debug("Delete quotas for members of:" + cn)
          logger.debug("ldap timeout:" + str(self.l.timeout))
@@ -621,7 +609,6 @@ class UserQuotaControl(ldapUserGroupControl):
          return True
 
      def deleteGroupNetworkQuotas(self, cn, network):
-         logger = logging.getLogger()
          logger.debug("Delete networkquotas for members of: " + cn)
          for uid in self.getMembers(cn):
             self.deleteNetworkQuota(uid, network)
