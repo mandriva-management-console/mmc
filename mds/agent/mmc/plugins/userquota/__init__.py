@@ -80,13 +80,9 @@ def activate():
             if not os.path.exists(dev):
                 logger.error("%s does not exists");
                 return False
-            lines = mmctools.shlaunch('mount | grep %s' % dev)
-            if len(lines) == 1:
-                if not 'usrquota' in lines[0]:
-                    logger.error("The mount option 'usrquota' is not enabled on %s" % dev);
-                    return False
-            elif not lines:
-                logger.error("%s is not mounted");
+            lines = mmctools.shlaunch("quotaon -aup | grep '%s) is on'" % dev)
+            if not len(lines) == 1:
+                logger.error("User quotas are not enabled on %s" % dev);
                 return False
 
     return True
