@@ -80,8 +80,8 @@ def activate():
             if not os.path.exists(dev):
                 logger.error("%s does not exists");
                 return False
-            lines = mmctools.shlaunch("quotaon -aup | grep '%s) is on'" % dev)
-            if not len(lines) == 1:
+            code, out, err = mmctools.shlaunch("quotaon -aup | grep '%s) is on'" % dev)
+            if code != 0 or not len(out) == 1:
                 logger.error("User quotas are not enabled on %s" % dev);
                 return False
 
@@ -303,8 +303,8 @@ class UserQuotaControl(ldapUserGroupControl):
 
 
         s = Template(self.configuserquota.setquotascript)
-        shellscript = s.substitute(uid=uid, blocks=blocks, 
-                                   softblocks=softblocks, inodes=inodes, 
+        shellscript = s.substitute(uid=uid, blocks=blocks,
+                                   softblocks=softblocks, inodes=inodes,
                                    softinodes=softinodes, devicepath=devicepath)
         logger.debug("Append SetQuotaScript: " + shellscript);
         f = open(self.tempfilename, 'a')
@@ -314,22 +314,20 @@ class UserQuotaControl(ldapUserGroupControl):
     def applyQuotaToFS(self):
         if not self.tempfilename:
             return
-        shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
-        logger.debug("ApplyQuotas: " + shellscript);
-        def cb(shprocess):
-            if shprocess.exitCode != 0:
-                logger.error("Error applying quotas: " + shprocess.err)
-                logger.error("See: " + self.tempfilename + " for details of the commands run")
-                raise Exception("Error applying quotas: %s" % shprocess.err)
-            else:
-                logger.debug("Applied quotas: " + shprocess.out)
-                os.remove(self.tempfilename)
+        cmd = "%s %s" % (self.configuserquota.runquotascript, self.tempfilename)
+        logger.debug("Applying quotas: " + cmd);
+        code, out, err = mmctools.shlaunch(cmd)
 
-            self.tempfilename = False
-            return shprocess.exitCode, shprocess.out, shprocess.err
-        d = mmctools.shLaunchDeferred(shellscript)
-        d.addCallback(cb)
-        return d
+        if code != 0:
+            logger.error("Error applying quotas: " + err)
+            logger.error("See: " + self.tempfilename + " for details of the commands run")
+            raise Exception("Error applying quotas: %s" % err)
+        else:
+            logger.debug("Quotas applied")
+            os.remove(self.tempfilename)
+
+        self.tempfilename = False
+        return True
 
     def appendDeleteQuotatasks(self, uid, devicepath):
         if not self.tempdelfilename:
@@ -346,21 +344,19 @@ class UserQuotaControl(ldapUserGroupControl):
     def deleteQuotaOnFS(self):
         if not self.tempdelfilename:
             return
-        shellscript = "%s %s" % (self.configuserquota.runquotascript, self.tempdelfilename)
-        logger.debug("DelQuotaScript: " + shellscript);
-        def cb(shprocess):
-            if shprocess.exitCode != 0:
-                logger.error("Error applying del quotas: " + shprocess.err)
-                logger.error("See: " + self.tempdelfilename + " for details of the commands run")
-            else:
-                logger.debug("Shell result:" + shprocess.out)
-                os.remove(self.tempdelfilename)
+        cmd = "%s %s" % (self.configuserquota.runquotascript, self.tempdelfilename)
+        logger.debug("Removing quotas: " + cmd);
+        code, out, err = mmctools.shlaunch(cmd)
 
-            self.tempdelfilename = False
-            return shprocess.exitCode, shprocess.out, shprocess.err
-        d = mmctools.shLaunchDeferred(shellscript)
-        d.addCallback(cb)
-        return d
+        if code != 0:
+            logger.error("Error while removing quotas: " + err)
+            logger.error("See: " + self.tempdelfilename + " for details of the commands run")
+        else:
+            logger.debug("Quotas removed")
+            os.remove(self.tempdelfilename)
+
+        self.tempdelfilename = False
+        return True
 
     def convertMBtoBlocks(self, quota, device):
         parts = device.split(':')
