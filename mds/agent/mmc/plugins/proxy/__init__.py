@@ -109,14 +109,14 @@ class ProxyConfig(PluginConfig):
 
     def check(self):
         if not os.path.exists(self.sgBinary):
-            raise ConfigException("Can't find squidguard binary: " + self.sgBinary)
+            raise ConfigException("Can't find squidguard binary: %s" % self.sgBinary)
         # Try to get squidguard version string
-        cmd = mmctools.shLaunch(self.sgBinary + " -v")
-        if cmd.exitCode:
-            raise ConfigException("Can't start '" + self.sgBinary + " -v': " + cmd.err + "(" + str(cmd.exitCode) + ")")
-        self.sgVersion = cmd.err.strip()
+        code, out, err = mmctools.shlaunch("%s -v" % self.sgBinary)
+        if code != 0:
+            raise ConfigException("Can't start %s -v: %s (%s)'" % (self.sgBinary, "\n".join(err), str(code)))
+        self.sgVersion = err.strip()
         if not os.path.exists(self.sgBlacklist):
-            raise ConfigException("Can't find squidguard blacklist: " + self.sgBlacklist)
+            raise ConfigException("Can't find squidguard blacklist: %s" % self.sgBlacklist)
 
 
 ####################################################################

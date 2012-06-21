@@ -1566,7 +1566,7 @@ class smbConf:
         """
         Return SAMBA shares connection status
         """
-        output = mmctools.shlaunch('/usr/bin/net status shares parseable')
+        code, output, err = mmctools.shlaunch('/usr/bin/net status shares parseable')
         service = {}
 
         for line in output:
@@ -1601,7 +1601,7 @@ class smbConf:
         """
         Return all opened SAMBA sessions
         """
-        output = mmctools.shlaunch('/usr/bin/net status sessions parseable')
+        code, output, err = mmctools.shlaunch('/usr/bin/net status sessions parseable')
         result = []
         for line in output:
             #7727\useruid\Domain Users\machine\192.168.0.17
