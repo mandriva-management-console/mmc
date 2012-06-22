@@ -882,11 +882,17 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         return sid
 
     def delSmbAttr(self, uid):
-        """remove smb attributes via smbpasswd cmd"""
+        """
+        Remove SAMBA attributes
+
+        @param uid: username
+        @type uid: str
+        @return: boolean
+        """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SAMBA_CLASS, [(userdn,AT.USER)])
         r.commit()
-        return mmctools.shlaunch("/usr/bin/smbpasswd -x " + uid)
+        return self.removeUserObjectClass(uid, "sambaSamAccount")
 
     def isEnabledUser(self, uid):
         """
