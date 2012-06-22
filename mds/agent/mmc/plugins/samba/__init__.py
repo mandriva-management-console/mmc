@@ -566,15 +566,23 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             else:
                 options['sambaLockoutThreshold'] = ["0"]
 
-            for key in options.keys():
-                # Update this SAMBA LDAP attribute
-                new[key] = options[key]
-            modlist = ldap.modlist.modifyModlist(old, new)
-            try:
-                self.l.modify_s(dn, modlist)
-            except ldap.UNDEFINED_TYPE:
-                # don't fail if attributes don't exist
-                pass
+            update = False
+            for attr, value in options.iteritems():
+                # Update attributes if needed
+                if new[attr] != value:
+                    new[attr] = value
+                    update = True
+
+            if update:
+                modlist = ldap.modlist.modifyModlist(old, new)
+                try:
+                    self.l.modify_s(dn, modlist)
+                except ldap.UNDEFINED_TYPE:
+                    # don't fail if attributes don't exist
+                    pass
+                # Restart the samba service
+                logger.info("SAMBA domain policy synchronized with password policies. Restarting SAMBA.")
+                restartSamba()
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
