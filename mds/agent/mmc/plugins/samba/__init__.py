@@ -248,6 +248,9 @@ def getAdminUsersOnShare(name):
 def getDomainAdminsGroup():
     return sambaLdapControl().getDomainAdminsGroup()
 
+def setDomainPolicy():
+    return sambaLdapControl().setDomainPolicy()
+
 def isBrowseable(name):
     return smbConf(SambaConfig("samba").samba_conf_file).isBrowseable(name)
 

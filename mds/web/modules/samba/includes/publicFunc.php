@@ -45,6 +45,10 @@ function _samba_changeUserPrimaryGroup($uid, $group) {
     if (hasSmbAttr($uid)) return xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
 }
 
+function _samba_changePasswordPolicy($FH, $mode) {
+    return xmlCall("samba.setDomainPolicy");
+}
+
 
 /**
  * Function called for changing user attributes
