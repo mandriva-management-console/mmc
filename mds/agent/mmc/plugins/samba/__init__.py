@@ -1,9 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2009 Mandriva, http://www.mandriva.com
-#
-# $Id$
+# (c) 2007-2012 Mandriva, http://www.mandriva.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -898,8 +896,8 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         Return True if the SAMBA user is enabled
         """
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        userdn = self.searchUserDN(uid)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -911,8 +909,8 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         Return True if the SAMBA user is locked
         """
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        userdn = self.searchUserDN(uid)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -926,8 +924,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_ENABLE_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -942,7 +939,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -952,8 +949,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DISABLE_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -969,7 +965,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -979,8 +975,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_UNLOCK_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -992,7 +987,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -1002,8 +997,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_LOCK_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -1015,7 +1009,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
