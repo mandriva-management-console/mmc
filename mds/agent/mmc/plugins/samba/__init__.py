@@ -583,9 +583,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                 except ldap.UNDEFINED_TYPE:
                     # don't fail if attributes don't exist
                     pass
-                # Restart the samba service
-                logger.info("SAMBA domain policy synchronized with password policies. Restarting SAMBA.")
-                restartSamba()
+                logger.info("SAMBA domain policy synchronized with password policies")
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
