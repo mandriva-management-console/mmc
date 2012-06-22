@@ -1,4 +1,4 @@
-.. config-userquota:
+.. _config-userquota:
 
 =======================================
 MMC userquota plugin configuration file
