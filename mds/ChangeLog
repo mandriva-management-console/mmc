@@ -1,12 +1,40 @@
+mds 2.4.3
+---------
+ * Bug #1686: Allow spaces in dhcp option domain-name-server
+ * Bug #1694: Massive CSV import page is not translated in french
+ * Bug #1707: Handle situations when a share has a GID which don't exists
+ * Bug #1713: smb.conf parsing drop comments and mess up the line order
+ * Bug #1719: Windows shows a wrong error message when new password fails
+   to verify password policies
+ * Bug #1720: Account locking after N failed attempts doesn't work with SAMBA
+ * Bug #1741: a ';' is missing in the file publicFunc.php
+ * Bug #1778: Disabling user "SAMBA properties", cause wiping out user account
+ * Bug #1779: User deletion error when mail plugin is enabled with
+   vAliasesSupport disabled
+ * Bug #1780: Disk quota can not be deleted
+ * Bug #1781: User filesystem quota can not be changed
+ * Feature #1673: Allow DNS zones to be created for subnets other then 8, 16
+   and 24.
+
+ http://projects.mandriva.org/versions/165
+
 mds 2.4.2.2
 -----------
 
- * bugfix release : http://mds.mandriva.org/milestone/MDS%202.4.2.2
+ * Bug #1617: Debian packages - ARMEL architecture support
+ * Bug #1710: Failed to list samba domain computers
+
+ http://projects.mandriva.org/versions/126
 
 mds 2.4.2.1
 -----------
 
- * bugfix release : http://mds.mandriva.org/milestone/MDS%202.4.2.1
+ * Bug #1695: DHCP pools always created with failover option
+ * Bug #1697: Mail delivery not enabled on user creation
+ * Bug #1698: SAMBA module fails to load on old installations
+ * Bug #1699: Disabling homes sharing in SAMBA configuration produces a TB
+
+ http://projects.mandriva.org/versions/123
 
 mds 2.4.2
 ---------
@@ -91,12 +119,12 @@ mmc-agent 2.2.0
  * a user must now be authenticated before any XML-RPC calls
  * put back HTTP basic authentication between the agent and the interface
  * SAMBA plugin:
-   o issue a warning if NSCD is detected 
+   o issue a warning if NSCD is detected
  * network plugin:
    o Make "get next free IP address feature" works with Python 2.4
    o DHCP: authoritative flag management for subnet
    o DNS: allow to specify a DNS zone reader for BIND zone configuration files (initial patch by Josef Boleininger)
-   o DNS: chrooted bind support 
+   o DNS: chrooted bind support
 
 mmc-agent 2.1.0
 ---------------
@@ -150,14 +178,14 @@ lmc-agent 1.1.1
    o the POSIX primary group of a user can be changed
    o starting uid and gid numbers can now be configured
    o extra modifiers are now available when setting default attributes for new
-     users 
+     users
  * SAMBA plugin:
    o SAMBA user primary group can be changed
    o extra LDAP checks when activating module
    o joined machines on the domain are now added to the 'Domain Computers'
-     group 
+     group
  * mail plugin: virtual mail domain support
- * assorted bug fixes 
+ * assorted bug fixes
 
 lmc-agent 1.1.0
 ---------------
@@ -170,7 +198,6 @@ lmc-agent 1.0.1
 ---------------
 
  * No changes in this release.
-
 
 lmc-agent 1.0.0
 ---------------
