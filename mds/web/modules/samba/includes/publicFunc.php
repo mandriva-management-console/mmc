@@ -85,16 +85,6 @@ function _samba_changeUser($FH, $mode) {
                     $FH->setValue("sambaPwdLastSet", (string)time());
                 }
             }
-            if($FH->isUpdated("sambaPwdCanChange")) {
-                if($FH->getValue("sambaPwdCanChange") == "on") {
-                    // Remove this attribute
-                    $FH->setValue("sambaPwdCanChange", "");
-                }
-                else {
-                    // user can't change password before this timestamp
-                    $FH->setValue("sambaPwdCanChange", "9999999999");
-                }
-            }
             // account expiration
             if($FH->isUpdated("sambaKickoffTime")) {
                 $datetime = $FH->getValue("sambaKickoffTime");
@@ -150,13 +140,6 @@ function _samba_changeUser($FH, $mode) {
                 }
                 else {
                     $FH->setPostValue("sambaPwdMustChange", "");
-                }
-                if($FH->getPostValue("sambaPwdCanChange") == "on") {
-                    $FH->setPostValue("sambaPwdCanChange", "");
-                }
-                else {
-                    // 2147483647 NT infinity
-                    $FH->setPostValue("sambaPwdCanChange", "2147483647");
                 }
                 // Account expiration
                 if($FH->isUpdated("sambaKickoffTime")) {
@@ -346,14 +329,6 @@ function _samba_baseEdit($FH, $mode) {
             $f->push(new Table());
 
         }
-
-        $checked = "";
-        if(!$FH->getArrayOrPostValue('sambaPwdCanChange') or $FH->getArrayOrPostValue('sambaPwdCanChange') < mktime())
-            $checked = "checked";
-        $f->add(
-            new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange")),
-            array ("value" => $checked)
-        );
 
         $checked = "";
         if($FH->getArrayOrPostValue('sambaPwdMustChange') == "0" || $FH->getArrayOrPostValue('sambaPwdMustChange') == "on") $checked = "checked";
