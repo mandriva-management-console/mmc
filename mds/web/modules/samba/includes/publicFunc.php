@@ -45,6 +45,10 @@ function _samba_changeUserPrimaryGroup($uid, $group) {
     if (hasSmbAttr($uid)) return xmlCall("samba.changeUserPrimaryGroup",array($uid, $group));
 }
 
+function _samba_changePasswordPolicy($FH, $mode) {
+    return xmlCall("samba.setDomainPolicy");
+}
+
 
 /**
  * Function called for changing user attributes
@@ -74,23 +78,15 @@ function _samba_changeUser($FH, $mode) {
             $FH->delPostValue("confpass");
 
             // Format samba attributes
-            if($FH->isUpdated("sambaPwdLastSet")) {
-                if($FH->getValue("sambaPwdLastSet") == "on") {
+            if($FH->isUpdated("sambaPwdMustChange")) {
+                if($FH->getValue("sambaPwdMustChange") == "on") {
                     // force user to change password
+                    $FH->setValue("sambaPwdMustChange", "0");
                     $FH->setValue("sambaPwdLastSet", "0");
                 }
                 else {
-                    $FH->setValue("sambaPwdLastSet", "9999999999");
-                }
-            }
-            if($FH->isUpdated("sambaPwdCanChange")) {
-                if($FH->getValue("sambaPwdCanChange") == "on") {
-                    // Remove this attribute
-                    $FH->setValue("sambaPwdCanChange", "");
-                }
-                else {
-                    // user can't change password before this timestamp
-                    $FH->setValue("sambaPwdCanChange", "9999999999");
+                    $FH->setValue("sambaPwdMustChange", "");
+                    $FH->setValue("sambaPwdLastSet", (string)time());
                 }
             }
             // account expiration
@@ -142,17 +138,12 @@ function _samba_changeUser($FH, $mode) {
             addSmbAttr($FH->getPostValue("uid"), $FH->getPostValue("pass"));
             if(!isXMLRPCError()) {
                 // Format samba attributes
-                if($FH->getPostValue("sambaPwdLastSet") == "on") {
+                if($FH->getPostValue("sambaPwdMustChange") == "on") {
+                    $FH->setPostValue("sambaPwdMustChange", "0");
                     $FH->setPostValue("sambaPwdLastSet", "0");
                 }
                 else {
-                    $FH->setPostValue("sambaPwdLastSet", "9999999999");
-                }
-                if($FH->getPostValue("sambaPwdCanChange") == "on") {
-                    $FH->setPostValue("sambaPwdCanChange", "");
-                }
-                else {
-                    $FH->setPostValue("sambaPwdCanChange", "9999999999");
+                    $FH->setPostValue("sambaPwdMustChange", "");
                 }
                 // Account expiration
                 if($FH->isUpdated("sambaKickoffTime")) {
@@ -344,17 +335,9 @@ function _samba_baseEdit($FH, $mode) {
         }
 
         $checked = "";
-        if(!$FH->getArrayOrPostValue('sambaPwdCanChange') or $FH->getArrayOrPostValue('sambaPwdCanChange') < mktime())
-            $checked = "checked";
+        if($FH->getArrayOrPostValue('sambaPwdMustChange') == "0" || $FH->getArrayOrPostValue('sambaPwdMustChange') == "on") $checked = "checked";
         $f->add(
-            new TrFormElement(_T("User can change password, if checked","samba"), new CheckboxTpl("sambaPwdCanChange")),
-            array ("value" => $checked)
-        );
-
-        $checked = "";
-        if($FH->getArrayOrPostValue('sambaPwdLastSet') == "0" || $FH->getArrayOrPostValue('sambaPwdLastSet') == "on") $checked = "checked";
-        $f->add(
-            new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdLastSet")),
+            new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdMustChange")),
             array ("value" => $checked)
         );
 

@@ -165,3 +165,16 @@ just add :
 .. note:: The overlays order is important. Overlays will be called in the
    reverse order that they are defined. So ppolicy check must be done before
    smbk5pwd synchronization.
+
+SAMBA domain policies
+---------------------
+
+The SAMBA domain policies attributes are synchronized with the default OpenLDAP 
+password policies by the MMC:
+
+- pwdMinLength -> sambaMinPwdLength
+- pwdMaxAge -> sambaMaxPwdAge
+- pwdMinAge -> sambaMinPwdAge
+- pwdInHistory -> sambaPwdHistoryLength
+- pwdMaxFailure -> sambaLockoutThreshold
+- pwdLockoutDuration -> sambaLockoutDuration

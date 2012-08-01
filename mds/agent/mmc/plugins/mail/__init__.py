@@ -41,7 +41,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.mail.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.4.2.2"
+VERSION = "2.4.2.90"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 
@@ -548,10 +548,11 @@ class MailControl(ldapUserGroupControl):
         @param uid: the user uid
         @type uid: str
         """
-        userdn = self.searchUserDN(uid)
-        for aliasDN, aliasData in self.getVAliases():
-            if 'mailaliasmember' in aliasData and userdn in aliasData['mailaliasmember']:
-                self.delVAliasUser(aliasData['mailalias'][0], uid)
+        if self.conf.vAliasesSupport:
+            userdn = self.searchUserDN(uid)
+            for aliasDN, aliasData in self.getVAliases():
+                if 'mailaliasmember' in aliasData and userdn in aliasData['mailaliasmember']:
+                    self.delVAliasUser(aliasData['mailalias'][0], uid)
         return 0
 
     def addVAliasExternalUser(self, alias, mail):

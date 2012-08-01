@@ -1,9 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2009 Mandriva, http://www.mandriva.com
-#
-# $Id$
+# (c) 2007-2012 Mandriva, http://www.mandriva.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -64,7 +62,7 @@ from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
 
 INI = mmcconfdir + "/plugins/samba.ini"
 
-VERSION = "2.4.2.2"
+VERSION = "2.4.2.90"
 APIVERSION = "5:3:4"
 REVISION = scmRevision("$Rev$")
 
@@ -116,10 +114,13 @@ def activate():
     for share in getDetailedShares():
         shareName = share[0]
         infos = shareInfo(shareName)
-        sharePath = infos['sharePath']
-        if sharePath and not os.path.exists(sharePath):
-            # only show error
-            logger.error("The samba share path '%s' does not exist." % sharePath)
+        if infos:
+            sharePath = infos['sharePath']
+            if sharePath and not os.path.exists(sharePath):
+                # only show error
+                logger.error("The samba share path '%s' does not exist." % sharePath)
+        else:
+            return False
 
     try:
         ldapObj = ldapUserGroupControl()
@@ -246,6 +247,9 @@ def getAdminUsersOnShare(name):
 
 def getDomainAdminsGroup():
     return sambaLdapControl().getDomainAdminsGroup()
+
+def setDomainPolicy():
+    return sambaLdapControl().setDomainPolicy()
 
 def isBrowseable(name):
     return smbConf(SambaConfig("samba").samba_conf_file).isBrowseable(name)
@@ -565,15 +569,21 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             else:
                 options['sambaLockoutThreshold'] = ["0"]
 
-            for key in options.keys():
-                # Update this SAMBA LDAP attribute
-                new[key] = options[key]
-            modlist = ldap.modlist.modifyModlist(old, new)
-            try:
-                self.l.modify_s(dn, modlist)
-            except ldap.UNDEFINED_TYPE:
-                # don't fail if attributes don't exist
-                pass
+            update = False
+            for attr, value in options.iteritems():
+                # Update attributes if needed
+                if new[attr] != value:
+                    new[attr] = value
+                    update = True
+
+            if update:
+                modlist = ldap.modlist.modifyModlist(old, new)
+                try:
+                    self.l.modify_s(dn, modlist)
+                except ldap.UNDEFINED_TYPE:
+                    # don't fail if attributes don't exist
+                    pass
+                logger.info("SAMBA domain policy synchronized with password policies")
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
@@ -879,18 +889,24 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         return sid
 
     def delSmbAttr(self, uid):
-        """remove smb attributes via smbpasswd cmd"""
+        """
+        Remove SAMBA attributes
+
+        @param uid: username
+        @type uid: str
+        @return: boolean
+        """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SAMBA_CLASS, [(userdn,AT.USER)])
         r.commit()
-        return mmctools.shlaunch("/usr/bin/smbpasswd -x " + uid)
+        return self.removeUserObjectClass(uid, "sambaSamAccount")
 
     def isEnabledUser(self, uid):
         """
         Return True if the SAMBA user is enabled
         """
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        userdn = self.searchUserDN(uid)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -902,8 +918,8 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         Return True if the SAMBA user is locked
         """
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        userdn = self.searchUserDN(uid)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -917,8 +933,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_ENABLE_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -933,7 +948,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -943,8 +958,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DISABLE_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -960,7 +974,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -970,8 +984,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_UNLOCK_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -983,7 +996,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -993,8 +1006,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.SAMBA_LOCK_USER, [(userdn, AT.USER)])
-        dn = 'uid=' + uid + ',' + self.baseUsersDN
-        s = self.l.search_s(dn, ldap.SCOPE_BASE)
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
         c, old = s[0]
         new = old.copy()
         flags = new["sambaAcctFlags"][0]
@@ -1006,7 +1018,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             flags = "[" + flags.ljust(11) + "]"
             new["sambaAcctFlags"] = [flags]
             modlist = ldap.modlist.modifyModlist(old, new)
-            self.l.modify_s(dn, modlist)
+            self.l.modify_s(userdn, modlist)
         r.commit()
         return 0
 
@@ -1223,12 +1235,12 @@ class smbConf:
         if current["pdc"] != options['pdc']:
             if options['pdc']:
                 self.setContent('global','domain logons','yes')
+                self.setContent('global','domain master','yes')
                 self.setContent('global', 'os level', '255')
             else:
                 self.setContent('global','domain logons','no')
+                self.remove("global", "domain master")
                 self.remove('global', 'os level')
-            # Default value of domain master (auto) is sufficient
-            self.remove("global", "domain master")
 
         if options['hashomes']:
             self.setContent('homes','comment','User shares')
@@ -1341,7 +1353,11 @@ class smbConf:
         if os.path.exists(str(returnArr['sharePath'])):
             stat_info = os.stat(returnArr['sharePath'])
             gid = stat_info.st_gid
-            returnArr['group'] = grp.getgrgid(gid)[0]
+            try:
+                returnArr['group'] = grp.getgrgid(gid)[0]
+            except:
+                logger.error("Can't find the primary group of %s. Check your libnss settings." % returnArr['sharePath'])
+                return False
 
         return returnArr
 
@@ -1559,7 +1575,7 @@ class smbConf:
         """
         Return SAMBA shares connection status
         """
-        output = mmctools.shlaunch('/usr/bin/net status shares parseable')
+        code, output, err = mmctools.shlaunch('/usr/bin/net status shares parseable')
         service = {}
 
         for line in output:
@@ -1594,7 +1610,7 @@ class smbConf:
         """
         Return all opened SAMBA sessions
         """
-        output = mmctools.shlaunch('/usr/bin/net status sessions parseable')
+        code, output, err = mmctools.shlaunch('/usr/bin/net status sessions parseable')
         result = []
         for line in output:
             #7727\useruid\Domain Users\machine\192.168.0.17

@@ -394,8 +394,15 @@ function _base_baseEdit($FH, $mode) {
         /* In case of error, display the POST values */
         if ($FH->isUpdated("primary"))
             $primary = $FH->getValue("primary");
-        else
+        else {
             $primary = getUserPrimaryGroup($uid);
+            /* If the group is not an LDAP group */
+            if (!in_array($primary, $groups)) {
+                $primaryGroups = $groups;
+                $primaryGroups[] = $primary;
+                $groupsTpl->setElements($primaryGroups);
+            }
+        }
     }
     $f->add(
         new TrFormElement(_("Primary group"), $groupsTpl),
@@ -469,15 +476,17 @@ function _base_baseEdit($FH, $mode) {
         array("value"=> $FH->getArrayOrPostValue("displayName"))
     );
 
-    $f->add(
-        new TrFormElement(_("UID"), new HiddenTpl("uidNumber")),
-        array("value"=> $FH->getArrayOrPostValue("uidNumber"))
-    );
+    if ($mode == "edit") {
+        $f->add(
+            new TrFormElement(_("UID"), new HiddenTpl("uidNumber")),
+            array("value"=> $FH->getArrayOrPostValue("uidNumber"))
+        );
 
-    $f->add(
-        new TrFormElement(_("GID"), new HiddenTpl("gidNumber")),
-        array("value"=> $FH->getArrayOrPostValue("gidNumber"))
-    );
+        $f->add(
+            new TrFormElement(_("GID"), new HiddenTpl("gidNumber")),
+            array("value"=> $FH->getArrayOrPostValue("gidNumber"))
+        );
+    }
 
     $f->pop();
     $f->pop();

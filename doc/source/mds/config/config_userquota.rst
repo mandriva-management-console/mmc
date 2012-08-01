@@ -1,4 +1,4 @@
-.. config-userquota:
+.. _config-userquota:
 
 =======================================
 MMC userquota plugin configuration file
@@ -75,35 +75,6 @@ setquotascript  Command template for applying quotas on filesystem            No
 delquotascript  Command template for removing quotas on filesystem            No       /usr/sbin/setquota $uid 0 0 0 0 $devicepath
 runquotascript  Script for setting quotas                                     No       /bin/sh
 =============== ============================================================= ======== ===========================================================================
-
-This section define the mountpoints on which you want to use filesystem quotas.
-If you are using an ext3 or xfs filesystem you should add the "usrquota" option
-to the mountpoint(s) in /etc/fstab.
-
-If you are using an XFS filesystem, you must remount manually the partition
-after adding the "usrquota" option to the mountpoint in /etc/fstab. On ext3
-filesystems, you can remount the filesystem dynamicaly with the usrquota option
-using the following command:
-
-::
-
-    mount -o remount,usrquota /path/to/mount/point
-
-On ext filesystems you have to create quota files on your mountpoints :
-
-::
-
-    quotacheck -cum /path/to/mount/point
-
-The devicemap option use the following format :
-
-::
-
-    device1:blocksize:displayname,device2:blocksize:displayname,...
-
-The device is the unix name of the partition (eg: "/dev/sda1"). The displayname
-is a string representing the device (eg: "Root"). The iquota blocksize value is
-1024 on Linux x86.
 
 The soft limits of the quotas are calculated using the softquotablocks and
 softquotainodes coefs. The inode limit is calculated using the inodesperblock
