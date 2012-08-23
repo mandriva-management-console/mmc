@@ -26,7 +26,7 @@
  * module declaration
  */
 $mod = new Module("samba");
-$mod->setVersion("2.4.2.90");
+$mod->setVersion("2.4.2.91");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("SAMBA service"),"samba");
 $mod->setAPIVersion("5:3:4");
