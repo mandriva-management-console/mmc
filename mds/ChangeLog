@@ -13,6 +13,7 @@ mds 2.4.3
    vAliasesSupport disabled
  * Bug #1780: Disk quota can not be deleted
  * Bug #1781: User filesystem quota can not be changed
+ * Bug #1803: Multiple domain names in a DHCP subnet not correctly applied
  * Feature #1673: Allow DNS zones to be created for subnets other then 8, 16
    and 24.
 
