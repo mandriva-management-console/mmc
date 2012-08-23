@@ -124,11 +124,14 @@ if (!isset($error)
     $names = array("broadcast-address", "routers", "domain-name", "domain-name-servers", "ntp-servers", "netbios-name-servers", "netbios-node-type", "root-path", "tftp-server-name","local-pac-server");
     foreach($names as $name) {
         $value = trim($_POST[$name]);
+        $value = preg_replace('!\s+!', ' ', $value);
     	if (in_array($name, array("domain-name", "root-path", "tftp-server-name")))
             $value = '"' . $value . '"';
-    	if (in_array($name, array("domain-name", "root-path", "tftp-server-name", "local-pac-server")))
+    	if (in_array($name, array("root-path", "tftp-server-name", "local-pac-server")))
             $value = str_replace(" ", ",", $value);
-        setSubnetOption($subnet, $name, str_replace(" ", "", $value));
+        if (in_array($name, array("domain-name-servers")))
+            $value = str_replace(" ", "", $value);
+        setSubnetOption($subnet, $name, $value);
     }
 
     /* Update the DHCP statements */
