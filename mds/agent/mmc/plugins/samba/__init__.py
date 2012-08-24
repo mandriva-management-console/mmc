@@ -1256,6 +1256,7 @@ class smbConf:
                 self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
         elif 'homes' in self.config:
             del self.config["homes"]
+            self.setContent('global', 'logon home', '')
 
         # disable global profiles
         if not options['hasprofiles']:
