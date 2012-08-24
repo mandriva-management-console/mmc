@@ -542,7 +542,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         except ImportError:
             # don't try to change samba policies
             pass
-        finally:
+        else:
             ppolicy = getDefaultPPolicy()[1]
             # samba default values
             options = {
