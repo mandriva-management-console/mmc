@@ -1096,7 +1096,8 @@ class smbConf:
         self.smbConfFile = smbconffile
         # Parse SAMBA configuration file
         try:
-            self.config = ConfigObj(self.smbConfFile, interpolation=False, list_values=False)
+            self.config = ConfigObj(self.smbConfFile, interpolation=False, 
+                                    list_values=False, write_empty_values=True)
         except ParseError, e:
             logger.error("Failed to parse %s : %s " % (self.smbConfFile, e))
 
@@ -1213,10 +1214,12 @@ class smbConf:
         """
         current = self.getSmbInfo()
 
-        # For this two smb.conf global option, we put a space and not an empty
-        # value in smb.conf, else a value by default is set by Samba
-        for option in ["logon home", "logon path"]:
-            if not option in options: options[option] = " "
+        # Don't write an empty value
+        # Use the SAMBA default
+        for option in ["logon home", "logon drive"]:
+            if options[option] == "":
+                self.remove("global", option)
+                del options[option]
 
         # We update only what has changed from the current configuration
         for option in self.supportedGlobalOptions:
@@ -1234,20 +1237,20 @@ class smbConf:
 
         if current["pdc"] != options['pdc']:
             if options['pdc']:
-                self.setContent('global','domain logons','yes')
-                self.setContent('global','domain master','yes')
+                self.setContent('global', 'domain logons', 'yes')
+                self.setContent('global', 'domain master', 'yes')
                 self.setContent('global', 'os level', '255')
             else:
-                self.setContent('global','domain logons','no')
-                self.remove("global", "domain master")
+                self.setContent('global', 'domain logons', 'no')
+                self.remove('global', 'domain master')
                 self.remove('global', 'os level')
 
         if options['hashomes']:
-            self.setContent('homes','comment','User shares')
-            self.setContent('homes','browseable','no')
-            self.setContent('homes','read only','no')
-            self.setContent('homes','create mask','0700')
-            self.setContent('homes','directory mask','0700')
+            self.setContent('homes', 'comment', 'User shares')
+            self.setContent('homes', 'browseable', 'no')
+            self.setContent('homes', 'read only', 'no')
+            self.setContent('homes', 'create mask', '0700')
+            self.setContent('homes', 'directory mask', '0700')
             # Set the vscan-av plugin if available
             if os.path.exists(SambaConfig("samba").av_so):
                 self.setContent("homes", "vfs objects", os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0])
@@ -1256,7 +1259,7 @@ class smbConf:
 
         # disable global profiles
         if not options['hasprofiles']:
-            self.setContent('global','logon path', ' ')
+            self.setContent('global', 'logon path', '')
 
         # Save file
         self.save()
