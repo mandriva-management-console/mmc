@@ -1,51 +1,53 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# # Translators:
+# 
+## Translators:
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-05 14:49+0100\n"
+"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
+"POT-Creation-Date: 2011-09-06 15:54+0200\n"
 "PO-Revision-Date: 2011-08-24 16:11+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: modules/sshlpk/includes/publicFunc.php:51
+#: modules/sshlpk/includes/publicFunc.php:42
+msgid "Public SSH keys management"
+msgstr ""
+
+#: modules/sshlpk/includes/publicFunc.php:47
 msgid "Enable SSH keys management"
 msgstr "Habilitar gerenciamento de chaves SSH"
+
+#: modules/sshlpk/includes/publicFunc.php:69
+msgid "Public SSH Key"
+msgstr "Chave SSH pública"
+
+#: modules/sshlpk/includes/publicFunc.php:109
+msgid "SSH public keys updated."
+msgstr ""
+
+#: modules/sshlpk/includes/publicFunc.php:115
+msgid "SSH public keys attributes deleted."
+msgstr ""
 
 #: modules/sshlpk/infoPackage.inc.php:34
 msgid "LDAP Public SSH key management"
 msgstr "Gerenciamento LDAP público de chaves SSH"
 
+#: modules/sshlpk/infoPackage.inc.php:38
+msgid "Show/Hide SSH key list"
+msgstr "Mostrar/Esconder lista de chaves SSH"
+
 #: modules/sshlpk/infoPackage.inc.php:39
 msgid "Manage SSH key"
 msgstr "Gerenciar chave SSH"
 
-#: modules/sshlpk/includes/publicFunc.php:73
-msgid "Public SSH Key"
-msgstr "Chave SSH pública"
 
-#: modules/sshlpk/includes/publicFunc.php:46
-msgid "Public SSH keys management"
-msgstr ""
-
-#: modules/sshlpk/includes/publicFunc.php:119
-msgid "SSH public keys attributes deleted."
-msgstr ""
-
-#: modules/sshlpk/includes/publicFunc.php:113
-msgid "SSH public keys updated."
-msgstr ""
-
-#: modules/sshlpk/infoPackage.inc.php:38
-msgid "Show/Hide SSH key list"
-msgstr "Mostrar/Esconder lista de chaves SSH"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-12-05 14:11+0000\n"
+"POT-Creation-Date: 2012-05-25 16:38+0200\n"
+"PO-Revision-Date: 2012-08-24 13:41+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +63,94 @@ msgid "Cancel"
 msgstr ""
 
 #: modules/bulkimport/import/index.php:199
-msgid "CSV file : "
+msgid "CSV file: "
 msgstr ""
 
 #: modules/bulkimport/import/index.php:204
 msgid "Load CSV"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:208
+msgid "Description:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:209
+msgid "You can import, modify and delete user accounts using a CSV file."
+msgstr ""
+
+#: modules/bulkimport/import/index.php:211
+msgid "If the users in the CSV file don't exist, you can import them."
+msgstr ""
+
+#: modules/bulkimport/import/index.php:212
+msgid ""
+"If the users in the CSV file exist, you can modify them or delete them."
+msgstr ""
+
+#: modules/bulkimport/import/index.php:214
+msgid "CSV Header requirements:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:216
+msgid "Required attribute:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:217
+msgid "Required for import:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:218
+msgid ""
+"Additional headers can be set and must match the attribute name in LDAP, for"
+" example:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:220
+msgid "CSV Formatting:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:222
+msgid "Delimiter:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:223
+msgid "Wrapper:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:224
+msgid "Escape character:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:226
+msgid "Special attributes"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:226
+msgid "or"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:228
+msgid "by default"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:229
+msgid "by default for delete operation, users home directory will be removed."
+msgstr ""
+
+#: modules/bulkimport/import/index.php:231
+msgid "Defaults:"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:233
+msgid "the default home directory path"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:234
+msgid "the default primary group"
+msgstr ""
+
+#: modules/bulkimport/import/index.php:236
+msgid "Supported attributes:"
 msgstr ""
 
 #: modules/bulkimport/includes/importUsers.php:218
