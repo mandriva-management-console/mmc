@@ -1075,7 +1075,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 class smbConf:
 
     supportedGlobalOptions = ["workgroup", "netbios name", "logon path", "logon drive", "logon home", "logon script", "ldap passwd sync", "wins support"]
-    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable', 'vfs objects']
+    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable']
 
     def __init__(self, smbconffile = "/etc/samba/smb.conf", conffile = None, conffilebase = None):
         """
