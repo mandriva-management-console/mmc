@@ -40,7 +40,7 @@ from string import Template
 
 INI = mmcconfdir + "/plugins/userquota.ini"
 
-VERSION = "2.4.2.91"
+VERSION = "2.4.2.92"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 
