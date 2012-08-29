@@ -773,7 +773,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
 
         # Don't update the password if we are using smbk5passwd
         conf = smbConf()
-        if conf.getContent("global", "ldap passwd sync").lower() != "only":
+        if type(conf.getContent("global", "ldap passwd sync")) == bool:
             userdn = self.searchUserDN(uid)
             r = AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_USER_PASS, [(userdn,AT.USER)])
             # If the passwd has been encoded in the XML-RPC stream, decode it
