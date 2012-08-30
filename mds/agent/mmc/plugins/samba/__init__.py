@@ -116,7 +116,7 @@ def activate():
         infos = shareInfo(shareName)
         if infos:
             sharePath = infos['sharePath']
-            if sharePath and not os.path.exists(sharePath):
+            if sharePath and not '%' in sharePath and not os.path.exists(sharePath):
                 # only show error
                 logger.error("The samba share path '%s' does not exist." % sharePath)
         else:
