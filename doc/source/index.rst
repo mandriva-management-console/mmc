@@ -26,6 +26,7 @@ Other documentation
 
    devel/index
    specs/index
+   qa/index
 
 .. Indices and tables
 .. ==================
