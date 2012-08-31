@@ -26,7 +26,7 @@
  * module declaration
  */
 $mod = new Module("network");
-$mod->setVersion("2.4.2.92");
+$mod->setVersion("2.4.2.93");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Network management", "network"));
 $mod->setAPIVersion('2:1:0');

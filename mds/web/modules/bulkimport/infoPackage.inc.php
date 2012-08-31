@@ -24,7 +24,7 @@
  * module declaration
  */
 $mod = new Module("bulkimport");
-$mod->setVersion("2.4.2.92");
+$mod->setVersion("2.4.2.93");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Bulk user manager via CSV files", "bulkimport"));
 $mod->setAPIVersion('0:0:0');
