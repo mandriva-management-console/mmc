@@ -32,44 +32,39 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>autocomplete</td>
+	<td>select</td>
+	<td>available_secondary</td>
 	<td>Administrators</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>baddgroup</td>
+	<td>xpath=//td[@class='membersTplSwitchs']/a</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>autocomplete</td>
+	<td>select</td>
+	<td>available_secondary</td>
 	<td>Domain Guests</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>baddgroup</td>
+	<td>xpath=//td[@class='membersTplSwitchs']/a</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//input[@name='buser' and @value='Confirm']</td>
+	<td>xpath=//input[@name='buser' and @value='Confirm']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyValue</td>
-	<td>primary_autocomplete</td>
+	<td>primary</td>
 	<td>Domain Users</td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>Administrators</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Domain Guests</td>
-	<td></td>
+	<td>verifySelectOptions</td>
+	<td>secondary</td>
+	<td>Domain Guests,Administrators</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -78,7 +73,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//input[@name='buser' and @value='Confirm']</td>
+	<td>xpath=//input[@name='buser' and @value='Confirm']</td>
 	<td></td>
 </tr>
 <tr>
@@ -104,12 +99,12 @@
 <tr>
 	<td>type</td>
 	<td>pass</td>
-	<td>newpass</td>
+	<td>newPass1$</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>confpass</td>
-	<td>newpass</td>
+	<td>newPass1$</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -122,18 +117,18 @@
 	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
 	<td>select</td>
-	<td>label=Administrators</td>
+	<td>secondary</td>
+	<td>Administrators</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>bdelgroups</td>
+	<td>xpath=//td[@class='membersTplSwitchs']/a[2]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>primary_autocomplete</td>
+	<td>select</td>
+	<td>primary</td>
 	<td>Administrators</td>
 </tr>
 <tr>
@@ -143,18 +138,13 @@
 </tr>
 <tr>
 	<td>verifyValue</td>
-	<td>primary_autocomplete</td>
+	<td>primary</td>
 	<td>Administrators</td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>select</td>
-	<td>label=Domain Guests</td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
+	<td>verifySelectOptions</td>
+	<td>secondary</td>
 	<td>Domain Guests</td>
-	<td></td>
 </tr>
 </tbody></table>
 </body>
