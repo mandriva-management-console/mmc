@@ -15,8 +15,8 @@ Running the test suite
 - Open Selenium IDE (Ctrl+Alt+S)
 - Open the test suite from the repository
   (``mmc/mds/tests/selenium/suite/all_test.html``)
-- Browse to the MMC login on your test server. The MDS installation must be
-  clean
+- Browse to the MMC login page on your test server. The MDS installation must be
+  clean with samba, mail and network modules. Root password must be ``secret``.
 - Play the full test suite
 
 Manual tests
