@@ -26,18 +26,19 @@ for module in bulkimport mail network  proxy samba sshlpk userquota; do
     touch $POT
     # Change gettext keyword according to the module
     if [ $module == base ]; then
-	keyword="_"
-	fpath=.
+    	keyword="_"
+	    fpath=.
     else
-	keyword=_T
-	fpath=modules/$module
+    	keyword=_T
+	    fpath=modules/$module
     fi
     find $fpath -iname "*.php" -exec xgettext -C -j -o ${POT} --language=PHP --keyword=$keyword {} \;
-    for name in `find modules/$module/locale -type f -name *.po`; do
-        echo -n "updating ${name}..."
-        msgmerge --update --add-location --sort-output ${name} ${POT}
-        echo "done"
-    done
+    # Build only the POT files
+    # for name in `find modules/$module/locale -type f -name *.po`; do
+    #     echo -n "updating ${name}..."
+    #     msgmerge --update --add-location --sort-output ${name} ${POT}
+    #     echo "done"
+    # done
 done
 
 exit 0
