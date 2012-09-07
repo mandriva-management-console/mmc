@@ -10,7 +10,7 @@ fi
 
 which tx > /dev/null
 if [ $? -ne 0 ]; then
-	echo "Install the transifex client (pip install transifex-client)"
+	echo "Install the transifex client v0.4 (pip install transifex-client==0.4)"
 	exit 1
 fi
 
