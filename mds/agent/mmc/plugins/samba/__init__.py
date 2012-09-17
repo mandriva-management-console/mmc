@@ -543,47 +543,52 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
             # don't try to change samba policies
             pass
         else:
-            ppolicy = getDefaultPPolicy()[1]
-            # samba default values
-            options = {
-                "sambaMinPwdLength": ["5"],
-                "sambaMaxPwdAge": ["-1"],
-                "sambaMinPwdAge": ["0"],
-                "sambaPwdHistoryLength": ["0"],
-                "sambaLockoutThreshold": ["0"],
-                "sambaLockoutDuration": ["30"]
-            }
-            if 'pwdMinLength' in ppolicy:
-                options['sambaMinPwdLength'] = ppolicy['pwdMinLength']
-            if 'pwdMaxAge' in ppolicy and ppolicy['pwdMaxAge'][0] != "0":
-                options['sambaMaxPwdAge'] = ppolicy['pwdMaxAge']
-            if 'pwdMinAge' in ppolicy:
-                options['sambaMinPwdAge'] = ppolicy['pwdMinAge']
-            if 'pwdInHistory' in ppolicy:
-                options['sambaPwdHistoryLength'] = ppolicy['pwdInHistory']
-            if 'pwdLockout' in ppolicy and ppolicy['pwdLockout'][0] == "TRUE" \
-                and 'pwdMaxFailure' in ppolicy and ppolicy['pwdMaxFailure'][0] != '0':
-                    if 'pwdLockoutDuration' in ppolicy:
-                        options['sambaLockoutDuration'] = ppolicy['pwdLockoutDuration']
-                    options['sambaLockoutThreshold'] = ppolicy['pwdMaxFailure']
+            try:
+                ppolicy = getDefaultPPolicy()[1]
+            except ldap.NO_SUCH_OBJECT:
+                # no default password policy set
+                pass
             else:
-                options['sambaLockoutThreshold'] = ["0"]
+                # samba default values
+                options = {
+                    "sambaMinPwdLength": ["5"],
+                    "sambaMaxPwdAge": ["-1"],
+                    "sambaMinPwdAge": ["0"],
+                    "sambaPwdHistoryLength": ["0"],
+                    "sambaLockoutThreshold": ["0"],
+                    "sambaLockoutDuration": ["30"]
+                }
+                if 'pwdMinLength' in ppolicy:
+                    options['sambaMinPwdLength'] = ppolicy['pwdMinLength']
+                if 'pwdMaxAge' in ppolicy and ppolicy['pwdMaxAge'][0] != "0":
+                    options['sambaMaxPwdAge'] = ppolicy['pwdMaxAge']
+                if 'pwdMinAge' in ppolicy:
+                    options['sambaMinPwdAge'] = ppolicy['pwdMinAge']
+                if 'pwdInHistory' in ppolicy:
+                    options['sambaPwdHistoryLength'] = ppolicy['pwdInHistory']
+                if 'pwdLockout' in ppolicy and ppolicy['pwdLockout'][0] == "TRUE" \
+                    and 'pwdMaxFailure' in ppolicy and ppolicy['pwdMaxFailure'][0] != '0':
+                        if 'pwdLockoutDuration' in ppolicy:
+                            options['sambaLockoutDuration'] = ppolicy['pwdLockoutDuration']
+                        options['sambaLockoutThreshold'] = ppolicy['pwdMaxFailure']
+                else:
+                    options['sambaLockoutThreshold'] = ["0"]
 
-            update = False
-            for attr, value in options.iteritems():
-                # Update attributes if needed
-                if new[attr] != value:
-                    new[attr] = value
-                    update = True
+                update = False
+                for attr, value in options.iteritems():
+                    # Update attributes if needed
+                    if new[attr] != value:
+                        new[attr] = value
+                        update = True
 
-            if update:
-                modlist = ldap.modlist.modifyModlist(old, new)
-                try:
-                    self.l.modify_s(dn, modlist)
-                except ldap.UNDEFINED_TYPE:
-                    # don't fail if attributes don't exist
-                    pass
-                logger.info("SAMBA domain policy synchronized with password policies")
+                if update:
+                    modlist = ldap.modlist.modifyModlist(old, new)
+                    try:
+                        self.l.modify_s(dn, modlist)
+                    except ldap.UNDEFINED_TYPE:
+                        # don't fail if attributes don't exist
+                        pass
+                    logger.info("SAMBA domain policy synchronized with password policies")
 
     def addMachine(self, uid, comment, addMachineScript = False):
         """
@@ -1096,7 +1101,7 @@ class smbConf:
         self.smbConfFile = smbconffile
         # Parse SAMBA configuration file
         try:
-            self.config = ConfigObj(self.smbConfFile, interpolation=False, 
+            self.config = ConfigObj(self.smbConfFile, interpolation=False,
                                     list_values=False, write_empty_values=True)
         except ParseError, e:
             logger.error("Failed to parse %s : %s " % (self.smbConfFile, e))
