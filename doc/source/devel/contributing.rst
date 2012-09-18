@@ -28,6 +28,13 @@ Repo setup
 
     git branch master-mmc --track mmc/master
 
+4. Change the default behavior of git push (if no ref is specified, use the
+   tracked branch by default)
+
+  ::
+
+    git config --global push.default tracking
+
 
 Using pull requests
 ###################
