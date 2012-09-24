@@ -1033,8 +1033,10 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         """
         ret = False
         try:
-            sambaPwdMustChange = self.getDetailedUser(uid)["sambaPwdMustChange"][0]
-            ret = int(sambaPwdMustChange) < time()
+            domain = self.getDomain()
+            if "sambaMaxPwdAge" in domain and domain["sambaMaxPwdAge"][0] > 0:
+                sambaPwdMustChange = int(self.getDetailedUser(uid)["sambaPwdLastSet"][0]) + int(domain["sambaMaxPwdAge"][0])
+                ret = int(sambaPwdMustChange) < time()
         except KeyError:
             pass
         return ret

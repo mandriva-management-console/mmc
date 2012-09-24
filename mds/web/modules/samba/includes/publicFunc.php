@@ -251,6 +251,11 @@ function _samba_baseEdit($FH, $mode) {
             $show = false;
     }
 
+    if ($hasSmb && userPasswdHasExpired($uid)) {
+        $em = new ErrorMessage(_T("SAMBA properties", "samba") . ' : ' . _T("The password of this account has expired.", "samba"));
+        $em->display();
+    }
+
     $f = new DivForModule(_T("Samba properties","samba"), "#EFE");
     $f->push(new Table());
 
@@ -266,14 +271,6 @@ function _samba_baseEdit($FH, $mode) {
 
     $f->push($smbdiv);
     $f->push(new Table());
-
-    if ($hasSmb && userPasswdHasExpired($uid)) {
-        $formElt = new HiddenTpl("userPasswdHasExpired");
-        $f->add(
-            new TrFormElement(_("WARNING"), $formElt),
-            array("value" => _T("The user password has expired", "samba"))
-        );
-    }
 
     $checked = "";
     if (($hasSmb && !isEnabledUser($uid)) || $FH->getArrayOrPostValue('isSmbDesactive') == 'on') {
