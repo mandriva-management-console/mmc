@@ -157,6 +157,26 @@ Currently available profiles for VNC (``vnc_network_connectivity``):
 - dsl: for low-end broadband links (high latency, 120 kb/s per connection)
 - isdn: (high latency, 75 kb/s)
 
+« Client probing behavior »
+-----------------------
+
+The LED which represents the client status can take four colors:
+
+- black: no probe done
+- red: all probe failed
+- orange: minimal probe succedeed (ping), maximal probe failed (ssh)
+- green: all probe succedeed
+
+Available probes are: none (field is empty), ping, ssh, ping_ssh (ie. both).
+
+For networks where icmp is not allowed, ping may be disabled: probe_order=ssh
+
+To speed-up display, ssh may be disabled: probe_order=ping
+
+To fully disable probe: probe_order=
+
+Default conf: none (empty)
+
 « package_api » section
 -----------------------
 
