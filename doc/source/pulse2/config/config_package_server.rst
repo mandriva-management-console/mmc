@@ -193,6 +193,7 @@ diskless_kernel    Name of the diskless kernel to run, relative to "diskless_fol
 diskless_initrd    Name of the diskless initrd to boot (core), relative to "diskless_folder"                                               yes      initrd
 diskless_initrdcd  Name of the diskless initrd to boot (add on to boot on CD), relative to "diskless_folder"                               yes      initrdcd
 diskless_memtest   Diskless memtest too, relative to "diskless_folder"                                                                     yes      initrdcd
+diskless_dban      Diskless dban too, relative to "diskless_folder"                                                                        yes      initrdcd
 inventories_folder Where inventories are stored / retrieved, relative to "base_folder"                                                     yes      inventories
 computers_folder   Where additionnal material (hdmap, exclude) are stored / retrieved, relative to "base_folder"                           yes      computers
 masters_folder     Where images are stored, relative to "base_folder"                                                                      yes      masters
