@@ -1591,30 +1591,31 @@ class smbConf:
         service = {}
 
         for line in output:
-            tab = line.split('\\',7)
-            serviceitem = {}
-            serviceitem['pid'] = tab[0]
+            if line.strip():
+                tab = line.strip().split('\\',7)
+                serviceitem = {}
+                serviceitem['pid'] = tab[0]
 
-            # Create unix timestamp
-            serviceitem['lastConnect'] = mktime(strptime(tab[6]))
+                # Create unix timestamp
+                serviceitem['lastConnect'] = mktime(strptime(tab[6]))
 
-            serviceitem['machine'] = tab[4]
+                serviceitem['machine'] = tab[4]
 
-            if tab[2]:
-                serviceitem['useruid'] = tab[2]
-                serviceitem['ip'] = tab[5]
-            else:
-                serviceitem['useruid'] = 'anonymous'
+                if tab[2]:
+                    serviceitem['useruid'] = tab[2]
+                    serviceitem['ip'] = tab[5]
+                else:
+                    serviceitem['useruid'] = 'anonymous'
 
-            if tab[0]==tab[2]:
-                indIndex = "homes"
-            else:
-                indIndex = tab[0]
+                if tab[0]==tab[2]:
+                    indIndex = "homes"
+                else:
+                    indIndex = tab[0]
 
-            if not indIndex in service:
-                service[indIndex] = list()
+                if not indIndex in service:
+                    service[indIndex] = list()
 
-            service[indIndex].append(serviceitem)
+                service[indIndex].append(serviceitem)
 
         return service
 
@@ -1625,15 +1626,16 @@ class smbConf:
         code, output, err = mmctools.shlaunch('/usr/bin/net status sessions parseable')
         result = []
         for line in output:
-            #7727\useruid\Domain Users\machine\192.168.0.17
-            # 0    1    2             3          4
-            tab = line.split('\\',5)
-            sessionsitem = {}
-            sessionsitem['pid'] = tab[0]
-            sessionsitem['useruid'] = tab[1]
-            sessionsitem['machine'] = tab[3]
-            sessionsitem['ip'] = tab[4]
-            result.append(sessionsitem)
+            if line.strip():
+                #7727\useruid\Domain Users\machine\192.168.0.17
+                #0    1       2            3       4
+                tab = line.strip().split('\\',5)
+                sessionsitem = {}
+                sessionsitem['pid'] = tab[0]
+                sessionsitem['useruid'] = tab[1]
+                sessionsitem['machine'] = tab[3]
+                sessionsitem['ip'] = tab[4]
+                result.append(sessionsitem)
         return result
 
     def isAuthorizedSharePath(self, path):
