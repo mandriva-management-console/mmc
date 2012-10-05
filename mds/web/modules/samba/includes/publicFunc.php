@@ -256,6 +256,11 @@ function _samba_baseEdit($FH, $mode) {
         $em->display();
     }
 
+    if ($hasSmb && isLockedUser($uid)) {
+        $em = new ErrorMessage(_T("SAMBA properties", "samba") . ' : ' . _T("This account is locked.", "samba"));
+        $em->display();
+    }
+
     $f = new DivForModule(_T("Samba properties","samba"), "#EFE");
     $f->push(new Table());
 
