@@ -1104,7 +1104,8 @@ class smbConf:
         # Parse SAMBA configuration file
         try:
             self.config = ConfigObj(self.smbConfFile, interpolation=False,
-                                    list_values=False, write_empty_values=True)
+                                    list_values=False, write_empty_values=True,
+                                    encoding='utf8')
         except ParseError, e:
             logger.error("Failed to parse %s : %s " % (self.smbConfFile, e))
 
