@@ -126,3 +126,7 @@ MDS tests
 17. Change ``user1`` password on the Windows client
 
 18. Login the MMC with ``user1`` new password
+
+19. Change ``user1`` password on the MMC interface
+
+20. Logout/Login with ``user1`` on the Windows client
