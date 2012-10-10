@@ -37,6 +37,7 @@ easy to setup with VirtualBox).
 
 - The MES 5.2 server is a base installation from the DVD + all updates
 - The ``mmc-wizard`` package is installed
+- The firewall is disabled (all ports open)
 - The private network will be ``192.168.220.0/24`` in this document
 - The MES 5.2 server has a static IP of ``192.168.220.10``
 
