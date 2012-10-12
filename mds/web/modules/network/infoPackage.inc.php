@@ -185,7 +185,7 @@ $submod->addPage($page);
 $mod->addSubmod($submod);
 
 $MMCApp =&MMCApp::getInstance();
-$MMCApp->addModule(&$mod);
+$MMCApp->addModule($mod);
 
 /* Add DHCP service log viewer */
 $base = &$MMCApp->getModule("base");
