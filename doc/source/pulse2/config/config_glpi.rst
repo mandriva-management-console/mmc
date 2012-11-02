@@ -83,7 +83,7 @@ Available options for the "querymanager" section:
 =========== ===================================================== ======== =============
 Option name Description                                           Optional Default value
 =========== ===================================================== ======== =============
-activate    If queries on glpi inventory criterions are possible. yes      1
+activate    If queries on glpi inventory criterions are possible. yes      True
 =========== ===================================================== ======== =============
 
 « authentication_glpi » section
@@ -93,11 +93,12 @@ This section define a way to authenticate thru glpi.
 
 Available options for the "authentication_glpi" section:
 
-=========== =================== ======== ========================
-Option name Description         Optional Default value
-=========== =================== ======== ========================
+=========== =============================================================================================================================== ======== =============
+Option name Description                                                                                                                     Optional Default value
+=========== =============================================================================================================================== ======== =============
 baseurl     glpi login page url yes      http://glpi-server/glpi/
-=========== =================== ======== ========================
+doauth      Before provisioning, should we perform a GLPI authentication to create or update the user's informations in the GLPI database ? yes      True
+=========== =============================================================================================================================== ======== =============
 
 « provisioning_glpi » section
 -----------------------------
@@ -110,7 +111,6 @@ Available options for the "provisioning_glpi" section:
 Option name          Description                                                                                                                     Optional Default value
 ==================== =============================================================================================================================== ======== ==========================
 exclude              users that are never going to be provisioned                                                                                    yes      root
-doauth               Before provisioning, should we perform a GLPI authentication to create or update the user's informations in the GLPI database ? yes      1
 profile_acl_profileX MMC web interface ACLs definition according to the user GLPI profile                                                            yes      :##:base#main#default
 profile_order        If the user belong to more than one profile, the first profile of this list will be used                                        yes      profile1 profile2 profile3
 ==================== =============================================================================================================================== ======== ==========================
