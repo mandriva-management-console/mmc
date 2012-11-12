@@ -188,43 +188,45 @@ $MMCApp =&MMCApp::getInstance();
 $MMCApp->addModule($mod);
 
 /* Add DHCP service log viewer */
+/* LogView is deprecated ! */
 $base = &$MMCApp->getModule("base");
 $logview = &$base->getSubmod("logview");
 
-$page = new Page("dhcpindex",_T("DHCP service log", "network"));
-$page->setFile("modules/network/dhcplogview/index.php", array("expert" => true));
+if ($logview) {
+    $page = new Page("dhcpindex",_T("DHCP service log", "network"));
+    $page->setFile("modules/network/dhcplogview/index.php", array("expert" => true));
 
-$logview->addPage($page);
+    $logview->addPage($page);
 
-$page = new Page("dhcpshow");
-$page->setFile("modules/network/dhcplogview/ajax_showlog.php",
-	       array("AJAX" =>True,"visible"=>False)
-	       );
-$logview->addPage($page);
+    $page = new Page("dhcpshow");
+    $page->setFile("modules/network/dhcplogview/ajax_showlog.php",
+               array("AJAX" =>True,"visible"=>False)
+               );
+    $logview->addPage($page);
 
-$page = new Page("dhcpsetsearch");
-$page->setFile("modules/network/dhcplogview/ajax_setSearch.php",
-	       array("AJAX" =>True,"visible"=>False)
-	       );
-$logview->addPage($page);
+    $page = new Page("dhcpsetsearch");
+    $page->setFile("modules/network/dhcplogview/ajax_setSearch.php",
+               array("AJAX" =>True,"visible"=>False)
+               );
+    $logview->addPage($page);
 
-/* Add DNS service log viewer */
-$page = new Page("dnsindex",_T("DNS service log", "network"));
-$page->setFile("modules/network/dnslogview/index.php", array("expert" => true));
+    /* Add DNS service log viewer */
+    $page = new Page("dnsindex",_T("DNS service log", "network"));
+    $page->setFile("modules/network/dnslogview/index.php", array("expert" => true));
 
-$logview->addPage($page);
+    $logview->addPage($page);
 
-$page = new Page("dnsshow");
-$page->setFile("modules/network/dnslogview/ajax_showlog.php",
-	       array("AJAX" =>True,"visible"=>False)
-	       );
-$logview->addPage($page);
+    $page = new Page("dnsshow");
+    $page->setFile("modules/network/dnslogview/ajax_showlog.php",
+               array("AJAX" =>True,"visible"=>False)
+               );
+    $logview->addPage($page);
 
-$page = new Page("dnssetsearch");
-$page->setFile("modules/network/dnslogview/ajax_setSearch.php",
-	       array("AJAX" =>True,"visible"=>False)
-	       );
-$logview->addPage($page);
-
+    $page = new Page("dnssetsearch");
+    $page->setFile("modules/network/dnslogview/ajax_setSearch.php",
+               array("AJAX" =>True,"visible"=>False)
+               );
+    $logview->addPage($page);
+}
 
 ?>
