@@ -265,6 +265,15 @@ function _mail_baseEdit($FH, $mode) {
                 new CheckboxTpl("zarafaAccount")),
                 array("value"=> $checked == "on" ? "checked" : "")
         );
+        $checked = false;
+        if($FH->getArrayOrPostValue('zarafaHidden') == "on" ||
+           $FH->getArrayOrPostValue('zarafaHidden') == "1")
+            $checked = true;
+        $f->add(
+            new TrFormElement(_T("Hide from Zarafa address book", "mail"),
+                new CheckboxTpl("zarafaHidden")),
+                array("value"=> $checked ? "checked" : "")
+        );
         $f->pop();
 
         $sendas = new MultipleInputTpl("zarafaSendAsPrivilege", _T("Zarafa send as user list", "mail"));

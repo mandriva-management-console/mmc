@@ -67,7 +67,8 @@ def activate():
     # Additional LDAP classes/attributes to check for ZARAFA support
     if config.zarafa:
         mailSchema['zarafa-user'] = ['zarafaAdmin', 'zarafaSharedStoreOnly',
-                                     'zarafaAccount', 'zarafaSendAsPrivilege' ]
+                                     'zarafaAccount', 'zarafaSendAsPrivilege',
+                                     'zarafaHidden']
         mailSchema['zarafa-group'] = []
 
     # Additional LDAP classes for virtual aliases
@@ -885,7 +886,8 @@ class MailControl(ldapUserGroupControl):
         events = { 'zarafaAdmin' : AA.MAIL_MOD_ZARAFA_ADMIN,
                  'zarafaSharedStoreOnly' : AA.MAIL_MOD_ZARAFA_SHAREDSTOREONLY,
                  'zarafaAccount' : AA.MAIL_MOD_ZARAFA_ACCOUNT,
-                 'zarafaSendAsPrivilege' : AA.MAIL_MOD_ZARAFA_SENDASPRIVILEGE }
+                 'zarafaSendAsPrivilege' : AA.MAIL_MOD_ZARAFA_SENDASPRIVILEGE,
+                 'zarafaHidden' : AA.MAIL_MOD_ZARAFA_HIDDEN }
         if attribute not in events:
             raise ValueError('Attribute %s is not managed' % attribute)
         userdn = self.searchUserDN(uid)
