@@ -64,6 +64,7 @@ Option name         Description                                                 
 host                The hostname or ip address where the inventory.                                                                                                 yes      string  localhost
 port                The port on which the inventory listen.                                                                                                         yes      int     9999
 ocsmapping          The mapping file betwen ocs inventory agent xml output and the database schema                                                                  yes      path    /etc/mmc/pulse2/inventory-server/OcsNGMap.xml
+xmlfixplugindir     Directory containing Python scripts to fix the xml inventory before injecting                                                                   yes      path    /etc/mmc/pulse2/inventory-server/xml-fix
 enablessl           SSL mode support                                                                                                                                yes      boolean False
 verifypeer          use SSL certificates                                                                                                                            yes      boolean False
 cacert              path to the certificate file describing the certificate authority of the SSL server                                                             yes      path    /etc/mmc/pulse2/inventory-server/keys/cacert.pem
