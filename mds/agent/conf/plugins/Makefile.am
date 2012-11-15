@@ -1,7 +1,5 @@
 # (c) 2011 Mandriva, http://www.mandriva.com
 #
-# $Id$
-#
 # This file is part of Mandriva Management Console (MMC).
 #
 # MMC is free software; you can redistribute it and/or modify
@@ -24,7 +22,7 @@ pluginconfdir = $(sysconfdir)/mmc/plugins
 
 if ENABLE_CONF
 dist_pluginconf_DATA = mail.ini network.ini proxy.ini sshlpk.ini \
-	userquota.ini bulkimport.ini
+	userquota.ini bulkimport.ini shorewall.ini
 nodist_pluginconf_DATA = samba.ini
 endif
 

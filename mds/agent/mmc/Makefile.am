@@ -22,7 +22,7 @@
 #
 pythonmodules = plugins.samba plugins.mail plugins.network \
 	plugins.proxy plugins.sshlpk plugins.bulkimport \
-	plugins.userquota
+	plugins.userquota plugins.shorewall
 
 # Expands Python modules list with found *.py files in each module given in pythonmodules
 mmcpythondir = $(pythondir)/$(notdir $(realpath $(srcdir)))

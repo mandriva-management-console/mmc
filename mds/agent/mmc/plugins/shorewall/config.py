@@ -1,4 +1,7 @@
-# (c) 2011 Mandriva, http://www.mandriva.com
+# -*- coding: utf-8; -*-
+#
+# (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
+# (c) 2007-2012 Mandriva, http://www.mandriva.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -14,8 +17,18 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author(s):
-#   Jean Parpaillon <jparpaillon@mandriva.com>
-#
-SUBDIRS  = modules
+
+"""
+MMC services plugin configuration
+"""
+
+from mmc.support.config import PluginConfig
+
+class ShorewallPluginConfig(PluginConfig):
+
+    def readConf(self):
+        PluginConfig.readConf(self)
+        self.external_zones_names = self.get('main', 'external_zones_names')
+        self.internal_zones_names = self.get('main', 'internal_zones_names')
+        self.path = self.get('main', 'path')
+        self.macros_path = self.get('main', 'macros_path')
