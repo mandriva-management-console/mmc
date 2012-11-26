@@ -45,8 +45,8 @@ class quotainputgroup extends AbstractTpl {
 		$this->id = $id;
 	}
 	function display() {
-		print 'Quota:<input type="text" name="quota'.$this->id.'" size="8" class="textfield" value="">';
-		print 'Blocks hard:<input type="text" name="quota1'.$this->id.'" size="8" class="textfield" value="">';
+		print 'Quota:<input type="text" name="quota'.$this->id.'" size="8" value="">';
+		print 'Blocks hard:<input type="text" name="quota1'.$this->id.'" size="8" value="">';
 	}
 }
 

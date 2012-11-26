@@ -69,7 +69,7 @@ $p->displaySideMenu();
 <table cellspacing="0">
  <tr>
   <td><?php echo  _T("Name"); ?></td>
-  <td><input name="blacklistName" type="text" class="textfield" size="23" value="<?php if (isset($error)) {echo $blacklistName;} ?>" /></td>
+  <td><input name="blacklistName" type="text" size="23" value="<?php if (isset($error)) {echo $blacklistName;} ?>" /></td>
  </tr>
 </table>
 

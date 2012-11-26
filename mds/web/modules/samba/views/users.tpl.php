@@ -128,7 +128,7 @@
     </tr>
     <tr><td style="text-align: right;"><?php echo  _T("Add a new user"); ?></td><td>
 
-    <input type="text" id="auto<?php echo  $autocomplete; ?>" name="auto<?= $autocomplete; ?>" class="textfield" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
+    <input type="text" id="auto<?php echo  $autocomplete; ?>" name="auto<?= $autocomplete; ?>" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
     <div id="auto<?php echo  $autocomplete; ?>_choices" class="autocomplete">
         <ul>
             <li></li>
