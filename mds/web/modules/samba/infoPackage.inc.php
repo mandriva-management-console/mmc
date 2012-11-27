@@ -39,7 +39,7 @@ $mod->setPriority(10);
 
 $submod = new SubModule("shares");
 $submod->setDescription(_T("Shares","samba"));
-$submod->setImg('img/navbar/share');
+$submod->setImg('modules/samba/graph/navbar/share');
 $submod->setDefaultPage("samba/shares/index");
 
 $page = new Page("index",_T("List shares","samba"));

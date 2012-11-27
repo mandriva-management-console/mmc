@@ -36,7 +36,7 @@ $mod->setAPIVersion('1:1:0');
  */
 $submod = new SubModule("blacklist");
 $submod->setDescription(_T("Proxy","proxy"));
-$submod->setImg('img/navbar/proxy');
+$submod->setImg('modules/proxy/graph/navbar/proxy');
 $submod->setDefaultPage("proxy/blacklist/statut");
 $submod->setPriority(300);
 

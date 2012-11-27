@@ -36,7 +36,10 @@ datafiles = \
 	includes/proxy-xmlrpc.inc.php \
 	includes/proxy-unix.inc.php \
 	includes/auditCodes.php \
-	localCss.php
+	localCss.php \
+	graph/navbar/proxy.png \
+	graph/navbar/proxy_hl.png \
+	graph/navbar/proxy_select.png
 
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
