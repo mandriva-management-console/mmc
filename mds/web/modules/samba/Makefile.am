@@ -51,7 +51,10 @@ datafiles = \
 	config/restart.php \
 	graph/navbar/share.png \
 	graph/navbar/share_hl.png \
-	graph/navbar/share_select.png
+	graph/navbar/share_select.png \
+	graph/navbar/pref.png \
+	graph/navbar/pref_hl.png \
+	graph/navbar/pref_select.png
 
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 

@@ -68,7 +68,7 @@ $mod->addSubmod($submod);
  */
 $submod = new SubModule("machines");
 $submod->setVisibility(False);
-$submod->setImg('img/navbar/computer');
+$submod->setImg('modules/base/graph/navbar/computer');
 $submod->setDefaultPage("samba/machines/index");
 $submod->setDescription(_T("Machines"),"samba");
 $submod->setAlias('shares');
@@ -99,7 +99,7 @@ $mod->addSubmod($submod);
  */
 $submod = new SubModule("config");
 $submod->setDefaultPage("samba/config/index");
-$submod->setImg('img/navbar/pref');
+$submod->setImg('modules/samba/graph/navbar/pref');
 $submod->setDescription(_T("Configuration"),"samba");
 $submod->setVisibility(False);
 $submod->setAlias('shares');
