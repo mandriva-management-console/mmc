@@ -70,12 +70,12 @@ if ($_POST) {
     $resultPopup = new NotifyWidget();
     // add error messages
     if ($error) {
-        $resultPopup->add('<div class="errorCode">' . $error . '</div>');
+        $resultPopup->add('<div class="alert alert-error">' . $error . '</div>');
         $resultPopup->setLevel(5);
     }
     // add info messages
     if ($result)
-        $resultPopup->add('<div class="validCode">' . $result . '</div>');
+        $resultPopup->add('<div class="alert alert-success">' . $result . '</div>');
 
     if(!$error)
         header("Location: " . urlStrRedirect("network/network/services"));
