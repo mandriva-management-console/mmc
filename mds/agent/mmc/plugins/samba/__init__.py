@@ -62,7 +62,7 @@ from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
 
 INI = mmcconfdir + "/plugins/samba.ini"
 
-VERSION = "2.4.3"
+VERSION = "2.4.90"
 APIVERSION = "5:3:4"
 REVISION = scmRevision("$Rev$")
 
