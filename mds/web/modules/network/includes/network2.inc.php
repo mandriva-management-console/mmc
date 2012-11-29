@@ -50,7 +50,7 @@ class ExtendedSelectItem extends SelectItem {
 
 class MultipleRangeInputTpl extends AbstractTpl {
 
-    function MultipleRangeInputTpl($name,$desc='', $new=false) {
+    function MultipleRangeInputTpl($name, $desc='', $new=false, $formId = "Form") {
         $this->name = $name;
         /*
           stripslashes is needed, because some characters may be backslashed
@@ -59,6 +59,7 @@ class MultipleRangeInputTpl extends AbstractTpl {
         $this->desc = stripslashes($desc);
         $this->regexp = '/.*/';
         $this->new = $new;
+        $this->formId = $formId;
     }
 
     function setRegexp($regexp) {
@@ -79,7 +80,8 @@ class MultipleRangeInputTpl extends AbstractTpl {
                                                      'new' => $this->new,
                                                      'ajaxPage' => "modules/network/network/ajaxMultipleRange.php"
 
-                                                     )
+                                                 ),
+                                                $this->formId
                                                );
             $test->display(array("value" => DhcpRangeTpl::valueFromDhcpRangeString($param)));
 
@@ -92,7 +94,7 @@ class MultipleRangeInputTpl extends AbstractTpl {
 
         print '<input name="buser" type="submit" class="btnPrimary" value="'._("Add").'" onclick="
         new Ajax.Updater(\''.$this->name.'\',\'modules/network/network/ajaxMultipleRange.php\',
-        { evalScripts: true, parameters: Form.serialize($(\'edit\'))+\'&amp;minputname='.$this->name.'&amp;desc='.urlencode($this->desc) . '&amp;regexp='.rawurlencode($this->regexp).'\' }); return false;"/>';
+        { evalScripts: true, parameters: Form.serialize($(\'' . $this->formId . '\'))+\'&amp;minputname='.$this->name.'&amp;desc='.urlencode($this->desc) . '&amp;regexp='.rawurlencode($this->regexp).'\' }); return false;"/>';
         print '</td></tr>';
         print '</table>';
         print '</div>';
@@ -105,12 +107,13 @@ class CustomDeletableTrFormElement extends DeletableTrFormElement{
 
     var $ajaxPage;
 
-    function CustomDeletableTrFormElement($desc,$tpl,$extraInfo = array()) {
+    function CustomDeletableTrFormElement($desc,$tpl,$extraInfo = array(), $formId) {
         $this->desc=$desc;
         $this->template=&$tpl;
         foreach ($extraInfo as $key => $value) {
             $this->$key = $value;
         }
+        $this->formId = $formId;
     }
 
     function display($arrParam = array()) {
@@ -166,7 +169,7 @@ class CustomDeletableTrFormElement extends DeletableTrFormElement{
         FormElement::display($arrParam);
         print '<input name="bdel" type="submit" class="btnSecondary" value="'._("Delete").'" onclick="
         new Ajax.Updater(\''.$this->name.'\',\''.$this->ajaxPage.'\',
-        { parameters: Form.serialize($(\'edit\'))+\'&amp;minputname='.$this->name.'&amp;del='.$this->key.'&amp;desc='.urlencode($this->desc) . '&amp;regexp='.rawurlencode($this->template->regexp) . '\' }); return false;"/>';
+        { parameters: Form.serialize($(\'' . $this->formId . '\'))+\'&amp;minputname='.$this->name.'&amp;del='.$this->key.'&amp;desc='.urlencode($this->desc) . '&amp;regexp='.rawurlencode($this->template->regexp) . '\' }); return false;"/>';
 
         print '</td></tr>';
 
