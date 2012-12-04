@@ -828,7 +828,11 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         for key in attributes.keys():
             if key.startswith("samba"):
                 value = attributes[key]
-                if value == "":
+                if "old_" + key in attributes:
+                    old_value = attributes["old_" + key]
+                else:
+                    old_value = None
+                if value == "" and value != old_value:
                     # Maybe delete this SAMBA LDAP attribute
                     try:
                         del new[key]
@@ -836,7 +840,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                             [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
                     except KeyError:
                         pass
-                else:
+                elif value != old_value:
                     if value.startswith("\\\\\\\\"):
                         value = value.replace("\\\\", "\\")
                     # Update this SAMBA LDAP attribute
@@ -844,11 +848,12 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
                     logs.append(AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_ATTR,
                         [(userdn, AT.USER), (key, AT.ATTRIBUTE)], value))
 
-        modlist = ldap.modlist.modifyModlist(old, new)
-        if modlist: self.l.modify_s(userdn, modlist)
-        self.runHook("samba.changesambaattributes", uid)
-        for log in logs:
-            log.commit()
+        if new != old:
+            modlist = ldap.modlist.modifyModlist(old, new)
+            if modlist: self.l.modify_s(userdn, modlist)
+            self.runHook("samba.changesambaattributes", uid)
+            for log in logs:
+                log.commit()
         return 0
 
     def changeUserPrimaryGroup(self, uid, group):
