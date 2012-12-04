@@ -41,7 +41,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.mail.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.4.90"
+VERSION = "2.4.91"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 
