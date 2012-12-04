@@ -106,6 +106,9 @@ function _samba_changeUser($FH, $mode) {
             if($FH->isUpdated("sambaProfilePath") && !$globalProfiles) {
                 $FH->setValue("sambaProfilePath", $FH->getPostValue("sambaProfilePath"));
             }
+            if (!$FH->getPostValue("hasProfile") && $FH->getPostValue("old_hasProfile") == "on") {
+                $FH->setValue("sambaProfilePath", "");
+            }
 
             // change attributes
             changeSmbAttr($FH->getPostValue("uid"), $FH->getValues());
