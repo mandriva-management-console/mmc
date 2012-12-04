@@ -604,7 +604,7 @@ class sambaLdapControl(mmc.plugins.base.ldapUserGroupControl):
         r = AF().log(PLUGIN_NAME, AA.SAMBA_ADD_MACHINE, [(uid, AT.MACHINE)], comment)
         origuid = uid
         uid = uid + '$'
-        uidNumber = self.maxUID()+1;
+        uidNumber = self.freeUID();
 
         if not comment:
             comment = "Machine account"
