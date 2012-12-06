@@ -30,6 +30,7 @@ if (isset($_POST["bconfirm"])) {
     delRecord($zone, $host);
     if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The record has been deleted."));
     header("Location: main.php?module=network&submod=network&action=zonemembers&zone=$zone");
+    exit;
 } else {
     $host = urldecode($_GET["host"]);
     $zone = urldecode($_GET["zone"]);

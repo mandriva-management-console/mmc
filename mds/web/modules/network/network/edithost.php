@@ -64,6 +64,7 @@ if (isset($_POST["badd"])) {
                 header("Location: " . $_SERVER["PHP_SELF"] . "?" . rawurldecode($_GET["gobackto"]));
             else
                 header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
+            exit;
         }
     } else new NotifyWidgetFailure($error);
 }
@@ -77,6 +78,7 @@ if (isset($_POST["bedit"])) {
         if (empty($ret)) {
             new NotifyWidgetSuccess(_T("DNS record successfully modified."));
             header("Location: " . urlStrRedirect("network/network/zonemembers", array("zone" => $zone)));
+            exit;
         }else {
             $msg = _T("The following aliases have not been set because a DNS record with the same name already exists:");
             foreach($ret as $alias)

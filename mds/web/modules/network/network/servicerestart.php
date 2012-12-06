@@ -32,5 +32,6 @@ else if ($service == "DHCP") dhcpService("restart");
 if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The service has been asked to restart."));
 
 header("Location: " . urlStrRedirect("network/network/services"));
+exit;
 
 ?>

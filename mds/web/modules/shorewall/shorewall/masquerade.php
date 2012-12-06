@@ -41,6 +41,7 @@ if (isset($_POST['badd'])) {
     addMasqueradeRule($_POST['external_if'], ($_POST['internal_if']));
     new NotifyWidgetSuccess(_T("NAT rule added."));
     header("Location: " . urlStrRedirect("shorewall/shorewall/masquerade"));
+    exit;
 }
 
 // Add NAT rule form

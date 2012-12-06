@@ -38,6 +38,7 @@ if (isset($_POST['bpolicy'])) {
                     $n = new NotifyWidgetSuccess(_T("Policy changed."));
                     handleServicesModule($n);
                     header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
+                    exit;
                 }
                 else {
                     new NotifyWidgetFailure(_T("Failed to change the policy."));
@@ -58,6 +59,7 @@ if (isset($_POST['brule'])) {
                 if (!$_POST['proto'] || !$_POST['port']) {
                     new NotifyWidgetFailure(_T("Protocol and port must be specified."));
                     header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
+                    exit;
                 }
                 else {
                     $action = "DNAT";
@@ -87,6 +89,7 @@ if (isset($_POST['brule'])) {
                 $n = new NotifyWidgetSuccess(_T("Rule added."));
                 handleServicesModule($n);
                 header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
+                exit;
             }
             else {
                 new NotifyWidgetFailure(_T("Failed to add the rule."));

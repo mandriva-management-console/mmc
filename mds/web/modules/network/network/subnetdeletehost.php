@@ -36,6 +36,7 @@ if (isset($_POST["bconfirm"])) {
     }
     if (!isXMLRPCError()) new NotifyWidgetSuccess($result);
     header("Location: main.php?module=network&submod=network&action=subnetmembers&subnet=$subnet");
+    exit;
 } else {
     $subnet = urldecode($_GET["subnet"]);
     $host = urldecode($_GET["host"]);

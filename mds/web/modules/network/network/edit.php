@@ -119,6 +119,7 @@ if (isset($_POST["badd"])) {
         if (!isXMLRPCError()) {
             new NotifyWidgetSuccess($result);
             header("Location: " . urlStrRedirect("network/network/index"));
+            exit;
         }
     } else
         new NotifyWidgetFailure($error);
@@ -166,6 +167,7 @@ if (isset($_POST["badd"])) {
         if (!isXMLRPCError()) {
             new NotifyWidgetSuccess(_T("DNS zone successfully modified."));
             header("Location: " . urlStrRedirect("network/network/index"));
+            exit;
         }
     } else {
         new NotifyWidgetFailure($error);

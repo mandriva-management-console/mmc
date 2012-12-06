@@ -58,6 +58,7 @@ if (isset($_POST["bcreate"])) {
             if (!isXMLRPCError()) {
                 new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
                 header("Location: " . urlStrRedirect("samba/shares/index" ));
+                exit;
             }
         }
     }

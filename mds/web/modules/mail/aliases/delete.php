@@ -30,6 +30,7 @@ if (isset($_POST["bconfirm"])) {
         new NotifyWidgetSuccess($result);
     }
     header("Location: " . urlStrRedirect("mail/aliases/index"));
+    exit;
 }
 else {
     $alias = urldecode($_GET["alias"]);

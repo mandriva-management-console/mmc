@@ -47,8 +47,9 @@ $soa = getSOARecord($curzone);
 
 if ($_GET["action"] == "editrecord"){
     if ($_GET["serial"] != $soa["serial"]){
-	new NotifyWidgetFailure(_T("Zone data was updated. Selected record may be incorrect."));
-	header("Location: " . urlStrRedirect("network/network/zonerecords", array("zone" => $zone, "reverse" => $reverse)));
+        new NotifyWidgetFailure(_T("Zone data was updated. Selected record may be incorrect."));
+        header("Location: " . urlStrRedirect("network/network/zonerecords", array("zone" => $zone, "reverse" => $reverse)));
+        exit;
     }
 }
 
@@ -109,6 +110,7 @@ if (isset($_POST["badd"])) {
 	else {
 	    addRecord($curzone, $type, $record->hostname(), $value);
 	    header("Location: " . urlStrRedirect("network/network/zonerecords", array("zone" => $zone, "reverse" => $reverse)));
+        exit;
 	}
     }
 }
@@ -137,6 +139,7 @@ if (isset($_POST["bedit"])) {
 	else {
 	    modifyRecordById($curzone, $recordId, $record->hostname(), $value);
 	    header("Location: " . urlStrRedirect("network/network/zonerecords", array("zone" => $zone, "reverse" => $reverse)));
+        exit;
 	}
     }
 

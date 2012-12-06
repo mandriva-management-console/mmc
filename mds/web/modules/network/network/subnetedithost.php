@@ -139,6 +139,7 @@ if (isset($_POST["badd"]) || (isset($_POST["bedit"]))) {
             if ($updatednsrecord) $result .= "<br>" . _T("DNS record successfully modified.");
             new NotifyWidgetSuccess($result);
             header("Location: " . urlStrRedirect("network/network/subnetmembers", array("subnet" => $subnet)));
+            exit;
         }
     } else new NotifyWidgetFailure($error);
 }

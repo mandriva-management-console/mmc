@@ -77,8 +77,10 @@ if ($_POST) {
     if ($result)
         $resultPopup->add('<div class="alert alert-success">' . $result . '</div>');
 
-    if(!$error)
+    if(!$error) {
         header("Location: " . urlStrRedirect("network/network/services"));
+        exit;
+    }
 }
 
 

@@ -157,6 +157,7 @@ if (!isset($error)
             new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
         }
         header("Location: " . urlStrRedirect("network/network/subnetindex"));
+        exit;
     }
 }
 

@@ -29,6 +29,7 @@ if (isset($_POST["bconfirm"])) {
     delZone($zone);
     if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The DNS zone has been deleted."));
     header("Location: main.php?module=network&submod=network&action=index");
+    exit;
 } else {
     $zone = urldecode($_GET["zone"]);
 }

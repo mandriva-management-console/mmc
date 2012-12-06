@@ -31,6 +31,7 @@ if (isset($_POST["bconfirm"])) {
         $n = new NotifyWidgetSuccess(_T("The DHCP subnet has been deleted. You must restart the DHCP service."));
     }
     header("Location: main.php?module=network&submod=network&action=subnetindex");
+    exit;
 } else {
     $subnet = urldecode($_GET["subnet"]);
 }

@@ -49,6 +49,7 @@ if(isset($_POST['cn'])) {
     if (!isXMLRPCError()) {
         new NotifyWidgetSuccess(_T("Computer successfully modified."));
         header("Location: " . urlStrRedirect("samba/machines/index"));
+        exit;
     }
 }
 

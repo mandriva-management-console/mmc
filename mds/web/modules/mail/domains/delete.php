@@ -31,6 +31,7 @@ if (isset($_POST["bconfirm"])) {
     }
 
     header("Location: " . urlStrRedirect("mail/domains/index"));
+    exit;
 }
 else {
     $domain = urldecode($_GET["domain"]);

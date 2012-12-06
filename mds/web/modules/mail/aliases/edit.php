@@ -103,6 +103,7 @@ if ($_POST) {
             new NotifyWidgetSuccess($result);
         $FH->isError(false);
         header("Location: ". urlStrRedirect("mail/aliases/edit", array("alias" => $alias)));
+        exit;
     }
     else {
         if ($error)

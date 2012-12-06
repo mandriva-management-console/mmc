@@ -26,6 +26,7 @@ if (isset($_POST["bdelete"])) {
     if (!isXMLRPCError())
         new NotifyWidgetSuccess(_T("The rule has been deleted."));
     header("Location: " . urlStrRedirect("shorewall/shorewall/masquerade"));
+    exit;
 }
 
 ?>

@@ -43,6 +43,7 @@ if (isset($_POST["bgo"])) {
         new NotifyWidgetFailure(_T("Can't launch backup"));
     }
     header("Location: ".urlStrRedirect("samba/shares/index"));
+    exit;
 } else {
     $share = urldecode($_GET["share"]);
     $f = new PopupForm(_T("Share backup"));

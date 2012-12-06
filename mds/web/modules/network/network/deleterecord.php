@@ -41,6 +41,7 @@ $soa = getSOARecord($curzone);
 if ($soa["serial"] != $serial){
     new NotifyWidgetFailure(_T("Zone data was updated. Selected record may be incorrect."));
     header("Location: main.php?module=network&submod=network&action=zonerecords&zone=$zone&reverse=$reverse");
+    exit;
 }
 
 if (isset($_POST["bconfirm"])) {
@@ -48,6 +49,7 @@ if (isset($_POST["bconfirm"])) {
     if (!isXMLRPCError()) 
 	new NotifyWidgetSuccess(_T("The record has been deleted."));
     header("Location: main.php?module=network&submod=network&action=zonerecords&zone=$zone&reverse=$reverse");
+    exit;
 } 
 
 

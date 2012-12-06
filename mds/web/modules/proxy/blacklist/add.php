@@ -46,6 +46,7 @@ if (isset($_POST["bcreate"])) {
 	    $n = new NotifyWidget();
 	    $n->add(sprintf(_T("Domain %s successfully added"), $blacklistName));
 	    header("Location: " . urlStrRedirect("proxy/blacklist/index"));
+        exit;
 	}
     }
 }

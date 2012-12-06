@@ -36,11 +36,12 @@ if (isset($_POST['bpolicy'])) {
                 if (!isXMLRPCError()) {
                     $n = new NotifyWidgetSuccess(_T("Policy changed."));
                     handleServicesModule($n);
-                    header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
                 }
                 else {
                     new NotifyWidgetFailure(_T("Failed to change the policy."));
                 }
+                header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
+                exit;
             }
         }
     }
@@ -54,6 +55,7 @@ if (isset($_POST['brule'])) {
                 if (!$_POST['proto'] || !$_POST['port']) {
                     new NotifyWidgetFailure(_T("Protocol and port must be specified."));
                     header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
+                    exit;
                 }
                 else {
                     $action = $_POST['decision'];
@@ -76,6 +78,7 @@ if (isset($_POST['brule'])) {
                 $n = new NotifyWidgetSuccess(_T("Rule added."));
                 handleServicesModule($n);
                 header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
+                exit;
             }
             else {
                 new NotifyWidgetFailure(_T("Failed to add the rule."));

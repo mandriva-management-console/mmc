@@ -75,6 +75,7 @@ if ($_POST) {
         if ($result && !isXMLRPCError()) {
             new NotifyWidgetSuccess($result);
     	    header("Location: " . urlStrRedirect("mail/domains/index"));
+            exit;
         }
     }
     else if (isset($_POST["bedit"]) || isset($_POST["breset"])) {

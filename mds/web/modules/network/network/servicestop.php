@@ -32,5 +32,6 @@ else if ($service == "DHCP") dhcpService("stop");
 if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The service has been asked to stop."));
 
 header("Location: " . urlStrRedirect("network/network/services"));
+exit;
 
 ?>

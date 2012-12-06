@@ -35,6 +35,7 @@ if (isset($_POST["baddmach"])) {
     if (!isXMLRPCError()) {
         new NotifyWidgetSuccess(sprintf(_T("Computer %s successfully added"), $machine));
         header("Location: " . urlStrRedirect("samba/machines/index"));
+        exit;
     }
 }
 
