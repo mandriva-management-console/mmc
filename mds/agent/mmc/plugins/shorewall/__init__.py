@@ -41,16 +41,23 @@ logger = logging.getLogger()
 
 def activate():
     conf = ShorewallPluginConfig('shorewall')
+
+    if conf.disabled:
+        logger.warning("Plugin shorewall: disabled by configuration.")
+        return False
+
     files = ['zones', 'interfaces', 'rules', 'policy']
     for file in files:
         path = os.path.join(conf.path, file)
         if not os.path.exists(path):
             logger.error("%s doesn't exists" % path)
             return False
+
     if len(get_zones(conf.external_zones_names)) == 0 and \
        len(get_zones(conf.internal_zones_names)) == 0:
            logger.error("No external or internal zone defined.")
            return False
+
     return True
 
 
