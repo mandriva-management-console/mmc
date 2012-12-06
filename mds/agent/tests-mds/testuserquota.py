@@ -26,13 +26,12 @@
 
 import unittest
 
-import sys
 import os
 import os.path
 import time
 
 from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.userquota import UserQuotaConfig, UserQuotaControl
+from mmc.plugins.userquota import UserQuotaControl
 
 
 def cleanLdap():

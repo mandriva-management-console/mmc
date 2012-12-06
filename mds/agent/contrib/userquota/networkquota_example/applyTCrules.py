@@ -24,7 +24,6 @@
 import ldap
 import subprocess
 import re
-import warnings
 
 # hide DepercationWarning when importing MySQLdb (comment out the 3 lines below if running python 2.5.x)
 # with warnings.catch_warnings():
