@@ -28,10 +28,9 @@
 $mod = new Module("samba");
 $mod->setVersion("2.4.91");
 $mod->setRevision('$Rev$');
-$mod->setDescription(_T("SAMBA service"),"samba");
+$mod->setDescription(_T("SAMBA management"),"samba");
 $mod->setAPIVersion("5:3:4");
-
-$mod->setPriority(10);
+$mod->setPriority(20);
 
 /**
  * shares submod definition
@@ -41,6 +40,7 @@ $submod = new SubModule("shares");
 $submod->setDescription(_T("Shares","samba"));
 $submod->setImg('modules/samba/graph/navbar/share');
 $submod->setDefaultPage("samba/shares/index");
+$submod->setPriority(20);
 
 $page = new Page("index",_T("List shares","samba"));
 $submod->addPage($page);

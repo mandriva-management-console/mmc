@@ -32,13 +32,14 @@ $wan_zones = getShorewallZones($zones_types['external']);
 $mod = new Module("shorewall");
 $mod->setVersion("2.4.3");
 $mod->setRevision('');
-$mod->setDescription(_T("Firewall", "shorewall"));
+$mod->setDescription(_T("Firewall management", "shorewall"));
 $mod->setAPIVersion("0:0:0");
+$mod->setPriority(60);
 
 $submod = new SubModule("shorewall", _T("Firewall", "shorewall"));
 $submod->setDefaultPage("shorewall/shorewall/internal_fw");
 $submod->setImg('modules/shorewall/graph/navbar/shorewall');
-$submod->setPriority(20000);
+$submod->setPriority(60);
 
 /* Add the page to the module */
 $page = new Page("internal_fw", _T("Internal → Server", "shorewall"));

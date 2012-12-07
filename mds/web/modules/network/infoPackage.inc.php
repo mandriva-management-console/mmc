@@ -30,6 +30,7 @@ $mod->setVersion("2.4.91");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Network management", "network"));
 $mod->setAPIVersion('2:1:0');
+$mod->setPriority(30);
 
 /**
  * user submod definition
@@ -39,7 +40,7 @@ $submod = new SubModule("network");
 $submod->setDescription(_T("Network", "network"));
 $submod->setImg('modules/network/graph/img/network');
 $submod->setDefaultPage("network/network/index");
-$submod->setPriority(300);
+$submod->setPriority(30);
 
 $page = new Page("index",_T("DNS zones","network"));
 $submod->addPage($page);

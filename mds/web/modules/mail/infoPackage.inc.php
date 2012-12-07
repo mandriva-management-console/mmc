@@ -33,9 +33,9 @@ require_once("modules/mail/includes/mail-xmlrpc.php");
 $mod = new Module("mail");
 $mod->setVersion("2.4.91");
 $mod->setRevision('$Rev$');
-$mod->setDescription(_T("Mail service","mail"));
+$mod->setDescription(_T("Mail management","mail"));
 $mod->setAPIVersion("7:0:0");
-$mod->setPriority(600);
+$mod->setPriority(10);
 
 $attrs = getMailAttributes();
 
@@ -57,6 +57,7 @@ if (hasVDomainSupport()) {
     $submod->setDescription(_T("Mail", "mail"));
     $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/domains/index");
+    $submod->setPriority(10);
 
     $page = new Page("index",_T("Mail domains","mail"));
     $submod->addPage($page);
@@ -110,6 +111,7 @@ if (hasVAliasesSupport()) {
     $submod->setImg('modules/mail/graph/img/mail');
     $submod->setDefaultPage("mail/aliases/index");
     $submod->setVisibility($showAliasesModule);
+    $submod->setPriority(10);
 
     $page = new Page("index",_T("Virtual aliases", "mail"));
     $submod->addPage($page);
