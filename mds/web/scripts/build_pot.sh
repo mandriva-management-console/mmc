@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
-for module in bulkimport mail network  proxy samba sshlpk userquota; do
+for module in bulkimport mail network  proxy samba sshlpk userquota shorewall; do
     POT="modules/$module/locale/$module.pot"
     rm -f $POT
     touch $POT
@@ -32,7 +32,7 @@ for module in bulkimport mail network  proxy samba sshlpk userquota; do
     	keyword=_T
 	    fpath=modules/$module
     fi
-    find $fpath -iname "*.php" -exec xgettext -C -j -o ${POT} --language=PHP --keyword=$keyword {} \;
+    find $fpath -iname "*.php" -exec xgettext -C -j -o ${POT} --language=PHP --from-code utf-8 --keyword=$keyword {} \;
     # Build only the POT files
     # for name in `find modules/$module/locale -type f -name *.po`; do
     #     echo -n "updating ${name}..."
