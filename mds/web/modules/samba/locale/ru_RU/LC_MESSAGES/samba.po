@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-09-06 15:58+0000\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2012-12-10 15:53+0100\n"
+"PO-Revision-Date: 2012-12-10 14:54+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -39,78 +39,78 @@ msgstr ""
 msgid "General options"
 msgstr "Общие параметры"
 
-#: modules/samba/config/index.php:90
+#: modules/samba/config/index.php:95
 msgid "Domain name"
 msgstr "Имя домена"
 
-#: modules/samba/config/index.php:95
+#: modules/samba/config/index.php:100
 msgid "Server name"
 msgstr "Имя сервера"
 
-#: modules/samba/config/index.php:102
+#: modules/samba/config/index.php:107
 msgid "This server is a PDC"
 msgstr "Этот сервер является PDC"
 
-#: modules/samba/config/index.php:107
+#: modules/samba/config/index.php:112
 msgid "This server is a WINS server"
 msgstr "Этот сервер является сервером WINS"
 
-#: modules/samba/config/index.php:114
+#: modules/samba/config/index.php:119
 msgid "Share user's homes"
 msgstr "Общий ресурс домашних каталогов пользователей"
 
-#: modules/samba/config/index.php:125
+#: modules/samba/config/index.php:130
 msgid "Use network profiles for users"
 msgstr "Использовать сетевые профили для пользователей"
 
-#: modules/samba/config/index.php:126
+#: modules/samba/config/index.php:131
 msgid "Activate roaming profiles for all users."
 msgstr "Активировать роуминговые профили для пользователей."
 
-#: modules/samba/config/index.php:142
+#: modules/samba/config/index.php:147
 msgid "Network path for profiles"
 msgstr "Сетевой путь к профилям"
 
-#: modules/samba/config/index.php:143
+#: modules/samba/config/index.php:148
 msgid "The share must exist and be world-writable."
 msgstr "Общий ресурс должен существовать и быть доступныи для записи."
 
-#: modules/samba/config/index.php:153
+#: modules/samba/config/index.php:158
 msgid "Yes"
 msgstr ""
 
-#: modules/samba/config/index.php:153
+#: modules/samba/config/index.php:158
 msgid "No"
 msgstr ""
 
-#: modules/samba/config/index.php:153
+#: modules/samba/config/index.php:158
 msgid "Only (for smbk5pwd)"
 msgstr ""
 
-#: modules/samba/config/index.php:158
+#: modules/samba/config/index.php:163
 msgid "LDAP password sync"
 msgstr "Синхронизация паролей LDAP"
 
-#: modules/samba/config/index.php:162
-#: modules/samba/includes/publicFunc.php:380
+#: modules/samba/config/index.php:167
+#: modules/samba/includes/publicFunc.php:364
 msgid "Opening script session"
 msgstr "Открытие сессии скрипта"
 
-#: modules/samba/config/index.php:163
-#: modules/samba/includes/publicFunc.php:381
+#: modules/samba/config/index.php:168
+#: modules/samba/includes/publicFunc.php:365
 msgid "Base directory path"
 msgstr "Путь основного каталога"
 
-#: modules/samba/config/index.php:164
-#: modules/samba/includes/publicFunc.php:382
+#: modules/samba/config/index.php:169
+#: modules/samba/includes/publicFunc.php:366
 msgid "Connect base directory on network drive"
 msgstr "Подключить основной каталог на сетевом диске"
 
-#: modules/samba/config/index.php:177 modules/samba/includes/auditCodes.php:30
+#: modules/samba/config/index.php:182 modules/samba/includes/auditCodes.php:30
 msgid "Restart SAMBA"
 msgstr "Перезапустить SAMBA"
 
-#: modules/samba/config/index.php:178
+#: modules/samba/config/index.php:183
 msgid "Reload SAMBA configuration"
 msgstr "Перезагрузить настройки SAMBA"
 
@@ -272,37 +272,50 @@ msgstr "Формат пользовательских паролей не дос
 msgid "Use the 'option = value' format."
 msgstr "Используйте формат \"параметр = значение\""
 
-#: modules/samba/includes/publicFunc.php:67
+#: modules/samba/includes/publicFunc.php:71
 msgid "Samba attributes deleted."
 msgstr "Реквезиты Samba удалены."
 
-#: modules/samba/includes/publicFunc.php:120
+#: modules/samba/includes/publicFunc.php:119
 msgid "Samba account disabled."
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:125
+#: modules/samba/includes/publicFunc.php:124
 msgid "Samba account enabled."
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:184
+#: modules/samba/includes/publicFunc.php:175
 msgid "Samba attributes added."
 msgstr "Реквезиты Samba добавлены."
 
-#: modules/samba/includes/publicFunc.php:186
-#: modules/samba/includes/publicFunc.php:193
+#: modules/samba/includes/publicFunc.php:177
+#: modules/samba/includes/publicFunc.php:184
 msgid "Failed to add Samba attributes."
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:215
+#: modules/samba/includes/publicFunc.php:206
 msgid "You must reenter your password."
 msgstr "Необходимо ввести пароль еще раз."
 
-#: modules/samba/includes/publicFunc.php:225
+#: modules/samba/includes/publicFunc.php:216
 msgid "Invalid network drive."
 msgstr "Неверный сетевой диск."
 
+#: modules/samba/includes/publicFunc.php:258
+#: modules/samba/includes/publicFunc.php:263
+msgid "SAMBA properties"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:258
+msgid "The password of this account has expired."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:263
+msgid "This account is locked."
+msgstr ""
+
 #: modules/samba/includes/publicFunc.php:267
-#: modules/samba/includes/publicFunc.php:295
+#: modules/samba/includes/publicFunc.php:287
 msgid "Samba properties"
 msgstr ""
 
@@ -310,59 +323,47 @@ msgstr ""
 msgid "SAMBA access"
 msgstr "Доступность SAMBA"
 
-#: modules/samba/includes/publicFunc.php:286
-msgid "WARNING"
-msgstr "ВНИМАНИЕ"
-
-#: modules/samba/includes/publicFunc.php:287
-msgid "The user password has expired"
-msgstr "Срок действия пароля пользователя истёк"
-
-#: modules/samba/includes/publicFunc.php:296
+#: modules/samba/includes/publicFunc.php:288
 msgid "This account is disabled"
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:300
+#: modules/samba/includes/publicFunc.php:292
 msgid "User is disabled, if checked"
 msgstr "пользователь отключен"
 
-#: modules/samba/includes/publicFunc.php:301
+#: modules/samba/includes/publicFunc.php:293
 msgid "Disable samba user account"
 msgstr "Отключить аккаунт пользователя Samba"
 
-#: modules/samba/includes/publicFunc.php:309
+#: modules/samba/includes/publicFunc.php:301
 msgid "User is locked, if checked"
 msgstr "Заблокировать пользователя"
 
-#: modules/samba/includes/publicFunc.php:310
+#: modules/samba/includes/publicFunc.php:302
 msgid ""
 "Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
 "Блокировать доступ пользователей samba<p>Пользователь может быть "
 "заблокирован полсле большого числа неудачных входов.</p>"
 
-#: modules/samba/includes/publicFunc.php:327
+#: modules/samba/includes/publicFunc.php:319
 msgid "Use network profile, if checked"
 msgstr "Использовать сетевой профиль"
 
-#: modules/samba/includes/publicFunc.php:340
+#: modules/samba/includes/publicFunc.php:332
 msgid "Network path for user's profile"
 msgstr "Сетевой путь для профиля пользователей"
 
-#: modules/samba/includes/publicFunc.php:354
-msgid "User can change password, if checked"
-msgstr "Пользователи могут изменить пароль"
-
-#: modules/samba/includes/publicFunc.php:361
+#: modules/samba/includes/publicFunc.php:345
 msgid "User must change password on next logon, <br/>if checked"
 msgstr "Пользователь должен изменить паоль при следующем вхождении, "
 
-#: modules/samba/includes/publicFunc.php:369
+#: modules/samba/includes/publicFunc.php:353
 #: modules/samba/infoPackage.inc.php:130
 msgid "Account expiration"
 msgstr "Истечение срока аккаунта"
 
-#: modules/samba/includes/publicFunc.php:370
+#: modules/samba/includes/publicFunc.php:354
 msgid ""
 "Specifies the date when the user will be locked down and cannot login any "
 "longer. If this attribute is omitted, then the account will never expire."
@@ -371,136 +372,9 @@ msgstr ""
 " в аккаунт. Если этот атрибут будет упущен, срок аккаунта никогда не "
 "истечет."
 
-#: modules/samba/infoPackage.inc.php:31
-msgid "SAMBA service"
-msgstr "служба SAMBA"
-
-#: modules/samba/infoPackage.inc.php:41 modules/samba/shares/index.php:55
-#: modules/samba/shares/index.php:59
-msgid "Shares"
-msgstr "Общие ресурсы"
-
-#: modules/samba/infoPackage.inc.php:45 modules/samba/mainSidebar.php:29
-msgid "List shares"
-msgstr "Список общих ресурсов"
-
-#: modules/samba/infoPackage.inc.php:48 modules/samba/mainSidebar.php:30
-#: modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:105
-msgid "Add a share"
-msgstr "Добавить общий ресурс"
-
-#: modules/samba/infoPackage.inc.php:51
-msgid "Backup a share"
-msgstr "Резервное копирование общиего ресурса"
-
-#: modules/samba/infoPackage.inc.php:55
-msgid "Remove a share"
-msgstr "Удалить общий ресурс"
-
-#: modules/samba/infoPackage.inc.php:59
-msgid "Share details"
-msgstr "Подробности об общем ресурсе"
-
-#: modules/samba/infoPackage.inc.php:73
-msgid "Machines"
-msgstr "Компьютеры"
-
-#: modules/samba/infoPackage.inc.php:76
-msgid "Computer list"
-msgstr "Список компьютеров"
-
-#: modules/samba/infoPackage.inc.php:86
-msgid "Edit a computer"
-msgstr "Изменить компьютер"
-
-#: modules/samba/infoPackage.inc.php:90 modules/samba/machines/delete.php:40
-msgid "Delete a computer"
-msgstr "Удалить компьютер"
-
-#: modules/samba/infoPackage.inc.php:103
-msgid "Configuration"
-msgstr "Настройка"
-
-#: modules/samba/infoPackage.inc.php:108
-msgid "SAMBA configuration"
-msgstr "Настройка SAMBA"
-
-#: modules/samba/infoPackage.inc.php:111
-msgid "restart SAMBA service"
-msgstr "Перезапустить службу SAMBA"
-
-#: modules/samba/infoPackage.inc.php:115
-msgid "Reload SAMBA service"
-msgstr "Перезагрузить службу SAMBA"
-
-#: modules/samba/infoPackage.inc.php:124
-msgid "Add/delete SAMBA's attributes"
-msgstr "Добавить/Удалить атрибуты SAMBA"
-
-#: modules/samba/infoPackage.inc.php:125
-msgid "Enable/Disable account"
-msgstr "Включить/Отключить аккаунт"
-
-#: modules/samba/infoPackage.inc.php:126
-msgid "Lock/Unlock account"
-msgstr "Заблокировать/Разблокировать аккаунт"
-
-#: modules/samba/infoPackage.inc.php:127
-msgid "Network profile"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:128
-msgid "Can change password"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:129
-msgid "Must change password"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:131
-msgid "Logon script"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:132
-msgid "Home path"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:133
-msgid "Home drive"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:143
-msgid "SAMBA status"
-msgstr "Состояние SAMBA"
-
-#: modules/samba/machines/add.php:36
-#, php-format
-msgid "Computer %s successfully added"
-msgstr "Компьютер %s успешно добавлен"
-
-#: modules/samba/machines/add.php:41
-#: modules/samba/machines/localSidebar.php:31
-#: modules/samba/shares/localSidebar.php:37
-msgid "Add a computer"
-msgstr "Добавить компьютер"
-
-#: modules/samba/machines/add.php:46
-msgid ""
-"The computer name can only contains letters lowercase and numbers, and must "
-"begin with a letter."
-msgstr ""
-"Имя компьютера может содержать только буквы нижнего регистра и цифры, и "
-"должно начинаться с буквы."
-
-#: modules/samba/machines/add.php:49 modules/samba/machines/ajaxFilter.php:38
+#: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
 msgid "Computer name"
 msgstr "Имя компьютера"
-
-#: modules/samba/machines/add.php:53 modules/samba/machines/edit.php:67
-#: modules/samba/shares/details.php:159
-msgid "Comment"
-msgstr "Комментарий"
 
 #: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:61
 msgid "Description"
@@ -530,30 +404,14 @@ msgstr "Компьютеры"
 msgid "Computer <strong>%s</strong> deleted."
 msgstr "Компьютер <strong>%s</strong> удален."
 
+#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:90
+msgid "Delete a computer"
+msgstr "Удалить компьютер"
+
 #: modules/samba/machines/delete.php:41
 #, php-format
 msgid "You will delete the %s computer"
 msgstr "Вы удалите компьютер %s"
-
-#: modules/samba/machines/edit.php:29
-msgid "Edit computer"
-msgstr "Изменить коспьютер"
-
-#: modules/samba/machines/edit.php:50
-msgid "Computer successfully modified."
-msgstr "Компьютер успешно изменен."
-
-#: modules/samba/machines/edit.php:62 modules/samba/shares/details.php:154
-msgid "Name"
-msgstr "Имя"
-
-#: modules/samba/machines/edit.php:77
-msgid "Disable computer account"
-msgstr "Выключить аккаунт компьютера"
-
-#: modules/samba/machines/edit.php:81 modules/samba/shares/details.php:327
-msgid "Confirm"
-msgstr "Подтвердить"
 
 #: modules/samba/machines/index.php:32
 msgid "Computer management"
@@ -564,11 +422,99 @@ msgstr "Управление компьютерами"
 msgid "Computers management"
 msgstr "Управление компьютерами"
 
+#: modules/samba/machines/localSidebar.php:31
+#: modules/samba/machines/add.php:42 modules/samba/shares/localSidebar.php:37
+msgid "Add a computer"
+msgstr "Добавить компьютер"
+
+#: modules/samba/machines/add.php:36
+#, php-format
+msgid "Computer %s successfully added"
+msgstr "Компьютер %s успешно добавлен"
+
+#: modules/samba/machines/add.php:47
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"Имя компьютера может содержать только буквы нижнего регистра и цифры, и "
+"должно начинаться с буквы."
+
+#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
+#: modules/samba/shares/details.php:160
+msgid "Comment"
+msgstr "Комментарий"
+
+#: modules/samba/machines/edit.php:29
+msgid "Edit computer"
+msgstr "Изменить коспьютер"
+
+#: modules/samba/machines/edit.php:50
+msgid "Computer successfully modified."
+msgstr "Компьютер успешно изменен."
+
+#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:155
+msgid "Name"
+msgstr "Имя"
+
+#: modules/samba/machines/edit.php:78
+msgid "Disable computer account"
+msgstr "Выключить аккаунт компьютера"
+
+#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:328
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
+msgid "List shares"
+msgstr "Список общих ресурсов"
+
+#: modules/samba/mainSidebar.php:30 modules/samba/shares/localSidebar.php:31
+#: modules/samba/shares/details.php:106 modules/samba/infoPackage.inc.php:48
+msgid "Add a share"
+msgstr "Добавить общий ресурс"
+
 #: modules/samba/mainSidebar.php:33
 msgid "List computers"
 msgstr "Список компьютеров"
 
-#: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:48
+#: modules/samba/shares/delete.php:34
+#, php-format
+msgid "Share %s deleted"
+msgstr "Общий ресурс %s удален"
+
+#: modules/samba/shares/delete.php:37
+#, php-format
+msgid "An error has occured during delete process on %s"
+msgstr "Произошла ошибка в процессе удаления %s"
+
+#: modules/samba/shares/delete.php:43
+msgid "Delete a share"
+msgstr "Удалить общий ресурс"
+
+#: modules/samba/shares/delete.php:44
+#, php-format
+msgid "You will delete the share <b>%s</b>"
+msgstr "Вы удалите общий ресурс <b>%s</b>"
+
+#: modules/samba/shares/delete.php:45
+msgid "Delete all data"
+msgstr "Удалить все данные"
+
+#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
+#: modules/samba/infoPackage.inc.php:40
+msgid "Shares"
+msgstr "Общие ресурсы"
+
+#: modules/samba/shares/index.php:65
+msgid "Archive"
+msgstr "Резервное копирование"
+
+#: modules/samba/shares/localSidebar.php:28
+msgid "Shares management"
+msgstr "Управление общими ресурсами"
+
+#: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:49
 msgid "Share backup"
 msgstr "Резервное копирование общего ресурса"
 
@@ -603,49 +549,18 @@ msgstr ""
 msgid "Can't launch backup"
 msgstr "Невозможно запустить резервное копирование"
 
-#: modules/samba/shares/backup.php:49
+#: modules/samba/shares/backup.php:50
 #, php-format
 msgid "The share %s will be archived."
 msgstr "Резервное копирование общего ресурса %s завершено."
 
-#: modules/samba/shares/backup.php:50
+#: modules/samba/shares/backup.php:51
 msgid ""
 "Please select media size. If your data exceed volume size, several files "
 "with your media size will be created."
 msgstr ""
 "Пожалуйста укажите размер тома. Если данные привысят размер тома, то будет "
 "создано несколько томов."
-
-#: modules/samba/shares/delete.php:34
-#, php-format
-msgid "Share %s deleted"
-msgstr "Общий ресурс %s удален"
-
-#: modules/samba/shares/delete.php:37
-#, php-format
-msgid "An error has occured during delete process on %s"
-msgstr "Произошла ошибка в процессе удаления %s"
-
-#: modules/samba/shares/delete.php:43
-msgid "Delete a share"
-msgstr "Удалить общий ресурс"
-
-#: modules/samba/shares/delete.php:44
-#, php-format
-msgid "You will delete the share <b>%s</b>"
-msgstr "Вы удалите общий ресурс <b>%s</b>"
-
-#: modules/samba/shares/delete.php:45
-msgid "Delete all data"
-msgstr "Удалить все данные"
-
-#: modules/samba/shares/index.php:65
-msgid "Archive"
-msgstr "Резервное копирование"
-
-#: modules/samba/shares/localSidebar.php:28
-msgid "Shares management"
-msgstr "Управление общими ресурсами"
 
 #: modules/samba/shares/details.php:46
 msgid "Invalid share name"
@@ -660,12 +575,12 @@ msgstr "Путь общего ресурса не авторизирован н�
 msgid "Share %s successfully added"
 msgstr "Общий ресурс %s успешно добавлен"
 
-#: modules/samba/shares/details.php:94
+#: modules/samba/shares/details.php:95
 #, php-format
 msgid "Share %s successfully modified"
 msgstr "Общий ресурс %s успешно изменен"
 
-#: modules/samba/shares/details.php:136
+#: modules/samba/shares/details.php:137
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
@@ -673,40 +588,40 @@ msgstr ""
 "Имя общего ресурса может содержать только буквы (ВЕРХНЕГО и нижнего "
 "регистра) и цифры, и должно начинаться с буквы."
 
-#: modules/samba/shares/details.php:170
+#: modules/samba/shares/details.php:171
 msgid "AntiVirus on this share"
 msgstr "Проверять антивирусом"
 
-#: modules/samba/shares/details.php:182
+#: modules/samba/shares/details.php:183
 #, php-format
 msgid "Share path (leave empty for a default path in %s)"
 msgstr "Путь общего ресурса (оставьте пустым для пути по умолчанию как %s)"
 
-#: modules/samba/shares/details.php:199
+#: modules/samba/shares/details.php:200
 msgid "This share is visible on the domain"
 msgstr "Общий ресурс видим для домена"
 
-#: modules/samba/shares/details.php:212
+#: modules/samba/shares/details.php:213
 msgid "Permissions"
 msgstr "Права доступа"
 
-#: modules/samba/shares/details.php:224
+#: modules/samba/shares/details.php:225
 msgid "Access for all"
 msgstr "Доступ для всех"
 
-#: modules/samba/shares/details.php:261
+#: modules/samba/shares/details.php:262
 msgid "Users for this share"
 msgstr "Пользователи для этого общего ресурса"
 
-#: modules/samba/shares/details.php:283
+#: modules/samba/shares/details.php:284
 msgid "Administrator groups for this share"
 msgstr "Группы администратора для этого общего ресурса"
 
-#: modules/samba/shares/details.php:314 modules/samba/shares/details.php:316
+#: modules/samba/shares/details.php:315 modules/samba/shares/details.php:317
 msgid "Custom parameters"
 msgstr "Параметры пользователей"
 
-#: modules/samba/shares/details.php:324
+#: modules/samba/shares/details.php:325
 msgid "Create"
 msgstr "Создать"
 
@@ -770,5 +685,89 @@ msgstr "Такого пользователя не существует"
 #: modules/samba/views/users.tpl.php:129
 msgid "Add a new user"
 msgstr "Добавить нового пользователя"
+
+#: modules/samba/infoPackage.inc.php:31
+msgid "SAMBA management"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:51
+msgid "Backup a share"
+msgstr "Резервное копирование общиего ресурса"
+
+#: modules/samba/infoPackage.inc.php:55
+msgid "Remove a share"
+msgstr "Удалить общий ресурс"
+
+#: modules/samba/infoPackage.inc.php:59
+msgid "Share details"
+msgstr "Подробности об общем ресурсе"
+
+#: modules/samba/infoPackage.inc.php:73
+msgid "Machines"
+msgstr "Компьютеры"
+
+#: modules/samba/infoPackage.inc.php:76
+msgid "Computer list"
+msgstr "Список компьютеров"
+
+#: modules/samba/infoPackage.inc.php:86
+msgid "Edit a computer"
+msgstr "Изменить компьютер"
+
+#: modules/samba/infoPackage.inc.php:103
+msgid "Configuration"
+msgstr "Настройка"
+
+#: modules/samba/infoPackage.inc.php:108
+msgid "SAMBA configuration"
+msgstr "Настройка SAMBA"
+
+#: modules/samba/infoPackage.inc.php:111
+msgid "restart SAMBA service"
+msgstr "Перезапустить службу SAMBA"
+
+#: modules/samba/infoPackage.inc.php:115
+msgid "Reload SAMBA service"
+msgstr "Перезагрузить службу SAMBA"
+
+#: modules/samba/infoPackage.inc.php:124
+msgid "Add/delete SAMBA's attributes"
+msgstr "Добавить/Удалить атрибуты SAMBA"
+
+#: modules/samba/infoPackage.inc.php:125
+msgid "Enable/Disable account"
+msgstr "Включить/Отключить аккаунт"
+
+#: modules/samba/infoPackage.inc.php:126
+msgid "Lock/Unlock account"
+msgstr "Заблокировать/Разблокировать аккаунт"
+
+#: modules/samba/infoPackage.inc.php:127
+msgid "Network profile"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:128
+msgid "Can change password"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:129
+msgid "Must change password"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:131
+msgid "Logon script"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:132
+msgid "Home path"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:133
+msgid "Home drive"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:143
+msgid "SAMBA status"
+msgstr "Состояние SAMBA"
 
 
