@@ -1,6 +1,5 @@
 <?
 
-require("modules/network/includes/network-xmlrpc.inc.php");
 require("modules/network/includes/network.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");

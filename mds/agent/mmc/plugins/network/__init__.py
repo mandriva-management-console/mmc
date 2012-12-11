@@ -61,101 +61,121 @@ def activate():
         logger.warning("Plugin network: disabled by configuration.")
         return False
 
+    if not config.dhcpEnable and not config.dnsEnable:
+        logger.warning("Plugin network: disabled by configuration.")
+        return False
+
     try:
         ldapObj = ldapUserGroupControl()
     except ldap.INVALID_CREDENTIALS:
         logger.error("Can't bind to LDAP: invalid credentials.")
         return False
 
-    # Test if the DHCP/LDAP schema is available in the directory
-    try:
-        schema = ldapObj.getSchema("dhcpServer")
-        if len(schema) <= 0:
-            logger.error("DHCP schema is not included in LDAP directory");
-            return False
-        # Test if DHCP/LDAP schema contains the dhcpComments attribute
-        if "dhcpComments" not in schema:
-            logger.error("DHCP/LDAP schema does not support the dhcpComments attribute. Please use the latest version of DCHP/LDAP schema.")
-            return False
-    except:
-        logger.exception("invalid schema")
-        return False
 
-    # Test if the DNS/LDAP schema is available in the directory
-    serverType = config.dnsType
-    if serverType == "pdns":
+    if config.dhcpEnable:
+        # Test if the DHCP/LDAP schema is available in the directory
         try:
-            schema = ldapObj.getSchema("dNSDomain2")
+            schema = ldapObj.getSchema("dhcpServer")
             if len(schema) <= 0:
-                logger.error("DNS zone schema (dnsdomain2.schema) is not included in LDAP directory");
+                logger.error("DHCP schema is not included in LDAP directory");
+                return False
+            # Test if DHCP/LDAP schema contains the dhcpComments attribute
+            if "dhcpComments" not in schema:
+                logger.error("DHCP/LDAP schema does not support the dhcpComments attribute. Please use the latest version of DCHP/LDAP schema.")
                 return False
         except:
-            logger.exception("invalid DNS schema")
-            return False
-    elif serverType == "bind":
-        try:
-            schema = ldapObj.getSchema("dNSZone")
-            if len(schema) <= 0:
-                logger.error("DNS zone schema (dnszone.schema) is not included in LDAP directory");
-                return False
-        except:
-            logger.exception("invalid DNS schema")
+            logger.exception("invalid schema")
             return False
     else:
-        logger.error("%s : Unknown DNS server."%serverType);
-        return False
+        logger.info("DHCP submodule is disabled")
 
-    # Create required OUs
-    config = NetworkConfig("network")
-    for dn in [config.dhcpDN, config.dnsDN]:
-        head, path = dn.split(",", 1)
+    if config.dnsEnable:
+        # Test if the DNS/LDAP schema is available in the directory
+        serverType = config.dnsType
+        if serverType == "pdns":
+            try:
+                schema = ldapObj.getSchema("dNSDomain2")
+                if len(schema) <= 0:
+                    logger.error("DNS zone schema (dnsdomain2.schema) is not included in LDAP directory");
+                    return False
+            except:
+                logger.exception("invalid DNS schema")
+                return False
+        elif serverType == "bind":
+            try:
+                schema = ldapObj.getSchema("dNSZone")
+                if len(schema) <= 0:
+                    logger.error("DNS zone schema (dnszone.schema) is not included in LDAP directory");
+                    return False
+            except:
+                logger.exception("invalid DNS schema")
+                return False
+        else:
+            logger.error("%s : Unknown DNS server."%serverType);
+            return False
+    else:
+        logger.info("DNS submodule is disabled")
+
+    if config.dhcpEnable:
+        # Create DHCP ou
+        head, path = config.dhcpDN.split(",", 1)
         ouName = head.split("=")[1]
         ldapObj.addOu(ouName, path)
-
-    # Create DHCP config base structure
-    d = Dhcp()
-    try:
-        d.addServiceConfig("DHCP config")
-        logger.info("Created DHCP config object")
-    except ldap.ALREADY_EXISTS:
-        pass
-    hostname = d.configDhcp.dhcpHostname
-    try:
-        d.addServer(hostname)
-        d.setServiceConfigStatement("not", "authoritative")
-        logging.info("The DHCP server '%s' was added." % hostname)
-    except ldap.ALREADY_EXISTS:
-        pass
-    d.setServiceServerStatus(hostname, "primary")
-    logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
+        # Create DHCP config base structure
+        d = Dhcp()
+        try:
+            d.addServiceConfig("DHCP config")
+            logger.info("Created DHCP config object")
+        except ldap.ALREADY_EXISTS:
+            pass
+        hostname = d.configDhcp.dhcpHostname
+        try:
+            d.addServer(hostname)
+            d.setServiceConfigStatement("not", "authoritative")
+            logging.info("The DHCP server '%s' was added." % hostname)
+        except ldap.ALREADY_EXISTS:
+            pass
+        d.setServiceServerStatus(hostname, "primary")
+        logging.info("The server '%s' has been set as the primary DHCP server" % hostname)
 
     # Create DNS config base structure
-    if serverType == "bind":
-        try:
-            gidNumber = grp.getgrnam(config.bindGroup)
-        except KeyError:
-            logger.error('The group "%s" does not exist.' % config.bindGroup)
-            return False
-        gidNumber = gidNumber[2]
+    if config.dnsEnable:
+        # Create DNS ou
+        head, path = config.dnsDN.split(",", 1)
+        ouName = head.split("=")[1]
+        ldapObj.addOu(ouName, path)
+        if serverType == "bind":
+            try:
+                gidNumber = grp.getgrnam(config.bindGroup)
+            except KeyError:
+                logger.error('The group "%s" does not exist.' % config.bindGroup)
+                return False
+            gidNumber = gidNumber[2]
 
-        try:
-            os.mkdir(config.bindLdapDir)
-            os.chmod(config.bindLdapDir, 02750)
-            os.chown(config.bindLdapDir, -1, gidNumber)
-        except OSError, e:
-            # errno = 17 is "File exists"
-            if e.errno != 17: raise
+            try:
+                os.mkdir(config.bindLdapDir)
+                os.chmod(config.bindLdapDir, 02750)
+                os.chown(config.bindLdapDir, -1, gidNumber)
+            except OSError, e:
+                # errno = 17 is "File exists"
+                if e.errno != 17: raise
 
-        if not os.path.exists(config.bindLdap):
-            f = open(config.bindLdap, "w")
-            f.close()
-            os.chmod(config.bindLdap, 0640)
-            os.chown(config.bindLdap, -1, gidNumber)
+            if not os.path.exists(config.bindLdap):
+                f = open(config.bindLdap, "w")
+                f.close()
+                os.chmod(config.bindLdap, 0640)
+                os.chown(config.bindLdap, -1, gidNumber)
 
     return True
 
-# Mixed DNS/DHCP methods
 
+def hasDHCP():
+    return NetworkConfig("network").dhcpEnable
+
+def hasDNS():
+    return NetworkConfig("network").dnsEnable
+
+# Mixed DNS/DHCP methods
 def addZoneWithSubnet(zonename, network, netmask, reverse = False, description = None, nameserver = None, nameserverip = None):
     Dns().addZone(zonename, network, netmask, reverse, description, nameserver, nameserverip)
     d = Dhcp()
@@ -176,7 +196,6 @@ def getSubnetAndZoneFreeIp(subnet, zone, current = None):
     return ret
 
 # DNS exported call
-
 def getZones(f):
     return Dns().getZones(f)
 
@@ -401,12 +420,10 @@ def getSubnetFreeIp(subnet, startAt):
     return Dhcp().getSubnetFreeIp(subnet, startAt)
 
 # DHCP leases
-
 def getDhcpLeases():
     return DhcpLeases().get()
 
 # Log
-
 def getDhcpLog(filter = ''):
     return DhcpLogView().getLog(filter)
 
@@ -445,6 +462,10 @@ class NetworkConfig(PluginConfig):
     def readConf(self):
         PluginConfig.readConf(self)
         # DHCP conf
+        try:
+            self.dhcpEnable = self.getboolean("dhcp", "enable")
+        except:
+            self.dhcpEnable = True
         self.dhcpDN = self.getdn("dhcp", "dn")
         self.dhcpPidFile = self.get("dhcp", "pidfile")
         self.dhcpInit = self.get("dhcp", "init")
@@ -454,7 +475,11 @@ class NetworkConfig(PluginConfig):
             self.dhcpHostname = self.get("dhcp", "hostname")
         except NoOptionError:
             self.dhcpHostname = socket.gethostname()
-	# DNS conf
+        # DNS conf
+        try:
+            self.dnsEnable = self.getboolean("dns", "enable")
+        except:
+            self.dnsEnable = True
         try:
             self.dnsType = self.get("dns", "type")
         except NoOptionError:

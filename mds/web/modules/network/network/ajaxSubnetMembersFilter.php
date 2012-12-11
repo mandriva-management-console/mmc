@@ -1,7 +1,6 @@
 <?php
 
 require("modules/network/includes/network.inc.php");
-require("modules/network/includes/network-xmlrpc.inc.php");
 
 $filter = $_GET["filter"];
 $subnet = $_GET["subnet"];
@@ -21,7 +20,7 @@ foreach(getSubnetHosts($subnet, "") as $dn => $entry) {
             break;
         }
     }
-    if (!$ipaddress) {      
+    if (!$ipaddress) {
         unset($lines[$ipaddress]);
         continue; /* We don't support displaying DHCP host with no fixed IP address */
     }
@@ -59,7 +58,7 @@ foreach($leases as $ipaddress => $infos) {
                     ) {
                     unset($lines[$address]);
                 }
-            }            
+            }
         }
     }
 }

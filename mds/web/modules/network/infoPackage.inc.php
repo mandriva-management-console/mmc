@@ -22,6 +22,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+require_once('modules/network/includes/network-xmlrpc.inc.php');
+
 /**
  * module declaration
  */
@@ -41,8 +43,24 @@ $submod->setDescription(_T("Network", "network"));
 $submod->setImg('modules/network/graph/img/network');
 $submod->setDefaultPage("network/network/index");
 $submod->setPriority(30);
+$visibleDNS = True;
+if (!hasDNS()) {
+    $submod->setDefaultPage("network/network/subnetindex");
+    $visibleDNS = False;
+}
+$visibleDHCP = True;
+if (!hasDHCP()) {
+    $submod->setDefaultPage("network/network/index");
+    $visibleDHCP = False;
+}
+$visibleServices = True;
+if (in_array("services", $_SESSION['supportModList']))
+    $visibleServices = False;
 
 $page = new Page("index",_T("DNS zones","network"));
+$page->setFile("modules/network/network/index.php",
+	       array("visible" => $visibleDNS)
+	       );
 $submod->addPage($page);
 
 $page = new Page("ajaxZoneFilter");
@@ -108,6 +126,9 @@ $page->setOptions( array ("visible"=>False));
 $submod->addPage($page);
 
 $page = new Page("add",_T("Add a DNS zone", "network"));
+$page->setFile("modules/network/network/add.php",
+               array("visible" => $visibleDNS)
+              );
 $submod->addPage($page);
 
 $page = new Page("edit",_T("Edit a DNS zone", "network"));
@@ -131,6 +152,9 @@ $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
 $page = new Page("subnetadd",_T("Add a DHCP subnet", "network"));
+$page->setFile("modules/network/network/subnetadd.php",
+               array("visible" => $visibleDHCP)
+               );
 $submod->addPage($page);
 
 $page = new Page("subnetedit",_T("Edit DHCP subnet", "network"));
@@ -138,6 +162,9 @@ $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
 $page = new Page("subnetindex",_T("DHCP subnets","network"));
+$page->setFile("modules/network/network/subnetindex.php",
+               array("visible" => $visibleDHCP)
+               );
 $submod->addPage($page);
 
 $page = new Page("subnetdelete",_T("Delete a subnet", "network"));
@@ -160,7 +187,12 @@ $page = new Page("subnetmembers",_T("Members of a DHCP subnet", "network"));
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("servicedhcpfailover",_T("DHCP failover","network"));
+$page->setOptions(array("visible" => $visibleDHCP));
+$submod->addPage($page);
+
 $page = new Page("services",_T("Network services management","network"));
+$page->setOptions(array("visible" => $visibleServices));
 $submod->addPage($page);
 
 $page = new Page("servicelog",_T("Network services management","network"));

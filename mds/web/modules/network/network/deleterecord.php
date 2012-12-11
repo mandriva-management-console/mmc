@@ -22,7 +22,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-require("modules/network/includes/network-xmlrpc.inc.php");
 
 $zone = urldecode($_GET["zone"]);
 $id = urldecode($_GET["id"]);

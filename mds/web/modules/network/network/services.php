@@ -22,7 +22,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-require("modules/network/includes/network-xmlrpc.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
@@ -89,7 +88,5 @@ $l->addActionItemArray($actionsReload);
 $l->addActionItemArray($actionsLog);
 
 $l->display(0);
-
-include("servicedhcpfailover.php");
 
 ?>

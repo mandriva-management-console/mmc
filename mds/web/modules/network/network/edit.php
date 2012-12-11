@@ -22,7 +22,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-require("modules/network/includes/network-xmlrpc.inc.php");
 require("modules/network/includes/network.inc.php");
 require("localSidebar.php");
 require("graph/navbar.inc.php");
@@ -239,7 +238,14 @@ if ($_GET["action"] == "add") {
     $f->pop();
 
     $f->push(new Table());
-    $f->add(new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl("")));
+
+    if (hasDHCP()) {
+        $f->add(new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone or a DHCP subnet linked to this DNS zone."), new HiddenTpl("")));
+    }
+    else {
+        $f->add(new TrFormElement(_T("The network address and mask fields must be filled in if you also want to create a reverse zone."), new HiddenTpl("")));
+    }
+
     $f->add(
             new TrFormElement(_T("Network address"), new IPInputTpl("netaddress")),
             array("value" => $netaddress)
@@ -251,11 +257,14 @@ if ($_GET["action"] == "add") {
     $f->add(
             new TrFormElement(_T("Also manage a reverse DNS zone"), new CheckboxTpl("reverse")),
             array("value" => "CHECKED")
+        );
+
+    if (hasDHCP()) {
+        $f->add(
+                new TrFormElement(_T("Also create a related DHCP subnet"), new CheckboxTpl("dhcpsubnet")),
+                array("value" => "CHECKED")
             );
-    $f->add(
-            new TrFormElement(_T("Also create a related DHCP subnet"), new CheckboxTpl("dhcpsubnet")),
-            array("value" => "CHECKED")
-            );
+    }
     $f->pop();
 } else {
     $f->add(

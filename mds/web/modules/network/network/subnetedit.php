@@ -21,7 +21,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-require("modules/network/includes/network-xmlrpc.inc.php");
 require("modules/network/includes/network.inc.php");
 require("modules/network/includes/network2.inc.php");
 require("localSidebar.php");

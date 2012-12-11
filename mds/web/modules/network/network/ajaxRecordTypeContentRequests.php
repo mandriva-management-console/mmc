@@ -31,7 +31,6 @@ require("../../../includes/PageGenerator.php");
 require("../includes/network.inc.php");
 require("../includes/network2.inc.php");
 
-require("../includes/network-xmlrpc.inc.php");
 $_GET["module"]="network";
 
 

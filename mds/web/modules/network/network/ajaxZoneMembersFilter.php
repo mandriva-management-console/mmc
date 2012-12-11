@@ -1,6 +1,5 @@
 <?php
 
-require("modules/network/includes/network-xmlrpc.inc.php");
 
 $filter = $_GET["filter"];
 $zone = $_GET["zone"];

@@ -1,5 +1,13 @@
 <?
 
+function hasDHCP() {
+    return xmlCall("network.hasDHCP", array());
+}
+
+function hasDNS() {
+    return xmlCall("network.hasDNS", array());
+}
+
 /* DNS / DHCP RPCs */
 
 function addZoneWithSubnet($zonename, $network, $netmask, $description, $nameserver, $nameserverip, $reverse) {
