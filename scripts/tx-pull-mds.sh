@@ -16,10 +16,12 @@ fi
 
 test -d .tx || tx init --host=https://transifex.mandriva.com
 
-[ ! x$1 == x ] && args="-l $1"
+[ ! x$1 == x ] && lang="-l $1" && shift 1
+args=$@
+
 modules="base ppolicy services dashboard bulkimport mail network proxy samba sshlpk userquota shorewall"
 
 for mod in $modules
 do
-	tx pull -r mds.${mod} ${args}
+	tx pull -r mds.${mod} ${lang} ${args}
 done

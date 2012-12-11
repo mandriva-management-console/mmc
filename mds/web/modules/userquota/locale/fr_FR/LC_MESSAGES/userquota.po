@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
-#   <jpbraun@mandriva.com>, 2011.
+#   <jpbraun@mandriva.com>, 2011, 2012.
 #   <nrueff@mandriva.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-09-07 13:49+0000\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2012-12-10 15:53+0100\n"
+"PO-Revision-Date: 2012-08-24 13:47+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,63 +19,63 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: modules/userquota/includes/publicFunc.php:38
+#: modules/userquota/includes/publicFunc.php:39
 msgid "Quota settings"
 msgstr "Configuration des quotas"
 
-#: modules/userquota/includes/publicFunc.php:109
+#: modules/userquota/includes/publicFunc.php:110
 #, php-format
-msgid "Disk quota set to %s."
-msgstr "Le quota disque est réglé à %s."
+msgid "Disk quota set to %sMo."
+msgstr "Quota disque mis à %sMo."
 
-#: modules/userquota/includes/publicFunc.php:113
+#: modules/userquota/includes/publicFunc.php:114
 msgid "Disk quota removed."
 msgstr "Quota disque supprimé."
 
-#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:126
 #, php-format
-msgid "Network quota set to %s on %s."
-msgstr "Le quota réseau est réglé à %s sur %s."
+msgid "Network quota set to %sMo on %s."
+msgstr "Quota réseau mis à %sMo sur %s."
 
-#: modules/userquota/includes/publicFunc.php:129
+#: modules/userquota/includes/publicFunc.php:130
 msgid "Network quota removed."
 msgstr "Quota réseau supprimé."
 
-#: modules/userquota/includes/publicFunc.php:144
+#: modules/userquota/includes/publicFunc.php:149
 msgid "Quota plugin - Filesystem"
 msgstr "Plugin Quota - Système de fichiers"
 
-#: modules/userquota/includes/publicFunc.php:147
-#: modules/userquota/includes/publicFunc.php:160
+#: modules/userquota/includes/publicFunc.php:152
+#: modules/userquota/includes/publicFunc.php:165
 msgid "Quota's applied here affect all members of the group"
 msgstr "Les quotas spécifiés sont appliqués à tous les membres du groupe"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Overwrite all existing quotas"
 msgstr "Écraser tous les quotas existants"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Current quota is smaller than the new quota, or does not exist"
 msgstr "Le quota actuel est inférieur au nouveau quota, ou n'est pas défini"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Current quota is larger than the new quota, or does not exist"
 msgstr "Le quota actuel est supérieur au nouveau quota, ou n'est pas défini"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Don't overwrite any existing quotas"
 msgstr "Ne pas écraser les quotas existants"
 
-#: modules/userquota/includes/publicFunc.php:152
-#: modules/userquota/includes/publicFunc.php:165
+#: modules/userquota/includes/publicFunc.php:157
+#: modules/userquota/includes/publicFunc.php:170
 msgid "Overwrite mode for existing quotas"
 msgstr "Mode de mise à jour des quotas existant"
 
-#: modules/userquota/includes/publicFunc.php:157
+#: modules/userquota/includes/publicFunc.php:162
 msgid "Quota plugin - Network"
 msgstr "Plugin Quota - Réseau"
 

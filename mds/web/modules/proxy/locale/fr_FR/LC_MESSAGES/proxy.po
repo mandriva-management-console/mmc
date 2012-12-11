@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2012-12-10 15:53+0100\n"
 "PO-Revision-Date: 2011-07-26 10:13+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
@@ -18,31 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-
-#: modules/proxy/blacklist/add.php:40
-msgid "Invalid domain name"
-msgstr "Nom de domaine invalide"
-
-#: modules/proxy/blacklist/add.php:47
-#, php-format
-msgid "Domain %s successfully added"
-msgstr "Domaine %s ajouté"
-
-#: modules/proxy/blacklist/add.php:59 modules/proxy/infoPackage.inc.php:51
-msgid "Add a domain in the blacklist"
-msgstr "Ajout d'un domaine dans la liste noire"
-
-#: modules/proxy/blacklist/add.php:64
-msgid "The domain must be valid"
-msgstr "Le domaine doit être valide"
-
-#: modules/proxy/blacklist/add.php:71
-msgid "Name"
-msgstr "Nom"
-
-#: modules/proxy/blacklist/add.php:76
-msgid "Create"
-msgstr "Créer"
 
 #: modules/proxy/blacklist/delete.php:39
 msgid "Remove a squidGuard domain"
@@ -116,6 +91,31 @@ msgstr "Services"
 #: modules/proxy/blacklist/statut.php:52
 msgid "Status"
 msgstr "Statut"
+
+#: modules/proxy/blacklist/add.php:40
+msgid "Invalid domain name"
+msgstr "Nom de domaine invalide"
+
+#: modules/proxy/blacklist/add.php:47
+#, php-format
+msgid "Domain %s successfully added"
+msgstr "Domaine %s ajouté"
+
+#: modules/proxy/blacklist/add.php:60 modules/proxy/infoPackage.inc.php:51
+msgid "Add a domain in the blacklist"
+msgstr "Ajout d'un domaine dans la liste noire"
+
+#: modules/proxy/blacklist/add.php:65
+msgid "The domain must be valid"
+msgstr "Le domaine doit être valide"
+
+#: modules/proxy/blacklist/add.php:72
+msgid "Name"
+msgstr "Nom"
+
+#: modules/proxy/blacklist/add.php:77
+msgid "Create"
+msgstr "Créer"
 
 #: modules/proxy/includes/auditCodes.php:4
 msgid "Add blacklist"
