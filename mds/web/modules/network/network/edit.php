@@ -110,7 +110,7 @@ if (isset($_POST["badd"])) {
         if ($dhcpsubnet) {
             addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
             $result .= _T("DHCP subnet and DNS zone successfully added.");
-            $result .= "<br />" . _T("The DHCP dns DNS services must be restarted.");
+            $result .= "<br />" . _T("The DHCP and DNS services must be restarted.");
             $services = array("bind9" => "DNS", "isc-dhcp-server" => "DHCP");
         } else {
             addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
