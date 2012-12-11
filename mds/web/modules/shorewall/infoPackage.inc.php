@@ -42,7 +42,7 @@ $submod->setImg('modules/shorewall/graph/navbar/shorewall');
 $submod->setPriority(60);
 
 /* Add the page to the module */
-$page = new Page("internal_fw", _T("Internal → Server", "shorewall"));
+$page = new Page("internal_fw", _T("Internal &rarr; Server", "shorewall"));
 $submod->addPage($page);
 if (!$lan_zones)
     $page->setOptions(array("visible" => False));
@@ -55,7 +55,7 @@ $page = new Page("delete_internal_fw_rule");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
-$page = new Page("external_fw", _T("External → Server", "shorewall"));
+$page = new Page("external_fw", _T("External &rarr; Server", "shorewall"));
 $submod->addPage($page);
 if (!$wan_zones)
     $page->setOptions(array("visible" => False));
@@ -70,7 +70,7 @@ $page = new Page("delete_external_fw_rule");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
-$page = new Page("internal_external", _T("Internal → External", "shorewall"));
+$page = new Page("internal_external", _T("Internal &rarr; External", "shorewall"));
 $submod->addPage($page);
 if (!$lan_zones || !$wan_zones)
     $page->setOptions(array("visible" => False));
@@ -79,7 +79,7 @@ $page = new Page("ajax_internal_external");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
-$page = new Page("external_internal", _T("External → Internal", "shorewall"));
+$page = new Page("external_internal", _T("External &rarr; Internal", "shorewall"));
 $submod->addPage($page);
 if (!$lan_zones || !$wan_zones)
     $page->setOptions(array("visible" => False));

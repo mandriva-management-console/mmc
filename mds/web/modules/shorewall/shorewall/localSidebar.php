@@ -29,13 +29,13 @@ $lan_zones = getShorewallZones($zones_types['internal']);
 $wan_zones = getShorewallZones($zones_types['external']);
 
 if ($lan_zones)
-    $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal → Server", "shorewall"), "shorewall", "shorewall", "internal_fw", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+    $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; Server", "shorewall"), "shorewall", "shorewall", "internal_fw", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
 if ($wan_zones)
-    $sidemenu->addSideMenuItem(new SideMenuItem(_T("External → Server", "shorewall"), "shorewall", "shorewall", "external_fw", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+    $sidemenu->addSideMenuItem(new SideMenuItem(_T("External &rarr; Server", "shorewall"), "shorewall", "shorewall", "external_fw", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
 if ($lan_zones && $wan_zones)
-    $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal → External", "shorewall"), "shorewall", "shorewall", "internal_external", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+    $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; External", "shorewall"), "shorewall", "shorewall", "internal_external", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
 if ($lan_zones && $wan_zones)
-    $sidemenu->addSideMenuItem(new SideMenuItem(_T("External → Internal", "shorewall"), "shorewall", "shorewall", "external_internal", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+    $sidemenu->addSideMenuItem(new SideMenuItem(_T("External &rarr; Internal", "shorewall"), "shorewall", "shorewall", "external_internal", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
 if ($lan_zones && $wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("NAT", "shorewall"), "shorewall", "shorewall", "masquerade", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
 
