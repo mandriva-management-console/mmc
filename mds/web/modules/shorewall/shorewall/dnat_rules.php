@@ -36,7 +36,7 @@ if (isset($_POST['bpolicy'])) {
                 changePolicies($policy[0], $policy[1], $new, $policy[3]);
                 if (!isXMLRPCError()) {
                     $n = new NotifyWidgetSuccess(_T("Policy changed."));
-                    handleServicesModule($n);
+                    handleServicesModule($n, array("shorewall" => _T("Firewall")));
                     header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
                     exit;
                 }
@@ -87,7 +87,7 @@ if (isset($_POST['brule'])) {
             addRule($action, $source, $destination, $proto, $port);
             if (!isXMLRPCError()) {
                 $n = new NotifyWidgetSuccess(_T("Rule added."));
-                handleServicesModule($n);
+                handleServicesModule($n, array("shorewall" => _T("Firewall")));
                 header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
                 exit;
             }
