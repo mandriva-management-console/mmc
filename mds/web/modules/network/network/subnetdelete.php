@@ -28,8 +28,9 @@ if (isset($_POST["bconfirm"])) {
     delSubnet($subnet);
     if (!isXMLRPCError()) {
         $n = new NotifyWidgetSuccess(_T("The DHCP subnet has been deleted. You must restart the DHCP service."));
+        handleServicesModule($n, array("isc-dhcp-server" => "DHCP"));
     }
-    header("Location: main.php?module=network&submod=network&action=subnetindex");
+    header("Location: " . urlStrRedirect("network/network/subnetindex"));
     exit;
 } else {
     $subnet = urldecode($_GET["subnet"]);
@@ -40,8 +41,8 @@ if (isset($_POST["bconfirm"])) {
 <?php echo  sprintf(_T("You will delete the DHCP subnet %s."), "<strong>$subnet</strong>"); ?>
 </p>
 
-<form action="main.php?module=network&submod=network&action=subnetdelete" method="post">
-<input type="hidden" name="subnet" value="<?php echo $subnet; ?>" />
-<input type="submit" name="bconfirm" class="btnPrimary" value="<?php echo  _T("Delete subnet"); ?>" />
-<input type="submit" name="bback" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onClick="new Effect.Fade('popup'); return false;" />
+<form action="<?= urlStrRedirect("network/network/subnetdelete") ?>" method="post">
+    <input type="hidden" name="subnet" value="<?php echo $subnet; ?>" />
+    <input type="submit" name="bconfirm" class="btnPrimary" value="<?php echo  _T("Delete subnet"); ?>" />
+    <input type="submit" name="bback" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
 </form>

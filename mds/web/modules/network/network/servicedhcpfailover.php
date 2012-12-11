@@ -100,8 +100,10 @@ if ($_POST) {
         $resultPopup->setLevel(5);
     }
     // add info messages
-    if ($result)
+    if ($result) {
         $resultPopup->add('<div class="alert alert-success">' . $result . '</div>');
+        handleServicesModule($resultPopup, array("isc-dhcp-server" => "DHCP"));
+    }
 
     if(!$error) {
         header("Location: " . urlStrRedirect("network/network/services"));

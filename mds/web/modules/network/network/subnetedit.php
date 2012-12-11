@@ -151,10 +151,11 @@ if (!isset($error)
 
     if (!isXMLRPCError()) {
         if (isset($_POST["badd"])) {
-            new NotifyWidgetSuccess(_T("Subnet successfully added. You must restart the DHCP service."));
+            $n = new NotifyWidgetSuccess(_T("Subnet successfully added. You must restart the DHCP service."));
         } else if (isset($_POST["bedit"])) {
-            new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
+            $n = new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
         }
+        handleServicesModule($n, array("isc-dhcp-server" => "DHCP"));
         header("Location: " . urlStrRedirect("network/network/subnetindex"));
         exit;
     }

@@ -109,14 +109,18 @@ if (isset($_POST["badd"])) {
         $result = "";
         if ($dhcpsubnet) {
             addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
-            $result .= _T("DHCP subnet and DNS zone successfully added. The DHCP service must be restarted.");
+            $result .= _T("DHCP subnet and DNS zone successfully added.");
+            $result .= "<br />" . _T("The DHCP dns DNS services must be restarted.");
+            $services = array("bind9" => "DNS", "isc-dhcp-server" => "DHCP");
         } else {
             addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
             $result .= _T("DNS zone successfully added.");
+            $result .= "<br />" . _T("The DNS service must be restarted.");
+            $services = array("bind9" => "DNS");
         }
-        $result .= " " . _T("The DNS service must be reloaded.");
         if (!isXMLRPCError()) {
-            new NotifyWidgetSuccess($result);
+            $n = new NotifyWidgetSuccess($result);
+            handleServicesModule($n, $services);
             header("Location: " . urlStrRedirect("network/network/index"));
             exit;
         }
