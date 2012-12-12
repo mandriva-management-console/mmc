@@ -155,7 +155,8 @@ if (!isset($error)
         } else if (isset($_POST["bedit"])) {
             $n = new NotifyWidgetSuccess(_T("Subnet successfully modified. You must restart the DHCP service."));
         }
-        handleServicesModule($n, array("isc-dhcp-server" => "DHCP"));
+        $services = getServicesNames();
+        handleServicesModule($n, array($services[1] => "DHCP"));
         header("Location: " . urlStrRedirect("network/network/subnetindex"));
         exit;
     }

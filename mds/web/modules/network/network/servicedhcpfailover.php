@@ -101,8 +101,9 @@ if ($_POST) {
     }
     // add info messages
     if ($result) {
+        $services = getServicesNames();
         $resultPopup->add('<div class="alert alert-success">' . $result . '</div>');
-        handleServicesModule($resultPopup, array("isc-dhcp-server" => "DHCP"));
+        handleServicesModule($resultPopup, array($services[1] => "DHCP"));
     }
 
     if(!$error) {

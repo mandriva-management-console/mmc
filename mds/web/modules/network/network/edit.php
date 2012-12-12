@@ -107,16 +107,17 @@ if (isset($_POST["badd"])) {
 
     if (!isset($error)) {
         $result = "";
+        $servicesNames = getServicesNames();
         if ($dhcpsubnet) {
             addZoneWithSubnet($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
             $result .= _T("DHCP subnet and DNS zone successfully added.");
             $result .= "<br />" . _T("The DHCP and DNS services must be restarted.");
-            $services = array("bind9" => "DNS", "isc-dhcp-server" => "DHCP");
+            $services = array($servicesNames[0] => "DNS", $servicesNames[1] => "DHCP");
         } else {
             addZone($zonename, $netaddress, $netmask, $reverse, $description, $nameserver, $nameserverip);
             $result .= _T("DNS zone successfully added.");
             $result .= "<br />" . _T("The DNS service must be restarted.");
-            $services = array("bind9" => "DNS");
+            $services = array($servicesNames[0] => "DNS");
         }
         if (!isXMLRPCError()) {
             $n = new NotifyWidgetSuccess($result);

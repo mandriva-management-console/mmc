@@ -329,4 +329,8 @@ function dnsService($command) {
     return xmlCall("network.dnsService", array($command));
 }
 
+function getServicesNames() {
+    return xmlCall("network.get_services_names", array());
+}
+
 ?>

@@ -27,8 +27,9 @@ if (isset($_POST["bconfirm"])) {
     $subnet = $_POST["subnet"];
     delSubnet($subnet);
     if (!isXMLRPCError()) {
+        $services = getServicesNames();
         $n = new NotifyWidgetSuccess(_T("The DHCP subnet has been deleted. You must restart the DHCP service."));
-        handleServicesModule($n, array("isc-dhcp-server" => "DHCP"));
+        handleServicesModule($n, array($services[1] => "DHCP"));
     }
     header("Location: " . urlStrRedirect("network/network/subnetindex"));
     exit;

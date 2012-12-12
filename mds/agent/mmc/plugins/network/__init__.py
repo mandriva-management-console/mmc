@@ -431,6 +431,10 @@ def getDnsLog(filter = ''):
     return DnsLogView().getLog(filter)
 
 # Service management
+def get_services_names():
+    dhcp_service = os.path.basename(NetworkConfig("network").dhcpInit)
+    dns_service = os.path.basename(NetworkConfig("network").dnsInit)
+    return (dns_service, dhcp_service)
 
 def dhcpService(command):
     if command != 'status':
