@@ -50,7 +50,7 @@ datafiles = \
 	graph/navbar/shorewall_select.png \
 	graph/navbar/shorewall_hl.png
 
-langs = fr_FR
+langs = fr_FR pt_BR
 
 module = $(notdir $(realpath $(srcdir)))
 moduledir = $(datadir)/mmc/modules/$(module)

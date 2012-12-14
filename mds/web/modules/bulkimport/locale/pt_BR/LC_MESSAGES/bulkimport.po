@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
+#   <alexandre@mandriva.com.br>, 2012.
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2012-05-25 16:38+0200\n"
-"PO-Revision-Date: 2012-05-25 14:40+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2012-12-12 18:10+0100\n"
+"PO-Revision-Date: 2012-12-12 17:45+0000\n"
+"Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
+"Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,7 +68,7 @@ msgstr "Cancelar"
 
 #: modules/bulkimport/import/index.php:199
 msgid "CSV file: "
-msgstr ""
+msgstr "Arquivo CSV:"
 
 #: modules/bulkimport/import/index.php:204
 msgid "Load CSV"
@@ -75,86 +76,93 @@ msgstr "Carregar CSV"
 
 #: modules/bulkimport/import/index.php:208
 msgid "Description:"
-msgstr ""
+msgstr "Descrição:"
 
 #: modules/bulkimport/import/index.php:209
 msgid "You can import, modify and delete user accounts using a CSV file."
 msgstr ""
+"Você pode importar, modificar e apagar contas de usuários usando um arquivo "
+"CSV."
 
 #: modules/bulkimport/import/index.php:211
 msgid "If the users in the CSV file don't exist, you can import them."
-msgstr ""
+msgstr "se os usuários não existirem no arquivo CSV, você pode importa-los."
 
 #: modules/bulkimport/import/index.php:212
 msgid ""
 "If the users in the CSV file exist, you can modify them or delete them."
 msgstr ""
+"se os usuários existirem no arquivo CSV, você pode modificar ou apaga-los."
 
 #: modules/bulkimport/import/index.php:214
 msgid "CSV Header requirements:"
-msgstr ""
+msgstr "Requisitos para o cabeçalho do CSV:"
 
 #: modules/bulkimport/import/index.php:216
 msgid "Required attribute:"
-msgstr ""
+msgstr "Atributo obrigatório:"
 
 #: modules/bulkimport/import/index.php:217
 msgid "Required for import:"
-msgstr ""
+msgstr "Obrigatório para importar:"
 
 #: modules/bulkimport/import/index.php:218
 msgid ""
 "Additional headers can be set and must match the attribute name in LDAP, for"
 " example:"
 msgstr ""
+"Cabeçalhos adicionais podem ser configurados e tem que coincidir com o nome "
+"do atributo no LDAP, por exemplo:"
 
 #: modules/bulkimport/import/index.php:220
 msgid "CSV Formatting:"
-msgstr ""
+msgstr "Formatação CSV:"
 
 #: modules/bulkimport/import/index.php:222
 msgid "Delimiter:"
-msgstr ""
+msgstr "Delimitador:"
 
 #: modules/bulkimport/import/index.php:223
 msgid "Wrapper:"
-msgstr ""
+msgstr "invólucro"
 
 #: modules/bulkimport/import/index.php:224
 msgid "Escape character:"
-msgstr ""
+msgstr "Caracter de escape"
 
 #: modules/bulkimport/import/index.php:226
 msgid "Special attributes"
-msgstr ""
+msgstr "Atributos especiais"
 
 #: modules/bulkimport/import/index.php:226
 msgid "or"
-msgstr ""
+msgstr "ou"
 
 #: modules/bulkimport/import/index.php:228
 msgid "by default"
-msgstr ""
+msgstr "por padrão"
 
 #: modules/bulkimport/import/index.php:229
 msgid "by default for delete operation, users home directory will be removed."
 msgstr ""
+"por padrão para operação de exclusão, o diretório home dos usuários serão "
+"apagados."
 
 #: modules/bulkimport/import/index.php:231
 msgid "Defaults:"
-msgstr ""
+msgstr "Padrões"
 
 #: modules/bulkimport/import/index.php:233
 msgid "the default home directory path"
-msgstr ""
+msgstr "O caminho padrão para o diretorio home"
 
 #: modules/bulkimport/import/index.php:234
 msgid "the default primary group"
-msgstr ""
+msgstr "O grupo primairo padrão"
 
 #: modules/bulkimport/import/index.php:236
 msgid "Supported attributes:"
-msgstr ""
+msgstr "Atributos suportados"
 
 #: modules/bulkimport/includes/importUsers.php:218
 msgid "Unvalidated"

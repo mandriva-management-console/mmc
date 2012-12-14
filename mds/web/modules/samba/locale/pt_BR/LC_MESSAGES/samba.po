@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
+#   <alexandre@mandriva.com.br>, 2012.
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2012-12-10 15:53+0100\n"
-"PO-Revision-Date: 2012-12-10 14:54+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"POT-Creation-Date: 2012-12-12 18:10+0100\n"
+"PO-Revision-Date: 2012-12-12 18:47+0000\n"
+"Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,31 +63,31 @@ msgstr "Homes compartilhados de usuários"
 
 #: modules/samba/config/index.php:130
 msgid "Use network profiles for users"
-msgstr ""
+msgstr "Utilize o perfil de rede para os usuários"
 
 #: modules/samba/config/index.php:131
 msgid "Activate roaming profiles for all users."
-msgstr ""
+msgstr "Ativar os perfis móveis para todos os usuários."
 
 #: modules/samba/config/index.php:147
 msgid "Network path for profiles"
-msgstr ""
+msgstr "Caminho de rede para os perfis"
 
 #: modules/samba/config/index.php:148
 msgid "The share must exist and be world-writable."
-msgstr ""
+msgstr "O compartilhamento tem que existir e ter permissão de escrita."
 
 #: modules/samba/config/index.php:158
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: modules/samba/config/index.php:158
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: modules/samba/config/index.php:158
 msgid "Only (for smbk5pwd)"
-msgstr ""
+msgstr "Apenas(para smbk5pwd)"
 
 #: modules/samba/config/index.php:163
 msgid "LDAP password sync"
@@ -121,7 +122,7 @@ msgstr "Adicionar compartilhamento"
 
 #: modules/samba/includes/auditCodes.php:27
 msgid "Mod share"
-msgstr ""
+msgstr "Mod Share"
 
 #: modules/samba/includes/auditCodes.php:28
 msgid "Del share"
@@ -259,19 +260,19 @@ msgstr "Por favor, remova este compartilhamento e depois o crie novamente."
 
 #: modules/samba/includes/errorHandling.php:41
 msgid "Some options are not valid"
-msgstr ""
+msgstr "Algumas opções não são validas"
 
 #: modules/samba/includes/errorHandling.php:42
 msgid "Check your custom parameters."
-msgstr ""
+msgstr "Verifique seus parametros customizados."
 
 #: modules/samba/includes/errorHandling.php:47
 msgid "A custom parameter has an invalid format."
-msgstr ""
+msgstr "O paramentro customizado tem um formato invalido."
 
 #: modules/samba/includes/errorHandling.php:48
 msgid "Use the 'option = value' format."
-msgstr ""
+msgstr "Use o formato 'opção = valor' . "
 
 #: modules/samba/includes/publicFunc.php:71
 msgid "Samba attributes deleted."
@@ -279,11 +280,11 @@ msgstr "Atributos samba removidos."
 
 #: modules/samba/includes/publicFunc.php:119
 msgid "Samba account disabled."
-msgstr ""
+msgstr "Conta do samba desabilitada."
 
 #: modules/samba/includes/publicFunc.php:124
 msgid "Samba account enabled."
-msgstr ""
+msgstr "Conta do samba habilitada."
 
 #: modules/samba/includes/publicFunc.php:175
 msgid "Samba attributes added."
@@ -292,7 +293,7 @@ msgstr "Atributos samba adicionados."
 #: modules/samba/includes/publicFunc.php:177
 #: modules/samba/includes/publicFunc.php:184
 msgid "Failed to add Samba attributes."
-msgstr ""
+msgstr "Falhou ao adicionar Samba atributo."
 
 #: modules/samba/includes/publicFunc.php:206
 msgid "You must reenter your password."
@@ -305,20 +306,20 @@ msgstr "Drive de rede inválido"
 #: modules/samba/includes/publicFunc.php:258
 #: modules/samba/includes/publicFunc.php:263
 msgid "SAMBA properties"
-msgstr ""
+msgstr "SAMBA propriedades"
 
 #: modules/samba/includes/publicFunc.php:258
 msgid "The password of this account has expired."
-msgstr ""
+msgstr "A senha para esta conta está expirada."
 
 #: modules/samba/includes/publicFunc.php:263
 msgid "This account is locked."
-msgstr ""
+msgstr "Esta conta está bloqueada."
 
 #: modules/samba/includes/publicFunc.php:267
 #: modules/samba/includes/publicFunc.php:287
 msgid "Samba properties"
-msgstr ""
+msgstr "Propriedades do Samba"
 
 #: modules/samba/includes/publicFunc.php:271
 msgid "SAMBA access"
@@ -326,7 +327,7 @@ msgstr "Acesso SAMBA"
 
 #: modules/samba/includes/publicFunc.php:288
 msgid "This account is disabled"
-msgstr ""
+msgstr "Esta conta esta desbilitada"
 
 #: modules/samba/includes/publicFunc.php:292
 msgid "User is disabled, if checked"
@@ -344,29 +345,33 @@ msgstr "Usuário está bloqueado, se marcado"
 msgid ""
 "Lock samba user access<p>User can be locked after too many failed log.</p>"
 msgstr ""
+"Bloqueia o acesso do usuario<p>O usuário pode ser bloqueado se muitas "
+"tentativas falharem.</p>."
 
 #: modules/samba/includes/publicFunc.php:319
 msgid "Use network profile, if checked"
-msgstr ""
+msgstr "Use o perfil de rede"
 
 #: modules/samba/includes/publicFunc.php:332
 msgid "Network path for user's profile"
-msgstr ""
+msgstr "Caminho de rede para perfis de usuário"
 
 #: modules/samba/includes/publicFunc.php:345
 msgid "User must change password on next logon, <br/>if checked"
-msgstr ""
+msgstr "O usuário precisa alterar a senha no próximo logon"
 
 #: modules/samba/includes/publicFunc.php:353
 #: modules/samba/infoPackage.inc.php:130
 msgid "Account expiration"
-msgstr ""
+msgstr "Data para expirar a conta"
 
 #: modules/samba/includes/publicFunc.php:354
 msgid ""
 "Specifies the date when the user will be locked down and cannot login any "
 "longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
+"Especifica a data em que o usuário será bloqueado. Se este atributo for "
+"omitido, então a conta nunca expira."
 
 #: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
 msgid "Computer name"
@@ -378,7 +383,7 @@ msgstr "Descrição"
 
 #: modules/samba/machines/ajaxFilter.php:43
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:47
 msgid "Edit"
@@ -443,11 +448,11 @@ msgstr "Comentário"
 
 #: modules/samba/machines/edit.php:29
 msgid "Edit computer"
-msgstr ""
+msgstr "Edite computador"
 
 #: modules/samba/machines/edit.php:50
 msgid "Computer successfully modified."
-msgstr ""
+msgstr "Computador modificado com sucesso."
 
 #: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:155
 msgid "Name"
@@ -455,7 +460,7 @@ msgstr "Nome"
 
 #: modules/samba/machines/edit.php:78
 msgid "Disable computer account"
-msgstr ""
+msgstr "Desabilita conta de computador"
 
 #: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:328
 msgid "Confirm"
@@ -604,7 +609,7 @@ msgstr "Acesso para todos"
 
 #: modules/samba/shares/details.php:262
 msgid "Users for this share"
-msgstr ""
+msgstr "Usuários para este compartilhamento."
 
 #: modules/samba/shares/details.php:284
 msgid "Administrator groups for this share"
@@ -612,7 +617,7 @@ msgstr "Grupos de administradores para este compartilhamento"
 
 #: modules/samba/shares/details.php:315 modules/samba/shares/details.php:317
 msgid "Custom parameters"
-msgstr ""
+msgstr "Paramentros costomizados"
 
 #: modules/samba/shares/details.php:325
 msgid "Create"
@@ -673,15 +678,15 @@ msgstr "Adicionar"
 
 #: modules/samba/views/users.tpl.php:70
 msgid "This user doesn't exist"
-msgstr ""
+msgstr "Esta conta de usuário não existe"
 
 #: modules/samba/views/users.tpl.php:129
 msgid "Add a new user"
-msgstr ""
+msgstr "Adiciona um novo usuário"
 
 #: modules/samba/infoPackage.inc.php:31
 msgid "SAMBA management"
-msgstr ""
+msgstr "Gerenciamento SAMBA"
 
 #: modules/samba/infoPackage.inc.php:51
 msgid "Backup a share"
@@ -705,7 +710,7 @@ msgstr "Lista de computadores"
 
 #: modules/samba/infoPackage.inc.php:86
 msgid "Edit a computer"
-msgstr ""
+msgstr "Edita um usuário"
 
 #: modules/samba/infoPackage.inc.php:103
 msgid "Configuration"
@@ -737,30 +742,30 @@ msgstr "Bloquear/Desbloquear conta"
 
 #: modules/samba/infoPackage.inc.php:127
 msgid "Network profile"
-msgstr ""
+msgstr "Perfil de rede"
 
 #: modules/samba/infoPackage.inc.php:128
 msgid "Can change password"
-msgstr ""
+msgstr "Pode mudar a senha"
 
 #: modules/samba/infoPackage.inc.php:129
 msgid "Must change password"
-msgstr ""
+msgstr "Precisa mudar a senha"
 
 #: modules/samba/infoPackage.inc.php:131
 msgid "Logon script"
-msgstr ""
+msgstr "Logon script"
 
 #: modules/samba/infoPackage.inc.php:132
 msgid "Home path"
-msgstr ""
+msgstr "Caminho do home"
 
 #: modules/samba/infoPackage.inc.php:133
 msgid "Home drive"
-msgstr ""
+msgstr "Home drive"
 
 #: modules/samba/infoPackage.inc.php:143
 msgid "SAMBA status"
-msgstr ""
+msgstr "SAMBA status"
 
 
