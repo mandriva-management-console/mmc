@@ -1,0 +1,122 @@
+/*div#main div#contents table tr td#redfont { color: #FF0000}*/
+span#ip {
+  color: gray;
+  font-size: 70%;
+}
+
+#footer{
+  clear: left;
+  width:100%;
+  height: 29px;
+  background: #7474b7;/*#dcdcdc;*/
+  color: white;
+  text-align: center;
+  padding: 0px 0;
+  font-size: 12px;
+  position: relative;
+  top: 50px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+#footer a{
+  color: white;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+#logdate {
+  background: #eee;
+  padding: 1px;
+  border: 1px solid #bbb;
+}
+
+#logdate:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+#logdate_nolink {
+  /*background: #eee;*/
+  padding: 1px;
+  border: 1px solid #bbb;
+}
+
+#alllog {
+  background: #eee;
+  padding: 1px;
+  border: 1px solid #bbb;
+  /*font-size: .85em;*/
+}
+
+#alllog:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+#alllog-tbl {
+  background: #eee;
+  padding: 1px;
+  border: 1px solid #bbb;
+  font-size: .85em;
+}
+
+#alllog-tbl:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+#alllog-tbl-disabled {
+  background: #eee;
+  padding: 1px;
+  border: 1px solid #bbb;
+  font-size: .85em;
+}
+
+
+
+
+.onlydenied-unpressed {
+  background: #ffdfdf;
+  border: 1px solid #ffafaf;
+}
+
+.onlydenied-pressed {
+  background: #ffafaf;
+  border: 1px solid red;
+}
+
+.onlydenied-disabled {
+  background: white;
+  border: 1px solid #afafaf;
+}
+
+
+
+/* controlcontainer */
+
+.redfont { color: #FF0000;}
+.smallfont { font-size: 2;}
+
+#controlcontainer {
+   width: 260px;
+   position: fixed;
+   top: 10px;
+   opacity: 1.0;
+   background: #efefef;
+   -moz-border-radius: 7px;
+   border: solid 2px #555;
+   z-index: 5;
+}
+
+/***/
+
+/*#cutted_object:hover {
+   background: red;
+   cursor: pointer;
+}*/
