@@ -23,8 +23,10 @@ if (isset($_POST["bdelete"])) {
     $rules = getMasqueradeRules();
     $rule = $rules[$_POST['id']];
     delMasqueradeRule($rule[0], $rule[1]);
-    if (!isXMLRPCError())
-        new NotifyWidgetSuccess(_T("The rule has been deleted."));
+    if (!isXMLRPCError()) {
+        $n = new NotifyWidgetSuccess(_T("The rule has been deleted."));
+        handleServicesModule($n, array("shorewall" => _T("Firewall")));
+    }
     header("Location: " . urlStrRedirect("shorewall/shorewall/masquerade"));
     exit;
 }

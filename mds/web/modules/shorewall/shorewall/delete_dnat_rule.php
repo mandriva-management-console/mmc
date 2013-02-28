@@ -24,8 +24,10 @@ if (isset($_POST["bdelete"])) {
     $rule = $list[$_POST['id']];
     foreach(getShorewallZones($src) as $zone)
         delRule($rule[0], $rule[1], $rule[2], $rule[3], $rule[4]);
-    if (!isXMLRPCError())
-        new NotifyWidgetSuccess(_T("The rule has been deleted."));
+    if (!isXMLRPCError()) {
+        $n = new NotifyWidgetSuccess(_T("The rule has been deleted."));
+        handleServicesModule($n, array("shorewall" => _T("Firewall")));
+    }
     header("Location: " . urlStrRedirect("shorewall/shorewall/" . $_POST['page']));
     exit;
 }

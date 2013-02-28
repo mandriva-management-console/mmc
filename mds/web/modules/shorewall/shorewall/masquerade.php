@@ -39,7 +39,8 @@ $ajax->displayDivToUpdate();
 
 if (isset($_POST['badd'])) {
     addMasqueradeRule($_POST['external_if'], ($_POST['internal_if']));
-    new NotifyWidgetSuccess(_T("NAT rule added."));
+    $n = new NotifyWidgetSuccess(_T("NAT rule added."));
+    handleServicesModule($n, array("shorewall" => _T("Firewall")));
     header("Location: " . urlStrRedirect("shorewall/shorewall/masquerade"));
     exit;
 }
