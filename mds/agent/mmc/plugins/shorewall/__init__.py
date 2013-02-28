@@ -174,6 +174,23 @@ class ShorewallInterfaces(ShorewallConf):
         return zones
 
 
+class ShorewallConfig(ShorewallConf):
+
+    def __init__(self):
+        ShorewallConf.__init__(self, 'shorewall.conf',
+            r'^(?P<option>[^=]+)=(?P<value>.*)',
+            '%s=%s')
+        self.read()
+
+    def enable_ip_forward(self):
+        for old_value in ['Keep', 'No', 'Off']:
+            self.replace_line(['IP_FORWARDING', old_value], ['IP_FORWARDING', 'Yes'])
+
+    def disable_ip_forward(self):
+        for old_value in ['Keep', 'Yes', 'On']:
+            self.replace_line(['IP_FORWARDING', old_value], ['IP_FORWARDING', 'No'])
+
+
 class ShorewallMacroDoesNotExists(Exception):
     pass
 
@@ -219,3 +236,8 @@ def del_masquerade_rule(wan_if, lan_if):
 def add_masquerade_rule(wan_if, lan_if):
     return ShorewallMasq().add(wan_if, lan_if)
 
+def enable_ip_forward():
+    return ShorewallConfig().enable_ip_forward()
+
+def disable_ip_forward():
+    return ShorewallConfig().disable_ip_forward()

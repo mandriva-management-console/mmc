@@ -68,5 +68,11 @@ function addMasqueradeRule($wan_if, $lan_if) {
 function delMasqueradeRule($wan_if, $lan_if) {
     return xmlCall("shorewall.del_masquerade_rule", array($wan_if, $lan_if));
 }
+function enableIpFoward() {
+    return xmlCall("shorewall.enable_ip_forward", array());
+}
+function disableIpFoward() {
+    return xmlCall("shorewall.disable_ip_forward", array());
+}
 
 ?>

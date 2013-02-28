@@ -3,10 +3,12 @@ import os
 
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
+
 class ShorewallLine:
 
-    def __init__(self, values):
+    def __init__(self, values, output_format=None):
         self._line = values
+        self._output_format = output_format
 
     def get(self):
         return self._line
@@ -15,17 +17,22 @@ class ShorewallLine:
         return self._line[k]
 
     def __str__(self):
-        l = ""
-        for item in self._line:
-            l += item + "\t"
-        return l
+        if not self._output_format:
+            l = ""
+            for item in self._line:
+                l += item + "\t"
+            return l
+        else:
+            return self._output_format % tuple(self._line)
+
 
 class ShorewallConf:
 
-    def __init__(self, file, pattern):
+    def __init__(self, file, pattern, output_format=None):
         self.conf = ShorewallPluginConfig('shorewall')
         self.path = os.path.join(self.conf.path, file)
         self.pattern = pattern
+        self.output_format = output_format
         self.file = []
 
     def read(self):
@@ -36,7 +43,7 @@ class ShorewallConf:
             line = line.strip()
             result = re.match(self.pattern, line)
             if result:
-                self.file.append(ShorewallLine(result.groups()))
+                self.file.append(ShorewallLine(result.groups(), self.output_format))
             else:
                 self.file.append(line)
 
@@ -47,7 +54,7 @@ class ShorewallConf:
         f.close()
 
     def add_line(self, values, position = None):
-        new = ShorewallLine(values)
+        new = ShorewallLine(values, self.output_format)
         # remove identic lines first
         self.del_line(values)
         if position is not None:
@@ -63,8 +70,8 @@ class ShorewallConf:
         return True
 
     def replace_line(self, old_values, new_values):
-        old = ShorewallLine(old_values)
-        new = ShorewallLine(new_values)
+        old = ShorewallLine(old_values, self.output_format)
+        new = ShorewallLine(new_values, self.output_format)
         for index, line in enumerate(self.file[:]):
             if str(line) == str(old):
                 self.file[index] = new
@@ -73,7 +80,7 @@ class ShorewallConf:
         return False
 
     def del_line(self, values):
-        delete = ShorewallLine(values)
+        delete = ShorewallLine(values, self.output_format)
         for index, line in enumerate(self.file[:]):
             if str(line) == str(delete):
                 del self.file[index]
@@ -96,10 +103,11 @@ class ShorewallConf:
     def set_conf(self, conf):
         file = []
         for line in conf:
-            file.append(ShorewallLine(line))
+            file.append(ShorewallLine(line, self.output_format))
         self.file = file
         self.write()
         return True
+
 
 if __name__ == "__main__":
     conf = ShorewallConf('/etc/shorewall/interfaces', r'^(?P<zone>[\w\d]+)\s+(?P<interface>[\w\d]+)')
