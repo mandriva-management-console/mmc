@@ -26,6 +26,9 @@ datafiles = graph/navbar/proxy_hl.png \
 			includes/auditCodes.php \
 			includes/squid-xmlrpc.inc.php \
 			includes/squid.inc.php \
+			includes/delete.php \
+			includes/manager.php \
+			includes/restart.php \
 			localCss.php \
 			normalgroup/accesslog.php \
 			normalgroup/accesslog/images/blank.gif \
@@ -42,25 +45,20 @@ datafiles = graph/navbar/proxy_hl.png \
 			normalgroup/accesslog/includes/squidnow.js \
 			normalgroup/accesslog/includes/squidnow_poshtml.js \
 			normalgroup/accesslog/includes/wait_msg.js \
-			normalgroup/accesslog/index.php \
 			normalgroup/accesslog/rsys.css \
 			normalgroup/accesslog/squidnow.pl \
-			normalgroup/deletem.php \
-			normalgroup/repmanager.php \
-			normalgroup/restart.php \
-			normalgroup/servicemanager.php \
-			normalgroup/status.php \
-			normalgroup/templates/index.html.tpl \
-			normalgroup/timemanager.php \
-			normalgroup/whitemanager.php \
+			normalgroup/accesslog/index.php \
 			normalgroup/blackmanager.php \
-			normalgroup/delete.php \
+			normalgroup/deleteb.php \
+			normalgroup/deletem.php \
 			normalgroup/deletet.php \
 			normalgroup/deletew.php \
 			normalgroup/deletex.php \
 			normalgroup/extmanager.php \
 			normalgroup/localSidebar.php \
 			normalgroup/machmanager.php \
+			normalgroup/timemanager.php \
+			normalgroup/whitemanager.php \
 			infoPackage.inc.php
 
 langs =

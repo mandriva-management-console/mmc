@@ -54,11 +54,7 @@ def activate():
         logger.warning("Plugin squid: disabled by configuration.")
         return False
 
-    #try:
     config.check()
-    #except Exception, e:
-        #logger.error("Squid configuration error: %s" % str(e))
-        #return False
 
     return True
 
@@ -77,9 +73,9 @@ def add_list_item(list, item):
 def del_list_item(list, item):
     ManageList().del_list_item(list, item)
 
-    
+
 def get_list(list):
-    return ManageList().get_list(list)    
+    return ManageList().get_list(list)
 
 class ProxyConfig(PluginConfig):
 
@@ -169,32 +165,35 @@ class ManageList(object):
         For easier modification Arrays are always loaded
 
         """
-    
+
         self.config = ProxyConfig("squid")
-        self.lists = {
-                        'blacklist':List(self.config.normalBlackList),
-                        'whitelist':List(self.config.normalWhiteList),
-                        'machlist':List(self.config.normalMachList),
-                        'extlist':List(self.config.normalBlackExt),
-                        'timelist':List(self.config.timeDay),
-	                'blacklist':List(self.config.normalBlackList),
-        }
+        self.lists = {'blacklist':List(self.config.normalBlackList),
+                      'whitelist':List(self.config.normalWhiteList),
+                      'machlist':List(self.config.normalMachList),
+                      'extlist':List(self.config.normalBlackExt),
+                      'timelist':List(self.config.timeDay),
+	                  'blacklist':List(self.config.normalBlackList)}
         self.squid = self.config.squidBinary
         self.squidInit = self.config.squidInit
         self.squidPid = self.config.squidPid
         self.sargBinary = self.config.sargBinary
 
-        ''' add and del item in a list'''
-   
+
     def add_list_item(self,list, item):
+        """
+        Add item in a list
+        """
         self.lists[list].add_item(item)
 
     def del_list_item(self,list, item):
+        """
+        Delete item in a list
+        """
         self.lists[list].del_item(item)
 
     def get_list(self, list):
         return self.lists[list].get_list()
-    
+
     def reloadSquid(self):
         try:
             from mmc.plugins.services.manager import ServiceManager
@@ -235,7 +234,7 @@ class List(object):
                     self.list.append(line)
             f.close()
 
-	
+
 	def save(self, path):
 	    f = open(path, 'w')
 	    for i in self.list:
@@ -247,8 +246,8 @@ class List(object):
 	    if not item in self.list:
 	        self.list.append(item)
 	    self.save(self.path)
-	    
-	
+
+
 	def del_item(self, item):
 	    if item in self.list:
 	        self.list.remove(item)
