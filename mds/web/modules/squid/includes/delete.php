@@ -25,23 +25,22 @@ require("modules/squid/includes/squid.inc.php");
 
 if (isset($_POST["btdell"])) {
     delElementInList($list, $_POST["eltdata"]);
+    $serviceName = getServiceName();
+    $n = new NotifyWidgetSuccess(_T("Item deleted.", "squid"));
+    handleServicesModule($n, array($serviceName => _T("Proxy", "squid")));
+    redirectTo(urlStrRedirect($page));
 }
+
 if (isset($_GET["eltdata"])) {
     $data = urldecode($_GET["eltdata"]);
-
 ?>
 	<form action="<?php echo urlStr($page_delete); ?>" method="post">
-		<p><?php printf(_T("You will remove  <b>%s</b>"), $data); ?></p>
-		<br>
-		<p><?php echo  _T("Are you sure ?"); ?></p>
+		<p><?php printf(_T("You will remove  <b>%s</b>"), $data); ?></p><br />
+	    <p><?php echo  _T("Are you sure ?"); ?></p>
 		<input name="eltdata" type="hidden" value="<?php echo $data; ?>" />
 		<input name="btdell" type="submit" class="btnPrimary" value="<?php echo  _("Delete"); ?> <?php echo $data; ?>" />
-	<input name="bback" type="submit" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
+	    <input name="bback" type="submit" class="btnSecondary" value="<?php echo  _("Cancel"); ?>" onclick="new Effect.Fade('popup'); return false;" />
 	</form>
 <?php
-}
-else if (isset($_POST["btdell"]))
-{
-    redirectTo(urlStrRedirect($page));
 }
 ?>
