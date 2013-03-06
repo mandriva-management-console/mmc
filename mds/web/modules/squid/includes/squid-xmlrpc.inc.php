@@ -19,30 +19,25 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-?>
-<?php
 
-function get_list($list)
-{
-    return xmlCall("squid.get_list",$list);
+function get_list($list) {
+    return xmlCall("squid.get_list", $list);
 }
 
-///////////////ADD/////////////////////////////////
-
-function addElementInList($list,$elt) {
-    xmlCall("squid.add_list_item", array($list,$elt));
+function addElementInList($list, $elt) {
+    xmlCall("squid.add_list_item", array($list, $elt));
 }
-
-//////////// DEL///////////////////////////////////
 
 function delElementInList($list,$elt) {
-    xmlCall("squid.del_list_item", array($list,$elt));
+    xmlCall("squid.del_list_item", array($list, $elt));
 }
 
-//////// ACTIONS ///////////////
+function reloadService() {
+    return xmlCall("squid.reload_squid", null);
+}
 
-function reloadService(){
-    return xmlCall("squid.reloadSquid",null);
+function getServiceName() {
+    return xmlCall("squid.get_service_name", null);
 }
 
 ?>

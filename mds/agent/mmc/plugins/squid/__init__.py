@@ -59,23 +59,26 @@ def activate():
     return True
 
 
-def reloadSquid():
-    return ManageList().reloadSquid()
-
+# Exported XML-RPC methods
+def reload_squid():
+    return ManageList().reload_squid()
 
 def getStatutProxy():
     return ManageList().getStatutProxy()
 
-
 def add_list_item(list, item):
-    ManageList().add_list_item(list, item)
+    return ManageList().add_list_item(list, item)
 
 def del_list_item(list, item):
-    ManageList().del_list_item(list, item)
-
+    return ManageList().del_list_item(list, item)
 
 def get_list(list):
     return ManageList().get_list(list)
+
+def get_service_name():
+    config = ProxyConfig("squid")
+    return config.squidInit.split("/").pop()
+
 
 class ProxyConfig(PluginConfig):
 
@@ -194,14 +197,10 @@ class ManageList(object):
     def get_list(self, list):
         return self.lists[list].get_list()
 
-    def reloadSquid(self):
-        try:
-            from mmc.plugins.services.manager import ServiceManager
-            ServiceManager().reload("squid")
-        except ImportError:
-            from mmc.support.mmctools import ServiceManager
-            SM = ServiceManager(self.squidInit, self.squidPid)
-            SM.reload()
+    def reload_squid(self):
+        from mmc.support.mmctools import ServiceManager
+        SM = ServiceManager(self.squidInit, self.squidPid)
+        SM.reload()
 
     def getStatutProxy(self):
         res={}
