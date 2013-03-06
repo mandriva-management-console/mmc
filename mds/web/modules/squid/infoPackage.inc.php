@@ -34,10 +34,10 @@ $mod->setAPIVersion('1:1:0');
 /**
  * user submod definition
  */
-$submod = new SubModule("normalgroup");
+$submod = new SubModule("internet");
 $submod->setDescription(_T("Proxy","squid"));
 $submod->setImg('modules/squid/graph/navbar/proxy');
-$submod->setDefaultPage("squid/normalgroup/blackmanager");
+$submod->setDefaultPage("squid/internet/blackmanager");
 $submod->setPriority(300);
 
 $page = new Page("blackmanager",_T("Internet Blacklist","squid"));

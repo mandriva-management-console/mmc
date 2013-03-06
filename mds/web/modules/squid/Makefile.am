@@ -20,9 +20,9 @@
 datafiles = graph/navbar/proxy_hl.png \
 			graph/navbar/proxy.png \
 			graph/navbar/proxy_select.png \
-			graph/normalgroup/add.css \
-			graph/normalgroup/index.css \
-			graph/normalgroup/navbar.png \
+			graph/internet/add.css \
+			graph/internet/index.css \
+			graph/internet/navbar.png \
 			includes/auditCodes.php \
 			includes/squid-xmlrpc.inc.php \
 			includes/squid.inc.php \
@@ -30,35 +30,35 @@ datafiles = graph/navbar/proxy_hl.png \
 			includes/manager.php \
 			includes/restart.php \
 			localCss.php \
-			normalgroup/accesslog.php \
-			normalgroup/accesslog/images/blank.gif \
-			normalgroup/accesslog/images/fillet.gif \
-			normalgroup/accesslog/images/full.gif \
-			normalgroup/accesslog/images/icon_wait.gif \
-			normalgroup/accesslog/images/mark.gif \
-			normalgroup/accesslog/images/on.gif \
-			normalgroup/accesslog/images/pause.gif \
-			normalgroup/accesslog/includes/detect_browser.js \
-			normalgroup/accesslog/includes/drag.js \
-			normalgroup/accesslog/includes/effects.js \
-			normalgroup/accesslog/includes/prototype.js \
-			normalgroup/accesslog/includes/squidnow.js \
-			normalgroup/accesslog/includes/squidnow_poshtml.js \
-			normalgroup/accesslog/includes/wait_msg.js \
-			normalgroup/accesslog/rsys.css \
-			normalgroup/accesslog/squidnow.pl \
-			normalgroup/accesslog/index.php \
-			normalgroup/blackmanager.php \
-			normalgroup/deleteb.php \
-			normalgroup/deletem.php \
-			normalgroup/deletet.php \
-			normalgroup/deletew.php \
-			normalgroup/deletex.php \
-			normalgroup/extmanager.php \
-			normalgroup/localSidebar.php \
-			normalgroup/machmanager.php \
-			normalgroup/timemanager.php \
-			normalgroup/whitemanager.php \
+			internet/accesslog.php \
+			internet/accesslog/images/blank.gif \
+			internet/accesslog/images/fillet.gif \
+			internet/accesslog/images/full.gif \
+			internet/accesslog/images/icon_wait.gif \
+			internet/accesslog/images/mark.gif \
+			internet/accesslog/images/on.gif \
+			internet/accesslog/images/pause.gif \
+			internet/accesslog/includes/detect_browser.js \
+			internet/accesslog/includes/drag.js \
+			internet/accesslog/includes/effects.js \
+			internet/accesslog/includes/prototype.js \
+			internet/accesslog/includes/squidnow.js \
+			internet/accesslog/includes/squidnow_poshtml.js \
+			internet/accesslog/includes/wait_msg.js \
+			internet/accesslog/rsys.css \
+			internet/accesslog/squidnow.pl \
+			internet/accesslog/index.php \
+			internet/blackmanager.php \
+			internet/deleteb.php \
+			internet/deletem.php \
+			internet/deletet.php \
+			internet/deletew.php \
+			internet/deletex.php \
+			internet/extmanager.php \
+			internet/localSidebar.php \
+			internet/machmanager.php \
+			internet/timemanager.php \
+			internet/whitemanager.php \
 			infoPackage.inc.php
 
 langs =

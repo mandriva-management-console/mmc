@@ -2,7 +2,7 @@
 
 //require("modules/squid/includes/config.inc.php");
 //require("modules/squid/includes/squid.inc.php");
-require("modules/squid/normalgroup/localSidebar.php");
+require("modules/squid/internet/localSidebar.php");
 require("graph/navbar.inc.php");
 
 
@@ -14,20 +14,20 @@ $p->displaySideMenu();
 
 
 
-	<link href="modules/squid/normalgroup/accesslog/basic.css" media="screen" rel="Stylesheet" type="text/css" />
-	<link href="modules/squid/normalgroup/accesslog/tabs.css" media="screen" rel="Stylesheet" type="text/css" />
-	<link href="modules/squid/normalgroup/accesslog/rsys.css" media="screen" rel="Stylesheet" type="text/css" />
-	<link href="modules/squid/normalgroup/accesslog/login.css" media="screen" rel="Stylesheet" type="text/css" />
+	<link href="modules/squid/internet/accesslog/basic.css" media="screen" rel="Stylesheet" type="text/css" />
+	<link href="modules/squid/internet/accesslog/tabs.css" media="screen" rel="Stylesheet" type="text/css" />
+	<link href="modules/squid/internet/accesslog/rsys.css" media="screen" rel="Stylesheet" type="text/css" />
+	<link href="modules/squid/internet/accesslog/login.css" media="screen" rel="Stylesheet" type="text/css" />
 
-	<script src="modules/squid/normalgroup/accesslog/includes/detect_browser.js" type="text/javascript"></script>
-	<script src="modules/squid/normalgroup/accesslog/includes/prototype.js" type="text/javascript"></script>
-	<script src="modules/squid/normalgroup/accesslog/includes/effects.js" type="text/javascript"></script>
-	<script src="modules/squid/normalgroup/accesslog/includes/controls.js" type="text/javascript"></script>
-	<script src="modules/squid/normalgroup/accesslog/includes/dragdrop.js" type="text/javascript"></script>
-	<script src="modules/squid/normalgroup/accesslog/includes/application.js" type="text/javascript"></script>
+	<script src="modules/squid/internet/accesslog/includes/detect_browser.js" type="text/javascript"></script>
+	<script src="modules/squid/internet/accesslog/includes/prototype.js" type="text/javascript"></script>
+	<script src="modules/squid/internet/accesslog/includes/effects.js" type="text/javascript"></script>
+	<script src="modules/squid/internet/accesslog/includes/controls.js" type="text/javascript"></script>
+	<script src="modules/squid/internet/accesslog/includes/dragdrop.js" type="text/javascript"></script>
+	<script src="modules/squid/internet/accesslog/includes/application.js" type="text/javascript"></script>
 	
-	<script src='modules/squid/normalgroup/accesslog/includes/squidnow.js'></script>
-	<script src='modules/squid/normalgroup/accesslog/includes/drag.js'></script>
+	<script src='modules/squid/internet/accesslog/includes/squidnow.js'></script>
+	<script src='modules/squid/internet/accesslog/includes/drag.js'></script>
 
 
 
@@ -68,7 +68,7 @@ $p->displaySideMenu();
 
       		<script lanaguage='text/javascript' > document.form1.interval.value = interval</script>
       
-      		<IMG id='img' title='Refresh activate' src='modules/squid/normalgroup/accesslog/images/on.gif'><br/><br/>
+      		<IMG id='img' title='Refresh activate' src='modules/squid/internet/accesslog/images/on.gif'><br/><br/>
       		<table border=0 style='display: inline'>
         	<tr>
 		<td width=100><input id='pausebutton' type=button value='<?php echo  _T("Pause"); ?>' onclick='pausecont(this)'><font size=1></font><td>
@@ -111,10 +111,10 @@ $p->displaySideMenu();
 </table>
 	<center><table id='wait_warn'>
 		<tr>
-			<td><img style='display: inline' src='modules/squid/normalgroup/accesslog/images/icon_wait.gif'></td>
+			<td><img style='display: inline' src='modules/squid/internet/accesslog/images/icon_wait.gif'></td>
 			<td><b><?php echo  _T("Verify logs..."); ?></b></td>
 		</tr>
 	</table></center>
     
-<script src='modules/squid/normalgroup/accesslog/includes/squidnow_poshtml.js'></script>
+<script src='modules/squid/internet/accesslog/includes/squidnow_poshtml.js'></script>
 

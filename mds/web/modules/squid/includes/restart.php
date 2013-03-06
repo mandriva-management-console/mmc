@@ -28,7 +28,7 @@ if (!isXMLRPCError())
 else
     new NotifyWidgetFailure(_T("Failed to reload the Squid service."));
 
-header("Location: " . urlStrRedirect("squid/normalgroup/" . $_GET['action']));
+header("Location: " . urlStrRedirect("squid/internet/" . $_GET['action']));
 exit;
 
 ?>

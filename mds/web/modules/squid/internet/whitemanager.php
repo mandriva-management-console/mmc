@@ -29,16 +29,15 @@ require("localSidebar.php");
 require("graph/navbar.inc.php");
 
 //
-$list = "blacklist";
-$main_title = _T("Internet Blacklist Management");
-$sub_title = _T("Add bad word or domain");
-$title_datagrid= _T("List of keywords and domains blocked");
-$page = "squid/normalgroup/blackmanager";
+$list = "whitelist";
+$main_title = _T("Internet Whitelist Management");
+$sub_title = _T("Add a word or domain");
+$title_datagrid= _T("List of keywords and domains allowed");
+$page = "squid/internet/whitemanager";
 $message = _T("Special characters not allowed.");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("Bad word or domain to block access");
-$del_page = "deleteb";
-
+$elt_label = _T("Keyword or domain to allow access");
+$del_page = "deletew";
 
 include('modules/squid/includes/manager.php');
 

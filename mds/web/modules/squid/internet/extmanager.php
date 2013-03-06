@@ -29,15 +29,15 @@ require("localSidebar.php");
 require("graph/navbar.inc.php");
 
 //
-$list = "timelist";
-$main_title = _T("Internet hour Management");
-$sub_title = _T("Allow Internet at specific hour");
-$title_datagrid= _T("Ranges allowed");
-$page = "squid/normalgroup/timemanager";
+$list = "extlist";
+$main_title = _T("Extensions Blacklist Management");
+$sub_title = _T("Add the extension to block");
+$title_datagrid= _T("List of the extensions blocked");
+$page = "squid/internet/extmanager";
 $message = _T("Special characters not allowed.");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("Range Time:");
-$del_page = "deletet";
+$elt_label = _T("Imput the name of the extension:");
+$del_page = "deletex";
 
 include('modules/squid/includes/manager.php');
 

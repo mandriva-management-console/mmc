@@ -21,9 +21,9 @@
  */
 
 
-$list = "extlist";
-$page_delete = "squid/normalgroup/deletex";
-$page = "squid/normalgroup/extmanager";
+$list = "timelist";
+$page_delete = "squid/internet/deletet";
+$page = "squid/internet/timemanager";
 include('modules/squid/includes/delete.php');
 
 ?>

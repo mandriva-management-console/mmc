@@ -21,10 +21,9 @@
  */
 
 
-$list = "blacklist";
-$page_delete = "squid/normalgroup/deleteb";
-$page = "squid/normalgroup/blackmanager";
-
+$list = "whitelist";
+$page_delete = "squid/internet/deletew";
+$page = "squid/internet/whitemanager";
 include('modules/squid/includes/delete.php');
 
 ?>

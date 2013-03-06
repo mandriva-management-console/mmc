@@ -127,17 +127,17 @@ function update_bar()
 {
 	bar = document.getElementById('bar')
 	filled = check_array(data_history)
-	bar_html = "<img src='modules/squid/normalgroup/accesslog/images/fillet.gif'>"
+	bar_html = "<img src='modules/squid/internet/accesslog/images/fillet.gif'>"
 	for (i=0; i<20; i++)
 	{
-		actual = "<img src='modules/squid/normalgroup/accesslog/images/blank.gif'>"
+		actual = "<img src='modules/squid/internet/accesslog/images/blank.gif'>"
 		if (i <= filled)
-			actual = "<img src='modules/squid/normalgroup/accesslog/images/full.gif'>"
+			actual = "<img src='modules/squid/internet/accesslog/images/full.gif'>"
 		if (hist_position == i)
-			actual = "<img src='modules/squid/normalgroup/accesslog/images/mark.gif'>"
+			actual = "<img src='modules/squid/internet/accesslog/images/mark.gif'>"
 		bar_html = actual + bar_html;
 	}
-	bar_html = "<modules/squid/normalgroup/accesslog/img src='images/fillet.gif'>" + bar_html;
+	bar_html = "<modules/squid/internet/accesslog/img src='images/fillet.gif'>" + bar_html;
 	bar.innerHTML = bar_html;
 }
 
@@ -168,14 +168,14 @@ function pausecont(button)
 		update_bar()
 		button.value = '   Pausar    '
         	document.getElementById('img').title = "Refresh on"
-        	document.getElementById('img').src = "modules/squid/normalgroup/accesslog/images/on.gif"
+        	document.getElementById('img').src = "modules/squid/internet/accesslog/images/on.gif"
 		timer()
 	
 	} else // Pausa o refresh
 	{
 		button.value = 'Continuar'
         	document.getElementById('img').title = "Refresh off"
-        	document.getElementById('img').src = "modules/squid/normalgroup/accesslog/images/pause.gif"
+        	document.getElementById('img').src = "modules/squid/internet/accesslog/images/pause.gif"
 		clearTimeout(toutid);
 		if (req)
 			req.abort();

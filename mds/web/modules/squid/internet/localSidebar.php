@@ -21,12 +21,12 @@
  */
 
 $sidemenu= new SideMenu();
-$sidemenu->setClass("normalgroup");
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Blacklist"),"squid","normalgroup","blackmanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Whitelist"),"squid","normalgroup","whitemanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Extensions Blocked"),"squid","normalgroup","extmanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Hour Allow"),"squid","normalgroup","timemanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Allow Machines"),"squid","normalgroup","machmanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Logs Real Time"),"squid","normalgroup","accesslog"));
+$sidemenu->setClass("internet");
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Blacklist"),"squid","internet","blackmanager"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Whitelist"),"squid","internet","whitemanager"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Extensions Blocked"),"squid","internet","extmanager"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Hour Allow"),"squid","internet","timemanager"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Allow Machines"),"squid","internet","machmanager"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Logs Real Time"),"squid","internet","accesslog"));
 ?>
 
