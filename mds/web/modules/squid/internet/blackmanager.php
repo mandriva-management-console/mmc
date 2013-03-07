@@ -35,9 +35,10 @@ $title_datagrid = _T("List of blocked keywords and domains", "squid");
 $page = "squid/internet/blackmanager";
 $errorMessage = _T("Special characters not allowed.", "squid");
 $successMessage = _T("Item added.", "squid");
-$re = "/^[\?,\*,\#,\&,\(,\),]/";
 $elt_label = _T("Keyword or domain", "squid");
+$elt_help = _T("Special chars are not allowed (?*#&()).", "squid");
 $del_page = "deleteb";
+$re = "/[^?*#&()]*/";
 
 include('modules/squid/includes/manager.php');
 

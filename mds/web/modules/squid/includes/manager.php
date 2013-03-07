@@ -32,18 +32,16 @@ require("squid.inc.php"); //call squid-xmlrpc.inc.php (xml-rpc functions)
 if (isset($_POST["btAdd"])) {
     $data = $_POST["eltdata"];
     $serviceName = getServiceName();
-	if ((preg_match($re, $data))) {
+	if (!preg_match($re, $data)) {
 		new NotifyWidgetFailure($errorMessage);
-		header("Location: " . urlStrRedirect($page));
-		exit;
+        redirectTo(urlStrRedirect($page));
     }
     else {
 		addElementInList($list, $data);
 		if (!isXMLRPCError()) {
             $n = new NotifyWidgetSuccess($successMessage);
             handleServicesModule($n, array($serviceName => _T("Proxy", "squid")));
-			header("Location: " . urlStrRedirect($page));
-			exit;
+            redirectTo(urlStrRedirect($page));
 		}
 	}
 }
@@ -85,7 +83,7 @@ $f = new ValidatingForm();
 $f->push(new Table());
 
 //Add element input in table
-$f->add(new TrFormElement($elt_label, new InputTpl("eltdata")),
+$f->add(new TrFormElement($elt_label, new InputTpl("eltdata"), array("tooltip" => $elt_help)),
         array("value" => "", "required" => true));
 
 //Add Botton in Form and show

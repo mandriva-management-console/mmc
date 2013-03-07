@@ -28,7 +28,6 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-//
 $list = "whitelist";
 $main_title = _T("Whitelist", "squid");
 $sub_title = _T("Add keyword or domain", "squid");
@@ -36,9 +35,10 @@ $title_datagrid= _T("List of allowed keywords and domains", "squid");
 $page = "squid/internet/whitemanager";
 $errorMessage = _T("Special characters not allowed.", "squid");
 $successMessage = _T("Item added", "squid");
-$re = "/^[\?,\*,\#,\&,\(,\),]/";
 $elt_label = _T("Keyword or domain", "squid");
+$elt_help = _T("Special chars are not allowed (?*#&()).", "squid");
 $del_page = "deletew";
+$re = "/[^?*#&()]*/";
 
 include('modules/squid/includes/manager.php');
 

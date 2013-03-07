@@ -33,10 +33,11 @@ $main_title = _T("IP whitelist", "squid");
 $sub_title = _T("Add IP", "squid");
 $title_datagrid= _T("List of allowed IP addresses", "squid");
 $page = "squid/internet/machmanager";
-$errorMessage = _T("Special characters not allowed.", "squid");
+$errorMessage = _T("Invalid IP address.", "squid");
 $successMessage = _T("IP added.", "squid");
-$re = "/^[\?,\*,\#,\&,\(,\),]/";
+$re = "/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/";
 $elt_label = _T("IP address", "squid");
+$elt_help = "";
 $del_page = "deletem";
 
 include('modules/squid/includes/manager.php');

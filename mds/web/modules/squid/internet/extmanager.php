@@ -33,11 +33,12 @@ $main_title = _T("Extension blacklist", "squid");
 $sub_title = _T("Add extension", "squid");
 $title_datagrid= _T("List of blocked extensions", "squid");
 $page = "squid/internet/extmanager";
-$errorMessage = _T("Special characters not allowed.", "squid");
+$errorMessage = _T("Not a valid extension.", "squid");
 $successMessage = _T("Extension added.", "squid");
-$re = "/^[\?,\*,\#,\&,\(,\),]/";
 $elt_label = _T("Extension", "squid");
+$elt_help = _T("Lower case chars and numbers allowed.", "squid");
 $del_page = "deletex";
+$re = "/^[a-z0-9]+/";
 
 include('modules/squid/includes/manager.php');
 

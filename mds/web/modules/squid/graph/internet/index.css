@@ -46,5 +46,5 @@
 }
 
 #sectionContainer {
-        background-image: url(<?php echo $root; ?>img/access/icn_access_large.gif);
+        background-image: url(img/access/icn_access_large.gif);
 }

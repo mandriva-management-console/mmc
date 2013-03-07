@@ -33,11 +33,12 @@ $main_title = _T("Time range whitelist", "squid");
 $sub_title = _T("Add time range", "squid");
 $title_datagrid= _T("List of allowed time ranges", "squid");
 $page = "squid/internet/timemanager";
-$errorMessage = _T("Special characters not allowed.", "squid");
+$errorMessage = _T("Time range is not valid.", "squid");
 $successMessage = _T("Time range added.", "squid");
-$re = "/^[\?,\*,\#,\&,\(,\),]/";
 $elt_label = _T("Time range", "squid");
+$elt_help = _T("The time range must be in the 24hrs format. (eg: 08:00-18:00)", "squid");
 $del_page = "deletet";
+$re = "/[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}/";
 
 include('modules/squid/includes/manager.php');
 
