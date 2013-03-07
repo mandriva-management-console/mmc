@@ -28,18 +28,16 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-//
 $list = "machlist";
-$main_title = _T("Server Address Management");
-$sub_title = _T("Allow your server to acess");
-$title_datagrid= _T("List of IP address allowed");
+$main_title = _T("IP whitelist", "squid");
+$sub_title = _T("Add IP", "squid");
+$title_datagrid= _T("List of allowed IP addresses", "squid");
 $page = "squid/internet/machmanager";
-$errorMessage = _T("Special characters not allowed.");
-$successMessage = _T("Machine added.");
+$errorMessage = _T("Special characters not allowed.", "squid");
+$successMessage = _T("IP added.", "squid");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("IP address to allow Internet access:");
+$elt_label = _T("IP address", "squid");
 $del_page = "deletem";
-
 
 include('modules/squid/includes/manager.php');
 

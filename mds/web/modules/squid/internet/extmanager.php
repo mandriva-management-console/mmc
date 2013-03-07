@@ -28,16 +28,15 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-//
 $list = "extlist";
-$main_title = _T("Extensions Blacklist Management");
-$sub_title = _T("Add the extension to block");
-$title_datagrid= _T("List of the extensions blocked");
+$main_title = _T("Extension blacklist", "squid");
+$sub_title = _T("Add extension", "squid");
+$title_datagrid= _T("List of blocked extensions", "squid");
 $page = "squid/internet/extmanager";
-$errorMessage = _T("Special characters not allowed.");
-$successMessage = _T("Extension added.");
+$errorMessage = _T("Special characters not allowed.", "squid");
+$successMessage = _T("Extension added.", "squid");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("Imput the name of the extension:");
+$elt_label = _T("Extension", "squid");
 $del_page = "deletex";
 
 include('modules/squid/includes/manager.php');

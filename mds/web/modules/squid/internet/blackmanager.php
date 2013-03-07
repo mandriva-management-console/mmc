@@ -28,18 +28,16 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-//
 $list = "blacklist";
-$main_title = _T("Internet Blacklist Management");
-$sub_title = _T("Add bad word or domain");
-$title_datagrid= _T("List of keywords and domains blocked");
+$main_title = _T("Blacklist", "squid");
+$sub_title = _T("Add keyword or domain", "squid");
+$title_datagrid = _T("List of blocked keywords and domains", "squid");
 $page = "squid/internet/blackmanager";
-$errorMessage = _T("Special characters not allowed.");
-$successMessage = _T("Domain added.");
+$errorMessage = _T("Special characters not allowed.", "squid");
+$successMessage = _T("Item added.", "squid");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("Bad word or domain to block access");
+$elt_label = _T("Keyword or domain", "squid");
 $del_page = "deleteb";
-
 
 include('modules/squid/includes/manager.php');
 

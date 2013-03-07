@@ -28,16 +28,15 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-//
 $list = "timelist";
-$main_title = _T("Internet hour Management");
-$sub_title = _T("Allow Internet at specific hour");
-$title_datagrid= _T("Ranges allowed");
+$main_title = _T("Time range whitelist", "squid");
+$sub_title = _T("Add time range", "squid");
+$title_datagrid= _T("List of allowed time ranges", "squid");
 $page = "squid/internet/timemanager";
-$errorMessage = _T("Special characters not allowed.");
-$successMessage = _T("Hour range added.");
+$errorMessage = _T("Special characters not allowed.", "squid");
+$successMessage = _T("Time range added.", "squid");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("Range Time:");
+$elt_label = _T("Time range", "squid");
 $del_page = "deletet";
 
 include('modules/squid/includes/manager.php');

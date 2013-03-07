@@ -30,14 +30,14 @@ require("graph/navbar.inc.php");
 
 //
 $list = "whitelist";
-$main_title = _T("Internet Whitelist Management");
-$sub_title = _T("Add a word or domain");
-$title_datagrid= _T("List of keywords and domains allowed");
+$main_title = _T("Whitelist", "squid");
+$sub_title = _T("Add keyword or domain", "squid");
+$title_datagrid= _T("List of allowed keywords and domains", "squid");
 $page = "squid/internet/whitemanager";
-$errorMessage = _T("Special characters not allowed.");
-$successMessage = _T("Domain added.");
+$errorMessage = _T("Special characters not allowed.", "squid");
+$successMessage = _T("Item added", "squid");
 $re = "/^[\?,\*,\#,\&,\(,\),]/";
-$elt_label = _T("Keyword or domain to allow access");
+$elt_label = _T("Keyword or domain", "squid");
 $del_page = "deletew";
 
 include('modules/squid/includes/manager.php');

@@ -22,11 +22,11 @@
 
 $sidemenu= new SideMenu();
 $sidemenu->setClass("internet");
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Blacklist"),"squid","internet","blackmanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Whitelist"),"squid","internet","whitemanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Extensions Blocked"),"squid","internet","extmanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Internet Hour Allow"),"squid","internet","timemanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Allow Machines"),"squid","internet","machmanager"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Logs Real Time"),"squid","internet","accesslog"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Blacklist"),"squid","internet","blackmanager","img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Extension blacklist"),"squid","internet","extmanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Whitelist"),"squid","internet","whitemanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Time range whitelist"),"squid","internet","timemanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("IP whitelist"),"squid","internet","machmanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+//$sidemenu->addSideMenuItem(new SideMenuItem(_T("Logs"),"squid","internet","accesslog"));
 ?>
 
