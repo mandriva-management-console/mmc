@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
-for module in bulkimport mail network  proxy samba sshlpk userquota shorewall; do
+for module in bulkimport mail network proxy samba sshlpk userquota shorewall squid; do
     POT="modules/$module/locale/$module.pot"
     rm -f $POT
     touch $POT
