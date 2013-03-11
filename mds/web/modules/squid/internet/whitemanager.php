@@ -34,9 +34,9 @@ $sub_title = _T("Add keyword or domain", "squid");
 $title_datagrid= _T("List of allowed keywords and domains", "squid");
 $page = "squid/internet/whitemanager";
 $errorMessage = _T("Special characters not allowed.", "squid");
-$successMessage = _T("Item added", "squid");
+$successMessage = _T("Item added to the whitelist", "squid");
 $elt_label = _T("Keyword or domain", "squid");
-$elt_help = _T("Special chars are not allowed (?*#&()).", "squid");
+$elt_help = _T("Authorize pages for the domain or containing the keyword. Overrides the blacklist. Special chars are not allowed (?*#&()).", "squid");
 $del_page = "deletew";
 $re = "/[^?*#&()]*/";
 

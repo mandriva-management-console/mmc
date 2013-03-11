@@ -36,7 +36,7 @@ $page = "squid/internet/extmanager";
 $errorMessage = _T("Not a valid extension.", "squid");
 $successMessage = _T("Extension added.", "squid");
 $elt_label = _T("Extension", "squid");
-$elt_help = _T("Lower case chars and numbers allowed.", "squid");
+$elt_help = _T("Block any file with the extension. Only lower case chars and numbers allowed.", "squid");
 $del_page = "deletex";
 $re = "/^[a-z0-9]+/";
 
