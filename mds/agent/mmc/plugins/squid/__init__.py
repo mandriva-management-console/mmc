@@ -58,13 +58,9 @@ def activate():
 
     return True
 
-
 # Exported XML-RPC methods
 def reload_squid():
     return ManageList().reload_squid()
-
-def getStatutProxy():
-    return ManageList().getStatutProxy()
 
 def add_list_item(list, item):
     return ManageList().add_list_item(list, item)
@@ -124,7 +120,6 @@ class ProxyConfig(PluginConfig):
         except (NoSectionError, NoOptionError): self.groupFiltered = "InternetFiltered"
         self.groupFilteredDesc = "Filtered Internet access"
 
-
     def check(self):
         if not os.path.exists(self.squidBinary):
             raise ConfigException("Can't find squid binary: %s" % self.squidBinary)
@@ -152,19 +147,10 @@ class ProxyConfig(PluginConfig):
                 pass
 
 
-
-####################################################################
-#           Class to persist and manipulate squid files
-####################################################################
-
 class ManageList(object):
+    """ Manage squid lists """
 
     def __init__(self):
-        """
-        For easier modification Arrays are always loaded
-
-        """
-
         self.config = ProxyConfig("squid")
         self.lists = {'blacklist': List(self.config.blacklist),
                       'whitelist': List(self.config.whitelist),
@@ -175,7 +161,6 @@ class ManageList(object):
         self.squidInit = self.config.squidInit
         self.squidPid = self.config.squidPid
         self.sargBinary = self.config.sargBinary
-
 
     def add_list_item(self,list, item):
         """
@@ -190,35 +175,25 @@ class ManageList(object):
         self.lists[list].del_item(item)
 
     def get_list(self, list):
-        return self.lists[list].get_list()
+        return self.lists[list].get()
 
     def reload_squid(self):
+        """
+        Reload squid service
+
+        Uses the old API
+        """
         from mmc.support.mmctools import ServiceManager
         SM = ServiceManager(self.squidInit, self.squidPid)
         SM.reload()
 
-    def getStatutProxy(self):
-        res={}
-        res['squid']=0
-
-        psout = os.popen('ps ax | grep squid | grep -v grep','r')
-        try:
-            tmp=psout.read()
-        except:
-            return res
-
-        for a in tmp.split("\n"):
-            if 'squid' in a : res['squid'] = 1
-        psout.close()
-        return res
-
 
 class List(object):
 
-	def __init__(self, listPath):
-	    self.path = listPath
-	    self.list = []
-	    self.read()
+    def __init__(self, list_path):
+        self.path = list_path
+        self.list = []
+        self.read()
 
         def read(self):
             f = open(self.path)
@@ -228,30 +203,27 @@ class List(object):
                     self.list.append(line)
             f.close()
 
+    def save(self, path):
+        f = open(path, 'w')
+        for i in self.list:
+            f.write(i + '\n')
+        f.close()
 
-	def save(self, path):
-	    f = open(path, 'w')
-	    for i in self.list:
-	        f.write(i + '\n')
-	    f.close()
+    def add_item(self, item):
+        if not item in self.list:
+            self.list.append(item)
+        self.save(self.path)
 
+    def del_item(self, item):
+        if item in self.list:
+            self.list.remove(item)
+        self.save(self.path)
 
-	def add_item(self, item):
-	    if not item in self.list:
-	        self.list.append(item)
-	    self.save(self.path)
-
-
-	def del_item(self, item):
-	    if item in self.list:
-	        self.list.remove(item)
-	    self.save(self.path)
-
-	def get_list(self):
-	    arr = []
-	    f = open(self.path)
-	    for row in f:
-                    row = row.strip()
-                    arr.append(row)
-            f.close()
-	    return arr
+    def get(self):
+        arr = []
+        f = open(self.path)
+        for row in f:
+            row = row.strip()
+            arr.append(row)
+        f.close()
+        return arr
