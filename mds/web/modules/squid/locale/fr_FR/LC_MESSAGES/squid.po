@@ -1,0 +1,315 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+## Translators:
+#   <jpbraun@mandriva.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mandriva Directory Server\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2013-03-11 15:31+0100\n"
+"PO-Revision-Date: 2013-03-11 14:51+0000\n"
+"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: modules/squid/includes/delete.php:29
+msgid "Item deleted."
+msgstr "Élément supprimé."
+
+#: modules/squid/includes/delete.php:30 modules/squid/includes/manager.php:43
+#: modules/squid/infoPackage.inc.php:30
+msgid "Proxy"
+msgstr "Proxy"
+
+#: modules/squid/includes/delete.php:38
+#, php-format
+msgid "You will remove  <b>%s</b>"
+msgstr "Vous allez supprimer <b>%s</b>"
+
+#: modules/squid/includes/delete.php:39
+msgid "Are you sure ?"
+msgstr "Êtes vous sur ?"
+
+#: modules/squid/includes/delete.php:41 modules/squid/includes/manager.php:72
+msgid "Delete"
+msgstr "Supprimer"
+
+#: modules/squid/includes/delete.php:42
+msgid "Cancel"
+msgstr "Annuler"
+
+#: modules/squid/includes/restart.php:27
+msgid "Squid service was reloaded."
+msgstr "Le service Squid a été redémarré."
+
+#: modules/squid/includes/restart.php:29
+msgid "Failed to reload the Squid service."
+msgstr "Erreur lors du redémarrage du service."
+
+#: modules/squid/includes/manager.php:69
+msgid "List"
+msgstr "Liste"
+
+#: modules/squid/includes/manager.php:91
+msgid "Add"
+msgstr "Ajouter"
+
+#: modules/squid/includes/manager.php:93
+msgid "Apply configuration"
+msgstr "Appliquer la configuration"
+
+#: modules/squid/includes/auditCodes.php:4
+msgid "Add to list"
+msgstr "Ajout à la liste"
+
+#: modules/squid/includes/auditCodes.php:5
+msgid "Delete from list"
+msgstr "Suppression de la liste"
+
+#: modules/squid/includes/auditCodes.php:6
+msgid "Restart service"
+msgstr "Redémarrer le service"
+
+#: modules/squid/includes/auditCodes.php:7
+msgid "squid"
+msgstr "squid"
+
+#: modules/squid/internet/accesslog.php:43
+#: modules/squid/internet/accesslog/index.php:43
+msgid "Opacity"
+msgstr "Opacité"
+
+#: modules/squid/internet/accesslog.php:44
+#: modules/squid/internet/accesslog/index.php:44
+msgid "Default Position"
+msgstr "Position par défaut"
+
+#: modules/squid/internet/accesslog.php:48
+#: modules/squid/internet/accesslog/index.php:48
+msgid "User"
+msgstr "Utilisateur"
+
+#: modules/squid/internet/accesslog.php:50
+#: modules/squid/internet/accesslog/index.php:50
+msgid "IP"
+msgstr "IP"
+
+#: modules/squid/internet/accesslog.php:52
+#: modules/squid/internet/accesslog/index.php:52
+msgid "Url"
+msgstr "Url"
+
+#: modules/squid/internet/accesslog.php:56
+#: modules/squid/internet/accesslog/index.php:56
+msgid "Reset"
+msgstr "Raz"
+
+#: modules/squid/internet/accesslog.php:58
+#: modules/squid/internet/accesslog/index.php:58
+msgid "Refresh rate"
+msgstr "Raffraichissement"
+
+#: modules/squid/internet/accesslog.php:74
+#: modules/squid/internet/accesslog/index.php:74
+msgid "Pause"
+msgstr "Pause"
+
+#: modules/squid/internet/accesslog.php:88
+#: modules/squid/internet/accesslog/index.php:88
+msgid "Hide diferent paths"
+msgstr "Cacher les chemins"
+
+#: modules/squid/internet/accesslog.php:95
+#: modules/squid/internet/accesslog/index.php:95
+msgid "Hide diferent sub domains"
+msgstr "Cacher différents sous-domaines"
+
+#: modules/squid/internet/accesslog.php:115
+#: modules/squid/internet/accesslog/index.php:115
+msgid "Verify logs..."
+msgstr "Vérifier les traces..."
+
+#: modules/squid/internet/extmanager.php:32
+#: modules/squid/internet/localSidebar.php:26
+#: modules/squid/infoPackage.inc.php:44
+msgid "Extension blacklist"
+msgstr "Liste noire d'extensions"
+
+#: modules/squid/internet/extmanager.php:33
+msgid "Add extension"
+msgstr "Ajouter l'extensio"
+
+#: modules/squid/internet/extmanager.php:34
+msgid "List of blocked extensions"
+msgstr "Liste les extensions bloquées"
+
+#: modules/squid/internet/extmanager.php:36
+msgid "Not a valid extension."
+msgstr "Extension invalide."
+
+#: modules/squid/internet/extmanager.php:37
+msgid "Extension added."
+msgstr "Extension ajoutée."
+
+#: modules/squid/internet/extmanager.php:38
+msgid "Extension"
+msgstr "Extension"
+
+#: modules/squid/internet/extmanager.php:39
+msgid ""
+"Block any file with the extension. Only lower case chars and numbers "
+"allowed."
+msgstr ""
+"Bloque les fichiers avec cette extension. Seuls les caractères minuscules et"
+" chiffres sont autorisés."
+
+#: modules/squid/internet/localSidebar.php:25
+#: modules/squid/internet/blackmanager.php:32
+#: modules/squid/infoPackage.inc.php:35
+msgid "Blacklist"
+msgstr "Liste noire"
+
+#: modules/squid/internet/localSidebar.php:27
+#: modules/squid/internet/whitemanager.php:32
+#: modules/squid/infoPackage.inc.php:38
+msgid "Whitelist"
+msgstr "Liste blanche"
+
+#: modules/squid/internet/localSidebar.php:28
+#: modules/squid/internet/timemanager.php:32
+#: modules/squid/infoPackage.inc.php:41
+msgid "Time range whitelist"
+msgstr "Intervalles autorisés"
+
+#: modules/squid/internet/localSidebar.php:29
+#: modules/squid/internet/machmanager.php:32
+#: modules/squid/infoPackage.inc.php:47
+msgid "IP whitelist"
+msgstr "IPs autorisées"
+
+#: modules/squid/internet/blackmanager.php:33
+#: modules/squid/internet/whitemanager.php:33
+msgid "Add keyword or domain"
+msgstr "Ajouter un mot-clé ou domaine"
+
+#: modules/squid/internet/blackmanager.php:34
+msgid "List of blocked keywords and domains"
+msgstr "Liste des mots-clé et domaines bloqués"
+
+#: modules/squid/internet/blackmanager.php:36
+#: modules/squid/internet/whitemanager.php:36
+msgid "Special characters not allowed."
+msgstr "Caractères spéciaux non autorisés."
+
+#: modules/squid/internet/blackmanager.php:37
+msgid "Item added to the blacklist."
+msgstr "Élément ajouté à la liste noire."
+
+#: modules/squid/internet/blackmanager.php:38
+#: modules/squid/internet/whitemanager.php:38
+msgid "Keyword or domain"
+msgstr "Mot-clé ou domaine"
+
+#: modules/squid/internet/blackmanager.php:39
+msgid ""
+"Block pages of the domain or containing the keyword. Special chars are not "
+"allowed (?*#&())."
+msgstr ""
+"Bloque les pages du domaine ou contenant le mot-clé. Les caractères spéciaux"
+" ne sont pas autorisés (?*#&())."
+
+#: modules/squid/internet/whitemanager.php:34
+msgid "List of allowed keywords and domains"
+msgstr "Liste des mots-clé et domaines autorisés"
+
+#: modules/squid/internet/whitemanager.php:37
+msgid "Item added to the whitelist"
+msgstr "Élement ajouté à la liste blanche"
+
+#: modules/squid/internet/whitemanager.php:39
+msgid ""
+"Authorize pages for the domain or containing the keyword. Overrides the "
+"blacklist. Special chars are not allowed (?*#&())."
+msgstr ""
+"Autorise les pages du domaine ou contenant le mot-clé. Prévaut sur la liste "
+"noire. Les caractères spéciaux ne sont pas autoriśes (?*#&())."
+
+#: modules/squid/internet/timemanager.php:33
+msgid "Add time range"
+msgstr "Ajouter un intervalle de temps"
+
+#: modules/squid/internet/timemanager.php:34
+msgid "List of allowed time ranges"
+msgstr "Liste des intervalles autorisés"
+
+#: modules/squid/internet/timemanager.php:36
+msgid "Time range is not valid."
+msgstr "L'intervalle n'est pas valide."
+
+#: modules/squid/internet/timemanager.php:37
+msgid "Time range added."
+msgstr "Intervalle ajouté."
+
+#: modules/squid/internet/timemanager.php:38
+msgid "Time range"
+msgstr "Intervalle de temps"
+
+#: modules/squid/internet/timemanager.php:39
+msgid ""
+"Provide full Internet access in the time range. Overrides all blacklists. "
+"The time range must be in the 24hrs format. (eg: 08:00-18:00)"
+msgstr ""
+"Accès non filtré à Internet pendant l'intervalle de temps. Prévaut sur les "
+"listes noires. (ex: 08:00-14:00)"
+
+#: modules/squid/internet/machmanager.php:33
+msgid "Add IP"
+msgstr "Ajouter l'IP"
+
+#: modules/squid/internet/machmanager.php:34
+msgid "List of allowed IP addresses"
+msgstr "Liste des IPs autorisées"
+
+#: modules/squid/internet/machmanager.php:36
+msgid "Invalid IP address."
+msgstr "IP invalide."
+
+#: modules/squid/internet/machmanager.php:37
+msgid "IP added."
+msgstr "IP ajoutée."
+
+#: modules/squid/internet/machmanager.php:39
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: modules/squid/infoPackage.inc.php:26
+msgid "Web Proxy Content filter"
+msgstr "Proxy web"
+
+#: modules/squid/infoPackage.inc.php:50
+msgid "Delete from blacklist"
+msgstr "Suppression de la liste noire"
+
+#: modules/squid/infoPackage.inc.php:54
+msgid "Delete from whitelist"
+msgstr "Suppression de la liste blanche"
+
+#: modules/squid/infoPackage.inc.php:58
+msgid "Delete from extension"
+msgstr "Supprission de la liste noire d'extensions"
+
+#: modules/squid/infoPackage.inc.php:62
+msgid "Delete time range"
+msgstr "Supprission de l'intervalle de temps"
+
+#: modules/squid/infoPackage.inc.php:66
+msgid "Delete IP"
+msgstr "Suppression de l'IP"
+
+
