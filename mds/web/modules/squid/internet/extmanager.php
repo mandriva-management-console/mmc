@@ -28,7 +28,7 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$list = "extlist";
+$list = "blacklist_ext";
 $main_title = _T("Extension blacklist", "squid");
 $sub_title = _T("Add extension", "squid");
 $title_datagrid= _T("List of blocked extensions", "squid");

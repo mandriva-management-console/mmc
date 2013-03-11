@@ -28,7 +28,7 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$list = "machlist";
+$list = "machines";
 $main_title = _T("IP whitelist", "squid");
 $sub_title = _T("Add IP", "squid");
 $title_datagrid= _T("List of allowed IP addresses", "squid");

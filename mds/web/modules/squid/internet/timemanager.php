@@ -28,7 +28,7 @@
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$list = "timelist";
+$list = "timeranges";
 $main_title = _T("Time range whitelist", "squid");
 $sub_title = _T("Add time range", "squid");
 $title_datagrid= _T("List of allowed time ranges", "squid");

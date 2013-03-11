@@ -92,23 +92,20 @@ class ProxyConfig(PluginConfig):
         try: self.squidRules = self.get("squid", "squidRules")
         except (NoSectionError, NoOptionError): self.squidRules = "/etc/squid/rules"
 
-        try: self.squidMasterGroup = self.get("squid", "squidMasterGroup")
-        except (NoSectionError, NoOptionError): self.squidMasterGroup = "/etc/squid/rules/group_internet"
+        try: self.blacklist = self.get("squid", "blacklist")
+        except (NoSectionError, NoOptionError): self.blacklist = os.path.join(self.squidRules, "blacklist.txt")
 
-        try: self.normalBlackList = self.get("squid", "normalBlackList")
-        except (NoSectionError, NoOptionError): self.normalBlackList = "/etc/squid/rules/group_internet/normal_blacklist.txt"
+        try: self.whitelist = self.get("squid", "whitelist")
+        except (NoSectionError, NoOptionError): self.whitelist = os.path.join(self.squidRules, "whitelist.txt")
 
-        try: self.normalWhiteList = self.get("squid", "normalWhiteList")
-        except (NoSectionError, NoOptionError): self.normalWhiteList = "/etc/squid/rules/group_internet/normal_whitelist.txt"
+        try: self.blacklist_ext = self.get("squid", "blacklist_ext")
+        except (NoSectionError, NoOptionError): self.blacklist_ext = os.path.join(self.squidRules, "blacklist_ext.txt")
 
-        try: self.normalBlackExt = self.get("squid", "normalBlackExt")
-        except (NoSectionError, NoOptionError): self.normalBlackExt = "/etc/squid/rules/group_internet/normal_blacklist_ext.txt"
+        try: self.timeranges = self.get("squid", "timeranges")
+        except (NoSectionError, NoOptionError): self.timeranges = os.path.join(self.squidRules, "timeranges.txt")
 
-        try: self.timeDay = self.get("squid", "timeDay")
-        except (NoSectionError, NoOptionError): self.timeDay = "/etc/squid/rules/group_internet/time_day.txt"
-
-        try: self.normalMachList = self.get("squid", "normalMachList")
-        except (NoSectionError, NoOptionError): self.normalMachList = "/etc/squid/rules/group_internet/allow_machines.txt"
+        try: self.machines = self.get("squid", "machines")
+        except (NoSectionError, NoOptionError): self.machines = os.path.join(self.squidRules, "machines.txt")
 
         try: self.sargBinary = self.get("squid", "sargBinary")
         except (NoSectionError, NoOptionError): self.sargBinary = "/usr/sbin/sarg"
@@ -121,11 +118,11 @@ class ProxyConfig(PluginConfig):
 
         try: self.groupMaster = self.get("squid", "groupMaster")
         except (NoSectionError, NoOptionError): self.groupMaster = "InternetMaster"
-        self.groupMasterDesc = "Free access to Internet and downloads"
+        self.groupMasterDesc = "Full Internet access"
 
         try: self.groupFiltered = self.get("squid", "groupFiltered")
-        except (NoSectionError, NoOptionError): self.groupFiltered = "Internet"
-        self.groupFilteredDesc = "Filtered access to Internet and downloads"
+        except (NoSectionError, NoOptionError): self.groupFiltered = "InternetFiltered"
+        self.groupFilteredDesc = "Filtered Internet access"
 
 
     def check(self):
@@ -135,13 +132,12 @@ class ProxyConfig(PluginConfig):
         if not os.path.exists(self.sargBinary):
             raise ConfigException("Can't find sarg binary: %s" % self.sargBinary)
 
-        for dir in (self.squidRules, self.squidMasterGroup):
-            if not os.path.exists(dir):
-                logger.info("Creating %s" % dir)
-                os.makedirs(dir)
+        if not os.path.exists(self.squidRules):
+            logger.info("Creating %s" % dir)
+            os.makedirs(dir)
 
-        for list in (self.normalBlackList, self.normalWhiteList, self.normalBlackExt,
-                     self.timeDay, self.normalMachList):
+        for list in (self.blacklist, self.whitelist, self.blacklist_ext,
+                     self.timeranges, self.machines):
             if not os.path.exists(list):
                 logger.info("Creating %s" % list)
                 open(list, "w+").close()
@@ -170,12 +166,11 @@ class ManageList(object):
         """
 
         self.config = ProxyConfig("squid")
-        self.lists = {'blacklist':List(self.config.normalBlackList),
-                      'whitelist':List(self.config.normalWhiteList),
-                      'machlist':List(self.config.normalMachList),
-                      'extlist':List(self.config.normalBlackExt),
-                      'timelist':List(self.config.timeDay),
-	                  'blacklist':List(self.config.normalBlackList)}
+        self.lists = {'blacklist': List(self.config.blacklist),
+                      'whitelist': List(self.config.whitelist),
+                      'machines': List(self.config.machines),
+                      'blacklist_ext': List(self.config.blacklist_ext),
+                      'timeranges': List(self.config.timeranges)}
         self.squid = self.config.squidBinary
         self.squidInit = self.config.squidInit
         self.squidPid = self.config.squidPid

@@ -25,11 +25,11 @@ function get_list($list) {
 }
 
 function addElementInList($list, $elt) {
-    xmlCall("squid.add_list_item", array($list, $elt));
+    return xmlCall("squid.add_list_item", array($list, $elt));
 }
 
 function delElementInList($list,$elt) {
-    xmlCall("squid.del_list_item", array($list, $elt));
+    return xmlCall("squid.del_list_item", array($list, $elt));
 }
 
 function reloadService() {
