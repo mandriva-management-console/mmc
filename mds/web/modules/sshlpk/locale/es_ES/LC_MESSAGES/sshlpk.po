@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2011-08-24 16:11+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/team/es_ES/)\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: modules/sshlpk/includes/publicFunc.php:42
+#: modules/sshlpk/includes/publicFunc.php:46
 msgid "Public SSH keys management"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:47
+#: modules/sshlpk/includes/publicFunc.php:51
 msgid "Enable SSH keys management"
 msgstr "Habilitar gestión de claves SSH"
 
-#: modules/sshlpk/includes/publicFunc.php:69
+#: modules/sshlpk/includes/publicFunc.php:73
 msgid "Public SSH Key"
 msgstr "Clave pública SSH"
 
-#: modules/sshlpk/includes/publicFunc.php:109
+#: modules/sshlpk/includes/publicFunc.php:113
 msgid "SSH public keys updated."
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:115
+#: modules/sshlpk/includes/publicFunc.php:119
 msgid "SSH public keys attributes deleted."
 msgstr ""
 

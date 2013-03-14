@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2012-12-12 18:10+0100\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2012-12-12 18:47+0000\n"
 "Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
@@ -19,15 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-
-#: modules/samba/config/reload.php:26
-msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr ""
-"Foi solicitado ao serviço SAMBA a recarga do seu arquivo de configuração."
-
-#: modules/samba/config/restart.php:26
-msgid "The SAMBA service has been asked to restart."
-msgstr "Foi solicitado que o serviço SAMBA seja reiniciado."
 
 #: modules/samba/config/index.php:73
 msgid ""
@@ -115,6 +106,15 @@ msgstr "Reiniciar SAMBA"
 #: modules/samba/config/index.php:183
 msgid "Reload SAMBA configuration"
 msgstr "Recarregar a configuração do SAMBA"
+
+#: modules/samba/config/reload.php:26
+msgid "The SAMBA service has been asked to reload its configuration file."
+msgstr ""
+"Foi solicitado ao serviço SAMBA a recarga do seu arquivo de configuração."
+
+#: modules/samba/config/restart.php:26
+msgid "The SAMBA service has been asked to restart."
+msgstr "Foi solicitado que o serviço SAMBA seja reiniciado."
 
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
@@ -373,9 +373,136 @@ msgstr ""
 "Especifica a data em que o usuário será bloqueado. Se este atributo for "
 "omitido, então a conta nunca expira."
 
-#: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
+#: modules/samba/infoPackage.inc.php:31
+msgid "SAMBA management"
+msgstr "Gerenciamento SAMBA"
+
+#: modules/samba/infoPackage.inc.php:40 modules/samba/shares/index.php:55
+#: modules/samba/shares/index.php:59
+msgid "Shares"
+msgstr "Compartilhamentos"
+
+#: modules/samba/infoPackage.inc.php:45 modules/samba/mainSidebar.php:29
+msgid "List shares"
+msgstr "Listar compartilhamentos"
+
+#: modules/samba/infoPackage.inc.php:48 modules/samba/mainSidebar.php:30
+#: modules/samba/shares/details.php:106
+#: modules/samba/shares/localSidebar.php:31
+msgid "Add a share"
+msgstr "Adicionar um compartilhamento"
+
+#: modules/samba/infoPackage.inc.php:51
+msgid "Backup a share"
+msgstr "Becapear um compartilhamento"
+
+#: modules/samba/infoPackage.inc.php:55
+msgid "Remove a share"
+msgstr "Remover um compartilhamento"
+
+#: modules/samba/infoPackage.inc.php:59
+msgid "Share details"
+msgstr "Detalhes do compartilhamento"
+
+#: modules/samba/infoPackage.inc.php:73
+msgid "Machines"
+msgstr "Máquinas"
+
+#: modules/samba/infoPackage.inc.php:76
+msgid "Computer list"
+msgstr "Lista de computadores"
+
+#: modules/samba/infoPackage.inc.php:86
+msgid "Edit a computer"
+msgstr "Edita um usuário"
+
+#: modules/samba/infoPackage.inc.php:90 modules/samba/machines/delete.php:40
+msgid "Delete a computer"
+msgstr "Remover um computador"
+
+#: modules/samba/infoPackage.inc.php:103
+msgid "Configuration"
+msgstr "Configuração"
+
+#: modules/samba/infoPackage.inc.php:108
+msgid "SAMBA configuration"
+msgstr "Configuração SAMBA"
+
+#: modules/samba/infoPackage.inc.php:111
+msgid "restart SAMBA service"
+msgstr "reiniciar serviço SAMBA"
+
+#: modules/samba/infoPackage.inc.php:115
+msgid "Reload SAMBA service"
+msgstr "Recarregar o serviço SAMBA"
+
+#: modules/samba/infoPackage.inc.php:124
+msgid "Add/delete SAMBA's attributes"
+msgstr "Adicionar/remover atributos do SAMBA"
+
+#: modules/samba/infoPackage.inc.php:125
+msgid "Enable/Disable account"
+msgstr "Habilitar/Desabilitar conta"
+
+#: modules/samba/infoPackage.inc.php:126
+msgid "Lock/Unlock account"
+msgstr "Bloquear/Desbloquear conta"
+
+#: modules/samba/infoPackage.inc.php:127
+msgid "Network profile"
+msgstr "Perfil de rede"
+
+#: modules/samba/infoPackage.inc.php:128
+msgid "Can change password"
+msgstr "Pode mudar a senha"
+
+#: modules/samba/infoPackage.inc.php:129
+msgid "Must change password"
+msgstr "Precisa mudar a senha"
+
+#: modules/samba/infoPackage.inc.php:131
+msgid "Logon script"
+msgstr "Logon script"
+
+#: modules/samba/infoPackage.inc.php:132
+msgid "Home path"
+msgstr "Caminho do home"
+
+#: modules/samba/infoPackage.inc.php:133
+msgid "Home drive"
+msgstr "Home drive"
+
+#: modules/samba/infoPackage.inc.php:143
+msgid "SAMBA status"
+msgstr "SAMBA status"
+
+#: modules/samba/machines/add.php:36
+#, php-format
+msgid "Computer %s successfully added"
+msgstr "Computador %s adicionado com sucesso"
+
+#: modules/samba/machines/add.php:42
+#: modules/samba/machines/localSidebar.php:31
+#: modules/samba/shares/localSidebar.php:37
+msgid "Add a computer"
+msgstr "Adicionar um computador"
+
+#: modules/samba/machines/add.php:47
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"O nome de computador deve conter apenas letras minúsculas e números, devendo"
+" começar com uma letra."
+
+#: modules/samba/machines/add.php:50 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
 msgstr "Nome do computador"
+
+#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
+#: modules/samba/shares/details.php:160
+msgid "Comment"
+msgstr "Comentário"
 
 #: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:61
 msgid "Description"
@@ -405,46 +532,10 @@ msgstr "Computadores"
 msgid "Computer <strong>%s</strong> deleted."
 msgstr "Computador <strong>%s</strong> removido."
 
-#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:90
-msgid "Delete a computer"
-msgstr "Remover um computador"
-
 #: modules/samba/machines/delete.php:41
 #, php-format
 msgid "You will delete the %s computer"
 msgstr "Você irá remover o computador %s"
-
-#: modules/samba/machines/index.php:32
-msgid "Computer management"
-msgstr "Gerenciamento de computadores"
-
-#: modules/samba/machines/localSidebar.php:28
-#: modules/samba/shares/localSidebar.php:34
-msgid "Computers management"
-msgstr "Gerenciamento de computadores"
-
-#: modules/samba/machines/localSidebar.php:31
-#: modules/samba/machines/add.php:42 modules/samba/shares/localSidebar.php:37
-msgid "Add a computer"
-msgstr "Adicionar um computador"
-
-#: modules/samba/machines/add.php:36
-#, php-format
-msgid "Computer %s successfully added"
-msgstr "Computador %s adicionado com sucesso"
-
-#: modules/samba/machines/add.php:47
-msgid ""
-"The computer name can only contains letters lowercase and numbers, and must "
-"begin with a letter."
-msgstr ""
-"O nome de computador deve conter apenas letras minúsculas e números, devendo"
-" começar com uma letra."
-
-#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:160
-msgid "Comment"
-msgstr "Comentário"
 
 #: modules/samba/machines/edit.php:29
 msgid "Edit computer"
@@ -466,54 +557,18 @@ msgstr "Desabilita conta de computador"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
-msgid "List shares"
-msgstr "Listar compartilhamentos"
+#: modules/samba/machines/index.php:32
+msgid "Computer management"
+msgstr "Gerenciamento de computadores"
 
-#: modules/samba/mainSidebar.php:30 modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:106 modules/samba/infoPackage.inc.php:48
-msgid "Add a share"
-msgstr "Adicionar um compartilhamento"
+#: modules/samba/machines/localSidebar.php:28
+#: modules/samba/shares/localSidebar.php:34
+msgid "Computers management"
+msgstr "Gerenciamento de computadores"
 
 #: modules/samba/mainSidebar.php:33
 msgid "List computers"
 msgstr "Listar computadores"
-
-#: modules/samba/shares/delete.php:34
-#, php-format
-msgid "Share %s deleted"
-msgstr "Compartilhamento %s removido"
-
-#: modules/samba/shares/delete.php:37
-#, php-format
-msgid "An error has occured during delete process on %s"
-msgstr "Um erro ocorreu durante o processo de remoção em %s"
-
-#: modules/samba/shares/delete.php:43
-msgid "Delete a share"
-msgstr "Remover um compartilhamento"
-
-#: modules/samba/shares/delete.php:44
-#, php-format
-msgid "You will delete the share <b>%s</b>"
-msgstr "Você irá remover o compartilhamento <b>%s</b>"
-
-#: modules/samba/shares/delete.php:45
-msgid "Delete all data"
-msgstr "Remover todos os dados"
-
-#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
-#: modules/samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr "Compartilhamentos"
-
-#: modules/samba/shares/index.php:65
-msgid "Archive"
-msgstr "Arquivar"
-
-#: modules/samba/shares/localSidebar.php:28
-msgid "Shares management"
-msgstr "Gerenciamento de compartilhamentos"
 
 #: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:49
 msgid "Share backup"
@@ -557,6 +612,29 @@ msgid ""
 msgstr ""
 "Por favor selecione o tamanho da mídia. Se os dados excedem o tamamnho do "
 "volume, diversos arquivos serão criados."
+
+#: modules/samba/shares/delete.php:34
+#, php-format
+msgid "Share %s deleted"
+msgstr "Compartilhamento %s removido"
+
+#: modules/samba/shares/delete.php:37
+#, php-format
+msgid "An error has occured during delete process on %s"
+msgstr "Um erro ocorreu durante o processo de remoção em %s"
+
+#: modules/samba/shares/delete.php:43
+msgid "Delete a share"
+msgstr "Remover um compartilhamento"
+
+#: modules/samba/shares/delete.php:44
+#, php-format
+msgid "You will delete the share <b>%s</b>"
+msgstr "Você irá remover o compartilhamento <b>%s</b>"
+
+#: modules/samba/shares/delete.php:45
+msgid "Delete all data"
+msgstr "Remover todos os dados"
 
 #: modules/samba/shares/details.php:46
 msgid "Invalid share name"
@@ -623,6 +701,14 @@ msgstr "Paramentros costomizados"
 msgid "Create"
 msgstr "Criar"
 
+#: modules/samba/shares/index.php:65
+msgid "Archive"
+msgstr "Arquivar"
+
+#: modules/samba/shares/localSidebar.php:28
+msgid "Shares management"
+msgstr "Gerenciamento de compartilhamentos"
+
 #: modules/samba/status/index.php:30
 msgid "Samba status"
 msgstr "Status do samba"
@@ -683,89 +769,5 @@ msgstr "Esta conta de usuário não existe"
 #: modules/samba/views/users.tpl.php:129
 msgid "Add a new user"
 msgstr "Adiciona um novo usuário"
-
-#: modules/samba/infoPackage.inc.php:31
-msgid "SAMBA management"
-msgstr "Gerenciamento SAMBA"
-
-#: modules/samba/infoPackage.inc.php:51
-msgid "Backup a share"
-msgstr "Becapear um compartilhamento"
-
-#: modules/samba/infoPackage.inc.php:55
-msgid "Remove a share"
-msgstr "Remover um compartilhamento"
-
-#: modules/samba/infoPackage.inc.php:59
-msgid "Share details"
-msgstr "Detalhes do compartilhamento"
-
-#: modules/samba/infoPackage.inc.php:73
-msgid "Machines"
-msgstr "Máquinas"
-
-#: modules/samba/infoPackage.inc.php:76
-msgid "Computer list"
-msgstr "Lista de computadores"
-
-#: modules/samba/infoPackage.inc.php:86
-msgid "Edit a computer"
-msgstr "Edita um usuário"
-
-#: modules/samba/infoPackage.inc.php:103
-msgid "Configuration"
-msgstr "Configuração"
-
-#: modules/samba/infoPackage.inc.php:108
-msgid "SAMBA configuration"
-msgstr "Configuração SAMBA"
-
-#: modules/samba/infoPackage.inc.php:111
-msgid "restart SAMBA service"
-msgstr "reiniciar serviço SAMBA"
-
-#: modules/samba/infoPackage.inc.php:115
-msgid "Reload SAMBA service"
-msgstr "Recarregar o serviço SAMBA"
-
-#: modules/samba/infoPackage.inc.php:124
-msgid "Add/delete SAMBA's attributes"
-msgstr "Adicionar/remover atributos do SAMBA"
-
-#: modules/samba/infoPackage.inc.php:125
-msgid "Enable/Disable account"
-msgstr "Habilitar/Desabilitar conta"
-
-#: modules/samba/infoPackage.inc.php:126
-msgid "Lock/Unlock account"
-msgstr "Bloquear/Desbloquear conta"
-
-#: modules/samba/infoPackage.inc.php:127
-msgid "Network profile"
-msgstr "Perfil de rede"
-
-#: modules/samba/infoPackage.inc.php:128
-msgid "Can change password"
-msgstr "Pode mudar a senha"
-
-#: modules/samba/infoPackage.inc.php:129
-msgid "Must change password"
-msgstr "Precisa mudar a senha"
-
-#: modules/samba/infoPackage.inc.php:131
-msgid "Logon script"
-msgstr "Logon script"
-
-#: modules/samba/infoPackage.inc.php:132
-msgid "Home path"
-msgstr "Caminho do home"
-
-#: modules/samba/infoPackage.inc.php:133
-msgid "Home drive"
-msgstr "Home drive"
-
-#: modules/samba/infoPackage.inc.php:143
-msgid "SAMBA status"
-msgstr "SAMBA status"
 
 

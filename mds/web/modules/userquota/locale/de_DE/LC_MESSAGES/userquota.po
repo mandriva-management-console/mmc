@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
-"PO-Revision-Date: 2011-11-17 13:37+0000\n"
-"Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
+"PO-Revision-Date: 2012-08-24 13:43+0000\n"
+"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,64 +18,64 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: modules/userquota/includes/publicFunc.php:38
+#: modules/userquota/includes/publicFunc.php:39
 msgid "Quota settings"
 msgstr "Quota-Einstellungen"
 
-#: modules/userquota/includes/publicFunc.php:109
+#: modules/userquota/includes/publicFunc.php:110
 #, php-format
-msgid "Disk quota set to %s."
-msgstr "Diskquota Stand beträgt %s."
+msgid "Disk quota set to %sMo."
+msgstr ""
 
-#: modules/userquota/includes/publicFunc.php:113
+#: modules/userquota/includes/publicFunc.php:114
 msgid "Disk quota removed."
 msgstr "Diskquota entfernt."
 
-#: modules/userquota/includes/publicFunc.php:125
+#: modules/userquota/includes/publicFunc.php:126
 #, php-format
-msgid "Network quota set to %s on %s."
-msgstr "Netzwerkquota beträgt auf %s auf %s."
+msgid "Network quota set to %sMo on %s."
+msgstr ""
 
-#: modules/userquota/includes/publicFunc.php:129
+#: modules/userquota/includes/publicFunc.php:130
 msgid "Network quota removed."
 msgstr "Netzwerkquota entfernt."
 
-#: modules/userquota/includes/publicFunc.php:144
+#: modules/userquota/includes/publicFunc.php:149
 msgid "Quota plugin - Filesystem"
 msgstr "Quota-Plugin - Dateisystem"
 
-#: modules/userquota/includes/publicFunc.php:147
-#: modules/userquota/includes/publicFunc.php:160
+#: modules/userquota/includes/publicFunc.php:152
+#: modules/userquota/includes/publicFunc.php:165
 msgid "Quota's applied here affect all members of the group"
 msgstr ""
 "Die hier verwendeten Quotas haben Einfluss auf alle Mitglieder der Gruppe"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Overwrite all existing quotas"
 msgstr "Überschreiben alle vorhandenen  Quotas"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Current quota is smaller than the new quota, or does not exist"
 msgstr "Aktuelle Quote ist kleiner als die neue Quote, oder existiert nicht"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Current quota is larger than the new quota, or does not exist"
 msgstr "Aktuelle Quote ist größer als die neue Quote, oder existiert nicht"
 
-#: modules/userquota/includes/publicFunc.php:149
-#: modules/userquota/includes/publicFunc.php:162
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
 msgid "Don't overwrite any existing quotas"
 msgstr "Überschreibe nicht alle vorhandenen Quotas"
 
-#: modules/userquota/includes/publicFunc.php:152
-#: modules/userquota/includes/publicFunc.php:165
+#: modules/userquota/includes/publicFunc.php:157
+#: modules/userquota/includes/publicFunc.php:170
 msgid "Overwrite mode for existing quotas"
 msgstr "Überschreibe existierende Quotas"
 
-#: modules/userquota/includes/publicFunc.php:157
+#: modules/userquota/includes/publicFunc.php:162
 msgid "Quota plugin - Network"
 msgstr "Quota plugin - Netzwerk"
 

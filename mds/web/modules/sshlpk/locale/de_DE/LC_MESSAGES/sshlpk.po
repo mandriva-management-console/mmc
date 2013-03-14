@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2011-11-17 14:06+0000\n"
 "Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: modules/sshlpk/includes/publicFunc.php:42
+#: modules/sshlpk/includes/publicFunc.php:46
 msgid "Public SSH keys management"
 msgstr "Verwaltung öffentlicher SSH-Schlüssel"
 
-#: modules/sshlpk/includes/publicFunc.php:47
+#: modules/sshlpk/includes/publicFunc.php:51
 msgid "Enable SSH keys management"
 msgstr "Aktiviere SSH-Schlüssel-Verwaltung"
 
-#: modules/sshlpk/includes/publicFunc.php:69
+#: modules/sshlpk/includes/publicFunc.php:73
 msgid "Public SSH Key"
 msgstr "SSH Public Key"
 
-#: modules/sshlpk/includes/publicFunc.php:109
+#: modules/sshlpk/includes/publicFunc.php:113
 msgid "SSH public keys updated."
 msgstr "Öffentliche SSH-Schlüssel aktualisiert."
 
-#: modules/sshlpk/includes/publicFunc.php:115
+#: modules/sshlpk/includes/publicFunc.php:119
 msgid "SSH public keys attributes deleted."
 msgstr "Attribute der öffentlichen SSH-Schlüssel gelöscht."
 

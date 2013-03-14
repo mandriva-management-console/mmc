@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: http://mds.mandriva.org/\n"
-"POT-Creation-Date: 2011-09-06 15:54+0200\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2011-07-29 17:52+0000\n"
 "Last-Translator: Francisco Garcia <fgarpe@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/team/es_ES/)\n"
@@ -26,19 +26,19 @@ msgstr "Nombre de dominio no válido"
 msgid "Domain %s successfully added"
 msgstr "El dominio %s ha sido añadido correctamente"
 
-#: modules/proxy/blacklist/add.php:59 modules/proxy/infoPackage.inc.php:51
+#: modules/proxy/blacklist/add.php:60 modules/proxy/infoPackage.inc.php:51
 msgid "Add a domain in the blacklist"
 msgstr "Añadir un dominio a la lista blanca"
 
-#: modules/proxy/blacklist/add.php:64
+#: modules/proxy/blacklist/add.php:65
 msgid "The domain must be valid"
 msgstr "El dominio debe ser válido"
 
-#: modules/proxy/blacklist/add.php:71
+#: modules/proxy/blacklist/add.php:72
 msgid "Name"
 msgstr "Nombre"
 
-#: modules/proxy/blacklist/add.php:76
+#: modules/proxy/blacklist/add.php:77
 msgid "Create"
 msgstr "Crear"
 

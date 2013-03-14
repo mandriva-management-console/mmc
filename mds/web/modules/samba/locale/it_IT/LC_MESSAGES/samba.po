@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2012-12-10 15:53+0100\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2012-12-10 14:54+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-
-#: modules/samba/config/reload.php:26
-msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr "Il servizio SAMBA sta ricaricando la configurazione."
-
-#: modules/samba/config/restart.php:26
-msgid "The SAMBA service has been asked to restart."
-msgstr "Il servizio SAMBA sta riavviandosi."
 
 #: modules/samba/config/index.php:73
 msgid ""
@@ -111,6 +103,14 @@ msgstr "Riavvia SAMBA"
 #: modules/samba/config/index.php:183
 msgid "Reload SAMBA configuration"
 msgstr "Ricarica la configurazione SAMBA"
+
+#: modules/samba/config/reload.php:26
+msgid "The SAMBA service has been asked to reload its configuration file."
+msgstr "Il servizio SAMBA sta ricaricando la configurazione."
+
+#: modules/samba/config/restart.php:26
+msgid "The SAMBA service has been asked to restart."
+msgstr "Il servizio SAMBA sta riavviandosi."
 
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
@@ -366,9 +366,136 @@ msgid ""
 "longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
+#: modules/samba/infoPackage.inc.php:31
+msgid "SAMBA management"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:40 modules/samba/shares/index.php:55
+#: modules/samba/shares/index.php:59
+msgid "Shares"
+msgstr "Condivisioni"
+
+#: modules/samba/infoPackage.inc.php:45 modules/samba/mainSidebar.php:29
+msgid "List shares"
+msgstr "Elenco condivisioni"
+
+#: modules/samba/infoPackage.inc.php:48 modules/samba/mainSidebar.php:30
+#: modules/samba/shares/details.php:106
+#: modules/samba/shares/localSidebar.php:31
+msgid "Add a share"
+msgstr "Aggiungi una condivisione"
+
+#: modules/samba/infoPackage.inc.php:51
+msgid "Backup a share"
+msgstr "Backup di una condivisione"
+
+#: modules/samba/infoPackage.inc.php:55
+msgid "Remove a share"
+msgstr "Rimuovi una condivisione"
+
+#: modules/samba/infoPackage.inc.php:59
+msgid "Share details"
+msgstr "Proprietà della condivisione"
+
+#: modules/samba/infoPackage.inc.php:73
+msgid "Machines"
+msgstr "Computer"
+
+#: modules/samba/infoPackage.inc.php:76
+msgid "Computer list"
+msgstr "Elenco computer"
+
+#: modules/samba/infoPackage.inc.php:86
+msgid "Edit a computer"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:90 modules/samba/machines/delete.php:40
+msgid "Delete a computer"
+msgstr "Elimina un computer"
+
+#: modules/samba/infoPackage.inc.php:103
+msgid "Configuration"
+msgstr "Configuarazione"
+
+#: modules/samba/infoPackage.inc.php:108
+msgid "SAMBA configuration"
+msgstr "Configurazione SAMBA"
+
+#: modules/samba/infoPackage.inc.php:111
+msgid "restart SAMBA service"
+msgstr "Riavvia servizio SAMBA"
+
+#: modules/samba/infoPackage.inc.php:115
+msgid "Reload SAMBA service"
+msgstr "Ricarica servizio SAMBA"
+
+#: modules/samba/infoPackage.inc.php:124
+msgid "Add/delete SAMBA's attributes"
+msgstr "Aggiungi/elimina attributi SAMBA"
+
+#: modules/samba/infoPackage.inc.php:125
+msgid "Enable/Disable account"
+msgstr "Abilita/Disabilita utente"
+
+#: modules/samba/infoPackage.inc.php:126
+msgid "Lock/Unlock account"
+msgstr "Blocca/Sblocca utente"
+
+#: modules/samba/infoPackage.inc.php:127
+msgid "Network profile"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:128
+msgid "Can change password"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:129
+msgid "Must change password"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:131
+msgid "Logon script"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:132
+msgid "Home path"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:133
+msgid "Home drive"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:143
+msgid "SAMBA status"
+msgstr ""
+
+#: modules/samba/machines/add.php:36
+#, php-format
+msgid "Computer %s successfully added"
+msgstr "Computer %s aggiunto con successo"
+
+#: modules/samba/machines/add.php:42
+#: modules/samba/machines/localSidebar.php:31
+#: modules/samba/shares/localSidebar.php:37
+msgid "Add a computer"
+msgstr "Aggiungi un computer"
+
+#: modules/samba/machines/add.php:47
+msgid ""
+"The computer name can only contains letters lowercase and numbers, and must "
+"begin with a letter."
+msgstr ""
+"Il nome del computer può contenere solo lettere minuscole e numeri, e deve "
+"iniziare con una lettera."
+
+#: modules/samba/machines/add.php:50 modules/samba/machines/ajaxFilter.php:38
 msgid "Computer name"
 msgstr "Nome del computer"
+
+#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
+#: modules/samba/shares/details.php:160
+msgid "Comment"
+msgstr "Commento"
 
 #: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:61
 msgid "Description"
@@ -398,46 +525,10 @@ msgstr "Computer"
 msgid "Computer <strong>%s</strong> deleted."
 msgstr "Computer <strong>%s</strong> eliminato."
 
-#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:90
-msgid "Delete a computer"
-msgstr "Elimina un computer"
-
 #: modules/samba/machines/delete.php:41
 #, php-format
 msgid "You will delete the %s computer"
 msgstr "Verrà eliminato il computer %s"
-
-#: modules/samba/machines/index.php:32
-msgid "Computer management"
-msgstr "Gestione computer"
-
-#: modules/samba/machines/localSidebar.php:28
-#: modules/samba/shares/localSidebar.php:34
-msgid "Computers management"
-msgstr "Gestione computer"
-
-#: modules/samba/machines/localSidebar.php:31
-#: modules/samba/machines/add.php:42 modules/samba/shares/localSidebar.php:37
-msgid "Add a computer"
-msgstr "Aggiungi un computer"
-
-#: modules/samba/machines/add.php:36
-#, php-format
-msgid "Computer %s successfully added"
-msgstr "Computer %s aggiunto con successo"
-
-#: modules/samba/machines/add.php:47
-msgid ""
-"The computer name can only contains letters lowercase and numbers, and must "
-"begin with a letter."
-msgstr ""
-"Il nome del computer può contenere solo lettere minuscole e numeri, e deve "
-"iniziare con una lettera."
-
-#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:160
-msgid "Comment"
-msgstr "Commento"
 
 #: modules/samba/machines/edit.php:29
 msgid "Edit computer"
@@ -459,54 +550,18 @@ msgstr ""
 msgid "Confirm"
 msgstr "Conferma"
 
-#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
-msgid "List shares"
-msgstr "Elenco condivisioni"
+#: modules/samba/machines/index.php:32
+msgid "Computer management"
+msgstr "Gestione computer"
 
-#: modules/samba/mainSidebar.php:30 modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:106 modules/samba/infoPackage.inc.php:48
-msgid "Add a share"
-msgstr "Aggiungi una condivisione"
+#: modules/samba/machines/localSidebar.php:28
+#: modules/samba/shares/localSidebar.php:34
+msgid "Computers management"
+msgstr "Gestione computer"
 
 #: modules/samba/mainSidebar.php:33
 msgid "List computers"
 msgstr "Elenco computer"
-
-#: modules/samba/shares/delete.php:34
-#, php-format
-msgid "Share %s deleted"
-msgstr "Condivisione %s eliminata"
-
-#: modules/samba/shares/delete.php:37
-#, php-format
-msgid "An error has occured during delete process on %s"
-msgstr "Si è presentato un errore durante il processo di eliminazione su %s"
-
-#: modules/samba/shares/delete.php:43
-msgid "Delete a share"
-msgstr "Elimina condivisione"
-
-#: modules/samba/shares/delete.php:44
-#, php-format
-msgid "You will delete the share <b>%s</b>"
-msgstr "Verrà eliminata la condivisione <b>%s</b>"
-
-#: modules/samba/shares/delete.php:45
-msgid "Delete all data"
-msgstr "Elimina tutti i dati"
-
-#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
-#: modules/samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr "Condivisioni"
-
-#: modules/samba/shares/index.php:65
-msgid "Archive"
-msgstr "Archivia"
-
-#: modules/samba/shares/localSidebar.php:28
-msgid "Shares management"
-msgstr "Gestione condivisioni"
 
 #: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:49
 msgid "Share backup"
@@ -553,6 +608,29 @@ msgstr ""
 "Si prega di selezionare la dimensione del supporto. Se i vostri dati "
 "eccedono la dimensione del supporto, verranno creati vari file della "
 "dimensione del supporto."
+
+#: modules/samba/shares/delete.php:34
+#, php-format
+msgid "Share %s deleted"
+msgstr "Condivisione %s eliminata"
+
+#: modules/samba/shares/delete.php:37
+#, php-format
+msgid "An error has occured during delete process on %s"
+msgstr "Si è presentato un errore durante il processo di eliminazione su %s"
+
+#: modules/samba/shares/delete.php:43
+msgid "Delete a share"
+msgstr "Elimina condivisione"
+
+#: modules/samba/shares/delete.php:44
+#, php-format
+msgid "You will delete the share <b>%s</b>"
+msgstr "Verrà eliminata la condivisione <b>%s</b>"
+
+#: modules/samba/shares/delete.php:45
+msgid "Delete all data"
+msgstr "Elimina tutti i dati"
 
 #: modules/samba/shares/details.php:46
 msgid "Invalid share name"
@@ -617,6 +695,14 @@ msgstr ""
 msgid "Create"
 msgstr "Crea"
 
+#: modules/samba/shares/index.php:65
+msgid "Archive"
+msgstr "Archivia"
+
+#: modules/samba/shares/localSidebar.php:28
+msgid "Shares management"
+msgstr "Gestione condivisioni"
+
 #: modules/samba/status/index.php:30
 msgid "Samba status"
 msgstr "Stato Samba"
@@ -676,90 +762,6 @@ msgstr ""
 
 #: modules/samba/views/users.tpl.php:129
 msgid "Add a new user"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:31
-msgid "SAMBA management"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:51
-msgid "Backup a share"
-msgstr "Backup di una condivisione"
-
-#: modules/samba/infoPackage.inc.php:55
-msgid "Remove a share"
-msgstr "Rimuovi una condivisione"
-
-#: modules/samba/infoPackage.inc.php:59
-msgid "Share details"
-msgstr "Proprietà della condivisione"
-
-#: modules/samba/infoPackage.inc.php:73
-msgid "Machines"
-msgstr "Computer"
-
-#: modules/samba/infoPackage.inc.php:76
-msgid "Computer list"
-msgstr "Elenco computer"
-
-#: modules/samba/infoPackage.inc.php:86
-msgid "Edit a computer"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:103
-msgid "Configuration"
-msgstr "Configuarazione"
-
-#: modules/samba/infoPackage.inc.php:108
-msgid "SAMBA configuration"
-msgstr "Configurazione SAMBA"
-
-#: modules/samba/infoPackage.inc.php:111
-msgid "restart SAMBA service"
-msgstr "Riavvia servizio SAMBA"
-
-#: modules/samba/infoPackage.inc.php:115
-msgid "Reload SAMBA service"
-msgstr "Ricarica servizio SAMBA"
-
-#: modules/samba/infoPackage.inc.php:124
-msgid "Add/delete SAMBA's attributes"
-msgstr "Aggiungi/elimina attributi SAMBA"
-
-#: modules/samba/infoPackage.inc.php:125
-msgid "Enable/Disable account"
-msgstr "Abilita/Disabilita utente"
-
-#: modules/samba/infoPackage.inc.php:126
-msgid "Lock/Unlock account"
-msgstr "Blocca/Sblocca utente"
-
-#: modules/samba/infoPackage.inc.php:127
-msgid "Network profile"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:128
-msgid "Can change password"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:129
-msgid "Must change password"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:131
-msgid "Logon script"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:132
-msgid "Home path"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:133
-msgid "Home drive"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:143
-msgid "SAMBA status"
 msgstr ""
 
 

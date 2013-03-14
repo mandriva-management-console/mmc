@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2012-12-10 15:53+0100\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2012-12-10 14:54+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-
-#: modules/mail/aliases/index.php:31
-msgid "Virtual aliases list"
-msgstr ""
 
 #: modules/mail/aliases/ajaxAliasesFilter.php:42
 #: modules/mail/aliases/ajaxAliasesFilter.php:48
@@ -56,8 +52,8 @@ msgstr ""
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
-#: modules/mail/infoPackage.inc.php:119
+#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:119
+#: modules/mail/mainSidebar.php:46
 msgid "Add a virtual alias"
 msgstr ""
 
@@ -121,6 +117,10 @@ msgstr "Utwórz"
 msgid "Confirm"
 msgstr "Potwierdź"
 
+#: modules/mail/aliases/index.php:31
+msgid "Virtual aliases list"
+msgstr ""
+
 #: modules/mail/domains/ajaxDomainFilter.php:21
 #: modules/mail/domains/ajaxDomainFilter.php:27
 #: modules/mail/domains/edit.php:109
@@ -159,14 +159,6 @@ msgstr "Adres mailowy"
 #: modules/mail/domains/ajaxFilter.php:29
 msgid "Edit"
 msgstr "Edytuj"
-
-#: modules/mail/domains/index.php:32
-msgid "Mail domains list"
-msgstr ""
-
-#: modules/mail/domains/members.php:33
-msgid "Members of "
-msgstr "Członek "
 
 #: modules/mail/domains/delete.php:29
 msgid "The mail domain has been deleted."
@@ -208,9 +200,13 @@ msgstr "Domyślny przydział dla użytkowników w tej domenie wynosi (w kB)"
 msgid "Reset users quota to default"
 msgstr "Zresetuj przydziały do domyślnych"
 
-#: modules/mail/includes/mail.inc.php:52 modules/mail/includes/mail.inc.php:64
-msgid "Unlimited quota"
-msgstr "Nielimitowany przydział"
+#: modules/mail/domains/index.php:32
+msgid "Mail domains list"
+msgstr ""
+
+#: modules/mail/domains/members.php:33
+msgid "Members of "
+msgstr "Członek "
 
 #: modules/mail/includes/auditCodes.php:4
 msgid "Enable mail delivery"
@@ -324,6 +320,10 @@ msgstr ""
 #: modules/mail/includes/auditCodes.php:31
 msgid "mail"
 msgstr ""
+
+#: modules/mail/includes/mail.inc.php:52 modules/mail/includes/mail.inc.php:64
+msgid "Unlimited quota"
+msgstr "Nielimitowany przydział"
 
 #: modules/mail/includes/publicFunc.php:33
 msgid "Mail plugin"
@@ -447,18 +447,6 @@ msgstr ""
 msgid "Mail attributes deleted."
 msgstr ""
 
-#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:62
-msgid "Mail domains"
-msgstr ""
-
-#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:65
-msgid "Add a domain"
-msgstr "Dodaj domenę"
-
-#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:116
-msgid "Virtual aliases"
-msgstr ""
-
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
 msgstr ""
@@ -475,6 +463,14 @@ msgstr "Przydział użytkownika poczty"
 msgid "Mail group alias access"
 msgstr "Dostęp grupy aliasów pocztowych"
 
+#: modules/mail/infoPackage.inc.php:62 modules/mail/mainSidebar.php:30
+msgid "Mail domains"
+msgstr ""
+
+#: modules/mail/infoPackage.inc.php:65 modules/mail/mainSidebar.php:35
+msgid "Add a domain"
+msgstr "Dodaj domenę"
+
 #: modules/mail/infoPackage.inc.php:68
 msgid "Edit a domain"
 msgstr "Edytuj domenę"
@@ -486,6 +482,10 @@ msgstr "Przeglądaj członków"
 #: modules/mail/infoPackage.inc.php:76
 msgid "Delete a mail domain"
 msgstr "Usuń domenę pocztową"
+
+#: modules/mail/infoPackage.inc.php:116 modules/mail/mainSidebar.php:41
+msgid "Virtual aliases"
+msgstr ""
 
 #: modules/mail/infoPackage.inc.php:122
 msgid "Edit a virtual alias"

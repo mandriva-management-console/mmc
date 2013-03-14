@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2012-12-12 18:10+0100\n"
+"POT-Creation-Date: 2013-03-14 16:21+0100\n"
 "PO-Revision-Date: 2012-12-13 17:41+0000\n"
 "Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
@@ -19,6 +19,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: modules/proxy/blacklist/add.php:40
+msgid "Invalid domain name"
+msgstr "Nome inválido de domínio"
+
+#: modules/proxy/blacklist/add.php:47
+#, php-format
+msgid "Domain %s successfully added"
+msgstr "Domínio %s adicionado com sucesso"
+
+#: modules/proxy/blacklist/add.php:60 modules/proxy/infoPackage.inc.php:51
+msgid "Add a domain in the blacklist"
+msgstr "Adicionar um domínio na lista negra"
+
+#: modules/proxy/blacklist/add.php:65
+msgid "The domain must be valid"
+msgstr "O domínio deve ser válido"
+
+#: modules/proxy/blacklist/add.php:72
+msgid "Name"
+msgstr "Nome"
+
+#: modules/proxy/blacklist/add.php:77
+msgid "Create"
+msgstr "Criar"
 
 #: modules/proxy/blacklist/delete.php:39
 msgid "Remove a squidGuard domain"
@@ -92,31 +117,6 @@ msgstr "Serviços"
 #: modules/proxy/blacklist/statut.php:52
 msgid "Status"
 msgstr "Status"
-
-#: modules/proxy/blacklist/add.php:40
-msgid "Invalid domain name"
-msgstr "Nome inválido de domínio"
-
-#: modules/proxy/blacklist/add.php:47
-#, php-format
-msgid "Domain %s successfully added"
-msgstr "Domínio %s adicionado com sucesso"
-
-#: modules/proxy/blacklist/add.php:60 modules/proxy/infoPackage.inc.php:51
-msgid "Add a domain in the blacklist"
-msgstr "Adicionar um domínio na lista negra"
-
-#: modules/proxy/blacklist/add.php:65
-msgid "The domain must be valid"
-msgstr "O domínio deve ser válido"
-
-#: modules/proxy/blacklist/add.php:72
-msgid "Name"
-msgstr "Nome"
-
-#: modules/proxy/blacklist/add.php:77
-msgid "Create"
-msgstr "Criar"
 
 #: modules/proxy/includes/auditCodes.php:4
 msgid "Add blacklist"
