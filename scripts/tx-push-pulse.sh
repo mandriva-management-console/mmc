@@ -18,9 +18,9 @@ test -d .tx || tx init --host=https://transifex.mandriva.com
 
 args=$@
 
-modules="bulkimport mail network proxy samba sshlpk userquota shorewall"
+modules="dyngroup glpi imaging inventory msc pkgs pulse2"
 
 for mod in $modules
 do
-	tx push -r mds.${mod} -s
+	tx push -r pulse2.${mod} -s
 done
