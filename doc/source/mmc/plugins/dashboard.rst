@@ -30,6 +30,6 @@ Like every MMC plugin the configuration can be found in
 The ``disabled_panels`` option can contain a list of panels that will be
 disabled. For example, to disable the shortcut and general panel:
 
-    ::
+::
 
     disabled_panels = shortcut general

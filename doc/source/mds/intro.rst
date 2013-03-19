@@ -27,5 +27,11 @@ MDS is composed of the following plugins:
   The plugin allows also to store network quotas in the LDAP directory for
   external tools.
 
+- **shorewall**: The « shorewall » plugin provides an interface to configure
+  shorewall rules and policies from the MMC. Shorewall is wrapper around
+  iptables [#f1]_.
+
 Before installing MDS plugins, you have to install the Mandriva Management
 Console (see :ref:`mmc-install`).
+
+.. [#f1] http://shorewall.net/
