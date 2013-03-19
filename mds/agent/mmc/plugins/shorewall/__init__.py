@@ -65,7 +65,7 @@ class ShorewallZones(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'zones',
-            r'^(?P<name>[\w\d]+)\s+(?P<type>[\w\d]+)')
+            r'^(?P<name>[\w\d]+)\s+(?P<type>[\w\d]+)$')
         self.read()
 
     def get(self, type = ""):
@@ -80,7 +80,7 @@ class ShorewallRules(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'rules',
-            r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:.]+)\s+(?P<dst>[\w\d:.]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:\w\d]*)')
+            r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:.]+)\s+(?P<dst>[\w\d:.]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:\w\d]*)$')
         self.read()
 
     def add(self, action, src, dst, proto = "", dst_port = ""):
@@ -114,7 +114,7 @@ class ShorewallPolicies(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'policy',
-            r'^(?P<src>[\w]+)\s+(?P<dst>[\w]+)\s+(?P<policy>ACCEPT|DROP|REJECT)\s*(?P<log>[\w]*)')
+            r'^(?P<src>[\w]+)\s+(?P<dst>[\w]+)\s+(?P<policy>ACCEPT|DROP|REJECT)\s*(?P<log>[\w]*)$')
         self.read()
 
     def get(self, src, dst, filter = ""):
@@ -146,7 +146,7 @@ class ShorewallMasq(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'masq',
-            r'^(?P<lan_if>[\w]+)\s+(?P<wan_if>[\w]+)')
+            r'^(?P<lan_if>[\w]+)\s+(?P<wan_if>[\w]+)$')
         self.read()
 
     def get(self):
@@ -163,7 +163,7 @@ class ShorewallInterfaces(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'interfaces',
-            r'^(?P<zone>[\w]+)\s+(?P<if>[\w]+)')
+            r'^(?P<zone>[\w]+)\s+(?P<if>[\w]+)$')
         self.read()
 
     def get(self, type = ""):
