@@ -36,17 +36,19 @@ To install the MMC base packages, just type:
 Debian packages
 ===============
 
-For Debian Lenny, add this in your sources.list:
-
-::
-
-    deb http://mds.mandriva.org/pub/mds/debian lenny main
-
-For Debian Squeeze:
+For Debian Squeeze, add this in your sources.list:
 
 ::
 
     deb http://mds.mandriva.org/pub/mds/debian squeeze main
+
+For Debian Wheezy an experimental repository is available:
+
+::
+
+    deb http://mds.mandriva.org/pub/mds/debian-unreleased wheezy main
+
+You still need the squeeze repository for patched bind packages.
 
 To install MMC base packages, just type:
 
@@ -114,6 +116,7 @@ This python modules are needed for MMC to run :
 - python-ldap
 - pylibacl
 - pyopenssl
+- python-gobject
 
 The MMC web interface is written in PHP4. Basically, you just need to install
 an Apache 2 server with PHP5 support.
@@ -133,6 +136,9 @@ Get the current tarball at this URL: ftp://mds.mandriva.org/pub/mmc-core/sources
     # make
     # make install
     # tar xzvf mds-x.y.z.tar.gz
+
+    If you want also MDS modules:
+
     # cd mds-x.y.z
     # ./configure --sysconfdir=/etc --localstatedir=/var
     # make
@@ -284,9 +290,9 @@ configuration and you are done.
    This schema must be included after the :file:`inetorgperson.schema`
    file.
 
-.. note:: **Debian Squeeze**
+.. note:: **Debian Squeeze and later**
 
-   Debian Squeeze's OpenLDAP uses its own database for storing
+   Debian's OpenLDAP uses its own database for storing
    its configuration. So there is no more slapd.conf.
    You can use the mmc-add-schema script to load new schema in
    the OpenLDAP configuration database:
