@@ -24,7 +24,7 @@ SAMBA running as a PDC.
    A :file:`slapd.conf` for OpenLDAP and a :file:`smb.conf` for SAMBA can
    be found on our repository :
 
-   - https://raw.github.com/mandriva-management-console/mmc/master/base/agent/contrib/ldap/slapd.conf.samba
+   - https://raw.github.com/mandriva-management-console/mmc/master/core/agent/contrib/ldap/slapd.conf.samba
    - https://raw.github.com/mandriva-management-console/mmc/master/mds/agent/contrib/samba/smb.conf
 
    Please use these files as templates for your own configuration.
