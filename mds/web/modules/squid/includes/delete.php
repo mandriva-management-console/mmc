@@ -27,7 +27,7 @@ if (isset($_POST["btdell"])) {
     delElementInList($list, $_POST["eltdata"]);
     $serviceName = getServiceName();
     $n = new NotifyWidgetSuccess(_T("Item deleted.", "squid"));
-    handleServicesModule($n, array($serviceName => _T("Proxy", "squid")));
+    handleServicesModule($n, array($serviceName => _T("Proxy", "squid")), "reload");
     redirectTo(urlStrRedirect($page));
 }
 

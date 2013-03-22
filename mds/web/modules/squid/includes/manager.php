@@ -40,7 +40,7 @@ if (isset($_POST["btAdd"])) {
 		addElementInList($list, $data);
 		if (!isXMLRPCError()) {
             $n = new NotifyWidgetSuccess($successMessage);
-            handleServicesModule($n, array($serviceName => _T("Proxy", "squid")));
+            handleServicesModule($n, array($serviceName => _T("Proxy", "squid")), "reload");
             redirectTo(urlStrRedirect($page));
 		}
 	}
