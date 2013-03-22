@@ -128,8 +128,8 @@ class ProxyConfig(PluginConfig):
             raise ConfigException("Can't find sarg binary: %s" % self.sargBinary)
 
         if not os.path.exists(self.squidRules):
-            logger.info("Creating %s" % dir)
-            os.makedirs(dir)
+            logger.info("Creating %s" % self.squidRules)
+            os.makedirs(self.squidRules)
 
         for list in (self.blacklist, self.whitelist, self.blacklist_ext,
                      self.timeranges, self.machines):
