@@ -195,13 +195,13 @@ class List(object):
         self.list = []
         self.read()
 
-        def read(self):
-            f = open(self.path)
-            for line in f:
-                line = line.strip()
-                if line and line not in self.list:
-                    self.list.append(line)
-            f.close()
+    def read(self):
+        f = open(self.path)
+        for line in f:
+            line = line.strip()
+            if line and line not in self.list:
+                self.list.append(line)
+        f.close()
 
     def save(self, path):
         f = open(path, 'w')
