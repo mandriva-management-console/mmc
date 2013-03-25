@@ -61,7 +61,7 @@ datafiles = graph/navbar/proxy_hl.png \
 			internet/whitemanager.php \
 			infoPackage.inc.php
 
-langs =
+langs = fr_FR pt_BR
 
 module = $(notdir $(realpath $(srcdir)))
 moduledir = $(datadir)/mmc/modules/$(module)
