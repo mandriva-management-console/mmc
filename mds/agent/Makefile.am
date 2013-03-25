@@ -20,6 +20,4 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-SUBDIRS  = bin mmc conf
-
-EXTRA_DIST = contrib
+SUBDIRS = bin mmc conf contrib
