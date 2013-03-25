@@ -68,3 +68,8 @@ proxy.ini: Makefile
 	  sed -i 's!^user = proxy!user = squid!g' $@; \
 	  sed -i 's!^group = proxy!user = squid!g' $@; \
 	fi
+
+squid.ini: Makefile
+	if [ -f /etc/mandriva-release ]; then \
+	  sed -i 's!squid3!squid!g' $@; \
+	fi
