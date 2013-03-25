@@ -28,7 +28,7 @@ from mmc.site import mmcconfdir
 
 INI = mmcconfdir + "/plugins/bulkimport.ini"
 
-VERSION = "2.4.92"
+VERSION = "2.4.93"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 

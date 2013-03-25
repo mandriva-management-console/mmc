@@ -29,7 +29,7 @@ require_once("modules/sshlpk/includes/sshlpk-xmlrpc.php");
  */
  
 $mod = new Module("sshlpk");
-$mod->setVersion("2.4.92");
+$mod->setVersion("2.4.93");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("LDAP Public SSH key management","sshlpk"));
 $mod->setAPIVersion("0:0:0");
