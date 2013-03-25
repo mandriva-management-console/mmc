@@ -79,6 +79,10 @@ $page = new Page("ajax_internal_external");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
+$page = new Page("delete_internal_external_rule");
+$page->setOptions(array("visible" => False, "AJAX" => True));
+$submod->addPage($page);
+
 $page = new Page("external_internal", _T("External &rarr; Internal", "shorewall"));
 $submod->addPage($page);
 if (!$lan_zones || !$wan_zones)
