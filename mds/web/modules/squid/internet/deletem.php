@@ -21,7 +21,7 @@
  */
 
 
-$list = "machlist";
+$list = "machines";
 $page_delete = "squid/internet/deletem";
 $page = "squid/internet/machmanager";
 include('modules/squid/includes/delete.php');

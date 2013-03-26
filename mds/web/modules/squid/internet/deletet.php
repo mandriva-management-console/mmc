@@ -21,7 +21,7 @@
  */
 
 
-$list = "timelist";
+$list = "timeranges";
 $page_delete = "squid/internet/deletet";
 $page = "squid/internet/timemanager";
 include('modules/squid/includes/delete.php');

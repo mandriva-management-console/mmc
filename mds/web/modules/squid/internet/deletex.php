@@ -21,7 +21,7 @@
  */
 
 
-$list = "extlist";
+$list = "blacklist_ext";
 $page_delete = "squid/internet/deletex";
 $page = "squid/internet/extmanager";
 include('modules/squid/includes/delete.php');
