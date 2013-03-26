@@ -72,4 +72,5 @@ proxy.ini: Makefile
 squid.ini: Makefile
 	if [ -f /etc/mandriva-release ]; then \
 	  sed -i 's!squid3!squid!g' $@; \
+	  sed -i 's!/usr/bin/sarg!/usr/sbin/sarg!' $@; \
 	fi
