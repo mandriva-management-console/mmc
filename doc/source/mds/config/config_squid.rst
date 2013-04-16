@@ -1,9 +1,9 @@
 .. highlight:: none
 .. _config-squid:
 
-==================================
+===================================
 MMC squid plugin configuration file
-==================================
+===================================
 
 This document explains the content of the MMC squid plugin configuration file.
 
@@ -11,7 +11,6 @@ Introduction
 ############
 
 The plugin allows control of internet content filters, manipulating squid files directly and use the LDAP base to authentication of users.
-
 
 The plugin configuration file is :file:`/etc/mmc/plugins/squid.ini`.
 
@@ -40,7 +39,7 @@ Here are all the squid.ini available sections:
 Section name Description                                                                                       Optional
 ============ ================================================================================================= ========
 main         global mail plugin configuration                                                                  no
-squid        paths and names of LDAP access groups                                                             no 
+squid        paths and names of LDAP access groups                                                             no
 ============ ================================================================================================= ========
 
 Section « main »
@@ -57,26 +56,29 @@ disable         Is this plugin disabled ?                                     Ye
 =============== ============================================================= ================================== ==========================
 
 Section « squid »
-#######################
+#################
 
- Available options for the « main » section:
+Available options for the « main » section:
 
 ================= ================================================================ ================================== ==============================================
-Option name       Description                                                      Optional                           Default value 
+Option name       Description                                                      Optional                           Default value
 ================= ================================================================ ================================== ==============================================
+squidBinary       path to the squid binary                                         No                                 /usr/sbin/squid3
+squidInit         the path of the squid init script                                No                                 /etc/init.d/squid3
+squidPid          the path of squid pid file                                       No                                 /var/run/squid3.pid
+sargBinary        the path of the sarg binary                                      Yes                                /usr/bin/sarg
+
+groupMaster       the name of the group that have full access                      No                                 InternetMaster
+groupMasterDesc   the group description                                            No                                 Full Internet access
+groupFiltered     the name of the group that have a filtered access                No                                 InternetFiltered
+groupFilteredDesc the group description                                            No                                 Filtered Internet access
+
 squidRules        the path where will be stored rule files                         No                                 /etc/squid/rules/
-squidMasterGroup  the path where will be stored rule files to Master group         No                                 %(squidRules)s/group_internet 
-squidBinary       path to bin of squid                                             No                                 /usr/sbin/squid
-normalBlackList   the path where will be stored files content bad words            No                                 %(squidMasterGroup)s/normal_blacklist.txt
-normalWhiteList   the path where will be stored files content good words           No                                 %(squidMasterGroup)s/normal_whitelist.txt
-normalBlackExt    the path where will be stored files content extensions blocked   No                                 %(squidMasterGroup)s/normal_blacklist_ext.txt
-timeDay           the path where will be stored files content range time to access No                                 %(squidMasterGroup)s/time_day.txt
-normalMachList    the path where will be stored files content allowed IPs          No                                 %(squidMasterGroup)s/allow_machines.txt
-squidInit         the path of the squid daemon                                     No                                 /etc/init.d/squid
-squidPid          the path of squid pid file                                       No                                 /var/run/squid.pid
-sargBinary        the path of sarg                                                 Yes                                /usr/bin/sarg
-groupMaster       the name of the group that have free access                      No                                 InternetMaster
-groupFiltered     the name of the group that have a filtered access                No                                 Internet
+blacklist         path to the blacklist file                                       No                                 %(squidRules)s/blacklist.txt
+whitelist         path to the whitelist file                                       No                                 %(squidRules)s/whitelist.txt
+blacklist_ext     path to the extensions blacklist file                            No                                 %(squidRules)s/blacklist_ext.txt
+timeranges        path to the timeranges file                                      No                                 %(squidRules)s/timeranges.txt
+machines          path to the machines file                                        No                                 %(squidRules)s/machines.txt
 ================= ================================================================ ================================== ==============================================
 
 

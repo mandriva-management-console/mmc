@@ -1,6 +1,6 @@
-===========
+============
 Squid plugin
-===========
+============
 
 Installation
 ============
@@ -9,45 +9,19 @@ Install the packages ``python-mmc-squid`` and ``mmc-web-squid``.
 
 LDAP directory configuration
 ============================
-Two groups will be created automatically on LDAP base:
 
-::
+Two groups will be created automatically in the LDAP tree when the mmc-agent
+starts with the squid plugin enabled:
 
-    InternetMaster is the group with total previlegies to access any site and download any extension in any time.
-    Internet is the group with Internet and extensions filtred by a list of the key-words and domains,
+* InternetMaster: the group with total privilegies to access any site and downloads at any time
+* InternetFiltered: is the group with Internet and extensions filtred by a list of keywords and domains
 
+The group names and their description can be changed in the configuration file of the plugin: :ref:`config-squid`.
 
 Squid configuration
-==========================
-The configuration of the squid.conf file was customize to provide a LDAP authentication of the users and follow configurations 
+===================
 
-::
+Please use the provided squid configuration available in ``/usr/share/doc/mmc/contrib/squid/``.
 
-    hierarchy_stoplist cgi-bin ?
-    acl QUERY urlpath_regex cgi-bin \?
-    no_cache deny QUERY
-    dns_nameservers localhost
-    maximum_object_size_in_memory 64 KB
-    cache_store_log none
-    hosts_file /etc/hosts
-
-Authentication configuration
-======================
-
-::
-
-    auth_param basic realm Atention: Autentication Required!
-    auth_param basic program /usr/lib64/squid/squid_ldap_auth -b "@DN@" -f uid=%s localhost
-    auth_param basic children 3
-    auth_param basic casesensitive off
-    auth_param basic credentialsttl 1 hours
-    external_acl_type ldap_auth %LOGIN /usr/lib64/squid/squid_ldap_group -d -b "@DN@" -f "(&(memberuid=%u)(cn=%g))" -h localhost
-
-Python Pugin
-=====================
-The python plugin manipulate directly squid files, read and write in rules files in.
-
-::
-    /etc/squid/rules/
-
-
+The configuration of the ``squid.conf`` file was customized to provide LDAP authentication for the users.
+Copy the configuration file to ``/etc/squid`` or ``/etc/squid3/`` (on Debian).
