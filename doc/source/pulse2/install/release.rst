@@ -1,6 +1,6 @@
-===============================
-Installation from source tarbal
-===============================
+================================
+Installation from source tarball
+================================
 
 In order to install Pulse2 and it's plugins you first need to install and
 configure :doc:`MMC </mmc/intro>`.

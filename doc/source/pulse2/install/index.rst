@@ -2,6 +2,21 @@
 Installation
 ============
 
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+
+    development
+    dhcp
+    distribution
+    imaging
+    nfs
+    pulse-setup
+    release
+    schema
+    tftp
+
+
 Pulse2 quick install guide.
 
 In order to install Pulse2 and it's plugins you first need to install and
@@ -67,8 +82,8 @@ Pulse2 plugins_ and servers_.
 .. _plugins: https://github.com/wiliamsouza/mmc/tree/master/pulse2/services/conf/plugins
 .. _servers: https://github.com/wiliamsouza/mmc/tree/master/pulse2/services/conf/pulse2
 
-Instalation options
-===================
+Installation options
+====================
 
 There are three easy options to install:
 
@@ -78,4 +93,3 @@ There are three easy options to install:
   <distribution>`.
 
 * Install the latest :doc:`development <development>` version.
-

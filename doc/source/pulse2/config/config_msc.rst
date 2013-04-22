@@ -158,7 +158,7 @@ Currently available profiles for VNC (``vnc_network_connectivity``):
 - isdn: (high latency, 75 kb/s)
 
 « Client probing behavior »
------------------------
+---------------------------
 
 The LED which represents the client status can take four colors:
 
