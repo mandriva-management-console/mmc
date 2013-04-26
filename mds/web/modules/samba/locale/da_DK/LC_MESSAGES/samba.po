@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-25 01:03+0200\n"
-"PO-Revision-Date: 2013-04-26 13:46+0000\n"
+"POT-Creation-Date: 2013-04-26 19:40+0200\n"
+"PO-Revision-Date: 2013-04-26 21:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -525,8 +525,8 @@ msgid "Share %s successfully modified"
 msgstr ""
 
 #: modules/samba/shares/details.php:106
-#: modules/samba/shares/localSidebar.php:31
-#: modules/samba/infoPackage.inc.php:48 modules/samba/mainSidebar.php:30
+#: modules/samba/shares/localSidebar.php:31 modules/samba/mainSidebar.php:30
+#: modules/samba/infoPackage.inc.php:48
 msgid "Add a share"
 msgstr ""
 
@@ -647,12 +647,16 @@ msgstr ""
 msgid "Add a new user"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:31
-msgid "SAMBA management"
+#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
+msgid "List shares"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:45 modules/samba/mainSidebar.php:29
-msgid "List shares"
+#: modules/samba/mainSidebar.php:33
+msgid "List computers"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:31
+msgid "SAMBA management"
 msgstr ""
 
 #: modules/samba/infoPackage.inc.php:51
@@ -733,10 +737,6 @@ msgstr ""
 
 #: modules/samba/infoPackage.inc.php:143
 msgid "SAMBA status"
-msgstr ""
-
-#: modules/samba/mainSidebar.php:33
-msgid "List computers"
 msgstr ""
 
 
