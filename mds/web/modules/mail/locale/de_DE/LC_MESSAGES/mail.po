@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
-#   <maikwagner@yahoo.com>, 2011.
+#   <maikwagner@yahoo.com>, 2011, 2013.
 #   <mario.fetka@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-03-14 16:21+0100\n"
-"PO-Revision-Date: 2012-12-10 14:54+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"POT-Creation-Date: 2013-04-25 01:03+0200\n"
+"PO-Revision-Date: 2013-04-08 13:17+0000\n"
+"Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -305,7 +305,7 @@ msgstr "76c1e0473c63d3d18c5210ba3997cc12_tr"
 
 #: modules/mail/includes/auditCodes.php:27
 msgid "Change visibility in Zarafa address book"
-msgstr ""
+msgstr "Sichtbarkeit in Zarafa-Adressbuch ändern"
 
 #: modules/mail/includes/auditCodes.php:28
 msgid "Change Zarafa sendas attribute"
@@ -411,7 +411,7 @@ msgstr "Zarafa-Konto"
 
 #: modules/mail/includes/publicFunc.php:273
 msgid "Hide from Zarafa address book"
-msgstr ""
+msgstr "Vor dem Zarafa-Adressbuch verbergen"
 
 #: modules/mail/includes/publicFunc.php:279
 msgid "Zarafa send as user list"
@@ -454,7 +454,7 @@ msgstr "Mail-Attribute gelöscht."
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
-msgstr ""
+msgstr "Mailverwaltung"
 
 #: modules/mail/infoPackage.inc.php:44
 msgid "Mail aliases"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-03-14 16:21+0100\n"
+"POT-Creation-Date: 2013-04-25 01:03+0200\n"
 "PO-Revision-Date: 2012-12-11 16:42+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
@@ -331,7 +331,6 @@ msgstr ""
 #: modules/network/includes/network2.inc.php:631
 #: modules/network/includes/network2.inc.php:633
 #: modules/network/includes/network2.inc.php:634
-#: modules/network/network/ajaxRecordTypeContentRequests.php:44
 #: modules/network/network/dnsrecords/afsdb.php:122
 #: modules/network/network/dnsrecords/cert.php:180
 #: modules/network/network/dnsrecords/cert.php:200
@@ -343,321 +342,30 @@ msgstr ""
 #: modules/network/network/dnsrecords/srv.php:58
 #: modules/network/network/dnsrecords/srv.php:174
 #: modules/network/network/dnsrecords/sshfp.php:150
+#: modules/network/network/ajaxRecordTypeContentRequests.php:44
 #: modules/network/network/editrecord.php:87
 msgid "custom"
 msgstr ""
 
-#: modules/network/infoPackage.inc.php:33
-msgid "Network management"
-msgstr "Управление сетью"
-
-#: modules/network/infoPackage.inc.php:42
-msgid "Network"
-msgstr "Сеть"
-
-#: modules/network/infoPackage.inc.php:60
-#: modules/network/network/ajaxZoneFilter.php:36
-#: modules/network/network/ajaxZoneFilter.php:42
-#: modules/network/network/localSidebar.php:29
-msgid "DNS zones"
-msgstr "DNS зоны"
-
-#: modules/network/infoPackage.inc.php:108
-msgid "Delete a DNS zone"
-msgstr "Удалить DNS-зону"
-
-#: modules/network/infoPackage.inc.php:112
-msgid "Delete a host"
-msgstr "Удалить узел"
-
-#: modules/network/infoPackage.inc.php:116
-msgid "Delete a record"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:120
-#: modules/network/infoPackage.inc.php:124
-msgid "Edit a DNS record"
-msgstr "Изменить DNS-запись"
-
-#: modules/network/infoPackage.inc.php:128 modules/network/network/edit.php:33
-msgid "Add a DNS zone"
-msgstr "Добавить DNS-зону"
-
-#: modules/network/infoPackage.inc.php:134
-msgid "Edit a DNS zone"
-msgstr "Изменить DNS-зону"
-
-#: modules/network/infoPackage.inc.php:138
-msgid "Add a host to a zone"
-msgstr "Добавить узел в зону"
-
-#: modules/network/infoPackage.inc.php:142
-msgid "Add a record to a zone"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:146
-msgid "Members of a zone"
-msgstr "Члены зоны"
-
-#: modules/network/infoPackage.inc.php:150
-msgid "Records of a zone"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:154
-#: modules/network/network/subnetedit.php:29
-msgid "Add a DHCP subnet"
-msgstr "Добавить DHCP-подсеть"
-
-#: modules/network/infoPackage.inc.php:160
-#: modules/network/network/subnetedit.php:30
-msgid "Edit DHCP subnet"
-msgstr "Изменить DHCP-подсеть"
-
-#: modules/network/infoPackage.inc.php:164
-#: modules/network/network/ajaxSubnetFilter.php:43
-#: modules/network/network/ajaxSubnetFilter.php:50
-#: modules/network/network/localSidebar.php:34
-msgid "DHCP subnets"
-msgstr "DHCP-подсети"
-
-#: modules/network/infoPackage.inc.php:170
-msgid "Delete a subnet"
-msgstr "Удалить подсеть"
-
-#: modules/network/infoPackage.inc.php:174
-msgid "Add a host to a DHCP subnet"
-msgstr "Добавить узел в DHCP-подсеть"
-
-#: modules/network/infoPackage.inc.php:178
-msgid "Edit a host from a DHCP subnet"
-msgstr "Изменить узел из DHCP-подсети"
-
-#: modules/network/infoPackage.inc.php:182
-msgid "Delete a host from a subnet"
-msgstr "Удалить узел из подсети"
-
-#: modules/network/infoPackage.inc.php:186
-msgid "Members of a DHCP subnet"
-msgstr "Члены DHCP-подсети"
-
-#: modules/network/infoPackage.inc.php:190
-#: modules/network/network/localSidebar.php:36
-msgid "DHCP failover"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:194
-#: modules/network/infoPackage.inc.php:198
-#: modules/network/infoPackage.inc.php:202
-#: modules/network/infoPackage.inc.php:206
-#: modules/network/infoPackage.inc.php:210
-#: modules/network/infoPackage.inc.php:214
-#: modules/network/network/localSidebar.php:40
-#: modules/network/network/services.php:28
-msgid "Network services management"
-msgstr "Управление службами сети"
-
-#: modules/network/infoPackage.inc.php:229
-msgid "DHCP service log"
-msgstr "Журнал службы DHCP"
-
-#: modules/network/infoPackage.inc.php:247
-msgid "DNS service log"
-msgstr "Журнал службы DNS"
-
-#: modules/network/network/ajaxSubnetFilter.php:39
-msgid "No dynamic address pool"
-msgstr "Нет динамического пула адресов"
-
-#: modules/network/network/ajaxSubnetFilter.php:47
-#: modules/network/network/subnetedit.php:207
-msgid "Netmask"
-msgstr "Маска"
-
-#: modules/network/network/ajaxSubnetFilter.php:48
-#: modules/network/network/ajaxZoneFilter.php:41
-#: modules/network/network/edit.php:230
-#: modules/network/network/subnetedit.php:211
-msgid "Description"
-msgstr "Описание"
-
-#: modules/network/network/ajaxSubnetFilter.php:49
-msgid "Dynamic pool range(s)"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:52
-msgid "View DHCP static host"
-msgstr "Просмотр статического узла DHCP"
-
-#: modules/network/network/ajaxSubnetFilter.php:53
-msgid "Edit subnet"
-msgstr "Изменить подсеть"
-
-#: modules/network/network/ajaxSubnetFilter.php:54
-msgid "Add static host to subnet"
-msgstr "Добавить статический узел в подсеть"
-
-#: modules/network/network/ajaxSubnetFilter.php:55
-#: modules/network/network/ajaxZoneFilter.php:48
-#: modules/network/network/delete.php:43
-msgid "Delete zone"
-msgstr "Удалить зону"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:28
-#: modules/network/network/ajaxSubnetMembersFilter.php:88
-msgid "Static"
-msgstr "Статический"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:49
-msgid "Dynamic"
-msgstr "Динамический"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:76
-#: modules/network/network/subnetdeletehost.php:72
-msgid "Delete host"
-msgstr "Удалить узел"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:77
-msgid "Add static host"
-msgstr "Добавить статический узел"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:78
-msgid "edit static host"
-msgstr "изменить статический узел"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:99
-#: modules/network/network/ajaxZoneMembersFilter.php:75
-#: modules/network/network/dnsrecords/a.php:26
-#: modules/network/network/dnsrecords/a.php:37
-#: modules/network/network/subnetedithost.php:194
-msgid "IP address"
-msgstr "IP-адрес"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:103
-#: modules/network/network/ajaxZoneMembersFilter.php:78
-#: modules/network/network/ajaxZoneRecordsFilter.php:157
 #: modules/network/network/dnsrecords/a.php:24
 #: modules/network/network/dnsrecords/aaaa.php:21
 #: modules/network/network/dnsrecords/custom.php:33
 #: modules/network/network/dnsrecords/loc.php:68
+#: modules/network/network/ajaxSubnetMembersFilter.php:103
+#: modules/network/network/ajaxZoneMembersFilter.php:78
+#: modules/network/network/ajaxZoneRecordsFilter.php:157
 #: modules/network/network/edithost.php:132
 #: modules/network/network/subnetedithost.php:188
 msgid "Host name"
 msgstr "Имя узла"
 
-#: modules/network/network/ajaxSubnetMembersFilter.php:104
-#: modules/network/network/subnetedithost.php:201
-msgid "MAC address"
-msgstr "MAC-адрес"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:105
-#: modules/network/network/dnsrecords/cert.php:106
-msgid "Type"
-msgstr "Тип"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:106
-#: modules/network/network/ajaxZoneMembersFilter.php:79
-#: modules/network/network/ajaxZoneRecordsFilter.php:166
-msgid "Host"
-msgstr "Узел"
-
-#: modules/network/network/ajaxZoneFilter.php:40
-msgid "Network prefix"
-msgstr "Префикс подсети"
-
-#: modules/network/network/ajaxZoneFilter.php:44
-msgid "View zone members"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:45
-msgid "View zone records"
-msgstr "Просмотр записей зоны"
-
-#: modules/network/network/ajaxZoneFilter.php:46
-msgid "Edit zone"
-msgstr "Изменить зону"
-
-#: modules/network/network/ajaxZoneFilter.php:47
-msgid "Add host"
-msgstr "Добавить узел"
-
-#: modules/network/network/ajaxZoneMembersFilter.php:44
-msgid "Delete host (A record)"
-msgstr "Удалить узел (запись)"
-
-#: modules/network/network/ajaxZoneMembersFilter.php:45
-msgid "Delete alias (CNAME record)"
-msgstr "Удалить псевдоним (CNAME-запись)"
-
-#: modules/network/network/ajaxZoneMembersFilter.php:47
-msgid "edit record"
-msgstr "изменить запись"
-
-#: modules/network/network/ajaxZoneMembersFilter.php:64
-#, php-format
-msgid "(alias of %s)"
-msgstr "(псевдоним %s)"
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:128
-msgid "Delete record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:130
-msgid "Edit record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:164
-#: modules/network/network/editrecord.php:175
-#: modules/network/network/editrecord.php:181
-msgid "Record type"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:165
-msgid "Record parameters"
-msgstr ""
-
-#: modules/network/network/delete.php:29
-msgid "The DNS zone has been deleted."
-msgstr "DNS-зона была удалена."
-
-#: modules/network/network/delete.php:38
-#, php-format
-msgid "You will delete the DNS zone %s."
-msgstr "Вы удалите DNS-зону %s."
-
-#: modules/network/network/delete.php:44
-#: modules/network/network/subnetdelete.php:48
-#: modules/network/network/subnetdeletehost.php:73
-msgid "Cancel"
-msgstr "Отмена"
-
-#: modules/network/network/deletehost.php:30
-#: modules/network/network/deleterecord.php:49
-msgid "The record has been deleted."
-msgstr "Запись была удалена."
-
-#: modules/network/network/deletehost.php:37
-#: modules/network/network/deleterecord.php:58
-msgid "Delete a DNS record"
-msgstr "Удалить DNS-запись"
-
-#: modules/network/network/deletehost.php:38
-#, php-format
-msgid "You will delete the %s record"
-msgstr "Вы удалите запись %s"
-
-#: modules/network/network/deletehost.php:43
-msgid "The linked CNAME records will also be deleted:"
-msgstr "Также будут удалены связанные CNAME-записи :"
-
-#: modules/network/network/deleterecord.php:41
-#: modules/network/network/editrecord.php:49
-msgid "Zone data was updated. Selected record may be incorrect."
-msgstr ""
-
-#: modules/network/network/deleterecord.php:59
-#, php-format
-msgid "You will delete the %s record for %s host"
-msgstr ""
+#: modules/network/network/dnsrecords/a.php:26
+#: modules/network/network/dnsrecords/a.php:37
+#: modules/network/network/ajaxSubnetMembersFilter.php:99
+#: modules/network/network/ajaxZoneMembersFilter.php:75
+#: modules/network/network/subnetedithost.php:194
+msgid "IP address"
+msgstr "IP-адрес"
 
 #: modules/network/network/dnsrecords/aaaa.php:23
 #: modules/network/network/dnsrecords/aaaa.php:33
@@ -747,6 +455,11 @@ msgstr ""
 #: modules/network/network/subnetedit.php:227
 msgid "Domain name"
 msgstr "Имя домена"
+
+#: modules/network/network/dnsrecords/cert.php:106
+#: modules/network/network/ajaxSubnetMembersFilter.php:105
+msgid "Type"
+msgstr "Тип"
 
 #: modules/network/network/dnsrecords/cert.php:114
 msgid "Custom type"
@@ -1512,6 +1225,194 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
+#: modules/network/network/ajaxSubnetFilter.php:39
+msgid "No dynamic address pool"
+msgstr "Нет динамического пула адресов"
+
+#: modules/network/network/ajaxSubnetFilter.php:43
+#: modules/network/network/ajaxSubnetFilter.php:50
+#: modules/network/network/localSidebar.php:34
+#: modules/network/infoPackage.inc.php:164
+msgid "DHCP subnets"
+msgstr "DHCP-подсети"
+
+#: modules/network/network/ajaxSubnetFilter.php:47
+#: modules/network/network/subnetedit.php:207
+msgid "Netmask"
+msgstr "Маска"
+
+#: modules/network/network/ajaxSubnetFilter.php:48
+#: modules/network/network/ajaxZoneFilter.php:41
+#: modules/network/network/edit.php:230
+#: modules/network/network/subnetedit.php:211
+msgid "Description"
+msgstr "Описание"
+
+#: modules/network/network/ajaxSubnetFilter.php:49
+msgid "Dynamic pool range(s)"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:52
+msgid "View DHCP static host"
+msgstr "Просмотр статического узла DHCP"
+
+#: modules/network/network/ajaxSubnetFilter.php:53
+msgid "Edit subnet"
+msgstr "Изменить подсеть"
+
+#: modules/network/network/ajaxSubnetFilter.php:54
+msgid "Add static host to subnet"
+msgstr "Добавить статический узел в подсеть"
+
+#: modules/network/network/ajaxSubnetFilter.php:55
+#: modules/network/network/ajaxZoneFilter.php:48
+#: modules/network/network/delete.php:43
+msgid "Delete zone"
+msgstr "Удалить зону"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:28
+#: modules/network/network/ajaxSubnetMembersFilter.php:88
+msgid "Static"
+msgstr "Статический"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:49
+msgid "Dynamic"
+msgstr "Динамический"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:76
+#: modules/network/network/subnetdeletehost.php:72
+msgid "Delete host"
+msgstr "Удалить узел"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:77
+msgid "Add static host"
+msgstr "Добавить статический узел"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:78
+msgid "edit static host"
+msgstr "изменить статический узел"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:104
+#: modules/network/network/subnetedithost.php:201
+msgid "MAC address"
+msgstr "MAC-адрес"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:106
+#: modules/network/network/ajaxZoneMembersFilter.php:79
+#: modules/network/network/ajaxZoneRecordsFilter.php:166
+msgid "Host"
+msgstr "Узел"
+
+#: modules/network/network/ajaxZoneFilter.php:36
+#: modules/network/network/ajaxZoneFilter.php:42
+#: modules/network/network/localSidebar.php:29
+#: modules/network/infoPackage.inc.php:60
+msgid "DNS zones"
+msgstr "DNS зоны"
+
+#: modules/network/network/ajaxZoneFilter.php:40
+msgid "Network prefix"
+msgstr "Префикс подсети"
+
+#: modules/network/network/ajaxZoneFilter.php:44
+msgid "View zone members"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:45
+msgid "View zone records"
+msgstr "Просмотр записей зоны"
+
+#: modules/network/network/ajaxZoneFilter.php:46
+msgid "Edit zone"
+msgstr "Изменить зону"
+
+#: modules/network/network/ajaxZoneFilter.php:47
+msgid "Add host"
+msgstr "Добавить узел"
+
+#: modules/network/network/ajaxZoneMembersFilter.php:44
+msgid "Delete host (A record)"
+msgstr "Удалить узел (запись)"
+
+#: modules/network/network/ajaxZoneMembersFilter.php:45
+msgid "Delete alias (CNAME record)"
+msgstr "Удалить псевдоним (CNAME-запись)"
+
+#: modules/network/network/ajaxZoneMembersFilter.php:47
+msgid "edit record"
+msgstr "изменить запись"
+
+#: modules/network/network/ajaxZoneMembersFilter.php:64
+#, php-format
+msgid "(alias of %s)"
+msgstr "(псевдоним %s)"
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:128
+msgid "Delete record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:130
+msgid "Edit record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:164
+#: modules/network/network/editrecord.php:175
+#: modules/network/network/editrecord.php:181
+msgid "Record type"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:165
+msgid "Record parameters"
+msgstr ""
+
+#: modules/network/network/delete.php:29
+msgid "The DNS zone has been deleted."
+msgstr "DNS-зона была удалена."
+
+#: modules/network/network/delete.php:38
+#, php-format
+msgid "You will delete the DNS zone %s."
+msgstr "Вы удалите DNS-зону %s."
+
+#: modules/network/network/delete.php:44
+#: modules/network/network/subnetdelete.php:48
+#: modules/network/network/subnetdeletehost.php:73
+msgid "Cancel"
+msgstr "Отмена"
+
+#: modules/network/network/deletehost.php:30
+#: modules/network/network/deleterecord.php:49
+msgid "The record has been deleted."
+msgstr "Запись была удалена."
+
+#: modules/network/network/deletehost.php:37
+#: modules/network/network/deleterecord.php:58
+msgid "Delete a DNS record"
+msgstr "Удалить DNS-запись"
+
+#: modules/network/network/deletehost.php:38
+#, php-format
+msgid "You will delete the %s record"
+msgstr "Вы удалите запись %s"
+
+#: modules/network/network/deletehost.php:43
+msgid "The linked CNAME records will also be deleted:"
+msgstr "Также будут удалены связанные CNAME-записи :"
+
+#: modules/network/network/deleterecord.php:41
+#: modules/network/network/editrecord.php:49
+msgid "Zone data was updated. Selected record may be incorrect."
+msgstr ""
+
+#: modules/network/network/deleterecord.php:59
+#, php-format
+msgid "You will delete the %s record for %s host"
+msgstr ""
+
+#: modules/network/network/edit.php:33 modules/network/infoPackage.inc.php:128
+msgid "Add a DNS zone"
+msgstr "Добавить DNS-зону"
+
 #: modules/network/network/edit.php:35
 msgid "Edit DNS zone"
 msgstr "Изменить DNS-зону"
@@ -1747,6 +1648,22 @@ msgstr "Добавить DNS-зону"
 msgid "Add DHCP subnet"
 msgstr "Добавить DHCP-подсеть"
 
+#: modules/network/network/localSidebar.php:36
+#: modules/network/infoPackage.inc.php:190
+msgid "DHCP failover"
+msgstr ""
+
+#: modules/network/network/localSidebar.php:40
+#: modules/network/network/services.php:28
+#: modules/network/infoPackage.inc.php:194
+#: modules/network/infoPackage.inc.php:198
+#: modules/network/infoPackage.inc.php:202
+#: modules/network/infoPackage.inc.php:206
+#: modules/network/infoPackage.inc.php:210
+#: modules/network/infoPackage.inc.php:214
+msgid "Network services management"
+msgstr "Управление службами сети"
+
 #: modules/network/network/servicedhcpfailover.php:29
 msgid "DHCP Failover configuration"
 msgstr ""
@@ -1920,6 +1837,16 @@ msgstr "Вы удалите узел %s из DHCP-подсети."
 #, php-format
 msgid "Also unregister this host from DNS zone %s"
 msgstr "Также удалить регистрацию этого узла из зоны DNS %s"
+
+#: modules/network/network/subnetedit.php:29
+#: modules/network/infoPackage.inc.php:154
+msgid "Add a DHCP subnet"
+msgstr "Добавить DHCP-подсеть"
+
+#: modules/network/network/subnetedit.php:30
+#: modules/network/infoPackage.inc.php:160
+msgid "Edit DHCP subnet"
+msgstr "Изменить DHCP-подсеть"
 
 #: modules/network/network/subnetedit.php:85
 #, php-format
@@ -2298,5 +2225,78 @@ msgstr ""
 #: modules/network/network/zonerecords.php:63
 msgid "Add a record"
 msgstr ""
+
+#: modules/network/infoPackage.inc.php:33
+msgid "Network management"
+msgstr "Управление сетью"
+
+#: modules/network/infoPackage.inc.php:42
+msgid "Network"
+msgstr "Сеть"
+
+#: modules/network/infoPackage.inc.php:108
+msgid "Delete a DNS zone"
+msgstr "Удалить DNS-зону"
+
+#: modules/network/infoPackage.inc.php:112
+msgid "Delete a host"
+msgstr "Удалить узел"
+
+#: modules/network/infoPackage.inc.php:116
+msgid "Delete a record"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:120
+#: modules/network/infoPackage.inc.php:124
+msgid "Edit a DNS record"
+msgstr "Изменить DNS-запись"
+
+#: modules/network/infoPackage.inc.php:134
+msgid "Edit a DNS zone"
+msgstr "Изменить DNS-зону"
+
+#: modules/network/infoPackage.inc.php:138
+msgid "Add a host to a zone"
+msgstr "Добавить узел в зону"
+
+#: modules/network/infoPackage.inc.php:142
+msgid "Add a record to a zone"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:146
+msgid "Members of a zone"
+msgstr "Члены зоны"
+
+#: modules/network/infoPackage.inc.php:150
+msgid "Records of a zone"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:170
+msgid "Delete a subnet"
+msgstr "Удалить подсеть"
+
+#: modules/network/infoPackage.inc.php:174
+msgid "Add a host to a DHCP subnet"
+msgstr "Добавить узел в DHCP-подсеть"
+
+#: modules/network/infoPackage.inc.php:178
+msgid "Edit a host from a DHCP subnet"
+msgstr "Изменить узел из DHCP-подсети"
+
+#: modules/network/infoPackage.inc.php:182
+msgid "Delete a host from a subnet"
+msgstr "Удалить узел из подсети"
+
+#: modules/network/infoPackage.inc.php:186
+msgid "Members of a DHCP subnet"
+msgstr "Члены DHCP-подсети"
+
+#: modules/network/infoPackage.inc.php:229
+msgid "DHCP service log"
+msgstr "Журнал службы DHCP"
+
+#: modules/network/infoPackage.inc.php:247
+msgid "DNS service log"
+msgstr "Журнал службы DNS"
 
 

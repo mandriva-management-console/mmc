@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-03-14 16:21+0100\n"
+"POT-Creation-Date: 2013-04-25 01:03+0200\n"
 "PO-Revision-Date: 2012-12-11 16:42+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -328,7 +328,6 @@ msgstr ""
 #: modules/network/includes/network2.inc.php:631
 #: modules/network/includes/network2.inc.php:633
 #: modules/network/includes/network2.inc.php:634
-#: modules/network/network/ajaxRecordTypeContentRequests.php:44
 #: modules/network/network/dnsrecords/afsdb.php:122
 #: modules/network/network/dnsrecords/cert.php:180
 #: modules/network/network/dnsrecords/cert.php:200
@@ -340,321 +339,30 @@ msgstr ""
 #: modules/network/network/dnsrecords/srv.php:58
 #: modules/network/network/dnsrecords/srv.php:174
 #: modules/network/network/dnsrecords/sshfp.php:150
+#: modules/network/network/ajaxRecordTypeContentRequests.php:44
 #: modules/network/network/editrecord.php:87
 msgid "custom"
 msgstr ""
 
-#: modules/network/infoPackage.inc.php:33
-msgid "Network management"
-msgstr "Nettverksadministrasjon"
-
-#: modules/network/infoPackage.inc.php:42
-msgid "Network"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:60
-#: modules/network/network/ajaxZoneFilter.php:36
-#: modules/network/network/ajaxZoneFilter.php:42
-#: modules/network/network/localSidebar.php:29
-msgid "DNS zones"
-msgstr "DNS soner"
-
-#: modules/network/infoPackage.inc.php:108
-msgid "Delete a DNS zone"
-msgstr "Slett en DNS sone"
-
-#: modules/network/infoPackage.inc.php:112
-msgid "Delete a host"
-msgstr "Slett en vert"
-
-#: modules/network/infoPackage.inc.php:116
-msgid "Delete a record"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:120
-#: modules/network/infoPackage.inc.php:124
-msgid "Edit a DNS record"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:128 modules/network/network/edit.php:33
-msgid "Add a DNS zone"
-msgstr "Opprett DNS sone"
-
-#: modules/network/infoPackage.inc.php:134
-msgid "Edit a DNS zone"
-msgstr "Rediger en DNS sone"
-
-#: modules/network/infoPackage.inc.php:138
-msgid "Add a host to a zone"
-msgstr "Legg en vert til en sone"
-
-#: modules/network/infoPackage.inc.php:142
-msgid "Add a record to a zone"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:146
-msgid "Members of a zone"
-msgstr "Medlemmer av en sone"
-
-#: modules/network/infoPackage.inc.php:150
-msgid "Records of a zone"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:154
-#: modules/network/network/subnetedit.php:29
-msgid "Add a DHCP subnet"
-msgstr "Opprett et DHCP subnett"
-
-#: modules/network/infoPackage.inc.php:160
-#: modules/network/network/subnetedit.php:30
-msgid "Edit DHCP subnet"
-msgstr "Rediger DHCP subnett"
-
-#: modules/network/infoPackage.inc.php:164
-#: modules/network/network/ajaxSubnetFilter.php:43
-#: modules/network/network/ajaxSubnetFilter.php:50
-#: modules/network/network/localSidebar.php:34
-msgid "DHCP subnets"
-msgstr "DHCP subnett"
-
-#: modules/network/infoPackage.inc.php:170
-msgid "Delete a subnet"
-msgstr "Slett et subnett"
-
-#: modules/network/infoPackage.inc.php:174
-msgid "Add a host to a DHCP subnet"
-msgstr "Lett en vert til et DHCP subnett "
-
-#: modules/network/infoPackage.inc.php:178
-msgid "Edit a host from a DHCP subnet"
-msgstr "Rediger en vert i et DHCP subnett"
-
-#: modules/network/infoPackage.inc.php:182
-msgid "Delete a host from a subnet"
-msgstr "Slett en vert fra et subnett"
-
-#: modules/network/infoPackage.inc.php:186
-msgid "Members of a DHCP subnet"
-msgstr "Medlemmer av et DHCP subnett"
-
-#: modules/network/infoPackage.inc.php:190
-#: modules/network/network/localSidebar.php:36
-msgid "DHCP failover"
-msgstr ""
-
-#: modules/network/infoPackage.inc.php:194
-#: modules/network/infoPackage.inc.php:198
-#: modules/network/infoPackage.inc.php:202
-#: modules/network/infoPackage.inc.php:206
-#: modules/network/infoPackage.inc.php:210
-#: modules/network/infoPackage.inc.php:214
-#: modules/network/network/localSidebar.php:40
-#: modules/network/network/services.php:28
-msgid "Network services management"
-msgstr "Netverkstjenester"
-
-#: modules/network/infoPackage.inc.php:229
-msgid "DHCP service log"
-msgstr "DHCP tjeneste logg"
-
-#: modules/network/infoPackage.inc.php:247
-msgid "DNS service log"
-msgstr "DNS tjeneste logg"
-
-#: modules/network/network/ajaxSubnetFilter.php:39
-msgid "No dynamic address pool"
-msgstr "Ingen dynamisk adresseområde"
-
-#: modules/network/network/ajaxSubnetFilter.php:47
-#: modules/network/network/subnetedit.php:207
-msgid "Netmask"
-msgstr "Nettmaske"
-
-#: modules/network/network/ajaxSubnetFilter.php:48
-#: modules/network/network/ajaxZoneFilter.php:41
-#: modules/network/network/edit.php:230
-#: modules/network/network/subnetedit.php:211
-msgid "Description"
-msgstr "Beskrivelse"
-
-#: modules/network/network/ajaxSubnetFilter.php:49
-msgid "Dynamic pool range(s)"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:52
-msgid "View DHCP static host"
-msgstr "Vis DHCP statsk vert"
-
-#: modules/network/network/ajaxSubnetFilter.php:53
-msgid "Edit subnet"
-msgstr "Rediger subnett"
-
-#: modules/network/network/ajaxSubnetFilter.php:54
-msgid "Add static host to subnet"
-msgstr "Legg til statisk vert til subnett"
-
-#: modules/network/network/ajaxSubnetFilter.php:55
-#: modules/network/network/ajaxZoneFilter.php:48
-#: modules/network/network/delete.php:43
-msgid "Delete zone"
-msgstr "Slett sone"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:28
-#: modules/network/network/ajaxSubnetMembersFilter.php:88
-msgid "Static"
-msgstr "Statisk"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:49
-msgid "Dynamic"
-msgstr "Dynamisk"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:76
-#: modules/network/network/subnetdeletehost.php:72
-msgid "Delete host"
-msgstr "Slett vert"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:77
-msgid "Add static host"
-msgstr "Legg til statisk vert"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:78
-msgid "edit static host"
-msgstr "Rediger statisk vert"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:99
-#: modules/network/network/ajaxZoneMembersFilter.php:75
-#: modules/network/network/dnsrecords/a.php:26
-#: modules/network/network/dnsrecords/a.php:37
-#: modules/network/network/subnetedithost.php:194
-msgid "IP address"
-msgstr "IP adresse"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:103
-#: modules/network/network/ajaxZoneMembersFilter.php:78
-#: modules/network/network/ajaxZoneRecordsFilter.php:157
 #: modules/network/network/dnsrecords/a.php:24
 #: modules/network/network/dnsrecords/aaaa.php:21
 #: modules/network/network/dnsrecords/custom.php:33
 #: modules/network/network/dnsrecords/loc.php:68
+#: modules/network/network/ajaxSubnetMembersFilter.php:103
+#: modules/network/network/ajaxZoneMembersFilter.php:78
+#: modules/network/network/ajaxZoneRecordsFilter.php:157
 #: modules/network/network/edithost.php:132
 #: modules/network/network/subnetedithost.php:188
 msgid "Host name"
 msgstr "Vertsnavn"
 
-#: modules/network/network/ajaxSubnetMembersFilter.php:104
-#: modules/network/network/subnetedithost.php:201
-msgid "MAC address"
-msgstr "MAC adresse"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:105
-#: modules/network/network/dnsrecords/cert.php:106
-msgid "Type"
-msgstr "Type"
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:106
-#: modules/network/network/ajaxZoneMembersFilter.php:79
-#: modules/network/network/ajaxZoneRecordsFilter.php:166
-msgid "Host"
-msgstr "Vert"
-
-#: modules/network/network/ajaxZoneFilter.php:40
-msgid "Network prefix"
-msgstr "Netverksprefiks"
-
-#: modules/network/network/ajaxZoneFilter.php:44
-msgid "View zone members"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:45
-msgid "View zone records"
-msgstr "Se soneoppføringer"
-
-#: modules/network/network/ajaxZoneFilter.php:46
-msgid "Edit zone"
-msgstr "Rediger sone"
-
-#: modules/network/network/ajaxZoneFilter.php:47
-msgid "Add host"
-msgstr "Legg til vert"
-
-#: modules/network/network/ajaxZoneMembersFilter.php:44
-msgid "Delete host (A record)"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:45
-msgid "Delete alias (CNAME record)"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:47
-msgid "edit record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:64
-#, php-format
-msgid "(alias of %s)"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:128
-msgid "Delete record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:130
-msgid "Edit record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:164
-#: modules/network/network/editrecord.php:175
-#: modules/network/network/editrecord.php:181
-msgid "Record type"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:165
-msgid "Record parameters"
-msgstr ""
-
-#: modules/network/network/delete.php:29
-msgid "The DNS zone has been deleted."
-msgstr "DNS sonen har blitt slettet."
-
-#: modules/network/network/delete.php:38
-#, php-format
-msgid "You will delete the DNS zone %s."
-msgstr "Du sletter DNS sonen %s."
-
-#: modules/network/network/delete.php:44
-#: modules/network/network/subnetdelete.php:48
-#: modules/network/network/subnetdeletehost.php:73
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: modules/network/network/deletehost.php:30
-#: modules/network/network/deleterecord.php:49
-msgid "The record has been deleted."
-msgstr ""
-
-#: modules/network/network/deletehost.php:37
-#: modules/network/network/deleterecord.php:58
-msgid "Delete a DNS record"
-msgstr ""
-
-#: modules/network/network/deletehost.php:38
-#, php-format
-msgid "You will delete the %s record"
-msgstr ""
-
-#: modules/network/network/deletehost.php:43
-msgid "The linked CNAME records will also be deleted:"
-msgstr ""
-
-#: modules/network/network/deleterecord.php:41
-#: modules/network/network/editrecord.php:49
-msgid "Zone data was updated. Selected record may be incorrect."
-msgstr ""
-
-#: modules/network/network/deleterecord.php:59
-#, php-format
-msgid "You will delete the %s record for %s host"
-msgstr ""
+#: modules/network/network/dnsrecords/a.php:26
+#: modules/network/network/dnsrecords/a.php:37
+#: modules/network/network/ajaxSubnetMembersFilter.php:99
+#: modules/network/network/ajaxZoneMembersFilter.php:75
+#: modules/network/network/subnetedithost.php:194
+msgid "IP address"
+msgstr "IP adresse"
 
 #: modules/network/network/dnsrecords/aaaa.php:23
 #: modules/network/network/dnsrecords/aaaa.php:33
@@ -744,6 +452,11 @@ msgstr ""
 #: modules/network/network/subnetedit.php:227
 msgid "Domain name"
 msgstr "Domenenavn"
+
+#: modules/network/network/dnsrecords/cert.php:106
+#: modules/network/network/ajaxSubnetMembersFilter.php:105
+msgid "Type"
+msgstr "Type"
 
 #: modules/network/network/dnsrecords/cert.php:114
 msgid "Custom type"
@@ -1509,6 +1222,194 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
+#: modules/network/network/ajaxSubnetFilter.php:39
+msgid "No dynamic address pool"
+msgstr "Ingen dynamisk adresseområde"
+
+#: modules/network/network/ajaxSubnetFilter.php:43
+#: modules/network/network/ajaxSubnetFilter.php:50
+#: modules/network/network/localSidebar.php:34
+#: modules/network/infoPackage.inc.php:164
+msgid "DHCP subnets"
+msgstr "DHCP subnett"
+
+#: modules/network/network/ajaxSubnetFilter.php:47
+#: modules/network/network/subnetedit.php:207
+msgid "Netmask"
+msgstr "Nettmaske"
+
+#: modules/network/network/ajaxSubnetFilter.php:48
+#: modules/network/network/ajaxZoneFilter.php:41
+#: modules/network/network/edit.php:230
+#: modules/network/network/subnetedit.php:211
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: modules/network/network/ajaxSubnetFilter.php:49
+msgid "Dynamic pool range(s)"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:52
+msgid "View DHCP static host"
+msgstr "Vis DHCP statsk vert"
+
+#: modules/network/network/ajaxSubnetFilter.php:53
+msgid "Edit subnet"
+msgstr "Rediger subnett"
+
+#: modules/network/network/ajaxSubnetFilter.php:54
+msgid "Add static host to subnet"
+msgstr "Legg til statisk vert til subnett"
+
+#: modules/network/network/ajaxSubnetFilter.php:55
+#: modules/network/network/ajaxZoneFilter.php:48
+#: modules/network/network/delete.php:43
+msgid "Delete zone"
+msgstr "Slett sone"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:28
+#: modules/network/network/ajaxSubnetMembersFilter.php:88
+msgid "Static"
+msgstr "Statisk"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:49
+msgid "Dynamic"
+msgstr "Dynamisk"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:76
+#: modules/network/network/subnetdeletehost.php:72
+msgid "Delete host"
+msgstr "Slett vert"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:77
+msgid "Add static host"
+msgstr "Legg til statisk vert"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:78
+msgid "edit static host"
+msgstr "Rediger statisk vert"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:104
+#: modules/network/network/subnetedithost.php:201
+msgid "MAC address"
+msgstr "MAC adresse"
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:106
+#: modules/network/network/ajaxZoneMembersFilter.php:79
+#: modules/network/network/ajaxZoneRecordsFilter.php:166
+msgid "Host"
+msgstr "Vert"
+
+#: modules/network/network/ajaxZoneFilter.php:36
+#: modules/network/network/ajaxZoneFilter.php:42
+#: modules/network/network/localSidebar.php:29
+#: modules/network/infoPackage.inc.php:60
+msgid "DNS zones"
+msgstr "DNS soner"
+
+#: modules/network/network/ajaxZoneFilter.php:40
+msgid "Network prefix"
+msgstr "Netverksprefiks"
+
+#: modules/network/network/ajaxZoneFilter.php:44
+msgid "View zone members"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:45
+msgid "View zone records"
+msgstr "Se soneoppføringer"
+
+#: modules/network/network/ajaxZoneFilter.php:46
+msgid "Edit zone"
+msgstr "Rediger sone"
+
+#: modules/network/network/ajaxZoneFilter.php:47
+msgid "Add host"
+msgstr "Legg til vert"
+
+#: modules/network/network/ajaxZoneMembersFilter.php:44
+msgid "Delete host (A record)"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:45
+msgid "Delete alias (CNAME record)"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:47
+msgid "edit record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:64
+#, php-format
+msgid "(alias of %s)"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:128
+msgid "Delete record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:130
+msgid "Edit record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:164
+#: modules/network/network/editrecord.php:175
+#: modules/network/network/editrecord.php:181
+msgid "Record type"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:165
+msgid "Record parameters"
+msgstr ""
+
+#: modules/network/network/delete.php:29
+msgid "The DNS zone has been deleted."
+msgstr "DNS sonen har blitt slettet."
+
+#: modules/network/network/delete.php:38
+#, php-format
+msgid "You will delete the DNS zone %s."
+msgstr "Du sletter DNS sonen %s."
+
+#: modules/network/network/delete.php:44
+#: modules/network/network/subnetdelete.php:48
+#: modules/network/network/subnetdeletehost.php:73
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: modules/network/network/deletehost.php:30
+#: modules/network/network/deleterecord.php:49
+msgid "The record has been deleted."
+msgstr ""
+
+#: modules/network/network/deletehost.php:37
+#: modules/network/network/deleterecord.php:58
+msgid "Delete a DNS record"
+msgstr ""
+
+#: modules/network/network/deletehost.php:38
+#, php-format
+msgid "You will delete the %s record"
+msgstr ""
+
+#: modules/network/network/deletehost.php:43
+msgid "The linked CNAME records will also be deleted:"
+msgstr ""
+
+#: modules/network/network/deleterecord.php:41
+#: modules/network/network/editrecord.php:49
+msgid "Zone data was updated. Selected record may be incorrect."
+msgstr ""
+
+#: modules/network/network/deleterecord.php:59
+#, php-format
+msgid "You will delete the %s record for %s host"
+msgstr ""
+
+#: modules/network/network/edit.php:33 modules/network/infoPackage.inc.php:128
+msgid "Add a DNS zone"
+msgstr "Opprett DNS sone"
+
 #: modules/network/network/edit.php:35
 msgid "Edit DNS zone"
 msgstr "Rediger DNS sone"
@@ -1742,6 +1643,22 @@ msgstr "Opprett DNS sone"
 msgid "Add DHCP subnet"
 msgstr "Opprett DHCP subnett"
 
+#: modules/network/network/localSidebar.php:36
+#: modules/network/infoPackage.inc.php:190
+msgid "DHCP failover"
+msgstr ""
+
+#: modules/network/network/localSidebar.php:40
+#: modules/network/network/services.php:28
+#: modules/network/infoPackage.inc.php:194
+#: modules/network/infoPackage.inc.php:198
+#: modules/network/infoPackage.inc.php:202
+#: modules/network/infoPackage.inc.php:206
+#: modules/network/infoPackage.inc.php:210
+#: modules/network/infoPackage.inc.php:214
+msgid "Network services management"
+msgstr "Netverkstjenester"
+
 #: modules/network/network/servicedhcpfailover.php:29
 msgid "DHCP Failover configuration"
 msgstr ""
@@ -1915,6 +1832,16 @@ msgstr "Du sletter verten %s fra DHCP subnettet."
 #, php-format
 msgid "Also unregister this host from DNS zone %s"
 msgstr "Også fjern registrerting av vert fra DNS sonen %s"
+
+#: modules/network/network/subnetedit.php:29
+#: modules/network/infoPackage.inc.php:154
+msgid "Add a DHCP subnet"
+msgstr "Opprett et DHCP subnett"
+
+#: modules/network/network/subnetedit.php:30
+#: modules/network/infoPackage.inc.php:160
+msgid "Edit DHCP subnet"
+msgstr "Rediger DHCP subnett"
 
 #: modules/network/network/subnetedit.php:85
 #, php-format
@@ -2284,5 +2211,78 @@ msgstr ""
 #: modules/network/network/zonerecords.php:63
 msgid "Add a record"
 msgstr ""
+
+#: modules/network/infoPackage.inc.php:33
+msgid "Network management"
+msgstr "Nettverksadministrasjon"
+
+#: modules/network/infoPackage.inc.php:42
+msgid "Network"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:108
+msgid "Delete a DNS zone"
+msgstr "Slett en DNS sone"
+
+#: modules/network/infoPackage.inc.php:112
+msgid "Delete a host"
+msgstr "Slett en vert"
+
+#: modules/network/infoPackage.inc.php:116
+msgid "Delete a record"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:120
+#: modules/network/infoPackage.inc.php:124
+msgid "Edit a DNS record"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:134
+msgid "Edit a DNS zone"
+msgstr "Rediger en DNS sone"
+
+#: modules/network/infoPackage.inc.php:138
+msgid "Add a host to a zone"
+msgstr "Legg en vert til en sone"
+
+#: modules/network/infoPackage.inc.php:142
+msgid "Add a record to a zone"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:146
+msgid "Members of a zone"
+msgstr "Medlemmer av en sone"
+
+#: modules/network/infoPackage.inc.php:150
+msgid "Records of a zone"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:170
+msgid "Delete a subnet"
+msgstr "Slett et subnett"
+
+#: modules/network/infoPackage.inc.php:174
+msgid "Add a host to a DHCP subnet"
+msgstr "Lett en vert til et DHCP subnett "
+
+#: modules/network/infoPackage.inc.php:178
+msgid "Edit a host from a DHCP subnet"
+msgstr "Rediger en vert i et DHCP subnett"
+
+#: modules/network/infoPackage.inc.php:182
+msgid "Delete a host from a subnet"
+msgstr "Slett en vert fra et subnett"
+
+#: modules/network/infoPackage.inc.php:186
+msgid "Members of a DHCP subnet"
+msgstr "Medlemmer av et DHCP subnett"
+
+#: modules/network/infoPackage.inc.php:229
+msgid "DHCP service log"
+msgstr "DHCP tjeneste logg"
+
+#: modules/network/infoPackage.inc.php:247
+msgid "DNS service log"
+msgstr "DNS tjeneste logg"
 
 
