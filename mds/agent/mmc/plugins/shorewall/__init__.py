@@ -80,7 +80,7 @@ class ShorewallRules(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'rules',
-            r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:.]+)\s+(?P<dst>[\w\d:.]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:\w\d]*)$')
+            r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:.,]+)\s+(?P<dst>[\w\d:.]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:\w\d]*)$')
         self.read()
 
     def add(self, action, src, dst, proto = "", dst_port = ""):
