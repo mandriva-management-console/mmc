@@ -223,7 +223,7 @@ def isSmbAntiVirus():
     return os.path.exists(SambaConfig("samba").av_so)
 
 def isAuthorizedSharePath(path):
-    return smbConf(SambaConfig("samba")).isAuthorizedSharePath(path)
+    return smbConf(SambaConfig("samba").samba_conf_file).isAuthorizedSharePath(path)
 
 def getDefaultSharesPath():
     """
