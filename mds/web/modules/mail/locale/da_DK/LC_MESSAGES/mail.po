@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-28 01:06+0200\n"
-"PO-Revision-Date: 2013-04-28 23:04+0000\n"
+"POT-Creation-Date: 2013-04-29 09:44+0200\n"
+"PO-Revision-Date: 2013-04-29 07:48+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,8 +51,8 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
-#: modules/mail/infoPackage.inc.php:119
+#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:119
+#: modules/mail/mainSidebar.php:46
 msgid "Add a virtual alias"
 msgstr ""
 
@@ -445,18 +445,6 @@ msgstr ""
 msgid "Mail attributes deleted."
 msgstr ""
 
-#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:62
-msgid "Mail domains"
-msgstr ""
-
-#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:65
-msgid "Add a domain"
-msgstr ""
-
-#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:116
-msgid "Virtual aliases"
-msgstr ""
-
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
 msgstr ""
@@ -473,6 +461,14 @@ msgstr ""
 msgid "Mail group alias access"
 msgstr ""
 
+#: modules/mail/infoPackage.inc.php:62 modules/mail/mainSidebar.php:30
+msgid "Mail domains"
+msgstr ""
+
+#: modules/mail/infoPackage.inc.php:65 modules/mail/mainSidebar.php:35
+msgid "Add a domain"
+msgstr ""
+
 #: modules/mail/infoPackage.inc.php:68
 msgid "Edit a domain"
 msgstr ""
@@ -483,6 +479,10 @@ msgstr ""
 
 #: modules/mail/infoPackage.inc.php:76
 msgid "Delete a mail domain"
+msgstr ""
+
+#: modules/mail/infoPackage.inc.php:116 modules/mail/mainSidebar.php:41
+msgid "Virtual aliases"
 msgstr ""
 
 #: modules/mail/infoPackage.inc.php:122
