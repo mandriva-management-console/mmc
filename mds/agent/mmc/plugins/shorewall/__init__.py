@@ -163,7 +163,7 @@ class ShorewallInterfaces(ShorewallConf):
 
     def __init__(self):
         ShorewallConf.__init__(self, 'interfaces',
-            r'^(?P<zone>[\w]+)\s+(?P<if>[\w]+)$')
+            r'^(?P<zone>[\w]+)\s+(?P<if>[\w]+)\s+(?P<options>[\w,=]+)$')
         self.read()
 
     def get(self, type = ""):
