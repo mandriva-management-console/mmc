@@ -28,10 +28,10 @@ import ldap
 from ConfigParser import NoSectionError, NoOptionError
 
 from mmc.core.version import scmRevision
-from mmc.core.audit import AuditFactory as AF
 from mmc.support.config import PluginConfig, ConfigException
-from mmc.plugins.squid.audit import AT, AA, PLUGIN_NAME
 from mmc.plugins.base import createGroup, changeGroupDescription
+#from mmc.core.audit import AuditFactory as AF
+#from mmc.plugins.squid.audit import AT, AA, PLUGIN_NAME
 
 logger = logging.getLogger()
 
