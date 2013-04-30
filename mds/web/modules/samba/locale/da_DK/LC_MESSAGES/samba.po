@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-29 09:44+0200\n"
-"PO-Revision-Date: 2013-04-29 07:48+0000\n"
+"POT-Creation-Date: 2013-04-29 15:54+0200\n"
+"PO-Revision-Date: 2013-04-30 23:10+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -352,109 +352,6 @@ msgid ""
 "longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:31
-msgid "SAMBA management"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:40 modules/samba/shares/index.php:55
-#: modules/samba/shares/index.php:59
-msgid "Shares"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:45 modules/samba/mainSidebar.php:29
-msgid "List shares"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:48 modules/samba/mainSidebar.php:30
-#: modules/samba/shares/details.php:106
-#: modules/samba/shares/localSidebar.php:31
-msgid "Add a share"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:51
-msgid "Backup a share"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:55
-msgid "Remove a share"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:59
-msgid "Share details"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:73
-msgid "Machines"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:76
-msgid "Computer list"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:86
-msgid "Edit a computer"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:90 modules/samba/machines/delete.php:40
-msgid "Delete a computer"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:103
-msgid "Configuration"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:108
-msgid "SAMBA configuration"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:111
-msgid "restart SAMBA service"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:115
-msgid "Reload SAMBA service"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:124
-msgid "Add/delete SAMBA's attributes"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:125
-msgid "Enable/Disable account"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:126
-msgid "Lock/Unlock account"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:127
-msgid "Network profile"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:128
-msgid "Can change password"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:129
-msgid "Must change password"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:131
-msgid "Logon script"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:132
-msgid "Home path"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:133
-msgid "Home drive"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:143
-msgid "SAMBA status"
-msgstr ""
-
 #: modules/samba/machines/add.php:36
 #, php-format
 msgid "Computer %s successfully added"
@@ -509,6 +406,10 @@ msgstr ""
 msgid "Computer <strong>%s</strong> deleted."
 msgstr ""
 
+#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:90
+msgid "Delete a computer"
+msgstr ""
+
 #: modules/samba/machines/delete.php:41
 #, php-format
 msgid "You will delete the %s computer"
@@ -541,10 +442,6 @@ msgstr ""
 #: modules/samba/machines/localSidebar.php:28
 #: modules/samba/shares/localSidebar.php:34
 msgid "Computers management"
-msgstr ""
-
-#: modules/samba/mainSidebar.php:33
-msgid "List computers"
 msgstr ""
 
 #: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:49
@@ -627,6 +524,12 @@ msgstr ""
 msgid "Share %s successfully modified"
 msgstr ""
 
+#: modules/samba/shares/details.php:106
+#: modules/samba/shares/localSidebar.php:31 modules/samba/mainSidebar.php:30
+#: modules/samba/infoPackage.inc.php:48
+msgid "Add a share"
+msgstr ""
+
 #: modules/samba/shares/details.php:137
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
@@ -668,6 +571,11 @@ msgstr ""
 
 #: modules/samba/shares/details.php:325
 msgid "Create"
+msgstr ""
+
+#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
+#: modules/samba/infoPackage.inc.php:40
+msgid "Shares"
 msgstr ""
 
 #: modules/samba/shares/index.php:65
@@ -737,6 +645,98 @@ msgstr ""
 
 #: modules/samba/views/users.tpl.php:129
 msgid "Add a new user"
+msgstr ""
+
+#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
+msgid "List shares"
+msgstr ""
+
+#: modules/samba/mainSidebar.php:33
+msgid "List computers"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:31
+msgid "SAMBA management"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:51
+msgid "Backup a share"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:55
+msgid "Remove a share"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:59
+msgid "Share details"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:73
+msgid "Machines"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:76
+msgid "Computer list"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:86
+msgid "Edit a computer"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:103
+msgid "Configuration"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:108
+msgid "SAMBA configuration"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:111
+msgid "restart SAMBA service"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:115
+msgid "Reload SAMBA service"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:124
+msgid "Add/delete SAMBA's attributes"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:125
+msgid "Enable/Disable account"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:126
+msgid "Lock/Unlock account"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:127
+msgid "Network profile"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:128
+msgid "Can change password"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:129
+msgid "Must change password"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:131
+msgid "Logon script"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:132
+msgid "Home path"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:133
+msgid "Home drive"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:143
+msgid "SAMBA status"
 msgstr ""
 
 
