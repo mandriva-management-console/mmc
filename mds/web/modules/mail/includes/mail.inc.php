@@ -38,7 +38,7 @@ class QuotaTpl extends InputTpl {
         $this->InputTpl($name, $regexp);
     }
 
-    function Display($arrParam) {
+    function Display($arrParam = array()) {
         if ($arrParam["value"] === "0") {
             $checked = "CHECKED";
             $old_value = "on";
