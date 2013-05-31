@@ -42,13 +42,11 @@ For Debian Squeeze, add this in your sources.list:
 
     deb http://mds.mandriva.org/pub/mds/debian squeeze main
 
-For Debian Wheezy an experimental repository is available:
+For Debian Wheezy:
 
 ::
 
-    deb http://mds.mandriva.org/pub/mds/debian-unreleased wheezy main
-
-You still need the squeeze repository for patched bind packages.
+    deb http://mds.mandriva.org/pub/mds/debian wheezy main
 
 To install MMC base packages, just type:
 
@@ -169,7 +167,7 @@ MMC currently supports OpenLDAP.
 
 One LDAP schema called MMC schema is mandatory.
 This schema and others are available in the
-:file:`/usr/share/doc/python-mmc-base/contrib/ldap/` directory provided by
+:file:`/usr/share/doc/mmc/contrib/base/` directory provided by
 the python-mmc-base package.
 
 Mandriva
@@ -214,7 +212,7 @@ First, copy the MMC LDAP schema you need to the LDAP schemas directory.
 
 ::
 
-    # cp /usr/share/doc/python-mmc-base/contrib/ldap/mmc.schema /etc/openldap/schema/
+    # cp /usr/share/doc/mmc/contrib/base/mmc.schema /etc/openldap/schema/
 
 Then, add these line to the file :file:`/etc/openldap/schema/local.schema`:
 
@@ -275,21 +273,6 @@ will be "dc=mandriva,dc=com".
 After that you only need to include the mmc.schema in slapd
 configuration and you are done.
 
-.. note:: **Debian lenny**
-
-   Get the file :file:`mmc.schema` from
-   :file:`/usr/share/doc/python-mmc-base/contrib/ldap`,
-   and copy it to :file:`/etc/ldap/schema/`.
-   Include this schema in the OpenLDAP configuration,
-   in :file:`/etc/ldap/slapd.conf`:
-
-   ::
-
-       include /etc/openldap/schema/mmc.schema
-
-   This schema must be included after the :file:`inetorgperson.schema`
-   file.
-
 .. note:: **Debian Squeeze and later**
 
    Debian's OpenLDAP uses its own database for storing
@@ -299,8 +282,8 @@ configuration and you are done.
 
    ::
 
-       # apt-get install ldap-utils
-       # mmc-add-schema /usr/share/doc/python-mmc-base/contrib/ldap/mmc.schema /etc/ldap/schema/
+       # mmc-add-schema /usr/share/doc/mmc/contrib/base/mmc.schema /etc/ldap/schema/
+       Adding schema for inclusion: mmc... ok
 
    You can also write a regular slapd.conf file like before, and issue
    the followind commands to convert the file in the new format:
@@ -327,7 +310,7 @@ Other distributions
    is to include the mmc.schema file.
 
 Get the file :file:`mmc.schema` from the
-:file:`/usr/share/doc/python-mmc-base/contrib/ldap`
+:file:`/usr/share/doc/mmc/contrib/base`
 directory, and copy it to :file:`/etc/openldap/schema/`
 (or maybe :file:`/etc/ldap/schema/`).
 
@@ -434,6 +417,9 @@ Your :file:`/etc/nsswitch.conf` should look like this:
     aliases:    files
 
 Your :file:`/etc/ldap.conf`:
+
+.. note:: On Debian wheezy the configuration is located in
+`/etc/libnss-ldap.conf`
 
 ::
 

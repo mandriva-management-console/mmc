@@ -8,6 +8,7 @@ Installation
 ============
 
 Install the packages ``python-mmc-dashboard`` and ``mmc-web-dashboard``.
+Restart the ``mmc-agent`` service.
 
 MMC « dashboard » plugin
 ========================
