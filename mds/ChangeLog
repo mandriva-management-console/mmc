@@ -1,3 +1,12 @@
+mds 2.5.0
+---------
+
+ * New shorewall plugin
+ * New squid plugin
+ * Feature #1900: Support the zarafaHidden attribute
+ * Bug #1820: Apply correctly samba userdefault settings
+ * Bug #1904: Fix wrong password expiration message on the user page
+
 mds 2.4.3
 ---------
  * Bug #1686: Allow spaces in dhcp option domain-name-server
