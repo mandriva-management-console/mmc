@@ -219,6 +219,11 @@ def get_services():
     services = [ os.path.basename(m)[6:] for m in glob.glob(os.path.join(conf.macros_path, 'macro.*')) ] + \
                [ os.path.basename(m)[6:] for m in glob.glob(os.path.join(conf.path, '/macro.*')) ]
     services.sort()
+    # Remove not allowed macros from the list
+    if len(conf.macros_list) > 0:
+        for service in services[:]:
+            if not service in conf.macros_list:
+                services.remove(service)
     return services
 
 def get_policies(src = "", dst = "", filter = ""):

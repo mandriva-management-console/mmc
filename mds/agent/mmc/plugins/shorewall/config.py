@@ -22,6 +22,7 @@
 MMC services plugin configuration
 """
 
+from ConfigParser import NoOptionError
 from mmc.support.config import PluginConfig
 
 class ShorewallPluginConfig(PluginConfig):
@@ -30,5 +31,15 @@ class ShorewallPluginConfig(PluginConfig):
         PluginConfig.readConf(self)
         self.external_zones_names = self.get('main', 'external_zones_names')
         self.internal_zones_names = self.get('main', 'internal_zones_names')
-        self.path = self.get('main', 'path')
-        self.macros_path = self.get('main', 'macros_path')
+        try:
+            self.path = self.get('main', 'path')
+        except NoOptionError:
+            self.path = '/etc/shorewall'
+        try:
+            self.macros_path = self.get('main', 'macros_path')
+        except NoOptionError:
+            self.macros_path = '/usr/share/shorewall'
+        try:
+            self.macros_list = self.get('main', 'macros_list').replace(' ', '').split(',')
+        except NoOptionError:
+            self.macros_list = []
