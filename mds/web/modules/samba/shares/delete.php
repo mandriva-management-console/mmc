@@ -37,7 +37,7 @@ if (isset($_POST["bdelshare"])) {
         $str = sprintf(_T("An error has occured during delete process on %s", $share));
         new NotifyWidgetFailure($str);
     }
-    header("location: " . urlStrRedirect('samba/shares/index'));
+    redirectTo(urlStrRedirect('samba/shares/index'));
 } else {
     $share = urldecode($_GET["share"]);
     $f = new PopupForm(_T("Delete a share"));
