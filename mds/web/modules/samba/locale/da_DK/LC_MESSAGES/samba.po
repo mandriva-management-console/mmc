@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-05-24 11:47+0200\n"
-"PO-Revision-Date: 2013-05-26 23:07+0000\n"
+"POT-Creation-Date: 2013-05-31 17:55+0200\n"
+"PO-Revision-Date: 2013-06-02 23:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -483,29 +483,6 @@ msgid ""
 "with your media size will be created."
 msgstr ""
 
-#: modules/samba/shares/delete.php:34
-#, php-format
-msgid "Share %s deleted"
-msgstr ""
-
-#: modules/samba/shares/delete.php:37
-#, php-format
-msgid "An error has occured during delete process on %s"
-msgstr ""
-
-#: modules/samba/shares/delete.php:43
-msgid "Delete a share"
-msgstr ""
-
-#: modules/samba/shares/delete.php:44
-#, php-format
-msgid "You will delete the share <b>%s</b>"
-msgstr ""
-
-#: modules/samba/shares/delete.php:45
-msgid "Delete all data"
-msgstr ""
-
 #: modules/samba/shares/details.php:46
 msgid "Invalid share name"
 msgstr ""
@@ -584,6 +561,29 @@ msgstr ""
 
 #: modules/samba/shares/localSidebar.php:28
 msgid "Shares management"
+msgstr ""
+
+#: modules/samba/shares/delete.php:34
+#, php-format
+msgid "Share %s deleted"
+msgstr ""
+
+#: modules/samba/shares/delete.php:37
+#, php-format
+msgid "An error has occured during delete process on %s"
+msgstr ""
+
+#: modules/samba/shares/delete.php:43
+msgid "Delete a share"
+msgstr ""
+
+#: modules/samba/shares/delete.php:44
+#, php-format
+msgid "You will delete the share <b>%s</b>"
+msgstr ""
+
+#: modules/samba/shares/delete.php:45
+msgid "Delete all data"
 msgstr ""
 
 #: modules/samba/status/index.php:30
