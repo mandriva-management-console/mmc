@@ -42,8 +42,12 @@ if (isset($_POST['badd'])) {
     enableIpFoward();
     $n = new NotifyWidgetSuccess(_T("NAT rule added."));
     handleServicesModule($n, array("shorewall" => _T("Firewall")));
-    header("Location: " . urlStrRedirect("shorewall/shorewall/masquerade"));
-    exit;
+    redirectTo(urlStrRedirect("shorewall/shorewall/masquerade"));
+}
+
+if (isset($_POST['brestart'])) {
+    redirectTo(urlStrRedirect("shorewall/shorewall/restart_service",
+                              array("page" => "masquerade")));
 }
 
 // Add NAT rule form
@@ -84,4 +88,10 @@ $f->pop();
 $f->addButton("badd", _T("Add NAT rule"));
 $f->display();
 
+if (!servicesModuleEnabled()) {
+    echo '<br/>';
+    $f = new ValidatingForm(array("id" => "service"));
+    $f->addButton("brestart", _T("Restart service"));
+    $f->display();
+}
 ?>

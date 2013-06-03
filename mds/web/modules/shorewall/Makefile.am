@@ -46,6 +46,7 @@ datafiles = \
 	shorewall/masquerade.php \
 	shorewall/ajax_masquerade.php \
 	shorewall/delete_masquerade_rule.php \
+	shorewall/restart_service.php \
 	graph/navbar/shorewall.png \
 	graph/navbar/shorewall_select.png \
 	graph/navbar/shorewall_hl.png

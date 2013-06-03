@@ -40,8 +40,7 @@ if (isset($_POST['bpolicy'])) {
                 else {
                     new NotifyWidgetFailure(_T("Failed to change the policy."));
                 }
-                header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
-                exit;
+                redirectTo(urlStrRedirect("shorewall/shorewall/" . $page));
             }
         }
     }
@@ -54,8 +53,7 @@ if (isset($_POST['brule'])) {
             if ($service == "custom") {
                 if (!$_POST['proto'] || !$_POST['port']) {
                     new NotifyWidgetFailure(_T("Protocol and port must be specified."));
-                    header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
-                    exit;
+                    redirectTo(urlStrRedirect("shorewall/shorewall/" . $page));
                 }
                 else {
                     $action = $_POST['decision'];
@@ -77,8 +75,7 @@ if (isset($_POST['brule'])) {
             if (!isXMLRPCError()) {
                 $n = new NotifyWidgetSuccess(_T("Rule added."));
                 handleServicesModule($n, array("shorewall" => _T("Firewall")));
-                header("Location: " . urlStrRedirect("shorewall/shorewall/" . $page));
-                exit;
+                redirectTo(urlStrRedirect("shorewall/shorewall/" . $page));
             }
             else {
                 new NotifyWidgetFailure(_T("Failed to add the rule."));
@@ -88,6 +85,11 @@ if (isset($_POST['brule'])) {
     else {
         new NotifyWidgetFailure(_T("Service must be specified."));
     }
+}
+
+if (isset($_POST['brestart'])) {
+    redirectTo(urlStrRedirect("shorewall/shorewall/restart_service",
+                              array("page" => $page)));
 }
 
 // Display policy form
@@ -195,4 +197,10 @@ $f->pop();
 $f->addButton("brule", _T("Add rule"));
 $f->display();
 
+if (!servicesModuleEnabled()) {
+    echo '<br/>';
+    $f = new ValidatingForm(array("id" => "service"));
+    $f->addButton("brestart", _T("Restart service"));
+    $f->display();
+}
 ?>

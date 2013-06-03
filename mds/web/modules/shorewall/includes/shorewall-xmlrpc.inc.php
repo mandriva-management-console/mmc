@@ -74,5 +74,7 @@ function enableIpFoward() {
 function disableIpFoward() {
     return xmlCall("shorewall.disable_ip_forward", array());
 }
-
+function restartShorewallService() {
+    return xmlCall("shorewall.restart_service", array());
+}
 ?>

@@ -101,6 +101,11 @@ if (isset($_POST['brule'])) {
     }
 }
 
+if (isset($_POST['brestart'])) {
+    redirectTo(urlStrRedirect("shorewall/shorewall/restart_service",
+                              array("page" => $page)));
+}
+
 // Display policy form
 
 $p = new PageGenerator(_T("Policy", "shorewall"));
@@ -240,4 +245,10 @@ $f->pop();
 $f->addButton("brule", _T("Add rule"));
 $f->display();
 
+if (!servicesModuleEnabled()) {
+    echo '<br/>';
+    $f = new ValidatingForm(array("id" => "service"));
+    $f->addButton("brestart", _T("Restart service"));
+    $f->display();
+}
 ?>

@@ -109,6 +109,10 @@ $page = new Page("delete_masquerade_rule");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
+$page = new Page("restart_service", _T("Restart service", "shorewall"));
+$page->setOptions(array("visible" => False, "AJAX" => False));
+$submod->addPage($page);
+
 $mod->addSubmod($submod);
 
 $MMCApp =& MMCApp::getInstance();

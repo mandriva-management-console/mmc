@@ -26,6 +26,7 @@ import glob
 import logging
 
 from mmc.core.version import scmRevision
+from mmc.support.mmctools import ServiceManager
 from mmc.plugins.shorewall.io import ShorewallConf
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
@@ -191,6 +192,13 @@ class ShorewallConfig(ShorewallConf):
             self.replace_line(['IP_FORWARDING', old_value], ['IP_FORWARDING', 'No'])
 
 
+class ShorewallService(ServiceManager):
+
+    def __init__(self):
+        self.config = ShorewallPluginConfig("shorewall")
+        ServiceManager.__init__(self, self.config.service["pid"], self.config.service["init"])
+
+
 class ShorewallMacroDoesNotExists(Exception):
     pass
 
@@ -246,3 +254,6 @@ def enable_ip_forward():
 
 def disable_ip_forward():
     return ShorewallConfig().disable_ip_forward()
+
+def restart_service():
+    return ShorewallService().command('restart')

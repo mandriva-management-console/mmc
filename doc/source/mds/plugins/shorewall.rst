@@ -77,4 +77,4 @@ In ``/etc/shorewall/policy`` define the default policy between your zones:
     wan0    fw      DROP    # wan0 -> server
     all     all     DROP    # catch-all rule
 
-Finally, be sure that the file ``/etc/shorewall/rules`` exists.
+Finally, be sure that the file ``/etc/shorewall/rules`` exists
