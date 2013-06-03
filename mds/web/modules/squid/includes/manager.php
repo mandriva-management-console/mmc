@@ -89,10 +89,13 @@ $f->add(new TrFormElement($elt_label, new InputTpl("eltdata"), array("tooltip" =
 //Add Botton in Form and show
 $f->pop();
 $f->addButton("btAdd", _T("Add"));
-if (!servicesModuleEnabled()) {
-    $f->addButton("btApply", _T("Apply configuration"));
-}
 $f->display();
 
+if (!servicesModuleEnabled()) {
+    echo '<br/>';
+    $f = new ValidatingForm(array("id" => "service"));
+    $f->addButton("btApply", _T("Apply configuration"));
+    $f->display();
+}
 
 ?>
