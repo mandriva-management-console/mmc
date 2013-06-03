@@ -10,7 +10,7 @@ related configuration.
 Installation
 ============
 
-Install the packages ``python-mmc-samba`` and ``mmc-web-samba``.
+Install the packages ``python-mmc-samba, mmc-web-samba`` and ``samba``.
 
 SAMBA configuration for MMC
 ===========================
@@ -22,10 +22,7 @@ SAMBA running as a PDC.
 .. note:: Configuration files
 
    A :file:`slapd.conf` for OpenLDAP and a :file:`smb.conf` for SAMBA can
-   be found on our repository :
-
-   - https://raw.github.com/mandriva-management-console/mmc/master/core/agent/contrib/ldap/slapd.conf.samba
-   - https://raw.github.com/mandriva-management-console/mmc/master/mds/agent/contrib/samba/smb.conf
+   be found in `/usr/share/doc/mmc/contrib/samba`.
 
    Please use these files as templates for your own configuration.
 
@@ -37,8 +34,8 @@ LDAP directory configuration
 ----------------------------
 
 You need to import the SAMBA schema into the LDAP directory.
-The schema file is provided by the ``python-mmc-base`` package in
-:file:`/usr/share/doc/python-mmc-base/contrib/ldap/samba.schema`. But you can
+The schema file is provided by the ``python-mmc-samba`` package in
+:file:`/usr/share/doc/mmc/contrib/samba/samba.schema`. But you can
 also use the schema provided by the SAMBA project.
 
 SAMBA configuration
@@ -52,7 +49,8 @@ Stop samba before modifying its configuration:
     Or according to your distribution:
     # /etc/init.d/smb stop
 
-In :file:`/etc/samba/smb.conf`, you need to modify the « workgroup », « ldap admin dn » and « ldap suffix » to suit your configuration.
+In :file:`/etc/samba/smb.conf`, you need to modify the « workgroup »,
+« ldap admin dn » and « ldap suffix » to suit your configuration.
 
 SAMBA also needs the credentials of the LDAP manager to write into the LDAP:
 
@@ -86,11 +84,17 @@ Populating the LDAP directory for SAMBA
 ---------------------------------------
 
 The LDAP directory needs to be populated so that SAMBA can use it. We use the
-:command:`smbldap-populate` command from smbldap-tools.
+:command:`smbldap-populate` command from the `smbldap-tools` package. This
+command populates the LDAP with the OUs (Organizational Unit), users and groups
+needed by SAMBA.
 
-This command populates the LDAP with the OUs (Organizational Unit), users and
-groups needed by SAMBA. A RPM package of smbldap-tools is available
-`here <http://download.gna.org/smbldap-tools/packages/smbldap-tools-0.9.3-1.noarch.rpm>`_.
+.. note:: On Debian do first:
+
+    `cp /usr/share/doc/smbldap-tools/examples/smbldap_bind.conf
+    /etc/smbldap-tools/`
+    `cp /usr/share/doc/smbldap-tools/examples/smbldap.conf.gz
+    /etc/smbldap-tools/`
+    `gunzip /etc/smbldap-tools/smbldap.conf.gz`
 
 Now the smbldap-tools conf file need to be edited. Put this in
 :file:`/etc/smbldap-tools/smbldap_bind.conf`:

@@ -37,7 +37,7 @@ We provide Debian Lenny packages for the LDAP patched version of BIND.
 This packages work on Squeeze too.
 
 Configure your APT repository as in the :ref:`debian-packages` section.
-And add in /etc/apt/preferences :
+And add in /etc/apt/preferences.d/pining :
 
 ::
 
@@ -70,7 +70,7 @@ Adding this line at the end of BIND :file:`named.conf` should be sufficient:
     include "/etc/bind/named.conf.ldap";
 
 An example of :file:`named.conf` filename for Debian based system is available
-in the directory :file:`agent/contrib/bind/` of the mds tarball.
+at :file:`/usr/share/doc/mmc/contrib/network/named.conf`.
 
 .. note:: BIND and OpenLDAP services startup order
 
@@ -87,7 +87,7 @@ DHCP service configuration (ISC DHCP)
 =====================================
 
 The DHCP server needs to know how to load its configuration from LDAP.
-Here is a typical :file:`/etc/dhcp3/dhcpd.conf` (:file:`/etc/dhcp/dhcpd.conf` in Debian Squeeze):
+Here is a typical :file:`/etc/dhcp/dhcpd.conf`:
 
 ::
 
@@ -105,15 +105,14 @@ The dhcpd service will try to find an LDAP entry for the machine hostname. If th
 
     ldap-dhcp-server-cn "DHCP_SERVER_NAME";
 
-An example of :file:`dhcpd.conf` filename is available in the directory :file:`contrib/dhcpd/` of the mds tarball.
+An example of :file:`dhcpd.conf` filename is available in the directory :file:`/usr/share/doc/mmc/contrib/network/`.
 
 LDAP Schemas
 ============
 
 Two new LDAP schemas must be imported into your LDAP directory: dnszone.schema and dhcp.schema.
 
-Both are available in the directory :file:`/usr/share/doc/python-mmc-base/contrib/ldap`. Using the sources you
-can find them in :file:`agent/contrib/ldap` of the mmc-core tarball.
+Both are available in the directory :file:`/usr/share/doc/mmc/contrib/network/`.
 
 To speed up LDAP search, you can index these attributes: zoneName, relativeDomainName, dhcpHWAddress, dhcpClassData.
 
@@ -139,7 +138,6 @@ MMC « network » plugin initialization
 For the DHCP service only, the MMC network plugin needs to create into the LDAP directory two objects:
 
 - the container called "DHCP config" (objectClass dhcpService), where all the DHCP service configuration will be stored
-
 - the primary server (objectClass dhcpServer) that links to the DHCP service configuration.
   The hostname of the machine running the MMC network plugin will be use to name this entry.
 
