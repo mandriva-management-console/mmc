@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-05-31 17:55+0200\n"
-"PO-Revision-Date: 2013-06-02 23:09+0000\n"
+"POT-Creation-Date: 2013-06-04 19:05+0200\n"
+"PO-Revision-Date: 2013-06-04 17:06+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -374,11 +374,11 @@ msgid "Computer name"
 msgstr ""
 
 #: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:160
+#: modules/samba/shares/details.php:166
 msgid "Comment"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:61
+#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:64
 msgid "Description"
 msgstr ""
 
@@ -386,11 +386,11 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:47
+#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:50
 msgid "Edit"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:48
+#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:51
 #: modules/samba/views/groups.tpl.php:125
 #: modules/samba/views/users.tpl.php:125
 msgid "Delete"
@@ -423,7 +423,7 @@ msgstr ""
 msgid "Computer successfully modified."
 msgstr ""
 
-#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:155
+#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:161
 msgid "Name"
 msgstr ""
 
@@ -431,7 +431,7 @@ msgstr ""
 msgid "Disable computer account"
 msgstr ""
 
-#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:328
+#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:334
 msgid "Confirm"
 msgstr ""
 
@@ -483,84 +483,14 @@ msgid ""
 "with your media size will be created."
 msgstr ""
 
-#: modules/samba/shares/details.php:46
-msgid "Invalid share name"
-msgstr ""
-
-#: modules/samba/shares/details.php:51
-msgid "The share path is not authorized by configuration"
-msgstr ""
-
-#: modules/samba/shares/details.php:59
-#, php-format
-msgid "Share %s successfully added"
-msgstr ""
-
-#: modules/samba/shares/details.php:95
-#, php-format
-msgid "Share %s successfully modified"
-msgstr ""
-
-#: modules/samba/shares/details.php:106
-#: modules/samba/shares/localSidebar.php:31 modules/samba/mainSidebar.php:30
-#: modules/samba/infoPackage.inc.php:48
-msgid "Add a share"
-msgstr ""
-
-#: modules/samba/shares/details.php:137
-msgid ""
-"The share name can only contains letters (lowercase and uppercase) and "
-"numbers, and must begin with a letter."
-msgstr ""
-
-#: modules/samba/shares/details.php:171
-msgid "AntiVirus on this share"
-msgstr ""
-
-#: modules/samba/shares/details.php:183
-#, php-format
-msgid "Share path (leave empty for a default path in %s)"
-msgstr ""
-
-#: modules/samba/shares/details.php:200
-msgid "This share is visible on the domain"
-msgstr ""
-
-#: modules/samba/shares/details.php:213
-msgid "Permissions"
-msgstr ""
-
-#: modules/samba/shares/details.php:225
-msgid "Access for all"
-msgstr ""
-
-#: modules/samba/shares/details.php:262
-msgid "Users for this share"
-msgstr ""
-
-#: modules/samba/shares/details.php:284
-msgid "Administrator groups for this share"
-msgstr ""
-
-#: modules/samba/shares/details.php:315 modules/samba/shares/details.php:317
-msgid "Custom parameters"
-msgstr ""
-
-#: modules/samba/shares/details.php:325
-msgid "Create"
-msgstr ""
-
-#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
-#: modules/samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr ""
-
-#: modules/samba/shares/index.php:65
-msgid "Archive"
-msgstr ""
-
 #: modules/samba/shares/localSidebar.php:28
 msgid "Shares management"
+msgstr ""
+
+#: modules/samba/shares/localSidebar.php:31
+#: modules/samba/shares/details.php:112 modules/samba/mainSidebar.php:30
+#: modules/samba/infoPackage.inc.php:48
+msgid "Add a share"
 msgstr ""
 
 #: modules/samba/shares/delete.php:34
@@ -584,6 +514,76 @@ msgstr ""
 
 #: modules/samba/shares/delete.php:45
 msgid "Delete all data"
+msgstr ""
+
+#: modules/samba/shares/details.php:46
+msgid "Invalid share name"
+msgstr ""
+
+#: modules/samba/shares/details.php:51
+msgid "The share path is not authorized by configuration"
+msgstr ""
+
+#: modules/samba/shares/details.php:59
+#, php-format
+msgid "Share %s successfully added"
+msgstr ""
+
+#: modules/samba/shares/details.php:101
+#, php-format
+msgid "Share %s successfully modified"
+msgstr ""
+
+#: modules/samba/shares/details.php:143
+msgid ""
+"The share name can only contains letters (lowercase and uppercase) and "
+"numbers, and must begin with a letter."
+msgstr ""
+
+#: modules/samba/shares/details.php:177
+msgid "AntiVirus on this share"
+msgstr ""
+
+#: modules/samba/shares/details.php:189
+#, php-format
+msgid "Share path (leave empty for a default path in %s)"
+msgstr ""
+
+#: modules/samba/shares/details.php:206
+msgid "This share is visible on the domain"
+msgstr ""
+
+#: modules/samba/shares/details.php:219
+msgid "Permissions"
+msgstr ""
+
+#: modules/samba/shares/details.php:231
+msgid "Access for all"
+msgstr ""
+
+#: modules/samba/shares/details.php:268
+msgid "Users for this share"
+msgstr ""
+
+#: modules/samba/shares/details.php:290
+msgid "Administrator groups for this share"
+msgstr ""
+
+#: modules/samba/shares/details.php:321 modules/samba/shares/details.php:323
+msgid "Custom parameters"
+msgstr ""
+
+#: modules/samba/shares/details.php:331
+msgid "Create"
+msgstr ""
+
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
+msgid "Shares"
+msgstr ""
+
+#: modules/samba/shares/index.php:68
+msgid "Archive"
 msgstr ""
 
 #: modules/samba/status/index.php:30
