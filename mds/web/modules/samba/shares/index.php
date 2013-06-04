@@ -42,7 +42,10 @@ $delActions = array();
 
 foreach($shares as $share) {
     $sharesName[] = $share[0];
-    $sharesComment[] = $share[1];
+    if (isset($share[1]))
+        $sharesComment[] = $share[1];
+    else
+        $sharesComment[] = "";
     if (!in_array($share[0], $protectedShare)) {
         $editActions[] = new ActionItem(_T("Edit"),"details","edit","share");
         $delActions[] = new ActionPopupItem(_T("Delete"),"delete","delete","share");

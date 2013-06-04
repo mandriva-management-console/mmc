@@ -35,15 +35,15 @@ if (isset($_POST["bcreate"])) {
     $shareGroup = $_POST["groupgroupsselected"];
     $shareUser = $_POST["userusersselected"];
     $adminGroups = $_POST["admingroupsselected"];
-    $customParameters = $_POST["customparameters"];       
+    $customParameters = $_POST["customparameters"];
     $permAll = $_POST["permAll"];
     if ($_POST["hasAv"]) $av = 1;
     else $av = 0;
     if ($_POST["browseable"]) $browseable = 1;
     else $browseable = 0;
-    
+
     if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9]*$/", $shareName))) {
-	new NotifyWidgetFailure(_T("Invalid share name")); 
+	new NotifyWidgetFailure(_T("Invalid share name"));
     } else {
         $add = True;
         if (strlen($sharePath)) {
@@ -70,13 +70,19 @@ if (isset($_POST["bmodify"]))
     $shareName = $_POST["shareName"];
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
-    $shareGroup = $_POST["groupgroupsselected"];
+    if (isset($_POST["groupgroupsselected"]))
+        $shareGroup = $_POST["groupgroupsselected"];
+    else
+        $shareGroup = array();
     if (isset($_POST["userusersselected"]))
         $shareUser = $_POST["userusersselected"];
     else
         $shareUser = array();
-    $adminGroups = $_POST["admingroupsselected"];
-    $customParameters = $_POST["customparameters"];    
+    if (isset($_POST["admingroupsselected"]))
+        $adminGroups = $_POST["admingroupsselected"];
+    else
+        $adminGroups = array();
+    $customParameters = $_POST["customparameters"];
     if (isset($_POST["permAll"])) {
         $permAll = $_POST["permAll"];
     }
@@ -87,10 +93,10 @@ if (isset($_POST["bmodify"]))
     else $av = 0;
     if (isset($_POST["browseable"])) $browseable = 1;
     else $browseable = 0;
-    
+
     $params = array($share, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
     mod_share($params);
-    
+
     if (!isXMLRPCError()) {
         new NotifyWidgetSuccess(sprintf(_T("Share %s successfully modified"), $shareName));
     }
@@ -202,7 +208,7 @@ $d->add(
         );
 $d->pop();
 $d->display();
-        
+
 ?>
 
 <table cellspacing="0">
@@ -243,7 +249,7 @@ else {
     $acls = getACLOnShare($share);
     if ($shareGroup != 'root') {
         $acls[0][] = $shareGroup;
-    }    
+    }
 }
 setVar("tpl_groups", $acls[0]);
 global $__TPLref;
@@ -292,7 +298,7 @@ renderTPL("users");
             setVar("tpl_groups", array($domadmin["cn"][0]));
         else
             setVar("tpl_groups", array());
-    } 
+    }
     else {
         $domadmin = getAdminUsersOnShare($share);
         if ($domadmin)
@@ -325,7 +331,7 @@ renderTPL("users");
 <input name="bcreate" type="submit" class="btnPrimary" value="<?php echo  _T("Create"); ?>" />
 <?php } else { ?>
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bmodify" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm"); ?>" /> 
+<input name="bmodify" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm"); ?>" />
 <?php }
 
 ?>
