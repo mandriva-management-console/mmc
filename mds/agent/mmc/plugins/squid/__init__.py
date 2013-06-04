@@ -24,12 +24,11 @@ MDS squid plugin for the MMC agent.
 
 import os
 import logging
-import ldap
 from ConfigParser import NoSectionError, NoOptionError
 
 from mmc.core.version import scmRevision
 from mmc.support.config import PluginConfig, ConfigException
-from mmc.plugins.base import createGroup, changeGroupDescription
+from mmc.plugins.base import createGroup, changeGroupDescription, getGroupEntry
 #from mmc.core.audit import AuditFactory as AF
 #from mmc.plugins.squid.audit import AT, AA, PLUGIN_NAME
 
@@ -139,12 +138,10 @@ class ProxyConfig(PluginConfig):
 
         for group, desc in ((self.groupMaster, self.groupMasterDesc),
                         (self.groupFiltered, self.groupFilteredDesc)):
-            try:
+            if len(getGroupEntry(group)) == 0:
                 createGroup(group)
                 changeGroupDescription(group, desc)
                 logger.info("Group %s created." % group)
-            except ldap.ALREADY_EXISTS:
-                pass
 
 
 class ManageList(object):
