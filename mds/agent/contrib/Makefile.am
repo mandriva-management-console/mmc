@@ -1,4 +1,4 @@
-contribdir = $(datadir)/doc/mmc/contrib
+contribdir = $(docdir)/mmc/contrib
 
 nobase_dist_contrib_DATA = proxy/squidGuard.conf \
 							samba/smb.conf \
