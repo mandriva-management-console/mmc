@@ -22,7 +22,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
-<?
+<?php
 $sidebar = array("class" => "machines",
                  "content" => array(array("id" => "global",
                                     "text" => _T("Computers management"),

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class certRecord extends RecordBase{
     

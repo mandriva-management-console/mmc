@@ -110,7 +110,7 @@ function displayResultsTable() {
 function displayPreImportTable() {
 ?>
     <div>
-<?
+<?php
     if (file_exists($_FILES["csvfile"]["tmp_name"])) {
         $fh = fopen($_FILES["csvfile"]["tmp_name"], "r");
         $csvkeys = fgetcsv_compat($fh);
@@ -146,7 +146,7 @@ function displayPreImportTable() {
 <input name="importbutton" type="submit" class="btnPrimary" value="<?php echo  _T("Import", "bulkimport"); ?>" />
 <?php } else { ?>
 <input name="importbutton" type="submit" class="btnDisabled" value="<?php echo  _T("Import", "bulkimport"); ?>" disabled="disabled" />
-<?
+<?php
 
 };
 if ($importusers->allowModify()) {
@@ -154,7 +154,7 @@ if ($importusers->allowModify()) {
 <input name="modifybutton" type="submit" class="btnPrimary" value="<?php echo  _T("Modify", "bulkimport"); ?>" />
 <?php } else { ?>
 <input name="modifybutton" type="submit" class="btnDisabled" value="<?php echo  _T("Modify", "bulkimport"); ?>" disabled="disabled" />
-<?
+<?php
 
 };
 if ($importusers->allowDelete()) {
@@ -168,7 +168,7 @@ if ($importusers->allowDelete()) {
 </form>
 
 	</div>
-<?
+<?php
      $_SESSION['importusers'] = serialize($importusers);
 }
 
@@ -195,7 +195,7 @@ function uploadFormView() {
     <div class="formblock" style="background-color: #F4F4F4;">
         <input type="hidden" name="stage" value="preimport"/>
         <table cellspacing="0">
-<?
+<?php
     $test = new TrFormElement(_T("CSV file: ", "bulkimport"), new FileTpl("csvfile"));
     $test->display(null);
 ?>
@@ -243,7 +243,7 @@ function uploadFormView() {
     </div>
 </form>
 
-<?
+<?php
 }
 
 /*

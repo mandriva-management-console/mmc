@@ -34,7 +34,7 @@ require("graph/navbar.inc.php");
 
 <div class="fixheight"></div>
 
-<?
+<?php
 $arrayTMP = getStatutProxy();
 
 foreach($arrayTMP as $key => $value) {

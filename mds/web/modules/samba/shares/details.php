@@ -143,13 +143,13 @@ $p->display();
 <?php echo  _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
 </p>
 
-<?
+<?php
 }
 ?>
 
 <form id="Form" method="post" action="" onSubmit="autogroupObj.selectAll(); autouserObj.selectAll(); autoadminObj.selectAll(); return validateForm();">
 
-<?
+<?php
 
 $t = new Table();
 if ($_GET["action"] == "add")  {
@@ -259,7 +259,7 @@ renderTPL("groups");
 ?>
 </table>
 
-<div id="expertMode" class="expertMode" <?displayExpertCss(); ?>>
+<div id="expertMode" class="expertMode" <?phpdisplayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
@@ -281,7 +281,7 @@ renderTPL("users");
 </div>
 </div>
 
-<div id="expertMode" class="expertMode" <?displayExpertCss(); ?>>
+<div id="expertMode" class="expertMode" <?phpdisplayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>

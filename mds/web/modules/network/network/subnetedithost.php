@@ -1,4 +1,4 @@
-<?
+<?php
 
 require("modules/network/includes/network.inc.php");
 require("localSidebar.php");

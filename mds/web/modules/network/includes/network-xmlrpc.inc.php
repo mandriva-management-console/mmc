@@ -1,4 +1,4 @@
-<?
+<?php
 
 function hasDHCP() {
     return xmlCall("network.hasDHCP", array());

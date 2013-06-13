@@ -1,4 +1,4 @@
-<?
+<?php
 
 class txtRecord extends RecordBase{
     

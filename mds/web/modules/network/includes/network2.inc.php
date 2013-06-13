@@ -1,4 +1,4 @@
-<?
+<?php
 
 class IPv6InputTpl extends InputTpl{
     function IPv6InputTpl($name){

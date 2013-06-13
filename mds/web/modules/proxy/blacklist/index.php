@@ -34,7 +34,7 @@ require("graph/navbar.inc.php");
 
 <div class="fixheight"></div>
 
-<?
+<?php
 $arrB = get_nonIndexBlackList();
 
 $p = new PageGenerator();

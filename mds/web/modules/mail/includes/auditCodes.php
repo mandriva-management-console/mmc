@@ -1,4 +1,4 @@
-<?
+<?php
 
 $module_audit_codes = array(
     'MAIL_ENABLE' => _T("Enable mail delivery", "mail"),

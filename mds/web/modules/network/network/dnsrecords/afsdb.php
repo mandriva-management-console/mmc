@@ -1,4 +1,4 @@
-<?
+<?php
 
 class afsdbRecord extends RecordBase{
     

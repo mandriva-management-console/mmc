@@ -1,4 +1,4 @@
-<?
+<?php
 
 class srvRecord extends RecordBase{
     

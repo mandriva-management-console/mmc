@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Input with a check for host name validity in a DNS zone. No dot allowed !

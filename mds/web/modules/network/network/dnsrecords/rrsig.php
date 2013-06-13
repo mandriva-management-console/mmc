@@ -1,4 +1,4 @@
-<?
+<?php
 
 class rrsigRecord extends RecordBase{
     

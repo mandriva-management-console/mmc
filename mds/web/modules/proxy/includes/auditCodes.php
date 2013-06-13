@@ -1,4 +1,4 @@
-<?
+<?php
 
 $module_audit_codes = array(
     'PROXY_ADD_BLACKLIST' => _T("Add blacklist", "proxy"),

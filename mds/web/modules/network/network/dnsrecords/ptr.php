@@ -1,4 +1,4 @@
-<?
+<?php
 
 class ptrRecord extends RecordBase{
     

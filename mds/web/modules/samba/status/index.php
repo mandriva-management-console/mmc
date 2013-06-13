@@ -31,7 +31,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
 
 <div class="fixheight"></div>
 
-<?
+<?php
     require("includes/statusSidebar.inc.php");
 
     $pid = array();
@@ -54,7 +54,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
     }
     ?>
     <h3><?php echo  _T("Opened sessions","samba"); ?>(<?= count($user); ?>):</h3>
-    <?
+    <?php
 
     if (count($user)!=0) {
 
@@ -75,7 +75,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
     $status = getSmbStatus();
     ?>
     <h3><?php echo  _T("Connections on shares","samba"); ?>(<?= count($status); ?>):</h3>
-    <?
+    <?php
 
     if (count($status)!=0) {
         foreach ($status as $sharename => $connects) {

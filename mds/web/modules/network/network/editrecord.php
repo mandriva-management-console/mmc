@@ -1,5 +1,5 @@
 <script type="text/javascript" src="modules/network/includes/ajaxRecordHandler.js"></script>
-<?
+<?php
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007-2008 Mandriva, http://www.mandriva.com/

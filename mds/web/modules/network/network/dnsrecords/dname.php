@@ -1,4 +1,4 @@
-<?
+<?php
 
 class dnameRecord extends RecordBase{
     

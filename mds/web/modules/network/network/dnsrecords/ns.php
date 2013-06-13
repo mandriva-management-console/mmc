@@ -1,4 +1,4 @@
-<?
+<?php
 
 class nsRecord extends RecordBase{
     

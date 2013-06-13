@@ -1,4 +1,4 @@
-<?
+<?php
 
 class sigRecord extends RecordBase{
     

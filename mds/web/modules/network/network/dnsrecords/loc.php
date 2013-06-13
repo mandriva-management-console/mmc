@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 class locRecord extends RecordBase{

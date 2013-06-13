@@ -1,4 +1,4 @@
-<?
+<?php
 
 $filter = $_GET["filter"];
 $zones = array();

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class kxRecord extends RecordBase{
     
