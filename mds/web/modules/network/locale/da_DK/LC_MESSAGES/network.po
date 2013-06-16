@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-06-05 16:22+0200\n"
-"PO-Revision-Date: 2013-06-09 23:00+0000\n"
+"POT-Creation-Date: 2013-06-13 16:54+0200\n"
+"PO-Revision-Date: 2013-06-16 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: modules/network/dhcplogview/index.php:36
+msgid "DHCP service log view"
+msgstr ""
 
 #: modules/network/dhcplogview/ajax_showlog.php:40
 #: modules/network/dnslogview/ajax_showlog.php:38
@@ -31,12 +35,26 @@ msgstr ""
 msgid "Informations"
 msgstr ""
 
-#: modules/network/dhcplogview/index.php:36
-msgid "DHCP service log view"
-msgstr ""
-
 #: modules/network/dnslogview/index.php:35
 msgid "DNS service log view"
+msgstr ""
+
+#: modules/network/includes/errorHandling.php:28
+msgid "Please make sure that"
+msgstr ""
+
+#: modules/network/includes/errorHandling.php:29
+msgid "The DHCP service is running"
+msgstr ""
+
+#: modules/network/includes/errorHandling.php:30
+msgid ""
+"The path to the DHCP leases file is correctly configured in the network "
+"module configuration."
+msgstr ""
+
+#: modules/network/includes/errorHandling.php:32
+msgid "Can't find the dhcpd.leases file"
 msgstr ""
 
 #: modules/network/includes/auditCodes.php:26
@@ -189,24 +207,6 @@ msgstr ""
 
 #: modules/network/includes/auditCodes.php:63
 msgid "network"
-msgstr ""
-
-#: modules/network/includes/errorHandling.php:28
-msgid "Please make sure that"
-msgstr ""
-
-#: modules/network/includes/errorHandling.php:29
-msgid "The DHCP service is running"
-msgstr ""
-
-#: modules/network/includes/errorHandling.php:30
-msgid ""
-"The path to the DHCP leases file is correctly configured in the network "
-"module configuration."
-msgstr ""
-
-#: modules/network/includes/errorHandling.php:32
-msgid "Can't find the dhcpd.leases file"
 msgstr ""
 
 #: modules/network/includes/network.inc.php:76
@@ -1222,51 +1222,6 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: modules/network/network/ajaxSubnetFilter.php:39
-msgid "No dynamic address pool"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:43
-#: modules/network/network/ajaxSubnetFilter.php:50
-#: modules/network/network/localSidebar.php:34
-#: modules/network/infoPackage.inc.php:164
-msgid "DHCP subnets"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:47
-#: modules/network/network/subnetedit.php:207
-msgid "Netmask"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:48
-#: modules/network/network/ajaxZoneFilter.php:41
-#: modules/network/network/edit.php:230
-#: modules/network/network/subnetedit.php:211
-msgid "Description"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:49
-msgid "Dynamic pool range(s)"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:52
-msgid "View DHCP static host"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:53
-msgid "Edit subnet"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:54
-msgid "Add static host to subnet"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetFilter.php:55
-#: modules/network/network/ajaxZoneFilter.php:48
-#: modules/network/network/delete.php:43
-msgid "Delete zone"
-msgstr ""
-
 #: modules/network/network/ajaxSubnetMembersFilter.php:28
 #: modules/network/network/ajaxSubnetMembersFilter.php:88
 msgid "Static"
@@ -1298,33 +1253,6 @@ msgstr ""
 #: modules/network/network/ajaxZoneMembersFilter.php:79
 #: modules/network/network/ajaxZoneRecordsFilter.php:166
 msgid "Host"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:36
-#: modules/network/network/ajaxZoneFilter.php:42
-#: modules/network/network/localSidebar.php:29
-#: modules/network/infoPackage.inc.php:60
-msgid "DNS zones"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:40
-msgid "Network prefix"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:44
-msgid "View zone members"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:45
-msgid "View zone records"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:46
-msgid "Edit zone"
-msgstr ""
-
-#: modules/network/network/ajaxZoneFilter.php:47
-msgid "Add host"
 msgstr ""
 
 #: modules/network/network/ajaxZoneMembersFilter.php:44
@@ -1369,6 +1297,12 @@ msgstr ""
 #: modules/network/network/delete.php:38
 #, php-format
 msgid "You will delete the DNS zone %s."
+msgstr ""
+
+#: modules/network/network/delete.php:43
+#: modules/network/network/ajaxSubnetFilter.php:55
+#: modules/network/network/ajaxZoneFilter.php:48
+msgid "Delete zone"
 msgstr ""
 
 #: modules/network/network/delete.php:44
@@ -1475,6 +1409,13 @@ msgstr ""
 msgid "DNS zone FQDN"
 msgstr ""
 
+#: modules/network/network/edit.php:230
+#: modules/network/network/ajaxSubnetFilter.php:48
+#: modules/network/network/ajaxZoneFilter.php:41
+#: modules/network/network/subnetedit.php:211
+msgid "Description"
+msgstr ""
+
 #: modules/network/network/edit.php:234
 msgid "Primary name server host name"
 msgstr ""
@@ -1558,77 +1499,26 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-#: modules/network/network/edithost.php:31
-#, php-format
-msgid "Add a host to zone %s"
-msgstr ""
-
-#: modules/network/network/edithost.php:32
-msgid "Edit host"
-msgstr ""
-
-#: modules/network/network/edithost.php:47
-msgid "The specified hostname has been already recorded in this zone."
-msgstr ""
-
-#: modules/network/network/edithost.php:52
-msgid "The specified IP address has been already recorded in this zone."
-msgstr ""
-
-#: modules/network/network/edithost.php:59
-msgid "Host successfully added to DNS zone."
-msgstr ""
-
-#: modules/network/network/edithost.php:60
-msgid "Host successfully added to DNS zone and corresponding reverse zone."
-msgstr ""
-
-#: modules/network/network/edithost.php:78
-#: modules/network/network/subnetedithost.php:138
-msgid "DNS record successfully modified."
-msgstr ""
-
-#: modules/network/network/edithost.php:82
-msgid ""
-"The following aliases have not been set because a DNS record with the same "
-"name already exists:"
-msgstr ""
-
-#: modules/network/network/edithost.php:120
-msgid "A reverse DNS record will be automatically created for this host."
-msgstr ""
-
-#: modules/network/network/edithost.php:165
-#: modules/network/network/edithost.php:169
-msgid "Hostname alias"
-msgstr ""
-
-#: modules/network/network/editrecord.php:58
-#, php-format
-msgid "Add record to reverse zone for zone %s"
-msgstr ""
-
-#: modules/network/network/editrecord.php:59
-#, php-format
-msgid "Edit record of reverse zone for zone %s"
-msgstr ""
-
-#: modules/network/network/editrecord.php:62
-#, php-format
-msgid "Add record to zone %s"
-msgstr ""
-
-#: modules/network/network/editrecord.php:63
-#, php-format
-msgid "Edit record of zone %s"
-msgstr ""
-
 #: modules/network/network/index.php:31
 msgid "DNS zones management"
 msgstr ""
 
+#: modules/network/network/localSidebar.php:29
+#: modules/network/network/ajaxZoneFilter.php:36
+#: modules/network/network/ajaxZoneFilter.php:42
+#: modules/network/infoPackage.inc.php:60
+msgid "DNS zones"
+msgstr ""
+
 #: modules/network/network/localSidebar.php:30
 msgid "Add DNS zone"
+msgstr ""
+
+#: modules/network/network/localSidebar.php:34
+#: modules/network/network/ajaxSubnetFilter.php:43
+#: modules/network/network/ajaxSubnetFilter.php:50
+#: modules/network/infoPackage.inc.php:164
+msgid "DHCP subnets"
 msgstr ""
 
 #: modules/network/network/localSidebar.php:35
@@ -1823,6 +1713,159 @@ msgstr ""
 #: modules/network/network/subnetdeletehost.php:66
 #, php-format
 msgid "Also unregister this host from DNS zone %s"
+msgstr ""
+
+#: modules/network/network/subnetindex.php:31
+msgid "DHCP subnet management"
+msgstr ""
+
+#: modules/network/network/subnetmembers.php:33
+msgid "Members of DHCP subnet"
+msgstr ""
+
+#: modules/network/network/subnetmembers.php:41
+msgid "Add a static host"
+msgstr ""
+
+#: modules/network/network/zonemembers.php:32
+#, php-format
+msgid "Members of zone %s"
+msgstr ""
+
+#: modules/network/network/zonemembers.php:40
+msgid "Add a host"
+msgstr ""
+
+#: modules/network/network/zonerecords.php:47
+#, php-format
+msgid "Records of reverse zone for zone %s"
+msgstr ""
+
+#: modules/network/network/zonerecords.php:48
+#, php-format
+msgid "Records of zone %s"
+msgstr ""
+
+#: modules/network/network/zonerecords.php:58
+msgid "Manage zone records"
+msgstr ""
+
+#: modules/network/network/zonerecords.php:58
+msgid "Manage reverse zone records"
+msgstr ""
+
+#: modules/network/network/zonerecords.php:63
+msgid "Add a record"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:39
+msgid "No dynamic address pool"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:47
+#: modules/network/network/subnetedit.php:207
+msgid "Netmask"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:49
+msgid "Dynamic pool range(s)"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:52
+msgid "View DHCP static host"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:53
+msgid "Edit subnet"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetFilter.php:54
+msgid "Add static host to subnet"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:40
+msgid "Network prefix"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:44
+msgid "View zone members"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:45
+msgid "View zone records"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:46
+msgid "Edit zone"
+msgstr ""
+
+#: modules/network/network/ajaxZoneFilter.php:47
+msgid "Add host"
+msgstr ""
+
+#: modules/network/network/edithost.php:31
+#, php-format
+msgid "Add a host to zone %s"
+msgstr ""
+
+#: modules/network/network/edithost.php:32
+msgid "Edit host"
+msgstr ""
+
+#: modules/network/network/edithost.php:47
+msgid "The specified hostname has been already recorded in this zone."
+msgstr ""
+
+#: modules/network/network/edithost.php:52
+msgid "The specified IP address has been already recorded in this zone."
+msgstr ""
+
+#: modules/network/network/edithost.php:59
+msgid "Host successfully added to DNS zone."
+msgstr ""
+
+#: modules/network/network/edithost.php:60
+msgid "Host successfully added to DNS zone and corresponding reverse zone."
+msgstr ""
+
+#: modules/network/network/edithost.php:78
+#: modules/network/network/subnetedithost.php:138
+msgid "DNS record successfully modified."
+msgstr ""
+
+#: modules/network/network/edithost.php:82
+msgid ""
+"The following aliases have not been set because a DNS record with the same "
+"name already exists:"
+msgstr ""
+
+#: modules/network/network/edithost.php:120
+msgid "A reverse DNS record will be automatically created for this host."
+msgstr ""
+
+#: modules/network/network/edithost.php:165
+#: modules/network/network/edithost.php:169
+msgid "Hostname alias"
+msgstr ""
+
+#: modules/network/network/editrecord.php:58
+#, php-format
+msgid "Add record to reverse zone for zone %s"
+msgstr ""
+
+#: modules/network/network/editrecord.php:59
+#, php-format
+msgid "Edit record of reverse zone for zone %s"
+msgstr ""
+
+#: modules/network/network/editrecord.php:62
+#, php-format
+msgid "Add record to zone %s"
+msgstr ""
+
+#: modules/network/network/editrecord.php:63
+#, php-format
+msgid "Edit record of zone %s"
 msgstr ""
 
 #: modules/network/network/subnetedit.php:29
@@ -2149,49 +2192,6 @@ msgstr ""
 
 #: modules/network/network/subnetedithost.php:237
 msgid "Click here to add it"
-msgstr ""
-
-#: modules/network/network/subnetindex.php:31
-msgid "DHCP subnet management"
-msgstr ""
-
-#: modules/network/network/subnetmembers.php:33
-msgid "Members of DHCP subnet"
-msgstr ""
-
-#: modules/network/network/subnetmembers.php:41
-msgid "Add a static host"
-msgstr ""
-
-#: modules/network/network/zonemembers.php:32
-#, php-format
-msgid "Members of zone %s"
-msgstr ""
-
-#: modules/network/network/zonemembers.php:40
-msgid "Add a host"
-msgstr ""
-
-#: modules/network/network/zonerecords.php:47
-#, php-format
-msgid "Records of reverse zone for zone %s"
-msgstr ""
-
-#: modules/network/network/zonerecords.php:48
-#, php-format
-msgid "Records of zone %s"
-msgstr ""
-
-#: modules/network/network/zonerecords.php:58
-msgid "Manage zone records"
-msgstr ""
-
-#: modules/network/network/zonerecords.php:58
-msgid "Manage reverse zone records"
-msgstr ""
-
-#: modules/network/network/zonerecords.php:63
-msgid "Add a record"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:33

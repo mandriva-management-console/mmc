@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-06-05 16:22+0200\n"
-"PO-Revision-Date: 2013-06-09 23:00+0000\n"
+"POT-Creation-Date: 2013-06-13 16:54+0200\n"
+"PO-Revision-Date: 2013-06-16 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -68,22 +68,14 @@ msgstr ""
 msgid "Domain %s has been removed"
 msgstr ""
 
-#: modules/proxy/blacklist/index.php:33
-#: modules/proxy/blacklist/localSidebar.php:28
-msgid "Blacklist management"
-msgstr ""
-
-#: modules/proxy/blacklist/index.php:45
-msgid "Blacklist entries"
-msgstr ""
-
-#: modules/proxy/blacklist/index.php:54 modules/proxy/blacklist/statut.php:59
-msgid "Restart service"
-msgstr ""
-
 #: modules/proxy/blacklist/localSidebar.php:27
 #: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 msgid "Proxy status"
+msgstr ""
+
+#: modules/proxy/blacklist/localSidebar.php:28
+#: modules/proxy/blacklist/index.php:33
+msgid "Blacklist management"
 msgstr ""
 
 #: modules/proxy/blacklist/localSidebar.php:29
@@ -97,6 +89,14 @@ msgstr ""
 
 #: modules/proxy/blacklist/restart.php:78
 msgid "Back"
+msgstr ""
+
+#: modules/proxy/blacklist/index.php:45
+msgid "Blacklist entries"
+msgstr ""
+
+#: modules/proxy/blacklist/index.php:54 modules/proxy/blacklist/statut.php:59
+msgid "Restart service"
 msgstr ""
 
 #: modules/proxy/blacklist/statut.php:42

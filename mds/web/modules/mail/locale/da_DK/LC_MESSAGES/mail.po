@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-06-05 16:22+0200\n"
-"PO-Revision-Date: 2013-06-09 23:00+0000\n"
+"POT-Creation-Date: 2013-06-13 16:54+0200\n"
+"PO-Revision-Date: 2013-06-16 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -167,6 +167,10 @@ msgstr ""
 msgid "You will delete the virtual mail domain "
 msgstr ""
 
+#: modules/mail/domains/members.php:33
+msgid "Members of "
+msgstr ""
+
 #: modules/mail/domains/edit.php:35
 msgid "Add a mail domain"
 msgstr ""
@@ -201,123 +205,6 @@ msgstr ""
 
 #: modules/mail/domains/index.php:32
 msgid "Mail domains list"
-msgstr ""
-
-#: modules/mail/domains/members.php:33
-msgid "Members of "
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:4
-msgid "Enable mail delivery"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:43
-msgid "Disable mail delivery"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:6
-msgid "Change mail drop"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:7
-msgid "Change mail alias"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:8
-msgid "Change mail box"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:9
-msgid "Change mail host"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:10
-msgid "Change mail quota"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:11
-msgid "Add mail attributes"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:12
-msgid "Del mail attributes"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:13
-msgid "Del mail group alias"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:14
-msgid "Add mail group"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:15
-msgid "Add virtual domain"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:16
-msgid "Del virtual domain"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:17
-msgid "Set domain description"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:18
-msgid "Set domain quota"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:19
-msgid "Reset domain quota"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:20
-msgid "Mail Group"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:57
-#: modules/mail/infoPackage.inc.php:110
-msgid "Mail"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:22
-msgid "Add Zarafa attributes"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:23
-msgid "Del Zarafa attributes"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:24
-msgid "Change Zarafa admin attribute"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:25
-msgid "Change Zarafa sharedstore attribute"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:26
-msgid "Change Zarafa account attribute"
-msgstr "76c1e0473c63d3d18c5210ba3997cc12_tr"
-
-#: modules/mail/includes/auditCodes.php:27
-msgid "Change visibility in Zarafa address book"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:28
-msgid "Change Zarafa sendas attribute"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:29
-msgid "Virtual Mail Domain"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:30
-msgid "User"
-msgstr ""
-
-#: modules/mail/includes/auditCodes.php:31
-msgid "mail"
 msgstr ""
 
 #: modules/mail/includes/publicFunc.php:33
@@ -443,6 +330,119 @@ msgstr ""
 
 #: modules/mail/includes/mail.inc.php:52 modules/mail/includes/mail.inc.php:64
 msgid "Unlimited quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:4
+msgid "Enable mail delivery"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:5 modules/mail/infoPackage.inc.php:43
+msgid "Disable mail delivery"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:6
+msgid "Change mail drop"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:7
+msgid "Change mail alias"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:8
+msgid "Change mail box"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:9
+msgid "Change mail host"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:10
+msgid "Change mail quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:11
+msgid "Add mail attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:12
+msgid "Del mail attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:13
+msgid "Del mail group alias"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:14
+msgid "Add mail group"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:15
+msgid "Add virtual domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:16
+msgid "Del virtual domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:17
+msgid "Set domain description"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:18
+msgid "Set domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:19
+msgid "Reset domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:20
+msgid "Mail Group"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:57
+#: modules/mail/infoPackage.inc.php:110
+msgid "Mail"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:22
+msgid "Add Zarafa attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:23
+msgid "Del Zarafa attributes"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:24
+msgid "Change Zarafa admin attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:25
+msgid "Change Zarafa sharedstore attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:26
+msgid "Change Zarafa account attribute"
+msgstr "76c1e0473c63d3d18c5210ba3997cc12_tr"
+
+#: modules/mail/includes/auditCodes.php:27
+msgid "Change visibility in Zarafa address book"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:28
+msgid "Change Zarafa sendas attribute"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:29
+msgid "Virtual Mail Domain"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:30
+msgid "User"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:31
+msgid "mail"
 msgstr ""
 
 #: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:62
