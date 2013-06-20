@@ -19,7 +19,7 @@ test -d .tx || tx init --host=https://transifex.mandriva.com
 [ ! x$1 == x ] && lang="-l $1" && shift 1
 args=$@
 
-modules="dyngroup glpi imaging inventory msc pkgs pulse2"
+modules="dyngroup glpi imaging inventory msc pkgs pulse2 backuppc"
 
 for mod in $modules
 do
