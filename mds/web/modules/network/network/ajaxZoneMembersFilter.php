@@ -53,6 +53,7 @@ foreach($records as $host => $ip) {
         if (
             (strpos($host, $filter) === False)
             && (strpos($ipstr, $filter) === False)
+            && (strpos($cnames[$host], $filter) === False)
             ) {
             $display = False;
         }
