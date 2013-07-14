@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-06-24 01:07+0200\n"
-"PO-Revision-Date: 2013-07-07 23:00+0000\n"
+"POT-Creation-Date: 2013-07-10 12:39+0200\n"
+"PO-Revision-Date: 2013-07-14 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -349,18 +349,18 @@ msgstr ""
 #: modules/network/network/dnsrecords/custom.php:33
 #: modules/network/network/dnsrecords/loc.php:68
 #: modules/network/network/ajaxSubnetMembersFilter.php:103
-#: modules/network/network/ajaxZoneMembersFilter.php:78
 #: modules/network/network/ajaxZoneRecordsFilter.php:157
 #: modules/network/network/edithost.php:132
 #: modules/network/network/subnetedithost.php:188
+#: modules/network/network/ajaxZoneMembersFilter.php:79
 msgid "Host name"
 msgstr ""
 
 #: modules/network/network/dnsrecords/a.php:26
 #: modules/network/network/dnsrecords/a.php:37
 #: modules/network/network/ajaxSubnetMembersFilter.php:99
-#: modules/network/network/ajaxZoneMembersFilter.php:75
 #: modules/network/network/subnetedithost.php:194
+#: modules/network/network/ajaxZoneMembersFilter.php:76
 msgid "IP address"
 msgstr ""
 
@@ -1250,26 +1250,9 @@ msgid "MAC address"
 msgstr ""
 
 #: modules/network/network/ajaxSubnetMembersFilter.php:106
-#: modules/network/network/ajaxZoneMembersFilter.php:79
 #: modules/network/network/ajaxZoneRecordsFilter.php:166
+#: modules/network/network/ajaxZoneMembersFilter.php:80
 msgid "Host"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:44
-msgid "Delete host (A record)"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:45
-msgid "Delete alias (CNAME record)"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:47
-msgid "edit record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneMembersFilter.php:64
-#, php-format
-msgid "(alias of %s)"
 msgstr ""
 
 #: modules/network/network/ajaxZoneRecordsFilter.php:128
@@ -2192,6 +2175,23 @@ msgstr ""
 
 #: modules/network/network/subnetedithost.php:237
 msgid "Click here to add it"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:44
+msgid "Delete host (A record)"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:45
+msgid "Delete alias (CNAME record)"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:47
+msgid "edit record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneMembersFilter.php:65
+#, php-format
+msgid "(alias of %s)"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:33
