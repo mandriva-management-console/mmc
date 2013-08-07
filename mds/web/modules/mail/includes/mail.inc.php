@@ -40,7 +40,7 @@ class QuotaTpl extends InputTpl {
 
     function Display($arrParam = array()) {
         if ($arrParam["value"] === "0") {
-            $checked = "CHECKED";
+            $checked = "checked";
             $old_value = "on";
             $disabled = "1";
         } else {
@@ -51,13 +51,19 @@ class QuotaTpl extends InputTpl {
         parent::display($arrParam);
         print "&nbsp;" . _T("Unlimited quota", "mail") . '
         <input type="hidden" name="old_unlimitedquota" value="'.$old_value.'" />
-        <input type="checkbox" id="unlimitedquota" name="unlimitedquota" ' . $checked . ' onclick="unlimitedquotaclick();">';
-        print '<script type="text/javascript">
-$("mailuserquota").disabled = ' . $disabled . ';
-function unlimitedquotaclick() {
-    $("mailuserquota").disabled = !$("mailuserquota").disabled;
-}
-</script>';
+        <input type="checkbox" id="unlimitedquota" name="unlimitedquota" checked="' . $checked . '" onclick="unlimitedquotaclick();">';
+        print '
+        <script type="text/javascript">
+            jQuery("#mailuserquota, #domainquota").prop("disabled", "' . $disabled . '");
+            function unlimitedquotaclick() {
+                var disabled = !jQuery("#mailuserquota, #domainquota").prop("disabled");
+                jQuery("#mailuserquota, #domainquota").prop("disabled", disabled);
+                if (disabled)
+                    jQuery("#mailuserquota, #domainquota").val("0");
+                else
+                    jQuery("#mailuserquota, #domainquota").val("");
+            }
+        </script>';
     }
 
     function displayRo($arrParam) {
