@@ -259,7 +259,7 @@ renderTPL("groups");
 ?>
 </table>
 
-<div id="expertMode" class="expertMode" <?phpdisplayExpertCss(); ?>>
+<div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
@@ -281,7 +281,7 @@ renderTPL("users");
 </div>
 </div>
 
-<div id="expertMode" class="expertMode" <?phpdisplayExpertCss(); ?>>
+<div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
 <table cellspacing="0">
     <tr>
     <td>
