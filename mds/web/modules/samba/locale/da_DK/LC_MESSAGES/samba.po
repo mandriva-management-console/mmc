@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-07-29 01:06+0200\n"
-"PO-Revision-Date: 2013-08-04 23:00+0000\n"
+"POT-Creation-Date: 2013-08-09 16:16+0200\n"
+"PO-Revision-Date: 2013-08-11 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -515,6 +515,16 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
+#: modules/samba/shares/localSidebar.php:28
+msgid "Shares management"
+msgstr ""
+
+#: modules/samba/shares/localSidebar.php:31
+#: modules/samba/shares/details.php:112 modules/samba/mainSidebar.php:30
+#: modules/samba/infoPackage.inc.php:48
+msgid "Add a share"
+msgstr ""
+
 #: modules/samba/shares/details.php:46
 msgid "Invalid share name"
 msgstr ""
@@ -531,12 +541,6 @@ msgstr ""
 #: modules/samba/shares/details.php:101
 #, php-format
 msgid "Share %s successfully modified"
-msgstr ""
-
-#: modules/samba/shares/details.php:112
-#: modules/samba/shares/localSidebar.php:31 modules/samba/mainSidebar.php:30
-#: modules/samba/infoPackage.inc.php:48
-msgid "Add a share"
 msgstr ""
 
 #: modules/samba/shares/details.php:143
@@ -580,10 +584,6 @@ msgstr ""
 
 #: modules/samba/shares/details.php:331
 msgid "Create"
-msgstr ""
-
-#: modules/samba/shares/localSidebar.php:28
-msgid "Shares management"
 msgstr ""
 
 #: modules/samba/status/index.php:30
