@@ -25,7 +25,7 @@ $p->displaySideMenu();
 	<script src="modules/squid/internet/accesslog/includes/controls.js" type="text/javascript"></script>
 	<script src="modules/squid/internet/accesslog/includes/dragdrop.js" type="text/javascript"></script>
 	<script src="modules/squid/internet/accesslog/includes/application.js" type="text/javascript"></script>
-	
+
 	<script src='modules/squid/internet/accesslog/includes/squidnow.js'></script>
 	<script src='modules/squid/internet/accesslog/includes/drag.js'></script>
 
@@ -37,14 +37,14 @@ $p->displaySideMenu();
       </div>
 
          <div id='control' style='padding: 10px'>
-   
-   		<!--SPAN id='info'></SPAN--> 
+
+   		<!--SPAN id='info'></SPAN-->
     		<center>
 		<input id='transbutton' type=button onclick="trans(document.getElementById('controlcontainer'))" value='<?php echo  _T("Opacity"); ?>' >
 		<input type=button onclick="reposition(document.getElementById('controlcontainer'))" value='<?php echo  _T("Default Position"); ?>'>
    		<form name='form1' id='form1'><br>
     		<table>
-    			<tr>	
+    			<tr>
 			<td align=right><?php echo  _T("User"); ?> </td><td> <input type=text name='formuser' size=10></td>
       			</tr><tr>
 			<td align=right><?php echo  _T("IP"); ?></td><td> <input type=text name='formip' size=10></td>
@@ -54,8 +54,8 @@ $p->displaySideMenu();
 		</table>
 
 		<input type=button name=limpar onclick='resetall()' value='<?php echo  _T("Reset"); ?>'>
-      
-		<font title='<?php echo  _T("Refresh rate"); ?>'>fps:</font> 
+
+		<font title='<?php echo  _T("Refresh rate"); ?>'>fps:</font>
 
 		<select name=interval onchange='setinterval(this.value)'>
 			<option value=0.5>0.5</option>
@@ -67,7 +67,7 @@ $p->displaySideMenu();
 		</select>
 
       		<script lanaguage='text/javascript' > document.form1.interval.value = interval</script>
-      
+
       		<IMG id='img' title='Refresh activate' src='modules/squid/internet/accesslog/images/on.gif'><br/><br/>
       		<table border=0 style='display: inline'>
         	<tr>
@@ -77,33 +77,33 @@ $p->displaySideMenu();
         	</tr>
       		</table>
       		<br><br>
-		
+
 		<span id='bar'></span><br/><br/>
-      
+
 		<table>
     		<tr>
     		<td>
 			<input type=checkbox name='ignoreurl' onclick='this.checked = false; alert("Option not allowed.")'>
 		</td><td>
-		<font size=2><?php echo  _T("Hide diferent paths"); ?></font>
+		<font size=2><?php echo  _T("Hide different paths"); ?></font>
 		</td>
       		</tr><tr>
 		<td>
       			<input type=checkbox name='ignorednsn' onclick='this.checked = false; alert("Option not allowed.")'>
 		</td><td>
-      			
-		<font size=2><?php echo  _T("Hide diferent sub domains"); ?></font>
+
+		<font size=2><?php echo  _T("Hide different sub domains"); ?></font>
 		</td>
       		</tr>
       		</table>
-      		</form> 
+      		</form>
     		</center>
-    </div> 
+    </div>
   </div>
 
 <table cellpadding=20>
 	<tr><td>
-	<table id='tblbox' name='tblbox' border=0>  
+	<table id='tblbox' name='tblbox' border=0>
 		<tr id='tbheader' style='font-size: 80%'></tr>
 		<tr></tr>
 	</table>
@@ -115,6 +115,6 @@ $p->displaySideMenu();
 			<td><b><?php echo  _T("Verify logs..."); ?></b></td>
 		</tr>
 	</table></center>
-    
+
 <script src='modules/squid/internet/accesslog/includes/squidnow_poshtml.js'></script>
 

@@ -107,7 +107,7 @@ function _userquota_changeUser($FH, $mode) {
 			    $quota_value = $FH->getValue($quota->getQuotaField());
 				if ($quota_value != "") {
 					setDiskQuota($uid, $device, $quota_value);
-                    $result .= sprintf(_T("Disk quota set to %sMo.", "userquota"), $quota_value) . '<br />';
+                    $result .= sprintf(_T("Disk quota set to %sMb.", "userquota"), $quota_value) . '<br />';
 				}
     			else {
 	    			deleteDiskQuota($uid, $device);
