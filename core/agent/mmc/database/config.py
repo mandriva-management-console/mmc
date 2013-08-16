@@ -22,7 +22,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-from pulse2.utils import Singleton, Pulse2ConfigParser
+from mmc.support.config import MMCConfigParser
+from mmc.support.mmctools import Singleton
 
 class DatabaseConfig(Singleton):
     dbsection = "database"
@@ -46,7 +47,7 @@ class DatabaseConfig(Singleton):
 
     def setup(self, config_file):
         # Load configuration file
-        self.cp = Pulse2ConfigParser()
+        self.cp = MMCConfigParser()
         self.cp.read(config_file)
 
         if self.cp.has_section(self.dbsection):

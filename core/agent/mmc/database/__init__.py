@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2010 Mandriva, http://www.mandriva.com/
+# (c) 2007-2009 Mandriva, http://www.mandriva.com/
 #
 # $Id$
 #
@@ -21,15 +21,4 @@
 # along with Pulse 2; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
-
-# PULSE2
-from mmc.database.config import DatabaseConfig
-
-class Pulse2DatabaseConfig(DatabaseConfig):
-    dbname = "pulse2"
-#    dbsection = "database"
-
-#    def setup(self, config_file):
-#        # read the database configuration
-#        DatabaseConfig.setup(self, config_file)
 

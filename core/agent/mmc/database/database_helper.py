@@ -27,9 +27,9 @@ Define classes to help implementing the database access in all the
 pulse2 modules.
 """
 
-from pulse2.utils import Singleton
-from pulse2.ddl import DDLContentManager, DBControl
-from pulse2.database.sqlalchemy_tests import checkSqlalchemy, MIN_VERSION, MAX_VERSION, CUR_VERSION
+from mmc.support.mmctools import Singleton
+from mmc.database.ddl import DDLContentManager, DBControl
+from mmc.database.sqlalchemy_tests import checkSqlalchemy, MIN_VERSION, MAX_VERSION, CUR_VERSION
 from sqlalchemy.exc import DBAPIError, NoSuchTableError
 
 import logging

@@ -141,14 +141,13 @@ class DBScriptLaunchInterface :
         process = Popen(self.cmd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
         try:
             ret, err = process.communicate('source ' + filename)
-	    if err:
+            if err:
                 self.log.error("Error while execute script '%s': %s" % (filename, err))
-		return None
-	    return ret
+                return None
+            return ret
         except Exception, exc:
             self.log.error("Error while execute script '%s': %s" % (filename, str(exc)))
             return None
-
 
 class DDLContentManager :
     """ Class to manage DDL scripts content """
@@ -398,8 +397,8 @@ class DBControl :
                     if self.module == 'dyngroup':
                         self.log.warn('Dyngroup known issue: Maybe your SQL engine is MyISAM, you can check with: SHOW TABLE STATUS')
                         self.log.warn('Here is SQL request who will help you to convert from MyISAM to InnoBD engine:')
-			self.log.warn('SELECT CONCAT("ALTER TABLE ",table_schema,".",table_name," ENGINE=InnoDB;") FROM information_schema.tables WHERE table_schema="dyngroup";')
-		    return False
+                        self.log.warn('SELECT CONCAT("ALTER TABLE ",table_schema,".",table_name," ENGINE=InnoDB;") FROM information_schema.tables WHERE table_schema="dyngroup";')
+                    return False
             return True
         else :
             self.log.error("Database '%s' version conflict" % self.module)
