@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-08-09 16:16+0200\n"
-"PO-Revision-Date: 2013-08-11 23:00+0000\n"
+"POT-Creation-Date: 2013-08-16 15:12+0200\n"
+"PO-Revision-Date: 2013-08-18 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -332,13 +332,13 @@ msgstr ""
 #: modules/network/network/dnsrecords/cert.php:180
 #: modules/network/network/dnsrecords/cert.php:200
 #: modules/network/network/dnsrecords/ds.php:167
-#: modules/network/network/dnsrecords/key.php:252
-#: modules/network/network/dnsrecords/key.php:271
 #: modules/network/network/dnsrecords/rrsig.php:225
 #: modules/network/network/dnsrecords/sig.php:224
+#: modules/network/network/dnsrecords/sshfp.php:150
+#: modules/network/network/dnsrecords/key.php:252
+#: modules/network/network/dnsrecords/key.php:271
 #: modules/network/network/dnsrecords/srv.php:58
 #: modules/network/network/dnsrecords/srv.php:174
-#: modules/network/network/dnsrecords/sshfp.php:150
 #: modules/network/network/ajaxRecordTypeContentRequests.php:44
 #: modules/network/network/editrecord.php:87
 msgid "custom"
@@ -399,11 +399,11 @@ msgstr ""
 #: modules/network/network/dnsrecords/afsdb.php:112
 #: modules/network/network/dnsrecords/cert.php:248
 #: modules/network/network/dnsrecords/ds.php:199
-#: modules/network/network/dnsrecords/key.php:258
-#: modules/network/network/dnsrecords/key.php:277
 #: modules/network/network/dnsrecords/rrsig.php:250
 #: modules/network/network/dnsrecords/sig.php:230
 #: modules/network/network/dnsrecords/sshfp.php:164
+#: modules/network/network/dnsrecords/key.php:258
+#: modules/network/network/dnsrecords/key.php:277
 msgid "Unknown"
 msgstr ""
 
@@ -423,7 +423,6 @@ msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:18
 #: modules/network/network/dnsrecords/ds.php:20
-#: modules/network/network/dnsrecords/key.php:18
 #: modules/network/network/dnsrecords/rrsig.php:23
 #: modules/network/network/dnsrecords/sig.php:23
 #: modules/network/network/dnsrecords/sshfp.php:15
@@ -440,7 +439,6 @@ msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:104
 #: modules/network/network/dnsrecords/ds.php:86
-#: modules/network/network/dnsrecords/key.php:137
 #: modules/network/network/dnsrecords/kx.php:28
 #: modules/network/network/dnsrecords/mx.php:29
 #: modules/network/network/dnsrecords/naptr.php:51
@@ -449,6 +447,7 @@ msgstr ""
 #: modules/network/network/dnsrecords/rrsig.php:123
 #: modules/network/network/dnsrecords/sig.php:122
 #: modules/network/network/dnsrecords/sshfp.php:82
+#: modules/network/network/dnsrecords/key.php:137
 #: modules/network/network/subnetedit.php:227
 msgid "Domain name"
 msgstr ""
@@ -470,32 +469,32 @@ msgstr ""
 #: modules/network/network/dnsrecords/cert.php:165
 #: modules/network/network/dnsrecords/ds.php:106
 #: modules/network/network/dnsrecords/ds.php:152
-#: modules/network/network/dnsrecords/key.php:156
-#: modules/network/network/dnsrecords/key.php:231
 #: modules/network/network/dnsrecords/rrsig.php:141
 #: modules/network/network/dnsrecords/rrsig.php:206
 #: modules/network/network/dnsrecords/sig.php:140
 #: modules/network/network/dnsrecords/sig.php:205
 #: modules/network/network/dnsrecords/sshfp.php:102
 #: modules/network/network/dnsrecords/sshfp.php:141
+#: modules/network/network/dnsrecords/key.php:156
+#: modules/network/network/dnsrecords/key.php:231
 msgid "Algorithm"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:130
 #: modules/network/network/dnsrecords/ds.php:114
-#: modules/network/network/dnsrecords/key.php:164
 #: modules/network/network/dnsrecords/rrsig.php:149
 #: modules/network/network/dnsrecords/sig.php:148
 #: modules/network/network/dnsrecords/sshfp.php:110
+#: modules/network/network/dnsrecords/key.php:164
 msgid "Custom algorithm"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:132
 #: modules/network/network/dnsrecords/ds.php:116
-#: modules/network/network/dnsrecords/key.php:166
 #: modules/network/network/dnsrecords/rrsig.php:151
 #: modules/network/network/dnsrecords/sig.php:150
 #: modules/network/network/dnsrecords/sshfp.php:112
+#: modules/network/network/dnsrecords/key.php:166
 msgid "Algorithm ranges from 0 to 255"
 msgstr ""
 
@@ -528,57 +527,57 @@ msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:172
 #: modules/network/network/dnsrecords/ds.php:160
-#: modules/network/network/dnsrecords/key.php:245
 #: modules/network/network/dnsrecords/rrsig.php:218
 #: modules/network/network/dnsrecords/sig.php:217
+#: modules/network/network/dnsrecords/key.php:245
 msgid "RSA/MD5"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:173
 #: modules/network/network/dnsrecords/ds.php:161
-#: modules/network/network/dnsrecords/key.php:246
 #: modules/network/network/dnsrecords/rrsig.php:219
 #: modules/network/network/dnsrecords/sig.php:218
+#: modules/network/network/dnsrecords/key.php:246
 msgid "Diffie-Hellman"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:174
 #: modules/network/network/dnsrecords/ds.php:162
-#: modules/network/network/dnsrecords/key.php:247
 #: modules/network/network/dnsrecords/rrsig.php:220
 #: modules/network/network/dnsrecords/sig.php:219
+#: modules/network/network/dnsrecords/key.php:247
 msgid "DSA"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:175
 #: modules/network/network/dnsrecords/ds.php:163
-#: modules/network/network/dnsrecords/key.php:248
 #: modules/network/network/dnsrecords/rrsig.php:221
 #: modules/network/network/dnsrecords/sig.php:220
+#: modules/network/network/dnsrecords/key.php:248
 msgid "Elliptic curve crypto"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:176
 #: modules/network/network/dnsrecords/ds.php:164
-#: modules/network/network/dnsrecords/key.php:249
 #: modules/network/network/dnsrecords/rrsig.php:222
 #: modules/network/network/dnsrecords/sig.php:221
+#: modules/network/network/dnsrecords/key.php:249
 msgid "Indirect key format"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:177
 #: modules/network/network/dnsrecords/ds.php:165
-#: modules/network/network/dnsrecords/key.php:250
 #: modules/network/network/dnsrecords/rrsig.php:223
 #: modules/network/network/dnsrecords/sig.php:222
+#: modules/network/network/dnsrecords/key.php:250
 msgid "Domain name (Private)"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:178
 #: modules/network/network/dnsrecords/ds.php:166
-#: modules/network/network/dnsrecords/key.php:251
 #: modules/network/network/dnsrecords/rrsig.php:224
 #: modules/network/network/dnsrecords/sig.php:223
+#: modules/network/network/dnsrecords/key.php:251
 msgid "OID (Private)"
 msgstr ""
 
@@ -701,153 +700,6 @@ msgstr ""
 #: modules/network/network/dnsrecords/ds.php:195
 #: modules/network/network/dnsrecords/sshfp.php:160
 msgid "SHA-1"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:16
-msgid "Custom protocol is no setted"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:23
-#: modules/network/network/dnsrecords/rrsig.php:29
-#: modules/network/network/dnsrecords/sig.php:29
-msgid "Signature is no setted"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:26
-#: modules/network/network/dnsrecords/rrsig.php:32
-#: modules/network/network/dnsrecords/sig.php:32
-msgid "Signature is incorrect"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:140
-#: modules/network/network/dnsrecords/key.php:232
-#: modules/network/network/dnsrecords/srv.php:115
-msgid "Protocol"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:148
-msgid "Custom protocol"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:150
-msgid "Protocol ranges from 0 to 255"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:172
-#: modules/network/network/dnsrecords/key.php:233
-msgid "Use policy"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:175
-#: modules/network/network/dnsrecords/key.php:234
-msgid "Name type"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:179
-#: modules/network/network/dnsrecords/key.php:235
-msgid "Update mode for this zone"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:181
-msgid ""
-"If checked, this key is authorized to attach, detach, and move zones by "
-"creating and deleting NS, glue A, and zone record(s).  If unchecked, the key"
-" can not authorize any update that would effect such records"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:186
-#: modules/network/network/dnsrecords/key.php:236
-msgid "Strong update"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:188
-msgid ""
-"If checked, this key is authorized to add and delete records even if there "
-"are other records with the same owner name and class that are authenticated "
-"by a SIG signed with a different dynamic update KEY. If unchecked, the key "
-"can only authorize updates where any existing records of the same owner and "
-"class are authenticated by a SIG using the same key."
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:193
-#: modules/network/network/dnsrecords/key.php:237
-msgid "Unique name update"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:195
-msgid ""
-"If checked, this key is authorized to add and update records for only a "
-"single owner name."
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:203
-#: modules/network/network/dnsrecords/key.php:238
-#: modules/network/network/dnsrecords/rrsig.php:176
-#: modules/network/network/dnsrecords/rrsig.php:213
-#: modules/network/network/dnsrecords/sig.php:175
-#: modules/network/network/dnsrecords/sig.php:212
-msgid "Signature"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:235
-#: modules/network/network/dnsrecords/key.php:236
-#: modules/network/network/dnsrecords/key.php:237
-msgid "Yes"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:235
-#: modules/network/network/dnsrecords/key.php:236
-#: modules/network/network/dnsrecords/key.php:237
-#: modules/network/network/dnsrecords/key.php:238
-msgid "No"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:266
-msgid "TLS"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:267
-msgid "Email"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:268
-msgid "DNSSEC"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:269
-msgid "IPSEC"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:270
-msgid "Any"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:307
-msgid "Permitted for authentication and/or confidentiality"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:308
-msgid "Prohibited for confidentiality"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:309
-msgid "Prohibited for authentication"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:310
-msgid "No key"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:316
-msgid "User/Account"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:317
-msgid "Zone"
-msgstr ""
-
-#: modules/network/network/dnsrecords/key.php:318
-msgid "Non-zone entity"
 msgstr ""
 
 #: modules/network/network/dnsrecords/kx.php:30
@@ -1008,6 +860,17 @@ msgstr ""
 msgid "Signature expiration time is incorrect"
 msgstr ""
 
+#: modules/network/network/dnsrecords/rrsig.php:29
+#: modules/network/network/dnsrecords/sig.php:29
+msgid "Signature is no setted"
+msgstr ""
+
+#: modules/network/network/dnsrecords/rrsig.php:32
+#: modules/network/network/dnsrecords/sig.php:32
+#: modules/network/network/dnsrecords/key.php:26
+msgid "Signature is incorrect"
+msgstr ""
+
 #: modules/network/network/dnsrecords/rrsig.php:125
 #: modules/network/network/dnsrecords/rrsig.php:212
 #: modules/network/network/dnsrecords/sig.php:124
@@ -1068,6 +931,15 @@ msgstr ""
 msgid "Signature expiration time"
 msgstr ""
 
+#: modules/network/network/dnsrecords/rrsig.php:176
+#: modules/network/network/dnsrecords/rrsig.php:213
+#: modules/network/network/dnsrecords/sig.php:175
+#: modules/network/network/dnsrecords/sig.php:212
+#: modules/network/network/dnsrecords/key.php:203
+#: modules/network/network/dnsrecords/key.php:238
+msgid "Signature"
+msgstr ""
+
 #: modules/network/network/dnsrecords/soa.php:58
 msgid "Zone name"
 msgstr ""
@@ -1101,68 +973,6 @@ msgstr ""
 #: modules/network/network/dnsrecords/soa.php:78
 #: modules/network/network/dnsrecords/soa.php:108
 msgid "Serial number"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:17
-msgid "It is need to enter custom protocol name"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:19
-msgid "It is need to enter service name"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:21
-msgid "It is need to enter the name of  host that will provide this service"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:23
-msgid "Priority can't be more than 65535"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:25
-msgid "Weight can't be more than 65535"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:27
-msgid "Port can't be more than 65535"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:101
-msgid "It can be an any service, if checked"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:110
-msgid "Service"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:123
-msgid "Custom protocol name"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:128
-msgid "There is host that will provide this service, if checked"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:135
-#: modules/network/network/dnsrecords/srv.php:166
-msgid "Host that will provide this service"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:140
-msgid "Port"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:144
-#: modules/network/network/dnsrecords/srv.php:169
-msgid "Weight"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:165
-msgid "no"
-msgstr ""
-
-#: modules/network/network/dnsrecords/srv.php:167
-msgid "Service port"
 msgstr ""
 
 #: modules/network/network/dnsrecords/sshfp.php:18
@@ -1220,6 +1030,202 @@ msgstr ""
 #: modules/network/network/dnsrecords/txt.php:30
 #: modules/network/network/dnsrecords/txt.php:40
 msgid "Text"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:16
+msgid "Custom protocol is not set"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:18
+msgid "Custom algorithm is not set"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:23
+msgid "Signature is not set"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:140
+#: modules/network/network/dnsrecords/key.php:232
+#: modules/network/network/dnsrecords/srv.php:115
+msgid "Protocol"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:148
+msgid "Custom protocol"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:150
+msgid "Protocol ranges from 0 to 255"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:172
+#: modules/network/network/dnsrecords/key.php:233
+msgid "Use policy"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:175
+#: modules/network/network/dnsrecords/key.php:234
+msgid "Name type"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:179
+#: modules/network/network/dnsrecords/key.php:235
+msgid "Update mode for this zone"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:181
+msgid ""
+"If checked, this key is authorized to attach, detach, and move zones by "
+"creating and deleting NS, glue A, and zone record(s).  If unchecked, the key"
+" can not authorize any update that would affect such records"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:186
+#: modules/network/network/dnsrecords/key.php:236
+msgid "Strong update"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:188
+msgid ""
+"If checked, this key is authorized to add and delete records even if there "
+"are other records with the same owner name and class that are authenticated "
+"by a SIG signed with a different dynamic update KEY. If unchecked, the key "
+"can only authorize updates where any existing records of the same owner and "
+"class are authenticated by a SIG using the same key."
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:193
+#: modules/network/network/dnsrecords/key.php:237
+msgid "Unique name update"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:195
+msgid ""
+"If checked, this key is authorized to add and update records for only a "
+"single owner name."
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:235
+#: modules/network/network/dnsrecords/key.php:236
+#: modules/network/network/dnsrecords/key.php:237
+msgid "Yes"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:235
+#: modules/network/network/dnsrecords/key.php:236
+#: modules/network/network/dnsrecords/key.php:237
+#: modules/network/network/dnsrecords/key.php:238
+msgid "No"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:266
+msgid "TLS"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:267
+msgid "Email"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:268
+msgid "DNSSEC"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:269
+msgid "IPSEC"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:270
+msgid "Any"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:307
+msgid "Permitted for authentication and/or confidentiality"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:308
+msgid "Prohibited for confidentiality"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:309
+msgid "Prohibited for authentication"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:310
+msgid "No key"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:316
+msgid "User/Account"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:317
+msgid "Zone"
+msgstr ""
+
+#: modules/network/network/dnsrecords/key.php:318
+msgid "Non-zone entity"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:17
+msgid "Custom protocol name is required"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:19
+msgid "Service name is required"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:21
+msgid "Host name that will provide this service is required"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:23
+msgid "Priority can't be more than 65535"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:25
+msgid "Weight can't be more than 65535"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:27
+msgid "Port can't be more than 65535"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:101
+msgid "It can be an any service, if checked"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:110
+msgid "Service"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:123
+msgid "Custom protocol name"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:128
+msgid "There is a host that will provide this service, if checked"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:135
+#: modules/network/network/dnsrecords/srv.php:166
+msgid "Host that will provide this service"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:140
+msgid "Port"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:144
+#: modules/network/network/dnsrecords/srv.php:169
+msgid "Weight"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:165
+msgid "no"
+msgstr ""
+
+#: modules/network/network/dnsrecords/srv.php:167
+msgid "Service port"
 msgstr ""
 
 #: modules/network/network/ajaxSubnetMembersFilter.php:28
