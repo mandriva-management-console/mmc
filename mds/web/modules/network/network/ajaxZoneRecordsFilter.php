@@ -29,6 +29,7 @@ require("../../../includes/i18n.inc.php");
 require("../../../includes/acl.inc.php");
 require("../../../includes/session.inc.php");
 require("../../../includes/PageGenerator.php");
+require("../../../modules/network/includes/network-xmlrpc.inc.php");
 require("../../../modules/network/includes/network2.inc.php");
 
 
@@ -49,9 +50,9 @@ if (isset($_GET["sortby"])){
 }
 
 
-if ($asc == "") 
+if ($asc == "")
     $asc="1";
-    
+
 
 $addresses = array();
 
@@ -61,7 +62,7 @@ if ($reverse){
     if (count($rzone))
         $curzone = $rzone[0];
 }
-                
+
 
 
 $records = getZoneRecords($curzone, "");
@@ -79,7 +80,7 @@ if ($filter){
 
 
 function getRecordValueDescription($zone, $type, $value){
-    $typeToLoad = in_array(strtoupper($type),supportedRecordsTypes()) ? strtolower($type) : "custom"; 
+    $typeToLoad = in_array(strtoupper($type),supportedRecordsTypes()) ? strtolower($type) : "custom";
     $RecordClass = $typeToLoad . "Record";
     require_once("../../../modules/network/network/dnsrecords/" . $typeToLoad . ".php");
     $r = new $RecordClass(array("zone" => $zone));
@@ -87,28 +88,28 @@ function getRecordValueDescription($zone, $type, $value){
     return $r->valuesToDescription();
 }
 
-function compare_hostname_asc($a, $b){ 
-    return strnatcmp($a["hostname"], $b["hostname"]); 
+function compare_hostname_asc($a, $b){
+    return strnatcmp($a["hostname"], $b["hostname"]);
 }
 
-function compare_hostname_desc($a, $b){ 
-    return strnatcmp($b["hostname"], $a["hostname"]); 
+function compare_hostname_desc($a, $b){
+    return strnatcmp($b["hostname"], $a["hostname"]);
 }
 
-function compare_type_asc($a, $b){ 
-    return strnatcmp($a["type"], $b["type"]); 
+function compare_type_asc($a, $b){
+    return strnatcmp($a["type"], $b["type"]);
 }
 
-function compare_type_desc($a, $b){ 
-    return strnatcmp($b["type"], $a["type"]); 
+function compare_type_desc($a, $b){
+    return strnatcmp($b["type"], $a["type"]);
 }
 
 $func = "compare_hostname_asc";
 if ($sortby!=""){
-    $func = "compare_" . $sortby . "_" . (($asc) ? "asc" : "desc") ;   
+    $func = "compare_" . $sortby . "_" . (($asc) ? "asc" : "desc") ;
 }
 
-usort($records, $func); 
+usort($records, $func);
 
 global $conf;
 $maxperpage=$conf["global"]["maxperpage"];
