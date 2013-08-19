@@ -129,6 +129,9 @@ def removeMailGroup(group):
 def addMailGroup(group, mail):
     MailControl().addMailGroup(group, mail)
 
+def getMailGroupAlias():
+    return MailControl().getMailGroupAlias()
+
 def addMailObjectClass(uid):
     MailControl().addMailObjectClass(uid)
 
@@ -814,6 +817,16 @@ class MailControl(ldapUserGroupControl):
         mlist = ldap.modlist.modifyModlist(attrs, newattrs)
         self.l.modify_s(cn, mlist)
         r.commit()
+
+    def getMailGroupAlias(self):
+        """
+        Get the list of group mail aliases
+        """
+        group_aliases = []
+        ret = self.search("(&(cn=*)(mail=*))", self.baseGroupsDN, ["mail"])
+        for group in ret:
+            group_aliases.append(group[0][1]['mail'][0])
+        return group_aliases
 
     def searchMailGroupAlias(self, mail):
         ret = self.search("(&(cn=*)(mail=%s@*))" % mail, self.baseGroupsDN, ["cn"])

@@ -35,24 +35,27 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
     $maildomain = "";
     if (hasGroupMailObjectClass($ldapArr['cn'][0])) {
         $hasMail = "checked";
-        if (isset($ldapArr["mail"])) $mail = $ldapArr["mail"][0];
-	if (hasVDomainSupport()) {
-	    $tmparr = explode("@", $mail);
+        if (isset($ldapArr["mail"]))
+            $mail = $ldapArr["mail"][0];
+	    if (hasVDomainSupport()) {
+	        $tmparr = explode("@", $mail);
             $mail = $tmparr[0];
-	    $maildomain = $tmparr[1];
-	}
-    } else {
+    	    $maildomain = $tmparr[1];
+	    }
+    }
+    else {
         $mail = computeMailGroupAlias($ldapArr['cn'][0]);
         $hasMail = "";
-	if (hasVDomainSupport()) {
+    	if (hasVDomainSupport()) {
             $vdomains = getVDomains("");
             if (count($vdomains) == 1) $maildomain = $vdomains[0][1]["virtualdomain"][0];
-	}
+	    }
     }
 
     if (($hasMail == "") && ($mail == "")) {
         print _T("No mail alias can be set for this group", "mail");
-    } else {
+    }
+    else {
       print '<table cellspacing="0">';
       if (hasZarafaSupport()) {
           $trz = new TrFormElement(_T("Zarafa group","mail"), new CheckboxTpl("zarafaGroup"));
@@ -99,10 +102,11 @@ function _mail_changeGroup($postArr) {
         if (hasVDomainSupport()) {
             $vdomain = $postArr["maildomain"];
             $mail .= "@" . $vdomain;
-	}
+    	}
         addMailGroup($group, $mail);
         syncMailGroupAliases($group);
-    } else { // mail group access is not checked
+    }
+    else { // mail group access is not checked
         if (hasGroupMailObjectClass($group)) {
             deleteMailGroupAliases($group);
             removeMailGroup($group);
@@ -210,15 +214,27 @@ function _mail_baseEdit($FH, $mode) {
     $f->add(
         new FormElement(_T("Mail drop","mail"), $m),
             $FH->getArrayOrPostValue($attrs['maildrop'], 'array')
-    );
+        );
 
+    $groupmailaliases = getMailGroupAlias();
+    $useraliases = $FH->getArrayOrPostValue($attrs['mailalias'], 'array');
+
+    $mailalias = array_diff($useraliases, $groupmailaliases);
     $m = new MultipleInputTpl($attrs['mailalias'], _T("Mail alias","mail"));
     $m->setRegexp('/^([0-9a-zA-Z@_.+\-])+$/');
-
     $f->add(
         new FormElement(_T("Mail alias","mail"), $m),
-        $FH->getArrayOrPostValue($attrs['mailalias'], 'array')
+        $mailalias ? $mailalias : array("")
     );
+
+    $mailalias = array_intersect($useraliases, $groupmailaliases);
+    $f->push(new Table());
+    $f->add(
+        new TrFormElement(_T("Group mail aliases", "mail"), new HiddenTpl('mailgroupalias'),
+            array("tooltip" => _T("The user is also in these group mail aliases", "mail"))),
+        array("value" => join(", ", $mailalias))
+    );
+    $f->pop();
 
     if (hasVDomainSupport()) {
         $f->push(new DivExpertMode());

@@ -42,6 +42,7 @@ $attrs = getMailAttributes();
 $mod->addACL("mailaccess", _T("Mail access","mail"));
 $mod->addACL("maildisable", _T("Disable mail delivery","mail"));
 $mod->addACL($attrs["mailalias"], _T("Mail aliases","mail"));
+$mod->addACL("mailgroupalias", _T("Group mail aliases","mail"));
 $mod->addACL($attrs["mailbox"], _T("Mail delivery path","mail"));
 $mod->addACL($attrs["mailhost"], _T("Mail server host","mail"));
 $mod->addACL($attrs["mailuserquota"], _T("Mail user quota","mail"));
