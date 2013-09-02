@@ -29,9 +29,10 @@ foreach(getSubnetHosts($subnet, "") as $dn => $entry) {
     if ($filter) {
         /* Don't display a host if filtered */
         if (
-            (strpos($hostname, $filter) === False)
+            (stripos($hostname, $filter) === False)
             && (strpos(long2ip($ipaddress), $filter) === False)
-            && (strpos($lines[$ipaddress]["macaddress"], $filter) === False)
+            && (stripos($lines[$ipaddress]["macaddress"], $filter) === False)
+            && (stripos($lines[$ipaddress]["type"], $filter) === False)
             ) {
 	    unset($lines[$ipaddress]);
         }
@@ -52,9 +53,10 @@ foreach($leases as $ipaddress => $infos) {
             if ($filter) {
                 /* Don't display a host if filtered */
                 if (
-                    (strpos($lines[$address]["hostname"], $filter) === False)
+                    (stripos($lines[$address]["hostname"], $filter) === False)
                     && (strpos(long2ip($address), $filter) === False)
-                    && (strpos($lines[$address]["macaddress"], $filter) === False)
+                    && (stripos($lines[$address]["macaddress"], $filter) === False)
+            	    && (stripos($lines[$address]["type"], $filter) === False)
                     ) {
                     unset($lines[$address]);
                 }

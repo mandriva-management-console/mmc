@@ -51,9 +51,9 @@ foreach($records as $host => $ip) {
     if ($filter) {
         /* Don't display a host if filtered */
         if (
-            (strpos($host, $filter) === False)
+            (stripos($host, $filter) === False)
             && (strpos($ipstr, $filter) === False)
-            && (strpos($cnames[$host], $filter) === False)
+            && (stripos($cnames[$host], $filter) === False)
             ) {
             $display = False;
         }
