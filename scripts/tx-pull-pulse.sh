@@ -23,5 +23,5 @@ modules="dyngroup glpi imaging inventory msc pkgs pulse2 backuppc"
 
 for mod in $modules
 do
-	tx pull -r pulse2.${mod} ${lang} ${args}
+	tx pull -f -r pulse2.${mod} ${lang} ${args}
 done
