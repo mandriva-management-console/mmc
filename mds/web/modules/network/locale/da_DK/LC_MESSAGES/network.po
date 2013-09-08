@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-08-16 15:12+0200\n"
-"PO-Revision-Date: 2013-09-01 23:00+0000\n"
+"POT-Creation-Date: 2013-09-02 18:20+0200\n"
+"PO-Revision-Date: 2013-09-08 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -348,18 +348,18 @@ msgstr ""
 #: modules/network/network/dnsrecords/aaaa.php:21
 #: modules/network/network/dnsrecords/custom.php:33
 #: modules/network/network/dnsrecords/loc.php:68
-#: modules/network/network/ajaxSubnetMembersFilter.php:103
-#: modules/network/network/ajaxZoneRecordsFilter.php:157
 #: modules/network/network/edithost.php:132
 #: modules/network/network/subnetedithost.php:188
+#: modules/network/network/ajaxZoneRecordsFilter.php:158
+#: modules/network/network/ajaxSubnetMembersFilter.php:105
 #: modules/network/network/ajaxZoneMembersFilter.php:79
 msgid "Host name"
 msgstr ""
 
 #: modules/network/network/dnsrecords/a.php:26
 #: modules/network/network/dnsrecords/a.php:37
-#: modules/network/network/ajaxSubnetMembersFilter.php:99
 #: modules/network/network/subnetedithost.php:194
+#: modules/network/network/ajaxSubnetMembersFilter.php:101
 #: modules/network/network/ajaxZoneMembersFilter.php:76
 msgid "IP address"
 msgstr ""
@@ -453,7 +453,7 @@ msgid "Domain name"
 msgstr ""
 
 #: modules/network/network/dnsrecords/cert.php:106
-#: modules/network/network/ajaxSubnetMembersFilter.php:105
+#: modules/network/network/ajaxSubnetMembersFilter.php:107
 msgid "Type"
 msgstr ""
 
@@ -1228,57 +1228,6 @@ msgstr ""
 msgid "Service port"
 msgstr ""
 
-#: modules/network/network/ajaxSubnetMembersFilter.php:28
-#: modules/network/network/ajaxSubnetMembersFilter.php:88
-msgid "Static"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:49
-msgid "Dynamic"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:76
-#: modules/network/network/subnetdeletehost.php:72
-msgid "Delete host"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:77
-msgid "Add static host"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:78
-msgid "edit static host"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:104
-#: modules/network/network/subnetedithost.php:201
-msgid "MAC address"
-msgstr ""
-
-#: modules/network/network/ajaxSubnetMembersFilter.php:106
-#: modules/network/network/ajaxZoneRecordsFilter.php:166
-#: modules/network/network/ajaxZoneMembersFilter.php:80
-msgid "Host"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:128
-msgid "Delete record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:130
-msgid "Edit record"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:164
-#: modules/network/network/editrecord.php:175
-#: modules/network/network/editrecord.php:181
-msgid "Record type"
-msgstr ""
-
-#: modules/network/network/ajaxZoneRecordsFilter.php:165
-msgid "Record parameters"
-msgstr ""
-
 #: modules/network/network/delete.php:29
 msgid "The DNS zone has been deleted."
 msgstr ""
@@ -1704,6 +1653,11 @@ msgstr ""
 msgid "Also unregister this host from DNS zone %s"
 msgstr ""
 
+#: modules/network/network/subnetdeletehost.php:72
+#: modules/network/network/ajaxSubnetMembersFilter.php:78
+msgid "Delete host"
+msgstr ""
+
 #: modules/network/network/subnetindex.php:31
 msgid "DHCP subnet management"
 msgstr ""
@@ -1855,6 +1809,12 @@ msgstr ""
 #: modules/network/network/editrecord.php:63
 #, php-format
 msgid "Edit record of zone %s"
+msgstr ""
+
+#: modules/network/network/editrecord.php:175
+#: modules/network/network/editrecord.php:181
+#: modules/network/network/ajaxZoneRecordsFilter.php:165
+msgid "Record type"
 msgstr ""
 
 #: modules/network/network/subnetedit.php:29
@@ -2159,6 +2119,11 @@ msgstr ""
 msgid "Host successfully modified."
 msgstr ""
 
+#: modules/network/network/subnetedithost.php:201
+#: modules/network/network/ajaxSubnetMembersFilter.php:106
+msgid "MAC address"
+msgstr ""
+
 #: modules/network/network/subnetedithost.php:217
 #, php-format
 msgid "Also records this machine into DNS zone %s"
@@ -2181,6 +2146,41 @@ msgstr ""
 
 #: modules/network/network/subnetedithost.php:237
 msgid "Click here to add it"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:129
+msgid "Delete record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:131
+msgid "Edit record"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:166
+msgid "Record parameters"
+msgstr ""
+
+#: modules/network/network/ajaxZoneRecordsFilter.php:167
+#: modules/network/network/ajaxSubnetMembersFilter.php:108
+#: modules/network/network/ajaxZoneMembersFilter.php:80
+msgid "Host"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:28
+#: modules/network/network/ajaxSubnetMembersFilter.php:90
+msgid "Static"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:50
+msgid "Dynamic"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:79
+msgid "Add static host"
+msgstr ""
+
+#: modules/network/network/ajaxSubnetMembersFilter.php:80
+msgid "edit static host"
 msgstr ""
 
 #: modules/network/network/ajaxZoneMembersFilter.php:44
