@@ -30,7 +30,7 @@ if (isset($_POST["brestart"])) {
     exit;
 } else if (isset($_POST["breload"])) {
     header("Location: " . urlStrRedirect("samba/config/reload"));
-    exit;    
+    exit;
 }
 
 function get_smbconf() {
@@ -43,7 +43,11 @@ function save_smbconf() {
 
     # sanitize POST values
     foreach ($_POST as $key => $value)
-        $options[str_replace("_", " ", $key)] = stripslashes($value);
+        if (!in_array($key, array('logon_home', 'logon_path')))
+            $options[str_replace("_", " ", $key)] = stripslashes($value);
+        else
+            $options[str_replace("_", " ", $key)] = $value;
+
     if(!isset($_POST['hasprofiles']))
         $options['hasprofiles'] = false;
     else
@@ -123,12 +127,12 @@ $f->add(
 $value = "";
 $hasProfiles = false;
 if ($smb['logon path']) {
-    $value = "checked"; 
+    $value = "checked";
     $hasProfiles = true;
 }
 $f->add(
-        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("hasprofiles"), 
-            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))), 
+        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("hasprofiles"),
+            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))),
         array("value" => $value, "extraArg" => 'onclick=toggleVisibility("profilespath")')
 );
 
@@ -145,7 +149,7 @@ $value = "\\\\%N\\profiles\\%U";
 if($hasProfiles) $value = $smb['logon path'];
 $f->add(
         new TrFormElement(_T("Network path for profiles"), new InputTpl("logon path"),
-            array("tooltip" => _T("The share must exist and be world-writable.", "samba"))), 
+            array("tooltip" => _T("The share must exist and be world-writable.", "samba"))),
         array("value" => $value)
 );
 $f->pop();
