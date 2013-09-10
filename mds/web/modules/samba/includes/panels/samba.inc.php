@@ -33,10 +33,10 @@ class SambaPanel extends Panel {
 
     function display_content() {
         echo '<p><a href="' . urlStrRedirect('samba/config/sambastatus') .'">';
-        echo sprintf(_T("%s open sessions"), $this->data['sessions']);
+        printf(dngettext("samba", "%d open session", "%d open sessions", $this->data['sessions']), $this->data['sessions']);
         echo '</a><br/>';
         echo '<a href="' . urlStrRedirect('samba/config/sambastatus') .'">';
-        echo sprintf(_T("%s share connections"), $this->data['shares']);
+        printf(dngettext("samba", "%d share connection", "%d share connections", $this->data['shares']), $this->data['shares']);
         echo '</a></p>';
     }
 }
