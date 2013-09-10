@@ -33,6 +33,7 @@ datafiles = \
 	includes/shares.inc.php \
 	includes/user-xmlrpc.inc.php \
 	includes/auditCodes.php \
+	includes/panels/samba.inc.php \
 	mainSidebar.php \
 	machines/index.php \
 	machines/delete.php \
