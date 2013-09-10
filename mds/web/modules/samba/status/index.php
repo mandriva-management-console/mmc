@@ -23,17 +23,23 @@
  */
 
 require("graph/navbar.inc.php");
-
 require_once('modules/samba/includes/user-xmlrpc.inc.php');
-?>
 
+if (in_array("dashboard", $_SESSION["supportModList"])) {
+    require("modules/samba/mainSidebar.php");
+    $p = new PageGenerator();
+    $p->setSideMenu($sidemenu); //$sidemenu inclus dans localSideBar.php
+    $p->displaySideMenu();
+}
+else
+    require("includes/statusSidebar.inc.php");
+
+?>
 <h2><?php echo  _T("Samba status","samba"); ?></h2>
 
 <div class="fixheight"></div>
 
 <?php
-    require("includes/statusSidebar.inc.php");
-
     $pid = array();
     $user = array();
     $machine = array();
@@ -109,7 +115,7 @@ require_once('modules/samba/includes/user-xmlrpc.inc.php');
                             $timestamp[] = $info[2];
                     }
                  }
-               
+
                 /**
                     * Creation de la liste
                     */

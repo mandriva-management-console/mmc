@@ -43,9 +43,13 @@ $submod->setDefaultPage("samba/shares/index");
 $submod->setPriority(20);
 
 $page = new Page("index",_T("List shares","samba"));
+$page->setImg("modules/samba/graph/img/shares/icn_global_active.gif",
+              "modules/samba/graph/img/shares/icn_global.gif");
 $submod->addPage($page);
 
 $page = new Page("add",_T("Add a share","samba"));
+$page->setImg("modules/samba/graph/img/shares/icn_addShare_active.gif",
+              "modules/samba/graph/img/shares/icn_addShare.gif");
 $submod->addPage($page);
 
 $page = new Page("backup",_T("Backup a share","samba"));
@@ -74,14 +78,13 @@ $submod->setDescription(_T("Machines"),"samba");
 $submod->setAlias('shares');
 
 $page = new Page("index",_T("Computer list","samba"));
+$page->setImg("modules/samba/graph/img/machines/icn_global_active.gif",
+              "modules/samba/graph/img/machines/icn_global.gif");
 $submod->addPage($page);
 
 $page = new Page("ajaxFilter");
 $page->setOptions(array("AJAX" =>True,"visible"=>False));
 $submod->addPage($page);
-
-/*$page = new Page("add",_T("Add a computer","samba"));
-$submod->addPage($page);*/
 
 $page = new Page("edit",_T("Edit a computer","samba"));
 $page->setOptions(array("visible"=>False));
@@ -106,6 +109,8 @@ $submod->setAlias('shares');
 
 
 $page = new Page("index",_T("SAMBA configuration","samba"));
+$page->setImg("modules/samba/graph/img/config/icn_global_active.gif",
+              "modules/samba/graph/img/config/icn_global.gif");
 $submod->addPage($page);
 
 $page = new Page("restart",_T("restart SAMBA service","samba"));
@@ -132,16 +137,16 @@ $mod->addACL("sambaLogonScript",_T("Logon script","samba"));
 $mod->addACL("sambaHomePath",_T("Home path","samba"));
 $mod->addACL("sambaHomeDrive",_T("Home drive","samba"));
 
+
 $MMCApp =&MMCApp::getInstance();
 $MMCApp->addModule($mod);
 
-
-//add status page
-$base = &$MMCApp->getModule('base');
-$status = &$base->getSubmod('status');
-
 $page = new Page("sambastatus",_T("SAMBA status","samba"));
 $page->setFile("modules/samba/status/index.php");
-$status->addPage($page);
+
+if (in_array("dashboard", $_SESSION["supportModList"]))
+    $MMCApp->_modules['samba']->_submod['config']->addPage($page);
+else
+    $MMCApp->_modules['base']->_submod['status']->addPage($page);
 
 ?>

@@ -54,7 +54,29 @@ datafiles = \
 	graph/navbar/share_select.png \
 	graph/navbar/pref.png \
 	graph/navbar/pref_hl.png \
-	graph/navbar/pref_select.png
+	graph/navbar/pref_select.png \
+	graph/img/machines/icn_addMachines.gif \
+	graph/img/machines/icn_addMachines_active.gif \
+	graph/img/machines/icn_addMachines_ro.gif \
+	graph/img/machines/icn_global.gif \
+	graph/img/machines/icn_global_active.gif \
+	graph/img/machines/icn_global_ro.gif \
+	graph/img/machines/icn_groupsList.gif \
+	graph/img/machines/icn_machinesList.gif \
+	graph/img/machines/icn_machines_large.gif \
+	graph/img/shares/icn_addShare.gif \
+	graph/img/shares/icn_addShare_active.gif \
+	graph/img/shares/icn_addShare_ro.gif \
+	graph/img/shares/icn_global.gif \
+	graph/img/shares/icn_global_active.gif \
+	graph/img/shares/icn_global_ro.gif \
+	graph/img/shares/icn_shareList.gif \
+	graph/img/shares/icn_shares_large.gif \
+	graph/img/config/icn_config_large.gif \
+	graph/img/config/icn_global.gif \
+	graph/img/config/icn_global_active.gif \
+	graph/img/config/icn_global_ro.gif
+
 
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
