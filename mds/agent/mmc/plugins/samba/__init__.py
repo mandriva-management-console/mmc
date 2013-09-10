@@ -26,6 +26,7 @@ import os
 import os.path
 import shutil
 import stat
+import pwd
 import grp
 import re
 import logging
@@ -1481,7 +1482,10 @@ class smbConf:
                 e.tag_type = posix1e.ACL_GROUP
                 # Search the gid number corresponding to the given group
                 ldapobj = mmc.plugins.base.ldapUserGroupControl(self.conffilebase)
-                gidNumber = ldapobj.getDetailedGroup(group)['gidNumber'][0]
+                try:
+                    gidNumber = ldapobj.getDetailedGroup(group)['gidNumber'][0]
+                except ldap.NO_SUCH_OBJECT:
+                    gidNumber = grp.getgrnam(group).gr_gid
                 e.qualifier = int(gidNumber)
                 # FIXME
                 # howto use posix1e for this ?
@@ -1494,7 +1498,10 @@ class smbConf:
                 e.tag_type = posix1e.ACL_USER
                 # Search the gid number corresponding to the given group
                 ldapobj = mmc.plugins.base.ldapUserGroupControl(self.conffilebase)
-                uidNumber = ldapobj.getDetailedUser(user)['uidNumber'][0]
+                try:
+                    uidNumber = ldapobj.getDetailedUser(user)['uidNumber'][0]
+                except KeyError:
+                    uidNumber = pwd.getpwnam(user).pw_uid
                 e.qualifier = int(uidNumber)
                 # FIXME
                 # howto use posix1e for this ?
@@ -1541,10 +1548,16 @@ class smbConf:
             if e.permset.write:
                 if e.tag_type == posix1e.ACL_GROUP:
                     res = ldapobj.getDetailedGroupById(str(e.qualifier))
-                    ret[0].append(res['cn'][0])
+                    if res:
+                        ret[0].append(res['cn'][0])
+                    else:
+                        ret[0].append(grp.getgrgid(e.qualifier).gr_name)
                 if e.tag_type == posix1e.ACL_USER:
                     res = ldapobj.getDetailedUserById(str(e.qualifier))
-                    ret[1].append(res['uid'][0])
+                    if res:
+                        ret[1].append(res['uid'][0])
+                    else:
+                        ret[1].append(pwd.getpwuid(e.qualifier).pw_name)
 
         return ret
 
