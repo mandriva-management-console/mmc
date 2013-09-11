@@ -284,7 +284,7 @@ zone "%(zone)s" {
         try:
             self.l.add_s(entryDN, attributes)
         except ldap.UNDEFINED_TYPE:
-            raise "Can't create record.";
+            raise Exception("Can't create record.");
             return False
         return True
 
@@ -419,7 +419,7 @@ zone "%(zone)s" {
         r = AF().log(PLUGIN_NAME, AA.NETWORK_ADD_DNS_ZONE, [(name, AT.ZONE)], network)
         if reverse:
             if network == None or netmask == None:
-                raise "Won't create reverse zone as asked, missing network or netmask"
+                raise Exception("Won't create reverse zone as asked, missing network or netmask")
             netmask = int(netmask)
             # Build network address start according to netmask
             elements = network.split(".")
@@ -430,7 +430,7 @@ zone "%(zone)s" {
             elif netmask == 24:
                 network = ".".join(elements[0:3])
             else:
-                raise "Won't create reverse zone as asked, netmask is not 8, 16 or 24"
+                raise Exception("Won't create reverse zone as asked, netmask is not 8, 16 or 24")
 
         if not self.pdns:
             # Create Bind configuration files
@@ -806,9 +806,9 @@ zone "%(zone)s" {
         record = self.getResourceRecord(zone, cname)
         try:
             if not "aRecord" in record[0][1]:
-                raise "%s in not a A record" % cname
+                raise Exception("%s in not a A record" % cname)
         except IndexError:
-            raise "'%s' A record does not exist in the DNS zone" % cname
+            raise Exception("'%s' A record does not exist in the DNS zone" % cname)
 
         if self.pdns:
             dn = "dc=" + alias  + "," +"dc=" + zone + "," + self.configDns.dnsDN
@@ -958,7 +958,8 @@ zone "%(zone)s" {
         If the new IP already exists, an exception is raised.
         """
         r = AF().log(PLUGIN_NAME, AA.NETWORK_MODIFY_RECORD, [(zone, AT.ZONE), (hostname, AT.RECORD_A)], ip)
-        if self.ipExists(zone, ip): raise "The IP %s has been already registered in zone %s" % (ip, zone)
+        if self.ipExists(zone, ip):
+            raise Exception("The IP %s has been already registered in zone %s" % (ip, zone))
         self.delRecord(zone, hostname)
         self.addRecordA(zone, hostname, ip)
         r.commit()
