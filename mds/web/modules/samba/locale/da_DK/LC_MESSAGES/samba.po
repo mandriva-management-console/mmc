@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-09-02 18:20+0200\n"
-"PO-Revision-Date: 2013-09-08 23:00+0000\n"
+"POT-Creation-Date: 2013-09-10 18:14+0200\n"
+"PO-Revision-Date: 2013-09-15 23:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,97 +17,97 @@ msgstr ""
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: modules/samba/config/index.php:73
-msgid ""
-"SAMBA configuration saved. You may need to reload or restart the SAMBA "
-"service."
-msgstr ""
-
-#: modules/samba/config/index.php:80 modules/samba/mainSidebar.php:41
-msgid "General options"
-msgstr ""
-
-#: modules/samba/config/index.php:95
-msgid "Domain name"
-msgstr ""
-
-#: modules/samba/config/index.php:100
-msgid "Server name"
-msgstr ""
-
-#: modules/samba/config/index.php:107
-msgid "This server is a PDC"
-msgstr ""
-
-#: modules/samba/config/index.php:112
-msgid "This server is a WINS server"
-msgstr ""
-
-#: modules/samba/config/index.php:119
-msgid "Share user's homes"
-msgstr ""
-
-#: modules/samba/config/index.php:130
-msgid "Use network profiles for users"
-msgstr ""
-
-#: modules/samba/config/index.php:131
-msgid "Activate roaming profiles for all users."
-msgstr ""
-
-#: modules/samba/config/index.php:147
-msgid "Network path for profiles"
-msgstr ""
-
-#: modules/samba/config/index.php:148
-msgid "The share must exist and be world-writable."
-msgstr ""
-
-#: modules/samba/config/index.php:158
-msgid "Yes"
-msgstr ""
-
-#: modules/samba/config/index.php:158
-msgid "No"
-msgstr ""
-
-#: modules/samba/config/index.php:158
-msgid "Only (for smbk5pwd)"
-msgstr ""
-
-#: modules/samba/config/index.php:163
-msgid "LDAP password sync"
-msgstr ""
-
-#: modules/samba/config/index.php:167
-#: modules/samba/includes/publicFunc.php:364
-msgid "Opening script session"
-msgstr ""
-
-#: modules/samba/config/index.php:168
-#: modules/samba/includes/publicFunc.php:365
-msgid "Base directory path"
-msgstr ""
-
-#: modules/samba/config/index.php:169
-#: modules/samba/includes/publicFunc.php:366
-msgid "Connect base directory on network drive"
-msgstr ""
-
-#: modules/samba/config/index.php:182 modules/samba/includes/auditCodes.php:30
-msgid "Restart SAMBA"
-msgstr ""
-
-#: modules/samba/config/index.php:183
-msgid "Reload SAMBA configuration"
-msgstr ""
-
 #: modules/samba/config/reload.php:26
 msgid "The SAMBA service has been asked to reload its configuration file."
 msgstr ""
 
 #: modules/samba/config/restart.php:26
 msgid "The SAMBA service has been asked to restart."
+msgstr ""
+
+#: modules/samba/config/index.php:77
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+
+#: modules/samba/config/index.php:84
+msgid "General options"
+msgstr ""
+
+#: modules/samba/config/index.php:99
+msgid "Domain name"
+msgstr ""
+
+#: modules/samba/config/index.php:104
+msgid "Server name"
+msgstr ""
+
+#: modules/samba/config/index.php:111
+msgid "This server is a PDC"
+msgstr ""
+
+#: modules/samba/config/index.php:116
+msgid "This server is a WINS server"
+msgstr ""
+
+#: modules/samba/config/index.php:123
+msgid "Share user's homes"
+msgstr ""
+
+#: modules/samba/config/index.php:134
+msgid "Use network profiles for users"
+msgstr ""
+
+#: modules/samba/config/index.php:135
+msgid "Activate roaming profiles for all users."
+msgstr ""
+
+#: modules/samba/config/index.php:151
+msgid "Network path for profiles"
+msgstr ""
+
+#: modules/samba/config/index.php:152
+msgid "The share must exist and be world-writable."
+msgstr ""
+
+#: modules/samba/config/index.php:162
+msgid "Yes"
+msgstr ""
+
+#: modules/samba/config/index.php:162
+msgid "No"
+msgstr ""
+
+#: modules/samba/config/index.php:162
+msgid "Only (for smbk5pwd)"
+msgstr ""
+
+#: modules/samba/config/index.php:167
+msgid "LDAP password sync"
+msgstr ""
+
+#: modules/samba/config/index.php:171
+#: modules/samba/includes/publicFunc.php:364
+msgid "Opening script session"
+msgstr ""
+
+#: modules/samba/config/index.php:172
+#: modules/samba/includes/publicFunc.php:365
+msgid "Base directory path"
+msgstr ""
+
+#: modules/samba/config/index.php:173
+#: modules/samba/includes/publicFunc.php:366
+msgid "Connect base directory on network drive"
+msgstr ""
+
+#: modules/samba/config/index.php:186 modules/samba/includes/auditCodes.php:30
+msgid "Restart SAMBA"
+msgstr ""
+
+#: modules/samba/config/index.php:187
+msgid "Reload SAMBA configuration"
 msgstr ""
 
 #: modules/samba/includes/errorHandling.php:5
@@ -254,7 +254,7 @@ msgid "User must change password on next logon, <br/>if checked"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:353
-#: modules/samba/infoPackage.inc.php:130
+#: modules/samba/infoPackage.inc.php:135
 msgid "Account expiration"
 msgstr ""
 
@@ -340,7 +340,7 @@ msgstr ""
 msgid "Del computer"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:46 modules/samba/status/index.php:87
+#: modules/samba/includes/auditCodes.php:46 modules/samba/status/index.php:93
 msgid "Share"
 msgstr ""
 
@@ -351,6 +351,25 @@ msgstr ""
 #: modules/samba/includes/auditCodes.php:48
 msgid "SAMBA"
 msgstr ""
+
+#: modules/samba/includes/panels/samba.inc.php:29
+#: modules/samba/infoPackage.inc.php:144
+msgid "SAMBA status"
+msgstr ""
+
+#: modules/samba/includes/panels/samba.inc.php:36
+#, php-format
+msgid "%d open session"
+msgid_plural "%d open sessions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/samba/includes/panels/samba.inc.php:39
+#, php-format
+msgid "%d share connection"
+msgid_plural "%d share connections"
+msgstr[0] ""
+msgstr[1] ""
 
 #: modules/samba/machines/add.php:36
 #, php-format
@@ -396,8 +415,8 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:65
-#: modules/samba/status/index.php:117
+#: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:71
+#: modules/samba/status/index.php:123
 msgid "Computers"
 msgstr ""
 
@@ -406,7 +425,7 @@ msgstr ""
 msgid "Computer <strong>%s</strong> deleted."
 msgstr ""
 
-#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:90
+#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:93
 msgid "Delete a computer"
 msgstr ""
 
@@ -520,8 +539,7 @@ msgid "Shares management"
 msgstr ""
 
 #: modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:112 modules/samba/mainSidebar.php:30
-#: modules/samba/infoPackage.inc.php:48
+#: modules/samba/shares/details.php:112 modules/samba/infoPackage.inc.php:50
 msgid "Add a share"
 msgstr ""
 
@@ -586,39 +604,39 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: modules/samba/status/index.php:30
+#: modules/samba/status/index.php:38
 msgid "Samba status"
 msgstr ""
 
-#: modules/samba/status/index.php:56
+#: modules/samba/status/index.php:62
 msgid "Opened sessions"
 msgstr ""
 
-#: modules/samba/status/index.php:64 modules/samba/views/users.tpl.php:26
+#: modules/samba/status/index.php:70 modules/samba/views/users.tpl.php:26
 msgid "Users"
 msgstr ""
 
-#: modules/samba/status/index.php:66 modules/samba/status/index.php:118
+#: modules/samba/status/index.php:72 modules/samba/status/index.php:124
 msgid "IP"
 msgstr ""
 
-#: modules/samba/status/index.php:72
+#: modules/samba/status/index.php:78
 msgid "No opened sessions"
 msgstr ""
 
-#: modules/samba/status/index.php:77
+#: modules/samba/status/index.php:83
 msgid "Connections on shares"
 msgstr ""
 
-#: modules/samba/status/index.php:116
+#: modules/samba/status/index.php:122
 msgid "User"
 msgstr ""
 
-#: modules/samba/status/index.php:119
+#: modules/samba/status/index.php:125
 msgid "Connected at"
 msgstr ""
 
-#: modules/samba/status/index.php:126
+#: modules/samba/status/index.php:132
 msgid "No connections"
 msgstr ""
 
@@ -647,96 +665,88 @@ msgstr ""
 msgid "Add a new user"
 msgstr ""
 
-#: modules/samba/mainSidebar.php:29 modules/samba/infoPackage.inc.php:45
-msgid "List shares"
-msgstr ""
-
-#: modules/samba/mainSidebar.php:33
-msgid "List computers"
-msgstr ""
-
 #: modules/samba/infoPackage.inc.php:31
 msgid "SAMBA management"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:51
-msgid "Backup a share"
+#: modules/samba/infoPackage.inc.php:45
+msgid "List shares"
 msgstr ""
 
 #: modules/samba/infoPackage.inc.php:55
-msgid "Remove a share"
+msgid "Backup a share"
 msgstr ""
 
 #: modules/samba/infoPackage.inc.php:59
+msgid "Remove a share"
+msgstr ""
+
+#: modules/samba/infoPackage.inc.php:63
 msgid "Share details"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:73
+#: modules/samba/infoPackage.inc.php:77
 msgid "Machines"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:76
+#: modules/samba/infoPackage.inc.php:80
 msgid "Computer list"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:86
+#: modules/samba/infoPackage.inc.php:89
 msgid "Edit a computer"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:103
+#: modules/samba/infoPackage.inc.php:106
 msgid "Configuration"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:108
+#: modules/samba/infoPackage.inc.php:111
 msgid "SAMBA configuration"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:111
+#: modules/samba/infoPackage.inc.php:116
 msgid "restart SAMBA service"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:115
+#: modules/samba/infoPackage.inc.php:120
 msgid "Reload SAMBA service"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:124
+#: modules/samba/infoPackage.inc.php:129
 msgid "Add/delete SAMBA's attributes"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:125
+#: modules/samba/infoPackage.inc.php:130
 msgid "Enable/Disable account"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:126
+#: modules/samba/infoPackage.inc.php:131
 msgid "Lock/Unlock account"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:127
+#: modules/samba/infoPackage.inc.php:132
 msgid "Network profile"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:128
+#: modules/samba/infoPackage.inc.php:133
 msgid "Can change password"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:129
+#: modules/samba/infoPackage.inc.php:134
 msgid "Must change password"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:131
+#: modules/samba/infoPackage.inc.php:136
 msgid "Logon script"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:132
+#: modules/samba/infoPackage.inc.php:137
 msgid "Home path"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:133
+#: modules/samba/infoPackage.inc.php:138
 msgid "Home drive"
-msgstr ""
-
-#: modules/samba/infoPackage.inc.php:143
-msgid "SAMBA status"
 msgstr ""
 
 
