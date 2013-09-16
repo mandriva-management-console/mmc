@@ -9,6 +9,7 @@ if (count($action) > 1) {
     $proto[] = "";
     $port[] = "";
     $source[] = $rule[1];
+    $destination[] = $rule[2];
 }
 else {
     $decision[] = $action[0];
@@ -16,6 +17,7 @@ else {
     $proto[] = $rule[3];
     $port[] = $rule[4];
     $source[] = $rule[1];
+    $destination[] = $rule[2];
 }
 $actionsDelete[] = $deleteAction;
 

@@ -66,12 +66,32 @@ if (isset($_POST['brule'])) {
                 $proto = "";
                 $port = "";
             }
+
+            # Source
+            $sources = array();
             if ($_POST['source'] == "all") {
                 foreach(getShorewallZones($src) as $zone)
-                   addRule($action, $zone, $dst, $proto, $port);
+                    $sources[] = $zone;
             }
             else
-                addRule($action, $_POST['source'], $dst, $proto, $port);
+                $sources[] = $_POST['source'];
+
+            # Destination
+            $destinations = array();
+            if ($_POST['destination'] == "all") {
+                foreach(getShorewallZones($dst) as $zone)
+                    $destinations[] = $zone;
+            }
+            else
+                $destinations[] = $_POST['destination'];
+
+            # Add rules
+            foreach($sources as $src) {
+                foreach($destinations as $dst) {
+                    addRule($action, $src, $dst, $proto, $port);
+                }
+            }
+
             if (!isXMLRPCError()) {
                 $n = new NotifyWidgetSuccess(_T("Rule added."));
                 handleServicesModule($n, array("shorewall" => _T("Firewall")));
@@ -146,11 +166,11 @@ $decisionTpl->setElementsVal(array("ACCEPT", "DROP"));
 
 $f->add(new TrFormElement(_T("Decision"), $decisionTpl));
 
-$zones = getZonesInterfaces($src);
-if (count($zones) > 1) {
+$src_zones = getZonesInterfaces($src);
+if (count($src_zones) > 1) {
     $sources = array("All");
     $sourcesVals = array("all");
-    foreach($zones as $zone) {
+    foreach($src_zones as $zone) {
         $sources[] = sprintf("%s (%s)", $zone[0], $zone[1]);
         $sourcesVals[] = $zone[0];
     }
@@ -162,6 +182,26 @@ if (count($zones) > 1) {
 }
 else {
     $tr = new TrFormElement(_T("Source"), new HiddenTpl("source"));
+    $tr->setStyle("display: none");
+    $f->add($tr, array("value" => "all"));
+}
+
+$dst_zones = getZonesInterfaces($dst);
+if (count($dst_zones) > 1) {
+    $destinations = array("All");
+    $destinationsVals = array("all");
+    foreach($dst_zones as $zone) {
+        $destinations[] = sprintf("%s (%s)", $zone[0], $zone[1]);
+        $destinationsVals[] = $zone[0];
+    }
+    $destinationsTpl = new SelectItem("destination");
+    $destinationsTpl->setElements($destinations);
+    $destinationsTpl->setElementsVal($destinationsVals);
+
+    $f->add(new TrFormElement(_T("Destination"), $destinationsTpl));
+}
+else {
+    $tr = new TrFormElement(_T("Destination"), new HiddenTpl("destination"));
     $tr->setStyle("display: none");
     $f->add($tr, array("value" => "all"));
 }

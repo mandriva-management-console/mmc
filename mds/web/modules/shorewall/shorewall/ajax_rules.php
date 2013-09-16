@@ -22,7 +22,8 @@
 
 $filter = $_GET["filter"];
 $list = getRules("", $src, $dst, $filter);
-$zones = getZonesInterfaces($src);
+$src_zones = getZonesInterfaces($src);
+$dst_zones = getZonesInterfaces($dst);
 
 $deleteAction = new ActionPopupItem(_T("Delete rule"), "delete_" . $page . "_rule", "delete", "");
 
@@ -30,6 +31,7 @@ $ids = array();
 $decision = array();
 $service = array();
 $source = array();
+$destination = array();
 $proto = array();
 $port = array();
 $actionsDelete = array();
@@ -42,8 +44,10 @@ $n = new ListInfos($decision, _T("Decision"));
 $n->first_elt_padding = 1;
 $n->disableFirstColumnActionLink();
 $n->addExtraInfo($service, _T("Service"));
-if (count($zones) > 1)
+if (count($src_zones) > 1)
     $n->addExtraInfo($source, _T("Source"));
+if (count($dst_zones) > 1)
+    $n->addExtraInfo($destination, _T("Destination"));
 $n->addExtraInfo($proto, _T("Protocol"));
 $n->addExtraInfo($port, _T("Port(s)"));
 $n->setParamInfo($ids);
