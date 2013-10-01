@@ -194,13 +194,13 @@ def activate():
             smbconf.setContent("global", "os level", "255")
             smbconf.save()
             reloadSamba()
-        try:
-            from mmc.plugins.dashboard.manager import DashboardManager
-            from mmc.plugins.samba.panel import SambaPanel
-            DM = DashboardManager()
-            DM.register_panel(SambaPanel("samba"))
-        except ImportError:
-            pass
+    try:
+        from mmc.plugins.dashboard.manager import DashboardManager
+        from mmc.plugins.samba.panel import SambaPanel
+        DM = DashboardManager()
+        DM.register_panel(SambaPanel("samba"))
+    except ImportError:
+        pass
 
     return True
 
