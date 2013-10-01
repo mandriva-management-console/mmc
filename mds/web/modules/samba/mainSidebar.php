@@ -33,7 +33,7 @@ $mod = $MMCApp->getModule('samba');
 foreach ($submods as $submod) {
     $submod = $mod->getSubmod($submod);
     foreach ($submod->getPages() as $page) {
-        if ($page->hasAccessAndVisible($mod->getName(), $submod->getName())) {
+        if ($page->hasAccessAndVisible($mod, $submod)) {
             if ($mod->getName() == "machines" && !$pdc) break;
             $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
             $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
