@@ -1,5 +1,5 @@
 import smbpasswd
-import time
+from time import time
 import ldap
 import logging
 import xmlrpclib
