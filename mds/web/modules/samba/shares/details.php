@@ -42,7 +42,7 @@ if (isset($_POST["bcreate"])) {
     if ($_POST["browseable"]) $browseable = 1;
     else $browseable = 0;
 
-    if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9]*$/", $shareName))) {
+    if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $shareName))) {
 	new NotifyWidgetFailure(_T("Invalid share name"));
     } else {
         $add = True;
