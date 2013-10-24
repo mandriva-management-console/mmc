@@ -619,10 +619,13 @@ class SambaLDAP(ldapUserGroupControl):
         Return true if the SAMBA password has expired for the given user
         """
         ret = False
+        user = self.getDetailedUser(uid)
+        if 'sambaAcctFlags' in user and 'X' in user['sambaAcctFlags'][0]:
+            return False
         try:
             domain = self.getDomain()
             if "sambaMaxPwdAge" in domain and int(domain["sambaMaxPwdAge"][0]) > 0:
-                sambaPwdMustChange = int(self.getDetailedUser(uid)["sambaPwdLastSet"][0]) + int(domain["sambaMaxPwdAge"][0])
+                sambaPwdMustChange = int(user["sambaPwdLastSet"][0]) + int(domain["sambaMaxPwdAge"][0])
                 ret = int(sambaPwdMustChange) < time()
         except KeyError:
             pass
