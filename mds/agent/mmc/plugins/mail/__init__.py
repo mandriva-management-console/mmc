@@ -397,9 +397,12 @@ class MailControl(ldapUserGroupControl):
         @rtype: list
         """
         filt = filt.strip()
-        if not filt: filt = "*"
-        else: filt = "*" + filt + "*"
-        return self.l.search_s(self.conf.vDomainDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailDomain)(virtualdomain=%s))" % filt)
+        if not filt:
+            filt = u"*"
+        else:
+            filt = u"*" + filt + u"*"
+        query = u"(&(objectClass=mailDomain)(virtualdomain=%s))" % filt
+        return [r[0] for r in self.search(query, self.conf.vDomainDN)]
 
     def getVAlias(self, alias):
         """
@@ -422,10 +425,13 @@ class MailControl(ldapUserGroupControl):
         @rtype: list
         """
         filt = filt.strip()
-        if not filt: filt = "*"
-        else: filt = "*" + filt + "*"
+        if not filt:
+            filt = u"*"
+        else:
+            filt = u"*" + filt + u"*"
         if self.conf.vAliasesSupport:
-            return self.l.search_s(self.conf.vAliasesDN, ldap.SCOPE_SUBTREE, "(&(objectClass=mailAlias)(mailalias=%s))" % filt)
+            query = u"(&(objectClass=mailAlias)(mailalias=%s))" % filt
+            return [r[0] for r in self.search(query, self.conf.vAliasesDN)]
         else:
             return ()
 
