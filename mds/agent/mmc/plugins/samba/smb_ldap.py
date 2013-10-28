@@ -127,7 +127,7 @@ class SambaLDAP(ldapUserGroupControl):
         else:
             try:
                 ppolicy = getDefaultPPolicy()[1]
-            except ldap.NO_SUCH_OBJECT:
+            except (ldap.NO_SUCH_OBJECT, IOError):
                 # no default password policy set
                 pass
             else:
