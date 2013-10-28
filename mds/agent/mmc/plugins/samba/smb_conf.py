@@ -12,10 +12,13 @@ from configobj import ConfigObj, ParseError
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.mmctools import shLaunch, shlaunch
 from mmc.core.audit import AuditFactory as AF
+from mmc.core.signals import Signal
 
 from mmc.plugins.samba.config import SambaConfig
 from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
 
+share_created = Signal(providing_args=["share_name", "share_info"])
+share_modified = Signal(providing_args=["share_name", "share_info"])
 logger = logging.getLogger()
 
 try:
@@ -468,6 +471,13 @@ class SambaConf:
             tmpInsert["admin users"] = tmpInsert["admin users"][:-1]
 
         self.config[name] = tmpInsert
+
+        info = self.shareInfo(name)
+        if mod:
+            share_modified.send(sender=self, share_name=name, share_info=info)
+        else:
+            share_created.send(sender=self, share_name=name, share_info=info)
+
         r.commit()
 
     def getACLOnShare(self, name):
