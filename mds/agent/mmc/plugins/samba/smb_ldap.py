@@ -631,6 +631,39 @@ class SambaLDAP(ldapUserGroupControl):
             pass
         return ret
 
+    def setPasswdExpiration(self, uid, can_expire=False):
+        """
+        Set password expiration flag on SAMBA user
+        """
+        userdn = self.searchUserDN(uid)
+        action = AA.SAMBA_UNEXPIRE_USER_PASSWD
+        if can_expire:
+            action = AA.SAMBA_EXPIRE_USER_PASSWD
+        s = self.l.search_s(userdn, ldap.SCOPE_BASE)
+        c, old = s[0]
+        new = old.copy()
+        changed = False
+        flags = new["sambaAcctFlags"][0]
+        # flags should be something like "[U          ]"
+        if can_expire and 'X' in flags:
+            flags = flags.strip("[]")
+            flags = flags.strip().replace('X', '')
+            flags = "[" + flags.ljust(11) + "]"
+            changed = True
+        elif not can_expire and not 'X' in flags:
+            flags = flags.strip("[]").strip()
+            flags = flags + "X"
+            flags = "[" + flags.ljust(11) + "]"
+            changed = True
+        # If the flag was changed
+        if changed:
+            r = AF().log(PLUGIN_NAME, action, [(userdn, AT.USER)])
+            new["sambaAcctFlags"] = [flags]
+            modlist = ldap.modlist.modifyModlist(old, new)
+            self.l.modify_s(userdn, modlist)
+            r.commit()
+        return True
+
     def _getMakeSambaGroupCommand(self, group):
         return "net groupmap add unixgroup='%s'" % group
 

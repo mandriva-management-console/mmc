@@ -343,6 +343,9 @@ def isEnabledUser(uid):
 def isLockedUser(uid):
     return SambaLDAP().isLockedUser(uid)
 
+def setPasswdExpiration(uid, can_expire=False):
+    return SambaLDAP().setPasswdExpiration(uid, can_expire)
+
 def enableUser(uid):
     return SambaLDAP().enableUser(uid)
 
@@ -381,3 +384,47 @@ def getMachinesLdap(searchFilter= ""):
     ldapObj = SambaLDAP()
     searchFilter = cleanFilter(searchFilter)
     return ldapObj.searchMachine(searchFilter)
+
+try:
+    from mmc.core.signals import receiver
+    from mmc.plugins.ppolicy import PPolicy
+    from mmc.plugins.ppolicy.signals import ppolicy_applied, ppolicy_removed, \
+                                            ppolicy_attr_changed
+
+    @receiver([ppolicy_applied, ppolicy_removed],
+               dispatch_uid="samba.fix_expiration")
+    def fix_expiration(sender, **kwargs):
+        if not isSmbUser(sender.userUid):
+            return
+        # a ppolicy was set on the user
+        if 'ppolicy_name' in kwargs:
+            ppolicy_name = kwargs['ppolicy_name']
+            ppolicy = PPolicy().getPPolicy(ppolicy_name)[1]
+            # ppolicy has no password expiration
+            if ppolicy['pwdMaxAge'][0] == '0':
+                setPasswdExpiration(sender.userUid, can_expire=False)
+            else:
+                setPasswdExpiration(sender.userUid, can_expire=True)
+        # ppolicy removed from the user
+        # default ppolicy applies so SAMBA domain ppolicy will apply
+        else:
+            setPasswdExpiration(sender.userUid, can_expire=True)
+
+    @receiver(ppolicy_attr_changed,
+              dispatch_uid="samba.fix_expiration_ppolicy_changed")
+    def fix_expiration_ppolicy_changed(sender, **kwargs):
+        if not kwargs['ppolicy_name']:
+            return
+        if not kwargs['ppolicy_attr'] == 'pwdMaxAge':
+            return
+        users = PPolicy().getPPolicyUsers(kwargs['ppolicy_name'])
+        for uid in users:
+            if not isSmbUser(uid):
+                continue
+            if kwargs['ppolicy_attr_value'] == '0':
+                setPasswdExpiration(uid, can_expire=False)
+            else:
+                setPasswdExpiration(uid, can_expire=True)
+
+except ImportError:
+    pass

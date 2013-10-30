@@ -24,7 +24,7 @@
 
 $module_audit_codes = array(
     'SAMBA_ADD_SHARE' => _T("Add share", "samba"),
-    'SAMBA_MOD_SHARE' => _T("Mod share", "samba"),    
+    'SAMBA_MOD_SHARE' => _T("Mod share", "samba"),
     'SAMBA_DEL_SHARE' => _T("Del share", "samba"),
     'SAMBA_BACKUP_SHARE' => _T("Backup share", "samba"),
     'SAMBA_RESTART_SAMBA' => _T("Restart SAMBA", "samba"),
@@ -43,6 +43,8 @@ $module_audit_codes = array(
     'SAMBA_MAKE_SAMBA_GRP' => _T("Make SAMBA group", "samba"),
     'SAMBA_ADD_MACHINE' => _T("Add computer", "samba"),
     'SAMBA_DEL_MACHINE' => _T("Del computer", "samba"),
+    'SAMBA_UNEXPIRE_USER_PASSWD' => _T("User password doesn't expire", "samba"),
+    'SAMBA_EXPIRE_USER_PASSWD' => _T("User password can expire", "samba"),
     'SHARE' => _T("Share", "samba"),
     'MACHINE' => _T("Computer", "samba"),
     'MMC-SAMBA' => _T("SAMBA", "samba"),
