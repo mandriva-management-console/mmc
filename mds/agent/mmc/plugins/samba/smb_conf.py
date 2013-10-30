@@ -12,13 +12,12 @@ from configobj import ConfigObj, ParseError
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.mmctools import shLaunch, shlaunch
 from mmc.core.audit import AuditFactory as AF
-from mmc.core.signals import Signal
 
 from mmc.plugins.samba.config import SambaConfig
 from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
+from mmc.plugins.samba.signals import share_modified, share_created
 
-share_created = Signal(providing_args=["share_name", "share_info"])
-share_modified = Signal(providing_args=["share_name", "share_info"])
+
 logger = logging.getLogger()
 
 try:
@@ -29,7 +28,6 @@ except ImportError:
 
 
 class SambaConf:
-
     supportedGlobalOptions = ["workgroup", "netbios name", "logon path", "logon drive", "logon home", "logon script", "ldap passwd sync", "wins support"]
     supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable']
 
