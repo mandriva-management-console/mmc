@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-10-30 14:50+0100\n"
-"PO-Revision-Date: 2013-11-04 00:02+0000\n"
+"POT-Creation-Date: 2013-10-24 17:15+0200\n"
+"PO-Revision-Date: 2013-10-28 00:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -264,25 +264,6 @@ msgid ""
 "longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
-#: modules/samba/includes/panels/samba.inc.php:29
-#: modules/samba/infoPackage.inc.php:144
-msgid "SAMBA status"
-msgstr ""
-
-#: modules/samba/includes/panels/samba.inc.php:36
-#, php-format
-msgid "%d open session"
-msgid_plural "%d open sessions"
-msgstr[0] ""
-msgstr[1] ""
-
-#: modules/samba/includes/panels/samba.inc.php:39
-#, php-format
-msgid "%d share connection"
-msgid_plural "%d share connections"
-msgstr[0] ""
-msgstr[1] ""
-
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
 msgstr ""
@@ -359,25 +340,36 @@ msgstr ""
 msgid "Del computer"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:46
-msgid "User password doesn't expire"
-msgstr ""
-
-#: modules/samba/includes/auditCodes.php:47
-msgid "User password can expire"
-msgstr ""
-
-#: modules/samba/includes/auditCodes.php:48 modules/samba/status/index.php:93
+#: modules/samba/includes/auditCodes.php:46 modules/samba/status/index.php:93
 msgid "Share"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:49
+#: modules/samba/includes/auditCodes.php:47
 msgid "Computer"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:50
+#: modules/samba/includes/auditCodes.php:48
 msgid "SAMBA"
 msgstr ""
+
+#: modules/samba/includes/panels/samba.inc.php:29
+#: modules/samba/infoPackage.inc.php:144
+msgid "SAMBA status"
+msgstr ""
+
+#: modules/samba/includes/panels/samba.inc.php:36
+#, php-format
+msgid "%d open session"
+msgid_plural "%d open sessions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/samba/includes/panels/samba.inc.php:39
+#, php-format
+msgid "%d share connection"
+msgid_plural "%d share connections"
+msgstr[0] ""
+msgstr[1] ""
 
 #: modules/samba/machines/add.php:36
 #, php-format
