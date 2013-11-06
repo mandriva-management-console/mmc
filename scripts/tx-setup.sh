@@ -16,7 +16,7 @@ fi
 
 test -d .tx || tx init --host=https://transifex.mandriva.com
 
-mmc_modules="base ppolicy services dashboard"
+mmc_modules="base ppolicy services dashboard report"
 mds_modules="bulkimport mail network proxy samba sshlpk userquota shorewall squid"
 pulse2_modules="dyngroup glpi imaging inventory msc pkgs pulse2 backuppc"
 
