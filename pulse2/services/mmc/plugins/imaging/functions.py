@@ -2571,7 +2571,9 @@ class ImagingRpcProxy(RpcProxyI):
         # address is also matching
         ctx = self.currentContext
         if uuid :
-            db_computer = getJustOneMacPerComputer(ctx, ComputerManager().getMachineMac(ctx, {'uuid': uuid}))
+            # Get list of mac of uuid:
+            # dict of computer with their MAC Addresses ({'UUIDX': ['MAC1', 'MAC2']})
+            db_computer = ComputerManager().getMachineMac(ctx, {'uuid': uuid})
 
         if db_computer:
             if len(db_computer) > 1:
@@ -2580,21 +2582,21 @@ class ImagingRpcProxy(RpcProxyI):
                 return [False, err]
             else:
                 # Checking if MAC address match
-                uuid = db_computer.keys()[0]
-                mac = db_computer[uuid]
+                macs = [db_computer[x].lower() for x in db_computer]
                 logger.debug("A computer (uuid = %s) with a corresponding hostname already exists in the database, checking its MAC addresses" % uuid)
                 hasMAC = False
-                if mac == '':
+                if not macs:
                     # No MAC address ? We consider we have a match
+                    logger.warn('Merging computer %s with already existing %s without checking its MAC address (empty MAC address list returned)' % (hostname, uuid))
                     hasMAC = True
-                elif mac.lower() == MACAddress.lower():
+                elif MACAddress.lower() in macs:
                     hasMAC = True
                 if not hasMAC:
-                    err = "A computer (uuid = %s) with this hostname already exists, but the MAC address doesn't match: %s not in %s" % (uuid, MACAddress, mac)
+                    err = "A computer (uuid = %s) with this hostname already exists, but the MAC address doesn't match: %s not in %s" % (uuid, MACAddress, macs)
                     logger.error(err)
                     return [False, err]
                 else:
-                    logger.debug("The computer (uuid = %s) is matching with its hostname and one of its MAC addresses (%s)" % (uuid, mac))
+                    logger.debug("The computer (uuid = %s) is matching with its hostname and one of its MAC addresses (%s)" % (uuid, MACAddress))
 
         if uuid == None or type(uuid) == list and len(uuid) == 0:
             logger.info("the computer %s (%s) does not exist in the backend, trying to add it" % (hostname, MACAddress))
