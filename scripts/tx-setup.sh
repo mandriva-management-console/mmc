@@ -31,6 +31,8 @@ do
 	tx set --execute --auto-local -r mds.$mod -s en -f core/web/modules/$mod/locale/$mod.pot "core/web/modules/$mod/locale/<lang>/LC_MESSAGES/$mod.po"
 done
 
+tx set --execute --auto-local -r mds.report-templates -s en -f core/agent/mmc/plugins/report/locale/templates.pot "core/agent/mmc/plugins/report/locale/<lang>/LC_MESSAGES/templates.po"
+
 cd mds/web
 bash scripts/build_pot.sh
 cd $dir

@@ -18,7 +18,7 @@ test -d .tx || tx init --host=https://transifex.mandriva.com
 
 args=$@
 
-modules="base ppolicy services dashboard report"
+modules="base ppolicy services dashboard report report-templates"
 
 for mod in $modules
 do
