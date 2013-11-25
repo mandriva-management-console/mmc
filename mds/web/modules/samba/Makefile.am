@@ -86,7 +86,7 @@ moduledir = $(datadir)/mmc/modules/$(module)
 pofiles = $(foreach lang,$(langs),$(srcdir)/locale/$(lang)/LC_MESSAGES/$(module).po)
 mofiles = $(patsubst %.po,%.mo,$(pofiles))
 
-nobase_module_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(mofiles)
+nobase_module_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(patsubst %,$(srcdir)/%,$(mofiles))
 
 EXTRA_DIST = $(datafiles) $(pofiles)
 CLEANFILES = $(mofiles)
