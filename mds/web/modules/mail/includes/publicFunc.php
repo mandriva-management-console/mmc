@@ -228,13 +228,15 @@ function _mail_baseEdit($FH, $mode) {
     );
 
     $mailalias = array_intersect($useraliases, $groupmailaliases);
-    $f->push(new Table());
-    $f->add(
-        new TrFormElement(_T("Group mail aliases", "mail"), new HiddenTpl('mailgroupalias'),
-            array("tooltip" => _T("The user is also in these group mail aliases", "mail"))),
-        array("value" => join(", ", $mailalias))
-    );
-    $f->pop();
+    if (count($mailalias) > 0) {
+        $f->push(new Table());
+        $f->add(
+            new TrFormElement(_T("Group mail aliases", "mail"), new HiddenTpl('mailgroupalias'),
+                array("tooltip" => _T("The user is also in these group mail aliases", "mail"))),
+            array("value" => join(", ", $mailalias))
+        );
+        $f->pop();
+    }
 
     if (hasVDomainSupport()) {
         $f->push(new DivExpertMode());
