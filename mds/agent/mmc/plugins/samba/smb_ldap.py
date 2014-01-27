@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import smbpasswd
 from time import time
 import ldap
@@ -622,6 +623,8 @@ class SambaLDAP(ldapUserGroupControl):
         user = self.getDetailedUser(uid)
         if 'sambaAcctFlags' in user and 'X' in user['sambaAcctFlags'][0]:
             return False
+        if 'sambaKickoffTime' in user and int(user['sambaKickoffTime'][0]) < time():
+            return True
         try:
             domain = self.getDomain()
             if "sambaMaxPwdAge" in domain and int(domain["sambaMaxPwdAge"][0]) > 0:
