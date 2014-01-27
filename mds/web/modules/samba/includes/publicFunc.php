@@ -340,7 +340,10 @@ function _samba_baseEdit($FH, $mode) {
         }
 
         $checked = "";
-        if($FH->getArrayOrPostValue('sambaPwdMustChange') == "0" || $FH->getArrayOrPostValue('sambaPwdMustChange') == "on") $checked = "checked";
+        if (($FH->getArrayOrPostValue('sambaPwdMustChange') == "0" || $FH->getArrayOrPostValue('sambaPwdMustChange') == "on")
+                && $FH->getArrayOrPostValue('sambaPwdLastSet') == "0") {
+            $checked = "checked";
+        }
         $f->add(
             new TrFormElement(_T("User must change password on next logon, <br/>if checked","samba"), new CheckboxTpl("sambaPwdMustChange")),
             array ("value" => $checked)
