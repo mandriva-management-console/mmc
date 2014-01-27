@@ -1,5 +1,7 @@
 <?php
 
+include('../includes/network-xmlrpc.inc.php');
+
 class aRecord extends RecordBase{
 
     function aRecord($config = array()){
