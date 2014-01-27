@@ -43,7 +43,7 @@ function save_smbconf() {
 
     # sanitize POST values
     foreach ($_POST as $key => $value)
-        if (!in_array($key, array('logon_home', 'logon_path')))
+        if (get_magic_quotes_gpc())
             $options[str_replace("_", " ", $key)] = stripslashes($value);
         else
             $options[str_replace("_", " ", $key)] = $value;
