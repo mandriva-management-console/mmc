@@ -255,12 +255,12 @@ function _samba_baseEdit($FH, $mode) {
     }
 
     if ($hasSmb && userPasswdHasExpired($uid)) {
-        $em = new ErrorMessage(_T("SAMBA properties", "samba") . ' : ' . _T("The password of this account has expired.", "samba"));
+        $em = new ErrorMessage(_T("Samba properties", "samba") . ' : ' . _T("The password of this account has expired.", "samba"));
         $em->display();
     }
 
     if ($hasSmb && isLockedUser($uid)) {
-        $em = new ErrorMessage(_T("SAMBA properties", "samba") . ' : ' . _T("This account is locked.", "samba"));
+        $em = new ErrorMessage(_T("Samba properties", "samba") . ' : ' . _T("This account is locked.", "samba"));
         $em->display();
     }
 
@@ -268,7 +268,7 @@ function _samba_baseEdit($FH, $mode) {
     $f->push(new Table());
 
     $f->add(
-        new TrFormElement(_T("SAMBA access","samba"), new CheckboxTpl("isSamba")),
+        new TrFormElement(_T("Samba access","samba"), new CheckboxTpl("isSamba")),
         array("value"=> $show ? "checked" : "", "extraArg"=>'onclick="toggleVisibility(\'smbdiv\');"')
     );
 
