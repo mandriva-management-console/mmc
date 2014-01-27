@@ -70,26 +70,25 @@ function checkSubnet() {
     return array(isset($error), $error);
 }
 
-function checkPools() {
+function checkPools(&$poolsRanges) {
     /* Check that the given pool range is valid */
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
-    $pools = $_POST["subnetpools"];
-    $hasPools = isset($_POST["hassubnetpools"]);
-    if ($hasPools) {
-	for ($i = 0; $i < count($pools); $i++)
-	{
-	    list($ipStart, $ipEnd) = split(" ", $pools[$i]);
-	    if (isset($ipStart) && isset($ipEnd)) {
-		if (!(ipLowerThan($ipStart, $ipEnd) && ipInNetwork($ipStart, $subnet, $netmask) && ipInNetwork($ipEnd, $subnet, $netmask))){
-		    $error .= sprintf(_T("The specified dynamic pool IP range from %s to %s is not valid."), $ipStart, $ipEnd);
-		    if ($i < count($pools) -1) $error .= "<br>";
-		}
-	    } else {
-		$error.= sprintf(_T("No IP range specified for %d dynamic pool."), $i + 1);
-		if ($i < count($pools) -1) $error .= "<br>";
-	    }
-	}
+    if (isset($_POST["hassubnetpools"])) {
+        foreach ($_POST as $key => $value) {
+            if (preg_match('/^subnetpool_[0-9]*$/', $key)) {
+                list($ipStart, $ipEnd) = preg_split("/\s+/", $value);
+                if (isset($ipStart) && isset($ipEnd)) {
+                    if (!(ipLowerThan($ipStart, $ipEnd) &&
+                            ipInNetwork($ipStart, $subnet, $netmask) &&
+                            ipInNetwork($ipEnd, $subnet, $netmask))) {
+                        $error .= sprintf(_T("The specified dynamic pool IP range from %s to %s is not valid."), $ipStart, $ipEnd);
+                        setFormError("subnetpools");
+                    }
+                    $poolsRanges[] = $ipStart . " " . $ipEnd;
+                }
+            }
+        }
     }
     return array(isset($error), $error);
 }
@@ -98,15 +97,16 @@ if (isset($_POST["badd"])) $checks = array("checkSubnet", "checkPools");
 if (isset($_POST["bedit"])) $checks = array("checkPools");
 
 
-if (isset($_POST["badd"]) | isset($_POST["bedit"])) {
-    foreach($checks as $check) {
-        list($result, $error) = call_user_func($check);
-        if ($result) break;
-    }
+if (isset($_POST["badd"])) {
+    list($result, $error) = checkSubnet();
 }
 
-if (!isset($error)
-     & (isset($_POST["badd"]) || (isset($_POST["bedit"])))) {
+if (isset($_POST["badd"]) | isset($_POST["bedit"])) {
+    $poolsRanges = array();
+    list($result, $error) = checkPools($poolsRanges);
+}
+
+if (!isset($error) && (isset($_POST["badd"]) || (isset($_POST["bedit"])))) {
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
     $description = stripslashes($_POST["description"]);
@@ -146,7 +146,7 @@ if (!isset($error)
     setSubnetAuthoritative($subnet, isset($_POST["authoritative"]));
 
     /* Create or update the DHCP pools */
-    $poolsRanges = (isset($_POST["hassubnetpools"])) ? $_POST["subnetpools"] : array();
+    $poolsRanges = isset($_POST["hassubnetpools"]) ? $poolsRanges : array();
     setPoolsRanges($subnet, $poolsRanges);
 
     if (!isXMLRPCError()) {
@@ -157,8 +157,7 @@ if (!isset($error)
         }
         $services = getServicesNames();
         handleServicesModule($n, array($services[1] => "DHCP"));
-        header("Location: " . urlStrRedirect("network/network/subnetindex"));
-        exit;
+        redirectTo(urlStrRedirect("network/network/subnetindex"));
     }
 }
 
@@ -166,13 +165,11 @@ if (isset($error)) {
     new NotifyWidgetFailure($error);
     $subnet = $_POST["subnet"];
     $netmask = $_POST["netmask"];
-    if (isset($_POST["hassubnetpools"])) $hasSubnetPools = "checked";
-    else $hasSubnetPools = "";
-    $poolsRanges = $_POST["subnetpools"];
+    $hasSubnetPools = count($poolsRanges) ? "checked" : "";
 }
 
 
-if ($_GET["action"] == "subnetedit") {
+if ($_GET["action"] == "subnetedit" && !isset($error)) {
     $subnetInfos = getSubnet($_GET["subnet"]);
     $subnet = $subnetInfos[0][1]["cn"][0];
     $netmask = $subnetInfos[0][1]["dhcpNetMask"][0];
@@ -185,9 +182,8 @@ if ($_GET["action"] == "subnetedit") {
         $authoritative = "";
     }
     $poolsRanges = getPoolsRanges($subnet);
-    $hasSubnetPools = (count($poolsRanges)) ? "checked": "";
+    $hasSubnetPools = count($poolsRanges) ? "checked" : "";
 }
-    //var_dump($pool);
 
 if ($_GET["action"] == "subnetadd") {
     $formElt = new IPInputTpl("subnet");
@@ -374,12 +370,13 @@ $f->pop();
 $poolsdiv = new Div(array("id" => "poolsdiv"));
 $poolsdiv->setVisibility($hasSubnetPools);
 $f->push($poolsdiv);
-
-$f->add(new FormElement(_T("Dynamic pools"),
-			new MultipleRangeInputTpl("subnetpools")),
-			$poolsRanges);
-$f->pop();
-
+$f->push(new Table());
+$f->add(new TrFormElement(_T("Dynamic pools"),
+              			  new MultipleRangeInputTpl("subnetpools")),
+        array("value" => $poolsRanges)
+);
+$f->pop(); // pop table
+$f->pop(); // pop div
 $f->pop(); // pop the form
 
 

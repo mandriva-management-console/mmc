@@ -75,7 +75,7 @@ datafiles = \
 	network/deletehost.php \
 	network/deleterecord.php \
 	network/ajaxZoneRecordsFilter.php \
-	network/ajaxMultipleRange.php \
+	network/ajaxRange.php \
 	network/zonerecords.php \
 	network/ajaxRecordTypeContentRequests.php \
 	network/editrecord.php \

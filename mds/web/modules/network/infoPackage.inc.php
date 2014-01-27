@@ -117,7 +117,7 @@ $page = new Page("deleterecord",_T("Delete a record","network"));
 $page->setOptions( array ("noHeader" => True,"visible"=>False));
 $submod->addPage($page);
 
-$page = new Page("edithost",_T("Edit a DNS record","network"));
+$page = new Page("edithost",_T("Edit a DNS host","network"));
 $page->setOptions( array ("visible"=>False));
 $submod->addPage($page);
 
@@ -161,6 +161,10 @@ $page = new Page("subnetedit",_T("Edit DHCP subnet", "network"));
 $page->setOptions(array("visible"=>False));
 $submod->addPage($page);
 
+$page = new Page("ajaxRange",_T("Add DHCP pool range", "network"));
+$page->setOptions(array("visible"=>False, "noHeader"=>True, "AJAX"=>True));
+$submod->addPage($page);
+
 $page = new Page("subnetindex",_T("DHCP subnets","network"));
 $page->setFile("modules/network/network/subnetindex.php",
                array("visible" => $visibleDHCP)
@@ -195,24 +199,24 @@ $page = new Page("services",_T("Network services management","network"));
 $page->setOptions(array("visible" => $visibleServices));
 $submod->addPage($page);
 
-$page = new Page("servicelog",_T("Network services management","network"));
-$page->setOptions(array("noHeader" => True, "visible"=>False));
+$page = new Page("servicelog",_T("Network services log","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False, "AJAX"=>True));
 $submod->addPage($page);
 
-$page = new Page("servicestart",_T("Network services management","network"));
-$page->setOptions(array("noHeader" => True, "visible"=>False));
+$page = new Page("servicestart",_T("Network service start","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False, "AJAX"=>true));
 $submod->addPage($page);
 
-$page = new Page("servicestop",_T("Network services management","network"));
-$page->setOptions(array("noHeader" => True, "visible"=>False));
+$page = new Page("servicestop",_T("Network service stop","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False, "AJAX"=>true));
 $submod->addPage($page);
 
-$page = new Page("servicereload",_T("Network services management","network"));
-$page->setOptions(array("noHeader" => True, "visible"=>False));
+$page = new Page("servicereload",_T("Network service reload","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False, "AJAX"=>true));
 $submod->addPage($page);
 
-$page = new Page("servicerestart",_T("Network services management","network"));
-$page->setOptions(array("noHeader" => True, "visible"=>False));
+$page = new Page("servicerestart",_T("Network service restart","network"));
+$page->setOptions(array("noHeader" => True, "visible"=>False, "AJAX"=>true));
 $submod->addPage($page);
 
 $mod->addSubmod($submod);

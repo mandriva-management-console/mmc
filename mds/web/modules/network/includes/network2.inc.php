@@ -48,215 +48,132 @@ class ExtendedSelectItem extends SelectItem {
     }
 }
 
+class RangeInputTpl extends AbstractTpl {
+
+    function RangeInputTpl($name) {
+        $this->name = $name;
+    }
+
+    function parseParams($arrParam=array()) {
+        if (isset($arrParam['value']))
+            list($start, $end) = explode(' ', $arrParam['value']);
+        else {
+            $start = "";
+            $end = "";
+        }
+        return array($start, $end);
+    }
+
+    function display($arrParam=array()) {
+        list($start, $end) = $this->parseParams($arrParam);
+        print '<p ';
+        displayErrorCss($this->name . '_start');
+        print '>' . _T('Start : ');
+        $pool_elem = new HiddenTpl($this->name);
+        $pool_elem->display(array('value' => $arrParam['value'], 'hide' => True));
+        $start_elem = new IPInputTpl($this->name .'_start');
+        $start_elem->display(array('value' => $start, 'onchange' => 'updateRange(this);'));
+        print '&nbsp;' . _T('End : ');
+        $end_elem = new IPInputTpl($this->name .'_end');
+        $end_elem->display(array('value' => $end, 'onchange' => 'updateRange(this);'));
+        print '<button type="button" class="btn btn-small" onclick="delRange(this); return false;">' . _('Delete') . '</button>';
+        print '</p>';
+    }
+
+    function displayRo($arrParam=array()) {
+        list($start, $end) = $this->parseParams($arrParam);
+        print '<p>' . _T('Start : ');
+        $pool_elem = new HiddenTpl($this->name);
+        $pool_elem->display(array('value' => $arrParam['value'], 'hide' => True));
+        $start_elem = new HiddenTpl($this->name .'_start');
+        $start_elem->display(array('value' => $start));
+        print '&nbsp;' . _T('End : ');
+        $end_elem = new HiddenTpl($this->name .'_end');
+        $end_elem->display(array('value' => $end));
+        print '</p>';
+    }
+
+    function displayHide($arrParam=array()) {
+        $pool_elem = new HiddenTpl($this->name);
+        $pool_elem->display(array('value' => $arrParam['value'], 'hide' => True));
+    }
+}
+
 class MultipleRangeInputTpl extends AbstractTpl {
 
-    function MultipleRangeInputTpl($name, $desc='', $new=false, $formId = "Form") {
+    function MultipleRangeInputTpl($name) {
         $this->name = $name;
-        /*
-          stripslashes is needed, because some characters may be backslashed
-          when adding/removing an input field.
-        */
-        $this->desc = stripslashes($desc);
-        $this->regexp = '/.*/';
-        $this->new = $new;
-        $this->formId = $formId;
     }
 
-    function setRegexp($regexp) {
-        $this->regexp = $regexp;
-    }
-
-    function display($arrParam) {
-        print '<div id="'.$this->name.'">';
-        print '<table cellspacing="0">';
-
-        if (!$arrParam)
-    	    $arrParam[] = " ";
-        foreach ($arrParam as $key => $param) {
-            $test = new CustomDeletableTrFormElement($this->desc,
-                                               new DhcpRangeTpl($this->name.'['.$key.']'),
-                                               array('key' => $key,
-                                                     'name' => $this->name,
-                                                     'new' => $this->new,
-                                                     'ajaxPage' => "modules/network/network/ajaxMultipleRange.php"
-
-                                                 ),
-                                                $this->formId
-                                               );
-            $test->display(array("value" => DhcpRangeTpl::valueFromDhcpRangeString($param)));
-
+    function display($arrParam=array()) {
+        print '<div id="'. $this->name .'">';
+        if (isset($arrParam['value']) && $arrParam['value']) {
+            for ($i=0; $i < count($arrParam['value']); $i++) {
+                $range = new RangeInputTpl('subnetpool_' . $i);
+                $range->display(array("value" => $arrParam['value'][$i]));
+            }
         }
-        print '<tr><td width="40%" style="text-align:right;">';
-        if (count($arrParam) == 0) {
-            print $this->desc;
+        else {
+            $range = new RangeInputTpl('subnetpool_0');
+            $range->display();
+            $i = 0;
         }
-        print '</td><td>';
-
-        print '<input name="buser" type="submit" class="btnPrimary" value="'._("Add").'" onclick="
-        new Ajax.Updater(\''.$this->name.'\',\'modules/network/network/ajaxMultipleRange.php\',
-        { evalScripts: true, parameters: Form.serialize($(\'' . $this->formId . '\'))+\'&amp;minputname='.$this->name.'&amp;desc='.urlencode($this->desc) . '&amp;regexp='.rawurlencode($this->regexp).'\' }); return false;"/>';
-        print '</td></tr>';
-        print '</table>';
+        $nbRanges = $i;
+        $url = urlStrRedirect('network/network/ajaxRange');
         print '</div>';
+        print <<<EOF
+        <script>
+            var nbRanges = $nbRanges;
+            addRange = function() {
+                var ranges = jQuery(jQuery.find('#$this->name'));
+                jQuery.get("$url", {
+                    name: 'subnetpool_' + (nbRanges + 1)
+                }).
+                success(function(result) {
+                    ranges.append(result);
+                    nbRanges++;
+                });
+            }
+            delRange = function(elem) {
+                jQuery(elem).parent().remove();
+            }
+            updateRange = function(elem) {
+                var range = jQuery(elem).parent().parent();
+                var rangeValue = jQuery(range.find('> input')[0]);
+                rangeValue.val("");
+                range.find('span > input').each(function() {
+                    var str = rangeValue.val() + "  " + jQuery(this).val();
+                    rangeValue.val(str.trim());
+                });
+            }
+        </script>
+EOF;
+        print '<button type="button" class="btn btn-small" onclick="addRange(); return false;">' . _('Add') . '</button>';
+    }
 
+    function displayRo($arrParam=array()) {
+        print '<div id="'. $this->name .'">';
+        if (isset($arrParam['value']) && $arrParam['value']) {
+            for ($i=0; $i < count($arrParam['value']); $i++) {
+                $range = new RangeInputTpl('subnetpool_' . $i);
+                $range->displayRo(array("value" => $arrParam['value'][$i]));
+            }
+        }
+        print '</div>';
+    }
+
+    function displayHide($arrParam=array()) {
+        print '<div id="'. $this->name .'">';
+        if (isset($arrParam['value']) && $arrParam['value']) {
+            for ($i=0; $i < count($arrParam['value']); $i++) {
+                $range = new RangeInputTpl('subnetpool_' . $i);
+                $range->displayHide(array("value" => $arrParam['value'][$i]));
+            }
+        }
+        print '</div>';
     }
 
 }
-
-class CustomDeletableTrFormElement extends DeletableTrFormElement{
-
-    var $ajaxPage;
-
-    function CustomDeletableTrFormElement($desc,$tpl,$extraInfo = array(), $formId) {
-        $this->desc=$desc;
-        $this->template=&$tpl;
-        foreach ($extraInfo as $key => $value) {
-            $this->$key = $value;
-        }
-        $this->formId = $formId;
-    }
-
-    function display($arrParam = array()) {
-        if (empty($arrParam)) $arrParam = $this->options;
-
-        if ($this->key==0) {
-            $desc = $this->desc;
-        } else {
-            $desc = '';
-        }
-
-	if ($this->ajaxPage == ""){
-            $this->ajaxPage = "includes/FormGenerator/MultipleInput.tpl.php";
-	}
-
-        // set hidden form with old_value for each DeletableTrFormElement field
-        // set a random old_value if some field has been created
-        if($this->new) {
-            $old_value = uniqid();
-        }
-        else if(isset($arrParam["value"])) {
-            $old_value = $arrParam["value"];
-        }
-        else {
-            $old_value = "";
-        }
-        if(is_object($this->template)) {
-            $field_name = $this->template->name;
-        }
-        else if(is_array($this->template)) {
-            $field_name = $this->template["name"];
-        }
-        else {
-            $field_name = "";
-        }
-        if ($field_name) {
-            print '<input type="hidden" name="old_'.$field_name.'" value="'.$old_value.'" />';
-        }
-
-        print '<tr><td width="40%" ';
-        print displayErrorCss($this->cssErrorName);
-        print 'style = "text-align: right;">';
-
-        //if we got a tooltip, we show it
-        if ($this->tooltip) {
-            print "<a href=\"#\" class=\"tooltip\">".$desc."<span>".$this->tooltip."</span></a>";
-        } else {
-            print $desc;
-        }
-        print '</td><td>';
-
-        // reald field display
-        FormElement::display($arrParam);
-        print '<input name="bdel" type="submit" class="btnSecondary" value="'._("Delete").'" onclick="
-        new Ajax.Updater(\''.$this->name.'\',\''.$this->ajaxPage.'\',
-        { parameters: Form.serialize($(\'' . $this->formId . '\'))+\'&amp;minputname='.$this->name.'&amp;del='.$this->key.'&amp;desc='.urlencode($this->desc) . '&amp;regexp='.rawurlencode($this->template->regexp) . '\' }); return false;"/>';
-
-        print '</td></tr>';
-
-    }
-
-}
-
-class DhcpRangeTpl extends InputTpl {
-
-    function DhcpRangeTpl($name) {
-        $this->name = $name;
-    }
-
-    function display($arrParam) {
-	//print '<div id="div'.$this->name.'">';
-        //print '<table cellspacing="0">';
-        $i = 0;
-
-        foreach (array("start"=>_T('IP range start: ',"network"),
-    		       "end"=>_T('IP range end: ',"network")
-    		       ) as $elemName=>$elemText) {
-    	    $elem = new IPInputTpl($this->name."_".$elemName);
-    	    $elem->setSize(12);
-	    if (!isset($arrParam["value"][$elemName]))
-		$arrParam["value"][$elemName]="";
-
-
-	    print $elemText;
-	    print "&nbsp;";
-            $elem->display(array('value'=>$arrParam["value"][$elemName], 'onchange'=>'
-                var elem = document.getElementById("'.$this->name.'");
-                var range = elem.value;
-                var part = '.$i.';
-                var value = document.getElementById("'.$this->name.'_'.$elemName.'").value;
-                var newrange = changeRangePart(range, part, value);
-                elem.value = newrange;
-            '));
-            print "&nbsp;&nbsp;";
-            $i += 1;
-        }
-
-        print '<input name="'.$this->name.'" id="'.$this->name.'" type="hidden" value="'.$this->stringValue($arrParam["value"]).'"/>';
-        //print '</table>';
-        //print '</div>';
-
-        print '<script type="text/javascript">
-                function changeRangePart(range, part, value) {
-                    var re = new RegExp(" ", "g");
-                    var arange = range.split(re);
-                    arange[part] = value;
-                    return arange[0] + " " + arange[1];
-                }
-               </script>';
-
-    }
-
-    private function stringValue($value, $format = "%s %s"){
-	$start = $value["start"]?$value["start"]:"";
-	$end = $value["end"]?$value["end"]:"";
-	return sprintf($format,$start,$end);
-    }
-
-
-    static function valueFromDhcpRangeString($str){
-	$result = array();
-	$values = split(" ",$str);
-	if (count($values)>=2){
-	    $result["start"] = $values[0];
-	    $result["end"] = $values[1];
-	}
-	return $result;
-    }
-    /*
-    static function descriptionForDhcpRangeString($str){
-	$result = "";
-	$val = DhcpRangeTpl::valueFromDhcpRangeString($str);
-	return $val["start"] . " -> " . $val["end"];
-    }
-
-    static function dhcpRangeStringFromValue($value){
-	return $value["start"] . " " . $value["end"];
-    }
-    */
-
-}
-
-
 
 class ExtendedDateTpl extends InputTpl {
     function ExtendedDateTpl($name) {
