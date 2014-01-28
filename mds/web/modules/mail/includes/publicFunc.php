@@ -46,9 +46,11 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
     else {
         $mail = computeMailGroupAlias($ldapArr['cn'][0]);
         $hasMail = "";
+        $maildomain = "";
     	if (hasVDomainSupport()) {
             $vdomains = getVDomains("");
-            if (count($vdomains) == 1) $maildomain = $vdomains[0][1]["virtualdomain"][0];
+            if (count($vdomains) > 0)
+                $maildomain = $vdomains[0][1]["virtualdomain"][0];
 	    }
     }
 
