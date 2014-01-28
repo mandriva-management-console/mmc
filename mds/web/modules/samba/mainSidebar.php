@@ -1,9 +1,7 @@
 <?php
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2008 Mandriva, http://www.mandriva.com/
- *
- * $Id$
+ * (c) 2007-2014 Mandriva, http://www.mandriva.com/
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -29,12 +27,14 @@ $sidemenu->setClass(join(" ", $submods));
 
 $MMCApp =& MMCApp::getInstance();
 $mod = $MMCApp->getModule('samba');
+$smbConf = xmlCall("samba.getSmbInfo", null);
 
 foreach ($submods as $submod) {
     $submod = $mod->getSubmod($submod);
     foreach ($submod->getPages() as $page) {
         if ($page->hasAccessAndVisible($mod, $submod)) {
-            if ($mod->getName() == "machines" && !$pdc) break;
+            if ($submod->getName() == "machines" && !$smbConf['pdc'])
+                break;
             $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
             $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
             $sidemenu->addSideMenuItem($item);
