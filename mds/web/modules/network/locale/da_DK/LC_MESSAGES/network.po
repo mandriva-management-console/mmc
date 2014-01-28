@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-01-24 17:23+0100\n"
-"PO-Revision-Date: 2014-01-27 00:01+0000\n"
+"POT-Creation-Date: 2014-01-28 15:15+0100\n"
+"PO-Revision-Date: 2014-01-29 09:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -213,121 +213,123 @@ msgstr ""
 msgid "Get next free IP address"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:95
-msgid "Add"
+#: modules/network/includes/network2.inc.php:71
+#: modules/network/includes/network2.inc.php:85
+msgid "Start : "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:170
+#: modules/network/includes/network2.inc.php:76
+#: modules/network/includes/network2.inc.php:90
+msgid "End : "
+msgstr ""
+
+#: modules/network/includes/network2.inc.php:79
 msgid "Delete"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:191
-msgid "IP range start: "
+#: modules/network/includes/network2.inc.php:151
+msgid "Add"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:192
-msgid "IP range end: "
-msgstr ""
-
-#: modules/network/includes/network2.inc.php:270
+#: modules/network/includes/network2.inc.php:187
 msgid "Year: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:270
+#: modules/network/includes/network2.inc.php:187
 msgid "Month: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:270
+#: modules/network/includes/network2.inc.php:187
 msgid "Day: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:271
+#: modules/network/includes/network2.inc.php:188
 msgid "Hour: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:271
+#: modules/network/includes/network2.inc.php:188
 #: modules/network/network/dnsrecords/loc.php:302
 msgid "Min.: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:271
+#: modules/network/includes/network2.inc.php:188
 #: modules/network/network/dnsrecords/loc.php:303
 msgid "Sec.: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:324
+#: modules/network/includes/network2.inc.php:241
 msgid "Days: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:324
+#: modules/network/includes/network2.inc.php:241
 msgid "Hours: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:325
+#: modules/network/includes/network2.inc.php:242
 msgid "Minutes: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:325
+#: modules/network/includes/network2.inc.php:242
 msgid "Seconds: "
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:400
+#: modules/network/includes/network2.inc.php:317
 msgid "week(s)"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:403
+#: modules/network/includes/network2.inc.php:320
 msgid "day(s)"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:405
+#: modules/network/includes/network2.inc.php:322
 msgid "hr"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:407
+#: modules/network/includes/network2.inc.php:324
 msgid "min"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:409
+#: modules/network/includes/network2.inc.php:326
 msgid "sec"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:548
+#: modules/network/includes/network2.inc.php:465
 #: modules/network/network/ajaxSubnetFilter.php:32
 msgid "More..."
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:585
+#: modules/network/includes/network2.inc.php:502
 #, php-format
 msgid "It should be relative name (e.g., %s), FQDN (e.g., %s) or %s"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:592
+#: modules/network/includes/network2.inc.php:509
 #, php-format
 msgid "It should be relative name (e.g., %s) or %s"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:597
+#: modules/network/includes/network2.inc.php:514
 #, php-format
 msgid "It should be relative name (e.g., %s) or FQDN (e.g., %s)"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:602
+#: modules/network/includes/network2.inc.php:519
 #, php-format
 msgid "It should be relative name (e.g., %s)"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:606
+#: modules/network/includes/network2.inc.php:523
 #, php-format
 msgid "It should be FQDN (e.g., %s)"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:621
+#: modules/network/includes/network2.inc.php:538
 msgid "Couldn't determine record parameters. Incorrect ldap data:"
 msgstr ""
 
-#: modules/network/includes/network2.inc.php:631
-#: modules/network/includes/network2.inc.php:633
-#: modules/network/includes/network2.inc.php:634
+#: modules/network/includes/network2.inc.php:548
+#: modules/network/includes/network2.inc.php:550
+#: modules/network/includes/network2.inc.php:551
 #: modules/network/network/dnsrecords/afsdb.php:122
 #: modules/network/network/dnsrecords/cert.php:180
 #: modules/network/network/dnsrecords/cert.php:200
@@ -344,24 +346,16 @@ msgstr ""
 msgid "custom"
 msgstr ""
 
-#: modules/network/network/dnsrecords/a.php:24
 #: modules/network/network/dnsrecords/aaaa.php:21
 #: modules/network/network/dnsrecords/custom.php:33
 #: modules/network/network/dnsrecords/loc.php:68
+#: modules/network/network/dnsrecords/a.php:26
 #: modules/network/network/edithost.php:132
 #: modules/network/network/subnetedithost.php:188
 #: modules/network/network/ajaxZoneRecordsFilter.php:158
 #: modules/network/network/ajaxSubnetMembersFilter.php:105
 #: modules/network/network/ajaxZoneMembersFilter.php:79
 msgid "Host name"
-msgstr ""
-
-#: modules/network/network/dnsrecords/a.php:26
-#: modules/network/network/dnsrecords/a.php:37
-#: modules/network/network/subnetedithost.php:194
-#: modules/network/network/ajaxSubnetMembersFilter.php:101
-#: modules/network/network/ajaxZoneMembersFilter.php:76
-msgid "IP address"
 msgstr ""
 
 #: modules/network/network/dnsrecords/aaaa.php:23
@@ -448,7 +442,7 @@ msgstr ""
 #: modules/network/network/dnsrecords/sig.php:122
 #: modules/network/network/dnsrecords/sshfp.php:82
 #: modules/network/network/dnsrecords/key.php:137
-#: modules/network/network/subnetedit.php:227
+#: modules/network/network/subnetedit.php:222
 msgid "Domain name"
 msgstr ""
 
@@ -1228,6 +1222,14 @@ msgstr ""
 msgid "Service port"
 msgstr ""
 
+#: modules/network/network/dnsrecords/a.php:28
+#: modules/network/network/dnsrecords/a.php:39
+#: modules/network/network/subnetedithost.php:194
+#: modules/network/network/ajaxSubnetMembersFilter.php:101
+#: modules/network/network/ajaxZoneMembersFilter.php:76
+msgid "IP address"
+msgstr ""
+
 #: modules/network/network/delete.php:29
 msgid "The DNS zone has been deleted."
 msgstr ""
@@ -1308,7 +1310,7 @@ msgid ""
 msgstr ""
 
 #: modules/network/network/edit.php:102
-#: modules/network/network/subnetedit.php:60
+#: modules/network/network/subnetedit.php:59
 #, php-format
 msgid ""
 "The given network address belongs to the already existing DHCP subnet %s / "
@@ -1350,7 +1352,7 @@ msgstr ""
 #: modules/network/network/edit.php:230
 #: modules/network/network/ajaxSubnetFilter.php:48
 #: modules/network/network/ajaxZoneFilter.php:41
-#: modules/network/network/subnetedit.php:211
+#: modules/network/network/subnetedit.php:206
 msgid "Description"
 msgstr ""
 
@@ -1390,7 +1392,7 @@ msgid "Network mask"
 msgstr ""
 
 #: modules/network/network/edit.php:260
-#: modules/network/network/subnetedit.php:208
+#: modules/network/network/subnetedit.php:203
 msgid "(e.g. 24 for a /24 network)"
 msgstr ""
 
@@ -1426,14 +1428,14 @@ msgstr ""
 #: modules/network/network/edit.php:292
 #: modules/network/network/edithost.php:162
 #: modules/network/network/editrecord.php:223
-#: modules/network/network/subnetedit.php:388
 #: modules/network/network/subnetedithost.php:291
+#: modules/network/network/subnetedit.php:384
 msgid "Create"
 msgstr ""
 
 #: modules/network/network/edit.php:294
-#: modules/network/network/subnetedit.php:390
 #: modules/network/network/subnetedithost.php:293
+#: modules/network/network/subnetedit.php:386
 msgid "Confirm"
 msgstr ""
 
@@ -1455,7 +1457,7 @@ msgstr ""
 #: modules/network/network/localSidebar.php:34
 #: modules/network/network/ajaxSubnetFilter.php:43
 #: modules/network/network/ajaxSubnetFilter.php:50
-#: modules/network/infoPackage.inc.php:164
+#: modules/network/infoPackage.inc.php:168
 msgid "DHCP subnets"
 msgstr ""
 
@@ -1464,18 +1466,13 @@ msgid "Add DHCP subnet"
 msgstr ""
 
 #: modules/network/network/localSidebar.php:36
-#: modules/network/infoPackage.inc.php:190
+#: modules/network/infoPackage.inc.php:194
 msgid "DHCP failover"
 msgstr ""
 
 #: modules/network/network/localSidebar.php:40
 #: modules/network/network/services.php:28
-#: modules/network/infoPackage.inc.php:194
 #: modules/network/infoPackage.inc.php:198
-#: modules/network/infoPackage.inc.php:202
-#: modules/network/infoPackage.inc.php:206
-#: modules/network/infoPackage.inc.php:210
-#: modules/network/infoPackage.inc.php:214
 msgid "Network services management"
 msgstr ""
 
@@ -1706,7 +1703,7 @@ msgid "No dynamic address pool"
 msgstr ""
 
 #: modules/network/network/ajaxSubnetFilter.php:47
-#: modules/network/network/subnetedit.php:207
+#: modules/network/network/subnetedit.php:202
 msgid "Netmask"
 msgstr ""
 
@@ -1817,255 +1814,6 @@ msgstr ""
 msgid "Record type"
 msgstr ""
 
-#: modules/network/network/subnetedit.php:29
-#: modules/network/infoPackage.inc.php:154
-msgid "Add a DHCP subnet"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:30
-#: modules/network/infoPackage.inc.php:160
-msgid "Edit DHCP subnet"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:85
-#, php-format
-msgid "The specified dynamic pool IP range from %s to %s is not valid."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:89
-#, php-format
-msgid "No IP range specified for %d dynamic pool."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:154
-msgid "Subnet successfully added. You must restart the DHCP service."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:156
-msgid "Subnet successfully modified. You must restart the DHCP service."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:203
-msgid "DHCP subnet address"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:215
-msgid "Authoritative"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:221
-msgid "DHCP options related to clients network parameters"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:223
-msgid "Broadcast address"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:229
-msgid ""
-"Domain name that will be appended to the client's hostname to form a fully-"
-"qualified domain-name (FQDN)."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:230
-msgid ""
-"If the domain name is a registered DNS domain, the subnet will be associated"
-" to the DNS domain."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:231
-msgid ""
-"You can set more than one domain, separated by spaces. They will be added to"
-" the DHCP client DNS domain search path."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:234
-msgid "Links the subnet to a DNS zone"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:237
-msgid "Routers"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:239
-msgid "List of routers (gateways) on client's subnet."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:245
-msgid "Domain name servers"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:247
-msgid ""
-"DNS name servers available to the client. Separate servers addresses with "
-"','."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:253
-msgid "NTP servers"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:255
-msgid ""
-"Network Time Protocol servers available to the client. Separate servers "
-"addresses with ','."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:261
-msgid "Proxy auto config URL"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:263
-msgid "Automatic proxy configuration URL (PAC)."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:269
-msgid "WINS servers"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:271
-msgid ""
-"Netbios name servers available to Windows clients, listed in order of "
-"preference. Separate servers addresses with ','."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:278
-msgid "Broadcast only"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:278
-msgid "WINS only"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:278
-msgid "Broadcast, then WINS"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:278
-msgid "WINS, then broadcast"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:282
-msgid "WINS resolution and registration method"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:284
-msgid ""
-"Specify how NetBIOS name resolution is performed. Auto: the client OS will "
-"automatically select a method. Broadcast only (B-node): use broadcast for "
-"name resolution and registration. Peer node (P-node): use the specified WINS"
-" servers. Mixed node (M-node): use broadcast, then the specified WINS "
-"servers. Hybrid node (H-node): use the specified WINS server, then "
-"broadcast."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:293
-#: modules/network/network/subnetedithost.php:246
-msgid "Other DHCP options"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:294
-#: modules/network/network/subnetedithost.php:247
-msgid ""
-"Specify the name of the initial boot file which is to be loaded by a client."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:296
-#: modules/network/network/subnetedithost.php:249
-msgid ""
-"The filename should be a filename recognizable to whatever file transfer "
-"protocol the client can be expected to use to load the file."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:298
-#: modules/network/network/subnetedithost.php:251
-msgid "(DHCP option number 67)"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:301
-#: modules/network/network/subnetedithost.php:254
-msgid "Initial boot file name"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:306
-#: modules/network/network/subnetedithost.php:259
-msgid "Path-name that contains the client's root disk."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:308
-#: modules/network/network/subnetedithost.php:261
-msgid "(DHCP option number 17)"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:311
-#: modules/network/network/subnetedithost.php:264
-msgid "Path to the root filesystem"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:316
-#: modules/network/network/subnetedithost.php:269
-msgid "Server from which the initial boot file is to be loaded"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:318
-#: modules/network/network/subnetedithost.php:271
-msgid "Next server"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:323
-#: modules/network/network/subnetedithost.php:276
-msgid ""
-"Trivial File Transfer Protocol server name from which the client is booting."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:325
-#: modules/network/network/subnetedithost.php:278
-msgid "(DHCP option number 66)"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:328
-#: modules/network/network/subnetedithost.php:281
-msgid "TFTP server name"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:336
-msgid "DHCP client lease time (in seconds)"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:338
-msgid "Minimum lease time"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:340
-msgid "Minimum length in seconds that will be assigned to a lease."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:346
-msgid "Default lease time"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:348
-msgid ""
-"Lengh in seconds that will be assigned to a lease if the client requesting "
-"the lease does not ask for a specific expiration time."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:354
-msgid "Maximum lease time"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:356
-msgid "Maximum length in seconds that will be assigned to a lease."
-msgstr ""
-
-#: modules/network/network/subnetedit.php:365
-msgid "Dynamic pool(s) for non-registered DHCP clients"
-msgstr ""
-
-#: modules/network/network/subnetedit.php:378
-msgid "Dynamic pools"
-msgstr ""
-
 #: modules/network/network/subnetedithost.php:22
 #, php-format
 msgid "Add a DHCP host to subnet %s / %s"
@@ -2148,6 +1896,75 @@ msgstr ""
 msgid "Click here to add it"
 msgstr ""
 
+#: modules/network/network/subnetedithost.php:246
+#: modules/network/network/subnetedit.php:288
+msgid "Other DHCP options"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:247
+#: modules/network/network/subnetedit.php:289
+msgid ""
+"Specify the name of the initial boot file which is to be loaded by a client."
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:249
+#: modules/network/network/subnetedit.php:291
+msgid ""
+"The filename should be a filename recognizable to whatever file transfer "
+"protocol the client can be expected to use to load the file."
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:251
+#: modules/network/network/subnetedit.php:293
+msgid "(DHCP option number 67)"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:254
+#: modules/network/network/subnetedit.php:296
+msgid "Initial boot file name"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:259
+#: modules/network/network/subnetedit.php:301
+msgid "Path-name that contains the client's root disk."
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:261
+#: modules/network/network/subnetedit.php:303
+msgid "(DHCP option number 17)"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:264
+#: modules/network/network/subnetedit.php:306
+msgid "Path to the root filesystem"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:269
+#: modules/network/network/subnetedit.php:311
+msgid "Server from which the initial boot file is to be loaded"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:271
+#: modules/network/network/subnetedit.php:313
+msgid "Next server"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:276
+#: modules/network/network/subnetedit.php:318
+msgid ""
+"Trivial File Transfer Protocol server name from which the client is booting."
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:278
+#: modules/network/network/subnetedit.php:320
+msgid "(DHCP option number 66)"
+msgstr ""
+
+#: modules/network/network/subnetedithost.php:281
+#: modules/network/network/subnetedit.php:323
+msgid "TFTP server name"
+msgstr ""
+
 #: modules/network/network/ajaxZoneRecordsFilter.php:129
 msgid "Delete record"
 msgstr ""
@@ -2200,6 +2017,181 @@ msgstr ""
 msgid "(alias of %s)"
 msgstr ""
 
+#: modules/network/network/subnetedit.php:28
+#: modules/network/infoPackage.inc.php:154
+msgid "Add a DHCP subnet"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:29
+#: modules/network/infoPackage.inc.php:160
+msgid "Edit DHCP subnet"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:84
+#, php-format
+msgid "The specified dynamic pool IP range from %s to %s is not valid."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:153
+msgid "Subnet successfully added. You must restart the DHCP service."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:155
+msgid "Subnet successfully modified. You must restart the DHCP service."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:198
+msgid "DHCP subnet address"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:210
+msgid "Authoritative"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:216
+msgid "DHCP options related to clients network parameters"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:218
+msgid "Broadcast address"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:224
+msgid ""
+"Domain name that will be appended to the client's hostname to form a fully-"
+"qualified domain-name (FQDN)."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:225
+msgid ""
+"If the domain name is a registered DNS domain, the subnet will be associated"
+" to the DNS domain."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:226
+msgid ""
+"You can set more than one domain, separated by spaces. They will be added to"
+" the DHCP client DNS domain search path."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:229
+msgid "Links the subnet to a DNS zone"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:232
+msgid "Routers"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:234
+msgid "List of routers (gateways) on client's subnet."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:240
+msgid "Domain name servers"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:242
+msgid ""
+"DNS name servers available to the client. Separate servers addresses with "
+"','."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:248
+msgid "NTP servers"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:250
+msgid ""
+"Network Time Protocol servers available to the client. Separate servers "
+"addresses with ','."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:256
+msgid "Proxy auto config URL"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:258
+msgid "Automatic proxy configuration URL (PAC)."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:264
+msgid "WINS servers"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:266
+msgid ""
+"Netbios name servers available to Windows clients, listed in order of "
+"preference. Separate servers addresses with ','."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:273
+msgid "Broadcast only"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:273
+msgid "WINS only"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:273
+msgid "Broadcast, then WINS"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:273
+msgid "WINS, then broadcast"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:277
+msgid "WINS resolution and registration method"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:279
+msgid ""
+"Specify how NetBIOS name resolution is performed. Auto: the client OS will "
+"automatically select a method. Broadcast only (B-node): use broadcast for "
+"name resolution and registration. Peer node (P-node): use the specified WINS"
+" servers. Mixed node (M-node): use broadcast, then the specified WINS "
+"servers. Hybrid node (H-node): use the specified WINS server, then "
+"broadcast."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:331
+msgid "DHCP client lease time (in seconds)"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:333
+msgid "Minimum lease time"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:335
+msgid "Minimum length in seconds that will be assigned to a lease."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:341
+msgid "Default lease time"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:343
+msgid ""
+"Lengh in seconds that will be assigned to a lease if the client requesting "
+"the lease does not ask for a specific expiration time."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:349
+msgid "Maximum lease time"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:351
+msgid "Maximum length in seconds that will be assigned to a lease."
+msgstr ""
+
+#: modules/network/network/subnetedit.php:360
+msgid "Dynamic pool(s) for non-registered DHCP clients"
+msgstr ""
+
+#: modules/network/network/subnetedit.php:373
+msgid "Dynamic pools"
+msgstr ""
+
 #: modules/network/infoPackage.inc.php:33
 msgid "Network management"
 msgstr ""
@@ -2221,6 +2213,9 @@ msgid "Delete a record"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:120
+msgid "Edit a DNS host"
+msgstr ""
+
 #: modules/network/infoPackage.inc.php:124
 msgid "Edit a DNS record"
 msgstr ""
@@ -2245,31 +2240,55 @@ msgstr ""
 msgid "Records of a zone"
 msgstr ""
 
-#: modules/network/infoPackage.inc.php:170
-msgid "Delete a subnet"
+#: modules/network/infoPackage.inc.php:164
+msgid "Add DHCP pool range"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:174
-msgid "Add a host to a DHCP subnet"
+msgid "Delete a subnet"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:178
-msgid "Edit a host from a DHCP subnet"
+msgid "Add a host to a DHCP subnet"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:182
-msgid "Delete a host from a subnet"
+msgid "Edit a host from a DHCP subnet"
 msgstr ""
 
 #: modules/network/infoPackage.inc.php:186
+msgid "Delete a host from a subnet"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:190
 msgid "Members of a DHCP subnet"
 msgstr ""
 
-#: modules/network/infoPackage.inc.php:229
+#: modules/network/infoPackage.inc.php:202
+msgid "Network services log"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:206
+msgid "Network service start"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:210
+msgid "Network service stop"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:214
+msgid "Network service reload"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:218
+msgid "Network service restart"
+msgstr ""
+
+#: modules/network/infoPackage.inc.php:233
 msgid "DHCP service log"
 msgstr ""
 
-#: modules/network/infoPackage.inc.php:247
+#: modules/network/infoPackage.inc.php:251
 msgid "DNS service log"
 msgstr ""
 

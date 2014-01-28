@@ -7,102 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-25 01:03+0200\n"
-"PO-Revision-Date: 2012-12-10 14:54+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
+"POT-Creation-Date: 2014-01-28 15:15+0100\n"
+"PO-Revision-Date: 2014-01-27 16:25+0000\n"
+"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-
-#: modules/samba/config/index.php:73
-msgid ""
-"SAMBA configuration saved. You may need to reload or restart the SAMBA "
-"service."
-msgstr ""
-"Configurazione salvata. Potrebbe essere necessario riacaricare o riavviare "
-"il servizio SAMBA"
-
-#: modules/samba/config/index.php:80 modules/samba/mainSidebar.php:41
-msgid "General options"
-msgstr "Opzioni generali"
-
-#: modules/samba/config/index.php:95
-msgid "Domain name"
-msgstr "Nome del dominio"
-
-#: modules/samba/config/index.php:100
-msgid "Server name"
-msgstr "Nome del server"
-
-#: modules/samba/config/index.php:107
-msgid "This server is a PDC"
-msgstr "Questo server è un PDC"
-
-#: modules/samba/config/index.php:112
-msgid "This server is a WINS server"
-msgstr "Questo server è un server WINS"
-
-#: modules/samba/config/index.php:119
-msgid "Share user's homes"
-msgstr "Condividi le cartelle principali degli utenti"
-
-#: modules/samba/config/index.php:130
-msgid "Use network profiles for users"
-msgstr ""
-
-#: modules/samba/config/index.php:131
-msgid "Activate roaming profiles for all users."
-msgstr ""
-
-#: modules/samba/config/index.php:147
-msgid "Network path for profiles"
-msgstr ""
-
-#: modules/samba/config/index.php:148
-msgid "The share must exist and be world-writable."
-msgstr ""
-
-#: modules/samba/config/index.php:158
-msgid "Yes"
-msgstr ""
-
-#: modules/samba/config/index.php:158
-msgid "No"
-msgstr ""
-
-#: modules/samba/config/index.php:158
-msgid "Only (for smbk5pwd)"
-msgstr ""
-
-#: modules/samba/config/index.php:163
-msgid "LDAP password sync"
-msgstr "Sincronia password LDAP"
-
-#: modules/samba/config/index.php:167
-#: modules/samba/includes/publicFunc.php:364
-msgid "Opening script session"
-msgstr "Script di accesso"
-
-#: modules/samba/config/index.php:168
-#: modules/samba/includes/publicFunc.php:365
-msgid "Base directory path"
-msgstr "Percorso remoto"
-
-#: modules/samba/config/index.php:169
-#: modules/samba/includes/publicFunc.php:366
-msgid "Connect base directory on network drive"
-msgstr "Connetti il percorso remoto su un disco di rete"
-
-#: modules/samba/config/index.php:182 modules/samba/includes/auditCodes.php:30
-msgid "Restart SAMBA"
-msgstr "Riavvia SAMBA"
-
-#: modules/samba/config/index.php:183
-msgid "Reload SAMBA configuration"
-msgstr "Ricarica la configurazione SAMBA"
 
 #: modules/samba/config/reload.php:26
 msgid "The SAMBA service has been asked to reload its configuration file."
@@ -111,6 +24,183 @@ msgstr "Il servizio SAMBA sta ricaricando la configurazione."
 #: modules/samba/config/restart.php:26
 msgid "The SAMBA service has been asked to restart."
 msgstr "Il servizio SAMBA sta riavviandosi."
+
+#: modules/samba/config/index.php:77
+msgid ""
+"SAMBA configuration saved. You may need to reload or restart the SAMBA "
+"service."
+msgstr ""
+"Configurazione salvata. Potrebbe essere necessario riacaricare o riavviare "
+"il servizio SAMBA"
+
+#: modules/samba/config/index.php:84
+msgid "General options"
+msgstr "Opzioni generali"
+
+#: modules/samba/config/index.php:99
+msgid "Domain name"
+msgstr "Nome del dominio"
+
+#: modules/samba/config/index.php:104
+msgid "Server name"
+msgstr "Nome del server"
+
+#: modules/samba/config/index.php:111
+msgid "This server is a PDC"
+msgstr "Questo server è un PDC"
+
+#: modules/samba/config/index.php:116
+msgid "This server is a WINS server"
+msgstr "Questo server è un server WINS"
+
+#: modules/samba/config/index.php:123
+msgid "Share user's homes"
+msgstr "Condividi le cartelle principali degli utenti"
+
+#: modules/samba/config/index.php:134
+msgid "Use network profiles for users"
+msgstr ""
+
+#: modules/samba/config/index.php:135
+msgid "Activate roaming profiles for all users."
+msgstr ""
+
+#: modules/samba/config/index.php:151
+msgid "Network path for profiles"
+msgstr ""
+
+#: modules/samba/config/index.php:152
+msgid "The share must exist and be world-writable."
+msgstr ""
+
+#: modules/samba/config/index.php:162
+msgid "Yes"
+msgstr ""
+
+#: modules/samba/config/index.php:162
+msgid "No"
+msgstr ""
+
+#: modules/samba/config/index.php:162
+msgid "Only (for smbk5pwd)"
+msgstr ""
+
+#: modules/samba/config/index.php:167
+msgid "LDAP password sync"
+msgstr "Sincronia password LDAP"
+
+#: modules/samba/config/index.php:171
+#: modules/samba/includes/publicFunc.php:367
+msgid "Opening script session"
+msgstr "Script di accesso"
+
+#: modules/samba/config/index.php:172
+#: modules/samba/includes/publicFunc.php:368
+msgid "Base directory path"
+msgstr "Percorso remoto"
+
+#: modules/samba/config/index.php:173
+#: modules/samba/includes/publicFunc.php:369
+msgid "Connect base directory on network drive"
+msgstr "Connetti il percorso remoto su un disco di rete"
+
+#: modules/samba/config/index.php:186 modules/samba/includes/auditCodes.php:30
+msgid "Restart SAMBA"
+msgstr "Riavvia SAMBA"
+
+#: modules/samba/config/index.php:187
+msgid "Reload SAMBA configuration"
+msgstr "Ricarica la configurazione SAMBA"
+
+#: modules/samba/includes/errorHandling.php:5
+msgid "ACLs are not supported in your partition containing /home/samba/"
+msgstr "Le ACL non sono supportate nella partizione che contiene /home/samba/"
+
+#: modules/samba/includes/errorHandling.php:6
+msgid ""
+"Try to remount your partition with ACLs support\n"
+"\t\t\t<ul>\n"
+"\t\t\t<li>You could use XFS which support ACLs natively</li>\n"
+"\t\t\t<li>For ext3 filesystem, add \"acl\" to mount options in /etc/fstab<br/>\n"
+"\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
+"\t\t\t</ul>\n"
+"\t\t\t"
+msgstr ""
+"Provare a rimontare la partizione con il supporto ACL\n"
+"\t\t\t<ul>\n"
+"\t\t\t<li>Potete usare XFS che supporta le ACL in modo nativo</li>\n"
+"\t\t\t<li>Per il filesystem ext3, aggiungete \"acl\" alle opzioni di mount in /etc/fstab<br/>\n"
+"\t\t\t    <pre>es: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
+"\t\t\t</ul>\n"
+"\t\t\t"
+
+#: modules/samba/includes/errorHandling.php:17
+msgid "This share does not exist"
+msgstr "Questa condivisione non esiste"
+
+#: modules/samba/includes/errorHandling.php:18
+msgid "Verify specified share exist."
+msgstr "Verifica che la condivisione esista."
+
+#: modules/samba/includes/errorHandling.php:24
+msgid "This share already exist"
+msgstr "Questa condivisione esiste già"
+
+#: modules/samba/includes/errorHandling.php:25
+msgid ""
+"<ul>\n"
+"                           <li>Delete this share before recreate it.</li>\n"
+"                           <li>Choose another share name</li>\n"
+"                        </ul>"
+msgstr ""
+"<ul>\n"
+"                           <li>Elimina questa condivisione prima di ricrearla.</li>\n"
+"                           <li>Scegli un altro nome di condivisione</li>\n"
+"                        </ul>"
+
+#: modules/samba/includes/errorHandling.php:35
+msgid "The share directory does not exist."
+msgstr "La cartella condivisa non esiste."
+
+#: modules/samba/includes/errorHandling.php:36
+msgid "Please delete this share, and then create it again."
+msgstr ""
+"Si prega di eliminare questa condivisione, e poi di ricrearla nuovamente."
+
+#: modules/samba/includes/errorHandling.php:41
+msgid "Some options are not valid"
+msgstr ""
+
+#: modules/samba/includes/errorHandling.php:42
+msgid "Check your custom parameters."
+msgstr ""
+
+#: modules/samba/includes/errorHandling.php:47
+msgid "A custom parameter has an invalid format."
+msgstr ""
+
+#: modules/samba/includes/errorHandling.php:48
+msgid "Use the 'option = value' format."
+msgstr ""
+
+#: modules/samba/includes/panels/samba.inc.php:29
+#: modules/samba/infoPackage.inc.php:145
+msgid "SAMBA status"
+msgstr ""
+
+#: modules/samba/includes/panels/samba.inc.php:36
+#, php-format
+msgid "%d open session"
+msgid_plural "%d open sessions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/samba/includes/panels/samba.inc.php:39
+#, php-format
+msgid "%d share connection"
+msgid_plural "%d share connections"
+msgstr[0] ""
+msgstr[1] ""
 
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
@@ -188,87 +278,24 @@ msgstr ""
 msgid "Del computer"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:46 modules/samba/status/index.php:87
+#: modules/samba/includes/auditCodes.php:46
+msgid "User password doesn't expire"
+msgstr ""
+
+#: modules/samba/includes/auditCodes.php:47
+msgid "User password can expire"
+msgstr ""
+
+#: modules/samba/includes/auditCodes.php:48 modules/samba/status/index.php:85
 msgid "Share"
 msgstr "Condivisione"
 
-#: modules/samba/includes/auditCodes.php:47
+#: modules/samba/includes/auditCodes.php:49
 msgid "Computer"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:48
+#: modules/samba/includes/auditCodes.php:50
 msgid "SAMBA"
-msgstr ""
-
-#: modules/samba/includes/errorHandling.php:5
-msgid "ACLs are not supported in your partition containing /home/samba/"
-msgstr "Le ACL non sono supportate nella partizione che contiene /home/samba/"
-
-#: modules/samba/includes/errorHandling.php:6
-msgid ""
-"Try to remount your partition with ACLs support\n"
-"\t\t\t<ul>\n"
-"\t\t\t<li>You could use XFS which support ACLs natively</li>\n"
-"\t\t\t<li>For ext3 filesystem, add \"acl\" to mount options in /etc/fstab<br/>\n"
-"\t\t\t    <pre>ie: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
-"\t\t\t</ul>\n"
-"\t\t\t"
-msgstr ""
-"Provare a rimontare la partizione con il supporto ACL\n"
-"\t\t\t<ul>\n"
-"\t\t\t<li>Potete usare XFS che supporta le ACL in modo nativo</li>\n"
-"\t\t\t<li>Per il filesystem ext3, aggiungete \"acl\" alle opzioni di mount in /etc/fstab<br/>\n"
-"\t\t\t    <pre>es: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
-"\t\t\t</ul>\n"
-"\t\t\t"
-
-#: modules/samba/includes/errorHandling.php:17
-msgid "This share does not exist"
-msgstr "Questa condivisione non esiste"
-
-#: modules/samba/includes/errorHandling.php:18
-msgid "Verify specified share exist."
-msgstr "Verifica che la condivisione esista."
-
-#: modules/samba/includes/errorHandling.php:24
-msgid "This share already exist"
-msgstr "Questa condivisione esiste già"
-
-#: modules/samba/includes/errorHandling.php:25
-msgid ""
-"<ul>\n"
-"                           <li>Delete this share before recreate it.</li>\n"
-"                           <li>Choose another share name</li>\n"
-"                        </ul>"
-msgstr ""
-"<ul>\n"
-"                           <li>Elimina questa condivisione prima di ricrearla.</li>\n"
-"                           <li>Scegli un altro nome di condivisione</li>\n"
-"                        </ul>"
-
-#: modules/samba/includes/errorHandling.php:35
-msgid "The share directory does not exist."
-msgstr "La cartella condivisa non esiste."
-
-#: modules/samba/includes/errorHandling.php:36
-msgid "Please delete this share, and then create it again."
-msgstr ""
-"Si prega di eliminare questa condivisione, e poi di ricrearla nuovamente."
-
-#: modules/samba/includes/errorHandling.php:41
-msgid "Some options are not valid"
-msgstr ""
-
-#: modules/samba/includes/errorHandling.php:42
-msgid "Check your custom parameters."
-msgstr ""
-
-#: modules/samba/includes/errorHandling.php:47
-msgid "A custom parameter has an invalid format."
-msgstr ""
-
-#: modules/samba/includes/errorHandling.php:48
-msgid "Use the 'option = value' format."
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:71
@@ -302,7 +329,9 @@ msgstr "Disco di rete non valido"
 
 #: modules/samba/includes/publicFunc.php:258
 #: modules/samba/includes/publicFunc.php:263
-msgid "SAMBA properties"
+#: modules/samba/includes/publicFunc.php:267
+#: modules/samba/includes/publicFunc.php:287
+msgid "Samba properties"
 msgstr ""
 
 #: modules/samba/includes/publicFunc.php:258
@@ -313,14 +342,9 @@ msgstr ""
 msgid "This account is locked."
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:267
-#: modules/samba/includes/publicFunc.php:287
-msgid "Samba properties"
-msgstr ""
-
 #: modules/samba/includes/publicFunc.php:271
-msgid "SAMBA access"
-msgstr "Accesso SAMBA"
+msgid "Samba access"
+msgstr ""
 
 #: modules/samba/includes/publicFunc.php:288
 msgid "This account is disabled"
@@ -351,16 +375,16 @@ msgstr ""
 msgid "Network path for user's profile"
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:345
+#: modules/samba/includes/publicFunc.php:348
 msgid "User must change password on next logon, <br/>if checked"
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:353
-#: modules/samba/infoPackage.inc.php:130
+#: modules/samba/includes/publicFunc.php:356
+#: modules/samba/infoPackage.inc.php:136
 msgid "Account expiration"
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:354
+#: modules/samba/includes/publicFunc.php:357
 msgid ""
 "Specifies the date when the user will be locked down and cannot login any "
 "longer. If this attribute is omitted, then the account will never expire."
@@ -390,11 +414,11 @@ msgid "Computer name"
 msgstr "Nome del computer"
 
 #: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:160
+#: modules/samba/shares/details.php:166
 msgid "Comment"
 msgstr "Commento"
 
-#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:61
+#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:64
 msgid "Description"
 msgstr "Descrizione"
 
@@ -402,18 +426,18 @@ msgstr "Descrizione"
 msgid "Active"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:47
+#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:50
 msgid "Edit"
 msgstr "Modifica"
 
-#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:48
+#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:51
 #: modules/samba/views/groups.tpl.php:125
 #: modules/samba/views/users.tpl.php:125
 msgid "Delete"
 msgstr "Elimina"
 
 #: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:65
-#: modules/samba/status/index.php:117
+#: modules/samba/status/index.php:114
 msgid "Computers"
 msgstr "Computer"
 
@@ -422,7 +446,7 @@ msgstr "Computer"
 msgid "Computer <strong>%s</strong> deleted."
 msgstr "Computer <strong>%s</strong> eliminato."
 
-#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:90
+#: modules/samba/machines/delete.php:40 modules/samba/infoPackage.inc.php:93
 msgid "Delete a computer"
 msgstr "Elimina un computer"
 
@@ -439,7 +463,7 @@ msgstr ""
 msgid "Computer successfully modified."
 msgstr ""
 
-#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:155
+#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:161
 msgid "Name"
 msgstr "Nome"
 
@@ -447,7 +471,7 @@ msgstr "Nome"
 msgid "Disable computer account"
 msgstr ""
 
-#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:328
+#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:334
 msgid "Confirm"
 msgstr "Conferma"
 
@@ -529,6 +553,24 @@ msgstr "Verrà eliminata la condivisione <b>%s</b>"
 msgid "Delete all data"
 msgstr "Elimina tutti i dati"
 
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
+msgid "Shares"
+msgstr "Condivisioni"
+
+#: modules/samba/shares/index.php:68
+msgid "Archive"
+msgstr "Archivia"
+
+#: modules/samba/shares/localSidebar.php:28
+msgid "Shares management"
+msgstr "Gestione condivisioni"
+
+#: modules/samba/shares/localSidebar.php:31
+#: modules/samba/shares/details.php:112 modules/samba/infoPackage.inc.php:50
+msgid "Add a share"
+msgstr "Aggiungi una condivisione"
+
 #: modules/samba/shares/details.php:46
 msgid "Invalid share name"
 msgstr "Nome condivisione invalido"
@@ -542,18 +584,12 @@ msgstr "Il percorso di condivisione non è autorizzato dalla configurazione"
 msgid "Share %s successfully added"
 msgstr "Condivisione %s aggiunta con successo"
 
-#: modules/samba/shares/details.php:95
+#: modules/samba/shares/details.php:101
 #, php-format
 msgid "Share %s successfully modified"
 msgstr "Condivisione %s modificata con successo"
 
-#: modules/samba/shares/details.php:106
-#: modules/samba/shares/localSidebar.php:31
-#: modules/samba/infoPackage.inc.php:48 modules/samba/mainSidebar.php:30
-msgid "Add a share"
-msgstr "Aggiungi una condivisione"
-
-#: modules/samba/shares/details.php:137
+#: modules/samba/shares/details.php:143
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
@@ -561,61 +597,48 @@ msgstr ""
 "Il nome della condivisione può contenere solo lettere (minuscole e "
 "maiuscole) e numeri, e deve iniziare con una lettera."
 
-#: modules/samba/shares/details.php:171
+#: modules/samba/shares/details.php:177
 msgid "AntiVirus on this share"
 msgstr "Antivirus su questa condivisione"
 
-#: modules/samba/shares/details.php:183
+#: modules/samba/shares/details.php:189
 #, php-format
 msgid "Share path (leave empty for a default path in %s)"
 msgstr ""
 
-#: modules/samba/shares/details.php:200
+#: modules/samba/shares/details.php:206
 msgid "This share is visible on the domain"
 msgstr "Questa condivisione è visibile nel dominio"
 
-#: modules/samba/shares/details.php:213
+#: modules/samba/shares/details.php:219
 msgid "Permissions"
 msgstr "Permessi"
 
-#: modules/samba/shares/details.php:225
+#: modules/samba/shares/details.php:231
 msgid "Access for all"
 msgstr "Accesso per tutti"
 
-#: modules/samba/shares/details.php:262
+#: modules/samba/shares/details.php:268
 msgid "Users for this share"
 msgstr ""
 
-#: modules/samba/shares/details.php:284
+#: modules/samba/shares/details.php:290
 msgid "Administrator groups for this share"
 msgstr "Gruppo amministratori per questa condivisione"
 
-#: modules/samba/shares/details.php:315 modules/samba/shares/details.php:317
+#: modules/samba/shares/details.php:321 modules/samba/shares/details.php:323
 msgid "Custom parameters"
 msgstr ""
 
-#: modules/samba/shares/details.php:325
+#: modules/samba/shares/details.php:331
 msgid "Create"
 msgstr "Crea"
 
-#: modules/samba/shares/index.php:55 modules/samba/shares/index.php:59
-#: modules/samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr "Condivisioni"
-
-#: modules/samba/shares/index.php:65
-msgid "Archive"
-msgstr "Archivia"
-
-#: modules/samba/shares/localSidebar.php:28
-msgid "Shares management"
-msgstr "Gestione condivisioni"
-
-#: modules/samba/status/index.php:30
+#: modules/samba/status/index.php:36
 msgid "Samba status"
 msgstr "Stato Samba"
 
-#: modules/samba/status/index.php:56
+#: modules/samba/status/index.php:60
 msgid "Opened sessions"
 msgstr "Sessioni attive"
 
@@ -623,27 +646,27 @@ msgstr "Sessioni attive"
 msgid "Users"
 msgstr "Utenti"
 
-#: modules/samba/status/index.php:66 modules/samba/status/index.php:118
+#: modules/samba/status/index.php:66 modules/samba/status/index.php:115
 msgid "IP"
 msgstr "IP"
 
-#: modules/samba/status/index.php:72
+#: modules/samba/status/index.php:70
 msgid "No opened sessions"
 msgstr "Nessuna sessione aperta"
 
-#: modules/samba/status/index.php:77
+#: modules/samba/status/index.php:76
 msgid "Connections on shares"
 msgstr "Connessioni alle condivisioni"
 
-#: modules/samba/status/index.php:116
+#: modules/samba/status/index.php:113
 msgid "User"
 msgstr "Utente"
 
-#: modules/samba/status/index.php:119
+#: modules/samba/status/index.php:116
 msgid "Connected at"
 msgstr "Connesso a"
 
-#: modules/samba/status/index.php:126
+#: modules/samba/status/index.php:121
 msgid "No connections"
 msgstr "Nessuna connessione"
 
@@ -676,92 +699,84 @@ msgstr ""
 msgid "SAMBA management"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:45 modules/samba/mainSidebar.php:29
+#: modules/samba/infoPackage.inc.php:45
 msgid "List shares"
 msgstr "Elenco condivisioni"
 
-#: modules/samba/infoPackage.inc.php:51
+#: modules/samba/infoPackage.inc.php:55
 msgid "Backup a share"
 msgstr "Backup di una condivisione"
 
-#: modules/samba/infoPackage.inc.php:55
+#: modules/samba/infoPackage.inc.php:59
 msgid "Remove a share"
 msgstr "Rimuovi una condivisione"
 
-#: modules/samba/infoPackage.inc.php:59
+#: modules/samba/infoPackage.inc.php:63
 msgid "Share details"
 msgstr "Proprietà della condivisione"
 
-#: modules/samba/infoPackage.inc.php:73
+#: modules/samba/infoPackage.inc.php:77
 msgid "Machines"
 msgstr "Computer"
 
-#: modules/samba/infoPackage.inc.php:76
+#: modules/samba/infoPackage.inc.php:80
 msgid "Computer list"
 msgstr "Elenco computer"
 
-#: modules/samba/infoPackage.inc.php:86
+#: modules/samba/infoPackage.inc.php:89
 msgid "Edit a computer"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:103
+#: modules/samba/infoPackage.inc.php:106
 msgid "Configuration"
 msgstr "Configuarazione"
 
-#: modules/samba/infoPackage.inc.php:108
+#: modules/samba/infoPackage.inc.php:111
 msgid "SAMBA configuration"
 msgstr "Configurazione SAMBA"
 
-#: modules/samba/infoPackage.inc.php:111
+#: modules/samba/infoPackage.inc.php:116
 msgid "restart SAMBA service"
 msgstr "Riavvia servizio SAMBA"
 
-#: modules/samba/infoPackage.inc.php:115
+#: modules/samba/infoPackage.inc.php:120
 msgid "Reload SAMBA service"
 msgstr "Ricarica servizio SAMBA"
 
-#: modules/samba/infoPackage.inc.php:124
+#: modules/samba/infoPackage.inc.php:129
 msgid "Add/delete SAMBA's attributes"
 msgstr "Aggiungi/elimina attributi SAMBA"
 
-#: modules/samba/infoPackage.inc.php:125
+#: modules/samba/infoPackage.inc.php:130
 msgid "Enable/Disable account"
 msgstr "Abilita/Disabilita utente"
 
-#: modules/samba/infoPackage.inc.php:126
+#: modules/samba/infoPackage.inc.php:131
 msgid "Lock/Unlock account"
 msgstr "Blocca/Sblocca utente"
 
-#: modules/samba/infoPackage.inc.php:127
+#: modules/samba/infoPackage.inc.php:132
 msgid "Network profile"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:128
+#: modules/samba/infoPackage.inc.php:133
 msgid "Can change password"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:129
+#: modules/samba/infoPackage.inc.php:134 modules/samba/infoPackage.inc.php:135
 msgid "Must change password"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:131
+#: modules/samba/infoPackage.inc.php:137
 msgid "Logon script"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:132
+#: modules/samba/infoPackage.inc.php:138
 msgid "Home path"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:133
+#: modules/samba/infoPackage.inc.php:139
 msgid "Home drive"
 msgstr ""
-
-#: modules/samba/infoPackage.inc.php:143
-msgid "SAMBA status"
-msgstr ""
-
-#: modules/samba/mainSidebar.php:33
-msgid "List computers"
-msgstr "Elenco computer"
 
 

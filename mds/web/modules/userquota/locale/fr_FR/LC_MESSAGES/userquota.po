@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
-#   <jpbraun@mandriva.com>, 2011, 2012.
+#   <jpbraun@mandriva.com>, 2011, 2012, 2014.
 #   <nrueff@mandriva.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-25 01:03+0200\n"
-"PO-Revision-Date: 2012-08-24 13:47+0000\n"
+"POT-Creation-Date: 2014-01-28 15:15+0100\n"
+"PO-Revision-Date: 2014-01-23 14:41+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +25,8 @@ msgstr "Configuration des quotas"
 
 #: modules/userquota/includes/publicFunc.php:110
 #, php-format
-msgid "Disk quota set to %sMo."
-msgstr "Quota disque mis à %sMo."
+msgid "Disk quota set to %sMb."
+msgstr "Quota disque positionné à %sMb."
 
 #: modules/userquota/includes/publicFunc.php:114
 msgid "Disk quota removed."

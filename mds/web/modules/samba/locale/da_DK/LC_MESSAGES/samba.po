@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-01-24 17:23+0100\n"
-"PO-Revision-Date: 2014-01-27 00:01+0000\n"
+"POT-Creation-Date: 2014-01-28 15:15+0100\n"
+"PO-Revision-Date: 2014-01-29 09:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -88,17 +88,17 @@ msgid "LDAP password sync"
 msgstr ""
 
 #: modules/samba/config/index.php:171
-#: modules/samba/includes/publicFunc.php:364
+#: modules/samba/includes/publicFunc.php:367
 msgid "Opening script session"
 msgstr ""
 
 #: modules/samba/config/index.php:172
-#: modules/samba/includes/publicFunc.php:365
+#: modules/samba/includes/publicFunc.php:368
 msgid "Base directory path"
 msgstr ""
 
 #: modules/samba/config/index.php:173
-#: modules/samba/includes/publicFunc.php:366
+#: modules/samba/includes/publicFunc.php:369
 msgid "Connect base directory on network drive"
 msgstr ""
 
@@ -169,103 +169,8 @@ msgstr ""
 msgid "Use the 'option = value' format."
 msgstr ""
 
-#: modules/samba/includes/publicFunc.php:71
-msgid "Samba attributes deleted."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:119
-msgid "Samba account disabled."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:124
-msgid "Samba account enabled."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:175
-msgid "Samba attributes added."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:177
-#: modules/samba/includes/publicFunc.php:184
-msgid "Failed to add Samba attributes."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:206
-msgid "You must reenter your password."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:216
-msgid "Invalid network drive."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:258
-#: modules/samba/includes/publicFunc.php:263
-msgid "SAMBA properties"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:258
-msgid "The password of this account has expired."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:263
-msgid "This account is locked."
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:267
-#: modules/samba/includes/publicFunc.php:287
-msgid "Samba properties"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:271
-msgid "SAMBA access"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:288
-msgid "This account is disabled"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:292
-msgid "User is disabled, if checked"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:293
-msgid "Disable samba user account"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:301
-msgid "User is locked, if checked"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:302
-msgid ""
-"Lock samba user access<p>User can be locked after too many failed log.</p>"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:319
-msgid "Use network profile, if checked"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:332
-msgid "Network path for user's profile"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:345
-msgid "User must change password on next logon, <br/>if checked"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:353
-#: modules/samba/infoPackage.inc.php:135
-msgid "Account expiration"
-msgstr ""
-
-#: modules/samba/includes/publicFunc.php:354
-msgid ""
-"Specifies the date when the user will be locked down and cannot login any "
-"longer. If this attribute is omitted, then the account will never expire."
-msgstr ""
-
 #: modules/samba/includes/panels/samba.inc.php:29
-#: modules/samba/infoPackage.inc.php:144
+#: modules/samba/infoPackage.inc.php:145
 msgid "SAMBA status"
 msgstr ""
 
@@ -367,7 +272,7 @@ msgstr ""
 msgid "User password can expire"
 msgstr ""
 
-#: modules/samba/includes/auditCodes.php:48 modules/samba/status/index.php:93
+#: modules/samba/includes/auditCodes.php:48 modules/samba/status/index.php:85
 msgid "Share"
 msgstr ""
 
@@ -377,6 +282,98 @@ msgstr ""
 
 #: modules/samba/includes/auditCodes.php:50
 msgid "SAMBA"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:71
+msgid "Samba attributes deleted."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:119
+msgid "Samba account disabled."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:124
+msgid "Samba account enabled."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:175
+msgid "Samba attributes added."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:177
+#: modules/samba/includes/publicFunc.php:184
+msgid "Failed to add Samba attributes."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:206
+msgid "You must reenter your password."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:216
+msgid "Invalid network drive."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:258
+#: modules/samba/includes/publicFunc.php:263
+#: modules/samba/includes/publicFunc.php:267
+#: modules/samba/includes/publicFunc.php:287
+msgid "Samba properties"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:258
+msgid "The password of this account has expired."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:263
+msgid "This account is locked."
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:271
+msgid "Samba access"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:288
+msgid "This account is disabled"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:292
+msgid "User is disabled, if checked"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:293
+msgid "Disable samba user account"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:301
+msgid "User is locked, if checked"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:302
+msgid ""
+"Lock samba user access<p>User can be locked after too many failed log.</p>"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:319
+msgid "Use network profile, if checked"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:332
+msgid "Network path for user's profile"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:348
+msgid "User must change password on next logon, <br/>if checked"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:356
+#: modules/samba/infoPackage.inc.php:136
+msgid "Account expiration"
+msgstr ""
+
+#: modules/samba/includes/publicFunc.php:357
+msgid ""
+"Specifies the date when the user will be locked down and cannot login any "
+"longer. If this attribute is omitted, then the account will never expire."
 msgstr ""
 
 #: modules/samba/machines/add.php:36
@@ -423,8 +420,8 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:71
-#: modules/samba/status/index.php:123
+#: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:65
+#: modules/samba/status/index.php:114
 msgid "Computers"
 msgstr ""
 
@@ -612,39 +609,39 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: modules/samba/status/index.php:38
+#: modules/samba/status/index.php:36
 msgid "Samba status"
 msgstr ""
 
-#: modules/samba/status/index.php:62
+#: modules/samba/status/index.php:60
 msgid "Opened sessions"
 msgstr ""
 
-#: modules/samba/status/index.php:70 modules/samba/views/users.tpl.php:26
+#: modules/samba/status/index.php:64 modules/samba/views/users.tpl.php:26
 msgid "Users"
 msgstr ""
 
-#: modules/samba/status/index.php:72 modules/samba/status/index.php:124
+#: modules/samba/status/index.php:66 modules/samba/status/index.php:115
 msgid "IP"
 msgstr ""
 
-#: modules/samba/status/index.php:78
+#: modules/samba/status/index.php:70
 msgid "No opened sessions"
 msgstr ""
 
-#: modules/samba/status/index.php:83
+#: modules/samba/status/index.php:76
 msgid "Connections on shares"
 msgstr ""
 
-#: modules/samba/status/index.php:122
+#: modules/samba/status/index.php:113
 msgid "User"
 msgstr ""
 
-#: modules/samba/status/index.php:125
+#: modules/samba/status/index.php:116
 msgid "Connected at"
 msgstr ""
 
-#: modules/samba/status/index.php:132
+#: modules/samba/status/index.php:121
 msgid "No connections"
 msgstr ""
 
@@ -741,19 +738,19 @@ msgstr ""
 msgid "Can change password"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:134
+#: modules/samba/infoPackage.inc.php:134 modules/samba/infoPackage.inc.php:135
 msgid "Must change password"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:136
+#: modules/samba/infoPackage.inc.php:137
 msgid "Logon script"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:137
+#: modules/samba/infoPackage.inc.php:138
 msgid "Home path"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:138
+#: modules/samba/infoPackage.inc.php:139
 msgid "Home drive"
 msgstr ""
 
