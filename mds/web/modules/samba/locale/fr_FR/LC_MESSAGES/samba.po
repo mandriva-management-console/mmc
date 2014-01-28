@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
 "POT-Creation-Date: 2014-01-28 15:15+0100\n"
-"PO-Revision-Date: 2014-01-27 16:44+0000\n"
+"PO-Revision-Date: 2014-01-29 13:41+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -198,7 +198,7 @@ msgstr[1] "%d sessions ouvertes"
 #, php-format
 msgid "%d share connection"
 msgid_plural "%d share connections"
-msgstr[0] "%d connexions aux partages"
+msgstr[0] "%d connexion aux partages"
 msgstr[1] "%d connexions aux partages"
 
 #: modules/samba/includes/auditCodes.php:26
@@ -659,7 +659,7 @@ msgstr "Aucune session ouverte"
 
 #: modules/samba/status/index.php:76
 msgid "Connections on shares"
-msgstr "Connexion sur les partages"
+msgstr "Connexions sur les partages"
 
 #: modules/samba/status/index.php:113
 msgid "User"
