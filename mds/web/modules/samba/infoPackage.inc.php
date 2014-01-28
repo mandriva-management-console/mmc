@@ -132,6 +132,7 @@ $mod->addACL("isSmbLocked",_T("Lock/Unlock account","samba"));
 $mod->addACL("hasProfile",_T("Network profile","samba"));
 $mod->addACL("sambaPwdCanChange",_T("Can change password","samba"));
 $mod->addACL("sambaPwdLastSet",_T("Must change password","samba"));
+$mod->addACL("sambaPwdMustChange",_T("Must change password","samba"));
 $mod->addACL("sambaKickoffTime",_T("Account expiration","samba"));
 $mod->addACL("sambaLogonScript",_T("Logon script","samba"));
 $mod->addACL("sambaHomePath",_T("Home path","samba"));
