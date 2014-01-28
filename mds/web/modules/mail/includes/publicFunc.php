@@ -103,10 +103,21 @@ function _mail_changeGroup($postArr) {
         $mail = $postArr["mailgroupalias"];
         if (hasVDomainSupport()) {
             $vdomain = $postArr["maildomain"];
-            $mail .= "@" . $vdomain;
-    	}
-        addMailGroup($group, $mail);
-        syncMailGroupAliases($group);
+            if (!$vdomain)
+                $mail = false;
+            else
+                $mail .= "@" . $vdomain;
+        }
+
+        if ($mail) {
+            addMailGroup($group, $mail);
+            syncMailGroupAliases($group);
+            return true;
+        }
+        else {
+            new NotifyWidgetFailure(_T("Mail domain is empty. Group mail alias wasn't set."));
+            return false;
+        }
     }
     else { // mail group access is not checked
         if (hasGroupMailObjectClass($group)) {
@@ -114,6 +125,7 @@ function _mail_changeGroup($postArr) {
             removeMailGroup($group);
         }
     }
+    return true;
 }
 
 function _mail_changeUserPrimaryGroup($user, $newgroup, $oldgroup) {
