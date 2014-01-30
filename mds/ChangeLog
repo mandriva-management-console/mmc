@@ -1,3 +1,19 @@
+mds 2.5.1
+---------
+
+ * Feature #2025: Make a difference between users aliases and groups aliases
+				  on the user edit page
+ * Feature #2163: Show SAMBA status on dashboard
+ * Bug #2157: DNS zone records page broken
+ * Bug #2171: Traceback on SAMBA share when a non-LDAP group ACL is present
+ * Bug #2172: Share path handling with php 5.4
+ * Bug #2176: Shorewall plugin doesn't manage external zones correctly
+ * Bug #2208: Samba password shown as expired with X in acctflags
+ * Bug #2210: Encoding error in valiases filter
+ * Bug #2258: Improved filtering
+
+ http://projects.mandriva.org/versions/191
+
 mds 2.5.0
 ---------
 
@@ -7,8 +23,11 @@ mds 2.5.0
  * Bug #1820: Apply correctly samba userdefault settings
  * Bug #1904: Fix wrong password expiration message on the user page
 
+ http://projects.mandriva.org/versions/182
+
 mds 2.4.3
 ---------
+
  * Bug #1686: Allow spaces in dhcp option domain-name-server
  * Bug #1694: Massive CSV import page is not translated in french
  * Bug #1707: Handle situations when a share has a GID which don't exists
