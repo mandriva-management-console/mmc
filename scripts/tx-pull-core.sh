@@ -23,5 +23,5 @@ modules="base ppolicy services dashboard report report-templates"
 
 for mod in $modules
 do
-	tx pull -r mds.${mod} ${lang} ${args}
+	tx pull -f -r mds.${mod} ${lang} ${args}
 done

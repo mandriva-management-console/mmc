@@ -23,5 +23,5 @@ modules="bulkimport mail network proxy samba sshlpk userquota shorewall"
 
 for mod in $modules
 do
-	tx pull -r mds.${mod} ${lang} ${args}
+	tx pull -f -r mds.${mod} ${lang} ${args}
 done
