@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 ## Translators:
-#   <acecile@mandriva.com>, 2013.
+#   <acecile@mandriva.com>, 2013, 2014.
 #   <jpbraun@mandriva.com>, 2011, 2012.
 #   <nrueff@mandriva.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-01-28 15:15+0100\n"
-"PO-Revision-Date: 2014-01-28 14:03+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
+"POT-Creation-Date: 2014-02-03 01:10+0100\n"
+"PO-Revision-Date: 2014-02-06 09:16+0000\n"
+"Last-Translator: Cécile Adam <acecile@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -356,6 +356,7 @@ msgstr "Alias de messagerie"
 #: modules/mail/includes/publicFunc.php:118
 msgid "Mail domain is empty. Group mail alias wasn't set."
 msgstr ""
+"Le domaine de messagerie est vide. L'alias de groupe n'a pas été défini."
 
 #: modules/mail/includes/publicFunc.php:165
 #: modules/mail/includes/publicFunc.php:186

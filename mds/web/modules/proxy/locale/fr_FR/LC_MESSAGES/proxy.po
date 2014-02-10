@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-25 01:03+0200\n"
+"POT-Creation-Date: 2014-02-03 01:10+0100\n"
 "PO-Revision-Date: 2011-07-26 10:13+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
@@ -70,23 +70,15 @@ msgstr "Annuler"
 msgid "Domain %s has been removed"
 msgstr "Le domaine %s a été supprimé"
 
-#: modules/proxy/blacklist/index.php:33
-#: modules/proxy/blacklist/localSidebar.php:28
-msgid "Blacklist management"
-msgstr "Gestion de la liste noire"
-
-#: modules/proxy/blacklist/index.php:45
-msgid "Blacklist entries"
-msgstr "Entrées dans la liste noire"
-
-#: modules/proxy/blacklist/index.php:54 modules/proxy/blacklist/statut.php:59
-msgid "Restart service"
-msgstr "Redémarrer le service"
-
 #: modules/proxy/blacklist/localSidebar.php:27
 #: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 msgid "Proxy status"
 msgstr "Statut du proxy"
+
+#: modules/proxy/blacklist/localSidebar.php:28
+#: modules/proxy/blacklist/index.php:33
+msgid "Blacklist management"
+msgstr "Gestion de la liste noire"
 
 #: modules/proxy/blacklist/localSidebar.php:29
 msgid "Add an entry in blacklist"
@@ -100,6 +92,14 @@ msgstr "Redémarrer le serveur squidGuard"
 #: modules/proxy/blacklist/restart.php:78
 msgid "Back"
 msgstr "Retour"
+
+#: modules/proxy/blacklist/index.php:45
+msgid "Blacklist entries"
+msgstr "Entrées dans la liste noire"
+
+#: modules/proxy/blacklist/index.php:54 modules/proxy/blacklist/statut.php:59
+msgid "Restart service"
+msgstr "Redémarrer le service"
 
 #: modules/proxy/blacklist/statut.php:42
 msgid "enabled"

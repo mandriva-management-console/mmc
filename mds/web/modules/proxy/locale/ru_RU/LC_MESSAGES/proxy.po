@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-25 01:03+0200\n"
+"POT-Creation-Date: 2014-02-03 01:10+0100\n"
 "PO-Revision-Date: 2011-08-02 06:36+0000\n"
 "Last-Translator: Irina Sikach <i.sence.i@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
@@ -70,23 +70,15 @@ msgstr "Отмена"
 msgid "Domain %s has been removed"
 msgstr "Домен %s был удален"
 
-#: modules/proxy/blacklist/index.php:33
-#: modules/proxy/blacklist/localSidebar.php:28
-msgid "Blacklist management"
-msgstr "Управление черным списком"
-
-#: modules/proxy/blacklist/index.php:45
-msgid "Blacklist entries"
-msgstr "Записи черного списка"
-
-#: modules/proxy/blacklist/index.php:54 modules/proxy/blacklist/statut.php:59
-msgid "Restart service"
-msgstr "Перезапустить службу"
-
 #: modules/proxy/blacklist/localSidebar.php:27
 #: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
 msgid "Proxy status"
 msgstr "Состояние прокси-сервера"
+
+#: modules/proxy/blacklist/localSidebar.php:28
+#: modules/proxy/blacklist/index.php:33
+msgid "Blacklist management"
+msgstr "Управление черным списком"
 
 #: modules/proxy/blacklist/localSidebar.php:29
 msgid "Add an entry in blacklist"
@@ -100,6 +92,14 @@ msgstr "Перезапустить сервер squidGuard"
 #: modules/proxy/blacklist/restart.php:78
 msgid "Back"
 msgstr "Назад"
+
+#: modules/proxy/blacklist/index.php:45
+msgid "Blacklist entries"
+msgstr "Записи черного списка"
+
+#: modules/proxy/blacklist/index.php:54 modules/proxy/blacklist/statut.php:59
+msgid "Restart service"
+msgstr "Перезапустить службу"
 
 #: modules/proxy/blacklist/statut.php:42
 msgid "enabled"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2013-04-25 01:03+0200\n"
-"PO-Revision-Date: 2013-04-08 13:19+0000\n"
+"POT-Creation-Date: 2014-02-03 01:10+0100\n"
+"PO-Revision-Date: 2013-08-18 11:31+0000\n"
 "Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,8 @@ msgstr "Quota-Einstellungen"
 
 #: modules/userquota/includes/publicFunc.php:110
 #, php-format
-msgid "Disk quota set to %sMo."
-msgstr "Plattenquota auf %sMb gesetzt."
+msgid "Disk quota set to %sMb."
+msgstr "Platten Quata auf %sMb gesetzt."
 
 #: modules/userquota/includes/publicFunc.php:114
 msgid "Disk quota removed."
