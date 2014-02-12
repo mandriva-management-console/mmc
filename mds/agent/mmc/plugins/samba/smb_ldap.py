@@ -2,6 +2,7 @@
 import smbpasswd
 from time import time
 import ldap
+import ldap.modlist
 import logging
 import xmlrpclib
 
