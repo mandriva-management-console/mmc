@@ -68,6 +68,13 @@ attributetype ( 1.3.6.1.4.1.21103.1.1.13.9
         DESC 'Member of a virtual alias'
         SUP distinguishedName )
 
+attributetype ( 1.3.6.1.4.1.21103.1.1.13.10
+        NAME 'mailproxy'
+        DESC 'Mail proxy'
+        EQUALITY caseIgnoreIA5Match
+        SUBSTR caseIgnoreIA5SubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} SINGLE-VALUE)
+
 # Mail Account Objectclass
 objectclass ( 1.3.6.1.4.1.21103.1.2.13.1
         NAME 'mailAccount'
@@ -79,7 +86,7 @@ objectclass ( 1.3.6.1.4.1.21103.1.2.13.1
             )
         MAY (
             mailalias $ maildrop $ mailenable $ mailbox $ mailuserquota $
-            mailhost
+            mailhost $ mailproxy
             )
         )
 
@@ -106,7 +113,7 @@ objectclass ( 1.3.6.1.4.1.21103.1.2.13.3
 
 # Virtual Alias Objectclass
 objectclass ( 1.3.6.1.4.1.21103.1.2.13.4
-        NAME 'mailAlias' 
+        NAME 'mailAlias'
         DESC 'Mail Alias'
         SUP top
         STRUCTURAL

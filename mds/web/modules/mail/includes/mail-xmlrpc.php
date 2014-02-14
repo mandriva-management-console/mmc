@@ -43,6 +43,10 @@ function changeMailhost($login, $mailhost) {
     return xmlCall("mail.changeMailhost", array($login, $mailhost));
 }
 
+function changeMailproxy($login, $mailproxy) {
+    return xmlCall("mail.changeMailproxy", array($login, $mailproxy));
+}
+
 function changeQuota($login, $mailuserquota) {
     return xmlCall("mail.changeQuota", array($login, $mailuserquota));
 }

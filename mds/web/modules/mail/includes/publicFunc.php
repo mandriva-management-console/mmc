@@ -263,6 +263,10 @@ function _mail_baseEdit($FH, $mode) {
             new TrFormElement(_T("Mail server host", "mail"),new IA5InputTpl($attrs['mailhost'])),
             array("value" => $FH->getArrayOrPostValue($attrs['mailhost']))
         );
+        $f->add(
+            new TrFormElement(_T("Mail proxy", "mail"),new IA5InputTpl($attrs['mailproxy'])),
+            array("value" => $FH->getArrayOrPostValue($attrs['mailproxy']))
+        );
         $f->pop();
         $f->pop();
     }
@@ -413,6 +417,8 @@ function _mail_changeUser($FH, $mode) {
             changeMailbox($uid, $FH->getValue($attrs['mailbox']));
         if ($FH->isUpdated($attrs["mailhost"]))
             changeMailhost($uid, $FH->getValue($attrs["mailhost"]));
+        if ($FH->isUpdated($attrs["mailproxy"]))
+            changeMailproxy($uid, $FH->getValue($attrs["mailproxy"]));
         if ($FH->isUpdated($attrs["mailuserquota"]))
             changeQuota($uid, $FH->getValue($attrs["mailuserquota"]));
 

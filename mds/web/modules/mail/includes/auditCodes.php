@@ -2,12 +2,13 @@
 
 $module_audit_codes = array(
     'MAIL_ENABLE' => _T("Enable mail delivery", "mail"),
-    'MAIL_DISABLE' => _T("Disable mail delivery", "mail"),    
+    'MAIL_DISABLE' => _T("Disable mail delivery", "mail"),
     'MAIL_CHANGE_MAIL_DROP' => _T("Change mail drop", "mail"),
     'MAIL_CHANGE_MAIL_ALIAS' => _T("Change mail alias", "mail"),
     'MAIL_CHANGE_MAIL_BOX' => _T("Change mail box", "mail"),
     'MAIL_CHANGE_MAIL_HOST' => _T("Change mail host", "mail"),
-    'MAIL_CHANGE_MAIL_QUOTA' => _T("Change mail quota", "mail"), 
+    'MAIL_CHANGE_MAIL_PROXY' => _T("Change mail proxy", "mail"),
+    'MAIL_CHANGE_MAIL_QUOTA' => _T("Change mail quota", "mail"),
     'MAIL_ADD_MAIL_CLASS' => _T("Add mail attributes", "mail"),
     'MAIL_DEL_MAIL_CLASS' => _T("Del mail attributes", "mail"),
     'MAIL_DEL_MAIL_GRP_ALIAS' => _T("Del mail group alias", "mail"),
@@ -28,7 +29,7 @@ $module_audit_codes = array(
     'MAIL_MOD_ZARAFA_SENDASPRIVILEGE' => _T("Change Zarafa sendas attribute", "mail"),
     'VMDOMAIN' => _T("Virtual Mail Domain", "mail"),
     'USER' => _T("User", "mail"),
-    'MMC-MAIL' => _T("mail", "mail"),    
+    'MMC-MAIL' => _T("mail", "mail"),
 );
 
 ?>

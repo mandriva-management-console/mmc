@@ -59,7 +59,7 @@ def activate():
         return False
 
     mailSchema = {
-        "mailAccount" : ["mail", "mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost"],
+        "mailAccount" : ["mail", "mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy"],
         "mailGroup" : ["mail"],
         "mailDomain" : ["virtualdomain", "virtualdomaindescription", "mailuserquota"],
         }
@@ -116,6 +116,9 @@ def changeMailbox(uid, mailbox):
 
 def changeMailhost(uid, mailhost):
     MailControl().changeMailhost(uid, mailhost)
+
+def changeMailproxy(uid, mailproxy):
+    MailControl().changeMailproxy(uid, mailproxy)
 
 def changeQuota(uid, mailuserquota):
     MailControl().changeQuota(uid, mailuserquota)
@@ -260,7 +263,7 @@ class MailConfig(PluginConfig):
             self.attrs = dict(self.items("mapping"))
         except NoSectionError:
             self.attrs = {}
-        attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost"]
+        attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy"]
         # validate attribute mapping
         for attr, val in self.attrs.copy().items():
             if not attr in attrs:
@@ -700,6 +703,21 @@ class MailControl(ldapUserGroupControl):
         r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_HOST, [(userdn, AT.MAIL)], mailhost)
         if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
         self.changeUserAttributes(uid, self.conf.attrs['mailhost'], mailhost, False)
+        r.commit()
+
+    def changeMailproxy(self, uid, mailproxy):
+        """
+        Change the user mailproxy attribute (mail delivery server).
+
+        @param uid: user name
+        @type uid: str
+        @param mailproxy: the FQDN or IP of the mail server
+        @type mailproxy: str
+        """
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_PROXY, [(userdn, AT.MAIL)], mailproxy)
+        if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
+        self.changeUserAttributes(uid, self.conf.attrs['mailproxy'], mailproxy, False)
         r.commit()
 
     def changeQuota(self, uid, mailuserquota):
