@@ -21,13 +21,12 @@
 pluginconfdir = $(sysconfdir)/mmc/plugins
 
 if ENABLE_CONF
-dist_pluginconf_DATA = mail.ini network.ini proxy.ini sshlpk.ini \
-	userquota.ini bulkimport.ini shorewall.ini squid.ini
-nodist_pluginconf_DATA = samba.ini
+dist_pluginconf_DATA = mail.ini sshlpk.ini userquota.ini bulkimport.ini shorewall.ini
+nodist_pluginconf_DATA = samba.ini network.ini proxy.ini squid.ini
 endif
 
-EXTRA_DIST = samba.ini.in
-CLEANFILES = samba.ini
+EXTRA_DIST = samba.ini.in network.ini.in proxy.ini.in squid.ini.in
+CLEANFILES = samba.ini network.ini proxy.ini squid.ini
 
 if ENABLE_CONF_BACKUP
 INSTALL += --backup=numbered
@@ -41,36 +40,50 @@ samba.ini: Makefile
 	$(MKDIR_P) $(@D)
 	srcdir=''; \
 	  test -f ./$@.in || srcdir=$(srcdir)/; \
-	  $(edit) $${srcdir}$@.in >$@.tmp
+	  $(edit) $${srcdir}$@.in >$@.tmp; \
+	  [ -f /etc/mandriva-release ] && \
+        sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@.tmp && \
+	    sed -i 's!ou=Computers!ou=Hosts!g' $@.tmp;
 	mv $@.tmp $@
-	if [ -f /etc/mandriva-release ]; then \
-	  sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@; \
-	  sed -i 's!ou=Computers!ou=Hosts!g' $@; \
-	fi
 
 network.ini: Makefile
-	if [ -f /etc/mandriva-release ]; then \
-	  sed -i 's!/var/run/dhcpd.pid!/var/run/dhcpd/dhcpd.pid!g' $@; \
-	  sed -i 's!/etc/init.d/isc-dhcp-server!/etc/rc.d/init.d/dhcpd!g' $@; \
-	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
-	  sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@; \
-	  sed -i 's!/var/run/named/named.pid!/var/lib/named/var/run/named.pid!g' $@; \
-	  sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@; \
-	  sed -i 's!/var/log/syslog!/var/log/messages!g' $@; \
-	  sed -i 's!/etc/bind/!/var/named!g' $@; \
-	  sed -i 's!^bindgroup = bind!bindgroup = named!g' $@; \
-	fi
+	rm -f $@ $@.tmp
+	$(MKDIR_P) $(@D)
+	srcdir=''; \
+	  test -f ./$@.in || srcdir=$(srcdir)/; \
+	  $(edit) $${srcdir}$@.in >$@.tmp; \
+      [ -f /etc/mandriva-release ] && \
+	    sed -i 's!/var/run/dhcpd.pid!/var/run/dhcpd/dhcpd.pid!g' $@.tmp && \
+	    sed -i 's!/etc/init.d/isc-dhcp-server!/etc/rc.d/init.d/dhcpd!g' $@.tmp && \
+	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \
+	    sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@.tmp && \
+	    sed -i 's!/var/run/named/named.pid!/var/lib/named/var/run/named.pid!g' $@.tmp && \
+	    sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@.tmp && \
+	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \
+	    sed -i 's!/etc/bind/!/var/named!g' $@.tmp && \
+	    sed -i 's!^bindgroup = bind!bindgroup = named!g' $@.tmp;
+	mv $@.tmp $@
 
 proxy.ini: Makefile
-	if [ -f /etc/mandriva-release ]; then \
-	  sed -i 's!/var/lib/squidguard/db/bad.destdomainlist!/usr/share/squidGuard-1.2.0/db/bad.destdomainlist!g' $@; \
-	  sed -i 's!/etc/init.d/squid!/etc/rc.d/init.d/squid!g' $@; \
-	  sed -i 's!^user = proxy!user = squid!g' $@; \
-	  sed -i 's!^group = proxy!user = squid!g' $@; \
-	fi
+	rm -f $@ $@.tmp
+	$(MKDIR_P) $(@D)
+	srcdir=''; \
+	  test -f ./$@.in || srcdir=$(srcdir)/; \
+	  $(edit) $${srcdir}$@.in >$@.tmp; \
+	  [ -f /etc/mandriva-release ] && \
+  	    sed -i 's!/var/lib/squidguard/db/bad.destdomainlist!/usr/share/squidGuard-1.2.0/db/bad.destdomainlist!g' $@.tmp && \
+	    sed -i 's!/etc/init.d/squid!/etc/rc.d/init.d/squid!g' $@.tmp && \
+	    sed -i 's!^user = proxy!user = squid!g' $@.tmp && \
+	    sed -i 's!^group = proxy!user = squid!g' $@.tmp; \
+	mv $@.tmp $@
 
 squid.ini: Makefile
-	if [ -f /etc/mandriva-release ]; then \
-	  sed -i 's!squid3!squid!g' $@; \
-	  sed -i 's!/usr/bin/sarg!/usr/sbin/sarg!' $@; \
-	fi
+	rm -f $@ $@.tmp
+	$(MKDIR_P) $(@D)
+	srcdir=''; \
+	  test -f ./$@.in || srcdir=$(srcdir)/; \
+	  $(edit) $${srcdir}$@.in >$@.tmp
+	  [ -f /etc/mandriva-release ] && \
+	    sed -i 's!squid3!squid!g' $@.tmp && \
+	    sed -i 's!/usr/bin/sarg!/usr/sbin/sarg!' $@.tmp;
+	mv $@.tmp $@
