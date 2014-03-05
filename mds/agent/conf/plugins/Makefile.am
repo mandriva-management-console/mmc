@@ -43,7 +43,7 @@ samba.ini: Makefile
 	  $(edit) $${srcdir}$@.in >$@.tmp; \
 	  [ -f /etc/mandriva-release ] && \
         sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@.tmp && \
-	    sed -i 's!ou=Computers!ou=Hosts!g' $@.tmp;
+	    sed -i 's!ou=Computers!ou=Hosts!g' $@.tmp || echo continue;
 	mv $@.tmp $@
 
 network.ini: Makefile
@@ -61,7 +61,7 @@ network.ini: Makefile
 	    sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@.tmp && \
 	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \
 	    sed -i 's!/etc/bind/!/var/named!g' $@.tmp && \
-	    sed -i 's!^bindgroup = bind!bindgroup = named!g' $@.tmp;
+	    sed -i 's!^bindgroup = bind!bindgroup = named!g' $@.tmp || echo continue;
 	mv $@.tmp $@
 
 proxy.ini: Makefile
@@ -74,7 +74,7 @@ proxy.ini: Makefile
   	    sed -i 's!/var/lib/squidguard/db/bad.destdomainlist!/usr/share/squidGuard-1.2.0/db/bad.destdomainlist!g' $@.tmp && \
 	    sed -i 's!/etc/init.d/squid!/etc/rc.d/init.d/squid!g' $@.tmp && \
 	    sed -i 's!^user = proxy!user = squid!g' $@.tmp && \
-	    sed -i 's!^group = proxy!user = squid!g' $@.tmp; \
+	    sed -i 's!^group = proxy!user = squid!g' $@.tmp || echo continue;
 	mv $@.tmp $@
 
 squid.ini: Makefile
@@ -85,5 +85,5 @@ squid.ini: Makefile
 	  $(edit) $${srcdir}$@.in >$@.tmp
 	  [ -f /etc/mandriva-release ] && \
 	    sed -i 's!squid3!squid!g' $@.tmp && \
-	    sed -i 's!/usr/bin/sarg!/usr/sbin/sarg!' $@.tmp;
+	    sed -i 's!/usr/bin/sarg!/usr/sbin/sarg!' $@.tmp || echo continue;
 	mv $@.tmp $@
