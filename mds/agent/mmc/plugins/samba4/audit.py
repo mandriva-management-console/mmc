@@ -1,4 +1,6 @@
-# (c) 2011 Mandriva, http://www.mandriva.com
+# -*- coding: utf-8; -*-g
+#
+# (c) 2014 Zentyal S.L., http://www.zentyal.com
 #
 # $Id$
 #
@@ -18,6 +20,25 @@
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s):
-#   Jean Parpaillon <jparpaillon@mandriva.com>
+#   Julien Kerihuel <jkerihuel@zentyal.com>
 #
-SUBDIRS = bulkimport mail network proxy samba samba4 sshlpk userquota shorewall squid
+
+"""
+Constants for the audit framework and the SAMBA4 plugin.
+"""
+
+from mmc.plugins.base.audit import AT
+
+PLUGIN_NAME=u'MMC-SAMBA4'
+
+class AuditActions:
+    SAMBA_RESTART_S4=u'SAMBA_RESTART_S4'
+    SAMBA_RELOAD_S4=u'SAMBA_RELOAD_S4'
+    SAMBA_PURGE_S4=u'SAMBA_PURGE_S4'
+
+AA = AuditActions
+
+class AuditTypes(AT):
+    DOMAIN=u'DOMAIN'
+
+AT = AuditTypes

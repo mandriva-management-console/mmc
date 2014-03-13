@@ -1,0 +1,51 @@
+# (c) 2014 Zentyal, http://www.zentyal.com
+#
+# $Id$
+#
+# This file is part of Mandriva Management Console (MMC).
+#
+# MMC is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# MMC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author(s):
+#   Julien Kerihuel <jkerihuel@zentyal.com>
+#
+datafiles = \
+	infoPackage.inc.php \
+	mainSidebar.php	\
+	domaincontroller/index.php \
+	domaincontroller/purge.php \
+	domaincontroller/top.php \
+	domaincontroller/tab1.php \
+	domaincontroller/tab2.php \
+	graph/navbar/share.png \
+	graph/navbar/share_hl.png \
+	graph/navbar/share_select.png \
+	graph/img/provision/icn_provision.gif \
+	graph/img/provision/icn_provision_active.gif \
+	graph/img/provision/icn_provision_ro.gif \
+	graph/domaincontroller/index.css
+
+module = $(notdir $(realpath $(srcdir)))
+moduledir = $(datadir)/mmc/modules/$(module)
+pofiles = $(foreach lang,$(langs),$(srcdir)/locale/$(lang)/LC_MESSAGES/$(module).po)
+mofiles = $(patsubst %.po,%.mo,$(pofiles))
+
+nobase_module_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(patsubst %,$(srcdir)/%,$(mofiles))
+
+EXTRA_DIST = $(datafiles) $(pofiles)
+CLEANFILES = $(mofiles)
+
+%.mo: %.po
+	$(MKDIR_P) $(@D)
+	$(MSGFMT) -c -o $@ $<

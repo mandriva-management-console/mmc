@@ -1,0 +1,5 @@
+[main]
+disable = 0
+
+sambaConfFile = /etc/samba/smb.conf
+sambaInitScript = /etc/init.d/samba

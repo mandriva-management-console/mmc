@@ -1,6 +1,6 @@
-# (c) 2011 Mandriva, http://www.mandriva.com
+# -*- coding: utf-8; -*-g
 #
-# $Id$
+# (c) 2014 Zentyal S.L., http://www.zentyal.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -18,6 +18,25 @@
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s):
-#   Jean Parpaillon <jparpaillon@mandriva.com>
+#   Julien Kerihuel <jkerihuel@zentyal.com>
 #
-SUBDIRS = bulkimport mail network proxy samba samba4 sshlpk userquota shorewall squid
+#
+
+import ConfigParser
+
+from mmc.support.config import PluginConfig
+
+class Samba4Config(PluginConfig):
+
+    def readConf(self):
+        PluginConfig.readConf(self)
+
+        try: self.samba4_conf_file = self.get("main", "sambaConfFile")
+        except: pass
+
+        try: self.samba4_init_script = self.get("main", "sambaInitScript")
+        except: pass
+
+    def setDefault(self):
+        self.samba4_conf_file = '/etc/samba/smb.conf'
+        self.samba4_init_script = '/etc/init.d/samba'
