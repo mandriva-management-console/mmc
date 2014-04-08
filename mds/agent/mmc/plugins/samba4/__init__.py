@@ -119,8 +119,6 @@ def provisionSamba(mode, netbios_domain, realm):
         raise NotImplemented("We can only provision samba4 as Domain Controller")
 
     samba = SambaConf()
-    samba.writeSambaConfig(mode, netbios_domain, realm)
-
     params = {'domain': netbios_domain, 'realm': realm, 'prefix': samba.prefix,
               'role': mode, 'adminpass': samba.admin_password}
     cmd = ("%(prefix)s/bin/samba-tool domain provision"
@@ -137,6 +135,7 @@ def provisionSamba(mode, netbios_domain, realm):
                          cmd, sambatool.exitCode)
             logger.debug(sambatool.out)
             logger.debug(sambatool.err)
+        samba.writeSambaConfig(mode, netbios_domain, realm)
         return sambatool.exitCode == 0
 
     def disable_password_complexity(sambatool):
