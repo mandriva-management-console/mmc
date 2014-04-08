@@ -35,6 +35,7 @@ from mmc.site import mmcconfdir
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.samba4.audit import AT, AA, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
+from mmc.support.mmctools import shlaunchBackground
 
 
 logger = logging.getLogger()
@@ -81,22 +82,24 @@ def activate():
         DM.register_panel(Samba4Panel("samba4"))
     except ImportError:
         pass
-    
+
     return True
 
 def restartSamba():
     r = AF().log(PLUGIN_NAME, AA.SAMBA_RELOAD_S4)
-    # mmctools.shlaunchBackground
+    shlaunchBackground(Samba4Config("samba4").samba_init_script+' restart')
     r.commit()
     return 0;
 
 def reloadSamba():
     r = AF().log(PLUGIN_NAME, AA.SAMBA_RELOAD_S4)
-    # mmctools.shlaunchBackground
+    shlaunchBackground(Samba4Config("samba4").samba_init_script+' restart')
     r.commit()
     return 0;
 
 def purgeSamba():
     r = AF().log(PLUGIN_NAME, AA.SAMBA_PURGE_S4)
+    shlaunchBackground(Samba4Config("samba4").samba_init_script+' stop')
+    # TODO
     r.commit()
     return 0;
