@@ -33,37 +33,30 @@ if (strlen($_GET['state'])) {
 
 $cmd_id = isset($_GET['cmd_id']) ? $_GET['cmd_id'] : '';
  
-function get_command_by_state($kind, $id, $state, $count) {
-    $split = 250; # results will be splitted by 250 to reduce memory usage
-    
-    if ($count <= $split) {
-        $range = array(0);
-    } else {
-        $range = range(0, $count-1, $split);
-    }
-    $firstline = true;
+function get_command_by_state($kind, $id, $state) {
     $ret = array();
-    foreach ($range as $lower) {
-        $upper = $lower + $split ;
-        if ($kind == 1) {
-            $ret = array_merge($ret, get_command_on_group_by_state($id, $state, $lower, $upper));
-        } elseif ($kind == 2) {
-            $ret = array_merge($ret, get_command_on_bundle_by_state($id, $state, $lower, $upper));
-        }
+    if ($kind == 1) {
+        $ret = array_merge($ret, get_command_on_group_by_state($id, $state));
+    } elseif ($kind == 2) {
+        $ret = array_merge($ret, get_command_on_bundle_by_state($id, $state));
     }
     return $ret;
 }
 
 if (strlen($cmd_id)) {
-    $s = get_command_on_group_status($cmd_id);
     if ($specific_state) { // the export doesnot have the same format
-        $s = get_command_by_state(1, $cmd_id, $state, $s['total']);
+        $s = get_command_by_state(1, $cmd_id, $state);
+    }
+    else {
+        $s = get_command_on_group_status($cmd_id);
     }
     $title = get_command_on_host_title($cmd_id);
 } elseif (strlen($_GET['bundle_id'])) {
-    $s = get_command_on_bundle_status($_GET['bundle_id']);
     if ($specific_state) { // the export doesnot have the same format
-        $s = get_command_by_state(2, $_GET['bundle_id'], $state, $s['total']);
+        $s = get_command_by_state(2, $_GET['bundle_id'], $state);
+    }
+    else {
+        $s = get_command_on_bundle_status($_GET['bundle_id']);
     }
     $bdl = bundle_detail($_GET['bundle_id']);
     if ($bdl[0] == null) {
