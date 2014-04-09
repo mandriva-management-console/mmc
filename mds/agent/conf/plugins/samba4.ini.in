@@ -2,4 +2,4 @@
 disable = 0
 
 sambaConfFile = /etc/samba/smb.conf
-sambaInitScript = /etc/init.d/samba
+sambaInitScript = /etc/init.d/samba4
