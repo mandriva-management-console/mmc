@@ -50,7 +50,7 @@ def getRevision(): return REVISION
 
 def activate():
     """
-    this function degine if the module "base" can be activated.
+    this function define if the module "base" can be activated.
     @return: true True if this module can be activated
     @rtype: boolean
     """
@@ -60,46 +60,26 @@ def activate():
         logger.info("samba4 plugin disabled by configuration.")
         return False
 
-    # Verify if samba conf file exists
-    conf = config.samba4_conf_file
-    if not os.path.exists(conf):
-        logger.error(conf + " does not exist")
-        return False
-
-    # Validate smb.conf
-
-    # Verify if init script exists
-    init = config.samba4_init_script
-    if not os.path.exists(init):
-        logger.error(init + " does not exist")
-        return False
-
-
-    try:
-        from mmc.plugins.dashboard.manager import DashboardManager
-        from mmc.plugins.samba4.panel import Samba4Panel
-        DM = DashboardManager()
-        DM.register_panel(Samba4Panel("samba4"))
-    except ImportError:
-        pass
+    # Verify samba conf and init script files exist
+    for filename in (config.conf_file, config.init_script):
+        if not os.path.exists(filename):
+            logger.error(filename + " does not exist")
+            return False
 
     return True
 
-def restartSamba():
-    r = AF().log(PLUGIN_NAME, AA.SAMBA_RELOAD_S4)
-    shlaunchBackground(Samba4Config("samba4").samba_init_script+' restart')
-    r.commit()
-    return 0;
-
 def reloadSamba():
     r = AF().log(PLUGIN_NAME, AA.SAMBA_RELOAD_S4)
-    shlaunchBackground(Samba4Config("samba4").samba_init_script+' restart')
+    shlaunchBackground(Samba4Config("samba4").init_script + ' restart')
     r.commit()
-    return 0;
+    return 0
+
+restartSamba = reloadSamba
 
 def purgeSamba():
     r = AF().log(PLUGIN_NAME, AA.SAMBA_PURGE_S4)
-    shlaunchBackground(Samba4Config("samba4").samba_init_script+' stop')
+    shlaunchBackground(Samba4Config("samba4").init_script + ' stop')
     # TODO
     r.commit()
-    return 0;
+    return 0
+

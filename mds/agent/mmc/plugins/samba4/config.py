@@ -31,12 +31,12 @@ class Samba4Config(PluginConfig):
     def readConf(self):
         PluginConfig.readConf(self)
 
-        try: self.samba4_conf_file = self.get("main", "sambaConfFile")
+        try: self.conf_file = self.get("main", "sambaConfFile")
         except: pass
 
-        try: self.samba4_init_script = self.get("main", "sambaInitScript")
+        try: self.init_script = self.get("main", "sambaInitScript")
         except: pass
 
     def setDefault(self):
-        self.samba4_conf_file = '/etc/samba/smb.conf'
-        self.samba4_init_script = '/etc/init.d/samba'
+        self.conf_file = '/etc/samba/smb.conf'
+        self.init_script = '/etc/init.d/samba4'
