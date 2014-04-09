@@ -38,6 +38,5 @@ class Samba4Config(PluginConfig):
         except: pass
 
     def setDefault(self):
-        self.conf_file = '/etc/samba/smb.conf'
-        self.init_script = '/etc/init.d/samba4'
-
+        self.samba4_conf_file = '/opt/samba4/etc/smb.conf'
+        self.samba4_init_script = '/etc/rc.d/init.d/samba4'

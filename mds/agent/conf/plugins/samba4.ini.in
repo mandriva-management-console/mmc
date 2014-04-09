@@ -1,5 +1,7 @@
 [main]
 disable = 0
 
-sambaConfFile = /etc/samba/smb.conf
-sambaInitScript = /etc/init.d/samba4
+samba3ConfFile = /etc/samba/smb.conf
+
+sambaConfFile = /opt/samba4/etc/smb.conf
+sambaInitScript = /etc/rc.d/init.d/samba4
