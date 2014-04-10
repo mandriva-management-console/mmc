@@ -30,11 +30,10 @@ import os
 import os.path
 import logging
 from mmc.core.version import scmRevision
-
-from mmc.site import mmcconfdir
 from mmc.core.audit import AuditFactory as AF
-from mmc.plugins.samba4.audit import AT, AA, PLUGIN_NAME
+from mmc.plugins.samba4.audit import AA, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
+from mmc.plugins.samba4.helpers import shellquote
 from mmc.support.mmctools import shlaunchBackground
 
 
@@ -43,6 +42,7 @@ logger = logging.getLogger()
 VERSION = "1.0.0"
 APIVERSION = "1.0.0"
 REVISION = scmRevision("$Rev$")
+
 
 def getVersion(): return VERSION
 def getApiVersion(): return APIVERSION
@@ -78,8 +78,42 @@ restartSamba = reloadSamba
 
 def purgeSamba():
     r = AF().log(PLUGIN_NAME, AA.SAMBA_PURGE_S4)
-    shlaunchBackground(Samba4Config("samba4").init_script + ' stop')
-    # TODO
+
+    def _purgeSambaConfig():
+        config = Samba4Config("samba4")
+        conf_files = []
+        conf_files.append(shellquote(config.conf_file))
+        conf_files.append(shellquote(config.PRIVATE_DIR + '/*'))
+        shlaunchBackground("rm -rf %s", ' '.join(conf_files))
+
+    # FIXME should we use deferred instead?
+    shlaunchBackground(Samba4Config("samba4").init_script + ' stop',
+                       endFunc=_purgeSambaConfig)
     r.commit()
     return 0
 
+def provisionSamba(mode, netbios_domain, realm):
+    r = AF().log(PLUGIN_NAME, AA.SAMBA_PROVISION_S4)
+    if mode != 'DC':
+        raise NotImplemented("We can only provision samba4 as Domain Controller")
+
+    config = Samba4Config("samba4")
+    config.write_samba_config(mode, netbios_domain, realm)
+
+    params = {'domain': netbios_domain, 'realm': realm, 'prefix': config.PREFIX,
+              'role': mode}
+    cmd = ("%(prefix)s/bin/samba-tool domain provision"
+           " --domain='%(domain)s'"
+           " --workgroup='%(domain)s'"
+           " --realm='%(realm)s'"
+           " --dns-backend=BIND9_DLZ"
+           " --use-xattr=yes "
+           " --use-rfc2307"
+           " --server-role='%(role)s'"
+           " --users=''"
+           " --host-name=''"
+           " --host-ip=''" % params)
+    shlaunchBackground(cmd)
+
+    r.commit()
+    return 0

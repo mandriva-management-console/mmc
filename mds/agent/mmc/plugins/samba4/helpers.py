@@ -16,28 +16,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author(s):
-#   Julien Kerihuel <jkerihuel@zentyal.com>
-#
-#
 
-import ConfigParser
-
-from mmc.support.config import PluginConfig
-
-class Samba4Config(PluginConfig):
-
-    def readConf(self):
-        PluginConfig.readConf(self)
-
-        try: self.conf_file = self.get("main", "sambaConfFile")
-        except: pass
-
-        try: self.init_script = self.get("main", "sambaInitScript")
-        except: pass
-
-    def setDefault(self):
-        self.conf_file = '/etc/samba/smb.conf'
-        self.init_script = '/etc/init.d/samba4'
-
+def shellquote(s):
+    return "'" + s.replace("'", "'\\''") + "'"
