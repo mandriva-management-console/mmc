@@ -25,29 +25,27 @@
  *   Miguel Julián <mjulian@zentyal.com>
  */
 
+require_once("modules/samba4/includes/common-xmlrpc.inc.php");
 require("modules/samba4/includes/domaincontroller-xmlrpc.inc.php");
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
 
 /* Provision has been ordered, just handle it or show the form */
-if (isset($_POST["bprovision"])) {
+if (isset($_POST["bprovision"]) and ! isSamba4Provisioned()) {
     if (_doProvision($_POST)) {
         header("Location: " . urlStrRedirect("base/main/default"));
         exit;
     } else {
-        $f = new PopupForm(_T("Provision has failed"));
-        $f->addText(_T("Provision has failed, please try again or ask for support."));
-        $f->addValidateButton("bconfirmerror");
-        $f->display();
+        new NotifyWidgetFailure(_T("Provision has failed, please try again or ask for support."));
     }
-} elseif (isset($_POST["bconfirmerror"])) {
-        header("Location: " . urlStrRedirect("samba4/domaincontroller/provision"));
-        exit;
-} else {
-    _showProvisionForm($sidemenu);
 }
 
+/* If the user is entering the submodule or if the provision has failed, we show the form */
+_showProvisionForm($sidemenu);
+
 function _showProvisionForm($sidemenu) {
+    _redirectIfAlreadyProvisioned();
+
     $page = new PageGenerator(_T("Samba provisioning"));
     $page->setSideMenu($sidemenu);
     $page->display();
@@ -77,6 +75,8 @@ function _showProvisionForm($sidemenu) {
     $form->display();
 }
 
+/* Private functions */
+
 function _doProvision($_POST) {
     if (isset($_POST["domainName"])) {
         $domainName = $_POST["domainName"];
@@ -91,6 +91,13 @@ function _doProvision($_POST) {
     }
 
     return provisionSamba4($domainName, $realm);
+}
+
+function _redirectIfAlreadyProvisioned() {
+    if (isSamba4Provisioned()) {
+        header("Location: " . urlStrRedirect("samba4/shares/index"));
+        exit;
+    }
 }
 
 ?>

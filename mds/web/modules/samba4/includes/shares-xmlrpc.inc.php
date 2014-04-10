@@ -48,4 +48,30 @@ function getProtectedSamba4Shares() {
     return array ("","homes","netlogon","archive");
 }
 
+function getShare($share) {
+//    return xmlCall("samba4.getShare", array($share));
+    return array("vaca", "vaca-path", True, "Soy una vaca", False);
+}
+
+/*
+ * $params => array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest)
+ */
+function editShare($share, $params) {
+//    return xmlCall("samba4.editShare", array_merge(array($share), $params));
+    return True;
+}
+
+/*
+ * $params => array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest)
+ */
+function addShare($params) {
+//    return xmlCall("samba4.addShare", $params);
+    return "vaca";
+}
+
+function isAuthorizedSharePath($sharePath) {
+//    return xmlCall("samba4.isAuthorizedSharePath", array($sharePath));
+    return True;
+}
+
 ?>

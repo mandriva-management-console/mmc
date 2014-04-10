@@ -21,15 +21,10 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * Author(s):
- *   Julien Kerihuel <jkerihuel@zentyal.com>
+ *   Miguel Julián <mjulian@zentyal.com>
  */
-
-$t = new Table();
-$realm = "";
-$t->add(
-	new TrFormElement(_T("Realm"), new InputTpl("realm")),
-	array("value" => $realm)
-	);
-$t->display();
-
-?>
+ ?>
+ <?php
+// Adding is a subcase of editing the share
+ include ("edit.php");
+ ?>

@@ -107,7 +107,7 @@ function _createSamba4SharesSubmodule($isProvisioned) {
     $deleteShare->setOptions( array ("noHeader" => True,"visible" => False));
     $submodule->addPage($deleteShare);
 
-    $shareDetailsPage = new Page("details",_T("Share details","samba4"));
+    $shareDetailsPage = new Page("edit",_T("Edit share","samba4"));
     $shareDetailsPage->setOptions( array ("visible" => False));
     $submodule->addPage($shareDetailsPage);
 

@@ -81,7 +81,7 @@ foreach($shares as $share) {
                                             $share[$shareComponent["guest_access"]] : "";
 
     if (isset($protectedShares) and !in_array($share[$shareComponent["name"]], $protectedShares)) {
-        $editActions[] = new ActionItem(_T("Edit"),"details","edit","share");
+        $editActions[] = new ActionItem(_T("Edit"),"edit","edit","share");
         $delActions[] = new ActionPopupItem(_T("Delete"),"delete","delete","share");
     } else {
         $editActions[] = new EmptyActionItem();
