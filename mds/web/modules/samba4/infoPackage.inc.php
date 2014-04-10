@@ -37,32 +37,19 @@ $module->setDescription(_T("SAMBA4 management"), "samba4");
 $module->setAPIVersion("1:0:1");
 $module->setPriority(20);
 
-/* If samba4 is not provisioned only show provision option */
-if (!isSamba4Provisioned()) {
-    $provisionSubmod = new SubModule("domaincontroller");
-    $provisionSubmod->setDescription(_T("Domain", "samba4"));
-    $provisionSubmod->setImg('modules/samba4/graph/navbar/share');
-    $provisionSubmod->setDefaultPage("samba4/domaincontroller/index");
-    $provisionSubmod->setPriority(20);
+$isProvisioned = isSamba4Provisioned();
 
-    $provisionPage = new Page("index",_T("Povisioning", "samba4"));
-    $provisionPage->setImg(
-        "modules/samba4/graph/img/provision/icn_provision_active.gif",
-        "modules/samba4/graph/img/provision/icn_provision.gif"
-    );
-    $provisionSubmod->addPage($provisionPage);
+$provisionSubmodule = _createSamba4ProvisionSubmodule($isProvisioned);
+$module->addSubmod($provisionSubmodule);
 
-    $module->addSubmod($provisionSubmod);
-} else {
-    $sharesSubmodule = _createSamba4SharesSubmodule();
-    $module->addSubmod($sharesSubmodule);
+$sharesSubmodule = _createSamba4SharesSubmodule($isProvisioned);
+$module->addSubmod($sharesSubmodule);
 
-    $machinesSubmodule = _createSamba4MachinesSubmodule();
-    $module->addSubmod($machinesSubmodule);
+//    $machinesSubmodule = _createSamba4MachinesSubmodule();
+//    $module->addSubmod($machinesSubmodule);
 
-    $configurationSubmodule = _createSamba4ConfigurationSubmodule();
-    $module->addSubmod($configurationSubmodule);
-}
+//    $configurationSubmodule = _createSamba4ConfigurationSubmodule();
+//    $module->addSubmod($configurationSubmodule);
 
 $MMCApp =& MMCApp::getInstance();
 $MMCApp->addModule($module);
@@ -71,22 +58,45 @@ $MMCApp->addModule($module);
 /*
  * Private functions
  */
-function _createSamba4SharesSubmodule() {
-    $submodule = new SubModule("shares4");
+function _createSamba4ProvisionSubmodule($isProvisioned) {
+    $submodule = new SubModule("domaincontroller");
+
+    $submodule->setDescription(_T("Domain", "samba4"));
+    $submodule->setImg('modules/samba4/graph/navbar/share');
+    $submodule->setDefaultPage("samba4/domaincontroller/provision");
+    $submodule->setVisibility(!$isProvisioned);
+    $submodule->setPriority(20);
+
+    $provisionPage = new Page("provision",_T("Povisioning", "samba4"));
+    $provisionPage->setImg(
+        "modules/samba4/graph/img/provision/icn_provision_active.gif",
+        "modules/samba4/graph/img/provision/icn_provision.gif"
+    );
+    $provisionPage->setOptions( array ("visible" => !$isProvisioned));
+    $submodule->addPage($provisionPage);
+
+    return $submodule;
+}
+
+function _createSamba4SharesSubmodule($isProvisioned) {
+    $submodule = new SubModule("shares");
 
     $submodule->setDescription(_T("Shares-4","samba4"));
     $submodule->setImg('modules/samba4/graph/navbar/share');
     $submodule->setDefaultPage("samba4/shares/index");
+    $submodule->setVisibility($isProvisioned);
     $submodule->setPriority(20);
 
     $listSharesPage = new Page("index",_T("List shares","samba4"));
     $listSharesPage->setImg("modules/samba4/graph/img/shares/icn_global_active.gif",
             "modules/samba4/graph/img/shares/icn_global.gif");
+    $listSharesPage->setOptions( array ("visible" => $isProvisioned));
     $submodule->addPage($listSharesPage);
 
     $addSharePage = new Page("add",_T("Add a share","samba4"));
     $addSharePage->setImg("modules/samba4/graph/img/shares/icn_addShare_active.gif",
             "modules/samba4/graph/img/shares/icn_addShare.gif");
+    $addSharePage->setOptions( array ("visible" => $isProvisioned));
     $submodule->addPage($addSharePage);
 
     $backupPage = new Page("backup",_T("Backup a share","samba4"));
