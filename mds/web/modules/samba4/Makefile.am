@@ -19,13 +19,15 @@
 #
 # Author(s):
 #   Julien Kerihuel <jkerihuel@zentyal.com>
-#   Julien Kerihuel <mjulian@zentyal.com>
+#   Miguel Julián <mjulian@zentyal.com>
 #
 datafiles = \
 	infoPackage.inc.php \
 	mainSidebar.php	\
 	includes/common-xmlrpc.inc.php \
-	domaincontroller/index.php \
+	includes/domaincontroller-xmlrpc.inc.php \
+	includes/shares-xmlrpc.inc.php \
+	domaincontroller/provision.php \
 	domaincontroller/purge.php \
 	domaincontroller/top.php \
 	domaincontroller/tab1.php \
@@ -33,6 +35,9 @@ datafiles = \
 	graph/navbar/share.png \
 	graph/navbar/share_hl.png \
 	graph/navbar/share_select.png \
+	graph/navbar/pref.png \
+	graph/navbar/pref_hl.png \
+	graph/navbar/pref_select.png \
 	graph/img/provision/icn_provision.gif \
 	graph/img/provision/icn_provision_active.gif \
 	graph/img/provision/icn_provision_ro.gif \
