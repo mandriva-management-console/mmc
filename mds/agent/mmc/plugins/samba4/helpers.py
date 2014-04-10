@@ -17,5 +17,28 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
+from mmc.plugins.shorewall import get_zones_interfaces
+from mmc.plugins.shorewall.config import ShorewallPluginConfig
+
+
 def shellquote(s):
+    """
+    @rtype str
+    @return String quoted ready to be used in a shell command
+    """
     return "'" + s.replace("'", "'\\''") + "'"
+
+
+def get_internal_interfaces():
+    """
+    Return string with all the internal interfaces separated by a space
+    Something like: "eth1 eth2"
+
+    @rtype str
+    @return Names of internal interfaces
+    """
+    shorewall_config = ShorewallPluginConfig("shorewall")
+    interfaces = get_zones_interfaces(shorewall_config.internal_zones_names)
+    if not interfaces:
+        raise Exception("No internal networks detected")
+    return " ".join([interface[1] for interface in interfaces])

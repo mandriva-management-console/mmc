@@ -24,6 +24,7 @@ import logging
 from configobj import ConfigObj, ParseError
 from jinja2 import Environment, PackageLoader
 from mmc.plugins.samba4.config import Samba4Config
+from mmc.plugins.samba4.helpers import get_internal_interfaces
 
 
 logger = logging.getLogger()
@@ -67,7 +68,8 @@ class SambaConf:
                   'mode' : mode,
                   'sysvol_path': self.SYSVOL_DIR,
                   'openchange': False, # FIXME
-                  'domain': domain}
+                  'domain': domain,
+                  'interfaces': get_internal_interfaces()}
         smb_conf_template = env.get_template("smb.conf")
         with open(tmpfname, 'a') as f:
             f.write(smb_conf_template.render(params))

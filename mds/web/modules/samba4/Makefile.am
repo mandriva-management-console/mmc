@@ -22,23 +22,37 @@
 #   Miguel Julián <mjulian@zentyal.com>
 #
 datafiles = \
-	infoPackage.inc.php \
-	mainSidebar.php	\
-	includes/common-xmlrpc.inc.php \
-	includes/domaincontroller-xmlrpc.inc.php \
-	includes/shares-xmlrpc.inc.php \
+	domaincontroller/index.css \
 	domaincontroller/provision.php \
 	domaincontroller/purge.php \
+	graph/domaincontroller/index.css \
+	graph/img/provision/icn_provision_active.gif \
+	graph/img/provision/icn_provision.gif \
+	graph/img/provision/icn_provision_ro.gif \
+	graph/img/shares/icn_addShare_active.gif \
+	graph/img/shares/icn_addShare.gif \
+	graph/img/shares/icn_addShare_ro.gif \
+	graph/img/shares/icn_global_active.gif \
+	graph/img/shares/icn_global.gif \
+	graph/img/shares/icn_global_ro.gif \
+	graph/img/shares/icn_shareList.gif \
+	graph/img/shares/icn_shares_large.gif \
 	graph/navbar/share.png \
 	graph/navbar/share_hl.png \
 	graph/navbar/share_select.png \
 	graph/navbar/pref.png \
 	graph/navbar/pref_hl.png \
 	graph/navbar/pref_select.png \
-	graph/img/provision/icn_provision.gif \
-	graph/img/provision/icn_provision_active.gif \
-	graph/img/provision/icn_provision_ro.gif \
-	graph/domaincontroller/index.css
+	includes/common-xmlrpc.inc.php \
+	includes/domaincontroller-xmlrpc.inc.php \
+	includes/shares-xmlrpc.inc.php \
+	infoPackage.inc.php \
+	mainSidebar.php \
+	shares/add.php \
+	shares/edit.php \
+	shares/index.php \
+	views/groups.tpl.php \
+	views/users.tpl.php
 
 module = $(notdir $(realpath $(srcdir)))
 moduledir = $(datadir)/mmc/modules/$(module)
