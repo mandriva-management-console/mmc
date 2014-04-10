@@ -1,7 +1,6 @@
 <?php
 /**
- * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2014 Mandriva, http://www.mandriva.com/
+ * (c) 2014 Zentyal, http://www.zentyal.com
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -18,9 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * Author(s):
+ *   Miguel Julián <mjulian@zentyal.com>
  */
 
-$submods = array('domaincontroller');
+$submods = array('domaincontroller', 'shares', 'machines', 'configuration');
 
 $sidemenu = new SideMenu();
 $sidemenu->setClass(join(" ", $submods));
@@ -30,11 +32,13 @@ $mod = $MMCApp->getModule('samba4');
 
 foreach ($submods as $submod) {
     $submod = $mod->getSubmod($submod);
-    foreach ($submod->getPages() as $page) {
-        if ($page->hasAccessAndVisible($mod, $submod)) {
-            $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
-            $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
-            $sidemenu->addSideMenuItem($item);
+    if ($submod) {
+        foreach ($submod->getPages() as $page) {
+            if ($page->hasAccessAndVisible($mod, $submod)) {
+                $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
+                $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
+                $sidemenu->addSideMenuItem($item);
+            }
         }
     }
 }
