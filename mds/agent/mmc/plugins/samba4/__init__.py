@@ -33,8 +33,9 @@ from mmc.core.version import scmRevision
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.samba4.audit import AA, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
+from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.helpers import shellquote
-from mmc.support.mmctools import shlaunchBackground
+from mmc.support.mmctools import shlaunchBackground, shLaunchDeferred
 
 
 logger = logging.getLogger()
@@ -69,7 +70,7 @@ def activate():
     return True
 
 def reloadSamba():
-    r = AF().log(PLUGIN_NAME, AA.SAMBA_RELOAD_S4)
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_RELOAD)
     shlaunchBackground(Samba4Config("samba4").init_script + ' restart')
     r.commit()
     return 0
@@ -77,30 +78,30 @@ def reloadSamba():
 restartSamba = reloadSamba
 
 def purgeSamba():
-    r = AF().log(PLUGIN_NAME, AA.SAMBA_PURGE_S4)
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_PURGE)
 
     def _purgeSambaConfig():
-        config = Samba4Config("samba4")
+        samba = SambaConf()
         conf_files = []
-        conf_files.append(shellquote(config.conf_file))
-        conf_files.append(shellquote(config.PRIVATE_DIR + '/*'))
+        conf_files.append(shellquote(samba.smb_conf_path))
+        conf_files.append(shellquote(samba.PRIVATE_DIR + '/*'))
         shlaunchBackground("rm -rf %s", ' '.join(conf_files))
 
     # FIXME should we use deferred instead?
     shlaunchBackground(Samba4Config("samba4").init_script + ' stop',
                        endFunc=_purgeSambaConfig)
     r.commit()
-    return 0
+    return True
 
 def provisionSamba(mode, netbios_domain, realm):
-    r = AF().log(PLUGIN_NAME, AA.SAMBA_PROVISION_S4)
-    if mode != 'DC':
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_PROVISION)
+    if mode != 'dc':
         raise NotImplemented("We can only provision samba4 as Domain Controller")
 
-    config = Samba4Config("samba4")
-    config.write_samba_config(mode, netbios_domain, realm)
+    samba = SambaConf()
+    samba.write_samba_config(mode, netbios_domain, realm)
 
-    params = {'domain': netbios_domain, 'realm': realm, 'prefix': config.PREFIX,
+    params = {'domain': netbios_domain, 'realm': realm, 'prefix': samba.PREFIX,
               'role': mode}
     cmd = ("%(prefix)s/bin/samba-tool domain provision"
            " --domain='%(domain)s'"
@@ -110,10 +111,21 @@ def provisionSamba(mode, netbios_domain, realm):
            " --use-xattr=yes "
            " --use-rfc2307"
            " --server-role='%(role)s'"
-           " --users=''"
-           " --host-name=''"
-           " --host-ip=''" % params)
-    shlaunchBackground(cmd)
+           #" --users=''"
+           #" --host-name=''"
+           #" --host-ip=''"
+           % params)
+
+    def domain_provision_cb(sambatool):
+        if sambatool.exitCode != 0:
+            logger.debug("Fail executing %s, ret code %d",
+                         cmd, sambatool.exitCode)
+            logger.debug(sambatool.out)
+            logger.debug(sambatool.err)
+        return sambatool.exitCode == 0
+
+    d = shLaunchDeferred(cmd)
+    d.addCallback(domain_provision_cb)
 
     r.commit()
-    return 0
+    return d

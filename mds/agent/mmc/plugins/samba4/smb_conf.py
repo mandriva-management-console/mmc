@@ -60,14 +60,14 @@ class SambaConf:
         netbios_name = netbios_name.lower()
         realm = realm.upper()
         domain = realm.lower()
-        params = {'workgroup' => workgroup,
-                  'realm' => realm,
-                  'netbios_name' => netbios_name,
-                  'description' => 'Mandriva Directory Server - SAMBA %v',
-                  'mode' => mode,
-                  'sysvol_path' => self.SYSVOL_DIR,
-                  'openchange' => False, # FIXME
-                  'domain' => domain}
+        params = {'workgroup': workgroup,
+                  'realm': realm,
+                  'netbios_name': netbios_name,
+                  'description': 'Mandriva Directory Server - SAMBA %v',
+                  'mode' : mode,
+                  'sysvol_path': self.SYSVOL_DIR,
+                  'openchange': False, # FIXME
+                  'domain': domain}
         smb_conf_template = env.get_template("smb.conf")
         with open(tmpfname, 'a') as f:
             f.write(smb_conf_template.render(params))
@@ -78,5 +78,5 @@ class SambaConf:
                 f.write(openchange_conf_template.render())
         """
         # FIXME validation?
-        shutil.copy(tmpfname, self.smb_conf_file)
+        shutil.copy(tmpfname, self.smb_conf_path)
         os.remove(tmpfname)
