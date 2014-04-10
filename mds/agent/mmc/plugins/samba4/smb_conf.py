@@ -74,7 +74,7 @@ class SambaConf:
         """
         if openchange:
             openchange_conf_template = env.get_template("openchange.conf")
-            with open("/etc/samba/openchange.conf", 'a') as f:
+            with open(self.PREFIX + "etc/openchange.conf", 'a') as f:
                 f.write(openchange_conf_template.render())
         """
         # FIXME validation?
