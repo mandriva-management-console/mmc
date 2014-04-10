@@ -21,19 +21,14 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * Author(s):
- *   Julien Kerihuel <jkerihuel@zentyal.com>
+ *   Miguel Julián <mjulian@zentyal.com>
  */
+?>
+<?php
 
-require("modules/samba4/mainSidebar.php");
-require("graph/navbar.inc.php");
-
-$p = new TabbedPageGenerator();
-$p->setSideMenu($sidemenu);
-
-$p->addTop("Samba provisioning", "modules/samba4/domaincontroller/top.php");
-$p->addTab("tab1", "Primary DC", "Primary Domain Controller", "modules/samba4/domaincontroller/tab1.php");
-$p->addTab("tab2", "Additional DC", "Additional Domain Controller", "modules/samba4/domaincontroller/tab2.php");
-
-$p->display();
+function provisionSamba4($netBiosDomainName, $realm) {
+//    return xmlCall("samba4.provision", array($netBiosDomainName, $realm));
+    return False;
+}
 
 ?>

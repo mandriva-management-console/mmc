@@ -2,6 +2,8 @@
 /**
  * (c) 2014 Zentyal, http://www.zentyal.com
  *
+ * $Id$
+ *
  * This file is part of Mandriva Management Console (MMC).
  *
  * MMC is free software; you can redistribute it and/or modify
@@ -21,26 +23,12 @@
  * Author(s):
  *   Miguel Julián <mjulian@zentyal.com>
  */
+?>
+<?php
 
-$submods = array('domaincontroller', 'shares', 'machines', 'configuration');
-
-$sidemenu = new SideMenu();
-$sidemenu->setClass(join(" ", $submods));
-
-$MMCApp =& MMCApp::getInstance();
-$mod = $MMCApp->getModule('samba4');
-
-foreach ($submods as $submod) {
-    $submod = $mod->getSubmod($submod);
-    if ($submod) {
-        foreach ($submod->getPages() as $page) {
-            if ($page->hasAccessAndVisible($mod, $submod)) {
-                $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
-                $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
-                $sidemenu->addSideMenuItem($item);
-            }
-        }
-    }
+function isSamba4Provisioned() {
+//    return xmlCall("samba4.isProvisioned", array());
+    return False;
 }
 
 ?>

@@ -19,10 +19,12 @@
 #
 # Author(s):
 #   Julien Kerihuel <jkerihuel@zentyal.com>
+#   Julien Kerihuel <mjulian@zentyal.com>
 #
 datafiles = \
 	infoPackage.inc.php \
 	mainSidebar.php	\
+	includes/common-xmlrpc.inc.php \
 	domaincontroller/index.php \
 	domaincontroller/purge.php \
 	domaincontroller/top.php \
