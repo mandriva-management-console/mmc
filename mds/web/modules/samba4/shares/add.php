@@ -25,6 +25,6 @@
  */
  ?>
  <?php
-// Adding is a subcase of editing/details
- include ("details.php");
+// Adding is a subcase of editing the share
+ include ("edit.php");
  ?>
