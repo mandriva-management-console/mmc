@@ -48,4 +48,9 @@ function getProtectedSamba4Shares() {
     return array ("","homes","netlogon","archive");
 }
 
+function getShare($share) {
+//    return xmlCall("samba4.getShare", array($share));
+    return array("vaca", "vaca-path", True, "Soy una vaca", False);
+}
+
 ?>
