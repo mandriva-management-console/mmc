@@ -35,17 +35,12 @@ if (isset($_POST["bprovision"])) {
         header("Location: " . urlStrRedirect("base/main/default"));
         exit;
     } else {
-        $f = new PopupForm(_T("Provision has failed"));
-        $f->addText(_T("Provision has failed, please try again or ask for support."));
-        $f->addValidateButton("bconfirmerror");
-        $f->display();
+        new NotifyWidgetFailure(_T("Provision has failed, please try again or ask for support."));
     }
-} elseif (isset($_POST["bconfirmerror"])) {
-        header("Location: " . urlStrRedirect("samba4/domaincontroller/provision"));
-        exit;
-} else {
-    _showProvisionForm($sidemenu);
 }
+
+/* If the user is entering the submodule or if the provision has failed, we show the form */
+_showProvisionForm($sidemenu);
 
 function _showProvisionForm($sidemenu) {
     $page = new PageGenerator(_T("Samba provisioning"));
