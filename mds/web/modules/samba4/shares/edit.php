@@ -39,11 +39,14 @@ require_once("includes/FormHandler.php");
 /* When edit share form has been submited */
 if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 {
+    var_dump($_POST);
+    exit;
+
     $actionCanBeCalled = True;
 
     $share = _getShareValue($_GET);
     $params = _parseForm($_POST);
-    list($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest) = $params;
+    list($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest, $shareGroup, $shareUser) = $params;
 
     $actionCanBeCalled = _shareNameAndPathCheckings($shareName, $sharePath);
 
@@ -74,6 +77,8 @@ if ($_GET["action"] == "add") {
     $shareDescription = "";
     $shareEnabled = "checked";
     $shareGuest = "";
+    $shareGroup = "";
+    $shareUser = "";
 } else {
     $share = urldecode($_GET["share"]);
     $title = _T("Properties of share $share");
@@ -84,48 +89,115 @@ if ($_GET["action"] == "add") {
     $shareEnabled = $shareDetails[2] ? "checked" : "";
     $shareDescription = $shareDetails[3];
     $shareGuest = $shareDetails[4];
+    $shareGroup = array();
+    $shareUser = array();
 }
 
 $page = new PageGenerator($title);
 $sidemenu->forceActiveItem($activeItem);
 $page->setSideMenu($sidemenu);
 $page->display();
+?>
 
-/* First part of the form (name, path, ...) */
-$form = new ValidatingForm(array('method' => 'POST'));
-$form->push(new Table());
+<?php if ($_GET["action"] == "add")  { ?>
+<p>
+<?php echo  _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
+</p>
 
+<?php
+}
+?>
+
+<form id="Form" method="post" action="" onSubmit="autogroupObj.selectAll(); autouserObj.selectAll(); autoadminObj.selectAll(); return validateForm();">
+
+<?php
+
+$t = new Table();
 if ($_GET["action"] == "add")  {
     $input = new InputTpl("shareName");
 } else {
     $input = new HiddenTpl("shareName");
 }
+$share = _getShareValue($_GET);
 
-$tr = new TrFormElement(_T("Name"), $input);
-$form->add($tr, array("value" => $shareName));
+$t->add(new TrFormElement(_T("Name"), $input), array("value" => $share));
+$t->add(new TrFormElement(_T("Comment"), new InputTpl("shareDescription")),array("value" => $shareDescription));
+$t->display();
+?>
 
-$tr = new TrFormElement(_T("Path"), new InputTpl("sharePath"));
-$form->add($tr, array("value" => $sharePath));
+<table cellspacing="0">
+    <tr>
+    <td>
+    </td>
+    <td>
+        <?php echo  _T("Permissions"); ?>
+    </td>
+    </tr>
+        <?php
+        if ($shareGuest) {
+	    $checked = "checked";
+	} else {
+	    $checked = "";
+	}
 
-$tr = new TrFormElement(_T("Description"), new InputTpl("shareDescription"));
-$form->add($tr, array("value" => $shareDescription));
+        $param =array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
 
-$tr = new TrFormElement(_T("Enabled"), new CheckboxTpl("shareEnabled"));
-$form->add($tr, array("value" => $shareEnabled));
+        $test = new TrFormElement(_T("Guest Access"), new CheckboxTpl("shareGuest"));
+        $test->setCssError("shareGuest");
+        $test->display($param);
+         ?>
+</table>
 
-$tr = new TrFormElement(_T("Guest access"), new CheckboxTpl("shareGuest"),
-        array("tooltip" => _T("If checked, this shared can be accessed by Guest user.", "samba4")));
-$form->add($tr, array("value" => $shareGuest));
-
-if ($_GET["action"] == "add")  {
-    $form->addButton("bshareadd", _T("Add share"));
-} else {
-    $form->addButton("bshareedit", _T("Edit share"));
+<table>
+<?php
+if ($_GET["action"] == "add") $acls = array(array(), array());
+else {
+    $acls = getACLOnShare($share);
+    if ($shareGroup != 'root') {
+        $acls[0] = $shareGroup;
+    }
 }
+setVar("tpl_groups", $acls[0]);
+global $__TPLref;
+$__TPLref["autocomplete"] = "group";
+renderTPL("groups");
 
-$form->pop();
-$form->display();
+?>
+</table>
 
+<div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
+<table cellspacing="0">
+    <tr>
+    <td>
+    </td>
+    <td>
+        <?php echo  _T("Users for this share"); ?>
+    </td>
+   </tr>
+
+<?php
+
+
+setVar("tpl_users", $acls[1]);
+$__TPLref["autocomplete"] = "user";
+renderTPL("users");
+
+?>
+</table>
+</div>
+
+<?php if ($_GET["action"] == "add")  { ?>
+<input name="bshareadd" type="submit" class="btnPrimary" value="<?php echo  _T("Create"); ?>" />
+<?php } else { ?>
+<input name="share" type="hidden" value="<?php echo $share; ?>" />
+<input name="bshareedit" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm"); ?>" />
+<?php }
+
+?>
+
+</form>
+
+<?php
 /* Private functions */
 function _parseForm($_POST) {
     $FH = new FormHandler("editSambaShareFH", $_POST);
@@ -135,8 +207,16 @@ function _parseForm($_POST) {
     $shareDescription = $FH->getPostValue("shareDescription");
     $shareEnabled = ($FH->getPostValue("shareEnabled") == "on") ? True : "";
     $shareGuest = ($FH->getPostValue("shareGuest") == "on") ? True : "";
+    if (isset($_POST["groupgroupsselected"]))
+        $shareGroup = $_POST["groupgroupsselected"];
+    else
+        $shareGroup = array();
+    if (isset($_POST["userusersselected"]))
+        $shareUser = $_POST["userusersselected"];
+    else
+        $shareUser = array();
 
-    return array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest);
+    return array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest, $shareGroup, $shareUser);
 }
 
 function _getShareValue($_GET) {
