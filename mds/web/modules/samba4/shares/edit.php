@@ -28,13 +28,14 @@
 require("modules/samba4/includes/shares-xmlrpc.inc.php");
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
+
+require("modules/base/includes/groups.inc.php");
 require_once("includes/FormHandler.php");
 
 /*
    Add/Edit buttons redirect to this edit.php, so we should handle here
    their form actions
 */
-
 /* When edit share form has been submited */
 if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 {
@@ -60,7 +61,7 @@ if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
     }
 
     _displaySuccessMessage($actionResult, $successMessage);
-    _redirectToSharesList($actionResult);
+    _redirectToSharesList($actionResult, $share);
 }
 
 /* This will show the form (empty if adding) with the share details
@@ -90,6 +91,7 @@ $sidemenu->forceActiveItem($activeItem);
 $page->setSideMenu($sidemenu);
 $page->display();
 
+/* First part of the form (name, path, ...) */
 $form = new ValidatingForm(array('method' => 'POST'));
 $form->push(new Table());
 
@@ -115,12 +117,10 @@ $tr = new TrFormElement(_T("Guest access"), new CheckboxTpl("shareGuest"),
         array("tooltip" => _T("If checked, this shared can be accessed by Guest user.", "samba4")));
 $form->add($tr, array("value" => $shareGuest));
 
-$form->pop();
-
 if ($_GET["action"] == "add")  {
-    $form->addButton("bshareadd", _("Add share"));
+    $form->addButton("bshareadd", _T("Add share"));
 } else {
-    $form->addButton("bshareedit", _("Edit share"));
+    $form->addButton("bshareedit", _T("Edit share"));
 }
 
 $form->pop();
@@ -144,7 +144,7 @@ function _getShareValue($_GET) {
 }
 
 function _shareNameAndPathCheckings($name, $path) {
-    if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $name)))
+    if ($name and !(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $name)))
         new NotifyWidgetFailure(_T("Invalid share name"));
     else if (!isAuthorizedSharePath($path))
         new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
@@ -172,9 +172,9 @@ function _displaySuccessMessage($success, $message) {
     }
 }
 
-function _redirectToSharesList($success) {
+function _redirectToSharesList($success, $share) {
     if ($success) {
-        header("Location: " . urlStrRedirect("samba4/shares/index" ));
+        header("Location: " . urlStrRedirect("samba4/shares/edit", array("share" => $share)));
         exit;
     }
 }
