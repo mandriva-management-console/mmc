@@ -29,64 +29,38 @@ require("modules/samba4/includes/shares-xmlrpc.inc.php");
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
 require_once("includes/FormHandler.php");
-//require("modules/base/includes/groups.inc.php");
 
 /*
    Add/Edit buttons redirect to this edit.php, so we should handle here
    their form actions
 */
 
-/* When add share form has been triggered */
-if (isset($_POST["bshareadd"])) {
-    $shareName = $_POST["shareName"];
-    $sharePath = $_POST["sharePath"];
-    $shareDesc = $_POST["shareDesc"];
-    $shareGroup = $_POST["groupgroupsselected"];
-    $shareUser = $_POST["userusersselected"];
-    $adminGroups = $_POST["admingroupsselected"];
-    $customParameters = $_POST["customparameters"];
-    $permAll = $_POST["permAll"];
-    if ($_POST["hasAv"]) $av = 1;
-    else $av = 0;
-    if ($_POST["browseable"]) $browseable = 1;
-    else $browseable = 0;
-
-    if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $shareName))) {
-	new NotifyWidgetFailure(_T("Invalid share name"));
-    } else {
-        $add = True;
-        if (strlen($sharePath)) {
-            if (!isAuthorizedSharePath($sharePath)) {
-                new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
-                $add = False;
-            }
-        }
-        if ($add) {
-            $params = array($shareName, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
-            add_share($params);
-            if (!isXMLRPCError()) {
-                new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
-                header("Location: " . urlStrRedirect("samba/shares/index" ));
-                exit;
-            }
-        }
-    }
-}
-
-/* When edit share form has been triggered */
-if (isset($_POST["bshareedit"]))
+/* When edit share form has been submited */
+if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 {
-    $editionResult = _doEditShare($_GET["share"], $_POST);
+    $actionCanBeCalled = True;
 
-    if (!isXMLRPCError() and $editionResult) {
-        new NotifyWidgetSuccess(sprintf(_T("Share %s successfully modified"), $_POST["shareName"]));
+    $share = _getShareValue($_GET);
+    $params = _parseForm($_POST);
+    list($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest) = $params;
+
+    $actionCanBeCalled = _shareNameAndPathCheckings($shareName, $sharePath);
+
+    if (isset($_POST["bshareedit"])) {
+        $action = "edit";
+        $successMessage = sprintf(_T("Share %s successfully modified"), $shareName);
+    } else if (isset($_POST["bshareadd"])) {
+        $action = "add";
+        $successMessage = sprintf(_T("Share %s successfully added"), $shareName);
     }
-    else {
-        // Catch exception
-        // but continue to show the page
-        global $errorStatus;
-        $errorStatus = 0;
+
+    $actionResult = False;
+    if ($actionCanBeCalled) {
+        $actionResult = _callAddEditShareAction($action, $share, $params);
     }
+
+    _displaySuccessMessage($actionResult, $successMessage);
+    _redirectToSharesList($actionResult);
 }
 
 /* This will show the form (empty if adding) with the share details
@@ -153,7 +127,7 @@ $form->pop();
 $form->display();
 
 /* Private functions */
-function _doEditShare($share, $_POST) {
+function _parseForm($_POST) {
     $FH = new FormHandler("editSambaShareFH", $_POST);
 
     $shareName = $FH->getPostValue("shareName");
@@ -162,7 +136,47 @@ function _doEditShare($share, $_POST) {
     $shareEnabled = ($FH->getPostValue("shareEnabled") == "on") ? True : "";
     $shareGuest = ($FH->getPostValue("shareGuest") == "on") ? True : "";
 
-    return editShare($share, $shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest);
+    return array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest);
+}
+
+function _getShareValue($_GET) {
+    return (isset($_GET["share"])) ? $_GET["share"] : "";
+}
+
+function _shareNameAndPathCheckings($name, $path) {
+    if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $name)))
+        new NotifyWidgetFailure(_T("Invalid share name"));
+    else if (!isAuthorizedSharePath($path))
+        new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
+    else
+        return True;
+
+    return False;
+}
+
+function _callAddEditShareAction($action, $share, $params) {
+    if ($action == "edit")
+        return editShare($share, $params);
+    else if ($action == "add")
+        return addShare($params);
+    else
+        return False;
+}
+
+function _displaySuccessMessage($success, $message) {
+    if (!isXMLRPCError() and $success) {
+        new NotifyWidgetSuccess($message);
+    } else {
+        global $errorStatus;
+        $errorStatus = 0;
+    }
+}
+
+function _redirectToSharesList($success) {
+    if ($success) {
+        header("Location: " . urlStrRedirect("samba4/shares/index" ));
+        exit;
+    }
 }
 
 ?>
