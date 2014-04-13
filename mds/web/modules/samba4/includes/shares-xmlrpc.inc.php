@@ -53,4 +53,9 @@ function getShare($share) {
     return array("vaca", "vaca-path", True, "Soy una vaca", False);
 }
 
+function editShare($share, $shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest) {
+//    return xmlCall("samba4.editShare", array($share, $shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest));
+    return True;
+}
+
 ?>

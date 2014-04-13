@@ -28,6 +28,7 @@
 require("modules/samba4/includes/shares-xmlrpc.inc.php");
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
+require_once("includes/FormHandler.php");
 //require("modules/base/includes/groups.inc.php");
 
 /*
@@ -75,39 +76,10 @@ if (isset($_POST["bshareadd"])) {
 /* When edit share form has been triggered */
 if (isset($_POST["bshareedit"]))
 {
-    $share = $_GET["share"];
-    $shareName = $_POST["shareName"];
-    $sharePath = $_POST["sharePath"];
-    $shareDesc = $_POST["shareDesc"];
-    if (isset($_POST["groupgroupsselected"]))
-        $shareGroup = $_POST["groupgroupsselected"];
-    else
-        $shareGroup = array();
-    if (isset($_POST["userusersselected"]))
-        $shareUser = $_POST["userusersselected"];
-    else
-        $shareUser = array();
-    if (isset($_POST["admingroupsselected"]))
-        $adminGroups = $_POST["admingroupsselected"];
-    else
-        $adminGroups = array();
-    $customParameters = $_POST["customparameters"];
-    if (isset($_POST["permAll"])) {
-        $permAll = $_POST["permAll"];
-    }
-    else {
-        $permAll = 0;
-    }
-    if (isset($_POST["hasAv"])) $av = 1;
-    else $av = 0;
-    if (isset($_POST["browseable"])) $browseable = 1;
-    else $browseable = 0;
+    $editionResult = _doEditShare($_GET["share"], $_POST);
 
-    $params = array($share, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
-    mod_share($params);
-
-    if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(sprintf(_T("Share %s successfully modified"), $shareName));
+    if (!isXMLRPCError() and $editionResult) {
+        new NotifyWidgetSuccess(sprintf(_T("Share %s successfully modified"), $_POST["shareName"]));
     }
     else {
         // Catch exception
@@ -137,8 +109,6 @@ if ($_GET["action"] == "add") {
     $shareEnabled = $shareDetails[2] ? "checked" : "";
     $shareDescription = $shareDetails[3];
     $shareGuest = $shareDetails[4];
-
-
 }
 
 $page = new PageGenerator($title);
@@ -146,7 +116,7 @@ $sidemenu->forceActiveItem($activeItem);
 $page->setSideMenu($sidemenu);
 $page->display();
 
-$form = new ValidatingForm(array('method' => 'POST','enctype' => 'multipart/form-data'));
+$form = new ValidatingForm(array('method' => 'POST'));
 $form->push(new Table());
 
 if ($_GET["action"] == "add")  {
@@ -167,7 +137,7 @@ $form->add($tr, array("value" => $shareDescription));
 $tr = new TrFormElement(_T("Enabled"), new CheckboxTpl("shareEnabled"));
 $form->add($tr, array("value" => $shareEnabled));
 
-$tr = new TrFormElement(_T("Guest"), new CheckboxTpl("shareGuest"),
+$tr = new TrFormElement(_T("Guest access"), new CheckboxTpl("shareGuest"),
         array("tooltip" => _T("If checked, this shared can be accessed by Guest user.", "samba4")));
 $form->add($tr, array("value" => $shareGuest));
 
@@ -181,4 +151,18 @@ if ($_GET["action"] == "add")  {
 
 $form->pop();
 $form->display();
+
+/* Private functions */
+function _doEditShare($share, $_POST) {
+    $FH = new FormHandler("editSambaShareFH", $_POST);
+
+    $shareName = $FH->getPostValue("shareName");
+    $sharePath = $FH->getPostValue("sharePath");
+    $shareDescription = $FH->getPostValue("shareDescription");
+    $shareEnabled = ($FH->getPostValue("shareEnabled") == "on") ? True : "";
+    $shareGuest = ($FH->getPostValue("shareGuest") == "on") ? True : "";
+
+    return editShare($share, $shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest);
+}
+
 ?>
