@@ -124,7 +124,7 @@ def provisionSamba(mode, netbios_domain, realm):
            " --domain='%(domain)s'"
            " --workgroup='%(domain)s'"
            " --realm='%(realm)s'"
-           " --dns-backend=BIND9_DLZ"
+           # " --dns-backend=BIND9_DLZ"
            " --use-xattr=yes "
            " --use-rfc2307"
            " --server-role='%(role)s'"
