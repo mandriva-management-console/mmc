@@ -62,7 +62,7 @@ def activate():
         return False
 
     # Verify samba conf and init script files exist
-    for filename in (config.conf_file, config.init_script):
+    for filename in [config.init_script]:
         if not os.path.exists(filename):
             logger.error(filename + " does not exist")
             return False
