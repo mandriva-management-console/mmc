@@ -51,8 +51,8 @@ def getRevision(): return REVISION
 
 def activate():
     """
-    this function define if the module "base" can be activated.
-    @return: true True if this module can be activated
+    This function define if the module "base" can be activated.
+    @return: True if this module can be activated
     @rtype: boolean
     """
     config = Samba4Config("samba4")
@@ -61,11 +61,9 @@ def activate():
         logger.info("samba4 plugin disabled by configuration.")
         return False
 
-    # Verify samba conf and init script files exist
-    for filename in [config.init_script]:
-        if not os.path.exists(filename):
-            logger.error(filename + " does not exist")
-            return False
+    if not os.path.exists(config.init_script):
+        logger.error(config.init_script + " does not exist")
+        return False
 
     return True
 
@@ -85,7 +83,7 @@ def purgeSamba():
         conf_files = []
         conf_files.append(shellquote(samba.smb_conf_path))
         conf_files.append(shellquote(samba.PRIVATE_DIR + '/*'))
-        shlaunchBackground("rm -rf %s", ' '.join(conf_files))
+        shlaunchBackground("rm -rf %s" % ' '.join(conf_files))
 
     # FIXME should we use deferred instead?
     shlaunchBackground(Samba4Config("samba4").init_script + ' stop',
@@ -124,14 +122,9 @@ def provisionSamba(mode, netbios_domain, realm):
            " --domain='%(domain)s'"
            " --workgroup='%(domain)s'"
            " --realm='%(realm)s'"
-           # " --dns-backend=BIND9_DLZ"
-           " --use-xattr=yes "
+           " --use-xattr=yes"
            " --use-rfc2307"
-           " --server-role='%(role)s'"
-           #" --users=''"
-           #" --host-name=''"
-           #" --host-ip=''"
-           % params)
+           " --server-role='%(role)s'" % params)
 
     def domain_provision_cb(sambatool):
         if sambatool.exitCode != 0:
