@@ -47,4 +47,9 @@ function editMachine($machineName) {
     //return xmlCall("samba4.editMachine", array($name, $description, $enabled));
     return True;
 }
+
+function deleteMachine($machineName) {
+    //return xmlCall("samba4.deleteMachine", $machineName);
+    return True;
+}
 ?>
