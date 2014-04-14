@@ -27,8 +27,11 @@
 <?php
 
 function isSamba4Provisioned() {
-//    return xmlCall("samba4.isProvisioned", array());
-    return False;
+    return xmlCall("samba4.isSamba4Provisioned", null);
+}
+
+function getSamba4GlobalInfo() {
+    return xmlCall("samba4.getSamba4GlobalInfo", null);
 }
 
 ?>
