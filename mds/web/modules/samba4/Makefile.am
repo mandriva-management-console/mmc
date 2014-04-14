@@ -22,52 +22,52 @@
 #   Miguel Julián <mjulian@zentyal.com>
 #
 datafiles = \
-	domaincontroller/index.css \
-	domaincontroller/provision.php \
+	mainSidebar.php \
+	infoPackage.inc.php \
 	domaincontroller/purge.php \
-	graph/domaincontroller/index.css \
-	graph/img/machines/icn_addMachines_active.gif \
-	graph/img/machines/icn_addMachines_ro.gif \
-	graph/img/machines/icn_global.gif \
-	graph/img/machines/icn_groupsList.gif \
-	graph/img/machines/icn_machinesList.gif \
-	graph/img/machines/icn_addMachines.gif \
-	graph/img/machines/icn_global_active.gif \
-	graph/img/machines/icn_global_ro.gif \
-	graph/img/machines/icn_machines_large.gif \
-	graph/img/provision/icn_provision_active.gif \
-	graph/img/provision/icn_provision.gif \
-	graph/img/provision/icn_provision_ro.gif \
-	graph/img/shares/icn_addShare_active.gif \
-	graph/img/shares/icn_addShare.gif \
-	graph/img/shares/icn_addShare_ro.gif \
-	graph/img/shares/icn_global_active.gif \
-	graph/img/shares/icn_global.gif \
-	graph/img/shares/icn_global_ro.gif \
-	graph/img/shares/icn_shareList.gif \
-	graph/img/shares/icn_shares_large.gif \
-	graph/navbar/share.png \
-	graph/navbar/share_hl.png \
-	graph/navbar/share_select.png \
+	domaincontroller/provision.php \
+	domaincontroller/index.css \
 	graph/navbar/pref.png \
 	graph/navbar/pref_hl.png \
 	graph/navbar/pref_select.png \
-	includes/common-xmlrpc.inc.php \
+	graph/navbar/share.png \
+	graph/navbar/share_select.png \
+	graph/navbar/share_hl.png \
+	graph/domaincontroller/index.css \
+	graph/img/shares/icn_addShare_active.gif \
+	graph/img/shares/icn_shareList.gif \
+	graph/img/shares/icn_global.gif \
+	graph/img/shares/icn_addShare_ro.gif \
+	graph/img/shares/icn_addShare.gif \
+	graph/img/shares/icn_global_active.gif \
+	graph/img/shares/icn_shares_large.gif \
+	graph/img/shares/icn_global_ro.gif \
+	graph/img/machines/icn_machinesList.gif \
+	graph/img/machines/icn_global.gif \
+	graph/img/machines/icn_machines_large.gif \
+	graph/img/machines/icn_addMachines.gif \
+	graph/img/machines/icn_groupsList.gif \
+	graph/img/machines/icn_global_active.gif \
+	graph/img/machines/icn_global_ro.gif \
+	graph/img/machines/icn_addMachines_ro.gif \
+	graph/img/machines/icn_addMachines_active.gif \
+	graph/img/provision/icn_provision.gif \
+	graph/img/provision/icn_provision_ro.gif \
+	graph/img/provision/icn_provision_active.gif \
 	includes/domaincontroller-xmlrpc.inc.php \
 	includes/shares-xmlrpc.inc.php \
+	includes/common-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
-	infoPackage.inc.php \
-	machines/ajaxFilter.php \
 	machines/delete.php \
-	machines/edit.php \
+	machines/machinesSidebar.php \
+	machines/ajaxFilter.php \
 	machines/index.php \
 	machines/localSidebar.php \
-	machines/machinesSidebar.php \
-	mainSidebar.php \
-	shares/add.php \
+	machines/edit.php \
 	shares/delete.php \
-	shares/edit.php \
 	shares/index.php \
+	shares/add.php \
+	shares/edit.php \
 	views/groups.tpl.php \
 	views/users.tpl.php
 
