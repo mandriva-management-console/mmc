@@ -99,64 +99,43 @@ $page->setSideMenu($sidemenu);
 $page->display();
 ?>
 
-<?php if ($_GET["action"] == "add")  { ?>
-<p>
-<?php echo  _T("The share name can only contains letters (lowercase and uppercase) and numbers, and must begin with a letter."); ?>
-</p>
-
-<?php
-}
-?>
-
 <form id="Form" method="post" action="" onSubmit="autogroupObj.selectAll(); autouserObj.selectAll(); autoadminObj.selectAll(); return validateForm();">
 
 <?php
 
-$t = new Table();
+$table = new Table();
 if ($_GET["action"] == "add")  {
     $input = new InputTpl("shareName");
 } else {
     $input = new HiddenTpl("shareName");
 }
-$share = _getShareValue($_GET);
 
-$t->add(new TrFormElement(_T("Name"), $input), array("value" => $share));
-$t->add(new TrFormElement(_T("Comment"), new InputTpl("shareDescription")),array("value" => $shareDescription));
-$t->display();
+$table->add(new TrFormElement(_T("Name"), $input), array("value" => $shareName));
+$table->add(new TrFormElement(_T("Path"), new InputTpl("sharePath")),array("value" => $sharePath));
+$table->add(new TrFormElement(_T("Description"), new InputTpl("shareDescription")),array("value" => $shareDescription));
+$table->display();
 ?>
 
 <table cellspacing="0">
-    <tr>
-    <td>
-    </td>
-    <td>
-        <?php echo  _T("Permissions"); ?>
-    </td>
-    </tr>
-        <?php
-        if ($shareGuest) {
-	    $checked = "checked";
-	} else {
-	    $checked = "";
-	}
+<?php
+$param =array ("value" => $shareGuest, "extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
 
-        $param =array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
-
-        $test = new TrFormElement(_T("Guest Access"), new CheckboxTpl("shareGuest"));
-        $test->setCssError("shareGuest");
-        $test->display($param);
-         ?>
+$test = new TrFormElement(_T("Guest access"), new CheckboxTpl("shareGuest"));
+$test->setCssError("shareGuest");
+$test->display($param);
+$test = new TrFormElement(_T("Share enabled"), new CheckboxTpl("shareEnabled"));
+$param = array("value" => $shareEnabled);
+$test->display($param);
+?>
 </table>
 
 <table>
 <?php
-if ($_GET["action"] == "add") $acls = array(array(), array());
-else {
+$acls = array(array(), array());
+
+if ($_GET["action"] != "add")
     $acls = getACLOnShare($share);
-    if ($shareGroup != 'root') {
-        $acls[0] = $shareGroup;
-    }
-}
+
 setVar("tpl_groups", $acls[0]);
 global $__TPLref;
 $__TPLref["autocomplete"] = "group";
@@ -207,14 +186,18 @@ function _parseForm($_POST) {
     $shareDescription = $FH->getPostValue("shareDescription");
     $shareEnabled = ($FH->getPostValue("shareEnabled") == "on") ? True : "";
     $shareGuest = ($FH->getPostValue("shareGuest") == "on") ? True : "";
-    if (isset($_POST["groupgroupsselected"]))
-        $shareGroup = $_POST["groupgroupsselected"];
-    else
+    $shareGroup = $FH->getPostValue($_POST["groupgroupsselected"]);
+    $shareUser = $FH->getPostValue($_POST["userusersselected"]);
+
+    if (! $shareGroup)
         $shareGroup = array();
-    if (isset($_POST["userusersselected"]))
-        $shareUser = $_POST["userusersselected"];
-    else
+    else if ($shareGroup and ! is_array($shareGroup))
+        $shareGroup = array($shareGroup);
+
+    if (! $shareUser)
         $shareUser = array();
+    else if ($shareUser and ! is_array($shareUser))
+        $shareUser = array($shareUser);
 
     return array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest, $shareGroup, $shareUser);
 }

@@ -32,10 +32,6 @@ function getSamba4Shares() {
             array("vaca", "vaca-path", True, "Soy una vaca", False),
             array("vaca", "vaca-path", True, "Soy una vaca", False),
             array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
             array("homes", "home", True, "This is the alien's home", False),
             array("vaca", "vaca-path", False, "Soy una vaca disableada", False),
             array("vaca", "vaca-path", True, "Soy una vaca", False),
@@ -74,4 +70,8 @@ function isAuthorizedSharePath($sharePath) {
     return True;
 }
 
+function getACLOnShare($share) {
+//    return xmlCall("samba4.getACLOnShare", array($share));
+    return array(array("vacas"), array("mjulian", "vaca"));
+}
 ?>
