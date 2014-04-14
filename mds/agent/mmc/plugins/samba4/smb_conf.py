@@ -43,12 +43,11 @@ class SambaConf:
     def __init__(self):
         self.smb_conf_path = Samba4Config("samba4").conf_file
 
-    def _open_smb_conf(self):
         try:
             self.config = ConfigObj(self.smb_conf_path, interpolation=False,
                                     list_values=False, write_empty_values=True,
                                     encoding='utf8')
-        except ParseError, e:
+        except ParseError as e:
             logger.error("Failed to parse %s : %s " % (self.smb_conf_path, e))
 
     def getOptionValue(self, section, option):
