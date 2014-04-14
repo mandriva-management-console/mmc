@@ -26,6 +26,15 @@ datafiles = \
 	domaincontroller/provision.php \
 	domaincontroller/purge.php \
 	graph/domaincontroller/index.css \
+	graph/img/machines/icn_addMachines_active.gif \
+	graph/img/machines/icn_addMachines_ro.gif \
+	graph/img/machines/icn_global.gif \
+	graph/img/machines/icn_groupsList.gif \
+	graph/img/machines/icn_machinesList.gif \
+	graph/img/machines/icn_addMachines.gif \
+	graph/img/machines/icn_global_active.gif \
+	graph/img/machines/icn_global_ro.gif \
+	graph/img/machines/icn_machines_large.gif \
 	graph/img/provision/icn_provision_active.gif \
 	graph/img/provision/icn_provision.gif \
 	graph/img/provision/icn_provision_ro.gif \
@@ -46,9 +55,17 @@ datafiles = \
 	includes/common-xmlrpc.inc.php \
 	includes/domaincontroller-xmlrpc.inc.php \
 	includes/shares-xmlrpc.inc.php \
-	infoPackage.inc.php \
-	mainSidebar.php \
+	includes/machines-xmlrpc.inc.php \
+	machines/infoPackage.inc.php \
+	machines/ajaxFilter.php \
+	machines/delete.php \
+	machines/edit.php \
+	machines/index.php \
+	machines/localSidebar.php \
+	machines/machinesSidebar.php \
+	machines/mainSidebar.php \
 	shares/add.php \
+	shares/delete.php \
 	shares/edit.php \
 	shares/index.php \
 	views/groups.tpl.php \
