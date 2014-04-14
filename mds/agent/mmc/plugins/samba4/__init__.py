@@ -93,6 +93,23 @@ def purgeSamba():
     r.commit()
     return True
 
+def isSamba4Provisioned():
+    """
+    @return: check if Samba4 has been provisioned already
+    @rtype: boolean
+    """
+    global_info = SambaConf().getGlobalInfo()
+    if global_info["realm"] and global_info["server role"]:
+        return True
+    return False
+
+def getSamba4GlobalInfo():
+    """
+    @return: values from [global] section in smb.conf
+    @rtype: dict
+    """
+    return SambaConf().getGlobalInfo()
+
 def provisionSamba(mode, netbios_domain, realm):
     r = AF().log(PLUGIN_NAME, AA.SAMBA4_PROVISION)
     if mode != 'dc':
