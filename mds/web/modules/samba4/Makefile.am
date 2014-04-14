@@ -29,9 +29,6 @@ datafiles = \
 	includes/shares-xmlrpc.inc.php \
 	domaincontroller/provision.php \
 	domaincontroller/purge.php \
-	domaincontroller/top.php \
-	domaincontroller/tab1.php \
-	domaincontroller/tab2.php \
 	graph/navbar/share.png \
 	graph/navbar/share_hl.png \
 	graph/navbar/share_select.png \
