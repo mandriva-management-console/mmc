@@ -23,12 +23,17 @@
  * Author(s):
  *   Miguel Julián <mjulian@zentyal.com>
  */
-?>
-<?php
 
-function provisionSamba4($netBiosDomainName, $realm) {
-//    return xmlCall("samba4.provision", array($netBiosDomainName, $realm));
-    return True;
-}
+require("modules/samba4/includes/machines-xmlrpc.inc.php");
+require("modules/samba4/machines/machinesSidebar.php");
+require("graph/navbar.inc.php");
 
+$ajax = new AjaxFilter(urlStrRedirect("samba4/machines/ajaxFilter"));
+$ajax->display();
+
+$page = new PageGenerator(_T("Computer management"));
+$page->setSideMenu($sidemenu);
+$page->display();
+
+$ajax->displayDivToUpdate();
 ?>

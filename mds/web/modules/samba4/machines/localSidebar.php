@@ -25,10 +25,11 @@
  */
 ?>
 <?php
-
-function provisionSamba4($netBiosDomainName, $realm) {
-//    return xmlCall("samba4.provision", array($netBiosDomainName, $realm));
-    return True;
-}
-
+$sidebar = array("class" => "machines",
+                 "content" => array(array("id" => "global",
+                                    "text" => _T("Computers management"),
+                                    "link" => "main.php?module=samba&submod=machines&action=index"),
+                              array("id" => "addMachine",
+                                    "text" => _T("Add a computer"),
+                                    "link" => "main.php?module=samba&submod=machines&action=add")));
 ?>

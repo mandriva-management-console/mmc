@@ -45,8 +45,8 @@ $module->addSubmod($provisionSubmodule);
 $sharesSubmodule = _createSamba4SharesSubmodule($isProvisioned);
 $module->addSubmod($sharesSubmodule);
 
-//    $machinesSubmodule = _createSamba4MachinesSubmodule();
-//    $module->addSubmod($machinesSubmodule);
+$machinesSubmodule = _createSamba4MachinesSubmodule();
+$module->addSubmod($machinesSubmodule);
 
 //    $configurationSubmodule = _createSamba4ConfigurationSubmodule();
 //    $module->addSubmod($configurationSubmodule);
@@ -115,31 +115,32 @@ function _createSamba4SharesSubmodule($isProvisioned) {
 }
 
 function _createSamba4MachinesSubmodule() {
-    $submod = new SubModule("machines");
-    $submod->setVisibility(False);
-    $submod->setImg('modules/base/graph/navbar/computer');
-    $submod->setDefaultPage("samba4/machines/index");
-    $submod->setDescription(_T("Machines"),"samba4");
-    $submod->setAlias('shares');
+    $submodule = new SubModule("machines");
+//    $submodule->setVisibility(False);
+    $submodule->setImg('modules/base/graph/navbar/computer');
+    $submodule->setDefaultPage("samba4/machines/index");
+    $submodule->setDescription(_T("Machines"),"samba4");
+    $submodule->setPriority(20);
+//    $submodule->setAlias('shares');
 
     $page = new Page("index",_T("Computer list","samba4"));
     $page->setImg("modules/samba4/graph/img/machines/icn_global_active.gif",
                 "modules/samba4/graph/img/machines/icn_global.gif");
-    $submod->addPage($page);
+    $submodule->addPage($page);
 
     $page = new Page("ajaxFilter");
     $page->setOptions(array("AJAX" =>True,"visible"=>False));
-    $submod->addPage($page);
+    $submodule->addPage($page);
 
     $page = new Page("edit",_T("Edit a computer","samba4"));
     $page->setOptions(array("visible"=>False));
-    $submod->addPage($page);
+    $submodule->addPage($page);
 
     $page = new Page("delete",_T("Delete a computer","samba4"));
     $page->setOptions( array ("noHeader" => True,"visible"=>False));
-    $submod->addPage($page);
+    $submodule->addPage($page);
 
-    return $submod;
+    return $submodule;
 }
 
 function _createSamba4ConfigurationSubmodule() {
