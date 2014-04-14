@@ -51,6 +51,22 @@ class SambaConf:
         except ParseError, e:
             logger.error("Failed to parse %s : %s " % (self.smb_conf_path, e))
 
+    def getOptionValue(self, section, option):
+        try:
+            return self.config[section][option]
+        except KeyError:
+            return False
+
+    def getGlobalInfo(self):
+        """
+        return main information about global section
+        """
+        GLOBAL_OPTIONS = ['realm', 'workgroup', 'netbios name', 'server role']
+        resArray = {}
+        for option in GLOBAL_OPTIONS:
+            resArray[option] = self.getOptionValue('global', option)
+        return resArray
+
     def write_samba_config(self, mode, netbios_name, realm):
         """
         Write SAMBA configuration file (smb.conf) to disk
