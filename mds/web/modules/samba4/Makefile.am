@@ -56,14 +56,14 @@ datafiles = \
 	includes/domaincontroller-xmlrpc.inc.php \
 	includes/shares-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
-	machines/infoPackage.inc.php \
+	infoPackage.inc.php \
 	machines/ajaxFilter.php \
 	machines/delete.php \
 	machines/edit.php \
 	machines/index.php \
 	machines/localSidebar.php \
 	machines/machinesSidebar.php \
-	machines/mainSidebar.php \
+	mainSidebar.php \
 	shares/add.php \
 	shares/delete.php \
 	shares/edit.php \
