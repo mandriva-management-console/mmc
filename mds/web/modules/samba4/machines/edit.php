@@ -52,7 +52,7 @@ if(isset($_POST["bmachineedit"])) {
 
     if (!isXMLRPCError() and $editSuccess) {
         new NotifyWidgetSuccess(_T("Computer successfully modified."));
-        header("Location: " . urlStrRedirect("samba4/machines/edit", array("machine" => $name)));
+        header("Location: " . urlStrRedirect("samba4/machines/index"));
         exit;
     }
 }

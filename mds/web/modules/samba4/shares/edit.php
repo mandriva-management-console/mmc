@@ -39,9 +39,6 @@ require_once("includes/FormHandler.php");
 /* When edit share form has been submited */
 if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 {
-    var_dump($_POST);
-    exit;
-
     $actionCanBeCalled = True;
 
     $share = _getShareValue($_GET);
@@ -237,7 +234,7 @@ function _displaySuccessMessage($success, $message) {
 
 function _redirectToSharesList($success, $share) {
     if ($success) {
-        header("Location: " . urlStrRedirect("samba4/shares/edit", array("share" => $share)));
+        header("Location: " . urlStrRedirect("samba4/shares/index"));
         exit;
     }
 }
