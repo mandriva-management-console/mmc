@@ -2,6 +2,8 @@
 /**
  * (c) 2014 Zentyal, http://www.zentyal.com
  *
+ * $Id$
+ *
  * This file is part of Mandriva Management Console (MMC).
  *
  * MMC is free software; you can redistribute it and/or modify
@@ -22,25 +24,16 @@
  *   Miguel Julián <mjulian@zentyal.com>
  */
 
-$submods = array('domaincontroller', 'shares', 'configuration');
+require("modules/samba4/includes/machines-xmlrpc.inc.php");
+require("modules/samba4/machines/machinesSidebar.php");
+require("graph/navbar.inc.php");
 
-$sidemenu = new SideMenu();
-$sidemenu->setClass(join(" ", $submods));
+$ajax = new AjaxFilter(urlStrRedirect("samba4/machines/ajaxFilter"));
+$ajax->display();
 
-$MMCApp =& MMCApp::getInstance();
-$mod = $MMCApp->getModule('samba4');
+$page = new PageGenerator(_T("Computer management"));
+$page->setSideMenu($sidemenu);
+$page->display();
 
-foreach ($submods as $submod) {
-    $submod = $mod->getSubmod($submod);
-    if ($submod) {
-        foreach ($submod->getPages() as $page) {
-            if ($page->hasAccessAndVisible($mod, $submod)) {
-                $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
-                $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
-                $sidemenu->addSideMenuItem($item);
-            }
-        }
-    }
-}
-
+$ajax->displayDivToUpdate();
 ?>

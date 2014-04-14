@@ -22,7 +22,7 @@
  *   Miguel Julián <mjulian@zentyal.com>
  */
 
-$submods = array('domaincontroller', 'shares', 'configuration');
+$submods = array('machines');
 
 $sidemenu = new SideMenu();
 $sidemenu->setClass(join(" ", $submods));

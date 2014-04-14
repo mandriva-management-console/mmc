@@ -2,6 +2,8 @@
 /**
  * (c) 2014 Zentyal, http://www.zentyal.com
  *
+ * $Id$
+ *
  * This file is part of Mandriva Management Console (MMC).
  *
  * MMC is free software; you can redistribute it and/or modify
@@ -21,26 +23,33 @@
  * Author(s):
  *   Miguel Julián <mjulian@zentyal.com>
  */
+?>
+<?php
+function searchMachines($filter = null) {
+    if ($filter == "") $filter = null;
+    else $filter = "*".$filter . "*";
 
-$submods = array('domaincontroller', 'shares', 'configuration');
-
-$sidemenu = new SideMenu();
-$sidemenu->setClass(join(" ", $submods));
-
-$MMCApp =& MMCApp::getInstance();
-$mod = $MMCApp->getModule('samba4');
-
-foreach ($submods as $submod) {
-    $submod = $mod->getSubmod($submod);
-    if ($submod) {
-        foreach ($submod->getPages() as $page) {
-            if ($page->hasAccessAndVisible($mod, $submod)) {
-                $item = new SideMenuItem($page->getDescription(), $mod->getName(), $submod->getName(), $page->getAction(), $page->getImg("active"), $page->getImg("default"));
-                $item->cssId = join("_", array($mod->getName(), $submod->getName(), $page->getAction()));
-                $sidemenu->addSideMenuItem($item);
-            }
-        }
-    }
+    //return xmlCall("samba4.searchMachines", $filter);
+    return array(
+        array("vaca1", "Vaca1 computer", True),
+        array("vaca2", "Vaca2 computer", True),
+        array("vaca3", "Vaca3 computer", False),
+        array("vaca4", "Vaca4 computer", True),
+    );
 }
 
+function getMachine($machineName) {
+    //return xmlCall("samba4.getMachine", $machineName);
+    return array("name" => "vaca1", "description" => "Vaca1 computer", "enabled" => True);
+}
+
+function editMachine($machineName) {
+    //return xmlCall("samba4.editMachine", array($name, $description, $enabled));
+    return True;
+}
+
+function deleteMachine($machineName) {
+    //return xmlCall("samba4.deleteMachine", $machineName);
+    return True;
+}
 ?>
