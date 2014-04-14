@@ -74,4 +74,9 @@ function getACLOnShare($share) {
 //    return xmlCall("samba4.getACLOnShare", array($share));
     return array(array("vacas"), array("mjulian", "vaca"));
 }
+
+function deleteShare($shareName, $deleteFiles) {
+    //return xmlCall("samba4.deleteShare", array($shareName, $deleteFiles));
+    return True;
+}
 ?>
