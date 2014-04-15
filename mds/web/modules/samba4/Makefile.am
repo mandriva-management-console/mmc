@@ -58,6 +58,8 @@ datafiles = \
 	includes/shares-xmlrpc.inc.php \
 	includes/common-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
+	includes/users-xmlrpc.inc.php \
+	includes/publicFunc.php \
 	machines/delete.php \
 	machines/machinesSidebar.php \
 	machines/ajaxFilter.php \
