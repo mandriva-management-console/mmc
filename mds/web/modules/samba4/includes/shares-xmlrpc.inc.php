@@ -27,56 +27,40 @@
 <?php
 
 function getSamba4Shares() {
-//    return xmlCall("samba4.getShares", array());
-    return array (
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("homes", "home", True, "This is the alien's home", False),
-            array("vaca", "vaca-path", False, "Soy una vaca disableada", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-            array("vaca", "vaca-path", True, "Soy una vaca", False),
-        );
+    return xmlCall("samba4.getShares", array());
 }
 
 function getProtectedSamba4Shares() {
-//    return xmlCall("samba4.getProtectedSamba4Shares", array());
-    return array ("","homes","netlogon","archive");
+    return xmlCall("samba4.getProtectedSamba4Shares", array());
 }
 
 function getShare($share) {
-//    return xmlCall("samba4.getShare", array($share));
-    return array("vaca", "vaca-path", True, "Soy una vaca", False);
+    return xmlCall("samba4.getShare", array($share));
 }
 
 /*
  * $params => array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest)
  */
 function editShare($share, $params) {
-//    return xmlCall("samba4.editShare", array_merge(array($share), $params));
-    return True;
+    return xmlCall("samba4.editShare", array_merge(array($share), $params));
 }
 
 /*
  * $params => array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest)
  */
 function addShare($params) {
-//    return xmlCall("samba4.addShare", $params);
-    return "vaca";
+    return xmlCall("samba4.addShare", $params);
 }
 
 function isAuthorizedSharePath($sharePath) {
-//    return xmlCall("samba4.isAuthorizedSharePath", array($sharePath));
-    return True;
+    return xmlCall("samba4.isAuthorizedSharePath", array($sharePath));
 }
 
 function getACLOnShare($share) {
-//    return xmlCall("samba4.getACLOnShare", array($share));
-    return array(array("vacas"), array("mjulian", "vaca"));
+    return xmlCall("samba4.getACLOnShare", array($share));
 }
 
 function deleteShare($shareName, $deleteFiles) {
-    //return xmlCall("samba4.deleteShare", array($shareName, $deleteFiles));
-    return True;
+    return xmlCall("samba4.deleteShare", array($shareName, $deleteFiles));
 }
 ?>
