@@ -84,7 +84,7 @@ if ($_GET["action"] == "add") {
     $sharePath= $shareDetails[1];
     $shareEnabled = $shareDetails[2] ? "checked" : "";
     $shareDescription = $shareDetails[3];
-    $shareGuest = $shareDetails[4];
+    $shareGuest = $shareDetails[4] ? "checked" : "";
     $shareGroup = array();
     $shareUser = array();
 }
@@ -114,17 +114,24 @@ $table->display();
 
 <table cellspacing="0">
 <?php
-$param =array ("value" => $shareGuest, "extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
-
+$param = array("value" => $shareGuest, "extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
 $test = new TrFormElement(_T("Guest access"), new CheckboxTpl("shareGuest"));
 $test->setCssError("shareGuest");
 $test->display($param);
-$test = new TrFormElement(_T("Share enabled"), new CheckboxTpl("shareEnabled"));
+
 $param = array("value" => $shareEnabled);
+$test = new TrFormElement(_T("Share enabled"), new CheckboxTpl("shareEnabled"));
 $test->display($param);
 ?>
 </table>
 
+<?php
+if ($shareGuest) {
+    echo '<div id="grouptable" style="display:none">';
+} else {
+    echo '<div id="grouptable">';
+}
+?>
 <table>
 <?php
 $acls = array(array(), array());
@@ -139,6 +146,7 @@ renderTPL("groups");
 
 ?>
 </table>
+</div>
 
 <div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
 <table cellspacing="0">
