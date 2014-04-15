@@ -38,7 +38,7 @@ try:
 except ImportError:
     logger.error("Python module ldb.so not found...\n"
                  "Samba4 package must be installed\n")
-    raise
+    #raise
 
 
 class SambaToolException(Exception):
@@ -52,8 +52,8 @@ class SambaAD:
     def __init__(self):
         smb_conf = SambaConf()
         self.sam_ldb_path = os.path.join(smb_conf.PRIVATE_DIR, 'sam.ldb')
-        self.ldb = SamDB(url=self.sam_ldb_path, session_info=system_session(),
-                         lp=LoadParm())
+        #self.ldb = SamDB(url=self.sam_ldb_path, session_info=system_session(),
+        #                 lp=LoadParm())
 
     def isUserEnabled(self, username):
         return True  # FIXME use self.ldb to search user
