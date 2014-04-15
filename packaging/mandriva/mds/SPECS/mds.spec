@@ -60,7 +60,7 @@ Summary:	Mandriva Management Console Samba4 plugin
 Group:		%{group}
 Requires:	acl
 Requires:	%{python}
-#Requires:	%{pylibacl}
+Requires:	%{pylibacl}
 Requires:	python-configobj
 # note: python-jinja2 will suggest python-markupsafe
 Requires:	python-jinja2
