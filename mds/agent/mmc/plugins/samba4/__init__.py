@@ -117,9 +117,10 @@ def provisionSamba(mode, netbios_domain, realm):
     samba = SambaConf()
     config = samba.writeSambaConfig(mode, netbios_domain, realm)
 
-    params = {'domain': netbios_domain, 'realm': realm, 'prefix': samba.PREFIX,
-              'role': mode, 'workgroup': config['workgroup']}
+    params = {'domain': netbios_domain, 'realm': realm, 'prefix': samba.prefix,
+              'role': mode, 'workgroup': config['workgroup'], 'adminpass': samba.admin_password}
     cmd = ("%(prefix)s/bin/samba-tool domain provision"
+           " --adminpass='%(adminpass)'"
            " --domain='%(domain)s'"
            " --workgroup='%(workgroup)s'"
            " --realm='%(realm)s'"
