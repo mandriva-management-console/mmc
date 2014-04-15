@@ -177,10 +177,10 @@ class SambaConf:
                 for section in self._getSharesSectionList()]
 
     def getDetailedShare(self, section):
-        guest = (self.isValueTrue(self.getContent(section, 'public')) or
-                 self.isValueTrue(self.getContent(section, 'guest ok')))
+        guest = (self.isValueTrue(self.getContent(section, 'public')) == 1 or
+                 self.isValueTrue(self.getContent(section, 'guest ok')) == 1)
         enabled = (not self.getContent(section, 'browseable') or
-                   self.isValueTrue(self.getContent(section, 'browseable')))
+                   self.isValueTrue(self.getContent(section, 'browseable')) == 1)
         share_detail = {
             'shareName': section,
             'sharePath': self.getContent(section, 'path'),
