@@ -34,6 +34,14 @@ function userHasSambaAccount($username) {
 }
 
 /*
+ * Returns whether or not the user has samba enabled.
+ * The user is at the active directory, but it may be disabled
+ */
+function userHasSambaEnabled($username) {
+    return xmlCall("samba4.userHasSambaEnabled", $username);
+}
+
+/*
  * Create the given at the Samba directory
  * Return True if the operation succeded
  */

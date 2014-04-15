@@ -54,10 +54,12 @@ datafiles = \
 	graph/img/provision/icn_provision.gif \
 	graph/img/provision/icn_provision_ro.gif \
 	graph/img/provision/icn_provision_active.gif \
-	includes/domaincontroller-xmlrpc.inc.php \
-	includes/shares-xmlrpc.inc.php \
 	includes/common-xmlrpc.inc.php \
+	includes/domaincontroller-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
+	includes/publicFunc.php \
+	includes/shares-xmlrpc.inc.php \
+	includes/users-xmlrpc.inc.php \
 	machines/delete.php \
 	machines/machinesSidebar.php \
 	machines/ajaxFilter.php \
