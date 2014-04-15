@@ -101,8 +101,7 @@ $list->addExtraInfo($sharesDescription, _T("Description"));
 $list->addActionItemArray($editActions);
 $list->addActionItemArray($delActions);
 
-// FIXME: Uncomment when share backups are implemented
-//$list->addActionItem(new ActionPopupItem(_T("Archive"),"backup","backup","share"));
+$list->addActionItem(new ActionPopupItem(_T("Archive"),"backup","backup","share"));
 $list->disableFirstColumnActionLink();
 $list->display();
 
