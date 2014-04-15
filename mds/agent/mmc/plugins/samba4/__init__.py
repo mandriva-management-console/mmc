@@ -29,14 +29,16 @@ MDS samba4 plugin for the MMC agent.
 import os
 import os.path
 import logging
+from time import strftime
 from mmc.core.version import scmRevision
+from mmc.plugins.base import BasePluginConfig
 from mmc.core.audit import AuditFactory as AF
-from mmc.plugins.samba4.audit import AA, PLUGIN_NAME
+from mmc.plugins.samba4.audit import AA, AT, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.samba import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
-from mmc.support.mmctools import shlaunchBackground, shLaunchDeferred
+from mmc.support.mmctools import shlaunchBackground, shLaunchDeferred, progressBackup
 
 
 logger = logging.getLogger()
@@ -178,6 +180,29 @@ def deleteShare(name, file):
 
 def isAuthorizedSharePath(path):
     return not path or SambaConf().isAuthorizedSharePath(path)
+
+def backupShare(share, media, login):
+    """
+    Launch as a background process the backup of a share
+    """
+    r = AF().log(PLUGIN_NAME, AA.SAMBA_BACKUP_SHARE,
+                 [(share, AT.SHARE), (login, AT.USER)], media)
+    config = BasePluginConfig("base")
+    cmd = os.path.join(config.backuptools, "backup.sh")
+    if share == "homes":
+        # FIXME: Maybe we should have a configuration directive to tell that
+        # all users home are stored into /home
+        savedir = "/home/"
+    else:
+        savedir = SambaConf().getContent(share, "path")
+    # Run backup process in background
+    shlaunchBackground(cmd + " " + share + " " + savedir + " " +
+                       config.backupdir + " " + login + " " + media + " " +
+                       config.backuptools, "backup share " + share,
+                       progressBackup)
+    r.commit()
+    return os.path.join(config.backupdir, "%s-%s-%s" %
+                        (login, share, strftime("%Y%m%d")))
 
 # v Machines ------------------------------------------------------------------
 
