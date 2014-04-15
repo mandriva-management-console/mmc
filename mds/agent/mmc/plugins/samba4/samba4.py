@@ -131,3 +131,14 @@ class SambaAD:
                 })
 
         return res
+
+    def deleteMachine(self, name):  # TODO
+        return True
+
+    def getMachine(self, name):  # TODO
+        return {'name': 'foo name', 'description': 'foo description',
+                'enabled': True}
+
+    def editMachine(self, name, description, enabled):  # TODO
+        return True
+

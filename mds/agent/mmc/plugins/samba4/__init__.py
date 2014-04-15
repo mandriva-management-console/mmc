@@ -39,7 +39,8 @@ from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.samba4 import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
-from mmc.support.mmctools import shlaunchBackground, shLaunchDeferred, progressBackup
+from mmc.support.mmctools import (cleanFilter, shlaunchBackground,
+                                  shLaunchDeferred, progressBackup)
 
 
 logger = logging.getLogger()
@@ -210,7 +211,14 @@ def backupShare(share, media, login):
 def listDomainMembers():
     return SambaAD().listDomainMembers()
 
-# TODO
+def deleteMachine(name):
+    return SambaAD().deleteMachine(name)
+
+def getMachine(name):
+    return SambaAD().getMachine(name)
+
+def editMachine(name, description, enabled):
+    return SambaAD().editMachine(name, description, enabled)
 
 # v Users ---------------------------------------------------------------------
 
