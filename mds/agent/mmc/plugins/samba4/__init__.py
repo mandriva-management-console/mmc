@@ -26,6 +26,7 @@
 MDS samba4 plugin for the MMC agent.
 """
 
+import base64
 import os
 import os.path
 import logging
@@ -214,8 +215,10 @@ def userHasSambaAccount(username):
     return SambaAD().existsUser(username)
 
 def updateSambaUserPassword(username, password):
-    return SambaAD().changeUserPassword(username, password['scalar'],
-                                        password['xmlrpc_type'])
+    if 'xmlrpc_type' not in password or password['xmlrpc_type'] != 'base64':
+        raise Exception('Unknown password type')
+    passwd = base64.b64decode(password['scalar'])
+    return SambaAD().updateUserPassword(username, passwd)
 
 def createSambaUser(username, password):
     return SambaAD().createUser(username, password)
@@ -228,3 +231,6 @@ def disableSambaUser(username):
 
 def deleteSambaUser(username):
     return SambaAD().deleteUser(username)
+
+def userHasSambaEnabled(username):
+    return SambaAD().isUserEnabled(username)

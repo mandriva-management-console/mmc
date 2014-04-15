@@ -17,27 +17,29 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 
-import base64
-import grp
-import ldap
 import logging
 import os
-import pwd
-import shutil
-import stat
-import tempfile
-from configobj import ConfigObj, ParseError
-from jinja2 import Environment, PackageLoader
-from mmc.core.audit import AuditFactory as AF
-from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.samba4.audit import AT, AA, PLUGIN_NAME
-from mmc.plugins.samba4.config import Samba4Config
-from mmc.plugins.samba4.helpers import get_internal_interfaces, shellquote
+import sys
 from mmc.plugins.samba4.smb_conf import SambaConf
-from mmc.support.mmctools import shLaunch, shlaunch
+from mmc.support.mmctools import shlaunch
 
 
 logger = logging.getLogger()
+
+try:
+    samba4_site_packages = os.path.join(SambaConf.PREFIX,
+                                        'lib64/python2.7/site-packages')
+    sys.path.insert(0, samba4_site_packages)
+
+    from samba.samdb import SamDB
+    from samba.param import LoadParm
+    from samba.auth import system_session
+
+except ImportError:
+    logger.error("Python module ldb.so not found...\n"
+                 "Samba4 package must be installed\n")
+    raise
+
 
 class SambaToolException(Exception):
     pass
@@ -50,15 +52,16 @@ class SambaAD:
     def __init__(self):
         smb_conf = SambaConf()
         self.sam_ldb_path = os.path.join(smb_conf.PRIVATE_DIR, 'sam.ldb')
-        #FIXME self.ldb = LDB(self.sam_ldb_path)
+        self.ldb = SamDB(url=self.sam_ldb_path, session_info=system_session(),
+                         lp=LoadParm())
+
+    def isUserEnabled(self, username):
+        return True  # FIXME use self.ldb to search user
 
     def existsUser(self, username):
         return username in self._samba_tool("user list")
 
-    def changeUserPassword(self,username, password, password_type):
-        if password_type != 'base64':
-            raise Exception('Unknown password type')
-        password = base64.b64decode(password)
+    def updateUserPassword(self, username, password):
         self._samba_tool("user setpassword %s --newpassword='%s'" %
                          (username, password))
 
