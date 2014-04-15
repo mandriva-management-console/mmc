@@ -139,3 +139,42 @@ def provisionSamba(mode, netbios_domain, realm):
 
     r.commit()
     return d
+
+# v Shares --------------------------------------------------------------------
+
+def getACLOnShare(name):
+    if name:
+        return SambaConf().getACLOnShare(name)
+    else:
+        return []
+
+def getProtectedSamba4Shares():
+    return ["", "homes", "netlogon", "archive", "sysvol"]
+
+def getShares():
+    return SambaConf().getDetailedShares()
+
+def getShare(name):
+    return SambaConf().getDetailedShare(name)
+
+def addShare(name, path, comment, browseable, permAll, usergroups, users):
+    samba = SambaConf()
+    samba.addShare(name, path, comment, browseable, permAll, usergroups, users)
+    samba.save()
+    return name
+
+def editShare(name, path, comment, browseable, permAll, usergroups, users):
+    samba = SambaConf()
+    samba.addShare(name, path, comment, browseable, permAll, usergroups, users,
+                   mod=True)
+    return samba.save()
+
+def deleteShare(name, file):
+    samba = SambaConf()
+    samba.delShare(name, file)
+    return samba.save()
+
+def isAuthorizedSharePath(path):
+    return not path or SambaConf().isAuthorizedSharePath(path)
+
+# v Machines ------------------------------------------------------------------

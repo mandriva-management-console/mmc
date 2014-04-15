@@ -23,8 +23,8 @@
 #
 
 import ConfigParser
-
 from mmc.support.config import PluginConfig
+
 
 class Samba4Config(PluginConfig):
 
@@ -36,6 +36,14 @@ class Samba4Config(PluginConfig):
 
         try: self.init_script = self.get("main", "sambaInitScript")
         except: pass
+
+        self.defaultSharesPath = self.get("main", "defaultSharesPath")
+
+        try:
+            listSharePaths = self.get("main", "authorizedSharePaths")
+            self.authorizedSharePaths = listSharePaths.replace(' ','').split(',')
+        except:
+            self.authorizedSharePaths = [self.defaultSharesPath]
 
     def setDefault(self):
         self.samba4_conf_file = '/opt/samba4/etc/smb.conf'
