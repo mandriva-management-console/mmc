@@ -114,13 +114,13 @@ def provisionSamba(mode, netbios_domain, realm):
         raise NotImplemented("We can only provision samba4 as Domain Controller")
 
     samba = SambaConf()
-    samba.write_samba_config(mode, netbios_domain, realm)
+    config = samba.writeSambaConfig(mode, netbios_domain, realm)
 
     params = {'domain': netbios_domain, 'realm': realm, 'prefix': samba.PREFIX,
-              'role': mode}
+              'role': mode, 'workgroup': config['workgroup']}
     cmd = ("%(prefix)s/bin/samba-tool domain provision"
            " --domain='%(domain)s'"
-           " --workgroup='%(domain)s'"
+           " --workgroup='%(workgroup)s'"
            " --realm='%(realm)s'"
            " --use-xattr=yes"
            " --use-rfc2307"

@@ -37,6 +37,8 @@ class SambaConf:
     """
     PREFIX = '/opt/samba4'
 
+    DEFAULT_DESCRIPTION = 'Mandriva Directory Server - SAMBA %v'
+
     SYSVOL_DIR = os.path.join(PREFIX, 'var/locks/sysvol');
     PRIVATE_DIR = os.path.join(PREFIX, 'private');
 
@@ -66,12 +68,16 @@ class SambaConf:
             resArray[option] = self.getOptionValue('global', option)
         return resArray
 
-    def write_samba_config(self, mode, netbios_name, realm):
+    def writeSambaConfig(self, mode, netbios_name, realm,
+                         description=DEFAULT_DESCRIPTION):
         """
-        Write SAMBA configuration file (smb.conf) to disk
-        """
-        _, tmpfname = tempfile.mkstemp("mmc")
+        Write SAMBA configuration file (smb.conf) to disk.
 
+        @return values used to write the smb.conf template
+        @rtype: dict
+        """
+        openchange = False  # FIXME
+        openchange_conf = self.PREFIX + 'etc/openchange.conf'
         workgroup = realm.split('.')[0][:15].upper()
         netbios_name = netbios_name.lower()
         realm = realm.upper()
@@ -79,21 +85,19 @@ class SambaConf:
         params = {'workgroup': workgroup,
                   'realm': realm,
                   'netbios_name': netbios_name,
-                  'description': 'Mandriva Directory Server - SAMBA %v',
+                  'description': description,
                   'mode' : mode,
                   'sysvol_path': self.SYSVOL_DIR,
-                  'openchange': False, # FIXME
+                  'openchange': openchange,
+                  'openchange': openchange_conf,
                   'domain': domain,
                   'interfaces': get_internal_interfaces()}
         smb_conf_template = env.get_template("smb.conf")
-        with open(tmpfname, 'a') as f:
+        with open(self.smb_conf_path, 'w') as f:
             f.write(smb_conf_template.render(params))
-        """
+
         if openchange:
             openchange_conf_template = env.get_template("openchange.conf")
-            with open(self.PREFIX + "etc/openchange.conf", 'a') as f:
+            with open(openchange_conf, 'w') as f:
                 f.write(openchange_conf_template.render())
-        """
-        # FIXME validation?
-        shutil.copy(tmpfname, self.smb_conf_path)
-        os.remove(tmpfname)
+        return params
