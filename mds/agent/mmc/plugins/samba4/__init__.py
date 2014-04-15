@@ -34,6 +34,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.samba4.audit import AA, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
+from mmc.plugins.samba4.samba_ad import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
 from mmc.support.mmctools import shlaunchBackground, shLaunchDeferred
 
@@ -178,3 +179,26 @@ def isAuthorizedSharePath(path):
     return not path or SambaConf().isAuthorizedSharePath(path)
 
 # v Machines ------------------------------------------------------------------
+
+# TODO
+
+# v Users ---------------------------------------------------------------------
+
+def userHasSambaAccount(username):
+    return SambaAD().existsUser(username)
+
+def updateSambaUserPassword(username, password):
+    return SambaAD().changeUserPassword(username, password['scalar'],
+                                        password['xmlrpc_type'])
+
+def createSambaUser(username, password):
+    return SambaAD().createUser(username, password)
+
+def enableSambaUser(username):
+    return SambaAD().enableUser(username)
+
+def disableSambaUser(username):
+    return SambaAD().disableUser(username)
+
+def deleteSambaUser(username):
+    return SambaAD().deleteUser(username)
