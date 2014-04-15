@@ -41,7 +41,6 @@ if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 {
     $actionCanBeCalled = True;
 
-    $share = _getShareValue($_GET);
     $params = _parseForm($_POST);
     list($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest, $shareGroup, $shareUser) = $params;
 
@@ -57,7 +56,7 @@ if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 
     $actionResult = False;
     if ($actionCanBeCalled) {
-        $actionResult = _callAddEditShareAction($action, $share, $params);
+        $actionResult = _callAddEditShareAction($action, $params);
     }
 
     _displaySuccessMessage($actionResult, $successMessage);
@@ -214,9 +213,9 @@ function _shareNameAndPathCheckings($name, $path) {
     return False;
 }
 
-function _callAddEditShareAction($action, $share, $params) {
+function _callAddEditShareAction($action, $params) {
     if ($action == "edit")
-        return editShare($share, $params);
+        return editShare($params);
     else if ($action == "add")
         return addShare($params);
     else

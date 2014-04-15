@@ -41,8 +41,8 @@ function getShare($share) {
 /*
  * $params => array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest)
  */
-function editShare($share, $params) {
-    return xmlCall("samba4.editShare", array_merge(array($share), $params));
+function editShare($params) {
+    return xmlCall("samba4.editShare", $params);
 }
 
 /*
