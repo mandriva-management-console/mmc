@@ -132,23 +132,22 @@ def provisionSamba(mode, netbios_domain, realm):
            " --use-rfc2307"
            " --server-role='%(role)s'" % params)
 
-    def domain_provision_cb(sambatool):
+    def domain_provision_cb(_, sambatool):
         if sambatool.exitCode != 0:
             logger.debug("Fail executing %s, ret code %d",
                          cmd, sambatool.exitCode)
             logger.debug(sambatool.out)
             logger.debug(sambatool.err)
-        disable_password_complexity()
         return sambatool.exitCode == 0
 
-    def disable_password_complexity():
+    def disable_password_complexity(sambatool):
         cmd = ("%s/bin/samba-tool domain passwordsettings set"
                " --complexity=off"
                " --min-pwd-length=0"
                " --min-pwd-age=0"
                " --max-pwd-age=999" % samba.prefix)
         d = shLaunchDeferred(cmd)
-        d.addCallback(domain_provision_cb)
+        d.addCallback(domain_provision_cb, sambatool)
         return d
 
     d = shLaunchDeferred(cmd)
