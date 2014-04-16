@@ -25,6 +25,10 @@
  */
 ?>
 <?php
+function listDomainMembers() {
+    return xmlCall("samba4.listDomainMembers");
+}
+
 function searchMachines($filter = null) {
     if ($filter == "") $filter = null;
     else $filter = "*".$filter . "*";

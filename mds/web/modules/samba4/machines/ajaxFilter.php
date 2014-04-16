@@ -27,25 +27,26 @@
 require("modules/samba4/includes/machines-xmlrpc.inc.php");
 
 $filter = $_GET['filter'];
-$computers = searchMachines($filter);
+$domainMembers = listDomainMembers();
 $names = array();
 $descriptions = array();
-foreach($computers as $computer) {
-    $names[] = $computer[0];
-    if (! $computer[2]) {
+foreach($domainMembers as $computer) {
+    $name = $computer["name"];
+    if (! $computer["enabled"]) {
         $computersEnabled[] = "disabledRow";
-        $computer[1] = "(" . _T("Disabled") . ") " . $computer[1];
+        $name .= " (" . _T("Disabled") . ") ";
     } else {
         $computersEnabled[] = "enabledRow";
     }
-    $descriptions[] = $computer[1];
+    $names[] = $name;
+    $descriptions[] = $computer["description"];
 }
 
 $list = new ListInfos($names, _T("Computer name", "samba4"));
 $list->disableFirstColumnActionLink();
 $list->setCssClass("machineName");
 $list->setCssClasses($computersEnabled);
-$list->setNavBar(new AjaxNavBar(count($computers), $filter));
+$list->setNavBar(new AjaxNavBar(count($domainMembers), $filter));
 
 $list->addExtraInfo($descriptions, _T("Description", "samba4"));
 $list->addActionItem(new ActionItem(_T("Edit"),"edit","edit","machine"));
