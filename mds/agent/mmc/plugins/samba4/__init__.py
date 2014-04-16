@@ -187,7 +187,7 @@ def backupShare(share, media, login):
     """
     Launch as a background process the backup of a share
     """
-    r = AF().log(PLUGIN_NAME, AA.SAMBA_BACKUP_SHARE,
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_BACKUP_SHARE,
                  [(share, AT.SHARE), (login, AT.USER)], media)
     config = BasePluginConfig("base")
     cmd = os.path.join(config.backuptools, "backup.sh")
