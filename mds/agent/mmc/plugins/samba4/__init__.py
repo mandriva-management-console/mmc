@@ -37,7 +37,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.samba4.audit import AA, AT, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
-from mmc.plugins.samba4.samba import SambaAD
+from mmc.plugins.samba4.samba4 import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
 from mmc.support.mmctools import shlaunchBackground, shLaunchDeferred, progressBackup
 
