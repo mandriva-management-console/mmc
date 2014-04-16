@@ -34,6 +34,8 @@ try:
     from samba.samdb import SamDB
     from samba.param import LoadParm
     from samba.auth import system_session
+    from samba import ldb
+    from samba import dsdb
 
 except ImportError:
     logger.error("Python module ldb.so not found...\n"
@@ -56,7 +58,16 @@ class SambaAD:
                            lp=LoadParm())
 
     def isUserEnabled(self, username):
-        return True  # FIXME use self.ldb to search user
+        search_filter = "(&(objectClass=user)(sAMAccountName=%s))" % (ldb.binary_encode(username))
+        userlist = self.samdb.search(base=self.samdb.domain_dn(),
+                                     scope=ldb.SCOPE_SUBTREE,
+                                     expression=search_filter,
+                                     attrs=["userAccountControl"])
+        if not userlist:
+            return False
+
+        uac_flags = int(userlist[0]["userAccountControl"][0])
+        return 0 == (uac_flags | dsdb.UF_ACCOUNTDISABLE)
 
     def existsUser(self, username):
         return username in self._samba_tool("user list")
