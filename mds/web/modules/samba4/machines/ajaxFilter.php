@@ -50,7 +50,7 @@ $list->setNavBar(new AjaxNavBar(count($domainMembers), $filter));
 
 $list->addExtraInfo($descriptions, _T("Description", "samba4"));
 $list->addActionItem(new ActionItem(_T("Edit"),"edit","edit","machine"));
-$list->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","machine"));
+//$list->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","machine"));
 
 $list->setName(_("Computers"));
 $list->display();
