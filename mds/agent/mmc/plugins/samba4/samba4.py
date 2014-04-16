@@ -53,8 +53,8 @@ class SambaAD:
     Handle sam.ldb: users and computers
     """
     def __init__(self):
-        smb_conf = SambaConf()
-        self.samdb_url = os.path.join(smb_conf.private_dir(), 'sam.ldb')
+        self.smb_conf = SambaConf()
+        self.samdb_url = os.path.join(self.smb_conf.private_dir(), 'sam.ldb')
         self.samdb = SamDB(url=self.samdb_url, session_info=system_session(),
                            lp=LoadParm())
 
@@ -95,6 +95,8 @@ class SambaAD:
         self._samba_tool("user delete %s" % username)
 
     def _samba_tool(self, cmd):
+        samba_tool = os.path.join(self.smb_conf.prefix, "bin/samba-tool")
+        cmd = samba_tool + " " + cmd
         exit_code, std_out, std_err = shlaunch(cmd)
         if exit_code != 0:
             error_msg = "Error processing `%s`:\n" % cmd
@@ -102,6 +104,7 @@ class SambaAD:
                 error_msg += "\n".join(std_err)
             if std_out:
                 error_msg += "\n".join(std_out)
+            logger.error(error_msg)
             raise SambaToolException(error_msg)
         return std_out
 
