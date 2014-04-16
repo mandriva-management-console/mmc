@@ -156,7 +156,7 @@ class SambaConf:
                   'mode' : mode,
                   'sysvol_path': os.path.join(self.prefix, 'var/locks/sysvol'),
                   'openchange': openchange,
-                  'openchange': openchange_conf,
+                  'openchange_conf': openchange_conf,
                   'domain': domain,
                   'interfaces': get_internal_interfaces()}
         smb_conf_template = env.get_template("smb.conf")
