@@ -116,7 +116,7 @@ function _samba4_baseEdit($FH, $mode) {
     if (! isSamba4Provisioned())
         $form->setVisibility(False);
 
-    $username = $FH->getPostValue("uid");
+    $username = $FH->getArrayOrPostValue("uid");
     if (! $username)
         $form->setVisibility(False);
 
