@@ -98,3 +98,31 @@ class SambaAD:
                 error_msg += "\n".join(std_out)
             raise SambaToolException(error_msg)
         return std_out
+
+# v Machines ------------------------------------------------------------------
+
+    def listDomainMembers(self):
+        """
+        Returns list of Computer objects description
+
+        @return: list of dicts with Computer name and description
+        @rtype: list
+        """
+        res = []
+        computers = self.samdb.search(base="CN=Computers,%s" % self.samdb.domain_dn(),
+                                      scope=ldb.SCOPE_ONELEVEL,
+                                      expression="(objectClass=computer)",
+                                      attrs=["name", "description", "operatingSystem"])
+        if computers:
+            for computer in computers:
+                try:
+                    description = computer["description"]
+                except KeyError:
+                    description = computer["operatingSystem"]
+                res.append({
+                    "name": str(computer["name"]),
+                    "description":  str(description),
+                    "enabled": 1 # TODO: get what the state actually is
+                })
+
+        return res

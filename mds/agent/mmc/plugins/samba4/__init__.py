@@ -207,6 +207,9 @@ def backupShare(share, media, login):
 
 # v Machines ------------------------------------------------------------------
 
+def listDomainMembers():
+    return SambaAD().listDomainMembers()
+
 # TODO
 
 # v Users ---------------------------------------------------------------------
