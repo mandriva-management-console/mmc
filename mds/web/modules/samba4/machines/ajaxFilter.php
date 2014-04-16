@@ -30,6 +30,7 @@ $filter = $_GET['filter'];
 $domainMembers = listDomainMembers();
 $names = array();
 $descriptions = array();
+$computersEnabled = array();
 foreach($domainMembers as $computer) {
     $name = $computer["name"];
     if (! $computer["enabled"]) {
