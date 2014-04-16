@@ -57,8 +57,13 @@ class SambaAD:
         self.samdb = SamDB(url=self.samdb_url, session_info=system_session(),
                            lp=LoadParm())
 
+# v Users ---------------------------------------------------------------------
+
     def isUserEnabled(self, username):
-        search_filter = "(&(objectClass=user)(sAMAccountName=%s))" % (ldb.binary_encode(username))
+        if type(username) != type(''):
+            raise TypeError("username is expected to be string")
+
+        search_filter = "(&(objectClass=user)(sAMAccountName=%s))" % ldb.binary_encode(username)
         userlist = self.samdb.search(base=self.samdb.domain_dn(),
                                      scope=ldb.SCOPE_SUBTREE,
                                      expression=search_filter,
