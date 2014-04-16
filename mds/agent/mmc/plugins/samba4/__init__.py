@@ -26,10 +26,10 @@
 MDS samba4 plugin for the MMC agent.
 """
 
-import base64
 import os
 import os.path
 import logging
+import xmlrpclib
 from time import strftime
 from mmc.core.version import scmRevision
 from mmc.plugins.base import BasePluginConfig
@@ -226,10 +226,9 @@ def userHasSambaAccount(username):
     return username and SambaAD().existsUser(username)
 
 def updateSambaUserPassword(username, password):
-    if 'xmlrpc_type' not in password or password['xmlrpc_type'] != 'base64':
-        raise Exception('Unknown password type')
-    passwd = base64.b64decode(password['scalar'])
-    return SambaAD().updateUserPassword(username, passwd)
+    if isinstance(password, xmlrpclib.Binary):
+        password = str(password)
+    return SambaAD().updateUserPassword(username, password)
 
 def createSambaUser(username, password):
     return SambaAD().createUser(username, password)
