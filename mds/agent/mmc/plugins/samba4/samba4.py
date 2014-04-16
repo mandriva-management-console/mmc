@@ -115,18 +115,12 @@ class SambaAD:
 
 # v Machines ------------------------------------------------------------------
 
-    def listDomainMembers(self):
-        """
-        Returns list of Computer objects description
-
-        @return: list of dicts with Computer name and description
-        @rtype: list
-        """
-        res = []
-        computers = self.samdb.search(base="CN=Computers,%s" % self.samdb.domain_dn(),
+    def _listComputersInContainer(self, container_dn, name_suffix=''):
+        computers = self.samdb.search(base=container_dn,
                                       scope=ldb.SCOPE_ONELEVEL,
                                       expression="(objectClass=computer)",
                                       attrs=["name", "description", "operatingSystem"])
+        res = []
         if computers:
             for computer in computers:
                 try:
@@ -134,12 +128,22 @@ class SambaAD:
                 except KeyError:
                     description = computer["operatingSystem"]
                 res.append({
-                    "name": str(computer["name"]),
+                    "name": str(computer["name"]) + name_suffix,
                     "description":  str(description),
                     "enabled": 1 # TODO: get what the state actually is
                 })
-
         return res
+
+    def listDomainMembers(self):
+        """
+        Returns list of Computer objects description
+
+        @return: list of dicts with Computer name and description
+        @rtype: list
+        """
+        dcs = self._listComputersInContainer("OU=Domain Controllers,%s" % self.samdb.domain_dn(), ' (dc)')
+        computers = self._listComputersInContainer("CN=Computers,%s" % self.samdb.domain_dn())
+        return dcs + computers
 
     def deleteMachine(self, name):  # TODO
         return True
