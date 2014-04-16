@@ -65,6 +65,7 @@ Requires:	python-configobj
 # note: python-jinja2 will suggest python-markupsafe
 Requires:	python-jinja2
 Requires:	python-mmc-base >= 3.1.0
+Requires:   python-mmc-core
 #Requires:   python-smbpasswd
 Requires:	samba4 >= 4.1.4
 
