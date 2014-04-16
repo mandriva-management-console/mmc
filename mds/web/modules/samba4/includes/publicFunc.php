@@ -125,6 +125,8 @@ function _samba4_baseEdit($FH, $mode) {
     $tr = new TrFormElement(_T("Samba access","samba"), new CheckboxTpl("isSamba4"));
     $form->add($tr, array("value" => userHasSambaEnabled($username) ? "checked" : ""));
 
+    $form->pop();
+
     return $form;
 }
 
