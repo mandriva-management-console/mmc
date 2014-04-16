@@ -81,18 +81,23 @@ class SambaAD:
     def updateUserPassword(self, username, password):
         self._samba_tool("user setpassword %s --newpassword='%s'" %
                          (username, password))
+        return True
 
     def createUser(self, username, password):
         self._samba_tool("user create %s '%s'" % (username, password))
+        return True
 
     def enableUser(self, username):
         self._samba_tool("user enable %s" % username)
+        return True
 
     def disableUser(self, username):
         self._samba_tool("user disable %s" % username)
+        return True
 
     def deleteUser(self, username):
         self._samba_tool("user delete %s" % username)
+        return True
 
     def _samba_tool(self, cmd):
         samba_tool = os.path.join(self.smb_conf.prefix, "bin/samba-tool")
