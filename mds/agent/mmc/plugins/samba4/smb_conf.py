@@ -131,7 +131,7 @@ class SambaConf:
         """
         return main information about global section
         """
-        GLOBAL_OPTIONS = ['realm', 'workgroup', 'netbios name', 'server role']
+        GLOBAL_OPTIONS = ['realm', 'netbios name', 'server role']
         resArray = {}
         for option in GLOBAL_OPTIONS:
             resArray[option] = self.getContent('global', option)
@@ -147,12 +147,10 @@ class SambaConf:
         """
         openchange = False  # FIXME
         openchange_conf = self.prefix + 'etc/openchange.conf'
-        workgroup = realm.split('.')[0][:15].upper()
         netbios_name = netbios_name.lower()
         realm = realm.upper()
         domain = realm.lower()
-        params = {'workgroup': workgroup,
-                  'realm': realm,
+        params = {'realm': realm,
                   'netbios_name': netbios_name,
                   'description': description,
                   'mode' : mode,
