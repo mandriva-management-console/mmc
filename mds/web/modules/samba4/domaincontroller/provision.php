@@ -61,12 +61,12 @@ function _showProvisionForm($sidemenu) {
 
     $tr = new TrFormElement(_("Description"), new InputTpl("description"));
     $form->add($tr, array("value" => "", "required" => True));
-
+    /* Romaing Profiles: disabled for now
     $mobile = False;
     $tr = new TrFormElement(_T("Foo de los móviles", "samba4"), new CheckboxTpl("mobile"),
                                 array("tooltip" => _T("If checked, this makes tones of magic", "samba4")));
     $form->add($tr, array("value" => $mobile ? "checked" : ""));
-
+    */
     $form->pop();
 
     $form->addButton("bprovision", _("Do provision"));
