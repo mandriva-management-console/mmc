@@ -40,7 +40,9 @@ from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.samba4 import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
 from mmc.support.mmctools import (cleanFilter, shlaunchBackground,
-                                  shLaunchDeferred, progressBackup)
+                                  shLaunchDeferred, progressBackup,
+                                  shlaunch)
+from mmc.plugins.services import ServiceManager
 
 
 logger = logging.getLogger()
@@ -130,6 +132,7 @@ def provisionSamba(mode, netbios_domain, realm):
            " --server-role='%(role)s'" % params)
 
     def domain_provision_cb(_, sambatool):
+        logger.info("provision: domain_provision_cb")
         if sambatool.exitCode != 0:
             logger.debug("Fail executing %s, ret code %d",
                          cmd, sambatool.exitCode)
@@ -139,6 +142,7 @@ def provisionSamba(mode, netbios_domain, realm):
         return sambatool.exitCode == 0
 
     def disable_password_complexity(sambatool):
+        logger.info("provision: disable_password_complexity")
         cmd = ("%s/bin/samba-tool domain passwordsettings set"
                " --complexity=off"
                " --min-pwd-length=0"
@@ -146,7 +150,54 @@ def provisionSamba(mode, netbios_domain, realm):
                " --max-pwd-age=999" % samba.prefix)
         d = shLaunchDeferred(cmd)
         d.addCallback(domain_provision_cb, sambatool)
+        d.addCallback(reconfig_ldap_service)
+        d.addCallback(stop_iptables_services)
+        d.addCallback(start_samba4_service)
         return d
+
+    def reconfig_ldap_service(result):
+        if not result:
+            return result
+        logger.info("provision: reconfig_ldap_service")
+        should_reconfing = True
+        f = None
+        try:
+            f = open('/etc/sysconfig/ldap', 'r')
+            for line in f:
+                if line.lstrip().startswith('SLAPDURLLIST='):
+                    should_reconfing = False
+            if should_reconfing:
+                f.close()
+                f = open('/etc/sysconfig/ldap', 'a')
+                import os
+                f.write(os.linesep)
+                f.write('SLAPDURLLIST="ldap://127.0.0.1"')
+                f.write(os.linesep)
+                # restart slapd
+                ServiceManager().restart("ldap")
+        except Exception as e:
+            logger.error(e.message)
+            return False
+        finally:
+            if f:
+                f.close()
+        return True
+
+    def stop_iptables_services(result):
+        if not result:
+            return result
+        if ServiceManager().get_unit_info("iptables")['active_state'] == 'active':
+            logger.info("provision: stop iptables.service")
+            return ServiceManager().stop("iptables")
+        return True
+
+    def start_samba4_service(result):
+        if not result:
+            return result
+        logger.info("provision: Starting samba4.service")
+        (exitCode, stdout, stderr) = shlaunch("service samba4 start")
+        # return ServiceManager().start("samba4")
+        return exitCode == 0
 
     d = shLaunchDeferred(cmd)
     d.addCallback(disable_password_complexity)
