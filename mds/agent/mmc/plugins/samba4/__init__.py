@@ -223,7 +223,7 @@ def editMachine(name, description, enabled):
 # v Users ---------------------------------------------------------------------
 
 def userHasSambaAccount(username):
-    return SambaAD().existsUser(username)
+    return username and SambaAD().existsUser(username)
 
 def updateSambaUserPassword(username, password):
     if 'xmlrpc_type' not in password or password['xmlrpc_type'] != 'base64':
@@ -244,4 +244,4 @@ def deleteSambaUser(username):
     return SambaAD().deleteUser(username)
 
 def userHasSambaEnabled(username):
-    return SambaAD().isUserEnabled(username)
+    return username and SambaAD().isUserEnabled(username)
