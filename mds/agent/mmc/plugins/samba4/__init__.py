@@ -138,10 +138,21 @@ def provisionSamba(mode, netbios_domain, realm):
                          cmd, sambatool.exitCode)
             logger.debug(sambatool.out)
             logger.debug(sambatool.err)
+        disable_password_complexity()
         return sambatool.exitCode == 0
 
+    def disable_password_complexity():
+        cmd = ("%s/bin/samba-tool domain passwordsettings set"
+               " --complexity=off"
+               " --min-pwd-length=0"
+               " --min-pwd-age=0"
+               " --max-pwd-age=999" % samba.prefix)
+        d = shLaunchDeferred(cmd)
+        d.addCallback(domain_provision_cb)
+        return d
+
     d = shLaunchDeferred(cmd)
-    d.addCallback(domain_provision_cb)
+    d.addCallback(disable_password_complexity)
 
     r.commit()
     return d
