@@ -52,9 +52,6 @@ samba4.ini: Makefile
 	srcdir=''; \
 	  test -f ./$@.in || srcdir=$(srcdir)/; \
 	  $(edit) $${srcdir}$@.in >$@.tmp; \
-	  [ -f /etc/mandriva-release ] && \
-        sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/samba!g' $@.tmp && \
-	    sed -i 's!ou=Computers!ou=Hosts!g' $@.tmp || echo continue;
 	mv $@.tmp $@
 
 network.ini: Makefile
