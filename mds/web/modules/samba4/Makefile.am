@@ -69,6 +69,7 @@ datafiles = \
 	shares/delete.php \
 	shares/index.php \
 	shares/add.php \
+	shares/backup.php \
 	shares/edit.php \
 	views/groups.tpl.php \
 	views/users.tpl.php

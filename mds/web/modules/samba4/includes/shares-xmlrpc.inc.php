@@ -63,4 +63,10 @@ function getACLOnShare($share) {
 function deleteShare($shareName, $deleteFiles) {
     return xmlCall("samba4.deleteShare", array($shareName, $deleteFiles));
 }
+
+function sched_backup($share, $media) {
+    $param = array($share, $media, $_SESSION["login"]);
+    return xmlCall("samba4.backupShare", $param);
+}
+
 ?>
