@@ -73,7 +73,7 @@ class SambaAD:
             return False
 
         uac_flags = int(userlist[0]["userAccountControl"][0])
-        return 0 == (uac_flags | dsdb.UF_ACCOUNTDISABLE)
+        return 0 == (uac_flags & dsdb.UF_ACCOUNTDISABLE)
 
     def existsUser(self, username):
         return username in self._samba_tool("user list")
