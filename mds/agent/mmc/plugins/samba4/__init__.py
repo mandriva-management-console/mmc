@@ -87,7 +87,7 @@ def purgeSamba():
         samba = SambaConf()
         conf_files = []
         conf_files.append(shellquote(samba.smb_conf_path))
-        conf_files.append(shellquote(samba.PRIVATE_DIR + '/*'))
+        conf_files.append(shellquote(samba.private_dir() + '/*'))
         shlaunchBackground("rm -rf %s" % ' '.join(conf_files))
 
     # FIXME should we use deferred instead?

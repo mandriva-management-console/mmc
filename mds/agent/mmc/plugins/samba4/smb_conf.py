@@ -54,12 +54,7 @@ class SambaConf:
     """
     Handle smb.conf file for Samba 4
     """
-    PREFIX = '/opt/samba4'
-
     DEFAULT_DESCRIPTION = 'Mandriva Directory Server - SAMBA %v'
-
-    SYSVOL_DIR = os.path.join(PREFIX, 'var/locks/sysvol');
-    PRIVATE_DIR = os.path.join(PREFIX, 'private');
 
     def __init__(self):
         config = Samba4Config("samba4")
@@ -75,6 +70,9 @@ class SambaConf:
         except ParseError as e:
             logger.error("Failed to parse %s : %s " % (self.smb_conf_path, e))
 
+    def private_dir(self):
+        return os.path.join(self.prefix, 'private');
+
     def validate(self, conf_file):
         """
         Validate SAMBA configuration file with testparm.
@@ -83,7 +81,7 @@ class SambaConf:
         @return: Whether smb.conf has been validated or not
         @rtype: boolean
         """
-        cmd = shLaunch("%s/bin/testparm -s %s" % (self.PREFIX,
+        cmd = shLaunch("%s/bin/testparm -s %s" % (self.prefix,
                                                   shellquote(conf_file)))
         if cmd.exitCode:
             ret = False
@@ -148,7 +146,7 @@ class SambaConf:
         @rtype: dict
         """
         openchange = False  # FIXME
-        openchange_conf = self.PREFIX + 'etc/openchange.conf'
+        openchange_conf = self.prefix + 'etc/openchange.conf'
         workgroup = realm.split('.')[0][:15].upper()
         netbios_name = netbios_name.lower()
         realm = realm.upper()
@@ -158,7 +156,7 @@ class SambaConf:
                   'netbios_name': netbios_name,
                   'description': description,
                   'mode' : mode,
-                  'sysvol_path': self.SYSVOL_DIR,
+                  'sysvol_path': os.path.join(self.prefix, 'var/locks/sysvol'),
                   'openchange': openchange,
                   'openchange': openchange_conf,
                   'domain': domain,

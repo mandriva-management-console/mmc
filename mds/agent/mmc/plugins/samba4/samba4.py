@@ -20,6 +20,7 @@
 import logging
 import os
 import sys
+from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.support.mmctools import shlaunch
 
@@ -27,7 +28,7 @@ from mmc.support.mmctools import shlaunch
 logger = logging.getLogger()
 
 try:
-    samba4_site_packages = os.path.join(SambaConf.PREFIX,
+    samba4_site_packages = os.path.join(Samba4Config("samba4").samba_prefix,
                                         'lib64/python2.7/site-packages')
     sys.path.insert(0, samba4_site_packages)
 
@@ -53,7 +54,7 @@ class SambaAD:
     """
     def __init__(self):
         smb_conf = SambaConf()
-        self.samdb_url = os.path.join(smb_conf.PRIVATE_DIR, 'sam.ldb')
+        self.samdb_url = os.path.join(smb_conf.private_dir(), 'sam.ldb')
         self.samdb = SamDB(url=self.samdb_url, session_info=system_session(),
                            lp=LoadParm())
 
