@@ -4,15 +4,16 @@
 # 
 ## Translators:
 #   <alexandre@mandriva.com.br>, 2012.
+#   <andre@mandriva.com>, 2014.
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-04-07 01:04+0200\n"
-"PO-Revision-Date: 2014-01-27 16:25+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
+"POT-Creation-Date: 2014-04-14 01:07+0200\n"
+"PO-Revision-Date: 2014-04-14 18:49+0000\n"
+"Last-Translator: Andre Machado <andre@mandriva.com>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -195,15 +196,15 @@ msgstr "SAMBA status"
 #, php-format
 msgid "%d open session"
 msgid_plural "%d open sessions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d abrir sessão"
+msgstr[1] "%d abrir sessões"
 
 #: modules/samba/includes/panels/samba.inc.php:39
 #, php-format
 msgid "%d share connection"
 msgid_plural "%d share connections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d compartilhar conexão"
+msgstr[1] "%d compartilhar conexões"
 
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
@@ -283,11 +284,11 @@ msgstr "Remover computador"
 
 #: modules/samba/includes/auditCodes.php:46
 msgid "User password doesn't expire"
-msgstr ""
+msgstr "Senha do usuário não expirável"
 
 #: modules/samba/includes/auditCodes.php:47
 msgid "User password can expire"
-msgstr ""
+msgstr "Senha do usuário expirável"
 
 #: modules/samba/includes/auditCodes.php:48 modules/samba/status/index.php:85
 msgid "Share"
@@ -347,7 +348,7 @@ msgstr "Esta conta está bloqueada."
 
 #: modules/samba/includes/publicFunc.php:271
 msgid "Samba access"
-msgstr ""
+msgstr "Acesso do Samba"
 
 #: modules/samba/includes/publicFunc.php:288
 msgid "This account is disabled"

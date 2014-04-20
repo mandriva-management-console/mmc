@@ -4,16 +4,16 @@
 # 
 ## Translators:
 #   <alexandre@mandriva.com.br>, 2012.
-#   <andre@mandriva.com>, 2013.
+#   <andre@mandriva.com>, 2013, 2014.
 # Sergio Rafael Lemke <sergio@mandriva.com.br>, 2010.
 # Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-04-07 01:04+0200\n"
-"PO-Revision-Date: 2014-01-27 12:42+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
+"POT-Creation-Date: 2014-04-14 01:06+0200\n"
+"PO-Revision-Date: 2014-04-14 19:10+0000\n"
+"Last-Translator: Andre Machado <andre@mandriva.com>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -222,12 +222,12 @@ msgstr "Obter próximo endereço IP livre"
 #: modules/network/includes/network2.inc.php:71
 #: modules/network/includes/network2.inc.php:85
 msgid "Start : "
-msgstr ""
+msgstr "Início : "
 
 #: modules/network/includes/network2.inc.php:76
 #: modules/network/includes/network2.inc.php:90
 msgid "End : "
-msgstr ""
+msgstr "Fim : "
 
 #: modules/network/includes/network2.inc.php:79
 msgid "Delete"
@@ -1091,6 +1091,10 @@ msgid ""
 "creating and deleting NS, glue A, and zone record(s).  If unchecked, the key"
 " can not authorize any update that would affect such records"
 msgstr ""
+"Se marcado, esta chave está autorizada a anexar, desanexar, e mover zonas "
+"através da criação e remoção de registro(s) do tipo NS, glue A e zona de "
+"registros.  Se desmarcado, a chave não autoriza quaisquer atualizações que "
+"afetaria tais registros"
 
 #: modules/network/network/dnsrecords/key.php:186
 #: modules/network/network/dnsrecords/key.php:236
@@ -1196,7 +1200,7 @@ msgstr "Nome do serviço é exigido"
 
 #: modules/network/network/dnsrecords/srv.php:21
 msgid "Host name that will provide this service is required"
-msgstr ""
+msgstr "Nome do host cujo este serviço é solicitado"
 
 #: modules/network/network/dnsrecords/srv.php:23
 msgid "Priority can't be more than 65535"
@@ -1224,7 +1228,7 @@ msgstr "Nome do protocolo personalizado"
 
 #: modules/network/network/dnsrecords/srv.php:128
 msgid "There is a host that will provide this service, if checked"
-msgstr ""
+msgstr "Existe um host que receberá este serviço, se marcado"
 
 #: modules/network/network/dnsrecords/srv.php:135
 #: modules/network/network/dnsrecords/srv.php:166
@@ -2293,7 +2297,7 @@ msgstr "Apagar registro"
 
 #: modules/network/infoPackage.inc.php:120
 msgid "Edit a DNS host"
-msgstr ""
+msgstr "Editar um host DNS"
 
 #: modules/network/infoPackage.inc.php:124
 msgid "Edit a DNS record"
@@ -2321,7 +2325,7 @@ msgstr "Registros da zona"
 
 #: modules/network/infoPackage.inc.php:164
 msgid "Add DHCP pool range"
-msgstr ""
+msgstr "Adicionar uma faixa DHCP"
 
 #: modules/network/infoPackage.inc.php:174
 msgid "Delete a subnet"
@@ -2345,23 +2349,23 @@ msgstr "Membros de uma sub-rede DHCP"
 
 #: modules/network/infoPackage.inc.php:202
 msgid "Network services log"
-msgstr ""
+msgstr "Log da Rede"
 
 #: modules/network/infoPackage.inc.php:206
 msgid "Network service start"
-msgstr ""
+msgstr "Iniciar Rede"
 
 #: modules/network/infoPackage.inc.php:210
 msgid "Network service stop"
-msgstr ""
+msgstr "Parar Rede"
 
 #: modules/network/infoPackage.inc.php:214
 msgid "Network service reload"
-msgstr ""
+msgstr "Recarregar configurações de Rede"
 
 #: modules/network/infoPackage.inc.php:218
 msgid "Network service restart"
-msgstr ""
+msgstr "Reiniciar Rede"
 
 #: modules/network/infoPackage.inc.php:233
 msgid "DHCP service log"
