@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-04-21 01:08+0200\n"
-"PO-Revision-Date: 2014-01-28 14:03+0000\n"
+"POT-Creation-Date: 2014-04-30 15:44+0200\n"
+"PO-Revision-Date: 2014-04-30 13:44+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,6 +207,10 @@ msgstr "Reset della quota utente al valore di default"
 msgid "Mail domains list"
 msgstr ""
 
+#: modules/mail/includes/mail.inc.php:50 modules/mail/includes/mail.inc.php:70
+msgid "Unlimited quota"
+msgstr "Quota illimitata"
+
 #: modules/mail/includes/auditCodes.php:4
 msgid "Enable mail delivery"
 msgstr ""
@@ -232,97 +236,97 @@ msgid "Change mail host"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:10
-msgid "Change mail quota"
+msgid "Change mail proxy"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:11
-msgid "Add mail attributes"
+msgid "Change mail quota"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:12
-msgid "Del mail attributes"
+msgid "Add mail attributes"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:13
-msgid "Del mail group alias"
+msgid "Del mail attributes"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:14
-msgid "Add mail group"
+msgid "Del mail group alias"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:15
-msgid "Add virtual domain"
+msgid "Add mail group"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:16
-msgid "Del virtual domain"
+msgid "Add virtual domain"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:17
-msgid "Set domain description"
+msgid "Del virtual domain"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:18
-msgid "Set domain quota"
+msgid "Set domain description"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:19
-msgid "Reset domain quota"
+msgid "Set domain quota"
 msgstr ""
 
 #: modules/mail/includes/auditCodes.php:20
+msgid "Reset domain quota"
+msgstr ""
+
+#: modules/mail/includes/auditCodes.php:21
 msgid "Mail Group"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:21 modules/mail/infoPackage.inc.php:58
+#: modules/mail/includes/auditCodes.php:22 modules/mail/infoPackage.inc.php:58
 #: modules/mail/infoPackage.inc.php:111
 msgid "Mail"
 msgstr "Mail"
 
-#: modules/mail/includes/auditCodes.php:22
+#: modules/mail/includes/auditCodes.php:23
 msgid "Add Zarafa attributes"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:23
+#: modules/mail/includes/auditCodes.php:24
 msgid "Del Zarafa attributes"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:24
+#: modules/mail/includes/auditCodes.php:25
 msgid "Change Zarafa admin attribute"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:25
+#: modules/mail/includes/auditCodes.php:26
 msgid "Change Zarafa sharedstore attribute"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:26
+#: modules/mail/includes/auditCodes.php:27
 msgid "Change Zarafa account attribute"
 msgstr "76c1e0473c63d3d18c5210ba3997cc12_tr"
 
-#: modules/mail/includes/auditCodes.php:27
+#: modules/mail/includes/auditCodes.php:28
 msgid "Change visibility in Zarafa address book"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:28
+#: modules/mail/includes/auditCodes.php:29
 msgid "Change Zarafa sendas attribute"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:29
+#: modules/mail/includes/auditCodes.php:30
 msgid "Virtual Mail Domain"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:30
+#: modules/mail/includes/auditCodes.php:31
 msgid "User"
 msgstr ""
 
-#: modules/mail/includes/auditCodes.php:31
+#: modules/mail/includes/auditCodes.php:32
 msgid "mail"
 msgstr ""
-
-#: modules/mail/includes/mail.inc.php:50 modules/mail/includes/mail.inc.php:70
-msgid "Unlimited quota"
-msgstr "Quota illimitata"
 
 #: modules/mail/includes/publicFunc.php:33
 msgid "Mail plugin"
@@ -403,59 +407,63 @@ msgstr "Percorso di consegna mail"
 msgid "Mail server host"
 msgstr "Server mail"
 
-#: modules/mail/includes/publicFunc.php:271
+#: modules/mail/includes/publicFunc.php:267
+msgid "Mail proxy"
+msgstr ""
+
+#: modules/mail/includes/publicFunc.php:275
 msgid "Zarafa properties"
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:278
+#: modules/mail/includes/publicFunc.php:282
 msgid "Administrator of Zarafa"
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:287
+#: modules/mail/includes/publicFunc.php:291
 msgid "Shared store"
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:296
+#: modules/mail/includes/publicFunc.php:300
 msgid "Zarafa account"
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:305
+#: modules/mail/includes/publicFunc.php:309
 msgid "Hide from Zarafa address book"
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:311
+#: modules/mail/includes/publicFunc.php:315
 msgid "Zarafa send as user list"
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:356
+#: modules/mail/includes/publicFunc.php:360
 #, php-format
 msgid "%s is not a valid mail alias."
 msgstr "%s non è un alias mail valido."
 
-#: modules/mail/includes/publicFunc.php:365
+#: modules/mail/includes/publicFunc.php:369
 msgid ""
 "You must specify at least one mail drop. Usually it has the same name as the"
 " user."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:371
+#: modules/mail/includes/publicFunc.php:375
 msgid "You must specify a valid mail address to enable mail delivery."
 msgstr ""
 "Si deve specificare un indirizzo mail valido per abilitare l'inoltro mail."
 
-#: modules/mail/includes/publicFunc.php:405
+#: modules/mail/includes/publicFunc.php:409
 msgid "Mail attributes added."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:423
+#: modules/mail/includes/publicFunc.php:429
 msgid "Mail delivery disabled."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:427
+#: modules/mail/includes/publicFunc.php:433
 msgid "Mail delivery enabled."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:467
+#: modules/mail/includes/publicFunc.php:473
 msgid "Mail attributes deleted."
 msgstr ""
 
