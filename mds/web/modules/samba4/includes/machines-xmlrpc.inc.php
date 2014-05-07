@@ -33,27 +33,18 @@ function searchMachines($filter = null) {
     if ($filter == "") $filter = null;
     else $filter = "*".$filter . "*";
 
-    //return xmlCall("samba4.searchMachines", $filter);
-    return array(
-        array("vaca1", "Vaca1 computer", True),
-        array("vaca2", "Vaca2 computer", True),
-        array("vaca3", "Vaca3 computer", False),
-        array("vaca4", "Vaca4 computer", True),
-    );
+    return xmlCall("samba4.searchMachines", $filter);
 }
 
 function getMachine($machineName) {
-    //return xmlCall("samba4.getMachine", $machineName);
-    return array("name" => "vaca1", "description" => "Vaca1 computer", "enabled" => True);
+    return xmlCall("samba4.getMachine", $machineName);
 }
 
 function editMachine($machineName) {
-    //return xmlCall("samba4.editMachine", array($name, $description, $enabled));
-    return True;
+    return xmlCall("samba4.editMachine", array($name, $description, $enabled));
 }
 
 function deleteMachine($machineName) {
-    //return xmlCall("samba4.deleteMachine", $machineName);
-    return True;
+    return xmlCall("samba4.deleteMachine", $machineName);
 }
 ?>
