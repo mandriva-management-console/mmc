@@ -28,6 +28,10 @@ require("modules/samba4/includes/machines-xmlrpc.inc.php");
 
 $filter = $_GET['filter'];
 $domainMembers = listDomainMembers();
+if (!isset($domainMembers)) {
+    $domainMembers = array();
+}
+
 $names = array();
 $descriptions = array();
 $computersEnabled = array();

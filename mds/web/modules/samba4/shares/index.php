@@ -38,6 +38,9 @@ $protectedShares = getProtectedSamba4Shares();
 global $conf;
 
 $shares = getSamba4Shares();
+if (!isset($shares)) {
+    $shares = array();
+}
 $sharesName = array();
 $sharesPath = array();
 $sharesEnabled = array();
