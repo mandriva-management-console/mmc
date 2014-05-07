@@ -32,7 +32,7 @@ require("graph/navbar.inc.php");
 
 /* Provision has been ordered, just handle it or show the form */
 if (isset($_POST["bprovision"]) and ! isSamba4Provisioned()) {
-    if (_doProvision($_POST)) {
+    if (_doProvision()) {
         header("Location: " . urlStrRedirect("base/main/default"));
         exit;
     } else {
@@ -77,7 +77,7 @@ function _showProvisionForm($sidemenu) {
 
 /* Private functions */
 
-function _doProvision($_POST) {
+function _doProvision() {
     if (isset($_POST["domainName"])) {
         $domainName = $_POST["domainName"];
     }

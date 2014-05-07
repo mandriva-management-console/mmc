@@ -46,7 +46,7 @@ else {
 
 /* If the edit form has been submited */
 if(isset($_POST["bmachineedit"])) {
-    list($name, $description, $enabled) = _parseEditMachineForm($_POST);
+    list($name, $description, $enabled) = _parseEditMachineForm();
 
     $editSuccess = editMachine($name, array($name, $description, $enabled));
 
@@ -80,7 +80,7 @@ if($name) {
 }
 
 /* Private functions */
-function _parseEditMachineForm($_POST) {
+function _parseEditMachineForm() {
     $FH = new FormHandler("editMachineFH", $_POST);
 
     $name = $FH->getPostValue("name");

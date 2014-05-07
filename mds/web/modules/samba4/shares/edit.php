@@ -41,7 +41,7 @@ if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 {
     $actionCanBeCalled = True;
 
-    $params = _parseForm($_POST);
+    $params = _parseForm();
     list($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest, $shareGroup, $shareUser) = $params;
 
     $actionCanBeCalled = _shareNameAndPathCheckings($shareName, $sharePath);
@@ -182,7 +182,7 @@ renderTPL("users");
 
 <?php
 /* Private functions */
-function _parseForm($_POST) {
+function _parseForm() {
     $FH = new FormHandler("editSambaShareFH", $_POST);
 
     $shareName = $FH->getPostValue("shareName");
@@ -206,7 +206,7 @@ function _parseForm($_POST) {
     return array($shareName, $sharePath, $shareDescription, $shareEnabled, $shareGuest, $shareGroup, $shareUser);
 }
 
-function _getShareValue($_GET) {
+function _getShareValue() {
     return (isset($_GET["share"])) ? $_GET["share"] : "";
 }
 
