@@ -923,29 +923,9 @@ def sortCommands(commands_to_perform):
         else: # failure in the call...
             return False
 
-    # extract only the ids we need
-    try:
-        filtered_commands_to_perform = list()
-        in_bundles = dict()
-        for (id, bundle, order) in commands_to_perform:
-            if bundle is None: # not a bundle : weeps the commands
-                filtered_commands_to_perform.append(id)
-            else: # it's a bundle : put it in a list ordered by priority
-                if not bundle in in_bundles:
-                    in_bundles[bundle] = dict()
-                if not order in in_bundles[bundle]:
-                    in_bundles[bundle][order] = list()
-                in_bundles[bundle][order].append(id)
-        # add back to filtered_commands_to_perform the bundles with the lower priority
-        for b in in_bundles:
-            max_prio = min(in_bundles[b])
-            for v in in_bundles[b][max_prio]:
-                filtered_commands_to_perform.append(v)
-    except Exception,e: # something weird happened : tell it, and fall back to legacy code
-        logging.getLogger().error('scheduler "%s": START: got %s while optimizing the commands, input was %s' % (SchedulerConfig().name, e, commands_to_perform))
-        filtered_commands_to_perform = list()
-        for (id, bundle, order) in commands_to_perform:
-            filtered_commands_to_perform.append(id)
+    filtered_commands_to_perform = list()
+    for (id, bundle, order) in commands_to_perform:
+        filtered_commands_to_perform.append(id)
 
     # a few pre-randomization to avoid dead locks
     random.shuffle(filtered_commands_to_perform)
@@ -1748,8 +1728,6 @@ def _cbRunPushPullPhaseTestMainMirror(result, mirror, fbmirror, client, myC, myC
                 updateHistory(myCoH.getId(), 'upload_failed', PULSE2_PSERVER_MIRRORFAILED_CONNREF_ERROR, '', result[2])
             elif result[1] == PULSE2_ERR_404:
                 updateHistory(myCoH.getId(), 'upload_failed', PULSE2_PSERVER_MIRRORFAILED_404_ERROR, '', result[2])
-            else:
-                updateHistory(myCoH.getId(), 'upload_failed', PULSE2_UNKNOWN_ERROR, '', result[2])
             return _cbRunPushPullPhaseTestFallbackMirror(result, mirror, fbmirror, client, myC, myCoH)
         else:
             return _runPushPullPhase(mirror, fbmirror, client, myC, myCoH)
@@ -1781,8 +1759,6 @@ def _cbRunPushPullPhase(result, mirror, fbmirror, client, myC, myCoH, useFallbac
                 updateHistory(myCoH.getId(), 'upload_failed', PULSE2_PSERVER_FMIRRORFAILED_CONNREF_ERROR, '', result[2])
             elif result[1] == PULSE2_ERR_404:
                 updateHistory(myCoH.getId(), 'upload_failed', PULSE2_PSERVER_FMIRRORFAILED_404_ERROR, '', result[2])
-            else:
-                updateHistory(myCoH.getId(), 'upload_failed', PULSE2_UNKNOWN_ERROR, '', result[2])
             log.warn("command_on_host #%s: Package '%s' is not available on any mirror" % (myCoH.getId(), myC.package_id))
             updateHistory(myCoH.getId(), 'upload_failed', PULSE2_PSERVER_PACKAGEISUNAVAILABLE_ERROR, '', myC.package_id)
             if not myCoH.switchToUploadFailed(myC.getNextConnectionDelay(), True): # better decrement attemps, as package can't be found
@@ -2965,7 +2941,6 @@ def runFailedPhase(myCommandOnHostID):
 
 def runGiveUpPhase(myCommandOnHostID):
     log.info("command_on_host #%s: Releasing" % myCommandOnHostID)
-    
     if SchedulerConfig().lock_processed_commands:
         CommandsOnHostTracking().release(myCommandOnHostID)
     return None
