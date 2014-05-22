@@ -45,7 +45,7 @@ $module->addSubmod($provisionSubmodule);
 $sharesSubmodule = _createSamba4SharesSubmodule($isProvisioned);
 $module->addSubmod($sharesSubmodule);
 
-$machinesSubmodule = _createSamba4MachinesSubmodule();
+$machinesSubmodule = _createSamba4MachinesSubmodule($isProvisioned);
 $module->addSubmod($machinesSubmodule);
 
 //    $configurationSubmodule = _createSamba4ConfigurationSubmodule();
@@ -114,18 +114,17 @@ function _createSamba4SharesSubmodule($isProvisioned) {
     return $submodule;
 }
 
-function _createSamba4MachinesSubmodule() {
+function _createSamba4MachinesSubmodule($isProvisioned) {
     $submodule = new SubModule("machines");
-//    $submodule->setVisibility(False);
     $submodule->setImg('modules/base/graph/navbar/computer');
     $submodule->setDefaultPage("samba4/machines/index");
     $submodule->setDescription(_T("Machines"),"samba4");
     $submodule->setPriority(20);
-//    $submodule->setAlias('shares');
 
     $page = new Page("index",_T("Computer list","samba4"));
     $page->setImg("modules/samba4/graph/img/machines/icn_global_active.gif",
                 "modules/samba4/graph/img/machines/icn_global.gif");
+    $page->setOptions( array ("visible" => $isProvisioned));
     $submodule->addPage($page);
 
     $page = new Page("ajaxFilter");
