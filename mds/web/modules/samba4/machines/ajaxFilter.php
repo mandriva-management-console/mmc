@@ -24,39 +24,44 @@
  *   Miguel Julián <mjulian@zentyal.com>
  */
 
+require_once("modules/samba4/includes/common-xmlrpc.inc.php");
 require("modules/samba4/includes/machines-xmlrpc.inc.php");
 
-$filter = $_GET['filter'];
-$domainMembers = listDomainMembers();
-if (!isset($domainMembers) or !$domainMembers) {
-    $domainMembers = array();
-}
-
-$names = array();
-$descriptions = array();
-$computersEnabled = array();
-foreach($domainMembers as $computer) {
-    $name = $computer["name"];
-    if (! $computer["enabled"]) {
-        $computersEnabled[] = "disabledRow";
-        $name .= " (" . _T("Disabled") . ") ";
-    } else {
-        $computersEnabled[] = "enabledRow";
+if (!isSamba4Provisioned()) {
+    echo _T("Domain is not provisioned yet");
+} else {
+    $filter = $_GET['filter'];
+    $domainMembers = listDomainMembers();
+    if (!isset($domainMembers) or !$domainMembers) {
+        $domainMembers = array();
     }
-    $names[] = $name;
-    $descriptions[] = $computer["description"];
+
+    $names = array();
+    $descriptions = array();
+    $computersEnabled = array();
+    foreach($domainMembers as $computer) {
+        $name = $computer["name"];
+        if (! $computer["enabled"]) {
+            $computersEnabled[] = "disabledRow";
+            $name .= " (" . _T("Disabled") . ") ";
+        } else {
+            $computersEnabled[] = "enabledRow";
+        }
+        $names[] = $name;
+        $descriptions[] = $computer["description"];
+    }
+
+    $list = new ListInfos($names, _T("Computer name", "samba4"));
+    $list->disableFirstColumnActionLink();
+    $list->setCssClass("machineName");
+    $list->setCssClasses($computersEnabled);
+    $list->setNavBar(new AjaxNavBar(count($domainMembers), $filter));
+
+    $list->addExtraInfo($descriptions, _T("Description", "samba4"));
+    $list->addActionItem(new ActionItem(_T("Edit"),"edit","edit","machine"));
+    //$list->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","machine"));
+
+    $list->setName(_("Computers"));
+    $list->display();
 }
-
-$list = new ListInfos($names, _T("Computer name", "samba4"));
-$list->disableFirstColumnActionLink();
-$list->setCssClass("machineName");
-$list->setCssClasses($computersEnabled);
-$list->setNavBar(new AjaxNavBar(count($domainMembers), $filter));
-
-$list->addExtraInfo($descriptions, _T("Description", "samba4"));
-$list->addActionItem(new ActionItem(_T("Edit"),"edit","edit","machine"));
-//$list->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","machine"));
-
-$list->setName(_("Computers"));
-$list->display();
 ?>
