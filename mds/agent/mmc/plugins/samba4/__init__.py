@@ -115,6 +115,18 @@ def getSamba4GlobalInfo():
     """
     return SambaConf().getGlobalInfo()
 
+def netbiosDomainName():
+    """
+    @return default netbios domain name which is the hostname
+    @rtype str
+    """
+    (exitCode, stdout, stderr) = shlaunch("hostname")
+    if exitCode != 0:
+        error_msg = "Couldn't get hostname (`%d`): %s\n%s" % (exitCode, stdout, stderr)
+        logger.error(error_msg)
+        raise Exception(error_msg)
+    return stdout[0]
+
 def provisionSamba(mode, netbios_domain, realm):
     r = AF().log(PLUGIN_NAME, AA.SAMBA4_PROVISION)
     if mode != 'dc':
