@@ -54,19 +54,14 @@ function _showProvisionForm($sidemenu) {
     $form->push(new Table());
 
     $tr = new TrFormElement(_T("NetBIOS domain name", "samba4"), new InputTpl("domainName"));
-    $form->add($tr, array("value" => "", "required" => True));
+    $form->add($tr, array("value" => getNetbiosDomainName(), "required" => True, "disabled" => "disabled"));
 
-    $tr = new TrFormElement(_T("Realm", "samba4"), new InputTpl("realm"));
+    $tr = new TrFormElement(_T("Realm", "samba4"), new InputTpl("realm", '/[A-Z0-9-]+(\\.[A-Z0-9-]+)*(\\.[A-Z]{2,})/i'));
     $form->add($tr, array("value" => "", "required" => True));
 
     $tr = new TrFormElement(_("Description"), new InputTpl("description"));
     $form->add($tr, array("value" => "", "required" => True));
-    /* Romaing Profiles: disabled for now
-    $mobile = False;
-    $tr = new TrFormElement(_T("Foo de los móviles", "samba4"), new CheckboxTpl("mobile"),
-                                array("tooltip" => _T("If checked, this makes tones of magic", "samba4")));
-    $form->add($tr, array("value" => $mobile ? "checked" : ""));
-    */
+
     $form->pop();
 
     $form->addButton("bprovision", _("Do provision"));
@@ -78,19 +73,19 @@ function _showProvisionForm($sidemenu) {
 /* Private functions */
 
 function _doProvision() {
-    if (isset($_POST["domainName"])) {
-        $domainName = $_POST["domainName"];
-    }
-
     if (isset($_POST["realm"])) {
         $realm = $_POST["realm"];
     }
 
-    if (!$domainName or !$realm) {
+    if (isset($_POST["description"])) {
+        $description = $_POST["description"];
+    }
+
+    if (!$realm or !$description) {
         return False;
     }
 
-    return provisionSamba4($domainName, $realm);
+    return provisionSamba4($realm, $description);
 }
 
 function _redirectIfAlreadyProvisioned() {

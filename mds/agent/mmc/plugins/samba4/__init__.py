@@ -127,19 +127,19 @@ def netbiosDomainName():
         raise Exception(error_msg)
     return stdout[0]
 
-def provisionSamba(mode, netbios_domain, realm):
+def provisionSamba(mode, realm, description):
     r = AF().log(PLUGIN_NAME, AA.SAMBA4_PROVISION)
     if mode != 'dc':
         raise NotImplemented("We can only provision samba4 as Domain Controller")
 
     samba = SambaConf()
-
-    params = {'domain': netbios_domain, 'realm': realm, 'prefix': samba.prefix,
+    netbios_domain_name = netbiosDomainName()
+    params = {'realm': realm, 'prefix': samba.prefix,
               'role': mode, 'adminpass': samba.admin_password,
               'workgroup': samba.workgroupFromRealm(realm)}
     cmd = ("%(prefix)s/bin/samba-tool domain provision"
            " --adminpass='%(adminpass)s'"
-           " --domain='%(domain)s'"
+           " --domain='%(workgroup)s'"
            " --workgroup='%(workgroup)s'"
            " --realm='%(realm)s'"
            " --use-xattr=yes"
@@ -153,7 +153,7 @@ def provisionSamba(mode, netbios_domain, realm):
                          cmd, sambatool.exitCode)
             logger.debug(sambatool.out)
             logger.debug(sambatool.err)
-        samba.writeSambaConfig(mode, netbios_domain, realm)
+        samba.writeSambaConfig(mode, netbios_domain_name, realm, description)
         return sambatool.exitCode == 0
 
     def disable_password_complexity(sambatool):

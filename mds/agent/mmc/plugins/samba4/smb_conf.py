@@ -54,8 +54,6 @@ class SambaConf:
     """
     Handle smb.conf file for Samba 4
     """
-    DEFAULT_DESCRIPTION = 'Mandriva Directory Server - SAMBA %v'
-
     def __init__(self):
         config = Samba4Config("samba4")
         self.smb_conf_path = config.conf_file
@@ -140,8 +138,7 @@ class SambaConf:
     def workgroupFromRealm(self, realm):
         return realm.split('.')[0][:15].upper()
 
-    def writeSambaConfig(self, mode, netbios_name, realm,
-                         description=DEFAULT_DESCRIPTION):
+    def writeSambaConfig(self, mode, netbios_name, realm, description):
         """
         Write SAMBA configuration file (smb.conf) to disk.
 

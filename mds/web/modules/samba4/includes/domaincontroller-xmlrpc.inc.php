@@ -26,8 +26,12 @@
 ?>
 <?php
 
-function provisionSamba4($netBiosDomainName, $realm) {
-    return xmlCall("samba4.provisionSamba", array('dc', $netBiosDomainName, $realm));
+function provisionSamba4($realm, $description) {
+    return xmlCall("samba4.provisionSamba", array('dc', $realm, $description));
+}
+
+function getNetbiosDomainName() {
+    return xmlCall("samba4.netbiosDomainName", array());
 }
 
 ?>
