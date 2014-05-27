@@ -148,9 +148,18 @@ class SambaAD:
     def deleteMachine(self, name):  # TODO
         return True
 
-    def getMachine(self, name):  # TODO
-        return {'name': 'foo name', 'description': 'foo description',
-                'enabled': True}
+    def getMachine(self, name):
+        container_dn = "CN=Computers,%s" % self.samdb.domain_dn()
+        computers = self.samdb.search(base=container_dn,
+                                      scope=ldb.SCOPE_ONELEVEL,
+                                      expression="(&(objectClass=computer)(name=%s))" % name,
+                                      attrs=["description", "operatingSystem"])
+        if not computers or len(computers) < 1:
+            return {'name': name, 'description': 'Unknown', 'enabled': False}
+
+        c = computers[0]
+        description = str(c.get('description', c.get('operatingSystem')))
+        return {'name': name, 'description': description, 'enabled': True}
 
     def editMachine(self, name, description, enabled):  # TODO
         return True
