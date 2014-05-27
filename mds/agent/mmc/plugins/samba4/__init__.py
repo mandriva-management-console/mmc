@@ -29,8 +29,10 @@ MDS samba4 plugin for the MMC agent.
 import os
 import os.path
 import logging
+import socket
 import xmlrpclib
 from time import strftime
+from twisted.internet import defer, reactor
 from mmc.core.version import scmRevision
 from mmc.plugins.base import BasePluginConfig
 from mmc.core.audit import AuditFactory as AF
@@ -170,6 +172,25 @@ def provisionSamba(mode, realm, description):
         d.addCallback(start_samba4_service)
         return d
 
+    # Number of times we will check whether ldap is running on 389 port
+    max_checkings_ldap_running = 10
+    # Sleep time between each check
+    sleep_time = 1
+
+    def check_ldap_is_running(result, tries=1):
+        if tries > max_checkings_ldap_running:
+            logger.info("Ldap is not running after waiting long time")
+            return False
+        logger.info("Checking ldap is running")
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        result = sock.connect_ex(('127.0.0.1', 389))
+        if result == 0:
+            return True
+        d = defer.Deferred()
+        reactor.callLater(sleep_time, d.callback, None)
+        d.addCallback(check_ldap_is_running, tries + 1)
+        return d
+
     def reconfig_ldap_service(result):
         if not result:
             return result
@@ -196,7 +217,10 @@ def provisionSamba(mode, realm, description):
         finally:
             if f:
                 f.close()
-        return True
+        d = defer.Deferred()
+        reactor.callLater(sleep_time, d.callback, None)
+        d.addCallback(check_ldap_is_running)
+        return d
 
     def stop_iptables_services(result):
         if not result:
