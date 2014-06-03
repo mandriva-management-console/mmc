@@ -817,7 +817,8 @@ def gatherIdsToStart(scheduler_name, commandIDs = []):
             database.commands_on_host.c.scheduler == None)
         ).filter(sqlalchemy.not_(
             database.commands.c.id.in_(Pulse2Preempt().members()))
-        ).order_by(database.commands_on_host.c.current_state.desc())
+        ).order_by(database.commands_on_host.c.current_state.desc(),
+                   database.commands.c.order_in_bundle)
         # IMPORTANT NOTE : This ordering is not alphabetical!
         # Field 'current_state' is ENUM type, so decisive condition
         # is order of element in the declaration of field.
