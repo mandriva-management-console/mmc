@@ -152,13 +152,21 @@ def get_openldap_config():
 
 
 WAIT_TIME = 60  # sleep time between each iteration, in seconds
-logger = logging.getLogger()
+
+logger = logging.getLogger("s4sync")
+LOG_LEVEL = logging.DEBUG
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(LOG_LEVEL)
 
 samba_ldap = SambaLdap(get_samba_base_dn())
 ldap_creds = get_openldap_config()
 openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'], ldap_creds['bind_pw'])
 
 
+logger.info("S4Sync daemon started")
 while True:
     samba_users = set(samba_ldap.list_users())
     openldap_users = set(openldap.list_users())
