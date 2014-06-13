@@ -25,6 +25,9 @@ class SambaLdap(object):
             raise Exception("More than 1 entry found, wtf?")
         return entries[0]
 
+    def realm(self):
+        return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
+
     def list_users(self):
         entries = self.l.search_s("CN=Users,%s" % self.base_dn, ldap.SCOPE_SUBTREE,
                                   filterstr='(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(adminCount=*))))',
@@ -85,9 +88,18 @@ class OpenLdap(object):
 
     def list_users(self):
         entries = self.l.search_s('ou=People,%s' % self.base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(objectClass=inetOrgPerson)',
+                                  filterstr='(&(objectClass=inetOrgPerson)(objectClass=krb5KDCEntry))',
                                   attrlist=['uid'])
         return sorted([e[1]['uid'][0] for e in entries])
+
+    def enable_krb5_for(self, username, realm):
+        dn, user = self._get_user(username)
+        if not dn:
+            raise Exception("User not found %s" % username)
+        modlist = [(ldap.MOD_ADD, 'objectclass', 'krb5KDCEntry'),
+                   (ldap.MOD_ADD, 'krb5KeyVersionNumber', '0'),
+                   (ldap.MOD_ADD, 'krb5PrincipalName', '%s@%s' % (username, realm.upper()))]
+        self.l.modify_s(dn, modlist)
 
     def get_keys(self, username):
         _, attrs = self._get_user(username, ['krb5Key'])
@@ -188,7 +200,8 @@ while True:
         logger.debug("OpenLdap User %s is not in Samba" % user)
 
     for user in samba_users - openldap_users:
-        # FIXME do something?
-        logger.debug("Samba User %s is not in OpenLdap" % user)
+        # Try to enable smbk5 overlay for this user
+        openldap.enable_krb5_for(username, samba_ldap.realm())
+        logger.info("Enabled krb5 on OpenLdap user %s" % username)
 
     time.sleep(WAIT_TIME)
