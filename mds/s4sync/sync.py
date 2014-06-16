@@ -53,7 +53,7 @@ class SambaLdap(object):
         control = RequestControl('1.3.6.1.4.1.7165.4.3.12', True)
         self.l.modify_ext_s(dn, modlist, serverctrls=[control])
 
-    def password_timestamp(self, username):
+    def password_timestamp_for(self, username):
         _, attrs = self._get_user(username, ['pwdLastSet'])
         if 'pwdLastSet' not in attrs:
             raise Exception('Samba User doesn\'t have pwdLastSet attribute')
@@ -63,7 +63,7 @@ class SambaLdap(object):
         delta = timedelta(microseconds=int(attrs['pwdLastSet'][0]) / 10)
         return datetime(1601, 1, 1, tzinfo=pytz.UTC) + delta
 
-    def update_password_timestamp(self, username, timestamp):
+    def update_password_timestamp_for(self, username, timestamp):
         dn, _ = self._get_user(username)
         delta = timestamp - datetime(1601, 1, 1, tzinfo=pytz.UTC)
         seconds = int(delta.total_seconds())
@@ -111,11 +111,11 @@ class OpenLdap(object):
         modlist = [(ldap.MOD_REPLACE, 'krb5Key', keys),
                    (ldap.MOD_REPLACE, 'userPassword', '{K5KEY}')]
         self.l.modify_s(dn, modlist)
-        time.sleep(1)
-        changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
-        self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
+        #FIXME change ldap schema so pwdChangeTime can be modified?
+        #changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
+        #self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
 
-    def password_timestamp(self, username):
+    def password_timestamp_for(self, username):
         _, attrs = self._get_user(username, ['pwdChangedTime'])
         if 'pwdChangedTime' not in attrs:
             raise Exception("OpenLdap User doesn't have  attribute")
@@ -129,8 +129,8 @@ def copy_password_from_samba_to_ldap(username, samba_ldap, openldap, timestamp):
     keys = encode_keys(creds.keys)
     openldap.set_kerberos_keys_for(username, keys, timestamp)
     # FIXME change openldap schema to mark pwdChangedTime as NO readonly
-    openldap_timestamp = openldap.password_timestamp(username)
-    samba_ldap.update_password_timestamp(username, openldap_timestamp)
+    openldap_timestamp = openldap.password_timestamp_for(username)
+    samba_ldap.update_password_timestamp_for(username, openldap_timestamp)
 
 
 def copy_password_from_ldap_to_samba(username, samba_ldap, openldap, timestamp):
@@ -163,45 +163,54 @@ def get_openldap_config():
             'bind_pw': mmc_base_config.password}
 
 
-WAIT_TIME = 60  # sleep time between each iteration, in seconds
+class S4Sync(object):
+    def __init__(self):
+        self.samba_ldap = SambaLdap(get_samba_base_dn())
+        ldap_creds = get_openldap_config()
+        self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'], ldap_creds['bind_pw'])
 
-logger = logging.getLogger("s4sync")
-LOG_LEVEL = logging.DEBUG
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(LOG_LEVEL)
+    def sync(self):
+        samba_users = set(self.samba_ldap.list_users())
+        openldap_users = set(self.openldap.list_users())
 
-samba_ldap = SambaLdap(get_samba_base_dn())
-ldap_creds = get_openldap_config()
-openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'], ldap_creds['bind_pw'])
+        common_users = samba_users.intersection(openldap_users)
+
+        for user in common_users:
+            samba_timestamp = self.samba_ldap.password_timestamp_for(user)
+            openldap_timestamp = self.openldap.password_timestamp_for(user)
+            if samba_timestamp > openldap_timestamp:
+                logger.info("Updating %s password on OpenLdap" % user)
+                copy_password_from_samba_to_ldap(user, self.samba_ldap, self.openldap, samba_timestamp)
+            elif openldap_timestamp > samba_timestamp:
+                logger.info("Updating %s password on Samba" % user)
+                copy_password_from_ldap_to_samba(user, self.samba_ldap, self.openldap, openldap_timestamp)
+
+        for user in openldap_users - samba_users:
+            # FIXME do something?
+            logger.debug("OpenLdap User %s is not in Samba" % user)
+
+        for user in samba_users - openldap_users:
+            # Try to enable smbk5 overlay for this user
+            self.openldap.enable_krb5_for(user, self.samba_ldap.realm())
+            logger.info("Enabled krb5 on OpenLdap user %s" % user)
 
 
-logger.info("S4Sync daemon started")
-while True:
-    samba_users = set(samba_ldap.list_users())
-    openldap_users = set(openldap.list_users())
+if __name__ == "__main__":
 
-    common_users = samba_users.intersection(openldap_users)
+    WAIT_TIME = 10  # sleep time between each iteration, in seconds
 
-    for user in common_users:
-        samba_timestamp = samba_ldap.password_timestamp(user)
-        openldap_timestamp = openldap.password_timestamp(user)
-        if samba_timestamp > openldap_timestamp:
-            logger.info("Updating %s password on OpenLdap" % user)
-            copy_password_from_samba_to_ldap(user, samba_ldap, openldap, samba_timestamp)
-        elif openldap_timestamp > samba_timestamp:
-            logger.info("Updating %s password on Samba" % user)
-            copy_password_from_ldap_to_samba(user, samba_ldap, openldap, openldap_timestamp)
+    logger = logging.getLogger("s4sync")
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
 
-    for user in openldap_users - samba_users:
-        # FIXME do something?
-        logger.debug("OpenLdap User %s is not in Samba" % user)
-
-    for user in samba_users - openldap_users:
-        # Try to enable smbk5 overlay for this user
-        openldap.enable_krb5_for(username, samba_ldap.realm())
-        logger.info("Enabled krb5 on OpenLdap user %s" % username)
-
-    time.sleep(WAIT_TIME)
+    s4sync = S4Sync()
+    logger.info("S4Sync daemon started")
+    while True:
+        try:
+            s4sync.sync()
+        except:
+            logger.exception("Error syncing")
+        time.sleep(WAIT_TIME)
