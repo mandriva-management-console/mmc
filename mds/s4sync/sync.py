@@ -164,10 +164,11 @@ def get_openldap_config():
 
 
 class S4Sync(object):
-    def __init__(self):
+    def __init__(self, logger):
         self.samba_ldap = SambaLdap(get_samba_base_dn())
         ldap_creds = get_openldap_config()
         self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'], ldap_creds['bind_pw'])
+        self.logger = logger
 
     def sync(self):
         samba_users = set(self.samba_ldap.list_users())
@@ -179,20 +180,20 @@ class S4Sync(object):
             samba_timestamp = self.samba_ldap.password_timestamp_for(user)
             openldap_timestamp = self.openldap.password_timestamp_for(user)
             if samba_timestamp > openldap_timestamp:
-                logger.info("Updating %s password on OpenLdap" % user)
+                self.logger.info("Updating %s password on OpenLdap" % user)
                 copy_password_from_samba_to_ldap(user, self.samba_ldap, self.openldap, samba_timestamp)
             elif openldap_timestamp > samba_timestamp:
-                logger.info("Updating %s password on Samba" % user)
+                self.logger.info("Updating %s password on Samba" % user)
                 copy_password_from_ldap_to_samba(user, self.samba_ldap, self.openldap, openldap_timestamp)
 
         for user in openldap_users - samba_users:
             # FIXME do something?
-            logger.debug("OpenLdap User %s is not in Samba" % user)
+            self.logger.debug("OpenLdap User %s is not in Samba" % user)
 
         for user in samba_users - openldap_users:
             # Try to enable smbk5 overlay for this user
             self.openldap.enable_krb5_for(user, self.samba_ldap.realm())
-            logger.info("Enabled krb5 on OpenLdap user %s" % user)
+            self.logger.info("Enabled krb5 on OpenLdap user %s" % user)
 
 
 if __name__ == "__main__":
@@ -206,7 +207,7 @@ if __name__ == "__main__":
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
-    s4sync = S4Sync()
+    s4sync = S4Sync(logger)
     logger.info("S4Sync daemon started")
     while True:
         try:
