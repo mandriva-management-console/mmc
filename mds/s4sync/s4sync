@@ -11,11 +11,11 @@
 # Description: Runs s4sync daemon
 ### END INIT INFO
 
-BASE_DIR=/usr/lib/python2.7/site-packages/mmc
+BASE_DIR=/usr/lib/python2.7/site-packages/mmc/s4sync
 DAEMON=${BASE_DIR}/s4sync.py
 
 
-if [ ! -x $DAEMON ]; then
+if [ ! -f $DAEMON ]; then
     echo "$DAEMON doesn't exist"
     exit 1
 fi
