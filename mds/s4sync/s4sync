@@ -1,0 +1,45 @@
+ #! /bin/bash
+### BEGIN INIT INFO
+# Provides: s4sync
+# Required-Start:
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:  3 5
+# Default-Stop:   0 1 2 6
+# Short-Description: Sync between samba4 and openldap user's passwords
+# Description: Runs s4sync daemon
+### END INIT INFO
+
+BASE_DIR=/usr/lib/python2.7/site-packages/mmc
+DAEMON=${BASE_DIR}/s4sync.py
+
+
+if [ ! -x $DAEMON ]; then
+    echo "$DAEMON doesn't exist"
+    exit 1
+fi
+
+case "$1" in
+  start)
+    echo "Starting s4sync"
+    # Start the daemon
+    python $DAEMON start
+    ;;
+  stop)
+    echo "Stopping s4sync"
+    # Stop the daemon
+    python $DAEMON stop
+    ;;
+  restart)
+    echo "Restarting s4sync"
+    python $DAEMON restart
+    ;;
+  *)
+    # Refuse to do other stuff
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
