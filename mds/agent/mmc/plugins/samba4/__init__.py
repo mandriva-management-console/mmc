@@ -236,9 +236,18 @@ def provisionSamba(mode, realm, description):
             return result
         logger.info("provision: Starting samba4.service")
         (exitCode, stdout, stderr) = shlaunch("service samba4 start")
-        # don't care if fails
-        shlaunch("service s4sync start")
-        # return ServiceManager().start("samba4")
+        if exitCode != 0:
+            return False
+        d = defer.Deferred()
+        reactor.callLater(sleep_time, d.callback, True)
+        d.addCallback(start_s4sync_service)
+        return d
+
+    def start_s4sync_service(result):
+        if not result:
+            return result
+        logger.info("provision: Starting s4sync daemon")
+        (exitCode, stdout, stderr) = shlaunch("service s4sync start")
         return exitCode == 0
 
     d = shLaunchDeferred(cmd)
