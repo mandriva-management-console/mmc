@@ -236,6 +236,8 @@ def provisionSamba(mode, realm, description):
             return result
         logger.info("provision: Starting samba4.service")
         (exitCode, stdout, stderr) = shlaunch("service samba4 start")
+        # don't care if fails
+        shlaunch("service s4sync start")
         # return ServiceManager().start("samba4")
         return exitCode == 0
 
