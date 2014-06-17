@@ -24,6 +24,7 @@ class S4SyncApp(object):
                 s4sync.sync()
             except:
                 self.logger.exception("Unexpected error when trying to sync")
+                s4sync.reset()
             time.sleep(self.WAIT_TIME)
 
 

@@ -148,6 +148,8 @@ def get_samba_base_dn():
     """
     from mmc.plugins.samba4 import getSamba4GlobalInfo
     info = getSamba4GlobalInfo()
+    if 'realm' not in info:
+        return None
     return str('DC=%s' % ',DC='.join(info['realm'].split('.')))
 
 
@@ -165,10 +167,19 @@ def get_openldap_config():
 
 class S4Sync(object):
     def __init__(self, logger):
-        self.samba_ldap = SambaLdap(get_samba_base_dn())
+        try:
+            self.reset()
+        except:
+            pass
+        self.logger = logger
+
+    def reset(self):
+        samba_base_dn = get_samba_base_dn()
+        if samba_base_dn is None:
+            raise Exception("Samba4 is not provisioned")
+        self.samba_ldap = SambaLdap(samba_base_dn)
         ldap_creds = get_openldap_config()
         self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'], ldap_creds['bind_pw'])
-        self.logger = logger
 
     def sync(self):
         samba_users = set(self.samba_ldap.list_users())
@@ -214,4 +225,5 @@ if __name__ == "__main__":
             s4sync.sync()
         except:
             logger.exception("Error syncing")
+            s4sync.reset()
         time.sleep(WAIT_TIME)
