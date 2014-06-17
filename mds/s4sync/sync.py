@@ -5,6 +5,7 @@ from ldap.controls import RequestControl
 from datetime import datetime, timedelta
 import pytz
 import time
+import sys
 import logging
 
 
@@ -148,7 +149,7 @@ def get_samba_base_dn():
     """
     from mmc.plugins.samba4 import getSamba4GlobalInfo
     info = getSamba4GlobalInfo()
-    if 'realm' not in info:
+    if not info['realm']:
         return None
     return str('DC=%s' % ',DC='.join(info['realm'].split('.')))
 
@@ -165,18 +166,18 @@ def get_openldap_config():
             'bind_pw': mmc_base_config.password}
 
 
+class Samba4NotProvisioned(Exception):
+    pass
+
 class S4Sync(object):
     def __init__(self, logger):
-        try:
-            self.reset()
-        except:
-            pass
+        self.reset()
         self.logger = logger
 
     def reset(self):
         samba_base_dn = get_samba_base_dn()
         if samba_base_dn is None:
-            raise Exception("Samba4 is not provisioned")
+            raise Samba4NotProvisioned()
         self.samba_ldap = SambaLdap(samba_base_dn)
         ldap_creds = get_openldap_config()
         self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'], ldap_creds['bind_pw'])
@@ -218,11 +219,19 @@ if __name__ == "__main__":
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
-    s4sync = S4Sync(logger)
+    try:
+        s4sync = S4Sync(logger)
+    except Samba4NotProvisioned:
+        logger.error("Samba4 not provisioned? exiting...")
+        sys.exit(1)
+
     logger.info("S4Sync daemon started")
     while True:
         try:
             s4sync.sync()
+        except Samba4NotProvisioned:
+            logger.error("Samba4 not provisioned? exiting...")
+            sys.exit(1)
         except:
             logger.exception("Error syncing")
             s4sync.reset()

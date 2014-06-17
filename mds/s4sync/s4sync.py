@@ -1,7 +1,7 @@
 import logging
 import time
 from daemon import runner
-from sync import S4Sync
+from sync import S4Sync, Samba4NotProvisioned
 
 
 class S4SyncApp(object):
@@ -17,11 +17,19 @@ class S4SyncApp(object):
         self.logger = logger
 
     def run(self):
-        s4sync = S4Sync(self.logger)
+        try:
+            s4sync = S4Sync(self.logger)
+        except Samba4NotProvisioned:
+            logger.error("Samba4 not provisioned? exiting...")
+            return
+
         self.logger.info("S4Sync daemon started")
         while True:
             try:
                 s4sync.sync()
+            except Samba4NotProvisioned:
+                logger.error("Samba4 not provisioned? exiting...")
+                return
             except:
                 self.logger.exception("Unexpected error when trying to sync")
                 s4sync.reset()
