@@ -156,6 +156,7 @@ def provisionSamba(mode, realm, description):
             logger.debug(sambatool.out)
             logger.debug(sambatool.err)
         samba.writeSambaConfig(mode, netbios_domain_name, realm, description)
+        samba.writeKrb5Config(realm)
         return sambatool.exitCode == 0
 
     def disable_password_complexity(sambatool):
