@@ -78,7 +78,7 @@ $status = getSmbStatus();
 
 if (count($status)!=0) {
     foreach ($status as $sharename => $connects) {
-        if (!in_array($sharename, array("homes", "IPC$", "netlogon", "archive")))
+        if (!in_array($sharename, array("homes", "IPC$", "netlogon", "archives")))
             $link = '<a href="'.urlStr('samba/shares/details',array('share'=>$sharename)).'">'.$sharename.'</a>';
         else
             $link = $sharename;
