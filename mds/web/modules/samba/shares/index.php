@@ -24,7 +24,7 @@
 /* $Id$ */
 
 /* protected share */
-$protectedShare= array ("","homes","netlogon","archive");
+$protectedShare= array ("","homes","netlogon","archives");
 
 require("modules/samba/includes/shares.inc.php");
 require("modules/samba/mainSidebar.php");
