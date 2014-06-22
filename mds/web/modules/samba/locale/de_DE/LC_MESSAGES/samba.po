@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-06-02 01:06+0200\n"
+"POT-Creation-Date: 2014-06-21 16:59+0200\n"
 "PO-Revision-Date: 2014-01-29 08:57+0000\n"
 "Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
@@ -561,15 +561,6 @@ msgstr "Sie löschen die Freigabe <b>%s</b>"
 msgid "Delete all data"
 msgstr "alle Daten löschen"
 
-#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
-#: modules/samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr "Freigaben"
-
-#: modules/samba/shares/index.php:68
-msgid "Archive"
-msgstr "archivieren"
-
 #: modules/samba/shares/localSidebar.php:28
 msgid "Shares management"
 msgstr "Freigabeverwaltung"
@@ -641,6 +632,15 @@ msgstr "Spezifische Parameter"
 #: modules/samba/shares/details.php:331
 msgid "Create"
 msgstr "erstellen"
+
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
+msgid "Shares"
+msgstr "Freigaben"
+
+#: modules/samba/shares/index.php:68
+msgid "Archive"
+msgstr "archivieren"
 
 #: modules/samba/status/index.php:36
 msgid "Samba status"

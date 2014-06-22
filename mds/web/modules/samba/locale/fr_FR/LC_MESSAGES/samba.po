@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-06-02 01:06+0200\n"
+"POT-Creation-Date: 2014-06-21 16:59+0200\n"
 "PO-Revision-Date: 2014-01-29 13:41+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
@@ -556,15 +556,6 @@ msgstr "Vous allez supprimer le partage <b>%s</b>"
 msgid "Delete all data"
 msgstr "Supprimer toutes les données"
 
-#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
-#: modules/samba/infoPackage.inc.php:40
-msgid "Shares"
-msgstr "Partages"
-
-#: modules/samba/shares/index.php:68
-msgid "Archive"
-msgstr "Archive"
-
 #: modules/samba/shares/localSidebar.php:28
 msgid "Shares management"
 msgstr "Gestion des partages"
@@ -636,6 +627,15 @@ msgstr "Paramètres personnalisés"
 #: modules/samba/shares/details.php:331
 msgid "Create"
 msgstr "Créer"
+
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
+msgid "Shares"
+msgstr "Partages"
+
+#: modules/samba/shares/index.php:68
+msgid "Archive"
+msgstr "Archive"
 
 #: modules/samba/status/index.php:36
 msgid "Samba status"
