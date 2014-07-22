@@ -37,6 +37,7 @@ echo "gather RPMs"
 rm -r *.rpm
 cp ${spec_dir}/RPMS/x86_64/mmc-web-samba4-2.5.1-1.x86_64.rpm ./
 cp ${spec_dir}/RPMS/x86_64/python-mmc-samba4-2.5.1-1.x86_64.rpm ./
+cp ${spec_dir}/RPMS/x86_64/python-s4sync-2.5.1-1.x86_64.rpm ./
 if [ ! -f mmc-web-samba4-2.5.1-1.x86_64.rpm ] || [ ! -f python-mmc-samba4-2.5.1-1.x86_64.rpm ]; then
 	echo "No RPMs to gather..."
 	exit 3

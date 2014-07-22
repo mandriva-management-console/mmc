@@ -73,6 +73,21 @@ Requires:	samba4 >= 4.1.4
 Samba4 management plugin for the MMC. It includes
 Samba4 domain, accounts and shares management.
 
+%package -n     python-s4sync
+Summary:        Daemon to synchronize samba4 and OpenLdap passwords
+Group:          %{group}
+Requires:       acl
+Requires:       %{python}
+Requires:       %{pylibacl}
+Requires:       python-mmc-samba4
+Requires:       pyasn1
+Requires:       python-pytz
+Requires:       python-daemon
+
+%description -n python-s4sync
+Daemon to synchronize Samba4 and OpenLdap passwords.
+It's bidirectional.
+
 %package -n	python-mmc-mail
 Summary:	Mandriva Management Console base plugin
 Group:		%{group}
@@ -266,6 +281,9 @@ touch mail.lang network.lang proxy.lang samba.lang samba4.lang bulkimport.lang s
 %clean
 rm -rf %{buildroot}
 
+%post -n python-s4sync
+/etc/init.d/s4sync start
+
 %files -n python-mmc-mail
 %defattr(-,root,root,0755)
 %dir %{_sysconfdir}/mmc
@@ -323,6 +341,14 @@ rm -rf %{buildroot}
 #%{_libdir}/mmc/add_printer_script
 #%{_libdir}/mmc/delete_printer_script
 #%{_libdir}/mmc/delete_share_script
+
+%files -n python-s4sync
+%defattr(-,root,root,0755)
+%dir %{py_puresitedir}
+%dir %{py_puresitedir}/mmc
+%dir %{py_puresitedir}/mmc/s4sync
+%{py_puresitedir}/mmc/s4sync
+%{_sysconfdir}/init.d/s4sync
 
 %files -n python-mmc-bulkimport
 %defattr(-,root,root,0755)
@@ -400,6 +426,9 @@ rm -rf %{buildroot}
 %{_datadir}/mmc/modules/userquota
 
 %changelog
+* Tue Jun 16 2014 Jesús García Sáez <jgarcia@zentyal.com> 2.5.1-2
+- Added s4sync package
+
 * Sun Apr 13 2014 Kamen Mazdrashki <kmazdrashki@zentyal.com> 2.5.1-1
 - Bump version to 2.5.1-1
 - Add packaging for python-mmc-samba4 and mmc-web-samba4

@@ -54,6 +54,8 @@ class SambaConf:
     """
     Handle smb.conf file for Samba 4
     """
+    KRB5_CONF_PATH = '/etc/krb5.conf'
+
     def __init__(self):
         config = Samba4Config("samba4")
         self.smb_conf_path = config.conf_file
@@ -170,6 +172,12 @@ class SambaConf:
             with open(openchange_conf, 'w') as f:
                 f.write(openchange_conf_template.render())
         return params
+
+    def writeKrb5Config(self, realm):
+        params = {'realm': realm}
+        krb5_conf_template = env.get_template('krb5.conf')
+        with open(self.KRB5_CONF_PATH, 'w') as f:
+            f.write(krb5_conf_template.render(params))
 
     def getDetailedShares(self):
         """Return detailed list of shares"""

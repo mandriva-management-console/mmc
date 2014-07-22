@@ -91,6 +91,18 @@ AC_ARG_ENABLE([conf-backup],
               [enable_conf_backup="yes"])
 AM_CONDITIONAL([ENABLE_CONF_BACKUP], [test "$enable_conf_backup" = "yes"])
 
+dnl
+dnl --with-initdir
+dnl   Set path to init scripts directory
+dnl   Default to SYSCONFDIR/init.d
+dnl
+AC_ARG_WITH([initdir],
+            [AS_HELP_STRING([--with-initdir],
+                            [path to init scripts directory @<:@default=SYSCONFDIR/init.d@:>@])],
+            [initdir="$withval"],
+            [initdir="${sysconfdir}/init.d"])
+AC_SUBST([initdir])
+
 dnl files to generate with automake
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([agent/Makefile])
@@ -99,6 +111,7 @@ AC_CONFIG_FILES([agent/bin/Makefile])
 AC_CONFIG_FILES([agent/conf/Makefile])
 AC_CONFIG_FILES([agent/conf/plugins/Makefile])
 AC_CONFIG_FILES([agent/contrib/Makefile])
+AC_CONFIG_FILES([s4sync/Makefile])
 AC_CONFIG_FILES([web/Makefile])
 AC_CONFIG_FILES([web/modules/Makefile])
 AC_CONFIG_FILES([web/modules/bulkimport/Makefile])
