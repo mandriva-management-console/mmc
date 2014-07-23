@@ -29,10 +29,8 @@ MDS samba4 plugin for the MMC agent.
 import os
 import os.path
 import logging
-import socket
 import xmlrpclib
 from time import strftime
-from twisted.internet import defer, reactor
 from mmc.core.version import scmRevision
 from mmc.plugins.base import BasePluginConfig
 from mmc.core.audit import AuditFactory as AF
@@ -41,8 +39,7 @@ from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.samba4 import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
-from mmc.support.mmctools import (cleanFilter, shlaunchBackground,
-                                  shLaunchDeferred, progressBackup, shlaunch)
+from mmc.support.mmctools import shlaunchBackground, progressBackup
 
 logger = logging.getLogger()
 
@@ -113,147 +110,6 @@ def getSamba4GlobalInfo():
     @rtype: dict
     """
     return SambaConf().getGlobalInfo()
-
-def netbiosDomainName():
-    """
-    @return default netbios domain name which is the hostname
-    @rtype str
-    """
-    (exitCode, stdout, stderr) = shlaunch("hostname")
-    if exitCode != 0:
-        error_msg = "Couldn't get hostname (`%d`): %s\n%s" % (exitCode, stdout, stderr)
-        logger.error(error_msg)
-        raise Exception(error_msg)
-    return stdout[0]
-
-def provisionSamba(mode, realm, description):
-    r = AF().log(PLUGIN_NAME, AA.SAMBA4_PROVISION)
-    if mode != 'dc':
-        raise NotImplemented("We can only provision samba4 as Domain Controller")
-
-    samba = SambaConf()
-    netbios_domain_name = netbiosDomainName()
-    params = {'realm': realm, 'prefix': samba.prefix,
-              'role': mode, 'adminpass': samba.admin_password,
-              'workgroup': samba.workgroupFromRealm(realm)}
-    cmd = ("%(prefix)s/bin/samba-tool domain provision"
-           " --adminpass='%(adminpass)s'"
-           " --domain='%(workgroup)s'"
-           " --workgroup='%(workgroup)s'"
-           " --realm='%(realm)s'"
-           " --use-xattr=yes"
-           " --use-rfc2307"
-           " --server-role='%(role)s'" % params)
-
-    def domain_provision_cb(_, sambatool):
-        logger.info("provision: domain_provision_cb")
-        if sambatool.exitCode != 0:
-            logger.debug("Fail executing %s, ret code %d",
-                         cmd, sambatool.exitCode)
-            logger.debug(sambatool.out)
-            logger.debug(sambatool.err)
-            return False
-        samba.writeSambaConfig(mode, netbios_domain_name, realm, description)
-        samba.writeKrb5Config(realm)
-        return sambatool.exitCode == 0
-
-    def disable_password_complexity(sambatool):
-        logger.info("provision: disable_password_complexity")
-        cmd = ("%s/bin/samba-tool domain passwordsettings set"
-               " --complexity=off"
-               " --min-pwd-length=0"
-               " --min-pwd-age=0"
-               " --max-pwd-age=999" % samba.prefix)
-        d = shLaunchDeferred(cmd)
-        d.addCallback(domain_provision_cb, sambatool)
-        d.addCallback(reconfig_ldap_service)
-        d.addCallback(stop_iptables_services)
-        d.addCallback(start_samba4_service)
-        return d
-
-    # Number of times we will check whether ldap is running on 389 port
-    max_checkings_ldap_running = 10
-    # Sleep time between each check
-    sleep_time = 1
-
-    def check_ldap_is_running(result, tries=1):
-        if tries > max_checkings_ldap_running:
-            logger.info("Ldap is not running after waiting long time")
-            return False
-        logger.info("Checking ldap is running")
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        result = sock.connect_ex(('127.0.0.1', 389))
-        if result == 0:
-            return True
-        d = defer.Deferred()
-        reactor.callLater(sleep_time, d.callback, None)
-        d.addCallback(check_ldap_is_running, tries + 1)
-        return d
-
-    def reconfig_ldap_service(result):
-        if not result:
-            return result
-        logger.info("provision: reconfig ldap service")
-        should_reconfing = True
-        f = None
-        try:
-            f = open('/etc/sysconfig/ldap', 'r')
-            for line in f:
-                if line.lstrip().startswith('SLAPDURLLIST='):
-                    should_reconfing = False
-            if should_reconfing:
-                f.close()
-                f = open('/etc/sysconfig/ldap', 'a')
-                import os
-                f.write(os.linesep)
-                f.write('SLAPDURLLIST="ldap://127.0.0.1"')
-                f.write(os.linesep)
-                # restart slapd
-                exit_code, stdout, stderr = shlaunch("service ldap restart")
-                if exit_code != 0:
-                    return False
-        except Exception as e:
-            logger.error(e.message)
-            return False
-        finally:
-            if f:
-                f.close()
-        d = defer.Deferred()
-        reactor.callLater(sleep_time, d.callback, None)
-        d.addCallback(check_ldap_is_running)
-        return d
-
-    def stop_iptables_services(result):
-        if not result:
-            return result
-        logger.info("provision: Stopping iptables service")
-        exit_code, stdout, stderr = shlaunch("service iptables start")
-        return exit_code == 0
-
-    def start_samba4_service(result):
-        if not result:
-            return result
-        logger.info("provision: Starting samba4 service")
-        exit_code, stdout, stderr = shlaunch("service samba4 start")
-        if exit_code != 0:
-            return False
-        d = defer.Deferred()
-        reactor.callLater(sleep_time, d.callback, True)
-        d.addCallback(start_s4sync_service)
-        return d
-
-    def start_s4sync_service(result):
-        if not result:
-            return result
-        logger.info("provision: Starting s4sync daemon")
-        exit_code, stdout, stderr = shlaunch("service s4sync start")
-        return exit_code == 0
-
-    d = shLaunchDeferred(cmd)
-    d.addCallback(disable_password_complexity)
-
-    r.commit()
-    return d
 
 # v Shares --------------------------------------------------------------------
 

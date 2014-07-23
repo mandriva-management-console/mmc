@@ -62,7 +62,6 @@ class SambaConf:
         self.default_shares_path = config.defaultSharesPath
         self.authorizedSharePaths = config.authorizedSharePaths
         self.prefix = config.samba_prefix
-        self.admin_password = config.samba_admin_password
         try:
             self.config = ConfigObj(self.smb_conf_path, interpolation=False,
                                     list_values=False, write_empty_values=True,
