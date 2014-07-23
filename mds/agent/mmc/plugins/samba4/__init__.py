@@ -42,10 +42,7 @@ from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.samba4 import SambaAD
 from mmc.plugins.samba4.helpers import shellquote
 from mmc.support.mmctools import (cleanFilter, shlaunchBackground,
-                                  shLaunchDeferred, progressBackup,
-                                  shlaunch)
-from mmc.plugins.services import ServiceManager
-
+                                  shLaunchDeferred, progressBackup, shlaunch)
 
 logger = logging.getLogger()
 
@@ -155,6 +152,7 @@ def provisionSamba(mode, realm, description):
                          cmd, sambatool.exitCode)
             logger.debug(sambatool.out)
             logger.debug(sambatool.err)
+            return False
         samba.writeSambaConfig(mode, netbios_domain_name, realm, description)
         samba.writeKrb5Config(realm)
         return sambatool.exitCode == 0
@@ -195,7 +193,7 @@ def provisionSamba(mode, realm, description):
     def reconfig_ldap_service(result):
         if not result:
             return result
-        logger.info("provision: reconfig_ldap_service")
+        logger.info("provision: reconfig ldap service")
         should_reconfing = True
         f = None
         try:
@@ -211,7 +209,9 @@ def provisionSamba(mode, realm, description):
                 f.write('SLAPDURLLIST="ldap://127.0.0.1"')
                 f.write(os.linesep)
                 # restart slapd
-                ServiceManager().restart("ldap")
+                exit_code, stdout, stderr = shlaunch("service ldap restart")
+                if exit_code != 0:
+                    return False
         except Exception as e:
             logger.error(e.message)
             return False
@@ -226,17 +226,16 @@ def provisionSamba(mode, realm, description):
     def stop_iptables_services(result):
         if not result:
             return result
-        if ServiceManager().get_unit_info("iptables")['active_state'] == 'active':
-            logger.info("provision: stop iptables.service")
-            return ServiceManager().stop("iptables")
-        return True
+        logger.info("provision: Stopping iptables service")
+        exit_code, stdout, stderr = shlaunch("service iptables start")
+        return exit_code == 0
 
     def start_samba4_service(result):
         if not result:
             return result
-        logger.info("provision: Starting samba4.service")
-        (exitCode, stdout, stderr) = shlaunch("service samba4 start")
-        if exitCode != 0:
+        logger.info("provision: Starting samba4 service")
+        exit_code, stdout, stderr = shlaunch("service samba4 start")
+        if exit_code != 0:
             return False
         d = defer.Deferred()
         reactor.callLater(sleep_time, d.callback, True)
@@ -247,8 +246,8 @@ def provisionSamba(mode, realm, description):
         if not result:
             return result
         logger.info("provision: Starting s4sync daemon")
-        (exitCode, stdout, stderr) = shlaunch("service s4sync start")
-        return exitCode == 0
+        exit_code, stdout, stderr = shlaunch("service s4sync start")
+        return exit_code == 0
 
     d = shLaunchDeferred(cmd)
     d.addCallback(disable_password_complexity)
