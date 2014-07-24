@@ -7,8 +7,6 @@ sambaPrefix = /opt/samba4
 sambaConfFile = /opt/samba4/etc/smb.conf
 sambaInitScript = /etc/rc.d/init.d/samba4
 
-sambaAdminPassword = P@ssword1
-
 defaultSharesPath = /home/samba
 # You can specify authorized paths for share creation
 # Default value is the defaultSharesPath value

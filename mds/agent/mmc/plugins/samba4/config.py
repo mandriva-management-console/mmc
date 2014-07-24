@@ -40,9 +40,6 @@ class Samba4Config(PluginConfig):
         try: self.init_script = self.get("main", "sambaInitScript")
         except: pass
 
-        try: self.samba_admin_password = self.get("main", "sambaAdminPassword")
-        except: pass
-
         self.defaultSharesPath = self.get("main", "defaultSharesPath")
 
         try:

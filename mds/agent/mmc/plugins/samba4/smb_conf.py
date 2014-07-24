@@ -62,7 +62,6 @@ class SambaConf:
         self.default_shares_path = config.defaultSharesPath
         self.authorizedSharePaths = config.authorizedSharePaths
         self.prefix = config.samba_prefix
-        self.admin_password = config.samba_admin_password
         try:
             self.config = ConfigObj(self.smb_conf_path, interpolation=False,
                                     list_values=False, write_empty_values=True,
@@ -394,11 +393,10 @@ class SambaConf:
 
         info = self.shareInfo(name)
         # FIXME are this signals used?
-        if mod:
+        if mod and share_modified:
             share_modified.send(sender=self, share_name=name, share_info=info)
-        else:
+        elif not mod and share_created:
             share_created.send(sender=self, share_name=name, share_info=info)
-
         r.commit()
 
     def getACLOnShare(self, name):

@@ -39,44 +39,16 @@ $module->setPriority(20);
 
 $isProvisioned = isSamba4Provisioned();
 
-$provisionSubmodule = _createSamba4ProvisionSubmodule($isProvisioned);
-$module->addSubmod($provisionSubmodule);
-
 $sharesSubmodule = _createSamba4SharesSubmodule($isProvisioned);
 $module->addSubmod($sharesSubmodule);
 
 $machinesSubmodule = _createSamba4MachinesSubmodule($isProvisioned);
 $module->addSubmod($machinesSubmodule);
 
-//    $configurationSubmodule = _createSamba4ConfigurationSubmodule();
-//    $module->addSubmod($configurationSubmodule);
 
 $MMCApp =& MMCApp::getInstance();
 $MMCApp->addModule($module);
 
-
-/*
- * Private functions
- */
-function _createSamba4ProvisionSubmodule($isProvisioned) {
-    $submodule = new SubModule("domaincontroller");
-
-    $submodule->setDescription(_T("Domain", "samba4"));
-    $submodule->setImg('modules/samba4/graph/navbar/share');
-    $submodule->setDefaultPage("samba4/domaincontroller/provision");
-    $submodule->setVisibility(!$isProvisioned);
-    $submodule->setPriority(20);
-
-    $provisionPage = new Page("provision",_T("Provisioning", "samba4"));
-    $provisionPage->setImg(
-        "modules/samba4/graph/img/provision/icn_provision_active.gif",
-        "modules/samba4/graph/img/provision/icn_provision.gif"
-    );
-    $provisionPage->setOptions( array ("visible" => !$isProvisioned));
-    $submodule->addPage($provisionPage);
-
-    return $submodule;
-}
 
 function _createSamba4SharesSubmodule($isProvisioned) {
     $submodule = new SubModule("shares");
@@ -138,36 +110,6 @@ function _createSamba4MachinesSubmodule($isProvisioned) {
     $page = new Page("delete",_T("Delete a computer","samba4"));
     $page->setOptions( array ("noHeader" => True,"visible"=>False));
     $submodule->addPage($page);
-
-    return $submodule;
-}
-
-function _createSamba4ConfigurationSubmodule() {
-    $submodule = new SubModule("configuration");
-
-    $submodule->setDefaultPage("samba4/config/index");
-    $submodule->setImg('modules/samba4/graph/navbar/pref');
-    $submodule->setDescription(_T("Configuration"),"samba4");
-    $submodule->setVisibility(False);
-    $submodule->setAlias('shares');
-
-
-    $page = new Page("index",_T("SAMBA configuration","samba4"));
-    $page->setImg("modules/samba4/graph/img/config/icn_global_active.gif",
-                "modules/samba4/graph/img/config/icn_global.gif");
-    $submodule->addPage($page);
-
-    $page = new Page("restart",_T("restart SAMBA service","samba4"));
-    $page->setOptions(array("visible"=>False));
-    $submodule->addPage($page);
-
-    $page = new Page("reload",_T("Reload SAMBA service","samba4"));
-    $page->setOptions(array("visible"=>False));
-    $submodule->addPage($page);
-
-    $restoreConfigurationPage = new Page("",_T("Restore SAMBA configuration", "samba4"));
-    $restoreConfigurationPage->setOptions(array("visible"=>False));
-    $submodule->addPage($restoreConfigurationPage);
 
     return $submodule;
 }
