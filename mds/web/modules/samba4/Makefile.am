@@ -24,16 +24,12 @@
 datafiles = \
 	mainSidebar.php \
 	infoPackage.inc.php \
-	domaincontroller/purge.php \
-	domaincontroller/provision.php \
-	domaincontroller/index.css \
 	graph/navbar/pref.png \
 	graph/navbar/pref_hl.png \
 	graph/navbar/pref_select.png \
 	graph/navbar/share.png \
 	graph/navbar/share_select.png \
 	graph/navbar/share_hl.png \
-	graph/domaincontroller/index.css \
 	graph/img/shares/icn_addShare_active.gif \
 	graph/img/shares/icn_shareList.gif \
 	graph/img/shares/icn_global.gif \
@@ -51,11 +47,7 @@ datafiles = \
 	graph/img/machines/icn_global_ro.gif \
 	graph/img/machines/icn_addMachines_ro.gif \
 	graph/img/machines/icn_addMachines_active.gif \
-	graph/img/provision/icn_provision.gif \
-	graph/img/provision/icn_provision_ro.gif \
-	graph/img/provision/icn_provision_active.gif \
 	includes/common-xmlrpc.inc.php \
-	includes/domaincontroller-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
 	includes/publicFunc.php \
 	includes/shares-xmlrpc.inc.php \
