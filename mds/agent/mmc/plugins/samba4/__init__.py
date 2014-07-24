@@ -38,7 +38,6 @@ from mmc.plugins.samba4.audit import AA, AT, PLUGIN_NAME
 from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
 from mmc.plugins.samba4.samba4 import SambaAD
-from mmc.plugins.samba4.helpers import shellquote
 from mmc.support.mmctools import shlaunchBackground, progressBackup
 
 logger = logging.getLogger()
@@ -68,30 +67,6 @@ def activate():
         logger.error(config.init_script + " does not exist")
         return False
 
-    return True
-
-def reloadSamba():
-    r = AF().log(PLUGIN_NAME, AA.SAMBA4_RELOAD)
-    shlaunchBackground(Samba4Config("samba4").init_script + ' restart')
-    r.commit()
-    return 0
-
-restartSamba = reloadSamba
-
-def purgeSamba():
-    r = AF().log(PLUGIN_NAME, AA.SAMBA4_PURGE)
-
-    def _purgeSambaConfig():
-        samba = SambaConf()
-        conf_files = []
-        conf_files.append(shellquote(samba.smb_conf_path))
-        conf_files.append(shellquote(samba.private_dir() + '/*'))
-        shlaunchBackground("rm -rf %s" % ' '.join(conf_files))
-
-    # FIXME should we use deferred instead?
-    shlaunchBackground(Samba4Config("samba4").init_script + ' stop',
-                       endFunc=_purgeSambaConfig)
-    r.commit()
     return True
 
 def isSamba4Provisioned():
