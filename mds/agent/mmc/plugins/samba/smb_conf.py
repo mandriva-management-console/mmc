@@ -31,7 +31,7 @@ class SambaConf:
     supportedGlobalOptions = ["workgroup", "netbios name", "logon path", "logon drive", "logon home", "logon script", "ldap passwd sync", "wins support"]
     supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable']
 
-    def __init__(self, smbconffile = "/etc/samba/smb.conf", conffile = None, conffilebase = None):
+    def __init__(self, smbconffile="/etc/samba/smb.conf", conffile=None, conffilebase=None):
         """
         Constructor for object that read/write samba conf file.
 
@@ -56,7 +56,7 @@ class SambaConf:
         except ParseError, e:
             logger.error("Failed to parse %s : %s " % (self.smbConfFile, e))
 
-    def validate(self, conffile = "/etc/samba/smb.conf"):
+    def validate(self, conffile="/etc/samba/smb.conf"):
         """
         Validate SAMBA configuration file with testparm.
         Try also to parse the configuration with configObj
@@ -107,7 +107,7 @@ class SambaConf:
         """
         Translate option value to SAMBA value
         """
-        mapping = { "on" : "Yes", "off" : "No" }
+        mapping = {"on": "Yes", "off": "No"}
         try:
             ret = mapping[value]
         except KeyError:
@@ -119,11 +119,11 @@ class SambaConf:
         return main information about global section
         """
         resArray = {}
-        resArray['logons'] = self.isValueTrue(self.getContent('global','domain logons'))
-        resArray['master'] = self.isValueTrue(self.getContent('global','domain master'))
+        resArray['logons'] = self.isValueTrue(self.getContent('global', 'domain logons'))
+        resArray['master'] = self.isValueTrue(self.getContent('global', 'domain master'))
         if resArray['master'] == -1:
-            resArray["master"] = self.isValueAuto(self.getContent('global','domain master'))
-        resArray['hashomes'] = self.config.has_key('homes')
+            resArray["master"] = self.isValueAuto(self.getContent('global', 'domain master'))
+        resArray['hashomes'] = self.config.has_section('homes')
         resArray['pdc'] = (resArray['logons']) and (resArray['master'])
         for option in self.supportedGlobalOptions:
             resArray[option] = self.getContent("global", option)
@@ -148,7 +148,7 @@ class SambaConf:
 
     def setContent(self, section, option, value):
         try:
-            self.config[section][option] = value;
+            self.config[section][option] = value
         except KeyError:
             self.config[section] = {}
             self.setContent(section, option, value)
@@ -213,7 +213,7 @@ class SambaConf:
             del self.config["homes"]
             self.setContent('global', 'logon home', '')
 
-        # disable global profiles
+        # Disable global profiles
         if not options['hasprofiles']:
             self.setContent('global', 'logon path', '')
 
@@ -224,13 +224,13 @@ class SambaConf:
     def getDetailedShares(self):
         """return detailed list of shares"""
         resList = []
-        #foreach element in smb.conf
+        # foreach element in smb.conf
         # so for each element in self.config
         for section in self.getSectionList():
-            if not section in ["global", "printers", "print$"]:
+            if section not in ["global", "printers", "print$"]:
                 localArr = []
                 localArr.append(section)
-                comment = self.getContent(section, 'comment' )
+                comment = self.getContent(section, 'comment')
                 if comment:
                     localArr.append(comment)
                 resList.append(localArr)
@@ -269,7 +269,7 @@ class SambaConf:
         r = AF().log(PLUGIN_NAME, AA.SAMBA_DEL_SHARE, [(name, AT.SHARE)], remove)
         path = self.getContent(name, 'path')
         if not path:
-            raise Exception('Share "'+ name+'" does not exist')
+            raise Exception('Share "' + name + '" does not exist')
         del self.config[name]
 
         if remove:
@@ -284,13 +284,13 @@ class SambaConf:
         Get information about a share
         """
         returnArr = {}
-        returnArr['desc'] = self.getContent(name,'comment')
+        returnArr['desc'] = self.getContent(name, 'comment')
         if not returnArr['desc']:
             returnArr['desc'] = ""
-        returnArr['sharePath'] = self.getContent(name,'path')
-        if self.isValueTrue(self.getContent(name,'public')) == 1:
+        returnArr['sharePath'] = self.getContent(name, 'path')
+        if self.isValueTrue(self.getContent(name, 'public')) == 1:
             returnArr['permAll'] = 1
-        elif self.isValueTrue(self.getContent(name,'guest ok')) == 1:
+        elif self.isValueTrue(self.getContent(name, 'guest ok')) == 1:
             returnArr['permAll'] = 1
         else:
             returnArr['permAll'] = 0
@@ -332,7 +332,7 @@ class SambaConf:
 
         return returnArr
 
-    def addShare(self, name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = False, customparameters = None, mod = False):
+    def addShare(self, name, path, comment, usergroups, users, permAll, admingroups, browseable=True, av=False, customparameters=None, mod=False):
         """
         add a share in smb.conf
         and create it physicaly
@@ -347,7 +347,7 @@ class SambaConf:
 
         if name in self.config and not mod:
             raise Exception('This share already exist')
-        if not name in self.config and mod:
+        if name not in self.config and mod:
             raise Exception('This share does not exist')
 
         # If no path is given, create a default one
@@ -355,7 +355,7 @@ class SambaConf:
             path = os.path.join(self.defaultSharesPath, name)
         path = os.path.realpath(path)
 
-        # Check that the path is authorized
+        # Check that the path is authorized
         # FIXME: handle correctly archives in base plugin
         if not self.isAuthorizedSharePath(path) and "/home/archives" not in path:
             raise Exception("%s is not an authorized share path.")
@@ -366,25 +366,26 @@ class SambaConf:
                 os.renames(oldPath, path)
             else:
                 os.makedirs(path)
-        except OSError , (errno, strerror):
+        except OSError, (errno, strerror):
             # Raise exception if error is not "File exists"
             if errno != 17:
                 raise OSError(errno, strerror + ' ' + path)
-            else: pass
+            else:
+                pass
 
-        # Directory is owned by root
+        # Directory is owned by root
         os.chown(path, 0, 0)
 
         if mod:
             # Delete the old share
-        	del self.config[name]
+            del self.config[name]
 
         # create table and fix permission
         tmpInsert = {}
 
-    	# We insert first custom parameters, so if the user has
-    	# entered manually any reserved key, that key is overriden
-    	# below, with the values of specific fields.
+        # We insert first custom parameters, so if the user has
+        # entered manually any reserved key, that key is overriden
+        # below, with the values of specific fields.
         if customparameters is not None:
             for line in customparameters:
                 if len(line) > 0:
@@ -454,11 +455,13 @@ class SambaConf:
                 logger.error("Cannot save ACL on folder " + path)
 
         tmpInsert['writeable'] = 'yes'
-        if not browseable: tmpInsert['browseable'] = 'No'
+        if not browseable:
+            tmpInsert['browseable'] = 'No'
         tmpInsert['path'] = path
 
         # Set the anti-virus plugin if available
-        if av: tmpInsert['vfs objects'] = os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0]
+        if av:
+            tmpInsert['vfs objects'] = os.path.splitext(os.path.basename(SambaConfig("samba").av_so))[0]
 
         # Set the admin groups for the share
         if admingroups:
@@ -558,7 +561,7 @@ class SambaConf:
 
         for line in output:
             if line.strip():
-                tab = line.strip().split('\\',7)
+                tab = line.strip().split('\\', 7)
                 serviceitem = {}
                 serviceitem['pid'] = tab[0]
 
@@ -573,12 +576,12 @@ class SambaConf:
                 else:
                     serviceitem['useruid'] = 'anonymous'
 
-                if tab[0]==tab[2]:
+                if tab[0] == tab[2]:
                     indIndex = "homes"
                 else:
                     indIndex = tab[0]
 
-                if not indIndex in service:
+                if indIndex not in service:
                     service[indIndex] = list()
 
                 service[indIndex].append(serviceitem)
@@ -593,9 +596,9 @@ class SambaConf:
         result = []
         for line in output:
             if line.strip():
-                #7727\useruid\Domain Users\machine\192.168.0.17
-                #0    1       2            3       4
-                tab = line.strip().split('\\',5)
+                # 7727\useruid\Domain Users\machine\192.168.0.17
+                # 0    1       2            3       4
+                tab = line.strip().split('\\', 5)
                 sessionsitem = {}
                 sessionsitem['pid'] = tab[0]
                 sessionsitem['useruid'] = tab[1]
