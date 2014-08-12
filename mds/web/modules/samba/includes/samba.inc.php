@@ -25,13 +25,13 @@
 /**
  * Input with a check for NetBIOS name validity.
  * The accepted NetBIOS name are 15 ASCII characters length.
- * We accept a-z, 0-9 and -, and the length must be greater than two
+ * We accept a-z, 0-9, - and . the length must be greater than two
  * characters.
  */
 class NetbiosInputTpl extends InputTpl {
 
     function NetbiosInputTpl($name) {
-        $this->InputTpl($name, '/^[a-z][0-9a-z-]{2,14}$/');
+        $this->InputTpl($name, '/^[a-z][0-9a-z-.]{2,14}$/');
     }
 
 }
@@ -39,7 +39,7 @@ class NetbiosInputTpl extends InputTpl {
 class NetbiosUppercaseInputTpl extends InputTpl {
 
     function NetbiosUppercaseInputTpl($name) {
-        $this->InputTpl($name, '/^[A-Z][0-9A-Z-]{2,14}$/');
+        $this->InputTpl($name, '/^[A-Z][0-9A-Z-.]{2,14}$/');
     }
 
 }
