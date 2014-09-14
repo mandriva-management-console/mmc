@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-09-01 01:03+0200\n"
-"PO-Revision-Date: 2014-04-14 18:49+0000\n"
+"POT-Creation-Date: 2014-09-08 01:04+0200\n"
+"PO-Revision-Date: 2014-09-10 19:28+0000\n"
 "Last-Translator: Andre Machado <andre@mandriva.com>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -196,15 +196,15 @@ msgstr "SAMBA status"
 #, php-format
 msgid "%d open session"
 msgid_plural "%d open sessions"
-msgstr[0] "%d abrir sessão"
-msgstr[1] "%d abrir sessões"
+msgstr[0] "%d sessão aberta"
+msgstr[1] "%d sessões abertas"
 
 #: modules/samba/includes/panels/samba.inc.php:39
 #, php-format
 msgid "%d share connection"
 msgid_plural "%d share connections"
-msgstr[0] "%d compartilhar conexão"
-msgstr[1] "%d compartilhar conexões"
+msgstr[0] "%d conexão compartilhada"
+msgstr[1] "%d conexões compartilhadas"
 
 #: modules/samba/includes/auditCodes.php:26
 msgid "Add share"
@@ -212,7 +212,7 @@ msgstr "Adicionar compartilhamento"
 
 #: modules/samba/includes/auditCodes.php:27
 msgid "Mod share"
-msgstr "Mod Share"
+msgstr "Modificar compartilhamento"
 
 #: modules/samba/includes/auditCodes.php:28
 msgid "Del share"
@@ -494,12 +494,12 @@ msgstr "Gerenciamento de computadores"
 
 #: modules/samba/shares/backup.php:31 modules/samba/shares/backup.php:49
 msgid "Share backup"
-msgstr "Bacape de compartilhamento"
+msgstr "Backup de compartilhamento"
 
 #: modules/samba/shares/backup.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
-msgstr "Becape do compartilhamento <b>%s</b> foi iniciado em segundo plano."
+msgstr "Backup do compartilhamento <b>%s</b> foi iniciado em segundo plano."
 
 #: modules/samba/shares/backup.php:35
 #, php-format
@@ -508,11 +508,11 @@ msgid ""
 " backup."
 msgstr ""
 "Os arquivos serão armazenados no diretório %s do servidor no final do "
-"becape."
+"backup."
 
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
-msgstr "Por favor, veja o status do becape na página de status."
+msgstr "Por favor, veja o status do backup na página de status."
 
 #: modules/samba/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
@@ -520,7 +520,7 @@ msgstr "Esta operação levará um tempo de acordo com a quantidade dos dados."
 
 #: modules/samba/shares/backup.php:43
 msgid "Can't launch backup"
-msgstr "Não foi possível iniciar becape"
+msgstr "Não foi possível iniciar backup"
 
 #: modules/samba/shares/backup.php:50
 #, php-format
@@ -712,7 +712,7 @@ msgstr "Listar compartilhamentos"
 
 #: modules/samba/infoPackage.inc.php:55
 msgid "Backup a share"
-msgstr "Becapear um compartilhamento"
+msgstr "Fazer backup de um compartilhamento"
 
 #: modules/samba/infoPackage.inc.php:59
 msgid "Remove a share"
