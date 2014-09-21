@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-09-08 01:04+0200\n"
-"PO-Revision-Date: 2014-04-14 19:10+0000\n"
+"POT-Creation-Date: 2014-09-15 01:04+0200\n"
+"PO-Revision-Date: 2014-09-15 21:01+0000\n"
 "Last-Translator: Andre Machado <andre@mandriva.com>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -1109,7 +1109,7 @@ msgid ""
 "can only authorize updates where any existing records of the same owner and "
 "class are authenticated by a SIG using the same key."
 msgstr ""
-"Se marcada, esta chave está autorizada a adicionar e excluir registros, "
+"Se marcado, esta chave está autorizada a adicionar e excluir registros, "
 "mesmo se houver outros registros com o mesmo nome de proprietário e de "
 "classe que são autenticados por um SIG assinado com uma chave de atualização"
 " dinâmica diferente. Se não for marcada, a chave só pode autorizar "
@@ -1216,7 +1216,7 @@ msgstr "Porta não pode ser maior que 65535"
 
 #: modules/network/network/dnsrecords/srv.php:101
 msgid "It can be an any service, if checked"
-msgstr "Isso pode ser qualquer serviço, se marcado"
+msgstr "Pode ser qualquer serviço"
 
 #: modules/network/network/dnsrecords/srv.php:110
 msgid "Service"
@@ -1228,7 +1228,7 @@ msgstr "Nome do protocolo personalizado"
 
 #: modules/network/network/dnsrecords/srv.php:128
 msgid "There is a host that will provide this service, if checked"
-msgstr "Existe um host que receberá este serviço, se marcado"
+msgstr "Um host receberá este serviço"
 
 #: modules/network/network/dnsrecords/srv.php:135
 #: modules/network/network/dnsrecords/srv.php:166
@@ -2109,7 +2109,7 @@ msgstr "Endereços da sub-rede DHCP"
 
 #: modules/network/network/subnetedit.php:210
 msgid "Authoritative"
-msgstr "Autoritativo"
+msgstr "Autoritário"
 
 #: modules/network/network/subnetedit.php:216
 msgid "DHCP options related to clients network parameters"
@@ -2269,7 +2269,7 @@ msgstr "Tempo máximo em segundos que será assinalado a uma concessão."
 
 #: modules/network/network/subnetedit.php:360
 msgid "Dynamic pool(s) for non-registered DHCP clients"
-msgstr "Intervalos dinâmicos por Clientes DHCP não registrdos"
+msgstr "Intervalos dinâmicos por Clientes DHCP não registrados"
 
 #: modules/network/network/subnetedit.php:373
 msgid "Dynamic pools"
