@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) 2014 Zentyal, http://www.zentyal.com
+ * (c) 2014 Mandriva, http://www.mandriva.com/
  *
  * $Id$
  *
@@ -20,9 +20,6 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * Author(s):
- *   Julien Kerihuel <jkerihuel@zentyal.com>
- *   Miguel Julián <mjulian@zentyal.com>
  */
 
 require("modules/samba4/includes/common-xmlrpc.inc.php");
@@ -45,6 +42,8 @@ $module->addSubmod($sharesSubmodule);
 $machinesSubmodule = _createSamba4MachinesSubmodule($isProvisioned);
 $module->addSubmod($machinesSubmodule);
 
+$configSubmodule = _createSamba4ConfigSubmodule($isProvisioned);
+$module->addSubmod($configSubmodule);
 
 $MMCApp =& MMCApp::getInstance();
 $MMCApp->addModule($module);
@@ -88,15 +87,17 @@ function _createSamba4SharesSubmodule($isProvisioned) {
 
 function _createSamba4MachinesSubmodule($isProvisioned) {
     $submodule = new SubModule("machines");
+    $submodule->setVisibility(False);
     $submodule->setImg('modules/base/graph/navbar/computer');
     $submodule->setDefaultPage("samba4/machines/index");
     $submodule->setDescription(_T("Machines"),"samba4");
-    $submodule->setPriority(20);
+    #$submodule->setPriority(20);
+    $submodule->setAlias('shares');
 
     $page = new Page("index",_T("Computer list","samba4"));
     $page->setImg("modules/samba4/graph/img/machines/icn_global_active.gif",
                 "modules/samba4/graph/img/machines/icn_global.gif");
-    $page->setOptions( array ("visible" => $isProvisioned));
+    #$page->setOptions( array ("visible" => $isProvisioned));
     $submodule->addPage($page);
 
     $page = new Page("ajaxFilter");
@@ -114,4 +115,26 @@ function _createSamba4MachinesSubmodule($isProvisioned) {
     return $submodule;
 }
 
+function _createSamba4ConfigSubmodule($isProvisioned) {
+    $submodule = new SubModule("config");
+    $submodule->setDefaultPage("samba4/config/index");
+    $submodule->setImg('modules/samba4/graph/navbar/pref');
+    $submodule->setDescription(_T("Configuration"),"samba4");
+    $submodule->setVisibility(False);
+    $submodule->setAlias('shares');
+    
+    $page = new Page("index",_T("SAMBA4 configuration","samba4"));
+    $page->setImg("modules/samba4/graph/img/config/icn_global_active.gif",
+            "modules/samba4/graph/img/config/icn_global.gif");
+    $submodule->addPage($page);
+    
+    $page = new Page("restart",_T("restart SAMBA service","samba4"));
+    $page->setOptions(array("visible"=>False));
+    $submodule->addPage($page);
+    
+    $page = new Page("reload",_T("Reload SAMBA service","samba4"));
+    $page->setOptions(array("visible"=>False));
+    $submodule->addPage($page);
+    return $submodule;
+}
 ?>

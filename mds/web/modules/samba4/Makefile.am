@@ -1,4 +1,4 @@
-# (c) 2014 Zentyal, http://www.zentyal.com
+# (c) 2014 Mandriva, http://www.mandriva.com
 #
 # $Id$
 #
@@ -18,8 +18,6 @@
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s):
-#   Julien Kerihuel <jkerihuel@zentyal.com>
-#   Miguel Julián <mjulian@zentyal.com>
 #
 datafiles = \
 	mainSidebar.php \
@@ -47,6 +45,10 @@ datafiles = \
 	graph/img/machines/icn_global_ro.gif \
 	graph/img/machines/icn_addMachines_ro.gif \
 	graph/img/machines/icn_addMachines_active.gif \
+	graph/img/config/icn_config_large.gif \
+	graph/img/config/icn_global.gif \
+	graph/img/config/icn_global_active.gif \
+	graph/img/config/icn_global_ro.gif \
 	includes/common-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
 	includes/publicFunc.php \
@@ -64,7 +66,10 @@ datafiles = \
 	shares/backup.php \
 	shares/edit.php \
 	views/groups.tpl.php \
-	views/users.tpl.php
+	views/users.tpl.php \
+	config/index.php \
+	config/reload.php \
+	config/restart.php
 
 module = $(notdir $(realpath $(srcdir)))
 moduledir = $(datadir)/mmc/modules/$(module)

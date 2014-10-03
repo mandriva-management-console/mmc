@@ -1,6 +1,7 @@
 <?php
 /**
- * (c) 2014 Mandriva, http://www.mandriva.com/
+ * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
+ * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
  * $Id$
  *
@@ -19,21 +20,26 @@
  * You should have received a copy of the GNU General Public License
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * Author(s):
- *   Miguel Julián <mjulian@zentyal.com>
  */
 
-require("modules/samba4/includes/machines-xmlrpc.inc.php");
-require("modules/samba4/mainSidebar.php");
-require("graph/navbar.inc.php");
+/**
+ * Input with a check for NetBIOS name validity.
+ * The accepted NetBIOS name are 15 ASCII characters length.
+ * We accept a-z, 0-9, - and . the length must be greater than two
+ * characters.
+ */
+class NetbiosInputTpl extends InputTpl {
 
-$ajax = new AjaxFilter(urlStrRedirect("samba4/machines/ajaxFilter"));
-$ajax->display();
+    function NetbiosInputTpl($name) {
+        $this->InputTpl($name, '/^[a-z][0-9a-z.-]{2,14}$/');
+    }
 
-$page = new PageGenerator(_T("Computer management"));
-$page->setSideMenu($sidemenu);
-$page->display();
+}
 
-$ajax->displayDivToUpdate();
-?>
+class NetbiosUppercaseInputTpl extends InputTpl {
+
+    function NetbiosUppercaseInputTpl($name) {
+        $this->InputTpl($name, '/^[A-Z][0-9A-Z.-]{2,14}$/');
+    }
+
+}

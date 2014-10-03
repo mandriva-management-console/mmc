@@ -1,6 +1,7 @@
 <?php
 /**
- * (c) 2014 Mandriva, http://www.mandriva.com/
+ * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
+ * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
  * $Id$
  *
@@ -19,21 +20,10 @@
  * You should have received a copy of the GNU General Public License
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * Author(s):
- *   Miguel Julián <mjulian@zentyal.com>
  */
 
-require("modules/samba4/includes/machines-xmlrpc.inc.php");
-require("modules/samba4/mainSidebar.php");
-require("graph/navbar.inc.php");
+xmlCall("samba.restartSamba");
+new NotifyWidgetSuccess(_T("The SAMBA service has been asked to restart."));
+redirectTo(urlStrRedirect("samba/config/index"));
 
-$ajax = new AjaxFilter(urlStrRedirect("samba4/machines/ajaxFilter"));
-$ajax->display();
-
-$page = new PageGenerator(_T("Computer management"));
-$page->setSideMenu($sidemenu);
-$page->display();
-
-$ajax->displayDivToUpdate();
 ?>

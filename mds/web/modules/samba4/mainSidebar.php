@@ -1,6 +1,7 @@
 <?php
 /**
  * (c) 2014 Zentyal, http://www.zentyal.com
+ * (c) 2014 Mandriva, http://www.mandriva.com/
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -22,7 +23,7 @@
  *   Miguel Julián <mjulian@zentyal.com>
  */
 
-$submods = array('shares', 'machines');
+$submods = array('shares', 'machines', 'config');
 
 $sidemenu = new SideMenu();
 $sidemenu->setClass(join(" ", $submods));
