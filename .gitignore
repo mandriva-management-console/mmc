@@ -1,2 +1,11 @@
 .tx
 doc/build/
+
+# exclude from packaging
+packaging/*/*.rpm
+packaging/*/*/SPECS/log.*
+packaging/*/*/BUILD/
+packaging/*/*/BUILDROOT/
+packaging/*/*/RPMS/
+packaging/*/*/SOURCES/
+packaging/*/*/SRPMS/

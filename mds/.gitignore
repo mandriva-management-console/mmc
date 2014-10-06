@@ -26,3 +26,4 @@ samba.ini
 network.ini
 proxy.ini
 squid.ini
+samba4.ini

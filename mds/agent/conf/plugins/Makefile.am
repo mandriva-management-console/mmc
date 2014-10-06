@@ -22,11 +22,11 @@ pluginconfdir = $(sysconfdir)/mmc/plugins
 
 if ENABLE_CONF
 dist_pluginconf_DATA = mail.ini sshlpk.ini userquota.ini bulkimport.ini shorewall.ini
-nodist_pluginconf_DATA = samba.ini network.ini proxy.ini squid.ini
+nodist_pluginconf_DATA = samba.ini samba4.ini network.ini proxy.ini squid.ini
 endif
 
-EXTRA_DIST = samba.ini.in network.ini.in proxy.ini.in squid.ini.in
-CLEANFILES = samba.ini network.ini proxy.ini squid.ini
+EXTRA_DIST = samba.ini.in samba4.ini.in network.ini.in proxy.ini.in squid.ini.in
+CLEANFILES = samba.ini samba4.ini network.ini proxy.ini squid.ini
 
 if ENABLE_CONF_BACKUP
 INSTALL += --backup=numbered
@@ -44,6 +44,14 @@ samba.ini: Makefile
 	  [ -f /etc/mandriva-release ] && \
         sed -i 's!/etc/init.d/samba!/etc/rc.d/init.d/smb!g' $@.tmp && \
 	    sed -i 's!ou=Computers!ou=Hosts!g' $@.tmp || echo continue;
+	mv $@.tmp $@
+
+samba4.ini: Makefile
+	rm -f $@ $@.tmp
+	$(MKDIR_P) $(@D)
+	srcdir=''; \
+	  test -f ./$@.in || srcdir=$(srcdir)/; \
+	  $(edit) $${srcdir}$@.in >$@.tmp; \
 	mv $@.tmp $@
 
 network.ini: Makefile
@@ -71,7 +79,7 @@ proxy.ini: Makefile
 	  test -f ./$@.in || srcdir=$(srcdir)/; \
 	  $(edit) $${srcdir}$@.in >$@.tmp; \
 	  [ -f /etc/mandriva-release ] && \
-  	    sed -i 's!/var/lib/squidguard/db/bad.destdomainlist!/usr/share/squidGuard-1.2.0/db/bad.destdomainlist!g' $@.tmp && \
+	    sed -i 's!/var/lib/squidguard/db/bad.destdomainlist!/usr/share/squidGuard-1.2.0/db/bad.destdomainlist!g' $@.tmp && \
 	    sed -i 's!/etc/init.d/squid!/etc/rc.d/init.d/squid!g' $@.tmp && \
 	    sed -i 's!^user = proxy!user = squid!g' $@.tmp && \
 	    sed -i 's!^group = proxy!user = squid!g' $@.tmp || echo continue;
