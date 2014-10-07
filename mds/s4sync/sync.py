@@ -24,9 +24,10 @@ class SambaLdap(object):
 
     def _get_user(self, username, attrs=['*']):
         entries = self.l.search_s("CN=Users,%s" % self.base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(cn=%s)' % username, attrlist=attrs)
+                                  filterstr='(sAMAccountName=%s)' % username,
+                                  attrlist=attrs)
         if len(entries) == 0:
-            return None
+            return (None, None)
         if len(entries) > 1:
             raise Exception("More than 1 entry found, wtf?")
         return entries[0]
@@ -121,7 +122,7 @@ class OpenLdap(object):
         entries = self.l.search_s('ou=People,%s' % self.base_dn, ldap.SCOPE_SUBTREE,
                                   filterstr='(uid=%s)' % username, attrlist=attrs)
         if len(entries) == 0:
-            return None
+            return (None, None)
         if len(entries) > 1:
             raise Exception("More than 1 entry found, wtf?")
         return entries[0]
@@ -139,10 +140,7 @@ class OpenLdap(object):
         if attrs and 'givenName' in attrs and 'sn' in attrs:
             name = attrs['givenName'][0]
             surname = attrs['sn'][0]
-        ldap_user_control = ldapUserGroupControl()
-        user_created = ldap_user_control.addUser(username, passwd, name, surname)
-        if not user_created:
-            raise Exception("Failed to create user %s on OpenLdap" % username)
+        ldapUserGroupControl().addUser(username, passwd, name, surname)
 
     def delete_user(self, username):
         dn, _ = self._get_user(username, ['uid'])
@@ -204,7 +202,7 @@ class OpenLdap(object):
 class UserNotFound(Exception):
     def __init__(self, user, action):
         message = "Not found user %s when trying to %s" % (user, action)
-        super(self, Exception).__init__(message)
+        super(UserNotFound, self).__init__(message)
 
 
 def copy_password_from_samba_to_ldap(username, samba_ldap, openldap, timestamp):
@@ -315,6 +313,10 @@ class S4Sync(object):
             # Try to enable smbk5 overlay for this user
             if self.openldap.enable_krb5_for(user, self.samba_ldap.realm()):
                 self.logger.info("Enabled krb5 on OpenLdap user %s" % user)
+                # Set password from Samba
+                samba_timestamp = self.samba_ldap.password_timestamp_for(user)
+                copy_password_from_samba_to_ldap(user, self.samba_ldap,
+                                                 self.openldap, samba_timestamp)
                 continue
 
             self.logger.debug("Samba User %s is not in OpenLdap" % user)
