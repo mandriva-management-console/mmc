@@ -70,7 +70,7 @@ foreach ($cmds as $item) {
     $target = $item['target'];
     $target_uuid = $item['uuid'];
     $cmd_id = $item['cmdid'];
-    $coh_id = $item['cohid'];
+    $coh_id = isset($item['cohid']) ? $item['cohid'] : null;
     $bid = $item['bid'];
     $gid = $item['gid'];
     $current_state = empty($item['current_state']) ? '' : $item['current_state'];

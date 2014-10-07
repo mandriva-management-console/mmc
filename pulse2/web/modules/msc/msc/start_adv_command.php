@@ -93,7 +93,7 @@ foreach ($halt as $h) {
 }
 
 $prefix = '';
-if (strlen($_POST["gid"])) {
+if (isset($_POST["gid"])) {
         $prefix = 'group';
 }
 

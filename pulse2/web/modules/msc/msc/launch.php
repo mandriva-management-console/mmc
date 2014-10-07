@@ -33,9 +33,9 @@ require_once('modules/msc/includes/scheduler_xmlrpc.php');
 require_once('modules/msc/includes/mscoptions_xmlrpc.php');
 
 function quick_get($param, $is_checkbox = False) {
-    if ($is_checkbox) { return $_GET[$param]; }
+    if ($is_checkbox && isset($_GET[$param]) && $_GET[$param] != '') { return $_GET[$param]; }
     if (isset($_POST[$param]) && $_POST[$param] != '') { return $_POST[$param]; }
-    return $_GET[$param];
+    if (isset($_GET[$param]) && $_GET[$param] != '') { return $_GET[$param]; }
 }
 
 function start_a_command($proxy = array()) {
@@ -63,7 +63,9 @@ function start_a_command($proxy = array()) {
     $page = $path[2];
     $params = array();
     foreach (array('start_script', 'clean_on_success', 'do_reboot', 'do_wol', 'next_connection_delay','max_connection_attempt', 'do_inventory', 'ltitle', 'parameters', 'papi', 'maxbw', 'deployment_intervals', 'max_clients_per_proxy', 'launchAction') as $param) {
-        $params[$param] = $post[$param];
+        if (isset($post[$param])){
+            $params[$param] = $post[$param];
+        }
     }
     $halt_to = array();
     foreach ($post as $p=>$v) {

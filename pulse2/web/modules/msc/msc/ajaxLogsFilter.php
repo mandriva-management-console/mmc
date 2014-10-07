@@ -48,7 +48,7 @@ if (isset($_GET["commands"])) {
 
 if ($uuid) {
     $hostname = $_GET['hostname'];
-    if (strlen($_GET['bundle_id']) or strlen($_GET['cmd_id'])) {
+    if (isset($_GET['bundle_id']) or isset($_GET['cmd_id'])) {
         list($count, $cmds) = displayLogs(array('uuid'=>$uuid, 'cmd_id'=>$_GET['cmd_id'], 'b_id'=>$_GET['bundle_id'], 'min'=>$start, 'max'=>$start + $maxperpage, 'filt'=>$filter, 'finished'=>$history));
     } else {
         list($count, $cmds) = displayLogs(array('uuid'=>$uuid, 'min'=>$start, 'max'=>$start + $maxperpage, 'filt'=>$filter, 'finished'=>$history));
@@ -56,7 +56,7 @@ if ($uuid) {
     }
     $action = "msctabs";
 } elseif ($gid) { # FIXME: same thing to do on groups
-    if ($_GET['cmd_id']) {
+    if (isset($_GET['cmd_id'])) {
         list($count, $cmds) = displayLogs(array('gid'=>$gid, 'b_id'=>$_GET['bundle_id'], 'cmd_id'=>$_GET['cmd_id'], 'min'=>$start, 'max'=>$start + $maxperpage, 'filt'=>$filter, 'finished'=>$history));
     } else {
         list($count, $cmds) = displayLogs(array('gid'=>$gid, 'b_id'=>$_GET['bundle_id'], 'min'=>$start, 'max'=>$start + $maxperpage, 'filt'=>$filter, 'finished'=>$history));
@@ -105,7 +105,7 @@ if ($areCommands) { // display several commands
         ### gathering command components ###
         if (strlen($cmd['bundle_id']) and !strlen($_GET['cmd_id'])) { // BUNDLE case
             $p['bundle_id'] = $cmd['bundle_id'];
-            if (strlen($_GET['bundle_id'])) {
+            if (isset($_GET['bundle_id'])) {
                 $p['cmd_id'] = $cmd['id'];
                 $a_cmd[] = $cmd['title'];
             } else {
@@ -131,14 +131,15 @@ if ($areCommands) { // display several commands
         }
 
         if (
-                (strlen($uuid) and strlen($cmd['bundle_id']) and !strlen($_GET['bundle_id'])) or
+                (strlen($uuid) and isset($cmd['bundle_id']) and !isset($_GET['bundle_id'])) or
                 (strlen($gid) and !strlen($_GET['cmd_id']))
             ) {
             $a_uploaded[] ='';
             $a_executed[] ='';
             $a_deleted[] = '';
+            $status = null;
             if (!$history) {
-                if (strlen($cmd['bundle_id']) and !strlen($_GET['bundle_id'])) {
+                if (isset($cmd['bundle_id']) and !isset($_GET['bundle_id'])) {
                     $status = get_command_on_bundle_status($cmd['bundle_id']);
                 } elseif (strlen($gid)) {
                     $status = get_command_on_group_status($cmd['id']);
@@ -172,7 +173,7 @@ if ($areCommands) { // display several commands
         }
 
         $params[] = $p;
-        if ($_GET['cmd_id'] && $cmd['id'] == $_GET['cmd_id']) {
+        if (isset($_GET['cmd_id']) && isset($cmd['id']) == isset($_GET['cmd_id'])) {
             $a_details[] = $actionempty;
             $a_status[] = $actionempty;
         } else {

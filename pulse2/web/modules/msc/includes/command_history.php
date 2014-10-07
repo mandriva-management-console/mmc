@@ -310,7 +310,7 @@ class CommandHistory {
             array(_T('Proxy mode', 'msc'),                              $proxy_mode),
             array(_T('Proxy priority', 'msc'),                          $proxy_priority),
             array(_T('Scheduler', 'msc'),                               $this->db_coh['scheduler']),
-            array(_T('Current launcher', 'msc'),                        $this->db_coh['launcher'] == '' ? _T('<i>not available</i>', 'msc') : $this->db_coh['launcher']),
+            array(_T('Current launcher', 'msc'),                        !isset($this->db_coh['launcher']) ? _T('<i>not available</i>', 'msc') : $this->db_coh['launcher']),
             array(_T('Current proxy', 'msc'),                           $current_proxy),
         );
         $n = new ListInfos(array_map("_names", $values), _T('<b>Command Environment</b>', 'msc'));
@@ -435,6 +435,7 @@ class CommandHistory {
 function _values($a) { return $a[1]; }
 function _names($a) { return $a[0]; }
 function _colorise($line) {
+    $out = '';
     if (preg_match_all("|^(.*) ([A-Z]): (.*)$|", $line, $matches)) {
         if (strlen($matches[3][0]) == 0)
             return;

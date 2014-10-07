@@ -21,10 +21,11 @@
  * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+$id = (isset($_GET['id'])) ? $_GET['id'] : $_GET['gid'];
 $paramArray = array(
     // if no $_GET['id'], get the $_GET['gid'] value
     // to be checked with profiles activated...
-    'id' => ($_GET['id']) ? $_GET['id'] : $_GET['gid'],
+    'id' => $id,
     'gid' => $_GET['gid'],
     'groupname' => $_GET['groupname'],
     'type' => $_GET['type'],
@@ -86,9 +87,8 @@ if ($is_gp != 1) { // Simple group
         }
     }
 }
-
 foreach ($list as $group) {
-    if ($group->id == $_GET['id']) {
+    if ($group->id == $id) {
         if ($group->is_owner == 1) {
             $actions['delete'] = $delete;
         } 

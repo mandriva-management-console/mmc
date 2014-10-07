@@ -36,7 +36,9 @@ require_once('modules/msc/includes/bundle_widgets.php');
 function launch_bundle($cible, $orders, $gid = null, $proxy = array()) {
     $params = array();
     foreach (array('start_date', 'end_date', 'create_directory', 'start_script', 'delete_file_after_execute_successful', 'wake_on_lan', 'next_connection_delay', 'max_connection_attempt', 'start_inventory', 'maxbw', 'deployment_intervals', 'copy_mode', 'clean_on_success', 'do_wol', 'do_inventory', 'do_reboot', 'bundle_title') as $param) {
-        $params[$param] = $_POST[$param];
+        if (isset($_POST[$param])){
+            $params[$param] = $_POST[$param];
+        }
     }
     $halt_to = array();
     foreach ($_POST as $p=>$v) {
@@ -53,18 +55,20 @@ function launch_bundle($cible, $orders, $gid = null, $proxy = array()) {
     // target structure is an dict using the following stucture: "priority" => array(proxies)
 
     $ordered_proxies = array();
-    if ($_POST['proxy_mode'] == 'multiple') { // first case: split mode; every proxy got the same priority (1 in our case)
-        foreach ($proxy as $p) {
-            array_push($ordered_proxies, array('uuid' => $p, 'priority' => 1, 'max_clients' => $_POST['max_clients_per_proxy']));
+    if (isset($_POST['proxy_mode'])){ 
+        if ($_POST['proxy_mode'] == 'multiple') { // first case: split mode; every proxy got the same priority (1 in our case)
+            foreach ($proxy as $p) {
+                array_push($ordered_proxies, array('uuid' => $p, 'priority' => 1, 'max_clients' => $_POST['max_clients_per_proxy']));
+            }
+            $params['proxy_mode'] = 'split';
+        } elseif ($_POST['proxy_mode'] == 'single') { // second case: queue mode; one priority level per proxy, starting at 1
+            $current_priority = 1;
+            foreach ($proxy as $p) {
+                array_push($ordered_proxies, array('uuid' => $p, 'priority' => $current_priority, 'max_clients' => $_POST['max_clients_per_proxy']));
+                $current_priority += 1;
+            }
+            $params['proxy_mode'] = 'queue';
         }
-        $params['proxy_mode'] = 'split';
-    } elseif ($_POST['proxy_mode'] == 'single') { // second case: queue mode; one priority level per proxy, starting at 1
-        $current_priority = 1;
-        foreach ($proxy as $p) {
-            array_push($ordered_proxies, array('uuid' => $p, 'priority' => $current_priority, 'max_clients' => $_POST['max_clients_per_proxy']));
-            $current_priority += 1;
-        }
-        $params['proxy_mode'] = 'queue';
     }
 
     // TODO: activate this  : msc_command_set_pause($cmd_id);

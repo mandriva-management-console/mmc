@@ -34,7 +34,13 @@ else {
 require_once('graph/navbar.inc.php');
 require_once("modules/pulse2/includes/utilities.php");
 
-if (!isset($_GET['hostname'])) { $_GET['hostname'] = $_GET['cn']; }
+if (!isset($_GET['hostname'])) {
+    if (isset($_GET['cn'])){ 
+        $_GET['hostname'] = $_GET['cn']; 
+    } else {
+        $_GET['hostname'] = ''; 
+    }
+}
 if (!isset($_GET['uuid'])) { $_GET['uuid'] = $_GET['objectUUID']; }
 
 /*

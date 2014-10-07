@@ -35,9 +35,10 @@ if (isset($_POST["bconfirm"])) {
     $tab = $path[3];
     $url = array();
     foreach (array('name', 'from', 'uuid', 'gid', 'bundle_id', 'hostname') as $post) {
-        $url[$post] = $_POST[$post];
+        if (isset($_POST[$post])){
+            $url[$post] = $_POST[$post];
+        }
     }
-    $url['tab'] = $tab;
     if (isset($tab)) {
         $url['tab'] = $tab;
     }
@@ -63,7 +64,6 @@ if (isset($_POST["bconfirm"])) {
                 exit;
             }
         } elseif (strlen($_POST["uuid"])) {
-            $hostname = $_POST["hostname"];
             $uuid = $_POST["uuid"];
             if (!strlen($_POST["coh_id"]) and !strlen($_POST["cmd_id"])) {
                 stop_bundle($bundle_id);
@@ -94,7 +94,6 @@ if (isset($_POST["bconfirm"])) {
             header("Location: " . urlStrRedirect("$module/$submod/$page", $url)); #array('tab'=>$tab, 'cmd_id'=>$cmd_id, 'gid'=>$gid)));
             exit;
         } else {
-            $hostname = $_POST["hostname"];
             $uuid = $_POST["uuid"];
             $coh_id = $_POST["coh_id"];
             stop_command_on_host($coh_id);
@@ -106,7 +105,6 @@ if (isset($_POST["bconfirm"])) {
     /* Form displaying */
     $from = $_GET['from'];
     $hostname = $_GET["hostname"];
-    $groupname = $_GET["groupname"];
     $uuid = $_GET["uuid"];
     $cmd_id = $_GET["cmd_id"];
     $coh_id = $_GET["coh_id"];

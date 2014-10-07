@@ -21,10 +21,10 @@
  * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ($_GET['cn']) $_SESSION['cn'] = $_GET['cn'];
-if ($_GET['objectUUID']) $_SESSION['objectUUID'] = $_GET['objectUUID'];
-elseif ($_GET['uuid']) $_SESSION['objectUUID'] = $_GET['uuid'];
-if ($_GET['action']) $_SESSION['action'] = $_GET['action'];
+if (isset($_GET['cn'])) $_SESSION['cn'] = $_GET['cn'];
+if (isset($_GET['objectUUID'])) $_SESSION['objectUUID'] = $_GET['objectUUID'];
+elseif (isset($_GET['uuid'])) $_SESSION['objectUUID'] = $_GET['uuid'];
+if (isset($_GET['action'])) $_SESSION['action'] = $_GET['action'];
 
 $paramArray = array('cn' => $_SESSION['cn'], 'objectUUID' => $_SESSION['objectUUID']);
 

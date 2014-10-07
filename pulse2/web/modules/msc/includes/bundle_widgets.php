@@ -146,7 +146,7 @@ select.list
     }
 
     function display_error() {
-        if ($this->err) {
+        if (isset($this->err)) {
             new NotifyWidgetFailure(implode('<br/>', array_merge($this->err, array(_T("Please contact your administrator.", "msc")))));
         }
     }
@@ -166,7 +166,7 @@ class RenderedMSCBundleChoiceM extends RenderedMSCBundleChoice {
         $this->list = array();
         foreach ($packages as $c_package) {
             $p_api = new ServerAPI($c_package[2]);
-            if ($c_package[0]['ERR'] && $c_package[0]['ERR'] == 'PULSE2ERROR_GETALLPACKAGE') {
+            if (isset($c_package[0]['ERR']) && $c_package[0]['ERR'] == 'PULSE2ERROR_GETALLPACKAGE') {
                 $this->err[] = sprintf(_T("MMC failed to contact package server %s.", "msc"), $c_package[0]['mirror']);
             } else {
                 $this->list[$c_package[0]['id'].'##'.base64_encode(serialize($p_api->toURI()))] = $c_package[0]['label'] . " (" . $c_package[0]['version'] . ")";
@@ -243,7 +243,7 @@ class RenderedMSCBundleSortParent {
     function display() {
         $orders = array();
         $i = 1;
-        if ($_POST["badvanced_bundle"] != '') { # advanced mode: keep previously given order if possible
+        if (isset($_POST["badvanced_bundle"])) { # advanced mode: keep previously given order if possible
             foreach ($this->members as $pid => $plabel) {
                 $orders[$pid] = $_POST[$this->input_pre.base64_encode($pid)];
             }
