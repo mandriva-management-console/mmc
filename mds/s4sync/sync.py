@@ -386,22 +386,12 @@ class S4Sync(object):
             raise S4SyncTimestampError("Error updating timestamp")
 
 
-if __name__ == "__main__":
-
-    WAIT_TIME = 10  # sleep time between each iteration, in seconds
-
-    logger = logging.getLogger("s4sync")
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
-
+def sync_loop(logger, wait_time):
     try:
         s4sync = S4Sync(logger)
     except Samba4NotProvisioned:
         logger.error("Samba4 not provisioned? exiting...")
-        sys.exit(1)
+        return
 
     logger.info("S4Sync daemon started")
     while True:
@@ -409,11 +399,28 @@ if __name__ == "__main__":
             s4sync.sync()
         except Samba4NotProvisioned:
             logger.error("Samba4 not provisioned? exiting...")
-            sys.exit(1)
+            return
         except S4SyncTimestampError:
             logger.exception("Error with timestamp")
             s4sync.reset()
         except:
             logger.exception("Error syncing")
             s4sync.reset()
-        time.sleep(WAIT_TIME)
+
+        time.sleep(wait_time)
+
+
+if __name__ == "__main__":
+
+    WAIT_TIME = 10  # sleep time between each iteration, in seconds
+
+    def initialize_logging():
+        logger = logging.getLogger("s4sync")
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        logger.setLevel(logging.DEBUG)
+        return logger
+
+    sync_loop(initialize_logging(), WAIT_TIME)
