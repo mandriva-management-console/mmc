@@ -383,7 +383,6 @@ class S4Sync(object):
         try:
             with open(self.TIMESTAMP_PATH, 'w') as timestamp_file:
                 timestamp_file.write(timestamp_str)
-                self.logger.debug("Updated timestamp to %s", timestamp_str)
         except IOError:
             raise S4SyncTimestampError("Error updating timestamp")
 
