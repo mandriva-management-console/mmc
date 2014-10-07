@@ -83,8 +83,11 @@ class SambaAD:
                          (username, password))
         return True
 
-    def createUser(self, username, password):
-        self._samba_tool("user create %s '%s'" % (username, password))
+    def createUser(self, username, password, given_name=None, surname=None):
+        cmd = "user create %s '%s'" % (username, password)
+        if given_name and surname:
+            cmd += " --given_name='%s' --surname='%s'" % (given_name, surname)
+        self._samba_tool(cmd)
         return True
 
     def enableUser(self, username):
@@ -163,4 +166,3 @@ class SambaAD:
 
     def editMachine(self, name, description, enabled):  # TODO
         return True
-

@@ -41,8 +41,12 @@ class SambaLdap(object):
         return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
 
     def create_user(self, username, openldap):
-        # TODO set displayName, givenName, ...
-        SambaAD().createUser(username, "thisWillChange")
+        attrs = openldap.get_user_attributes(username)
+        name, surname = None, None
+        if attrs and 'givenName' in attrs and 'sn' in attrs:
+            name = attrs["givenName"][0]
+            surname = attrs["sn"][0]
+        SambaAD().createUser(username, "thisWillChange", name, surname)
 
     def delete_user(self, username):
         dn, _ = self._get_user(username, ['cn'])
@@ -123,14 +127,14 @@ class OpenLdap(object):
 
     def create_user(self, username, samba_ldap):
         passwd = "thisWillChange"
-        # TODO set surname and firstname from samba attributes
-        surname = username
-        firstname = username
-        createHomeDir = True
-        ownHomeDir = True
-        primaryGroup = None
+        name, surname = username, username
+        attrs = samba_ldap.get_user_attributes(username)
+        if attrs and 'givenName' in attrs and 'sn' in attrs:
+            name = attrs['givenName'][0]
+            surname = attrs['sn'][0]
         ldap_user_control = ldapUserGroupControl()
-        if not ldap_user_control.addUser(username, passwd, firstname, surname, homedir, createHomeDir, ownHomeDir, primaryGroup):
+        user_created = ldap_user_control.addUser(username, passwd, name, surname)
+        if not user_created:
             raise Exception("Failed to create user %s on OpenLdap" % username)
 
     def delete_user(self, username):
