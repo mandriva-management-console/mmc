@@ -14,17 +14,12 @@ import os
 import logging
 
 
-class SambaLdap(object):
-    LDAP_URI = "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi"
-    NO_USERS = ['Guest']
-
-    def __init__(self, base_dn):
-        self.base_dn = base_dn
-        self.l = ldap.initialize(self.LDAP_URI)
+class LdapBase(object):
+    FIELDS_TO_SYNC = ['displayName', 'givenName', 'sn']
 
     def _get_user(self, username, attrs=['*']):
-        entries = self.l.search_s("CN=Users,%s" % self.base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(sAMAccountName=%s)' % username,
+        entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
+                                  filterstr='(%s=%s)' % (self.user_pk, username),
                                   attrlist=attrs)
         if len(entries) == 0:
             return (None, None)
@@ -38,37 +33,63 @@ class SambaLdap(object):
             raise UserNotFound(username, "get attributes")
         return attrs
 
-    def realm(self):
-        return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
+    def list_users(self):
+        entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
+                                  filterstr=self.user_list_filter,
+                                  attrlist=[self.user_pk, self.user_timestamp_field])
+        users = {}
+        for e in entries:
+            user = e[1][self.user_pk][0]
+            if user not in self.user_ignore_list:
+                timestamp_str = e[1][self.user_timestamp_field][0]
+                users[user] = self._format_timestamp(timestamp_str)
+        return users
 
-    def create_user(self, username, openldap):
-        attrs = openldap.get_user_attributes(username)
-        name, surname = None, None
+    def sync_user_with(self, username, other_ldap):
+        dn, attrs = self._get_user(username, self.FIELDS_TO_SYNC)
+        if not dn:
+            raise UserNotFound(username, "sync user attributes")
+        other_attrs = other_ldap.get_user_attributes(username)
+        modlist = [(ldap.MOD_REPLACE, field, other_attrs[field][0])
+                   for field in self.FIELDS_TO_SYNC]
+        self.l.modify_s(dn, modlist)
+
+    def create_user(self, username, other_ldap):
+        name, surname = username, username
+        attrs = other_ldap.get_user_attributes(username)
         if attrs and 'givenName' in attrs and 'sn' in attrs:
             name = attrs["givenName"][0]
             surname = attrs["sn"][0]
-        SambaAD().createUser(username, "thisWillChange", name, surname)
+        self._create_user(username, "thisWillChange", name, surname)
 
     def delete_user(self, username):
-        dn, _ = self._get_user(username, ['cn'])
+        dn, _ = self._get_user(username)
         if not dn:
             raise UserNotFound(username, "delete it")
         self.l.delete_s(dn)
 
-    def user_timestamp(self, username):
-        dn, attrs = self._get_user(username, ['whenChanged'])
-        if not dn:
-            raise UserNotFound(username, "get user timestamp")
-        date = datetime.strptime(attrs['whenChanged'][0], "%Y%m%d%H%M%S.0Z")
-        return date.replace(tzinfo=pytz.UTC)
 
-    def list_users(self):
-        entries = self.l.search_s("CN=Users,%s" % self.base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(adminCount=*))))',
-                                  attrlist=['*'])
-        users = [e[1]['sAMAccountName'][0] for e in entries
-                 if e[1]['sAMAccountName'][0] not in self.NO_USERS]
-        return sorted(users)
+class SambaLdap(LdapBase):
+    LDAP_URI = "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi"
+
+    def __init__(self, base_dn):
+        self.base_dn = base_dn
+        self.l = ldap.initialize(self.LDAP_URI)
+        self.user_base_dn = "CN=Users,%s" % self.base_dn
+        self.user_pk = "sAMAccountName"
+        self.user_timestamp_field = "whenChanged"
+        self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(adminCount=*))))'
+        self.user_ignore_list = ['Guest']
+
+    def realm(self):
+        return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
+
+    def _create_user(username, password, name, surname):
+        SambaAD().createUser(username, password, name, surname)
+
+    def _format_timestamp(self, timestamp_str):
+        date = datetime.strptime(timestamp_str, "%Y%m%d%H%M%S.0Z")
+        return date.replace(tzinfo=pytz.UTC)
 
     def get_credentials(self, username):
         dn, attrs = self._get_user(username, ['unicodePwd', 'supplementalCredentials'])
@@ -112,62 +133,32 @@ class SambaLdap(object):
         self.l.modify_ext_s(dn, modlist)
 
 
-class OpenLdap(object):
+class OpenLdap(LdapBase):
     def __init__(self, base_dn, bind_dn, bind_pw, host='localhost'):
         self.l = ldap.open(host)
         self.l.bind_s(bind_dn, bind_pw)
         self.base_dn = base_dn
+        self.user_base_dn = "ou=People,%s" % self.base_dn
+        self.user_pk = "uid"
+        self.user_timestamp_field = "modifyTimestamp"
+        self.user_list_filter = '(&(objectClass=inetOrgPerson)(objectClass=krb5KDCEntry))'
+        self.user_ignore_list = []
 
-    def _get_user(self, username, attrs=['*']):
-        entries = self.l.search_s('ou=People,%s' % self.base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(uid=%s)' % username, attrlist=attrs)
-        if len(entries) == 0:
-            return (None, None)
-        if len(entries) > 1:
-            raise Exception("More than 1 entry found, wtf?")
-        return entries[0]
+    def _create_user(self, username, password, name, surname):
+        ldapUserGroupControl().addUser(username, password, name, surname)
 
-    def get_user_attributes(self, username):
-        dn, attrs = self._get_user(username)
-        if not dn:
-            raise UserNotFound(username, "get attributes")
-        return attrs
-
-    def create_user(self, username, samba_ldap):
-        passwd = "thisWillChange"
-        name, surname = username, username
-        attrs = samba_ldap.get_user_attributes(username)
-        if attrs and 'givenName' in attrs and 'sn' in attrs:
-            name = attrs['givenName'][0]
-            surname = attrs['sn'][0]
-        ldapUserGroupControl().addUser(username, passwd, name, surname)
-
-    def delete_user(self, username):
-        dn, _ = self._get_user(username, ['uid'])
-        if not dn:
-            raise UserNotFound(username, "delete it")
-        self.l.delete_s(dn)
-
-    def user_timestamp(self, username):
-        dn, attrs = self._get_user(username, ['modifyTimestamp'])
-        if not dn:
-            raise UserNotFound(username, "get user timestamp")
-        date = datetime.strptime(attrs['modifyTimestamp'][0], "%Y%m%d%H%M%SZ")
+    def _format_timestamp(self, timestamp_str):
+        date = datetime.strptime(timestamp_str, "%Y%m%d%H%M%SZ")
         return date.replace(tzinfo=pytz.UTC)
-
-    def list_users(self):
-        entries = self.l.search_s('ou=People,%s' % self.base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(&(objectClass=inetOrgPerson)(objectClass=krb5KDCEntry))',
-                                  attrlist=['uid'])
-        return sorted([e[1]['uid'][0] for e in entries])
 
     def enable_krb5_for(self, username, realm):
         dn, user = self._get_user(username)
         if not dn:
             return False
+        principal_name = '%s@%s' % (username, realm.upper())
         modlist = [(ldap.MOD_ADD, 'objectclass', 'krb5KDCEntry'),
                    (ldap.MOD_ADD, 'krb5KeyVersionNumber', '0'),
-                   (ldap.MOD_ADD, 'krb5PrincipalName', '%s@%s' % (username, realm.upper()))]
+                   (ldap.MOD_ADD, 'krb5PrincipalName', principal_name)]
         self.l.modify_s(dn, modlist)
         return True
 
@@ -195,8 +186,7 @@ class OpenLdap(object):
             raise UserNotFound(username, "get password timestamp")
         if 'pwdChangedTime' not in attrs:
             raise Exception("OpenLdap User doesn't have  attribute")
-        date = datetime.strptime(attrs['pwdChangedTime'][0], "%Y%m%d%H%M%SZ")
-        return date.replace(tzinfo=pytz.UTC)
+        return self._format_timestamp(attrs['pwdChangedTime'][0])
 
 
 class UserNotFound(Exception):
@@ -265,31 +255,52 @@ class S4Sync(object):
         self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'],
                                  ldap_creds['bind_pw'])
 
+    def _sync_password(self, user):
+        samba_timestamp = self.samba_ldap.password_timestamp_for(user)
+        openldap_timestamp = self.openldap.password_timestamp_for(user)
+        if samba_timestamp > openldap_timestamp:
+            self.logger.info("Updating %s password on OpenLdap" % user)
+            copy_password_from_samba_to_ldap(user, self.samba_ldap,
+                                             self.openldap, samba_timestamp)
+        elif openldap_timestamp > samba_timestamp:
+            self.logger.info("Updating %s password on Samba" % user)
+            copy_password_from_ldap_to_samba(user, self.samba_ldap,
+                                             self.openldap, openldap_timestamp)
+
+    def _sync_fields(self, user, samba_timestamp, openldap_timestamp):
+        if samba_timestamp > openldap_timestamp:
+            self.logger.info("Updating %s info on OpenLdap" % user)
+            self.openldap.sync_user_with(user, self.samba_ldap)
+        elif openldap_timestamp > samba_timestamp:
+            self.logger.info("Updating %s info on Samba" % user)
+            self.samba_ldap.sync_user_with(user, self.openldap)
+
     def sync(self):
         now_timestamp = datetime.now(pytz.UTC)
         last_sync_timestamp = self.timestamp()
-        samba_users = set(self.samba_ldap.list_users())
-        openldap_users = set(self.openldap.list_users())
+        samba_listed_users = self.samba_ldap.list_users()
+        samba_users = set(samba_listed_users.keys())
+        openldap_listed_users = self.openldap.list_users()
+        openldap_users = set(openldap_listed_users.keys())
 
         common_users = samba_users.intersection(openldap_users)
-        # Synchronize passwords for users existing in both: openldap and samba.
         for user in common_users:
-            samba_timestamp = self.samba_ldap.password_timestamp_for(user)
-            openldap_timestamp = self.openldap.password_timestamp_for(user)
-            if samba_timestamp > openldap_timestamp:
-                self.logger.info("Updating %s password on OpenLdap" % user)
-                copy_password_from_samba_to_ldap(user, self.samba_ldap,
-                                                 self.openldap, samba_timestamp)
-            elif openldap_timestamp > samba_timestamp:
-                self.logger.info("Updating %s password on Samba" % user)
-                copy_password_from_ldap_to_samba(user, self.samba_ldap,
-                                                 self.openldap, openldap_timestamp)
+            # Synchronize passwords
+            self._sync_password(user)
+            # Synchronize some fields
+            samba_user_timestamp = samba_listed_users[user]
+            openldap_user_timestamp = openldap_listed_users[user]
+            user_changed_since_last_sync = (samba_user_timestamp > last_sync_timestamp or
+                                            openldap_user_timestamp > last_sync_timestamp)
+            if user_changed_since_last_sync:
+                self._sync_fields(user, samba_user_timestamp, openldap_user_timestamp)
+
         # Users existing in OpenLdap but not in Samba.
         # We must either create it on Samba or delete it on OpenLdap.
         # Depending whether timestamp is newer than last execution or not.
         for user in openldap_users - samba_users:
             self.logger.debug("OpenLdap User %s is not in Samba" % user)
-            user_timestamp = self.openldap.user_timestamp(user)
+            user_timestamp = openldap_listed_users[user]
             if user_timestamp > last_sync_timestamp:
                 # Create it on Samba
                 self.logger.debug("\tCreating user %s on samba" % user)
@@ -321,7 +332,7 @@ class S4Sync(object):
 
             self.logger.debug("Samba User %s is not in OpenLdap" % user)
             # User does not exist on OpenLdap
-            user_timestamp = self.samba_ldap.user_timestamp(user)
+            user_timestamp = samba_listed_users[user]
             if user_timestamp > last_sync_timestamp:
                 # Create it on OpenLdap
                 self.logger.debug("\tCreating user %s on samba" % user)
