@@ -170,8 +170,8 @@ def updateSambaUserPassword(username, password):
         password = str(password)
     return SambaAD().updateUserPassword(username, password)
 
-def createSambaUser(username, password):
-    return SambaAD().createUser(username, password)
+def createSambaUser(username, password, name, surname):
+    return SambaAD().createUser(username, password, name, surname)
 
 def enableSambaUser(username):
     return SambaAD().enableUser(username)

@@ -86,7 +86,7 @@ class SambaAD:
     def createUser(self, username, password, given_name=None, surname=None):
         cmd = "user create %s '%s'" % (username, password)
         if given_name and surname:
-            cmd += " --given_name='%s' --surname='%s'" % (given_name, surname)
+            cmd += " --given-name='%s' --surname='%s'" % (given_name, surname)
         self._samba_tool(cmd)
         return True
 

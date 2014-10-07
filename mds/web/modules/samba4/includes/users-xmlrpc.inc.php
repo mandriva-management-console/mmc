@@ -45,8 +45,8 @@ function userHasSambaEnabled($username) {
  * Create the given at the Samba directory
  * Return True if the operation succeded
  */
-function createSambaUser($username, $password) {
-    return xmlCall("samba4.createSambaUser", array($username, $password));
+function createSambaUser($username, $password, $givenName, $sn) {
+    return xmlCall("samba4.createSambaUser", array($username, $password, $givenName, $sn));
 }
 
 /*
