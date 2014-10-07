@@ -10,7 +10,7 @@ from ldap.controls import RequestControl
 from datetime import datetime, timedelta
 import pytz
 import time
-import sys
+import os
 import logging
 
 
@@ -366,12 +366,12 @@ class S4Sync(object):
                         raise S4SyncTimestampError("Badformed timestamp file")
             except IOError:
                 raise S4SyncTimestampError("Error reading timestamp")
-        elif os.path.exists(self.timestamp_path):
+        elif os.path.exists(self.TIMESTAMP_PATH):
             # Exists but is not a file
             raise S4SyncTimestampError("Timestamp file exists but is not a file")
         else:
             # Doesn't exist, write default value and return it
-            beginning_of_time = datetime(1601, 1, 1, tzinfo=pytz.UTC)
+            beginning_of_time = datetime(1900, 1, 1, tzinfo=pytz.UTC)
             self.update_timestamp(beginning_of_time)
             return beginning_of_time
 
