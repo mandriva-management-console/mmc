@@ -1,4 +1,4 @@
-# -*- coding: utf-8; -*-g
+# -*- coding: utf-8; -*-
 #
 # (c) 2014 Zentyal S.L., http://www.zentyal.com
 #
@@ -16,6 +16,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author(s):
+#   Jesús García Sáez <jgarcia@zentyal.com>
+#
 
 from mmc.plugins.shorewall import get_zones_interfaces
 from mmc.plugins.shorewall.config import ShorewallPluginConfig

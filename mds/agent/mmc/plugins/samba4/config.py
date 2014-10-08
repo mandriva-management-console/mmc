@@ -1,4 +1,4 @@
-# -*- coding: utf-8; -*-g
+# -*- coding: utf-8; -*-
 #
 # (c) 2014 Zentyal S.L., http://www.zentyal.com
 #
@@ -19,7 +19,7 @@
 #
 # Author(s):
 #   Julien Kerihuel <jkerihuel@zentyal.com>
-#
+#   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
 import ConfigParser
