@@ -36,12 +36,32 @@ import os
 import logging
 
 
-class LdapBase(object):
+class LdapUserMixin(object):
+    """Mixin with common CRUD operations for users in LDAP: get user,
+    list users, create user from another, delete user, sync fields from another
+    user.
+
+    This requires to define the following instance attributes:
+
+      * self.user_base_dn
+      * self.user_list_filter
+      * self.user_pk_field
+      * self.user_timestamp_field
+      * self.user_ignore_list
+
+    And also the following methods:
+
+      * _create_user(self, username, password, name, surname)
+        * Create the user in ldap.
+      * _format_timestamp(self, timestamp_str)
+        * Format a value of a self.user_timestamp_field attribute returning
+          a datetime object.
+    """
     FIELDS_TO_SYNC = ['displayName', 'givenName', 'sn']
 
     def _get_user(self, username, attrs=['*']):
         entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(%s=%s)' % (self.user_pk, username),
+                                  filterstr='(%s=%s)' % (self.user_pk_field, username),
                                   attrlist=attrs)
         if len(entries) == 0:
             return (None, None)
@@ -58,10 +78,10 @@ class LdapBase(object):
     def list_users(self):
         entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
                                   filterstr=self.user_list_filter,
-                                  attrlist=[self.user_pk, self.user_timestamp_field])
+                                  attrlist=[self.user_pk_field, self.user_timestamp_field])
         users = {}
         for e in entries:
-            user = e[1][self.user_pk][0]
+            user = e[1][self.user_pk_field][0]
             if user not in self.user_ignore_list:
                 timestamp_str = e[1][self.user_timestamp_field][0]
                 users[user] = self._format_timestamp(timestamp_str)
@@ -91,20 +111,17 @@ class LdapBase(object):
         self.l.delete_s(dn)
 
 
-class SambaLdap(LdapBase):
+class SambaLdap(LdapUserMixin):
     LDAP_URI = "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi"
 
     def __init__(self, base_dn):
         self.base_dn = base_dn
         self.l = ldap.initialize(self.LDAP_URI)
         self.user_base_dn = "CN=Users,%s" % self.base_dn
-        self.user_pk = "sAMAccountName"
+        self.user_pk_field = "sAMAccountName"
         self.user_timestamp_field = "whenChanged"
         self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(adminCount=*))))'
         self.user_ignore_list = ['Guest']
-
-    def realm(self):
-        return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
 
     def _create_user(username, password, name, surname):
         SambaAD().createUser(username, password, name, surname)
@@ -112,6 +129,9 @@ class SambaLdap(LdapBase):
     def _format_timestamp(self, timestamp_str):
         date = datetime.strptime(timestamp_str, "%Y%m%d%H%M%S.0Z")
         return date.replace(tzinfo=pytz.UTC)
+
+    def realm(self):
+        return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
 
     def get_credentials(self, username):
         dn, attrs = self._get_user(username, ['unicodePwd', 'supplementalCredentials'])
@@ -155,13 +175,13 @@ class SambaLdap(LdapBase):
         self.l.modify_ext_s(dn, modlist)
 
 
-class OpenLdap(LdapBase):
+class OpenLdap(LdapUserMixin):
     def __init__(self, base_dn, bind_dn, bind_pw, host='localhost'):
         self.l = ldap.open(host)
         self.l.bind_s(bind_dn, bind_pw)
         self.base_dn = base_dn
         self.user_base_dn = "ou=People,%s" % self.base_dn
-        self.user_pk = "uid"
+        self.user_pk_field = "uid"
         self.user_timestamp_field = "modifyTimestamp"
         self.user_list_filter = '(&(objectClass=inetOrgPerson)(objectClass=krb5KDCEntry))'
         self.user_ignore_list = []
@@ -278,6 +298,7 @@ class S4Sync(object):
                                  ldap_creds['bind_pw'])
 
     def _sync_password(self, user):
+        """Sync password for an user that exists in both OpenLdap and Samba"""
         samba_timestamp = self.samba_ldap.password_timestamp_for(user)
         openldap_timestamp = self.openldap.password_timestamp_for(user)
         if samba_timestamp > openldap_timestamp:
@@ -290,6 +311,7 @@ class S4Sync(object):
                                              self.openldap, openldap_timestamp)
 
     def _sync_fields(self, user, samba_timestamp, openldap_timestamp):
+        """Sync some fields of an user that exists in both OpenLdap and Samba"""
         if samba_timestamp > openldap_timestamp:
             self.logger.info("Updating %s info on OpenLdap" % user)
             self.openldap.sync_user_with(user, self.samba_ldap)
@@ -371,8 +393,9 @@ class S4Sync(object):
             else:
                 # Delete it on Samba
                 self.logger.debug("\tDeleting user %s on samba because its "
-                                  "timestamp `%s` is previous to the last sync `%s`"
-                                  % (user, user_timestamp, last_sync_timestamp))
+                                  "timestamp (%s) is previous or equal to the "
+                                  "last sync (%s)" %
+                                  (user, user_timestamp, last_sync_timestamp))
                 self.samba_ldap.delete_user(user)
 
         self.update_timestamp(now_timestamp)
