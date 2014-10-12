@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-09-29 01:04+0200\n"
-"PO-Revision-Date: 2014-05-01 11:15+0000\n"
-"Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
+"POT-Creation-Date: 2014-10-10 16:09+0200\n"
+"PO-Revision-Date: 2014-10-06 09:28+0000\n"
+"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/mds/team/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -240,7 +240,7 @@ msgstr "Mail-Host ändern"
 
 #: modules/mail/includes/auditCodes.php:10
 msgid "Change mail proxy"
-msgstr "Mailproxy ändern"
+msgstr ""
 
 #: modules/mail/includes/auditCodes.php:11
 msgid "Change mail quota"
@@ -412,7 +412,7 @@ msgstr "E-Mail Server Host"
 
 #: modules/mail/includes/publicFunc.php:267
 msgid "Mail proxy"
-msgstr "Mailproxy"
+msgstr ""
 
 #: modules/mail/includes/publicFunc.php:275
 msgid "Zarafa properties"
