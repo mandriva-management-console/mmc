@@ -1,8 +1,6 @@
-# -*- coding: utf-8; -*-g
+# -*- coding: utf-8; -*-
 #
 # (c) 2014 Zentyal S.L., http://www.zentyal.com
-#
-# $Id$
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -21,6 +19,7 @@
 #
 # Author(s):
 #   Julien Kerihuel <jkerihuel@zentyal.com>
+#   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
 """

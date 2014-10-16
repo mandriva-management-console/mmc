@@ -39,7 +39,9 @@ function _samba4_changeUser($FH, $mode) {
     if ($mode == "add") {
         $username = $FH->getPostValue("uid");
         $password = $FH->getPostValue("pass");
-        createSambaUser($username, $password);
+        $givenName = $FH->getPostValue("givenName");
+        $sn = $FH->getPostValue("sn");
+        createSambaUser($username, $password, $givenName, $sn);
 
         if (_enablingSamba4ToUser($FH, $mode))
             enableSambaUser($username);

@@ -1,7 +1,29 @@
+# -*- coding: utf-8; -*-
+#
+# (c) 2014 Zentyal S.L., http://www.zentyal.com
+#
+# This file is part of Mandriva Management Console (MMC).
+#
+# MMC is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# MMC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author(s):
+#   Jesús García Sáez <jgarcia@zentyal.com>
+#
 import logging
 import time
 from daemon import runner
-from sync import S4Sync, Samba4NotProvisioned
+from sync import sync_loop
 
 
 class S4SyncApp(object):
@@ -17,23 +39,7 @@ class S4SyncApp(object):
         self.logger = logger
 
     def run(self):
-        try:
-            s4sync = S4Sync(self.logger)
-        except Samba4NotProvisioned:
-            logger.error("Samba4 not provisioned? exiting...")
-            return
-
-        self.logger.info("S4Sync daemon started")
-        while True:
-            try:
-                s4sync.sync()
-            except Samba4NotProvisioned:
-                logger.error("Samba4 not provisioned? exiting...")
-                return
-            except:
-                self.logger.exception("Unexpected error when trying to sync")
-                s4sync.reset()
-            time.sleep(self.WAIT_TIME)
+        sync_loop(self.logger, self.WAIT_TIME)
 
 
 # Logging
