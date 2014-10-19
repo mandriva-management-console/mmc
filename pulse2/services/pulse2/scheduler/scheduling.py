@@ -157,7 +157,7 @@ def isLastToHaltInBundle(myCommandOnHostID):
         ).select_from(database.commands_on_host.join(database.commands).join(database.target)
         ).filter(database.commands.c.fk_bundle == myC.fk_bundle
         ).filter(database.commands.c.order_in_bundle == myC.order_in_bundle
-        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)                
+        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(database.target.c.target_uuid ==  myT.target_uuid
         ).filter(sqlalchemy.not_(
             database.commands_on_host.c.current_state.in_(PULSE2_POST_HALT_STATES))
@@ -196,7 +196,7 @@ def getDependancies(myCommandOnHostID):
         ).select_from(database.commands_on_host.join(database.commands).join(database.target)
         ).filter(database.commands.c.fk_bundle == myC.fk_bundle
         ).filter(database.commands.c.order_in_bundle < myC.order_in_bundle
-        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)                
+        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(database.target.c.target_uuid ==  myT.target_uuid
         ).all():
             if q.current_state in ['done']:
@@ -552,14 +552,14 @@ def gatherIdsToAnalyse(scheduler_name):
     commands_query = session.query(CommandsOnHost).\
         select_from(database.commands_on_host.join(database.commands)
         ).filter(sqlalchemy.not_(database.commands_on_host.c.current_state.in_(PULSE2_UNPREEMPTABLE_STATES))
-        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)            
+        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(sqlalchemy.or_(
             database.commands_on_host.c.scheduler == '',
             database.commands_on_host.c.scheduler == scheduler_name,
             database.commands_on_host.c.scheduler == None)
         )
     session.close()
-    return commands_query.all()    
+    return commands_query.all()
 
 def analyseCommands(commands_to_analyse):
 
@@ -670,7 +670,7 @@ def gatherIdsToReSchedule(scheduler_name):
         ).filter(database.commands_on_host.c.next_launch_date <= now
         ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(database.commands.c.start_date <= now
-        ).filter(database.commands.c.end_date > now        
+        ).filter(database.commands.c.end_date > now
         ).filter(sqlalchemy.or_(
             database.commands_on_host.c.scheduler == '',
             database.commands_on_host.c.scheduler == scheduler_name,
@@ -680,21 +680,21 @@ def gatherIdsToReSchedule(scheduler_name):
         )
     session.close()
 
-       
+
     return commands_query
 
 def calcBalance(scheduler_name):
-    """ 
-    Calculate the priority coefficient 
-    
-    @param scheduler_name: name of scheduler 
+    """
+    Calculate the priority coefficient
+
+    @param scheduler_name: name of scheduler
     @type scheduler_name: string
     """
     commands_query = gatherIdsToReSchedule(scheduler_name)
     coh_balances = []
     for myCoH, myC in commands_query.all():
-        
-        balance = getBalanceByAttempts(myC.start_date, 
+
+        balance = getBalanceByAttempts(myC.start_date,
                                        myC.end_date,
                                        myCoH.attempts_failed)
         coh_balances.append((myCoH.id, balance))
@@ -702,13 +702,13 @@ def calcBalance(scheduler_name):
     CoHManager.setBalances(coh_balances)
 
 def selectCommandsToReSchedule (result, scheduler_name, limit):
-    """ 
+    """
     Select the maximum of commands to fire.
 
     Commands with a high balance coeficient is favorised
-    and choiced with a random select. 
+    and choiced with a random select.
 
-    @param scheduler_name: name of scheduler 
+    @param scheduler_name: name of scheduler
     @type scheduler_name: string
 
     @param limit: maximum number of commands to reach
@@ -720,7 +720,7 @@ def selectCommandsToReSchedule (result, scheduler_name, limit):
 
     selected = randomListByBalance(balances, limit)
     if selected :
-        log.debug("Drawed CoHs : %s" % str(selected))        
+        log.debug("Drawed CoHs : %s" % str(selected))
         for coh in selected :
             calcNextAttemptDelay(coh)
 
@@ -739,7 +739,7 @@ def calcNextAttemptDelay(drw_coh):
         end_timestamp = time.mktime(myC.end_date.timetuple())
 
         total_secs = end_timestamp - start_timestamp
-        # ---------* just for debug display *----------------- 
+        # ---------* just for debug display *-----------------
         # TODO - determine DEBUG level from log.FileHandler...
         log.debug("Execution plan for CoH %s :" %str(myCoH.id))
         _exec_plan = ParabolicBalance(attempts_total)
@@ -802,7 +802,7 @@ def gatherIdsToStart(scheduler_name, commandIDs = []):
         ).filter(sqlalchemy.not_(database.commands_on_host.c.current_state.in_(PULSE2_UNPREEMPTABLE_STATES))
         ).filter(database.commands_on_host.c.attempts_left > database.commands_on_host.c.attempts_failed
         ).filter(database.commands_on_host.c.next_launch_date <= now
-        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)                
+        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(sqlalchemy.or_(
             database.commands.c.start_date == soon,
             database.commands.c.start_date <= now)
@@ -822,7 +822,7 @@ def gatherIdsToStart(scheduler_name, commandIDs = []):
         # IMPORTANT NOTE : This ordering is not alphabetical!
         # Field 'current_state' is ENUM type, so decisive condition
         # is order of element in the declaration of field.
-        # Because this order of elements is suitable on workflow, 
+        # Because this order of elements is suitable on workflow,
         # using of descending order allows to favouring the commands
         # which state is approaching to end of worklow.
 
@@ -832,10 +832,9 @@ def gatherIdsToStart(scheduler_name, commandIDs = []):
 
     commands_to_perform = []
     for q in commands_query.all():
-        commands_to_perform.append((q[0].id, q[1].fk_bundle, q[1].order_in_bundle))
+        yield (q[0].id, q[1].fk_bundle, q[1].order_in_bundle)
 
     session.close()
-    return commands_to_perform
 
 def sortCommands(commands_to_perform):
     """
@@ -954,7 +953,7 @@ def sortCommands(commands_to_perform):
         addCallback(_cb, tocome_distribution).\
         addCallback(_parseResult).\
         addCallback(selectCommandsToReSchedule, SchedulerConfig().name, to_reach)
- 
+
 def getRunningCommandsOnHostInDB(scheduler_name, ids = None):
     query = __getRunningCommandsOnHostInDB(scheduler_name, ids)
     return [q[0].id for q in query]
@@ -968,7 +967,7 @@ def __getRunningCommandsOnHostInDB(scheduler_name, ids=None) :
     query = session.query(CommandsOnHost, Commands
         ).select_from(database.commands_on_host.join(database.commands)
         ).filter(database.commands_on_host.c.current_state.in_(PULSE2_RUNNING_STATES)
-        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)                
+        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(sqlalchemy.or_(
             database.commands_on_host.c.scheduler == '',
             database.commands_on_host.c.scheduler == scheduler_name,
@@ -995,7 +994,7 @@ def getCommandsToNeutralize(scheduler_name):
 
     query = session.query(CommandsOnHost
         ).select_from(database.commands_on_host.join(database.commands)
-        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)                
+        ).filter(database.commands.c.state.in_(PULSE2_COMMANDS_ACTIVE_STATES)
         ).filter(sqlalchemy.not_(
             database.commands_on_host.c.current_state.in_(PULSE2_TERMINATED_STATES))
         ).filter(sqlalchemy.and_(
@@ -1024,7 +1023,7 @@ def gatherIdsToStop(scheduler_name):
     now = time.strftime("%Y-%m-%d %H:%M:%S")
     ids = list()
     ids_failed = list()
-    ids_failed_to_delete = list() # ids with failed execution 
+    ids_failed_to_delete = list() # ids with failed execution
                                   #to reschedule with only delete phase
     ids_overtimed = list()
     for myCoH, myC in __getRunningCommandsOnHostInDB(scheduler_name):
@@ -1117,7 +1116,7 @@ def preemptTasks(scheduler_name):
             deffereds.append(deffered)
 
     # deferred handling; consumeErrors set to prevent any unhandled exception
-    return twisted.internet.defer.DeferredList(deffereds, consumeErrors = True) 
+    return twisted.internet.defer.DeferredList(deffereds, consumeErrors = True)
 
 def cleanStatesAllRunningIds(ids):
     """
@@ -1315,7 +1314,7 @@ def runCommand(myCommandOnHostID):
     """
     if checkAndFixCommand(myCommandOnHostID):
         if SchedulerConfig().lock_processed_commands and \
-                not CommandsOnHostTracking().preempt(myCommandOnHostID): 
+                not CommandsOnHostTracking().preempt(myCommandOnHostID):
             return
         log.info("command_on_host #%s: Preempting" % myCommandOnHostID)
         return runImagingMenuPhase(myCommandOnHostID)
@@ -1341,11 +1340,11 @@ def checkAndFixCommand(myCommandOnHostID):
     if not myT.hasEnoughInfoToConnect():
         myCoH.setStateFailed()
         # FIXME : error classe is wrong !
-        updateHistory(myCommandOnHostID, 
-                      None, 
-                      PULSE2_TARGET_NOTENOUGHINFO_ERROR, 
-                      '', 
-                      'Not enough information to establish a connection') 
+        updateHistory(myCommandOnHostID,
+                      None,
+                      PULSE2_TARGET_NOTENOUGHINFO_ERROR,
+                      '',
+                      'Not enough information to establish a connection')
         return False
 
     # give up if command not in interval
@@ -1365,10 +1364,10 @@ def checkAndFixCommand(myCommandOnHostID):
         if deps_status == "dead":
             myCoH.setStateFailed()
             # FIXME : error classe is wrong !
-            updateHistory(myCommandOnHostID, 
-                          None, 
-                          PULSE2_BUNDLE_MISSING_MANDATORY_ERROR, 
-                          '', 
+            updateHistory(myCommandOnHostID,
+                          None,
+                          PULSE2_BUNDLE_MISSING_MANDATORY_ERROR,
+                          '',
                           'Bundle stopped since a mandatory part could not be done')
             return False # give up, some deps have failed
         if deps_status == "wait":
@@ -1437,10 +1436,10 @@ def runWOLPhase(myCommandOnHostID):
             if myCoH.isImagingMenuDone():
                 def _unsetWOLcb(result, myCommandOnHostID):
                     # FIXME: state will be 'wol_ignored' when implemented in database
-                    updateHistory(myCommandOnHostID, 
-                                  None, 
-                                  PULSE2_SUCCESS_ERROR, 
-                                  "skipped: host already up", 
+                    updateHistory(myCommandOnHostID,
+                                  None,
+                                  PULSE2_SUCCESS_ERROR,
+                                  "skipped: host already up",
                                   "")
                     myCoH.setWOLIgnored()
                     myCoH.setStateScheduled()
@@ -1458,10 +1457,10 @@ def runWOLPhase(myCommandOnHostID):
                 return imgdeferred
             else:
                 # FIXME: state will be 'wol_ignored' when implemented in database
-                updateHistory(myCommandOnHostID, 
-                              None, 
-                              PULSE2_SUCCESS_ERROR, 
-                              "skipped: host already up", 
+                updateHistory(myCommandOnHostID,
+                              None,
+                              PULSE2_SUCCESS_ERROR,
+                              "skipped: host already up",
                               "")
                 myCoH.setWOLIgnored()
                 myCoH.setStateScheduled()
@@ -1487,15 +1486,15 @@ def runWOLPhase(myCommandOnHostID):
     if myCoH.isWOLRunning():            # WOL in progress
         if myCoH.getLastWOLAttempt() != None: # WOL *really* progress, hem
             delta = datetime.datetime.now()-myCoH.getLastWOLAttempt()
-            if (delta.days * 60 * 60 * 24 + delta.seconds) < (SchedulerConfig().max_wol_time + 60): 
+            if (delta.days * 60 * 60 * 24 + delta.seconds) < (SchedulerConfig().max_wol_time + 60):
                 # still within the wait period, we should wait a little more
                 return runGiveUpPhase(myCommandOnHostID)
-            elif WOLTracking().iswollocked(myCommandOnHostID): 
+            elif WOLTracking().iswollocked(myCommandOnHostID):
                 # WOL XMLRPC still in progress, give up
                 return runGiveUpPhase(myCommandOnHostID)
-            else: 
-                # we already pass the delay from at least 300 seconds AND 
-                # either the scheduler was restarted or the lock was released, 
+            else:
+                # we already pass the delay from at least 300 seconds AND
+                # either the scheduler was restarted or the lock was released,
                 # let's continue
                 log.warn("command_on_host #%s: WOL should have been set as done !" % \
                              (myCommandOnHostID))
@@ -1523,7 +1522,7 @@ def runWOLPhase(myCommandOnHostID):
         myCoH.setWOLIgnored()
         myCoH.setStateScheduled()
         return runUploadPhase(myCommandOnHostID)
-    if not myT.hasEnoughInfoToWOL(): 
+    if not myT.hasEnoughInfoToWOL():
         # not enough information to perform WOL: ignoring phase but writting this in DB
         status = "couldn't be performed"
         message = 'not enough information in target table'
@@ -1531,9 +1530,9 @@ def runWOLPhase(myCommandOnHostID):
         # FIXME: state will be 'wol_ignored' when implemented in database
         if myCoH.isImagingMenuDone(): # Imaging WOL
             def _unsetWOLcb(result, myCommandOnHostID):
-                updateHistory(myCommandOnHostID, 
-                              'wol_failed', 
-                              PULSE2_TARGET_NOTENOUGHINFO_ERROR, 
+                updateHistory(myCommandOnHostID,
+                              'wol_failed',
+                              PULSE2_TARGET_NOTENOUGHINFO_ERROR,
                               " skipped : not enough information in target table")
                 myCoH.setWOLIgnored()
                 myCoH.setStateScheduled()
@@ -1548,9 +1547,9 @@ def runWOLPhase(myCommandOnHostID):
             imgdeferred.addErrback(_unsetWOLeb, myCommandOnHostID)
             return imgdeferred
         else:
-            updateHistory(myCommandOnHostID, 
-                          'wol_failed', 
-                          PULSE2_TARGET_NOTENOUGHINFO_ERROR, 
+            updateHistory(myCommandOnHostID,
+                          'wol_failed',
+                          PULSE2_TARGET_NOTENOUGHINFO_ERROR,
                           " skipped : not enough information in target table")
             myCoH.setWOLIgnored()
             myCoH.setStateScheduled()
@@ -1661,12 +1660,12 @@ def _cbChooseUploadMode(result, myCoH, myC, myT):
 
 def _chooseUploadMode(myCoH, myC, myT):
     # check if we have enough informations to reach the client
-    client = { 'host': chooseClientIP(myT), 
-               'uuid': myT.getUUID(), 
-               'maxbw': myC.maxbw, 
-               'client_check': getClientCheck(myT), 
-               'server_check': getServerCheck(myT), 
-               'action': getAnnounceCheck('transfert'), 
+    client = { 'host': chooseClientIP(myT),
+               'uuid': myT.getUUID(),
+               'maxbw': myC.maxbw,
+               'client_check': getClientCheck(myT),
+               'server_check': getServerCheck(myT),
+               'action': getAnnounceCheck('transfert'),
                'group': getClientGroup(myT)}
     if not client['host']: # We couldn't get an IP address for the target host
         err = twisted.internet.defer.fail(Exception("Not enough information about client to perform upload"))
@@ -1675,16 +1674,16 @@ def _chooseUploadMode(myCoH, myC, myT):
         return err
 
     # first attempt to guess is mirror is local (push) or remove (pull) or through a proxy
-    if myCoH.isProxyClient(): 
+    if myCoH.isProxyClient():
         # proxy client
         d = _runProxyClientPhase(client, myC, myCoH)
-    elif re_file_prot.match(myT.mirrors): 
+    elif re_file_prot.match(myT.mirrors):
         # local mirror starts by "file://" : prepare a remote_push
         d = _runPushPhase(client, myC, myCoH, myT)
     else: # remote push/pull
 
-        try: 
-            # mirror is formated like this: 
+        try:
+            # mirror is formated like this:
             # https://localhost:9990/mirror1||https://localhost:9990/mirror1
             mirrors = myT.mirrors.split('||')
         except:

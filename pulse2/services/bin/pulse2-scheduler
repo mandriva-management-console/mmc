@@ -84,7 +84,7 @@ def start_all_callbacks():
     if SchedulerConfig().active_clean_states_run:
         scheduleFixProcessingTasks()
     scheduleLogStats()
-    twisted.internet.reactor.callInThread(schedulePreemptStartedCommands)
+    schedulePreemptStartedCommands()
     scheduleCheckStatus()
     logger.info('scheduler "%s": all callbacks started' % (SchedulerConfig().name))
 
@@ -217,7 +217,7 @@ def awakeFixUnprocessedTasks():
     ).addBoth( # loop scheduling
         lambda nothing : scheduleFixUnprocessedTasks() # lambda used to "silently" intercept return arg
     )
-           
+
 def awakeFixProcessingTasks():
     logging.getLogger().info('scheduler %s: FPT: Analysing database' % (SchedulerConfig().name))
     # as cleanStates() may crash before giving a deferred (MySQL down for example),

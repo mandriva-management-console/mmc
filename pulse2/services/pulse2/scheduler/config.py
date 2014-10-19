@@ -103,7 +103,7 @@ class SchedulerConfig(pulse2.utils.Singleton):
     max_wol_time = 300
     mg_assign_algo = 'default'
     mode = 'async'
-    multithreading = True
+    multithreading = False
     password = 'password'
     preempt_amount = 50
     preempt_period = 1
