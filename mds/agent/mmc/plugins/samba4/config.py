@@ -1,6 +1,6 @@
 # -*- coding: utf-8; -*-
 #
-# (c) 2014 Zentyal S.L., http://www.zentyal.com
+# (c) 2014 Mandriva, http://www.mandriva.com/
 #
 # This file is part of Mandriva Management Console (MMC).
 #

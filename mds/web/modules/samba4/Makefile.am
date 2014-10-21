@@ -18,6 +18,8 @@
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s):
+#   Julien Kerihuel <jkerihuel@zentyal.com>
+#   Miguel Julián <mjulian@zentyal.com>
 #
 datafiles = \
 	mainSidebar.php \
