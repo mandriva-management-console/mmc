@@ -75,7 +75,7 @@ class SambaConf:
             logger.error("Failed to parse %s : %s " % (self.smb_conf_path, e))
 
     def private_dir(self):
-        return os.path.join(self.prefix, 'private');
+        return os.path.join(self.prefix, 'private')
 
     def validate(self, conf_file):
         """
