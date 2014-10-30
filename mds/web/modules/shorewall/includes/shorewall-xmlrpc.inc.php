@@ -34,21 +34,17 @@ function getServices() {
         $_SESSION['shorewall_services'] = xmlCall("shorewall.get_services", array());
     return $_SESSION['shorewall_services'];
 }
-function getShorewallZones($type) {
-    if (!isset($_SESSION['shorewall_zones_' . $type]))
-        $_SESSION['shorewall_zones_' . $type] = xmlCall("shorewall.get_zones", array($type));
-    return $_SESSION['shorewall_zones_' . $type];
-}
 function getPolicies($src = "", $dst = "", $filter = "") {
     return xmlCall("shorewall.get_policies", array($src, $dst, $filter));
 }
 function changePolicies($src, $dst, $policy, $log = "") {
     return xmlCall("shorewall.change_policies", array($src, $dst, $policy, $log));
 }
-function getZonesInterfaces($type = "") {
-    if (!isset($_SESSION['shorewall_zones_interfaces_' . $type]))
-        $_SESSION['shorewall_zones_interfaces_' . $type] = xmlCall("shorewall.get_zones_interfaces", array($type));
-    return $_SESSION['shorewall_zones_interfaces_' . $type];
+function getShorewallZones($zones=[]) {
+    return xmlCall("shorewall.get_zones", array($zones));
+}
+function getZonesInterfaces($zones = []) {
+    return xmlCall("shorewall.get_zones_interfaces", array($zones));
 }
 function getZonesTypes() {
     if (!isset($_SESSION['shorewall_zones_types'])) {

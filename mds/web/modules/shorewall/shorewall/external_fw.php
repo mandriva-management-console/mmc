@@ -22,7 +22,7 @@
 
 $zones_types = getZonesTypes();
 $src = $zones_types['external'];
-$dst = "fw";
+$dst = ["fw"];
 $page = "external_fw";
 include('rules.php');
 

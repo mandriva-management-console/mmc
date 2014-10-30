@@ -44,6 +44,16 @@ the interface is considered as 'external'.
 You can change theses names by changing the ``external_zones_names`` and
 ``internal_zones_names`` options.
 
+You can list multiple zone names in ``external_zones_names`` or ``internal_zones_names``.
+For example, one can say:
+
+::
+
+    internal_zones_names = lan vpn0 vlan5
+
+In this example, all zones that begins by 'lan' and the zones 'vpn0' and 'vlan5'
+are considered as internal zones by the plugin.
+
 Shorewall configuration
 =======================
 
@@ -77,4 +87,5 @@ In ``/etc/shorewall/policy`` define the default policy between your zones:
     wan0    fw      DROP    # wan0 -> server
     all     all     DROP    # catch-all rule
 
-Finally, be sure that the file ``/etc/shorewall/rules`` exists
+Finally, be sure that the file ``/etc/shorewall/rules`` exists. The shorewall
+plugin will manage the ``policy`` and ``rules`` file.
