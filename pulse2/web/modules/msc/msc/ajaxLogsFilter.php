@@ -27,6 +27,7 @@ require_once("modules/msc/includes/widgets.inc.php");
 require_once("modules/msc/includes/functions.php");
 require_once("modules/msc/includes/commands_xmlrpc.inc.php");
 require_once("modules/msc/includes/command_history.php");
+require_once("modules/msc/includes/mscoptions_xmlrpc.php");
 
 global $conf;
 $maxperpage = $conf["global"]["maxperpage"];
@@ -77,6 +78,7 @@ $params = array();
 /* available buttons */
 $actionplay    = new ActionPopupItem(_T("Start", "msc"), "msctabsplay",  "start",   "msc", "base", "computers");
 $actionpause   = new ActionPopupItem(_T("Pause", "msc"), "msctabspause", "pause",   "msc", "base", "computers");
+$actiondelete  = new ActionPopupItem(_T("Delete", "msc"), "delete", "delete", "msc", "base", "computers");
 $actionstop    = new ActionPopupItem(_T("Stop", "msc"),  "msctabsstop",  "stop",    "msc", "base", "computers");
 $actionstatus  = new ActionPopupItem(_T("Status", "msc"), "msctabsstatus","status", "msc", "base", "computers");
 $actionstatus->setWidth("400");
@@ -93,6 +95,8 @@ $a_stop = array();
 $a_details = array();
 $a_status = array();
 $a_progression = array();
+$a_delete = array();
+
 $n = null;
 
 if ($areCommands) { // display several commands
@@ -171,6 +175,11 @@ if ($areCommands) { // display several commands
             $icons['stop']  == '' ? $a_stop[]  = $actionempty : $a_stop[]  = $actionstop;
             $icons['pause'] == '' ? $a_pause[] = $actionempty : $a_pause[] = $actionpause;
         }
+        if (web_def_allow_delete()){
+	    $a_delete[] = $actiondelete;
+	} else {
+	    $a_delete[] = $actionempty;
+	}
 
         $params[] = $p;
         if (isset($_GET['cmd_id']) && isset($cmd['id']) == isset($_GET['cmd_id'])) {
@@ -205,6 +214,7 @@ if ($areCommands) { // display several commands
         $n->addActionItemArray($a_stop);
     }
     $n->addActionItemArray($a_status);
+    $n->addActionItemArray($a_delete);
 } else { // display only one command
     $proxies = array();
     $a_client = array();
@@ -287,6 +297,11 @@ if ($areCommands) { // display several commands
                 $a_details[] = $actionempty;
             } else {
                 $a_details[] = $actiondetails;
+	    }
+            if (web_def_allow_delete()){
+                $a_delete[] = $actiondelete;
+            } else {
+	        $a_delete[] = $actionempty;
             }
         }
     }
@@ -312,6 +327,7 @@ if ($areCommands) { // display several commands
         $n->addActionItemArray($a_pause);
         $n->addActionItemArray($a_stop);
     }
+    $n->addActionItemArray($a_delete);
     $n->col_width = array("30px", "", "", "", "80px", "0");
 }
 

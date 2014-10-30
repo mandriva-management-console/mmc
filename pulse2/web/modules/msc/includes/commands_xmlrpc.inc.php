@@ -189,5 +189,14 @@ function getMachineNamesOnBundleStatus($bundle_id, $state) {
 function get_new_bundle_title($nb = 0) {
     return xmlCall('msc.get_new_bundle_title', array($nb));
 }
+function delete_bundle($id) {
+    return xmlCall('msc.delete_bundle', array($id));
+}
+function delete_command($id) {
+    return xmlCall('msc.delete_command', array($id));
+}
+function delete_command_on_host($id) {
+    return xmlCall('msc.delete_command_on_host', array($id));
+}
 
 ?>

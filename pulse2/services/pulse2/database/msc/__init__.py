@@ -189,7 +189,7 @@ class MscDatabase(DatabaseHelper):
 
     def createCommand(self, session, package_id, start_file, parameters, files,
             start_script, clean_on_success, start_date, end_date, connect_as,
-            creator, title, do_halt, do_reboot, do_wol, 
+            creator, title, do_halt, do_reboot, do_wol,
             do_wol_with_imaging, next_connection_delay,
             max_connection_attempt, do_inventory, maxbw, deployment_intervals,
             fk_bundle, order_in_bundle, proxies, proxy_mode, state):
@@ -229,9 +229,9 @@ class MscDatabase(DatabaseHelper):
         session.flush()
         return cmd
 
-    def createCommandsOnHost(self, command, target, target_id, 
-                             target_name, cmd_max_connection_attempt, 
-                             start_date, end_date, scheduler = None, 
+    def createCommandsOnHost(self, command, target, target_id,
+                             target_name, cmd_max_connection_attempt,
+                             start_date, end_date, scheduler = None,
                              order_in_proxy = None, max_clients_per_proxy = 0):
         logging.getLogger().debug("Create new command on host '%s'" % target_name)
         return {
@@ -266,6 +266,172 @@ class MscDatabase(DatabaseHelper):
                    "mirrors" : mirror,
                    "id_group" : groupID }
         return target
+
+    def deleteBundle(self, bundle_id):
+        """
+        Deletes a bundle with all related sub-elements.
+
+        @param bundle_id: id of bundle
+        @type bundle_id: int
+        """
+        session = create_session()
+        session.begin()
+        try:
+
+            bundle = session.query(Bundle).get(bundle_id)
+            if not bundle:
+                self.logger.warn("Unable to find bundle (id=%s)" % bundle_id)
+                return False
+
+            cmds = session.query(Commands)
+            cmds = cmds.select_from(self.commands)
+            cmds = cmds.filter(self.commands.c.fk_bundle == bundle_id)
+            #self.logger.warn("Commands : %s)" % cmds.all())
+
+            ok = self._deleteCommands(session, cmds)
+            if ok:
+                session.delete(bundle)
+                session.flush()
+                session.commit()
+                session.close()
+                return True
+            else:
+                return False
+
+        except Exception, exc:
+            self.logger.error("Delete of bundle (id=%s) failed: %s" % (bundle_id, str(exc)))
+            session.rollback()
+            session.close()
+            return False
+
+
+
+
+    def deleteCommand(self, cmd_id):
+        """
+        Deletes a command with all related sub-elements.
+
+        @param cmd_id: Commands id
+        @type cmd_id: int
+        """
+        session = create_session()
+        session.begin()
+        try:
+            cmds = session.query(Commands)
+            cmds = cmds.select_from(self.commands)
+            cmds = cmds.filter(self.commands.c.id == cmd_id)
+
+            ok = self._deleteCommands(session, cmds)
+            if ok:
+                session.commit()
+                session.close()
+                return True
+            else:
+                session.rollback()
+                session.close()
+                return False
+
+        except Exception, exc:
+            self.logger.error("Delete of command (id=%s) failed: %s" % (cmd_id, str(exc)))
+            session.rollback()
+            session.close()
+            return False
+
+    def deleteCommandOnHost(self, coh_id):
+        """
+        Deletes a command with all related sub-elements.
+
+        @param cmd_id: Commands id
+        @type cmd_id: int
+        """
+        session = create_session()
+        session.begin()
+        try:
+            cohs = session.query(CommandsOnHost)
+            cohs = cohs.select_from(self.commands_on_host)
+            cohs = cohs.filter(self.commands_on_host.c.id == coh_id)
+
+            ok = self._deleteCommandsOnHost(session, cohs)
+            if ok:
+                session.commit()
+                session.close()
+                return True
+            else:
+                session.rollback()
+                session.close()
+                return False
+
+
+        except Exception, exc:
+            self.logger.error("Delete of command on host(id=%s) failed: %s" % (coh_id, str(exc)))
+            session.rollback()
+            session.close()
+            return False
+
+
+
+    def _deleteCommands(self, session, cmds):
+        """
+        Deletes a command with all related sub-elements.
+
+        @param cmd_id: Commands id
+        @type cmd_id: int
+        """
+        for cmd in cmds.all():
+            cohs = session.query(CommandsOnHost)
+            cohs = cohs.select_from(self.commands_on_host)
+            cohs = cohs.filter(self.commands_on_host.c.fk_commands == cmd.id)
+
+            ok = self._deleteCommandsOnHost(session, cohs)
+            if ok:
+                session.delete(cmd)
+                session.flush()
+                self.logger.info("Command (id=%s) successfully deleted" % (cmd.id))
+
+            else:
+                self.logger.warn("Unable to delete commands on host of command (id=%s)" % cmd.id)
+                return False
+
+        return True
+
+
+    def _deleteCommandsOnHost(self, session, cohs):
+        """
+        Deletes a command with all related sub-elements.
+
+        @param cohs: Commands hon Host
+        @type cohs: query list
+        """
+        for coh in cohs.all():
+            session.delete(coh)
+            session.flush()
+
+            targets = session.query(Target)
+            targets = targets.select_from(self.target)
+            targets = targets.filter(self.target.c.id == coh.fk_target)
+
+            for target in targets.all():
+                session.delete(target)
+                session.flush()
+
+            hists = session.query(CommandsHistory)
+            hists = hists.select_from(self.commands_history)
+            hists = hists.filter(self.commands_history.c.fk_commands_on_host == coh.id)
+
+            for hist in hists.all():
+                session.delete(hist)
+                session.flush()
+
+
+            session.delete(coh)
+            session.flush()
+
+        return True
+
+
+
+
+
 
     def getCommandsonhostsAndSchedulersOnBundle(self, fk_bundle):
         """
@@ -514,19 +680,19 @@ class MscDatabase(DatabaseHelper):
     def getAllCommandsConsult(self, ctx, min, max, filt):
         filtering2_1 = and_(self.commands.c.fk_bundle == None, or_(self.commands.c.title.like('%%%s%%'%(filt)), self.commands.c.creator.like('%%%s%%'%(filt))), self.__queryUsersFilterBis(ctx))
         filtering2_2 = and_(self.commands.c.fk_bundle == self.bundle.c.id, or_(self.commands.c.title.like('%%%s%%'%(filt)), self.commands.c.creator.like('%%%s%%'%(filt)), self.bundle.c.title.like('%%%s%%'%(filt))), self.__queryUsersFilterBis(ctx))
-                
+
         session = create_session()
         size1 = session.query(func.count(Commands.id)).filter(filtering2_1).filter(self.commands.c.fk_bundle == None).scalar() or 0
         size2 = select(['bid'], True, select([self.commands.c.fk_bundle.label('bid')], and_(filtering2_2, self.commands.c.fk_bundle != None)).group_by('bid').alias('BIDS') ).alias('C').count()
- 
+
         conn = self.getDbConnection()
         size2 = conn.execute(size2).fetchone()
-        
+
         size = int(size1) + int(size2[0])
 
         u2 = union(
                 select([self.commands.c.id, func.concat('CMD_', self.commands.c.id).label('bid'), self.commands.c.creation_date], filtering2_1),
-                select([self.commands.c.id, self.commands.c.fk_bundle.label('bid'), self.commands.c.creation_date], filtering2_2) 
+                select([self.commands.c.id, self.commands.c.fk_bundle.label('bid'), self.commands.c.creation_date], filtering2_2)
         ).group_by('bid').order_by(desc('creation_date')).offset(int(min)).limit(int(max)-int(min))
 
         conn = self.getDbConnection()
@@ -538,7 +704,7 @@ class MscDatabase(DatabaseHelper):
         query = session.query(Commands).add_column(self.commands.c.fk_bundle).add_column(self.commands_on_host.c.host).add_column(self.commands_on_host.c.id)
         query = query.add_column(self.target.c.id_group).add_column(self.bundle.c.title).add_column(self.target.c.target_uuid)
         query = query.select_from(self.commands.join(self.commands_on_host).join(self.target).outerjoin(self.bundle))
-        
+
         cmds = query.filter(self.commands.c.id.in_(cmds)).group_by(self.commands.c.id).order_by(desc(self.commands.c.creation_date)).all()
 
         session.close()
@@ -554,7 +720,7 @@ class MscDatabase(DatabaseHelper):
                             'bid':bid,
                             'cmdid':'',
                             'target':'group %s'%gid,
-                            'gid':gid, 
+                            'gid':gid,
                             'uuid':'',
                             'status':self.getCommandOnBundleStatus(ctx, bid)
                     })
@@ -597,7 +763,7 @@ class MscDatabase(DatabaseHelper):
                             'status':{},
                             'current_state':self.getCommandOnHostCurrentState(ctx, cmd.id)
                     })
-            
+
         return [size, ret]
 
     ###################
@@ -957,7 +1123,7 @@ class MscDatabase(DatabaseHelper):
         session.close()
         if max != -1: ret = ret[min:max]
         return [{'coh_id':coh[0].id, 'uuid': coh[1], 'host':coh[0].host, 'start_date':coh[0].start_date, 'end_date':coh[0].end_date, 'current_state':coh[0].current_state} for coh in ret]
-    
+
     def getCommandOnGroupStatus(self, ctx, cmd_id):# TODO use ComputerLocationManager().doesUserHaveAccessToMachine
         session = create_session()
         query = session.query(func.count(self.commands_on_host.c.id), CommandsOnHost).select_from(self.commands_on_host.join(self.commands)).filter(self.commands.c.id == cmd_id)
@@ -1040,7 +1206,7 @@ class MscDatabase(DatabaseHelper):
         return ret
 
     def getStateCoh(self, query, filter):
-        """ 
+        """
         Add filters to query and return a SQL count() of this query
         @param query: the query
         @type query: sqlalchemy query object
@@ -1070,7 +1236,7 @@ class MscDatabase(DatabaseHelper):
         return query.all()
 
     def getStateLen(self, query, filter):
-        """ 
+        """
         Add filters to query and return a SQL count() of this query
         @param query: the query
         @type query: sqlalchemy query object

@@ -155,6 +155,12 @@ if (!empty($submod)) {
     $page->setOptions(array("visible"=>False, "noHeader"=>True));
     $submod->addPage($page);
 
+    /* Delete command popup */
+    $page = new Page("delete", _T("Delete a command", "msc"));
+    $page->setFile("modules/msc/msc/delete.php");
+    $page->setOptions(array("visible" => False, "noHeader" => True));
+    $submod->addPage($page);
+
     /* Status of a command on a group/bundle */
     $page = new Page("msctabsstatus", _T("Command status", "msc"));
     $page->setFile("modules/msc/msc/msctabsstatus.php");

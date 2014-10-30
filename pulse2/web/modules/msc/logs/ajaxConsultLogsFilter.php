@@ -47,6 +47,7 @@ $params = array();
 
 $actionplay = new ActionPopupItem(_T("Start", "msc"),"msctabsplay","start","msc", "base", "computers");
 $actionpause = new ActionPopupItem(_T("Pause", "msc"),"msctabspause","pause","msc", "base", "computers");
+$actiondelete = new ActionPopupItem(_T("Delete", "msc"), "delete", "delete", "msc", "base", "computers");
 $actionstop = new ActionPopupItem(_T("Stop", "msc"),"msctabsstop","stop","msc", "base", "computers");
 $actionstatus  = new ActionPopupItem(_T("Status", "msc"), "msctabsstatus","status", "msc", "base", "computers");
 $actionsinglestatus  = new ActionPopupItem(_T("Status", "msc"), "msctabssinglestatus","status", "msc", "base", "computers");
@@ -56,6 +57,7 @@ $a_start = array();
 $a_pause = array();
 $a_stop = array();
 $a_details = array();
+$a_delete = array();
 
 $n = null;
 
@@ -134,6 +136,7 @@ foreach ($cmds as $item) {
         $a_stop[] = $actionempty;
         $a_pause[] = $actionempty;
         $a_details[] = $actionempty;
+        $a_delete[] = $actionempty;
     } else {    
         if ($icons['play'] == '') { $a_start[] = $actionempty; } else { $a_start[] = $actionplay; }
         if ($icons['stop'] == '') { $a_stop[] = $actionempty; } else { $a_stop[] = $actionstop; }
@@ -142,6 +145,11 @@ foreach ($cmds as $item) {
             $a_details[] = $actionsinglestatus;
         } else {
             $a_details[] = $actionstatus;
+	}
+        if (web_def_allow_delete()){
+            $a_delete[] = $actiondelete;
+        } else {
+            $a_delete[] = $actionempty;
         }
     }
 }
@@ -155,6 +163,7 @@ $n->addActionItemArray($a_start);
 $n->addActionItemArray($a_pause);
 $n->addActionItemArray($a_stop);
 $n->addActionItemArray($a_details);
+$n->addActionItemArray($a_delete);
 
 $n->disableFirstColumnActionLink(); # TODO put several columns actions
 $n->setParamInfo($params);
