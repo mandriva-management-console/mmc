@@ -57,7 +57,6 @@ datafiles = \
 	includes/shares-xmlrpc.inc.php \
 	includes/users-xmlrpc.inc.php \
 	machines/delete.php \
-	machines/machinesSidebar.php \
 	machines/ajaxFilter.php \
 	machines/index.php \
 	machines/localSidebar.php \
