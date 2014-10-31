@@ -1,10 +1,10 @@
 [main]
 disable = 0
 
-samba3ConfFile = /etc/samba/smb.conf
+#samba3ConfFile = /etc/samba/smb.conf
 
-sambaPrefix = /opt/samba4
-sambaConfFile = /opt/samba4/etc/smb.conf
+sambaPrefix = /usr
+sambaConfFile = /etc/smb.conf
 sambaInitScript = /etc/rc.d/init.d/samba4
 
 defaultSharesPath = /home/samba
