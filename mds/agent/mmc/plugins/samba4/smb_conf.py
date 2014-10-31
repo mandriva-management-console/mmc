@@ -1,6 +1,6 @@
-# -*- coding: utf-8; -*-g
+# -*- coding: utf-8; -*-
 #
-# (c) 2014 Zentyal S.L., http://www.zentyal.com
+# (c) 2014 Mandriva, http://www.mandriva.com/
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -16,6 +16,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author(s):
+#   Jesús García Sáez <jgarcia@zentyal.com>
+#   Kamen Mazdrashki <kmazdrashki@zentyal.com>
+#
 
 import grp
 import ldap
@@ -70,7 +75,7 @@ class SambaConf:
             logger.error("Failed to parse %s : %s " % (self.smb_conf_path, e))
 
     def private_dir(self):
-        return os.path.join(self.prefix, 'private');
+        return os.path.join(self.prefix, 'private')
 
     def validate(self, conf_file):
         """

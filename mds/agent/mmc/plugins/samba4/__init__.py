@@ -1,6 +1,6 @@
-# -*- coding: utf-8; -*-g
+# -*- coding: utf-8; -*-
 #
-# (c) 2014 Zentyal S.L., http://www.zentyal.com
+# (c) 2014 Mandriva, http://www.mandriva.com/
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -19,7 +19,7 @@
 #
 # Author(s):
 #   Julien Kerihuel <jkerihuel@zentyal.com>
-#
+#   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
 """
@@ -170,8 +170,8 @@ def updateSambaUserPassword(username, password):
         password = str(password)
     return SambaAD().updateUserPassword(username, password)
 
-def createSambaUser(username, password):
-    return SambaAD().createUser(username, password)
+def createSambaUser(username, password, name, surname):
+    return SambaAD().createUser(username, password, name, surname)
 
 def enableSambaUser(username):
     return SambaAD().enableUser(username)
