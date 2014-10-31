@@ -21,8 +21,9 @@
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
-from pyasn1.type import univ, char, namedtype, namedval, tag, constraint, useful
+from pyasn1.type import univ, namedtype, tag
 from pyasn1.codec.ber import encoder, decoder
+
 
 def _OID(*components):
     output = []
@@ -37,24 +38,40 @@ def _OID(*components):
 
 class Salt(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('type', univ.Integer().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))),
-        namedtype.NamedType('salt', univ.OctetString().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))),
-        namedtype.OptionalNamedType('opaque', univ.OctetString().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2)))
+        namedtype.NamedType('type',
+                            univ.Integer().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                       tag.tagFormatSimple, 0))),
+        namedtype.NamedType('salt',
+                            univ.OctetString().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                           tag.tagFormatSimple, 1))),
+        namedtype.OptionalNamedType('opaque',
+                                    univ.OctetString().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                                   tag.tagFormatSimple, 2)))
     )
 
 
 class EncryptionKey(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.NamedType('keytype', univ.Integer().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))),
-        namedtype.NamedType('keyvalue', univ.OctetString().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1)))
+        namedtype.NamedType('keytype',
+                            univ.Integer().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                       tag.tagFormatSimple, 0))),
+        namedtype.NamedType('keyvalue',
+                            univ.OctetString().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                           tag.tagFormatSimple, 1)))
     )
 
 
 class Key(univ.Sequence):
     componentType = namedtype.NamedTypes(
-        namedtype.OptionalNamedType('mkvno', univ.Integer().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))),
-        namedtype.NamedType('key', EncryptionKey().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 1))),
-        namedtype.OptionalNamedType('salt', Salt().subtype(explicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 2)))
+        namedtype.OptionalNamedType('mkvno',
+                                    univ.Integer().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                               tag.tagFormatSimple, 0))),
+        namedtype.NamedType('key',
+                            EncryptionKey().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                        tag.tagFormatConstructed, 1))),
+        namedtype.OptionalNamedType('salt',
+                                    Salt().subtype(explicitTag=tag.Tag(tag.tagClassContext,
+                                                                       tag.tagFormatConstructed, 2)))
     )
 
 

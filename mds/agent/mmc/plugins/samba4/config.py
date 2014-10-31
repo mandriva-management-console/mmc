@@ -22,7 +22,6 @@
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
-import ConfigParser
 from mmc.support.config import PluginConfig
 
 
@@ -31,20 +30,27 @@ class Samba4Config(PluginConfig):
     def readConf(self):
         PluginConfig.readConf(self)
 
-        try: self.samba_prefix = self.get("main", "sambaPrefix")
-        except: pass
+        try:
+            self.samba_prefix = self.get("main", "sambaPrefix")
+        except:
+            pass
 
-        try: self.conf_file = self.get("main", "sambaConfFile")
-        except: pass
+        try:
+            self.conf_file = self.get("main", "sambaConfFile")
+        except:
+            pass
 
-        try: self.init_script = self.get("main", "sambaInitScript")
-        except: pass
+        try:
+            self.init_script = self.get("main", "sambaInitScript")
+        except:
+            pass
 
         self.defaultSharesPath = self.get("main", "defaultSharesPath")
 
         try:
             listSharePaths = self.get("main", "authorizedSharePaths")
-            self.authorizedSharePaths = listSharePaths.replace(' ','').split(',')
+            self.authorizedSharePaths = listSharePaths.replace(' ',
+                                                               '').split(',')
         except:
             self.authorizedSharePaths = [self.defaultSharesPath]
 

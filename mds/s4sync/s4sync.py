@@ -21,7 +21,6 @@
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
 import logging
-import time
 from daemon import runner
 from sync import sync_loop
 

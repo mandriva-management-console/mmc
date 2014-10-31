@@ -21,7 +21,6 @@
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
-import struct
 import binascii
 from struct import pack, unpack, calcsize
 
@@ -35,7 +34,10 @@ class Credentials(object):
     The first ones are used on samba4 the latter on openldap using smbkb5
     overlay.
     """
-    def __init__(self, krb5_keys=None, unicode_pwd=None, supplemental_credentials=None):
+    def __init__(self,
+                 krb5_keys=None,
+                 unicode_pwd=None,
+                 supplemental_credentials=None):
         if krb5_keys:
             self.keys = krb5_keys
             self._encode_samba_credentials()
@@ -55,11 +57,14 @@ class Credentials(object):
                              "expected 1, 3 and 23")
 
         self.unicode_pwd = keys[23]['value']
-        self.supplemental_credentials = UserProperties([keys[3], keys[1]]).encode()
+        self.supplemental_credentials = UserProperties([keys[3],
+                                                        keys[1]]).encode()
 
     def _decode_samba_credentials(self):
         self.keys = UserProperties(self.supplemental_credentials).keys
-        self.keys.append({'type': 23, 'value': self.unicode_pwd, 'salt': self.keys[0]['salt']})
+        self.keys.append({'type': 23,
+                          'value': self.unicode_pwd,
+                          'salt': self.keys[0]['salt']})
 
 
 class CommonDataType(object):
@@ -67,10 +72,10 @@ class CommonDataType(object):
         return self.encode()
 
     def decode(self):
-        raise NotImplemented("decode has not been implemented")
+        raise NotImplementedError("decode has not been implemented")
 
     def encode(self):
-        raise NotImplemented("encode has not been implemented")
+        raise NotImplementedError("encode has not been implemented")
 
 
 class UserProperties(CommonDataType):
@@ -98,9 +103,18 @@ class UserProperties(CommonDataType):
         properties_count = len(user_properties)
         user_properties_str = ''.join([str(up) for up in user_properties])
         total_len = 4 + len(reserved4) + len(user_properties_str)
-        fmt = self._fmt(len_reserved4=len(reserved4), len_user_properties=len(user_properties_str))
-        return pack(fmt, 0, total_len, 0, 0, reserved4, signature, properties_count,
-                    user_properties_str, 0)
+        fmt = self._fmt(len_reserved4=len(reserved4),
+                        len_user_properties=len(user_properties_str))
+        return pack(fmt,
+                    0,
+                    total_len,
+                    0,
+                    0,
+                    reserved4,
+                    signature,
+                    properties_count,
+                    user_properties_str,
+                    0)
 
     def decode(self):
         len_reserved4 = 96
@@ -138,10 +152,21 @@ class KerberosKeyData(CommonDataType):
         return '<hhlLLl'
 
     def encode(self):
-        return pack(self._fmt(), 0, 0, 0, self.key_type, self.key_length, self.offset)
+        return pack(self._fmt(),
+                    0,
+                    0,
+                    0,
+                    self.key_type,
+                    self.key_length,
+                    self.offset)
 
     def decode(self):
-        (_, _, _, self.key_type, self.key_length, self.offset) = unpack(self._fmt(), self._raw[:self.size])
+        (_,
+         _,
+         _,
+         self.key_type,
+         self.key_length,
+         self.offset) = unpack(self._fmt(), self._raw[:self.size])
 
 
 class KerberosProperty(CommonDataType):
@@ -182,15 +207,26 @@ class KerberosProperty(CommonDataType):
         values_str = ''.join(key_values)
         default_salt_offset = 16 + 20 + len(credentials_str) + len(old_credentials_str)
         fmt = self._fmt(len(credentials_str))
-        ret = pack(fmt, revision, flags, len(credentials), len(old_credentials), len_default_salt,
-                   len_default_salt_max, default_salt_offset, credentials_str)
+        ret = pack(fmt,
+                   revision,
+                   flags,
+                   len(credentials),
+                   len(old_credentials),
+                   len_default_salt,
+                   len_default_salt_max,
+                   default_salt_offset,
+                   credentials_str)
         return ret + old_credentials_str + salt + values_str
 
     def decode(self):
         keys = []
         fmt = self._fmt()
-        (revision, flags, n_creds, n_old_creds,
-         len_salt, len_max_salt, salt_offset) = unpack(fmt, self._raw[:calcsize(fmt)])
+        (revision,
+         flags, n_creds,
+         n_old_creds,
+         len_salt,
+         len_max_salt,
+         salt_offset) = unpack(fmt, self._raw[:calcsize(fmt)])
         if revision != 3:
             raise ValueError("Revision must be 3 (%x)" % revision)
         salt = self._raw[salt_offset:salt_offset+len_max_salt].decode('utf-16-le')
@@ -237,4 +273,5 @@ class UserProperty(CommonDataType):
         fmt = self._fmt()
         (len_name, len_value, _) = unpack(fmt, self._raw[0:calcsize(fmt)])
         fmt = self._fmt(len_name, len_value)
-        (_, _, _, self.name, self.value) = unpack(fmt, self._raw[0:calcsize(fmt)])
+        (_, _, _, self.name, self.value) = unpack(fmt,
+                                                  self._raw[0:calcsize(fmt)])
