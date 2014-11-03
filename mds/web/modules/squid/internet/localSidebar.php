@@ -22,11 +22,16 @@
 
 $sidemenu= new SideMenu();
 $sidemenu->setClass("internet");
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Blacklist"),"squid","internet","blackmanager","img/config/icn_global_active.gif", "img/config/icn_global.gif"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Extension blacklist"),"squid","internet","extmanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Whitelist"),"squid","internet","whitemanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("Time range whitelist"),"squid","internet","timemanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
-$sidemenu->addSideMenuItem(new SideMenuItem(_T("IP whitelist"),"squid","internet","machmanager", "img/config/icn_global_active.gif", "img/config/icn_global.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Blacklist"),"squid","internet","blackmanager",
+                                            "modules/squid/graph/actions/icn_blacklist_active.gif", "modules/squid/graph/actions/icn_blacklist.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Extension blacklist"),"squid","internet","extmanager",
+                                            "modules/squid/graph/actions/icn_blacklist_extend_active.gif", "modules/squid/graph/actions/icn_blacklist_extend.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Whitelist"),"squid","internet","whitemanager",
+                                            "modules/squid/graph/actions/icn_whitelist_active.gif", "modules/squid/graph/actions/icn_whitelist.gif"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Time range whitelist"),"squid","internet","timemanager",
+                                            "modules/squid/graph/actions/icn_interval_active.png", "modules/squid/graph/actions/icn_interval.png"));
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("IP whitelist"),"squid","internet","machmanager",
+                                            "modules/squid/graph/actions/icn_ip_autorised_active.png", "modules/squid/graph/actions/icn_ip_autorised.png"));
 //$sidemenu->addSideMenuItem(new SideMenuItem(_T("Logs"),"squid","internet","accesslog"));
 ?>
 

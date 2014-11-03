@@ -52,27 +52,26 @@ class GeneralPanel extends Panel {
             r.linechart(15, 5, width - 15, height - 5,
                         [[10, 5, 0], [10, 5, 0]],
                         [load, [0, 1, 0]],
-                        {axis: "0 0 0 1", colors: ["#ef2929", ""], shade: true}
+                        {axis: "0 0 0 1", colors: ["#A40000", ""], shade: true}
             );
             var memory = ' . $memory . ',
                 height = 20,
-                width = 200,
+                width = 190,
                 r = Raphael("ram-graph", width, height + 5),
                 ram_used = Math.round(width * (memory.percent / 100)),
                 ram_free = width - ram_used;
 
             colors = [];
-            colors.push("000-#CD1515-#ef2929");
-            colors.push("000-#6AB520-#73d216");
+            colors.push("#A40000");
+            colors.push("#468847");
             data = [[ram_used], [ram_free]];
 
             r.hbarchart(0, 5, width, height, data, {
-                type: "round",
                 stacked: true,
                 colors: colors
             });
             r.text(width - 3, 14, memory.available + " ' . _T("free") . '")
-             .attr({ font: "12px sans-serif", "text-anchor": "end", "fill": "white" });
+             .attr({ font: "11px sans-serif", "text-anchor": "end", "fill": "white" });
         </script>';
     }
 }

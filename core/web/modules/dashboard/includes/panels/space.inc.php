@@ -57,11 +57,11 @@ class SpacePanel extends Panel {
                 used = Math.round(partition.usage.percent);
             data.push(used);
             legend.push(partition.usage.used + " $used");
-            colors.push("000-#ef2929-#A31A1A");
+            colors.push("#A40000");
             if (free > 0) {
                 data.push(free);
                 legend.push(partition.usage.free + " $free");
-                colors.push("000-#73d216-#42780D");
+                colors.push("#468847");
             }
             if (partition.device.length < 30)
                 title += " (" + partition.device + ") ";

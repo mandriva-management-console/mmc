@@ -49,7 +49,20 @@ datafiles = \
 	shorewall/restart_service.php \
 	graph/navbar/shorewall.png \
 	graph/navbar/shorewall_select.png \
-	graph/navbar/shorewall_hl.png
+	graph/navbar/shorewall_hl.png \
+	graph/actions/icn_ext_int_active.gif  \
+	graph/actions/icn_ext_server_active.gif \
+	graph/actions/icn_int_ext_active.gif \
+	graph/actions/icn_int_int_active.gif \
+	graph/actions/icn_int_server_active.gif \
+	graph/actions/icn_nat_active.gif \
+	graph/actions/icn_ext_int.gif \
+	graph/actions/icn_ext_server.gif \
+	graph/actions/icn_int_ext.gif \
+	graph/actions/icn_int_int.gif \
+	graph/actions/icn_int_server.gif \
+	graph/actions/icn_nat.gif
+
 
 langs = fr_FR pt_BR
 

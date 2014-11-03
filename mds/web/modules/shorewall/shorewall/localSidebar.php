@@ -30,29 +30,27 @@ $wan_zones = getShorewallZones($zones_types['external']);
 
 if ($lan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; Server", "shorewall"), "shorewall", "shorewall", "internal_fw",
-                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
-                                                "modules/shorewall/graph/img/config/icn_global.gif"));
+                                                "modules/shorewall/graph/actions/icn_int_server_active.gif",
+                                                "modules/shorewall/graph/actions/icn_int_server.gif"));
 if ($wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("External &rarr; Server", "shorewall"), "shorewall", "shorewall", "external_fw",
-                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
-                                                "modules/shorewall/graph/img/config/icn_global.gif"));
+                                                "modules/shorewall/graph/actions/icn_ext_server_active.gif",
+                                                "modules/shorewall/graph/actions/icn_ext_server.gif"));
 if ($lan_zones && $wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; External", "shorewall"), "shorewall", "shorewall", "internal_external",
-                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
-                                                "modules/shorewall/graph/img/config/icn_global.gif"));
-
+                                                "modules/shorewall/graph/actions/icn_int_ext_active.gif",
+                                                "modules/shorewall/graph/actions/icn_int_ext.gif"));
 if (count($lan_zones) > 1)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; Internal", "shorewall"), "shorewall", "shorewall", "internal_internal",
-                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
-                                                "modules/shorewall/graph/img/config/icn_global.gif"));
-
+                                                "modules/shorewall/graph/actions/icn_int_int_active.gif",
+                                                "modules/shorewall/graph/actions/icn_int_int.gif"));
 if ($lan_zones && $wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("External &rarr; Internal", "shorewall"), "shorewall", "shorewall", "external_internal",
-                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
-                                                "modules/shorewall/graph/img/config/icn_global.gif"));
+                                                "modules/shorewall/graph/actions/icn_ext_int_active.gif",
+                                                "modules/shorewall/graph/actions/icn_ext_int.gif"));
 if ($lan_zones && $wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("NAT", "shorewall"), "shorewall", "shorewall", "masquerade",
-                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
-                                                "modules/shorewall/graph/img/config/icn_global.gif"));
+                                                "modules/shorewall/graph/actions/icn_nat_active.gif",
+                                                "modules/shorewall/graph/actions/icn_nat.gif"));
 
 ?>

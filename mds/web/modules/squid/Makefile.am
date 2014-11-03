@@ -23,6 +23,16 @@ datafiles = graph/navbar/proxy_hl.png \
 			graph/internet/add.css \
 			graph/internet/index.css \
 			graph/internet/navbar.png \
+			graph/actions/icn_blacklist_active.gif \
+			graph/actions/icn_blacklist_extend.gif \
+			graph/actions/icn_interval_active.png \
+			graph/actions/icn_ip_autorised_active.png \
+			graph/actions/icn_whitelist_active.gif \
+			graph/actions/icn_blacklist_extend_active.gif \
+			graph/actions/icn_blacklist.gif \
+			graph/actions/icn_interval.png \
+			graph/actions/icn_ip_autorised.png \
+			graph/actions/icn_whitelist.gif \
 			includes/auditCodes.php \
 			includes/squid-xmlrpc.inc.php \
 			includes/squid.inc.php \
