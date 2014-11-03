@@ -75,7 +75,7 @@ class CommandOnHost {
 class Bundle {
     function Bundle($bundle_id) {
         $this->db_bundle = bundle_detail($bundle_id);
-        if (!$this->db_cmd) { # use does not have the good permissions
+        if (!$this->db_bundle) { # use does not have the good permissions
             return false;
         }
     }
@@ -184,7 +184,7 @@ class CommandHistory {
     }
     function display() {
         // display parameters
-        if (!$this->db_cmd) { # use does not have the good permissions
+        if (!$this->db_ch) { # use does not have the good permissions
             $widget = new RenderedMSCCommandDontExists();
             $widget->display();
             return;
