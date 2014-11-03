@@ -65,7 +65,11 @@ function start_a_command($proxy = array()) {
     foreach (array('start_script', 'clean_on_success', 'do_reboot', 'do_wol', 'next_connection_delay','max_connection_attempt', 'do_inventory', 'ltitle', 'parameters', 'papi', 'maxbw', 'deployment_intervals', 'max_clients_per_proxy', 'launchAction') as $param) {
         if (isset($post[$param])){
             $params[$param] = $post[$param];
-        }
+	}
+	else {
+	    $params[$param] = '';
+	}
+
     }
     $halt_to = array();
     foreach ($post as $p=>$v) {
