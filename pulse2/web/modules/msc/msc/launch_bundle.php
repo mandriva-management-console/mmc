@@ -38,7 +38,11 @@ function launch_bundle($cible, $orders, $gid = null, $proxy = array()) {
     foreach (array('start_date', 'end_date', 'create_directory', 'start_script', 'delete_file_after_execute_successful', 'wake_on_lan', 'next_connection_delay', 'max_connection_attempt', 'start_inventory', 'maxbw', 'deployment_intervals', 'copy_mode', 'clean_on_success', 'do_wol', 'do_inventory', 'do_reboot', 'bundle_title') as $param) {
         if (isset($_POST[$param])){
             $params[$param] = $_POST[$param];
-        }
+	}
+	else {
+	    $params[$param] = '';
+	}
+
     }
     $halt_to = array();
     foreach ($_POST as $p=>$v) {
