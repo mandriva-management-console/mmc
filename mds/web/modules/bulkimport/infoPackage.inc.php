@@ -1,8 +1,7 @@
 <?php
 /**
  * (c) 2009 Open Systems Specilists - Glen Ogilvie
- *
- * $Id$
+ * (c) 2014 Mandriva
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -37,6 +36,8 @@ $users = &$base->getSubmod('users');
 /* Add the page to the module */
 $page = new Page("bulkimport",_T("Bulk import (CSV)", "bulkimport"));
 $page->setFile("modules/bulkimport/import/index.php");
+$page->setImg("modules/base/graph/users/img/icn_addUser_active.gif",
+              "modules/base/graph/users/img/icn_addUser.gif");
 $users->addPage($page);
 
 $MMCApp =& MMCApp::getInstance();
