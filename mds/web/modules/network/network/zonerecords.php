@@ -23,27 +23,21 @@
  */
 
 require("modules/network/includes/network2.inc.php");
-
 require("localSidebar.php");
 require("graph/navbar.inc.php");
 
-$reverse = (isset($_GET["reverse"]) && ($_GET["reverse"]==1));
-
+$reverse = (isset($_GET["reverse"]) && ($_GET["reverse"] == 1));
 $zone = $_GET["zone"];
 $sortby = $_GET["sortby"];
 $asc = $_GET["asc"];
 
-$suffix = ($sortby) ? "&sortby=$sortby&asc=$asc": "";
+$options = array('zone' => $zone, 'reverse' => $reverse,
+                 'sortby' => $sortby, 'asc' => $asc);
 
-//echo "suf is $suffix";
-
-$curzone = $zone;
-
-//$zone = $_GET["zone"];
-$ajax = new AjaxFilter("modules/network/network/ajaxZoneRecordsFilter.php?zone=$curzone&reverse=$reverse" . $suffix);
+$ajax = new AjaxFilter(urlStrRedirect('network/network/ajaxZoneRecordsFilter', $options));
 $ajax->display();
 
-$title = $reverse ? 
+$title = $reverse ?
 	    sprintf(_T("Records of reverse zone for zone %s"), $zone):
 	    sprintf(_T("Records of zone %s"), $zone);
 $p = new PageGenerator($title);
@@ -56,10 +50,10 @@ $ajax->displayDivToUpdate();
 $f = new Form();
 if ($reverse || count(getReverseZone($zone))){
 $linktext = $reverse ? _T("Manage zone records") : _T("Manage reverse zone records");
-$f->addSummary("<a href='" . 
-		urlStr("network/network/zonerecords", array("zone" => $zone, "reverse" => !$reverse)) . 
+$f->addSummary("<a href='" .
+		urlStr("network/network/zonerecords", array("zone" => $zone, "reverse" => !$reverse)) .
 		"'>" . $linktext . "</a>");
 }
-$f->addOnClickButton(_T("Add a record"), urlStr("network/network/addrecord", array("zone" => $curzone, "reverse"=>$reverse)));
+$f->addOnClickButton(_T("Add a record"), urlStr("network/network/addrecord", array("zone" => $zone, "reverse"=>$reverse)));
 $f->display();
 ?>

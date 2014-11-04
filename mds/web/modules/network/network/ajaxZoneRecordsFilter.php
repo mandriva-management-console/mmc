@@ -23,15 +23,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
-require("../../../includes/config.inc.php");
-require("../../../includes/i18n.inc.php");
-require("../../../includes/acl.inc.php");
-require("../../../includes/session.inc.php");
-require("../../../includes/PageGenerator.php");
-require("../../../modules/network/includes/network-xmlrpc.inc.php");
-require("../../../modules/network/includes/network2.inc.php");
-
+require_once("modules/network/includes/network-xmlrpc.inc.php");
+require_once("modules/network/includes/network2.inc.php");
 
 $filter = $_GET["filter"];
 $zone = $_GET["zone"];
@@ -82,7 +75,7 @@ if ($filter){
 function getRecordValueDescription($zone, $type, $value){
     $typeToLoad = in_array(strtoupper($type),supportedRecordsTypes()) ? strtolower($type) : "custom";
     $RecordClass = $typeToLoad . "Record";
-    require_once("../../../modules/network/network/dnsrecords/" . $typeToLoad . ".php");
+    require_once("modules/network/network/dnsrecords/" . $typeToLoad . ".php");
     $r = new $RecordClass(array("zone" => $zone));
     $r->initValuesFromString($value);
     return $r->valuesToDescription();
