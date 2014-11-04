@@ -29,6 +29,7 @@ import os.path
 import time
 import ldap
 import urllib
+import logging
 
 from mmc.plugins.base import ldapUserGroupControl, LogView
 from tools import ipNext
@@ -36,6 +37,10 @@ from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.network.audit import AT, AA, PLUGIN_NAME
+
+
+logger = logging.getLogger()
+
 
 class Dns(ldapUserGroupControl):
 
@@ -441,7 +446,8 @@ zone "%(zone)s" {
             elif netmask == 24:
                 network = ".".join(elements[0:3])
             else:
-                raise Exception("Won't create reverse zone as asked, netmask is not 8, 16 or 24")
+                logger.warning("Won't create reverse zone as asked, netmask is not 8, 16 or 24")
+                reverse = False
 
         if not self.pdns:
             # Create Bind configuration files
