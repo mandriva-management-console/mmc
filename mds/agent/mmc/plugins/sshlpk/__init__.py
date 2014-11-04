@@ -1,9 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2009 Mandriva, http://www.mandriva.com
-#
-# $Id$
+# (c) 2007-2014 Mandriva, http://www.mandriva.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -41,12 +39,22 @@ VERSION = "2.5.71"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 
-def getVersion(): return VERSION
-def getApiVersion(): return APIVERSION
-def getRevision(): return REVISION
+
+def getVersion():
+    return VERSION
+
+
+def getApiVersion():
+    return APIVERSION
+
+
+def getRevision():
+    return REVISION
+
 
 class UserSshKeyConfig(PluginConfig):
     pass
+
 
 def activate():
     ldapObj = ldapUserGroupControl()
@@ -62,7 +70,7 @@ def activate():
     for objectClass in sshkeySchema:
         schema = ldapObj.getSchema(objectClass)
         if not len(schema):
-            logger.error("OpenSSH LDAP public key schema is not available: %s objectClass is not included in LDAP directory" % objectClass);
+            logger.error("OpenSSH LDAP public key schema is not available: %s objectClass is not included in LDAP directory" % objectClass)
             return False
 
     return True
@@ -74,7 +82,7 @@ class UserSshKey(ldapUserGroupControl):
     Class to manage the LDAP public keys attributes of a user
     """
 
-    def __init__(self, uid, conffile = None):
+    def __init__(self, uid, conffile=None):
         """
         Class constructor.
 
@@ -87,7 +95,7 @@ class UserSshKey(ldapUserGroupControl):
         self.dn = 'uid=' + uid + ',' + self.baseUsersDN
         self.hooks.update(self.configSshKey.hooks)
 
-    def getSshKey(self, number = None):
+    def getSshKey(self, number=None):
         """
         Returns all the public SSH keys of a user, or just one if number is
         set.
@@ -101,7 +109,7 @@ class UserSshKey(ldapUserGroupControl):
         try:
             result = self.getDetailedUser(self.userUid)["sshPublicKey"]
             logging.getLogger().debug(str(result))
-            if number == None:
+            if number is None:
                 return result
             elif number < len(result) and number > -1:
                 return result[number]
@@ -117,14 +125,14 @@ class UserSshKey(ldapUserGroupControl):
         @param value: public SSH key
         @type value: str
         """
-        if value != None:
+        if value is None:
             try:
                 self.l.modify_s(self.dn, [(ldap.MOD_ADD, "sshPublicKey", value)])
+                self.runHook("sshlpk.updatesshkeys", self.userUid)
             except ldap.UNDEFINED_TYPE:
                 logging.getLogger().error("Attribute sshPublicKey isn't defined on LDAP")
             except ldap.INVALID_SYNTAX:
                 logging.getLogger().error("Invalid syntax for the attribute value of sshPublicKey on LDAP")
-
 
     def delSshKey(self, value):
         """
@@ -133,9 +141,10 @@ class UserSshKey(ldapUserGroupControl):
         @param value: public SSH key
         @type value: str
         """
-        if value != None:
+        if value is None:
             try:
                 self.l.modify_s(self.dn, [(ldap.MOD_DELETE, "sshPublicKey", value)])
+                self.runHook("sshlpk.updatesshkeys", self.userUid)
             except ldap.UNDEFINED_TYPE:
                 logging.getLogger().error("Attribute sshPublicKey isn't defined on LDAP")
             except ldap.INVALID_SYNTAX:
@@ -149,7 +158,7 @@ class UserSshKey(ldapUserGroupControl):
         @type: list of public SSH keys
         """
         if not self.hasSshKeyObjectClass():
-           self.addSshKeyObjectClass()
+            self.addSshKeyObjectClass()
         # Get current user entry
         s = self.l.search_s(self.dn, ldap.SCOPE_BASE)
         c, old = s[0]
@@ -182,9 +191,9 @@ class UserSshKey(ldapUserGroupControl):
 
         new = copy.deepcopy(old)
 
-        if not "ldapPublicKey" in new["objectClass"]:
+        if "ldapPublicKey" not in new["objectClass"]:
             new["objectClass"].append("ldapPublicKey")
-        if not "posixAccount" in new["objectClass"]:
+        if "posixAccount" not in new["objectClass"]:
             new["objectClass"].append("posixAccount")
 
         # Update LDAP
@@ -196,29 +205,37 @@ class UserSshKey(ldapUserGroupControl):
         Remove the ldapPublicKey object class from the current user.
         """
         self.removeUserObjectClass(self.userUid, 'ldapPublicKey')
+        self.runHook("sshlpk.updatesshkeys", self.userUid)
 
 
 # XML-RPC function
 def hasSshKeyObjectClass(uid):
     return UserSshKey(uid).hasSshKeyObjectClass()
 
+
 def addSshKeyObjectClass(uid):
     UserSshKey(uid).addSshKeyObjectClass()
 
-def getSshKey (uid, number):
+
+def getSshKey(uid, number):
     return UserSshKey(uid).getSshKey(number)
 
-def getAllSshKey (uid):
+
+def getAllSshKey(uid):
     return UserSshKey(uid).getSshKey(None)
 
-def addSshKey (uid, value):
+
+def addSshKey(uid, value):
     UserSshKey(uid).addSshKey(value)
 
-def updateSshKeys (uid, keylist):
+
+def updateSshKeys(uid, keylist):
     UserSshKey(uid).updateSshKeys(keylist)
 
-def delSshKey (uid, value):
+
+def delSshKey(uid, value):
     UserSshKey(uid).delSshKey(value)
+
 
 def delSSHKeyObjectClass(uid):
     UserSshKey(uid).delSSHKeyObjectClass()
