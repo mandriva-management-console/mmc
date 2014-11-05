@@ -40,10 +40,10 @@ class Samba4Config(PluginConfig):
         except:
             pass
 
-        try:
-            self.init_script = self.get("main", "sambaInitScript")
-        except:
-            pass
+#         try:
+#             self.init_script = self.get("main", "sambaInitScript")
+#         except:
+#             pass
 
         self.defaultSharesPath = self.get("main", "defaultSharesPath")
 
@@ -55,5 +55,5 @@ class Samba4Config(PluginConfig):
             self.authorizedSharePaths = [self.defaultSharesPath]
 
     def setDefault(self):
-        self.samba4_conf_file = '/opt/samba4/etc/smb.conf'
-        self.samba4_init_script = '/etc/rc.d/init.d/samba4'
+        self.samba4_conf_file = '/etc/smb.conf'
+        #self.samba4_init_script = '/etc/rc.d/init.d/samba4'

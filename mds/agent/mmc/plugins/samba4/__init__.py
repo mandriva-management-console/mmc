@@ -47,9 +47,17 @@ APIVERSION = "1.0.0"
 REVISION = scmRevision("$Rev$")
 
 
-def getVersion(): return VERSION
-def getApiVersion(): return APIVERSION
-def getRevision(): return REVISION
+def getVersion():
+    return VERSION
+
+
+def getApiVersion():
+    return APIVERSION
+
+
+def getRevision():
+    return REVISION
+
 
 def activate():
     """
@@ -63,11 +71,12 @@ def activate():
         logger.info("samba4 plugin disabled by configuration.")
         return False
 
-    if not os.path.exists(config.init_script):
-        logger.error(config.init_script + " does not exist")
-        return False
+#     if not os.path.exists(config.init_script):
+#         logger.error(config.init_script + " does not exist")
+#         return False
 
     return True
+
 
 def isSamba4Provisioned():
     """
@@ -79,6 +88,7 @@ def isSamba4Provisioned():
         return True
     return False
 
+
 def getSamba4GlobalInfo():
     """
     @return: values from [global] section in smb.conf
@@ -88,20 +98,25 @@ def getSamba4GlobalInfo():
 
 # v Shares --------------------------------------------------------------------
 
+
 def getACLOnShare(name):
     if name:
         return SambaConf().getACLOnShare(name)
     else:
         return []
 
+
 def getProtectedSamba4Shares():
     return ["", "homes", "netlogon", "archive", "sysvol"]
+
 
 def getShares():
     return SambaConf().getDetailedShares()
 
+
 def getShare(name):
     return SambaConf().getDetailedShare(name)
+
 
 def addShare(name, path, comment, browseable, permAll, usergroups, users):
     samba = SambaConf()
@@ -109,19 +124,23 @@ def addShare(name, path, comment, browseable, permAll, usergroups, users):
     samba.save()
     return name
 
+
 def editShare(name, path, comment, browseable, permAll, usergroups, users):
     samba = SambaConf()
     samba.addShare(name, path, comment, browseable, permAll, usergroups, users,
                    mod=True)
     return samba.save()
 
+
 def deleteShare(name, file):
     samba = SambaConf()
     samba.delShare(name, file)
     return samba.save()
 
+
 def isAuthorizedSharePath(path):
     return not path or SambaConf().isAuthorizedSharePath(path)
+
 
 def backupShare(share, media, login):
     """
@@ -148,39 +167,50 @@ def backupShare(share, media, login):
 
 # v Machines ------------------------------------------------------------------
 
+
 def listDomainMembers():
     return SambaAD().listDomainMembers()
+
 
 def deleteMachine(name):
     return SambaAD().deleteMachine(name)
 
+
 def getMachine(name):
     return SambaAD().getMachine(name)
+
 
 def editMachine(name, description, enabled):
     return SambaAD().editMachine(name, description, enabled)
 
 # v Users ---------------------------------------------------------------------
 
+
 def userHasSambaAccount(username):
     return username and SambaAD().existsUser(username)
+
 
 def updateSambaUserPassword(username, password):
     if isinstance(password, xmlrpclib.Binary):
         password = str(password)
     return SambaAD().updateUserPassword(username, password)
 
+
 def createSambaUser(username, password, name, surname):
     return SambaAD().createUser(username, password, name, surname)
+
 
 def enableSambaUser(username):
     return SambaAD().enableUser(username)
 
+
 def disableSambaUser(username):
     return SambaAD().disableUser(username)
 
+
 def deleteSambaUser(username):
     return SambaAD().deleteUser(username)
+
 
 def userHasSambaEnabled(username):
     return username and SambaAD().isUserEnabled(username)

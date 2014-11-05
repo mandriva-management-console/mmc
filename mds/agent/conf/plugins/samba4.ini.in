@@ -5,7 +5,7 @@ disable = 0
 
 sambaPrefix = /usr
 sambaConfFile = /etc/smb.conf
-sambaInitScript = /etc/rc.d/init.d/samba4
+#sambaInitScript = /etc/init.d/samba4
 
 defaultSharesPath = /home/samba
 # You can specify authorized paths for share creation
