@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-10-27 01:05+0100\n"
-"PO-Revision-Date: 2014-05-07 15:40+0000\n"
+"POT-Creation-Date: 2014-11-03 01:04+0100\n"
+"PO-Revision-Date: 2014-10-29 16:36+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Japanese (Japan) (http://transifex.mandriva.com/projects/p/pulse2/team/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr "検証終了"
 
 #: modules/msc/includes/bundle_widgets.php:363
 #: modules/msc/includes/command_history.php:38
-#: modules/msc/logs/ajaxConsultLogsFilter.php:217
+#: modules/msc/logs/ajaxConsultLogsFilter.php:226
 #: modules/msc/msc/launch.php:534
 msgid "Deployment interval"
 msgstr "デプロイ間隔"
@@ -145,20 +145,20 @@ msgstr "ホスト"
 #: modules/msc/includes/command_history.php:36
 #: modules/msc/includes/command_history.php:143
 #: modules/msc/includes/command_history.php:182
-#: modules/msc/logs/ajaxConsultLogsFilter.php:215
 #: modules/msc/logs/ajaxLogsFilter.php:131
-#: modules/msc/msc/ajaxLogsFilter.php:233
-#: modules/msc/msc/ajaxLogsFilter.php:368 modules/msc/msc/reschedule.php:43
+#: modules/msc/logs/ajaxConsultLogsFilter.php:224
+#: modules/msc/msc/reschedule.php:43 modules/msc/msc/ajaxLogsFilter.php:248
+#: modules/msc/msc/ajaxLogsFilter.php:390
 msgid "Start date"
 msgstr "開始日"
 
 #: modules/msc/includes/command_history.php:37
 #: modules/msc/includes/command_history.php:144
 #: modules/msc/includes/command_history.php:183
-#: modules/msc/logs/ajaxConsultLogsFilter.php:216
 #: modules/msc/logs/ajaxLogsFilter.php:129
-#: modules/msc/msc/ajaxLogsFilter.php:234
-#: modules/msc/msc/ajaxLogsFilter.php:366
+#: modules/msc/logs/ajaxConsultLogsFilter.php:225
+#: modules/msc/msc/ajaxLogsFilter.php:249
+#: modules/msc/msc/ajaxLogsFilter.php:388
 msgid "End date"
 msgstr "終了日"
 
@@ -186,23 +186,23 @@ msgstr "値"
 #: modules/msc/includes/command_history.php:91
 #: modules/msc/includes/command_history.php:147
 #: modules/msc/includes/command_history.php:244
-#: modules/msc/logs/ajaxConsultLogsFilter.php:54
 #: modules/msc/logs/ajaxLogsFilter.php:58
-#: modules/msc/msc/ajaxLogsFilter.php:101
+#: modules/msc/logs/ajaxConsultLogsFilter.php:55
+#: modules/msc/msc/ajaxLogsFilter.php:103
 msgid "Start"
 msgstr "開始"
 
 #: modules/msc/includes/command_history.php:93
 #: modules/msc/includes/command_history.php:148
 #: modules/msc/includes/command_history.php:245
-#: modules/msc/logs/ajaxConsultLogsFilter.php:56
 #: modules/msc/logs/ajaxLogsFilter.php:60
-#: modules/msc/msc/ajaxLogsFilter.php:103
+#: modules/msc/logs/ajaxConsultLogsFilter.php:58
+#: modules/msc/msc/ajaxLogsFilter.php:106
 msgid "Stop"
 msgstr "停止"
 
 #: modules/msc/includes/command_history.php:142
-#: modules/msc/logs/ajaxConsultLogsFilter.php:135
+#: modules/msc/logs/ajaxConsultLogsFilter.php:138
 msgid "Bundle"
 msgstr "バンドル"
 
@@ -633,7 +633,7 @@ msgstr "準備完了"
 #: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
 #: modules/msc/includes/functions.php:334
 #: modules/msc/includes/widgets.inc.php:390
-#: modules/msc/msc/ajaxLogsFilter.php:405
+#: modules/msc/msc/ajaxLogsFilter.php:429
 msgid "Done"
 msgstr "完了"
 
@@ -643,7 +643,7 @@ msgstr "一時停止"
 
 #: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
 #: modules/msc/includes/widgets.inc.php:398
-#: modules/msc/msc/ajaxLogsFilter.php:407
+#: modules/msc/msc/ajaxLogsFilter.php:431
 msgid "Stopped"
 msgstr "停止"
 
@@ -658,7 +658,7 @@ msgstr "再スケジュール済"
 #: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
 #: modules/msc/includes/functions.php:333
 #: modules/msc/includes/widgets.inc.php:392
-#: modules/msc/msc/ajaxLogsFilter.php:406
+#: modules/msc/msc/ajaxLogsFilter.php:430
 msgid "Failed"
 msgstr "失敗"
 
@@ -723,8 +723,8 @@ msgid "Finish"
 msgstr "終了"
 
 #: modules/msc/includes/functions.php:332
-#: modules/msc/msc/ajaxLogsFilter.php:340
-#: modules/msc/msc/ajaxLogsFilter.php:404
+#: modules/msc/msc/ajaxLogsFilter.php:356
+#: modules/msc/msc/ajaxLogsFilter.php:428
 msgid "Running"
 msgstr "実行中"
 
@@ -783,13 +783,13 @@ msgid "Quick action list is empty"
 msgstr "クイックアクション一覧が空です"
 
 #: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:499 modules/msc/infoPackage.inc.php:50
-#: modules/msc/logs/localSidebar.php:28
+#: modules/msc/includes/widgets.inc.php:517
+#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
 msgid "My commands"
 msgstr "自分のコマンド"
 
 #: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:499
+#: modules/msc/includes/widgets.inc.php:517
 msgid "All users commands"
 msgstr "全ユーザーコマンド"
 
@@ -802,250 +802,36 @@ msgid "In progress"
 msgstr "進行中"
 
 #: modules/msc/includes/widgets.inc.php:396
-#: modules/msc/msc/ajaxLogsFilter.php:408
+#: modules/msc/msc/ajaxLogsFilter.php:432
 msgid "Overtime"
 msgstr "時間超過"
 
-#: modules/msc/infoPackage.inc.php:42
-msgid "Secure Control"
-msgstr "セキュアコントロール"
+#: modules/msc/includes/widgets.inc.php:402
+msgid "Create a group"
+msgstr ""
 
-#: modules/msc/infoPackage.inc.php:46
-msgid "Audit"
-msgstr "監査"
+#: modules/msc/includes/commands_xmlrpc.inc.php:120
+#, php-format
+msgid "%s deployment subgroup - %s"
+msgstr ""
 
-#: modules/msc/infoPackage.inc.php:53 modules/msc/logs/localSidebar.php:29
-msgid "All user commands"
-msgstr "全ユーザーコマンド"
-
-#: modules/msc/infoPackage.inc.php:56
-msgid "Commands logs"
-msgstr "コマンドログ"
-
-#: modules/msc/infoPackage.inc.php:59
-msgid "Show all logs"
-msgstr "すべてのログを表示"
-
-#: modules/msc/infoPackage.inc.php:61
-msgid "Show pending task's logs"
-msgstr "保留中のタスクのログを表示"
-
-#: modules/msc/infoPackage.inc.php:63
-msgid "Show running task's logs"
-msgstr "実行中のタスクのログを表示"
-
-#: modules/msc/infoPackage.inc.php:65
-msgid "Show finished task's logs"
-msgstr "完了したタスクのログを表示"
-
-#: modules/msc/infoPackage.inc.php:68
-msgid "Show custom state task's logs"
-msgstr "カスタマイズした状態のタスクのログを表示"
-
-#: modules/msc/infoPackage.inc.php:71 modules/msc/infoPackage.inc.php:250
-#: modules/msc/infoPackage.inc.php:255
-msgid "logs list"
-msgstr "ログ一覧"
-
-#: modules/msc/infoPackage.inc.php:74
-msgid "consolidated logs list"
-msgstr "総合ログ一覧"
-
-#: modules/msc/infoPackage.inc.php:77
-msgid "the state list"
-msgstr "状態一覧"
-
-#: modules/msc/infoPackage.inc.php:86
-msgid "Remove machine from pull mode"
-msgstr "プルモードからマシンを削除"
-
-#: modules/msc/infoPackage.inc.php:91
-msgid "Secure control on a group of computers"
-msgstr "コンピューターグループのセキュアコントロール"
-
-#: modules/msc/infoPackage.inc.php:95
-msgid "MSC launch tab for a group"
-msgstr "グループの MSC 起動タブ"
-
-#: modules/msc/infoPackage.inc.php:98
-msgid "MSC bundle tab for a group"
-msgstr "グループの MSC バンドルタブ"
-
-#: modules/msc/infoPackage.inc.php:101
-msgid "MSC logs tab for a group"
-msgstr "グループの MSC ログタブ"
-
-#: modules/msc/infoPackage.inc.php:106
-msgid "Secure control on computer"
-msgstr "コンピューターのセキュアコントロール"
-
-#: modules/msc/infoPackage.inc.php:110
-msgid "MSC launch tab for a machine"
-msgstr "マシンの MSC 起動タブ "
-
-#: modules/msc/infoPackage.inc.php:113
-msgid "MSC bundle tab for a machine"
-msgstr "マシンの MSC バンドルタブ"
-
-#: modules/msc/infoPackage.inc.php:116
-msgid "MSC logs tab for a machine"
-msgstr "マシンの MSC ログタブ"
-
-#: modules/msc/infoPackage.inc.php:121
-msgid "Download file from a computer"
-msgstr "コンピューターからのダウンロードファイル"
-
-#: modules/msc/infoPackage.inc.php:127
-msgid "Remove a downloaded file"
-msgstr "ダウンロードファイルを削除"
-
-#: modules/msc/infoPackage.inc.php:133
-msgid "Get a downloaded file"
-msgstr "ダウンロードファイルを取得"
-
-#: modules/msc/infoPackage.inc.php:139
-msgid "Take control of a computer"
-msgstr "コンピューターのコントロールを取得"
-
-#: modules/msc/infoPackage.inc.php:146
-msgid "Play a command"
-msgstr "コマンドを実行"
-
-#: modules/msc/infoPackage.inc.php:152
-msgid "Pause a command"
-msgstr "コマンドを一時停止"
-
-#: modules/msc/infoPackage.inc.php:158
-msgid "Stop a command"
-msgstr "コマンドを停止"
-
-#: modules/msc/infoPackage.inc.php:164
-msgid "Command status"
-msgstr "コマンドステータス"
-
-#: modules/msc/infoPackage.inc.php:170
-msgid "Reschedule a command"
-msgstr "コマンドの再スケジュール"
-
-#: modules/msc/infoPackage.inc.php:176
-msgid "Single command status"
-msgstr "シングルコマンドステータス"
-
-#: modules/msc/infoPackage.inc.php:181
-msgid "Show package's details"
-msgstr "パッケージ詳細の表示"
-
-#: modules/msc/infoPackage.inc.php:187
-msgid "Launch a command"
-msgstr "コマンドの起動"
-
-#: modules/msc/infoPackage.inc.php:193
-msgid "Launch a advanced command"
-msgstr "高度なコマンドの起動"
-
-#: modules/msc/infoPackage.inc.php:199
-msgid "Software convergence configuration"
-msgstr "ソフトウェアコンバージェンス設定"
-
-#: modules/msc/infoPackage.inc.php:205
-msgid "Launch a quick action command"
-msgstr "クイックアクションコマンドの起動 "
-
-#: modules/msc/infoPackage.inc.php:210 modules/msc/msc/packages.php:29
-msgid "Packages"
-msgstr "パッケージ"
-
-#: modules/msc/infoPackage.inc.php:215
-msgid "Ping and probe"
-msgstr "Ping プローブ"
-
-#: modules/msc/infoPackage.inc.php:220
-msgid "Ping"
-msgstr "Ping"
-
-#: modules/msc/infoPackage.inc.php:225
-msgid "Platform"
-msgstr "プラットフォーム"
-
-#: modules/msc/infoPackage.inc.php:230
-msgid "MAC Addr."
-msgstr "MAC アドレス"
-
-#: modules/msc/infoPackage.inc.php:235
-msgid "IP Addr."
-msgstr "IP アドレス"
-
-#: modules/msc/infoPackage.inc.php:240 modules/msc/msc/download_file.php:32
-msgid "Download file page"
-msgstr "ファイルダウンロードページ"
-
-#: modules/msc/infoPackage.inc.php:245
-msgid "Csv's export"
-msgstr "CSV エクスポート"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:57
-#: modules/msc/logs/ajaxConsultLogsFilter.php:58
-#: modules/msc/msc/ajaxDownloadFile.php:90
-#: modules/msc/msc/ajaxLogsFilter.php:104
-msgid "Status"
-msgstr "ステータス"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:133
-#: modules/msc/logs/ajaxConsultLogsFilter.php:139
-#: modules/msc/msc/ajaxPackageFilter.php:154 modules/msc/msc/packages.php:40
-msgid "Package"
-msgstr "パッケージ"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:151
-msgid "Unavailable computer"
-msgstr "使用不能コンピューター"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:153
-#: modules/msc/logs/ajaxConsultLogsFilter.php:165
-#: modules/msc/logs/ajaxConsultLogsFilter.php:168
-msgid "Machine"
-msgstr "マシン"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:156
-msgid "Unavailable group"
-msgstr "使用不能グループ"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:158
-#: modules/msc/logs/ajaxConsultLogsFilter.php:173
-msgid "Group"
-msgstr "グループ"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:212
-#: modules/msc/logs/ajaxLogsFilter.php:134
-#: modules/msc/msc/ajaxLogsFilter.php:231
-#: modules/msc/msc/ajaxLogsFilter.php:373
-#: modules/msc/msc/package_detail.php:36
-msgid "Command"
-msgstr "コマンド"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:213
-msgid "Creator"
-msgstr "クリエイター"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:218
-msgid "Target"
-msgstr "ターゲット"
-
-#: modules/msc/logs/ajaxConsultLogsFilter.php:219
-#: modules/msc/msc/ajaxLogsFilter.php:235
-msgid "Success percent"
-msgstr "成功率"
+#: modules/msc/includes/commands_xmlrpc.inc.php:143
+#, php-format
+msgid ""
+"Deploy subgroup created successfully. <br/><a href=\"%s\" "
+"target=\"_blank\">View group</a>"
+msgstr ""
 
 #: modules/msc/logs/ajaxLogsFilter.php:59
-#: modules/msc/msc/ajaxLogsFilter.php:102
+#: modules/msc/msc/ajaxLogsFilter.php:104
 msgid "Pause"
 msgstr "一時停止"
 
 #: modules/msc/logs/ajaxLogsFilter.php:61
 #: modules/msc/logs/ajaxLogsFilter.php:62 modules/msc/logs/viewLogs.php:96
 #: modules/msc/logs/viewLogs.php:114 modules/msc/logs/viewLogs.php:181
-#: modules/msc/logs/viewLogs.php:212 modules/msc/msc/ajaxLogsFilter.php:106
-#: modules/msc/msc/packages.php:44
+#: modules/msc/logs/viewLogs.php:212 modules/msc/msc/packages.php:44
+#: modules/msc/msc/ajaxLogsFilter.php:109
 msgid "Details"
 msgstr "詳細"
 
@@ -1063,8 +849,16 @@ msgstr "%s %s 上の %s"
 msgid "Date"
 msgstr "日付"
 
+#: modules/msc/logs/ajaxLogsFilter.php:134
+#: modules/msc/logs/ajaxConsultLogsFilter.php:221
+#: modules/msc/msc/package_detail.php:36
+#: modules/msc/msc/ajaxLogsFilter.php:246
+#: modules/msc/msc/ajaxLogsFilter.php:395
+msgid "Command"
+msgstr "コマンド"
+
 #: modules/msc/logs/ajaxLogsFilter.php:135
-#: modules/msc/msc/ajaxLogsFilter.php:238
+#: modules/msc/msc/ajaxLogsFilter.php:253
 msgid "Current state"
 msgstr "現在の状態"
 
@@ -1088,6 +882,10 @@ msgstr "カスタムステータス のタスクログを表示"
 msgid "Show all finished task's logs"
 msgstr "完了した全タスクログを表示"
 
+#: modules/msc/logs/localSidebar.php:29 modules/msc/infoPackage.inc.php:53
+msgid "All user commands"
+msgstr "全ユーザーコマンド"
+
 #: modules/msc/logs/pending.php:33
 msgid "Show all pending task's logs"
 msgstr "保留中の全タスクログを表示"
@@ -1100,6 +898,56 @@ msgstr "実行中の全タスクログを表示"
 #: modules/msc/logs/viewLogs.php:217
 msgid "The group you are working on is empty."
 msgstr "作業しているグループは空です。"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:57
+#: modules/msc/msc/ajaxLogsFilter.php:105
+msgid "Delete"
+msgstr ""
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:59
+#: modules/msc/logs/ajaxConsultLogsFilter.php:60
+#: modules/msc/msc/ajaxDownloadFile.php:90
+#: modules/msc/msc/ajaxLogsFilter.php:107
+msgid "Status"
+msgstr "ステータス"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:136
+#: modules/msc/logs/ajaxConsultLogsFilter.php:142
+#: modules/msc/msc/ajaxPackageFilter.php:154 modules/msc/msc/packages.php:40
+msgid "Package"
+msgstr "パッケージ"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:154
+msgid "Unavailable computer"
+msgstr "使用不能コンピューター"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:156
+#: modules/msc/logs/ajaxConsultLogsFilter.php:168
+#: modules/msc/logs/ajaxConsultLogsFilter.php:171
+msgid "Machine"
+msgstr "マシン"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:159
+msgid "Unavailable group"
+msgstr "使用不能グループ"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:161
+#: modules/msc/logs/ajaxConsultLogsFilter.php:176
+msgid "Group"
+msgstr "グループ"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:222
+msgid "Creator"
+msgstr "クリエイター"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:227
+msgid "Target"
+msgstr "ターゲット"
+
+#: modules/msc/logs/ajaxConsultLogsFilter.php:228
+#: modules/msc/msc/ajaxLogsFilter.php:250
+msgid "Success percent"
+msgstr "成功率"
 
 #: modules/msc/msc/ajaxDownloadFile.php:34
 msgid "Download file"
@@ -1132,67 +980,6 @@ msgstr "ファイル名"
 #: modules/msc/msc/ajaxDownloadFile.php:89
 msgid "Length"
 msgstr "長さ"
-
-#: modules/msc/msc/ajaxLogsFilter.php:136
-msgid "Can't get bundle for the requested id"
-msgstr "リクエストされた ID のバンドルを取得できません"
-
-#: modules/msc/msc/ajaxLogsFilter.php:140
-#, php-format
-msgid "Bundle #%s"
-msgstr "バンドル #%s"
-
-#: modules/msc/msc/ajaxLogsFilter.php:282
-#, php-format
-msgid ", using proxy %s"
-msgstr ", プロキシ %s 使用"
-
-#: modules/msc/msc/ajaxLogsFilter.php:287
-msgid "Pull"
-msgstr "プル"
-
-#: modules/msc/msc/ajaxLogsFilter.php:290
-#: modules/msc/msc/ajaxLogsFilter.php:303
-msgid "Normal"
-msgstr "ノーマル"
-
-#: modules/msc/msc/ajaxLogsFilter.php:294
-#, php-format
-msgid "Multiple, client mode%s"
-msgstr "複数, %sクライアントモード"
-
-#: modules/msc/msc/ajaxLogsFilter.php:296
-msgid "Multiple, server mode"
-msgstr "複数, サーバーモード"
-
-#: modules/msc/msc/ajaxLogsFilter.php:299
-#, php-format
-msgid "Single, client mode%s"
-msgstr "シングル, %sクライアントモード"
-
-#: modules/msc/msc/ajaxLogsFilter.php:301
-msgid "Single, server mode"
-msgstr "シングル, サーバーモード"
-
-#: modules/msc/msc/ajaxLogsFilter.php:371
-msgid "Mode"
-msgstr "モード"
-
-#: modules/msc/msc/ajaxLogsFilter.php:375
-msgid "Client"
-msgstr "クライアント"
-
-#: modules/msc/msc/ajaxLogsFilter.php:378
-msgid "Global State"
-msgstr "グローバル状態"
-
-#: modules/msc/msc/ajaxLogsFilter.php:380
-msgid "Current step"
-msgstr "現在のステップ"
-
-#: modules/msc/msc/ajaxLogsFilter.php:419
-msgid "Deploy status"
-msgstr "デプロイステータス"
 
 #: modules/msc/msc/ajaxPackageFilter.php:43
 #, php-format
@@ -1294,6 +1081,10 @@ msgstr "リモートコントロール対象 :"
 #: modules/msc/msc/convergence.php:116
 msgid "Convergence on "
 msgstr ""
+
+#: modules/msc/msc/download_file.php:32 modules/msc/infoPackage.inc.php:247
+msgid "Download file page"
+msgstr "ファイルダウンロードページ"
 
 #: modules/msc/msc/download_file.php:39
 msgid "The download is in progress."
@@ -1859,6 +1650,10 @@ msgstr "ホスト %s について %s %s を停止 "
 msgid "Label"
 msgstr "ラベル"
 
+#: modules/msc/msc/packages.php:29 modules/msc/infoPackage.inc.php:217
+msgid "Packages"
+msgstr "パッケージ"
+
 #: modules/msc/msc/reschedule.php:40
 msgid "Reschedule this command"
 msgstr "このコマンドを再スケジュール"
@@ -2092,5 +1887,239 @@ msgstr "接続済"
 #: modules/msc/msc/vnc_client_no_vnc.php:234
 msgid "to"
 msgstr "接続対象:"
+
+#: modules/msc/msc/ajaxLogsFilter.php:141
+msgid "Can't get bundle for the requested id"
+msgstr "リクエストされた ID のバンドルを取得できません"
+
+#: modules/msc/msc/ajaxLogsFilter.php:145
+#, php-format
+msgid "Bundle #%s"
+msgstr "バンドル #%s"
+
+#: modules/msc/msc/ajaxLogsFilter.php:298
+#, php-format
+msgid ", using proxy %s"
+msgstr ", プロキシ %s 使用"
+
+#: modules/msc/msc/ajaxLogsFilter.php:303
+msgid "Pull"
+msgstr "プル"
+
+#: modules/msc/msc/ajaxLogsFilter.php:306
+#: modules/msc/msc/ajaxLogsFilter.php:319
+msgid "Normal"
+msgstr "ノーマル"
+
+#: modules/msc/msc/ajaxLogsFilter.php:310
+#, php-format
+msgid "Multiple, client mode%s"
+msgstr "複数, %sクライアントモード"
+
+#: modules/msc/msc/ajaxLogsFilter.php:312
+msgid "Multiple, server mode"
+msgstr "複数, サーバーモード"
+
+#: modules/msc/msc/ajaxLogsFilter.php:315
+#, php-format
+msgid "Single, client mode%s"
+msgstr "シングル, %sクライアントモード"
+
+#: modules/msc/msc/ajaxLogsFilter.php:317
+msgid "Single, server mode"
+msgstr "シングル, サーバーモード"
+
+#: modules/msc/msc/ajaxLogsFilter.php:393
+msgid "Mode"
+msgstr "モード"
+
+#: modules/msc/msc/ajaxLogsFilter.php:397
+msgid "Client"
+msgstr "クライアント"
+
+#: modules/msc/msc/ajaxLogsFilter.php:400
+msgid "Global State"
+msgstr "グローバル状態"
+
+#: modules/msc/msc/ajaxLogsFilter.php:402
+msgid "Current step"
+msgstr "現在のステップ"
+
+#: modules/msc/msc/ajaxLogsFilter.php:443
+msgid "Deploy status"
+msgstr "デプロイステータス"
+
+#: modules/msc/msc/delete.php:57
+msgid "Delete this command"
+msgstr ""
+
+#: modules/msc/infoPackage.inc.php:42
+msgid "Secure Control"
+msgstr "セキュアコントロール"
+
+#: modules/msc/infoPackage.inc.php:46
+msgid "Audit"
+msgstr "監査"
+
+#: modules/msc/infoPackage.inc.php:56
+msgid "Commands logs"
+msgstr "コマンドログ"
+
+#: modules/msc/infoPackage.inc.php:59
+msgid "Show all logs"
+msgstr "すべてのログを表示"
+
+#: modules/msc/infoPackage.inc.php:61
+msgid "Show pending task's logs"
+msgstr "保留中のタスクのログを表示"
+
+#: modules/msc/infoPackage.inc.php:63
+msgid "Show running task's logs"
+msgstr "実行中のタスクのログを表示"
+
+#: modules/msc/infoPackage.inc.php:65
+msgid "Show finished task's logs"
+msgstr "完了したタスクのログを表示"
+
+#: modules/msc/infoPackage.inc.php:68
+msgid "Show custom state task's logs"
+msgstr "カスタマイズした状態のタスクのログを表示"
+
+#: modules/msc/infoPackage.inc.php:71 modules/msc/infoPackage.inc.php:257
+#: modules/msc/infoPackage.inc.php:262
+msgid "logs list"
+msgstr "ログ一覧"
+
+#: modules/msc/infoPackage.inc.php:74
+msgid "consolidated logs list"
+msgstr "総合ログ一覧"
+
+#: modules/msc/infoPackage.inc.php:77
+msgid "the state list"
+msgstr "状態一覧"
+
+#: modules/msc/infoPackage.inc.php:86
+msgid "Remove machine from pull mode"
+msgstr "プルモードからマシンを削除"
+
+#: modules/msc/infoPackage.inc.php:91
+msgid "Secure control on a group of computers"
+msgstr "コンピューターグループのセキュアコントロール"
+
+#: modules/msc/infoPackage.inc.php:95
+msgid "MSC launch tab for a group"
+msgstr "グループの MSC 起動タブ"
+
+#: modules/msc/infoPackage.inc.php:98
+msgid "MSC bundle tab for a group"
+msgstr "グループの MSC バンドルタブ"
+
+#: modules/msc/infoPackage.inc.php:101
+msgid "MSC logs tab for a group"
+msgstr "グループの MSC ログタブ"
+
+#: modules/msc/infoPackage.inc.php:106
+msgid "Secure control on computer"
+msgstr "コンピューターのセキュアコントロール"
+
+#: modules/msc/infoPackage.inc.php:110
+msgid "MSC launch tab for a machine"
+msgstr "マシンの MSC 起動タブ "
+
+#: modules/msc/infoPackage.inc.php:113
+msgid "MSC bundle tab for a machine"
+msgstr "マシンの MSC バンドルタブ"
+
+#: modules/msc/infoPackage.inc.php:116
+msgid "MSC logs tab for a machine"
+msgstr "マシンの MSC ログタブ"
+
+#: modules/msc/infoPackage.inc.php:121
+msgid "Download file from a computer"
+msgstr "コンピューターからのダウンロードファイル"
+
+#: modules/msc/infoPackage.inc.php:127
+msgid "Remove a downloaded file"
+msgstr "ダウンロードファイルを削除"
+
+#: modules/msc/infoPackage.inc.php:133
+msgid "Get a downloaded file"
+msgstr "ダウンロードファイルを取得"
+
+#: modules/msc/infoPackage.inc.php:139
+msgid "Take control of a computer"
+msgstr "コンピューターのコントロールを取得"
+
+#: modules/msc/infoPackage.inc.php:146
+msgid "Play a command"
+msgstr "コマンドを実行"
+
+#: modules/msc/infoPackage.inc.php:152
+msgid "Pause a command"
+msgstr "コマンドを一時停止"
+
+#: modules/msc/infoPackage.inc.php:158
+msgid "Stop a command"
+msgstr "コマンドを停止"
+
+#: modules/msc/infoPackage.inc.php:164
+msgid "Command status"
+msgstr "コマンドステータス"
+
+#: modules/msc/infoPackage.inc.php:170
+msgid "Reschedule a command"
+msgstr "コマンドの再スケジュール"
+
+#: modules/msc/infoPackage.inc.php:176
+msgid "Delete a command"
+msgstr ""
+
+#: modules/msc/infoPackage.inc.php:183
+msgid "Single command status"
+msgstr "シングルコマンドステータス"
+
+#: modules/msc/infoPackage.inc.php:188
+msgid "Show package's details"
+msgstr "パッケージ詳細の表示"
+
+#: modules/msc/infoPackage.inc.php:194
+msgid "Launch a command"
+msgstr "コマンドの起動"
+
+#: modules/msc/infoPackage.inc.php:200
+msgid "Launch a advanced command"
+msgstr "高度なコマンドの起動"
+
+#: modules/msc/infoPackage.inc.php:206
+msgid "Software convergence configuration"
+msgstr "ソフトウェアコンバージェンス設定"
+
+#: modules/msc/infoPackage.inc.php:212
+msgid "Launch a quick action command"
+msgstr "クイックアクションコマンドの起動 "
+
+#: modules/msc/infoPackage.inc.php:222
+msgid "Ping and probe"
+msgstr "Ping プローブ"
+
+#: modules/msc/infoPackage.inc.php:227
+msgid "Ping"
+msgstr "Ping"
+
+#: modules/msc/infoPackage.inc.php:232
+msgid "Platform"
+msgstr "プラットフォーム"
+
+#: modules/msc/infoPackage.inc.php:237
+msgid "MAC Addr."
+msgstr "MAC アドレス"
+
+#: modules/msc/infoPackage.inc.php:242
+msgid "IP Addr."
+msgstr "IP アドレス"
+
+#: modules/msc/infoPackage.inc.php:252
+msgid "Csv's export"
+msgstr "CSV エクスポート"
 
 
