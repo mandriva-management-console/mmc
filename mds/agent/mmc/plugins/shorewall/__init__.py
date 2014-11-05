@@ -30,7 +30,7 @@ from mmc.support.mmctools import ServiceManager
 from mmc.plugins.shorewall.io import ShorewallConf
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
-VERSION = "2.5.72"
+VERSION = "2.5.73"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 

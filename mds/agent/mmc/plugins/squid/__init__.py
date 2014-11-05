@@ -34,7 +34,7 @@ from mmc.plugins.base import createGroup, changeGroupDescription, getGroupEntry
 
 logger = logging.getLogger()
 
-VERSION = "2.5.72"
+VERSION = "2.5.73"
 APIVERSION = "1:1:0"
 REVISION = scmRevision("$Rev$")
 
