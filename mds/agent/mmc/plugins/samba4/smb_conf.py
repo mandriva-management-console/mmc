@@ -67,15 +67,16 @@ class SambaConf:
         self.default_shares_path = config.defaultSharesPath
         self.authorizedSharePaths = config.authorizedSharePaths
         self.prefix = config.samba_prefix
+        self.db_dir = config.db_dir
         try:
             self.config = ConfigObj(self.smb_conf_path, interpolation=False,
                                     list_values=False, write_empty_values=True,
                                     encoding='utf8')
         except ParseError as e:
-            logger.error("Failed to parse %s : %s " % (self.smb_conf_path, e))
+            logger.error("Failed to parse %s : %s ", self.smb_conf_path, e)
 
     def private_dir(self):
-        return os.path.join(self.prefix, 'private')
+        return os.path.join(self.db_dir, 'private')
 
     def validate(self, conf_file):
         """
