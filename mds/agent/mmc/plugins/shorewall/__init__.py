@@ -27,7 +27,7 @@ import logging
 
 from mmc.core.version import scmRevision
 from mmc.support.mmctools import ServiceManager
-from mmc.plugins.shorewall.io import ShorewallConf
+from mmc.plugins.shorewall.io import ShorewallConf, ShorewallLineInvalid
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
 VERSION = "2.5.73"
@@ -94,6 +94,26 @@ class ShorewallRules(ShorewallConf):
         action = "/".join(action)
         self.add_line([action, src, dst, proto, dst_port])
 
+    def validate(self, line):
+        def _check_port_number(port):
+            port = int(port)
+            if port < 0 or port > 65535:
+                raise ShorewallLineInvalid("Invalid port number")
+
+        ports = line['dst_port']
+        if ':' in ports:
+            if len(ports.split(':')) != 2:
+                raise ShorewallLineInvalid("Invalid port range")
+            else:
+                start, stop = ports.split(':')
+                if int(start) > int(stop):
+                    raise ShorewallLineInvalid("Invalid port range")
+        elif ',' in ports:
+            for port in ports.split(','):
+                _check_port_number(port)
+        else:
+            _check_port_number(ports)
+
     def delete(self, action, src, dst, proto="", dst_port=""):
         self.del_line([action, src, dst, proto, dst_port])
 
@@ -143,6 +163,7 @@ class ShorewallPolicies(ShorewallConf):
             self.write()
             return True
         return False
+
 
 class ShorewallMasq(ShorewallConf):
 

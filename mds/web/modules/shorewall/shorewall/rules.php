@@ -24,6 +24,8 @@ require("modules/shorewall/includes/functions.inc.php");
 require("modules/shorewall/shorewall/localSidebar.php");
 require("graph/navbar.inc.php");
 
+global $errorStatus;
+
 // Handle form return
 
 if (isset($_POST['bpolicy'])) {
@@ -98,6 +100,7 @@ if (isset($_POST['brule'])) {
                 redirectTo(urlStrRedirect("shorewall/shorewall/" . $page));
             }
             else {
+                $errorStatus = false;
                 new NotifyWidgetFailure(_T("Failed to add the rule."));
             }
         }
