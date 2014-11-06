@@ -126,7 +126,7 @@ class SambaConf:
 
     def setContent(self, section, option, value):
         try:
-            self.config[section][option] = value;
+            self.config[section][option] = value
         except KeyError:
             self.config[section] = {}
             self.setContent(section, option, value)
@@ -161,7 +161,7 @@ class SambaConf:
                   'realm': realm,
                   'netbios_name': netbios_name,
                   'description': description,
-                  'mode' : mode,
+                  'mode': mode,
                   'sysvol_path': os.path.join(self.prefix, 'var/locks/sysvol'),
                   'openchange': openchange,
                   'openchange_conf': openchange_conf,
