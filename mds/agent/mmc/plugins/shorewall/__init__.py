@@ -96,6 +96,8 @@ class ShorewallRules(ShorewallConf):
 
     def validate(self, line):
         def _check_port_number(port):
+            if not port:
+                return
             port = int(port)
             if port < 0 or port > 65535:
                 raise ShorewallLineInvalid("Invalid port number")
