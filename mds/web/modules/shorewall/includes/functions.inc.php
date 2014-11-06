@@ -32,19 +32,4 @@ function getZoneType($zoneName) {
     return _T("Unknow");
 }
 
-function _startsWith($haystack, $needle) {
-    return !strncmp($haystack, $needle, strlen($needle));
-}
-
-function startsWith($haystack, $needle) {
-    if (is_array($needle)) {
-        foreach($needle as $item) {
-            if (_startsWith($haystack, $item))
-                return True;
-        }
-        return False;
-    }
-    return _startsWith($haystack, $needle);
-}
-
 ?>
