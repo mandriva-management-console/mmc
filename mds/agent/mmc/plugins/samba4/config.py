@@ -26,7 +26,8 @@ from mmc.support.config import PluginConfig
 
 
 class Samba4Config(PluginConfig):
-    def __init__(self):
+    def __init__(self, name="samba4", conffile=None):
+        PluginConfig.__init__(self, name, conffile)
         self.samba_prefix = "/usr"
         self.conf_file = "/etc/smb.conf"
         self.db_dir = "/var/lib/samba"
