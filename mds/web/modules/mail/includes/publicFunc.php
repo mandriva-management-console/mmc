@@ -152,6 +152,14 @@ function _mail_delGroup($group) {
     deleteMailGroupAliases($group);
 }
 
+function _mail_enableUser($uid) {
+    return changeMailEnable($uid, True);
+}
+
+function _mail_disableUser($uid) {
+    return changeMailEnable($uid, False);
+}
+
 
 /**
  * Form on user edit page
