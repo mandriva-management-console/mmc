@@ -103,18 +103,18 @@ class ShorewallRules(ShorewallConf):
                 raise ShorewallLineInvalid("Invalid port number")
 
         ports = line['dst_port']
-        if ':' in ports:
-            if len(ports.split(':')) != 2:
-                raise ShorewallLineInvalid("Invalid port range")
-            else:
-                start, stop = ports.split(':')
-                if int(start) > int(stop):
+        for range in ports.split(','):
+            if ':' in range:
+                if len(range.split(':')) != 2:
                     raise ShorewallLineInvalid("Invalid port range")
-        elif ',' in ports:
-            for port in ports.split(','):
-                _check_port_number(port)
-        else:
-            _check_port_number(ports)
+                else:
+                    start, stop = range.split(':')
+                    if int(start) > int(stop):
+                        raise ShorewallLineInvalid("Invalid port range")
+                    _check_port_number(start)
+                    _check_port_number(stop)
+            else:
+                _check_port_number(range)
 
     def delete(self, action, src, dst, proto="", dst_port=""):
         self.del_line([action, src, dst, proto, dst_port])
