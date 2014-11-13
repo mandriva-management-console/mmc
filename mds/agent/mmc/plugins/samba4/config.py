@@ -26,13 +26,14 @@ from mmc.support.config import PluginConfig
 
 
 class Samba4Config(PluginConfig):
-    def __init__(self, name="samba4", conffile=None):
-        PluginConfig.__init__(self, name, conffile)
+    def __init__(self, name="samba4"):
+        # Default values
         self.samba_prefix = "/usr"
-        self.conf_file = "/etc/smb.conf"
+        self.conf_file = "/etc/samba/smb.conf"
         self.db_dir = "/var/lib/samba"
         self.defaultSharesPath = "/home/samba"
         self.authorizedSharePaths = [self.defaultSharesPath]
+        PluginConfig.__init__(self, name)
 
     def readConf(self):
         PluginConfig.readConf(self)
