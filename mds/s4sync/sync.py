@@ -112,7 +112,7 @@ class LdapUserMixin(object):
 
 
 class SambaLdap(LdapUserMixin):
-    LDAP_URI = "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi"
+    LDAP_URI = "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi"
 
     def __init__(self, base_dn):
         self.base_dn = base_dn
