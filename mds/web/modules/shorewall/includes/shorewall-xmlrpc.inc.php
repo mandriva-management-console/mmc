@@ -26,7 +26,7 @@ function addRule($action, $src, $dst, $proto = "", $dst_port = "") {
 function delRule($action, $src, $dst, $proto = "", $dst_port = "") {
     return xmlCall("shorewall.del_rule", array($action, $src, $dst, $proto, $dst_port));
 }
-function getRules($action = "", $src = "", $dst = "", $filter = "") {
+function getRules($action="", $src=[], $dst=[], $filter="") {
     return xmlCall("shorewall.get_rules", array($action, $src, $dst, $filter));
 }
 function getServices() {
