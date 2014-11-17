@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
 "PO-Revision-Date: 2014-10-29 16:36+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Chinese (Taiwan) (http://transifex.mandriva.com/projects/p/pulse2/team/zh_TW/)\n"
@@ -132,6 +132,292 @@ msgstr "使用本機 proxy 部署"
 #: modules/msc/includes/bundle_widgets.php:405
 msgid "Cancel bundle creation"
 msgstr "取消建立套件組合"
+
+#: modules/msc/includes/functions.php:25
+msgid "Upload in progress"
+msgstr "正在上傳"
+
+#: modules/msc/includes/functions.php:26
+msgid "Upload done"
+msgstr "上傳完成"
+
+#: modules/msc/includes/functions.php:27
+msgid "Upload failed"
+msgstr "上傳失敗"
+
+#: modules/msc/includes/functions.php:28
+msgid "Execution in progress"
+msgstr "正在執行"
+
+#: modules/msc/includes/functions.php:29
+msgid "Execution done"
+msgstr "執行完成"
+
+#: modules/msc/includes/functions.php:30
+msgid "Execution failed"
+msgstr "執行失敗"
+
+#: modules/msc/includes/functions.php:31
+msgid "Delete in progress"
+msgstr "正在刪除"
+
+#: modules/msc/includes/functions.php:32
+msgid "Delete done"
+msgstr "刪除完成"
+
+#: modules/msc/includes/functions.php:33
+msgid "Delete failed"
+msgstr "刪除失敗"
+
+#: modules/msc/includes/functions.php:34
+msgid "Inventory in progress"
+msgstr "正在清查"
+
+#: modules/msc/includes/functions.php:35
+msgid "Inventory failed"
+msgstr "清查失敗"
+
+#: modules/msc/includes/functions.php:36
+msgid "Inventory done"
+msgstr "清查完成"
+
+#: modules/msc/includes/functions.php:37
+msgid "Reboot in progress"
+msgstr "正在重新開機"
+
+#: modules/msc/includes/functions.php:38
+msgid "Reboot failed"
+msgstr "重新開機失敗"
+
+#: modules/msc/includes/functions.php:39
+msgid "Reboot done"
+msgstr "重新開機完成"
+
+#: modules/msc/includes/functions.php:40
+msgid "WOL request being sent"
+msgstr "正在傳送 WOL 請求"
+
+#: modules/msc/includes/functions.php:41
+msgid "Failed to send WOL request"
+msgstr "無法傳送 WOL 請求"
+
+#: modules/msc/includes/functions.php:42
+msgid "WOL request has been sent"
+msgstr "WOL 請求已傳送"
+
+#: modules/msc/includes/functions.php:43
+msgid "Halt in progress"
+msgstr "正在終止"
+
+#: modules/msc/includes/functions.php:44
+msgid "Halt done"
+msgstr "終止完成"
+
+#: modules/msc/includes/functions.php:45
+msgid "Halt failed"
+msgstr "終止失敗"
+
+#: modules/msc/includes/functions.php:46
+msgid "Not reachable"
+msgstr "無法連線"
+
+#: modules/msc/includes/functions.php:47
+#: modules/msc/includes/functions.php:331
+#: modules/msc/msc/ajaxDownloadFile.php:77
+msgid "Ready"
+msgstr "就緒"
+
+#: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
+#: modules/msc/includes/functions.php:334
+#: modules/msc/includes/widgets.inc.php:390
+#: modules/msc/msc/ajaxLogsFilter.php:429
+msgid "Done"
+msgstr "完成"
+
+#: modules/msc/includes/functions.php:49
+msgid "Paused"
+msgstr "已暫停"
+
+#: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
+#: modules/msc/includes/widgets.inc.php:398
+#: modules/msc/msc/ajaxLogsFilter.php:431
+msgid "Stopped"
+msgstr "已停止"
+
+#: modules/msc/includes/functions.php:52
+msgid "Scheduled"
+msgstr "已排程"
+
+#: modules/msc/includes/functions.php:53
+msgid "Rescheduled"
+msgstr "已重新排程"
+
+#: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
+#: modules/msc/includes/functions.php:333
+#: modules/msc/includes/widgets.inc.php:392
+#: modules/msc/msc/ajaxLogsFilter.php:430
+msgid "Failed"
+msgstr "失敗"
+
+#: modules/msc/includes/functions.php:55
+msgid "Time Exceeded"
+msgstr "超過時間"
+
+#: modules/msc/includes/functions.php:56
+msgid "To do"
+msgstr "待執行"
+
+#: modules/msc/includes/functions.php:57
+msgid "Ignored"
+msgstr "已略過"
+
+#: modules/msc/includes/functions.php:60
+msgid "Work in progress"
+msgstr "正在進行工作"
+
+#: modules/msc/includes/functions.php:315
+msgid "Wake on LAN"
+msgstr "網路喚醒"
+
+#: modules/msc/includes/functions.php:316
+msgid "Upload"
+msgstr "上傳"
+
+#: modules/msc/includes/functions.php:317
+msgid "Execution"
+msgstr "執行"
+
+#: modules/msc/includes/functions.php:318
+msgid "Windows Update parse"
+msgstr "Windows 更新剖析"
+
+#: modules/msc/includes/functions.php:319
+msgid "Clean"
+msgstr "清理"
+
+#: modules/msc/includes/functions.php:320
+msgid "Inventory"
+msgstr "清查"
+
+#: modules/msc/includes/functions.php:321
+msgid "Restart"
+msgstr "重新啟動"
+
+#: modules/msc/includes/functions.php:322
+msgid "Shutdown"
+msgstr "關機"
+
+#: modules/msc/includes/functions.php:323
+msgid "Before bootmenu actions"
+msgstr "在開機功能表動作前"
+
+#: modules/msc/includes/functions.php:324
+msgid "After bootmenu actions"
+msgstr "在開機功能表動作後"
+
+#: modules/msc/includes/functions.php:325
+msgid "Finish"
+msgstr "完成"
+
+#: modules/msc/includes/functions.php:332
+#: modules/msc/msc/ajaxLogsFilter.php:356
+#: modules/msc/msc/ajaxLogsFilter.php:428
+msgid "Running"
+msgstr "正在執行"
+
+#: modules/msc/includes/utilities.php:32
+msgid "Bytes"
+msgstr "位元組"
+
+#: modules/msc/includes/utilities.php:35
+#, php-format
+msgid "%3.1f %s%s"
+msgstr "%3.1f %s%s"
+
+#: modules/msc/includes/widgets.inc.php:27
+#, php-format
+msgid "Quick action path %s don't exists"
+msgstr "快速動作路徑 %s 不存在"
+
+#: modules/msc/includes/widgets.inc.php:33
+msgid "Other/N.A."
+msgstr "其它／不可用"
+
+#: modules/msc/includes/widgets.inc.php:45
+#, php-format
+msgid "%s status"
+msgstr "%s 狀態"
+
+#: modules/msc/includes/widgets.inc.php:74
+#, php-format
+msgid ""
+"group \"%s\" is not defined in the MSC module, or you don't have permissions"
+" to access it"
+msgstr "群組 \"%s\" 在 MSC 模組中未定義，或您沒有其存取權限"
+
+#: modules/msc/includes/widgets.inc.php:96
+#, php-format
+msgid ""
+"%s host is not defined in the MSC module, or you don't have permissions to "
+"access it"
+msgstr "%s 主機在 MSC 模組中未定義，或您沒有其存取權限"
+
+#: modules/msc/includes/widgets.inc.php:117
+msgid "You don't have the right permissions to display this command"
+msgstr "您沒有顯示此命令的正確權限"
+
+#: modules/msc/includes/widgets.inc.php:184
+#, php-format
+msgid "Quick action on %s"
+msgstr "%s 上的快速動作"
+
+#: modules/msc/includes/widgets.inc.php:232
+msgid "Execute action..."
+msgstr "執行動作..."
+
+#: modules/msc/includes/widgets.inc.php:255
+msgid "Quick action list is empty"
+msgstr "快速動作清單是空的"
+
+#: modules/msc/includes/widgets.inc.php:345
+#: modules/msc/includes/widgets.inc.php:517
+#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
+msgid "My commands"
+msgstr "我的命令"
+
+#: modules/msc/includes/widgets.inc.php:345
+#: modules/msc/includes/widgets.inc.php:517
+msgid "All users commands"
+msgstr "所有使用者命令"
+
+#: modules/msc/includes/widgets.inc.php:388
+msgid "State filter"
+msgstr "狀態篩選器"
+
+#: modules/msc/includes/widgets.inc.php:394
+msgid "In progress"
+msgstr "進行中"
+
+#: modules/msc/includes/widgets.inc.php:396
+#: modules/msc/msc/ajaxLogsFilter.php:432
+msgid "Overtime"
+msgstr "加班"
+
+#: modules/msc/includes/widgets.inc.php:402
+msgid "Create a group"
+msgstr ""
+
+#: modules/msc/includes/commands_xmlrpc.inc.php:120
+#, php-format
+msgid "%s deployment subgroup - %s"
+msgstr ""
+
+#: modules/msc/includes/commands_xmlrpc.inc.php:143
+#, php-format
+msgid ""
+"Deploy subgroup created successfully. <br/><a href=\"%s\" "
+"target=\"_blank\">View group</a>"
+msgstr ""
 
 #: modules/msc/includes/command_history.php:34
 #: modules/msc/includes/command_history.php:180 modules/msc/msc/launch.php:428
@@ -534,292 +820,6 @@ msgstr "盡快"
 #: modules/msc/includes/command_history.php:663
 msgid "<i>undefined</i>"
 msgstr "<i>未定義</i>"
-
-#: modules/msc/includes/functions.php:25
-msgid "Upload in progress"
-msgstr "正在上傳"
-
-#: modules/msc/includes/functions.php:26
-msgid "Upload done"
-msgstr "上傳完成"
-
-#: modules/msc/includes/functions.php:27
-msgid "Upload failed"
-msgstr "上傳失敗"
-
-#: modules/msc/includes/functions.php:28
-msgid "Execution in progress"
-msgstr "正在執行"
-
-#: modules/msc/includes/functions.php:29
-msgid "Execution done"
-msgstr "執行完成"
-
-#: modules/msc/includes/functions.php:30
-msgid "Execution failed"
-msgstr "執行失敗"
-
-#: modules/msc/includes/functions.php:31
-msgid "Delete in progress"
-msgstr "正在刪除"
-
-#: modules/msc/includes/functions.php:32
-msgid "Delete done"
-msgstr "刪除完成"
-
-#: modules/msc/includes/functions.php:33
-msgid "Delete failed"
-msgstr "刪除失敗"
-
-#: modules/msc/includes/functions.php:34
-msgid "Inventory in progress"
-msgstr "正在清查"
-
-#: modules/msc/includes/functions.php:35
-msgid "Inventory failed"
-msgstr "清查失敗"
-
-#: modules/msc/includes/functions.php:36
-msgid "Inventory done"
-msgstr "清查完成"
-
-#: modules/msc/includes/functions.php:37
-msgid "Reboot in progress"
-msgstr "正在重新開機"
-
-#: modules/msc/includes/functions.php:38
-msgid "Reboot failed"
-msgstr "重新開機失敗"
-
-#: modules/msc/includes/functions.php:39
-msgid "Reboot done"
-msgstr "重新開機完成"
-
-#: modules/msc/includes/functions.php:40
-msgid "WOL request being sent"
-msgstr "正在傳送 WOL 請求"
-
-#: modules/msc/includes/functions.php:41
-msgid "Failed to send WOL request"
-msgstr "無法傳送 WOL 請求"
-
-#: modules/msc/includes/functions.php:42
-msgid "WOL request has been sent"
-msgstr "WOL 請求已傳送"
-
-#: modules/msc/includes/functions.php:43
-msgid "Halt in progress"
-msgstr "正在終止"
-
-#: modules/msc/includes/functions.php:44
-msgid "Halt done"
-msgstr "終止完成"
-
-#: modules/msc/includes/functions.php:45
-msgid "Halt failed"
-msgstr "終止失敗"
-
-#: modules/msc/includes/functions.php:46
-msgid "Not reachable"
-msgstr "無法連線"
-
-#: modules/msc/includes/functions.php:47
-#: modules/msc/includes/functions.php:331
-#: modules/msc/msc/ajaxDownloadFile.php:77
-msgid "Ready"
-msgstr "就緒"
-
-#: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
-#: modules/msc/includes/functions.php:334
-#: modules/msc/includes/widgets.inc.php:390
-#: modules/msc/msc/ajaxLogsFilter.php:429
-msgid "Done"
-msgstr "完成"
-
-#: modules/msc/includes/functions.php:49
-msgid "Paused"
-msgstr "已暫停"
-
-#: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
-#: modules/msc/includes/widgets.inc.php:398
-#: modules/msc/msc/ajaxLogsFilter.php:431
-msgid "Stopped"
-msgstr "已停止"
-
-#: modules/msc/includes/functions.php:52
-msgid "Scheduled"
-msgstr "已排程"
-
-#: modules/msc/includes/functions.php:53
-msgid "Rescheduled"
-msgstr "已重新排程"
-
-#: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
-#: modules/msc/includes/functions.php:333
-#: modules/msc/includes/widgets.inc.php:392
-#: modules/msc/msc/ajaxLogsFilter.php:430
-msgid "Failed"
-msgstr "失敗"
-
-#: modules/msc/includes/functions.php:55
-msgid "Time Exceeded"
-msgstr "超過時間"
-
-#: modules/msc/includes/functions.php:56
-msgid "To do"
-msgstr "待執行"
-
-#: modules/msc/includes/functions.php:57
-msgid "Ignored"
-msgstr "已略過"
-
-#: modules/msc/includes/functions.php:60
-msgid "Work in progress"
-msgstr "正在進行工作"
-
-#: modules/msc/includes/functions.php:315
-msgid "Wake on LAN"
-msgstr "網路喚醒"
-
-#: modules/msc/includes/functions.php:316
-msgid "Upload"
-msgstr "上傳"
-
-#: modules/msc/includes/functions.php:317
-msgid "Execution"
-msgstr "執行"
-
-#: modules/msc/includes/functions.php:318
-msgid "Windows Update parse"
-msgstr "Windows 更新剖析"
-
-#: modules/msc/includes/functions.php:319
-msgid "Clean"
-msgstr "清理"
-
-#: modules/msc/includes/functions.php:320
-msgid "Inventory"
-msgstr "清查"
-
-#: modules/msc/includes/functions.php:321
-msgid "Restart"
-msgstr "重新啟動"
-
-#: modules/msc/includes/functions.php:322
-msgid "Shutdown"
-msgstr "關機"
-
-#: modules/msc/includes/functions.php:323
-msgid "Before bootmenu actions"
-msgstr "在開機功能表動作前"
-
-#: modules/msc/includes/functions.php:324
-msgid "After bootmenu actions"
-msgstr "在開機功能表動作後"
-
-#: modules/msc/includes/functions.php:325
-msgid "Finish"
-msgstr "完成"
-
-#: modules/msc/includes/functions.php:332
-#: modules/msc/msc/ajaxLogsFilter.php:356
-#: modules/msc/msc/ajaxLogsFilter.php:428
-msgid "Running"
-msgstr "正在執行"
-
-#: modules/msc/includes/utilities.php:32
-msgid "Bytes"
-msgstr "位元組"
-
-#: modules/msc/includes/utilities.php:35
-#, php-format
-msgid "%3.1f %s%s"
-msgstr "%3.1f %s%s"
-
-#: modules/msc/includes/widgets.inc.php:27
-#, php-format
-msgid "Quick action path %s don't exists"
-msgstr "快速動作路徑 %s 不存在"
-
-#: modules/msc/includes/widgets.inc.php:33
-msgid "Other/N.A."
-msgstr "其它／不可用"
-
-#: modules/msc/includes/widgets.inc.php:45
-#, php-format
-msgid "%s status"
-msgstr "%s 狀態"
-
-#: modules/msc/includes/widgets.inc.php:74
-#, php-format
-msgid ""
-"group \"%s\" is not defined in the MSC module, or you don't have permissions"
-" to access it"
-msgstr "群組 \"%s\" 在 MSC 模組中未定義，或您沒有其存取權限"
-
-#: modules/msc/includes/widgets.inc.php:96
-#, php-format
-msgid ""
-"%s host is not defined in the MSC module, or you don't have permissions to "
-"access it"
-msgstr "%s 主機在 MSC 模組中未定義，或您沒有其存取權限"
-
-#: modules/msc/includes/widgets.inc.php:117
-msgid "You don't have the right permissions to display this command"
-msgstr "您沒有顯示此命令的正確權限"
-
-#: modules/msc/includes/widgets.inc.php:184
-#, php-format
-msgid "Quick action on %s"
-msgstr "%s 上的快速動作"
-
-#: modules/msc/includes/widgets.inc.php:232
-msgid "Execute action..."
-msgstr "執行動作..."
-
-#: modules/msc/includes/widgets.inc.php:255
-msgid "Quick action list is empty"
-msgstr "快速動作清單是空的"
-
-#: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:517
-#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
-msgid "My commands"
-msgstr "我的命令"
-
-#: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:517
-msgid "All users commands"
-msgstr "所有使用者命令"
-
-#: modules/msc/includes/widgets.inc.php:388
-msgid "State filter"
-msgstr "狀態篩選器"
-
-#: modules/msc/includes/widgets.inc.php:394
-msgid "In progress"
-msgstr "進行中"
-
-#: modules/msc/includes/widgets.inc.php:396
-#: modules/msc/msc/ajaxLogsFilter.php:432
-msgid "Overtime"
-msgstr "加班"
-
-#: modules/msc/includes/widgets.inc.php:402
-msgid "Create a group"
-msgstr ""
-
-#: modules/msc/includes/commands_xmlrpc.inc.php:120
-#, php-format
-msgid "%s deployment subgroup - %s"
-msgstr ""
-
-#: modules/msc/includes/commands_xmlrpc.inc.php:143
-#, php-format
-msgid ""
-"Deploy subgroup created successfully. <br/><a href=\"%s\" "
-"target=\"_blank\">View group</a>"
-msgstr ""
 
 #: modules/msc/logs/ajaxLogsFilter.php:59
 #: modules/msc/msc/ajaxLogsFilter.php:104

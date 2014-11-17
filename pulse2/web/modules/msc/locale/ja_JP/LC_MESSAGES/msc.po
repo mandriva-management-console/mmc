@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
 "PO-Revision-Date: 2014-10-29 16:36+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Japanese (Japan) (http://transifex.mandriva.com/projects/p/pulse2/team/ja_JP/)\n"
@@ -132,6 +132,292 @@ msgstr "ローカルプロキシを使用してデプロイ"
 #: modules/msc/includes/bundle_widgets.php:405
 msgid "Cancel bundle creation"
 msgstr "バンドル作成をキャンセル "
+
+#: modules/msc/includes/functions.php:25
+msgid "Upload in progress"
+msgstr "アップロード中です"
+
+#: modules/msc/includes/functions.php:26
+msgid "Upload done"
+msgstr "アップロードが完了しました"
+
+#: modules/msc/includes/functions.php:27
+msgid "Upload failed"
+msgstr "アップロードが失敗しました"
+
+#: modules/msc/includes/functions.php:28
+msgid "Execution in progress"
+msgstr "実行中です"
+
+#: modules/msc/includes/functions.php:29
+msgid "Execution done"
+msgstr "実行が完了しました"
+
+#: modules/msc/includes/functions.php:30
+msgid "Execution failed"
+msgstr "実行が失敗しました"
+
+#: modules/msc/includes/functions.php:31
+msgid "Delete in progress"
+msgstr "削除中です"
+
+#: modules/msc/includes/functions.php:32
+msgid "Delete done"
+msgstr "削除が完了しました"
+
+#: modules/msc/includes/functions.php:33
+msgid "Delete failed"
+msgstr "削除が失敗しました"
+
+#: modules/msc/includes/functions.php:34
+msgid "Inventory in progress"
+msgstr "棚卸中です"
+
+#: modules/msc/includes/functions.php:35
+msgid "Inventory failed"
+msgstr "棚卸に失敗しました"
+
+#: modules/msc/includes/functions.php:36
+msgid "Inventory done"
+msgstr "棚卸が完了しました"
+
+#: modules/msc/includes/functions.php:37
+msgid "Reboot in progress"
+msgstr "再起動中です"
+
+#: modules/msc/includes/functions.php:38
+msgid "Reboot failed"
+msgstr "再起動が失敗しました"
+
+#: modules/msc/includes/functions.php:39
+msgid "Reboot done"
+msgstr "再起動が完了しました"
+
+#: modules/msc/includes/functions.php:40
+msgid "WOL request being sent"
+msgstr "WOL リクエスト送信中です"
+
+#: modules/msc/includes/functions.php:41
+msgid "Failed to send WOL request"
+msgstr "WOL リクエストの送信に失敗しました"
+
+#: modules/msc/includes/functions.php:42
+msgid "WOL request has been sent"
+msgstr "WOL リクエストが送信されました"
+
+#: modules/msc/includes/functions.php:43
+msgid "Halt in progress"
+msgstr "中断しています"
+
+#: modules/msc/includes/functions.php:44
+msgid "Halt done"
+msgstr "中断が完了しました"
+
+#: modules/msc/includes/functions.php:45
+msgid "Halt failed"
+msgstr "中断が失敗しました"
+
+#: modules/msc/includes/functions.php:46
+msgid "Not reachable"
+msgstr "到達不能"
+
+#: modules/msc/includes/functions.php:47
+#: modules/msc/includes/functions.php:331
+#: modules/msc/msc/ajaxDownloadFile.php:77
+msgid "Ready"
+msgstr "準備完了"
+
+#: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
+#: modules/msc/includes/functions.php:334
+#: modules/msc/includes/widgets.inc.php:390
+#: modules/msc/msc/ajaxLogsFilter.php:429
+msgid "Done"
+msgstr "完了"
+
+#: modules/msc/includes/functions.php:49
+msgid "Paused"
+msgstr "一時停止"
+
+#: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
+#: modules/msc/includes/widgets.inc.php:398
+#: modules/msc/msc/ajaxLogsFilter.php:431
+msgid "Stopped"
+msgstr "停止"
+
+#: modules/msc/includes/functions.php:52
+msgid "Scheduled"
+msgstr "スケジュール済"
+
+#: modules/msc/includes/functions.php:53
+msgid "Rescheduled"
+msgstr "再スケジュール済"
+
+#: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
+#: modules/msc/includes/functions.php:333
+#: modules/msc/includes/widgets.inc.php:392
+#: modules/msc/msc/ajaxLogsFilter.php:430
+msgid "Failed"
+msgstr "失敗"
+
+#: modules/msc/includes/functions.php:55
+msgid "Time Exceeded"
+msgstr "時間が超過しました"
+
+#: modules/msc/includes/functions.php:56
+msgid "To do"
+msgstr "TO DO"
+
+#: modules/msc/includes/functions.php:57
+msgid "Ignored"
+msgstr "無視"
+
+#: modules/msc/includes/functions.php:60
+msgid "Work in progress"
+msgstr "作業実行中です"
+
+#: modules/msc/includes/functions.php:315
+msgid "Wake on LAN"
+msgstr "Wake on LAN"
+
+#: modules/msc/includes/functions.php:316
+msgid "Upload"
+msgstr "アップロード"
+
+#: modules/msc/includes/functions.php:317
+msgid "Execution"
+msgstr "実行"
+
+#: modules/msc/includes/functions.php:318
+msgid "Windows Update parse"
+msgstr "Windows Update パース"
+
+#: modules/msc/includes/functions.php:319
+msgid "Clean"
+msgstr "クリーン"
+
+#: modules/msc/includes/functions.php:320
+msgid "Inventory"
+msgstr "在庫"
+
+#: modules/msc/includes/functions.php:321
+msgid "Restart"
+msgstr "再起動"
+
+#: modules/msc/includes/functions.php:322
+msgid "Shutdown"
+msgstr "シャットダウン"
+
+#: modules/msc/includes/functions.php:323
+msgid "Before bootmenu actions"
+msgstr "ブートメニューアクション前"
+
+#: modules/msc/includes/functions.php:324
+msgid "After bootmenu actions"
+msgstr "ブートメニューアクション後"
+
+#: modules/msc/includes/functions.php:325
+msgid "Finish"
+msgstr "終了"
+
+#: modules/msc/includes/functions.php:332
+#: modules/msc/msc/ajaxLogsFilter.php:356
+#: modules/msc/msc/ajaxLogsFilter.php:428
+msgid "Running"
+msgstr "実行中"
+
+#: modules/msc/includes/utilities.php:32
+msgid "Bytes"
+msgstr "バイト"
+
+#: modules/msc/includes/utilities.php:35
+#, php-format
+msgid "%3.1f %s%s"
+msgstr "%3.1f %s%s"
+
+#: modules/msc/includes/widgets.inc.php:27
+#, php-format
+msgid "Quick action path %s don't exists"
+msgstr "クイックアクションパス %s が存在しません"
+
+#: modules/msc/includes/widgets.inc.php:33
+msgid "Other/N.A."
+msgstr "その他/N.A."
+
+#: modules/msc/includes/widgets.inc.php:45
+#, php-format
+msgid "%s status"
+msgstr "%s ステータス"
+
+#: modules/msc/includes/widgets.inc.php:74
+#, php-format
+msgid ""
+"group \"%s\" is not defined in the MSC module, or you don't have permissions"
+" to access it"
+msgstr "グループ \"%s\" が  MSC モジュールで定義されていないか、それにアクセスする権限を持っていません。"
+
+#: modules/msc/includes/widgets.inc.php:96
+#, php-format
+msgid ""
+"%s host is not defined in the MSC module, or you don't have permissions to "
+"access it"
+msgstr "%s  ホスト が MSC モジュールで定義されていないか、それにアクセスする権限を持っていません。"
+
+#: modules/msc/includes/widgets.inc.php:117
+msgid "You don't have the right permissions to display this command"
+msgstr "このコマンドを表示する正しい権限を持っていません"
+
+#: modules/msc/includes/widgets.inc.php:184
+#, php-format
+msgid "Quick action on %s"
+msgstr "%s のクイックアクション"
+
+#: modules/msc/includes/widgets.inc.php:232
+msgid "Execute action..."
+msgstr "実行アクション..."
+
+#: modules/msc/includes/widgets.inc.php:255
+msgid "Quick action list is empty"
+msgstr "クイックアクション一覧が空です"
+
+#: modules/msc/includes/widgets.inc.php:345
+#: modules/msc/includes/widgets.inc.php:517
+#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
+msgid "My commands"
+msgstr "自分のコマンド"
+
+#: modules/msc/includes/widgets.inc.php:345
+#: modules/msc/includes/widgets.inc.php:517
+msgid "All users commands"
+msgstr "全ユーザーコマンド"
+
+#: modules/msc/includes/widgets.inc.php:388
+msgid "State filter"
+msgstr "状態フィルタ"
+
+#: modules/msc/includes/widgets.inc.php:394
+msgid "In progress"
+msgstr "進行中"
+
+#: modules/msc/includes/widgets.inc.php:396
+#: modules/msc/msc/ajaxLogsFilter.php:432
+msgid "Overtime"
+msgstr "時間超過"
+
+#: modules/msc/includes/widgets.inc.php:402
+msgid "Create a group"
+msgstr ""
+
+#: modules/msc/includes/commands_xmlrpc.inc.php:120
+#, php-format
+msgid "%s deployment subgroup - %s"
+msgstr ""
+
+#: modules/msc/includes/commands_xmlrpc.inc.php:143
+#, php-format
+msgid ""
+"Deploy subgroup created successfully. <br/><a href=\"%s\" "
+"target=\"_blank\">View group</a>"
+msgstr ""
 
 #: modules/msc/includes/command_history.php:34
 #: modules/msc/includes/command_history.php:180 modules/msc/msc/launch.php:428
@@ -535,292 +821,6 @@ msgstr "できる限り早く"
 #: modules/msc/includes/command_history.php:663
 msgid "<i>undefined</i>"
 msgstr "<i>未定義</i>"
-
-#: modules/msc/includes/functions.php:25
-msgid "Upload in progress"
-msgstr "アップロード中です"
-
-#: modules/msc/includes/functions.php:26
-msgid "Upload done"
-msgstr "アップロードが完了しました"
-
-#: modules/msc/includes/functions.php:27
-msgid "Upload failed"
-msgstr "アップロードが失敗しました"
-
-#: modules/msc/includes/functions.php:28
-msgid "Execution in progress"
-msgstr "実行中です"
-
-#: modules/msc/includes/functions.php:29
-msgid "Execution done"
-msgstr "実行が完了しました"
-
-#: modules/msc/includes/functions.php:30
-msgid "Execution failed"
-msgstr "実行が失敗しました"
-
-#: modules/msc/includes/functions.php:31
-msgid "Delete in progress"
-msgstr "削除中です"
-
-#: modules/msc/includes/functions.php:32
-msgid "Delete done"
-msgstr "削除が完了しました"
-
-#: modules/msc/includes/functions.php:33
-msgid "Delete failed"
-msgstr "削除が失敗しました"
-
-#: modules/msc/includes/functions.php:34
-msgid "Inventory in progress"
-msgstr "棚卸中です"
-
-#: modules/msc/includes/functions.php:35
-msgid "Inventory failed"
-msgstr "棚卸に失敗しました"
-
-#: modules/msc/includes/functions.php:36
-msgid "Inventory done"
-msgstr "棚卸が完了しました"
-
-#: modules/msc/includes/functions.php:37
-msgid "Reboot in progress"
-msgstr "再起動中です"
-
-#: modules/msc/includes/functions.php:38
-msgid "Reboot failed"
-msgstr "再起動が失敗しました"
-
-#: modules/msc/includes/functions.php:39
-msgid "Reboot done"
-msgstr "再起動が完了しました"
-
-#: modules/msc/includes/functions.php:40
-msgid "WOL request being sent"
-msgstr "WOL リクエスト送信中です"
-
-#: modules/msc/includes/functions.php:41
-msgid "Failed to send WOL request"
-msgstr "WOL リクエストの送信に失敗しました"
-
-#: modules/msc/includes/functions.php:42
-msgid "WOL request has been sent"
-msgstr "WOL リクエストが送信されました"
-
-#: modules/msc/includes/functions.php:43
-msgid "Halt in progress"
-msgstr "中断しています"
-
-#: modules/msc/includes/functions.php:44
-msgid "Halt done"
-msgstr "中断が完了しました"
-
-#: modules/msc/includes/functions.php:45
-msgid "Halt failed"
-msgstr "中断が失敗しました"
-
-#: modules/msc/includes/functions.php:46
-msgid "Not reachable"
-msgstr "到達不能"
-
-#: modules/msc/includes/functions.php:47
-#: modules/msc/includes/functions.php:331
-#: modules/msc/msc/ajaxDownloadFile.php:77
-msgid "Ready"
-msgstr "準備完了"
-
-#: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
-#: modules/msc/includes/functions.php:334
-#: modules/msc/includes/widgets.inc.php:390
-#: modules/msc/msc/ajaxLogsFilter.php:429
-msgid "Done"
-msgstr "完了"
-
-#: modules/msc/includes/functions.php:49
-msgid "Paused"
-msgstr "一時停止"
-
-#: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
-#: modules/msc/includes/widgets.inc.php:398
-#: modules/msc/msc/ajaxLogsFilter.php:431
-msgid "Stopped"
-msgstr "停止"
-
-#: modules/msc/includes/functions.php:52
-msgid "Scheduled"
-msgstr "スケジュール済"
-
-#: modules/msc/includes/functions.php:53
-msgid "Rescheduled"
-msgstr "再スケジュール済"
-
-#: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
-#: modules/msc/includes/functions.php:333
-#: modules/msc/includes/widgets.inc.php:392
-#: modules/msc/msc/ajaxLogsFilter.php:430
-msgid "Failed"
-msgstr "失敗"
-
-#: modules/msc/includes/functions.php:55
-msgid "Time Exceeded"
-msgstr "時間が超過しました"
-
-#: modules/msc/includes/functions.php:56
-msgid "To do"
-msgstr "TO DO"
-
-#: modules/msc/includes/functions.php:57
-msgid "Ignored"
-msgstr "無視"
-
-#: modules/msc/includes/functions.php:60
-msgid "Work in progress"
-msgstr "作業実行中です"
-
-#: modules/msc/includes/functions.php:315
-msgid "Wake on LAN"
-msgstr "Wake on LAN"
-
-#: modules/msc/includes/functions.php:316
-msgid "Upload"
-msgstr "アップロード"
-
-#: modules/msc/includes/functions.php:317
-msgid "Execution"
-msgstr "実行"
-
-#: modules/msc/includes/functions.php:318
-msgid "Windows Update parse"
-msgstr "Windows Update パース"
-
-#: modules/msc/includes/functions.php:319
-msgid "Clean"
-msgstr "クリーン"
-
-#: modules/msc/includes/functions.php:320
-msgid "Inventory"
-msgstr "在庫"
-
-#: modules/msc/includes/functions.php:321
-msgid "Restart"
-msgstr "再起動"
-
-#: modules/msc/includes/functions.php:322
-msgid "Shutdown"
-msgstr "シャットダウン"
-
-#: modules/msc/includes/functions.php:323
-msgid "Before bootmenu actions"
-msgstr "ブートメニューアクション前"
-
-#: modules/msc/includes/functions.php:324
-msgid "After bootmenu actions"
-msgstr "ブートメニューアクション後"
-
-#: modules/msc/includes/functions.php:325
-msgid "Finish"
-msgstr "終了"
-
-#: modules/msc/includes/functions.php:332
-#: modules/msc/msc/ajaxLogsFilter.php:356
-#: modules/msc/msc/ajaxLogsFilter.php:428
-msgid "Running"
-msgstr "実行中"
-
-#: modules/msc/includes/utilities.php:32
-msgid "Bytes"
-msgstr "バイト"
-
-#: modules/msc/includes/utilities.php:35
-#, php-format
-msgid "%3.1f %s%s"
-msgstr "%3.1f %s%s"
-
-#: modules/msc/includes/widgets.inc.php:27
-#, php-format
-msgid "Quick action path %s don't exists"
-msgstr "クイックアクションパス %s が存在しません"
-
-#: modules/msc/includes/widgets.inc.php:33
-msgid "Other/N.A."
-msgstr "その他/N.A."
-
-#: modules/msc/includes/widgets.inc.php:45
-#, php-format
-msgid "%s status"
-msgstr "%s ステータス"
-
-#: modules/msc/includes/widgets.inc.php:74
-#, php-format
-msgid ""
-"group \"%s\" is not defined in the MSC module, or you don't have permissions"
-" to access it"
-msgstr "グループ \"%s\" が  MSC モジュールで定義されていないか、それにアクセスする権限を持っていません。"
-
-#: modules/msc/includes/widgets.inc.php:96
-#, php-format
-msgid ""
-"%s host is not defined in the MSC module, or you don't have permissions to "
-"access it"
-msgstr "%s  ホスト が MSC モジュールで定義されていないか、それにアクセスする権限を持っていません。"
-
-#: modules/msc/includes/widgets.inc.php:117
-msgid "You don't have the right permissions to display this command"
-msgstr "このコマンドを表示する正しい権限を持っていません"
-
-#: modules/msc/includes/widgets.inc.php:184
-#, php-format
-msgid "Quick action on %s"
-msgstr "%s のクイックアクション"
-
-#: modules/msc/includes/widgets.inc.php:232
-msgid "Execute action..."
-msgstr "実行アクション..."
-
-#: modules/msc/includes/widgets.inc.php:255
-msgid "Quick action list is empty"
-msgstr "クイックアクション一覧が空です"
-
-#: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:517
-#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
-msgid "My commands"
-msgstr "自分のコマンド"
-
-#: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:517
-msgid "All users commands"
-msgstr "全ユーザーコマンド"
-
-#: modules/msc/includes/widgets.inc.php:388
-msgid "State filter"
-msgstr "状態フィルタ"
-
-#: modules/msc/includes/widgets.inc.php:394
-msgid "In progress"
-msgstr "進行中"
-
-#: modules/msc/includes/widgets.inc.php:396
-#: modules/msc/msc/ajaxLogsFilter.php:432
-msgid "Overtime"
-msgstr "時間超過"
-
-#: modules/msc/includes/widgets.inc.php:402
-msgid "Create a group"
-msgstr ""
-
-#: modules/msc/includes/commands_xmlrpc.inc.php:120
-#, php-format
-msgid "%s deployment subgroup - %s"
-msgstr ""
-
-#: modules/msc/includes/commands_xmlrpc.inc.php:143
-#, php-format
-msgid ""
-"Deploy subgroup created successfully. <br/><a href=\"%s\" "
-"target=\"_blank\">View group</a>"
-msgstr ""
 
 #: modules/msc/logs/ajaxLogsFilter.php:59
 #: modules/msc/msc/ajaxLogsFilter.php:104

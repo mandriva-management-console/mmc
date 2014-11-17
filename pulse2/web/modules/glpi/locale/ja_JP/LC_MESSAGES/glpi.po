@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
-"PO-Revision-Date: 2014-10-30 16:48+0000\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
+"PO-Revision-Date: 2014-11-16 20:23+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Japanese (Japan) (http://transifex.mandriva.com/projects/p/pulse2/team/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -380,8 +380,8 @@ msgid "Network"
 msgstr "ネットワーク"
 
 #: modules/glpi/glpi/tabs.php:82
-msgid "Softwares"
-msgstr "ソフトウェア"
+msgid "Software"
+msgstr ""
 
 #: modules/glpi/glpi/tabs.php:83
 msgid "Administrative"

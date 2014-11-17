@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
 "PO-Revision-Date: 2014-04-28 08:31+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/pulse2/team/ru_RU/)\n"
@@ -22,9 +22,9 @@ msgid "View restore points"
 msgstr ""
 
 #: modules/backuppc/backuppc/BrowseBackups.php:56
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:72
 #: modules/backuppc/backuppc/hostSummary.php:142
 #: modules/backuppc/backuppc/viewFileVersions.php:47
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:72
 msgid "%A, %B %e %Y"
 msgstr ""
 
@@ -228,8 +228,8 @@ msgid "Sunday"
 msgstr ""
 
 #: modules/backuppc/backuppc/EditPeriodProfile.php:144
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:85
 #: modules/backuppc/backuppc/edit.php:211
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:91
 msgid "to"
 msgstr ""
 
@@ -406,31 +406,6 @@ msgstr ""
 
 #: modules/backuppc/backuppc/ajaxBrowseFiles.php:198
 msgid "Restore to host"
-msgstr ""
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:43
-msgid "Requested restores"
-msgstr ""
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:63
-msgid "Download"
-msgstr ""
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:85
-msgid "Latest direct restore to host"
-msgstr ""
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:105
-msgid "Destination"
-msgstr ""
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:106
-msgid "Restore time"
-msgstr ""
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:107
-#: modules/backuppc/backuppc/localSidebar.php:27
-msgid "Status"
 msgstr ""
 
 #: modules/backuppc/backuppc/ajaxFileSearch.php:116
@@ -666,6 +641,11 @@ msgstr ""
 msgid "Backup status"
 msgstr ""
 
+#: modules/backuppc/backuppc/localSidebar.php:27
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:113
+msgid "Status"
+msgstr ""
+
 #: modules/backuppc/backuppc/localSidebar.php:28
 msgid "Profiles"
 msgstr ""
@@ -710,6 +690,26 @@ msgstr ""
 
 #: modules/backuppc/backuppc/viewXferLog.php:35
 msgid "Error log"
+msgstr ""
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:43
+msgid "Requested restores"
+msgstr ""
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:63
+msgid "Download"
+msgstr ""
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:91
+msgid "Latest direct restore to host"
+msgstr ""
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:111
+msgid "Destination"
+msgstr ""
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:112
+msgid "Restore time"
 msgstr ""
 
 #: modules/backuppc/infoPackage.inc.php:33

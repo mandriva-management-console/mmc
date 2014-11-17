@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
 "PO-Revision-Date: 2014-04-28 08:52+0000\n"
 "Last-Translator: Jean-Christophe Vassort <jcvassort@mandriva.com>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/pulse2/team/pt_BR/)\n"
@@ -24,9 +24,9 @@ msgid "View restore points"
 msgstr "Ver pontos de recuperação"
 
 #: modules/backuppc/backuppc/BrowseBackups.php:56
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:72
 #: modules/backuppc/backuppc/hostSummary.php:142
 #: modules/backuppc/backuppc/viewFileVersions.php:47
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:72
 msgid "%A, %B %e %Y"
 msgstr "%A, %B %e %Y"
 
@@ -232,8 +232,8 @@ msgid "Sunday"
 msgstr "Domingo"
 
 #: modules/backuppc/backuppc/EditPeriodProfile.php:144
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:85
 #: modules/backuppc/backuppc/edit.php:211
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:91
 msgid "to"
 msgstr "para"
 
@@ -411,31 +411,6 @@ msgstr "Baixar selecionados (ZIP)"
 #: modules/backuppc/backuppc/ajaxBrowseFiles.php:198
 msgid "Restore to host"
 msgstr "Restaurar para a máquina"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:43
-msgid "Requested restores"
-msgstr "Restaurações executadas"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:63
-msgid "Download"
-msgstr "Download"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:85
-msgid "Latest direct restore to host"
-msgstr "Últimas restaurações diretas para o computador"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:105
-msgid "Destination"
-msgstr "Destino"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:106
-msgid "Restore time"
-msgstr "Tempo de recuperação"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:107
-#: modules/backuppc/backuppc/localSidebar.php:27
-msgid "Status"
-msgstr "Status"
 
 #: modules/backuppc/backuppc/ajaxFileSearch.php:116
 msgid "File"
@@ -672,6 +647,11 @@ msgstr "O computador foi removido do sistema de backup."
 msgid "Backup status"
 msgstr "Status do Backup"
 
+#: modules/backuppc/backuppc/localSidebar.php:27
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:113
+msgid "Status"
+msgstr "Status"
+
 #: modules/backuppc/backuppc/localSidebar.php:28
 msgid "Profiles"
 msgstr "Perfil"
@@ -719,6 +699,26 @@ msgstr "XferLog"
 #: modules/backuppc/backuppc/viewXferLog.php:35
 msgid "Error log"
 msgstr "Log de erro"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:43
+msgid "Requested restores"
+msgstr "Restaurações executadas"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:63
+msgid "Download"
+msgstr "Download"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:91
+msgid "Latest direct restore to host"
+msgstr "Últimas restaurações diretas para o computador"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:111
+msgid "Destination"
+msgstr "Destino"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:112
+msgid "Restore time"
+msgstr "Tempo de recuperação"
 
 #: modules/backuppc/infoPackage.inc.php:33
 #: modules/backuppc/infoPackage.inc.php:38

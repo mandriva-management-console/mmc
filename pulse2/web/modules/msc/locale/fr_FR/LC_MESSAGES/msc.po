@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
 "PO-Revision-Date: 2014-10-29 16:36+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/pulse2/team/fr_FR/)\n"
@@ -137,6 +137,296 @@ msgstr "Déploiement par proxy local"
 #: modules/msc/includes/bundle_widgets.php:405
 msgid "Cancel bundle creation"
 msgstr "Annuler la création du groupe de logiciels"
+
+#: modules/msc/includes/functions.php:25
+msgid "Upload in progress"
+msgstr "Envoi en cours"
+
+#: modules/msc/includes/functions.php:26
+msgid "Upload done"
+msgstr "Envoi terminé"
+
+#: modules/msc/includes/functions.php:27
+msgid "Upload failed"
+msgstr "Échec de l'envoi"
+
+#: modules/msc/includes/functions.php:28
+msgid "Execution in progress"
+msgstr "Exécution en cours"
+
+#: modules/msc/includes/functions.php:29
+msgid "Execution done"
+msgstr "Exécution terminée"
+
+#: modules/msc/includes/functions.php:30
+msgid "Execution failed"
+msgstr "Échec de l'exécution"
+
+#: modules/msc/includes/functions.php:31
+msgid "Delete in progress"
+msgstr "Suppression en cours"
+
+#: modules/msc/includes/functions.php:32
+msgid "Delete done"
+msgstr "Suppression terminée"
+
+#: modules/msc/includes/functions.php:33
+msgid "Delete failed"
+msgstr "Échec de la suppression"
+
+#: modules/msc/includes/functions.php:34
+msgid "Inventory in progress"
+msgstr "Inventaire en cours"
+
+#: modules/msc/includes/functions.php:35
+msgid "Inventory failed"
+msgstr "Échec de l'inventaire"
+
+#: modules/msc/includes/functions.php:36
+msgid "Inventory done"
+msgstr "Inventaire terminé"
+
+#: modules/msc/includes/functions.php:37
+msgid "Reboot in progress"
+msgstr "Redémarrage en cours"
+
+#: modules/msc/includes/functions.php:38
+msgid "Reboot failed"
+msgstr "Échec du redémarrage"
+
+#: modules/msc/includes/functions.php:39
+msgid "Reboot done"
+msgstr "Redémarrage terminé"
+
+#: modules/msc/includes/functions.php:40
+msgid "WOL request being sent"
+msgstr "La requête de WOL est en cours de préparation"
+
+#: modules/msc/includes/functions.php:41
+msgid "Failed to send WOL request"
+msgstr "La tentative d'envoi de la demande de WOL a échoué"
+
+#: modules/msc/includes/functions.php:42
+msgid "WOL request has been sent"
+msgstr "La requête de WOL est partie"
+
+#: modules/msc/includes/functions.php:43
+msgid "Halt in progress"
+msgstr "Arrêt en cours"
+
+#: modules/msc/includes/functions.php:44
+msgid "Halt done"
+msgstr "Arrêt terminé"
+
+#: modules/msc/includes/functions.php:45
+msgid "Halt failed"
+msgstr "Échec de l'extinction"
+
+#: modules/msc/includes/functions.php:46
+msgid "Not reachable"
+msgstr "Non joignable"
+
+#: modules/msc/includes/functions.php:47
+#: modules/msc/includes/functions.php:331
+#: modules/msc/msc/ajaxDownloadFile.php:77
+msgid "Ready"
+msgstr "Prêt"
+
+#: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
+#: modules/msc/includes/functions.php:334
+#: modules/msc/includes/widgets.inc.php:390
+#: modules/msc/msc/ajaxLogsFilter.php:429
+msgid "Done"
+msgstr "Fait"
+
+#: modules/msc/includes/functions.php:49
+msgid "Paused"
+msgstr "En Pause"
+
+#: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
+#: modules/msc/includes/widgets.inc.php:398
+#: modules/msc/msc/ajaxLogsFilter.php:431
+msgid "Stopped"
+msgstr "Arrêté"
+
+#: modules/msc/includes/functions.php:52
+msgid "Scheduled"
+msgstr "Programmé"
+
+#: modules/msc/includes/functions.php:53
+msgid "Rescheduled"
+msgstr "Re-programmé"
+
+#: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
+#: modules/msc/includes/functions.php:333
+#: modules/msc/includes/widgets.inc.php:392
+#: modules/msc/msc/ajaxLogsFilter.php:430
+msgid "Failed"
+msgstr "Échec"
+
+#: modules/msc/includes/functions.php:55
+msgid "Time Exceeded"
+msgstr "Délai Dépassé"
+
+#: modules/msc/includes/functions.php:56
+msgid "To do"
+msgstr "À faire"
+
+#: modules/msc/includes/functions.php:57
+msgid "Ignored"
+msgstr "Ignoré"
+
+#: modules/msc/includes/functions.php:60
+msgid "Work in progress"
+msgstr "En cours"
+
+#: modules/msc/includes/functions.php:315
+msgid "Wake on LAN"
+msgstr "Wake on LAN"
+
+#: modules/msc/includes/functions.php:316
+msgid "Upload"
+msgstr "Envoi"
+
+#: modules/msc/includes/functions.php:317
+msgid "Execution"
+msgstr "Exécution"
+
+#: modules/msc/includes/functions.php:318
+msgid "Windows Update parse"
+msgstr "Analyse Windows Update"
+
+#: modules/msc/includes/functions.php:319
+msgid "Clean"
+msgstr "Nettoyage"
+
+#: modules/msc/includes/functions.php:320
+msgid "Inventory"
+msgstr "Inventaire"
+
+#: modules/msc/includes/functions.php:321
+msgid "Restart"
+msgstr "Redémarrage"
+
+#: modules/msc/includes/functions.php:322
+msgid "Shutdown"
+msgstr "Arrêt"
+
+#: modules/msc/includes/functions.php:323
+msgid "Before bootmenu actions"
+msgstr "Menu de démarrage (pré)"
+
+#: modules/msc/includes/functions.php:324
+msgid "After bootmenu actions"
+msgstr "Menu de démarrage (post)"
+
+#: modules/msc/includes/functions.php:325
+msgid "Finish"
+msgstr "Terminé"
+
+#: modules/msc/includes/functions.php:332
+#: modules/msc/msc/ajaxLogsFilter.php:356
+#: modules/msc/msc/ajaxLogsFilter.php:428
+msgid "Running"
+msgstr "En cours"
+
+#: modules/msc/includes/utilities.php:32
+msgid "Bytes"
+msgstr "Octets"
+
+#: modules/msc/includes/utilities.php:35
+#, php-format
+msgid "%3.1f %s%s"
+msgstr "%3.1f %s%s"
+
+#: modules/msc/includes/widgets.inc.php:27
+#, php-format
+msgid "Quick action path %s don't exists"
+msgstr "Le répertoire des actions rapides %s n'existe pas"
+
+#: modules/msc/includes/widgets.inc.php:33
+msgid "Other/N.A."
+msgstr "Autres/Non disponibles"
+
+#: modules/msc/includes/widgets.inc.php:45
+#, php-format
+msgid "%s status"
+msgstr "Statut de %s"
+
+#: modules/msc/includes/widgets.inc.php:74
+#, php-format
+msgid ""
+"group \"%s\" is not defined in the MSC module, or you don't have permissions"
+" to access it"
+msgstr ""
+"le groupe \"%s\" n'est pas défini dans le module MSC, ou vous n'avez pas la "
+"permission d'y accéder"
+
+#: modules/msc/includes/widgets.inc.php:96
+#, php-format
+msgid ""
+"%s host is not defined in the MSC module, or you don't have permissions to "
+"access it"
+msgstr ""
+"L'ordinateur \"%s\" n'est pas défini dans le module MSC, ou vous n'avez pas "
+"la permission d'y accéder"
+
+#: modules/msc/includes/widgets.inc.php:117
+msgid "You don't have the right permissions to display this command"
+msgstr "Vous n'avez pas le droit de consulter cette commande"
+
+#: modules/msc/includes/widgets.inc.php:184
+#, php-format
+msgid "Quick action on %s"
+msgstr "Actions rapides sur %s"
+
+#: modules/msc/includes/widgets.inc.php:232
+msgid "Execute action..."
+msgstr "Lancer une action..."
+
+#: modules/msc/includes/widgets.inc.php:255
+msgid "Quick action list is empty"
+msgstr "Il n'y a pas d'actions rapides"
+
+#: modules/msc/includes/widgets.inc.php:345
+#: modules/msc/includes/widgets.inc.php:517
+#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
+msgid "My commands"
+msgstr "Mes commandes"
+
+#: modules/msc/includes/widgets.inc.php:345
+#: modules/msc/includes/widgets.inc.php:517
+msgid "All users commands"
+msgstr "Commandes de tous les utilisateurs"
+
+#: modules/msc/includes/widgets.inc.php:388
+msgid "State filter"
+msgstr "État du filtre"
+
+#: modules/msc/includes/widgets.inc.php:394
+msgid "In progress"
+msgstr "En cours"
+
+#: modules/msc/includes/widgets.inc.php:396
+#: modules/msc/msc/ajaxLogsFilter.php:432
+msgid "Overtime"
+msgstr "Délais dépassé"
+
+#: modules/msc/includes/widgets.inc.php:402
+msgid "Create a group"
+msgstr ""
+
+#: modules/msc/includes/commands_xmlrpc.inc.php:120
+#, php-format
+msgid "%s deployment subgroup - %s"
+msgstr ""
+
+#: modules/msc/includes/commands_xmlrpc.inc.php:143
+#, php-format
+msgid ""
+"Deploy subgroup created successfully. <br/><a href=\"%s\" "
+"target=\"_blank\">View group</a>"
+msgstr ""
 
 #: modules/msc/includes/command_history.php:34
 #: modules/msc/includes/command_history.php:180 modules/msc/msc/launch.php:428
@@ -557,296 +847,6 @@ msgstr "Dès que possible"
 #: modules/msc/includes/command_history.php:663
 msgid "<i>undefined</i>"
 msgstr "<i>indéfini</i>"
-
-#: modules/msc/includes/functions.php:25
-msgid "Upload in progress"
-msgstr "Envoi en cours"
-
-#: modules/msc/includes/functions.php:26
-msgid "Upload done"
-msgstr "Envoi terminé"
-
-#: modules/msc/includes/functions.php:27
-msgid "Upload failed"
-msgstr "Échec de l'envoi"
-
-#: modules/msc/includes/functions.php:28
-msgid "Execution in progress"
-msgstr "Exécution en cours"
-
-#: modules/msc/includes/functions.php:29
-msgid "Execution done"
-msgstr "Exécution terminée"
-
-#: modules/msc/includes/functions.php:30
-msgid "Execution failed"
-msgstr "Échec de l'exécution"
-
-#: modules/msc/includes/functions.php:31
-msgid "Delete in progress"
-msgstr "Suppression en cours"
-
-#: modules/msc/includes/functions.php:32
-msgid "Delete done"
-msgstr "Suppression terminée"
-
-#: modules/msc/includes/functions.php:33
-msgid "Delete failed"
-msgstr "Échec de la suppression"
-
-#: modules/msc/includes/functions.php:34
-msgid "Inventory in progress"
-msgstr "Inventaire en cours"
-
-#: modules/msc/includes/functions.php:35
-msgid "Inventory failed"
-msgstr "Échec de l'inventaire"
-
-#: modules/msc/includes/functions.php:36
-msgid "Inventory done"
-msgstr "Inventaire terminé"
-
-#: modules/msc/includes/functions.php:37
-msgid "Reboot in progress"
-msgstr "Redémarrage en cours"
-
-#: modules/msc/includes/functions.php:38
-msgid "Reboot failed"
-msgstr "Échec du redémarrage"
-
-#: modules/msc/includes/functions.php:39
-msgid "Reboot done"
-msgstr "Redémarrage terminé"
-
-#: modules/msc/includes/functions.php:40
-msgid "WOL request being sent"
-msgstr "La requête de WOL est en cours de préparation"
-
-#: modules/msc/includes/functions.php:41
-msgid "Failed to send WOL request"
-msgstr "La tentative d'envoi de la demande de WOL a échoué"
-
-#: modules/msc/includes/functions.php:42
-msgid "WOL request has been sent"
-msgstr "La requête de WOL est partie"
-
-#: modules/msc/includes/functions.php:43
-msgid "Halt in progress"
-msgstr "Arrêt en cours"
-
-#: modules/msc/includes/functions.php:44
-msgid "Halt done"
-msgstr "Arrêt terminé"
-
-#: modules/msc/includes/functions.php:45
-msgid "Halt failed"
-msgstr "Échec de l'extinction"
-
-#: modules/msc/includes/functions.php:46
-msgid "Not reachable"
-msgstr "Non joignable"
-
-#: modules/msc/includes/functions.php:47
-#: modules/msc/includes/functions.php:331
-#: modules/msc/msc/ajaxDownloadFile.php:77
-msgid "Ready"
-msgstr "Prêt"
-
-#: modules/msc/includes/functions.php:48 modules/msc/includes/functions.php:58
-#: modules/msc/includes/functions.php:334
-#: modules/msc/includes/widgets.inc.php:390
-#: modules/msc/msc/ajaxLogsFilter.php:429
-msgid "Done"
-msgstr "Fait"
-
-#: modules/msc/includes/functions.php:49
-msgid "Paused"
-msgstr "En Pause"
-
-#: modules/msc/includes/functions.php:50 modules/msc/includes/functions.php:51
-#: modules/msc/includes/widgets.inc.php:398
-#: modules/msc/msc/ajaxLogsFilter.php:431
-msgid "Stopped"
-msgstr "Arrêté"
-
-#: modules/msc/includes/functions.php:52
-msgid "Scheduled"
-msgstr "Programmé"
-
-#: modules/msc/includes/functions.php:53
-msgid "Rescheduled"
-msgstr "Re-programmé"
-
-#: modules/msc/includes/functions.php:54 modules/msc/includes/functions.php:59
-#: modules/msc/includes/functions.php:333
-#: modules/msc/includes/widgets.inc.php:392
-#: modules/msc/msc/ajaxLogsFilter.php:430
-msgid "Failed"
-msgstr "Échec"
-
-#: modules/msc/includes/functions.php:55
-msgid "Time Exceeded"
-msgstr "Délai Dépassé"
-
-#: modules/msc/includes/functions.php:56
-msgid "To do"
-msgstr "À faire"
-
-#: modules/msc/includes/functions.php:57
-msgid "Ignored"
-msgstr "Ignoré"
-
-#: modules/msc/includes/functions.php:60
-msgid "Work in progress"
-msgstr "En cours"
-
-#: modules/msc/includes/functions.php:315
-msgid "Wake on LAN"
-msgstr "Wake on LAN"
-
-#: modules/msc/includes/functions.php:316
-msgid "Upload"
-msgstr "Envoi"
-
-#: modules/msc/includes/functions.php:317
-msgid "Execution"
-msgstr "Exécution"
-
-#: modules/msc/includes/functions.php:318
-msgid "Windows Update parse"
-msgstr "Analyse Windows Update"
-
-#: modules/msc/includes/functions.php:319
-msgid "Clean"
-msgstr "Nettoyage"
-
-#: modules/msc/includes/functions.php:320
-msgid "Inventory"
-msgstr "Inventaire"
-
-#: modules/msc/includes/functions.php:321
-msgid "Restart"
-msgstr "Redémarrage"
-
-#: modules/msc/includes/functions.php:322
-msgid "Shutdown"
-msgstr "Arrêt"
-
-#: modules/msc/includes/functions.php:323
-msgid "Before bootmenu actions"
-msgstr "Menu de démarrage (pré)"
-
-#: modules/msc/includes/functions.php:324
-msgid "After bootmenu actions"
-msgstr "Menu de démarrage (post)"
-
-#: modules/msc/includes/functions.php:325
-msgid "Finish"
-msgstr "Terminé"
-
-#: modules/msc/includes/functions.php:332
-#: modules/msc/msc/ajaxLogsFilter.php:356
-#: modules/msc/msc/ajaxLogsFilter.php:428
-msgid "Running"
-msgstr "En cours"
-
-#: modules/msc/includes/utilities.php:32
-msgid "Bytes"
-msgstr "Octets"
-
-#: modules/msc/includes/utilities.php:35
-#, php-format
-msgid "%3.1f %s%s"
-msgstr "%3.1f %s%s"
-
-#: modules/msc/includes/widgets.inc.php:27
-#, php-format
-msgid "Quick action path %s don't exists"
-msgstr "Le répertoire des actions rapides %s n'existe pas"
-
-#: modules/msc/includes/widgets.inc.php:33
-msgid "Other/N.A."
-msgstr "Autres/Non disponibles"
-
-#: modules/msc/includes/widgets.inc.php:45
-#, php-format
-msgid "%s status"
-msgstr "Statut de %s"
-
-#: modules/msc/includes/widgets.inc.php:74
-#, php-format
-msgid ""
-"group \"%s\" is not defined in the MSC module, or you don't have permissions"
-" to access it"
-msgstr ""
-"le groupe \"%s\" n'est pas défini dans le module MSC, ou vous n'avez pas la "
-"permission d'y accéder"
-
-#: modules/msc/includes/widgets.inc.php:96
-#, php-format
-msgid ""
-"%s host is not defined in the MSC module, or you don't have permissions to "
-"access it"
-msgstr ""
-"L'ordinateur \"%s\" n'est pas défini dans le module MSC, ou vous n'avez pas "
-"la permission d'y accéder"
-
-#: modules/msc/includes/widgets.inc.php:117
-msgid "You don't have the right permissions to display this command"
-msgstr "Vous n'avez pas le droit de consulter cette commande"
-
-#: modules/msc/includes/widgets.inc.php:184
-#, php-format
-msgid "Quick action on %s"
-msgstr "Actions rapides sur %s"
-
-#: modules/msc/includes/widgets.inc.php:232
-msgid "Execute action..."
-msgstr "Lancer une action..."
-
-#: modules/msc/includes/widgets.inc.php:255
-msgid "Quick action list is empty"
-msgstr "Il n'y a pas d'actions rapides"
-
-#: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:517
-#: modules/msc/logs/localSidebar.php:28 modules/msc/infoPackage.inc.php:50
-msgid "My commands"
-msgstr "Mes commandes"
-
-#: modules/msc/includes/widgets.inc.php:345
-#: modules/msc/includes/widgets.inc.php:517
-msgid "All users commands"
-msgstr "Commandes de tous les utilisateurs"
-
-#: modules/msc/includes/widgets.inc.php:388
-msgid "State filter"
-msgstr "État du filtre"
-
-#: modules/msc/includes/widgets.inc.php:394
-msgid "In progress"
-msgstr "En cours"
-
-#: modules/msc/includes/widgets.inc.php:396
-#: modules/msc/msc/ajaxLogsFilter.php:432
-msgid "Overtime"
-msgstr "Délais dépassé"
-
-#: modules/msc/includes/widgets.inc.php:402
-msgid "Create a group"
-msgstr ""
-
-#: modules/msc/includes/commands_xmlrpc.inc.php:120
-#, php-format
-msgid "%s deployment subgroup - %s"
-msgstr ""
-
-#: modules/msc/includes/commands_xmlrpc.inc.php:143
-#, php-format
-msgid ""
-"Deploy subgroup created successfully. <br/><a href=\"%s\" "
-"target=\"_blank\">View group</a>"
-msgstr ""
 
 #: modules/msc/logs/ajaxLogsFilter.php:59
 #: modules/msc/msc/ajaxLogsFilter.php:104

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-10 01:04+0100\n"
+"POT-Creation-Date: 2014-11-17 01:04+0100\n"
 "PO-Revision-Date: 2014-04-28 08:51+0000\n"
 "Last-Translator: Jean-Christophe Vassort <jcvassort@mandriva.com>\n"
 "Language-Team: Japanese (Japan) (http://transifex.mandriva.com/projects/p/pulse2/team/ja_JP/)\n"
@@ -24,9 +24,9 @@ msgid "View restore points"
 msgstr "リストアポイントの表示"
 
 #: modules/backuppc/backuppc/BrowseBackups.php:56
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:72
 #: modules/backuppc/backuppc/hostSummary.php:142
 #: modules/backuppc/backuppc/viewFileVersions.php:47
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:72
 msgid "%A, %B %e %Y"
 msgstr "%A, %B %e %Y"
 
@@ -230,8 +230,8 @@ msgid "Sunday"
 msgstr "日曜"
 
 #: modules/backuppc/backuppc/EditPeriodProfile.php:144
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:85
 #: modules/backuppc/backuppc/edit.php:211
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:91
 msgid "to"
 msgstr "期限"
 
@@ -409,31 +409,6 @@ msgstr "選択されたダウンロード (ZIP)"
 #: modules/backuppc/backuppc/ajaxBrowseFiles.php:198
 msgid "Restore to host"
 msgstr "ホストへのリストア"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:43
-msgid "Requested restores"
-msgstr "リクエストされたリストア"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:63
-msgid "Download"
-msgstr "ダウンロード"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:85
-msgid "Latest direct restore to host"
-msgstr "ホストへの最新直接リストア"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:105
-msgid "Destination"
-msgstr "宛先"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:106
-msgid "Restore time"
-msgstr "リストア時間"
-
-#: modules/backuppc/backuppc/ajaxDownloadsTable.php:107
-#: modules/backuppc/backuppc/localSidebar.php:27
-msgid "Status"
-msgstr "ステータス"
 
 #: modules/backuppc/backuppc/ajaxFileSearch.php:116
 msgid "File"
@@ -668,6 +643,11 @@ msgstr "コンピューターがバックアップシステムから削除され
 msgid "Backup status"
 msgstr "バックアップステータス"
 
+#: modules/backuppc/backuppc/localSidebar.php:27
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:113
+msgid "Status"
+msgstr "ステータス"
+
 #: modules/backuppc/backuppc/localSidebar.php:28
 msgid "Profiles"
 msgstr "プロファイル"
@@ -713,6 +693,26 @@ msgstr "XferLog"
 #: modules/backuppc/backuppc/viewXferLog.php:35
 msgid "Error log"
 msgstr "エラーログ"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:43
+msgid "Requested restores"
+msgstr "リクエストされたリストア"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:63
+msgid "Download"
+msgstr "ダウンロード"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:91
+msgid "Latest direct restore to host"
+msgstr "ホストへの最新直接リストア"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:111
+msgid "Destination"
+msgstr "宛先"
+
+#: modules/backuppc/backuppc/ajaxDownloadsTable.php:112
+msgid "Restore time"
+msgstr "リストア時間"
 
 #: modules/backuppc/infoPackage.inc.php:33
 #: modules/backuppc/infoPackage.inc.php:38
