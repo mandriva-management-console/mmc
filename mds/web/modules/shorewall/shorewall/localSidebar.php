@@ -40,6 +40,12 @@ if ($lan_zones && $wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; External", "shorewall"), "shorewall", "shorewall", "internal_external",
                                                 "modules/shorewall/graph/img/config/icn_global_active.gif",
                                                 "modules/shorewall/graph/img/config/icn_global.gif"));
+
+if (count($lan_zones) > 1)
+    $sidemenu->addSideMenuItem(new SideMenuItem(_T("Internal &rarr; Internal", "shorewall"), "shorewall", "shorewall", "internal_internal",
+                                                "modules/shorewall/graph/img/config/icn_global_active.gif",
+                                                "modules/shorewall/graph/img/config/icn_global.gif"));
+
 if ($lan_zones && $wan_zones)
     $sidemenu->addSideMenuItem(new SideMenuItem(_T("External &rarr; Internal", "shorewall"), "shorewall", "shorewall", "external_internal",
                                                 "modules/shorewall/graph/img/config/icn_global_active.gif",

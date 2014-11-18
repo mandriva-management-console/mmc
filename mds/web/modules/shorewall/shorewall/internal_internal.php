@@ -1,8 +1,8 @@
 <?php
+
 /**
- * (c) 2009 Glen Ogilvie
- *
- * $Id$
+ * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
+ * (c) 2007-2012 Mandriva, http://www.mandriva.com
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -20,20 +20,10 @@
  * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
-
-/**
- * module declaration
- */
-$mod = new Module("userquota");
-$mod->setVersion("2.5.76");
-$mod->setRevision('$Rev$');
-$mod->setDescription(_T("Manage user quotas for filesystems and networks", "userquota"));
-$mod->setAPIVersion('0:0:0');
-$mod->setPriority(700);
-
-$MMCApp =& MMCApp::getInstance();
-$MMCApp->addModule($mod);
+$zones_types = getZonesTypes();
+$src = $zones_types['internal'];
+$dst = $zones_types['internal'];
+$page = "internal_internal";
+include('rules.php');
 
 ?>

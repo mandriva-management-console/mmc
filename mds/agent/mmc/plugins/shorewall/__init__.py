@@ -30,7 +30,7 @@ from mmc.support.mmctools import ServiceManager
 from mmc.plugins.shorewall.io import ShorewallConf, ShorewallLineInvalid
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
-VERSION = "2.5.75"
+VERSION = "2.5.76"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 
@@ -92,7 +92,8 @@ class ShorewallRules(ShorewallConf):
                not os.path.exists(os.path.join('/etc', 'shorewall', 'macro.%s' % action[0])):
                 raise ShorewallMacroDoesNotExists("Macro %s does not exists" % action[0])
         action = "/".join(action)
-        self.add_line([action, src, dst, proto, dst_port])
+        if not src == dst:
+            self.add_line([action, src, dst, proto, dst_port])
 
     def validate(self, line):
         def _check_port_number(port):
