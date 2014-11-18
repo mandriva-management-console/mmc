@@ -1,9 +1,7 @@
 # -*- coding: utf-8; -*-
 #
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
-# (c) 2007-2010 Mandriva, http://www.mandriva.com
-#
-# $Id$
+# (c) 2007-2014 Mandriva, http://www.mandriva.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -59,10 +57,10 @@ def activate():
         return False
 
     mailSchema = {
-        "mailAccount" : ["mail", "mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy"],
-        "mailGroup" : ["mail"],
-        "mailDomain" : ["virtualdomain", "virtualdomaindescription", "mailuserquota"],
-        }
+        "mailAccount": ["mail", "mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy", "mailhidden"],
+        "mailGroup": ["mail"],
+        "mailDomain": ["virtualdomain", "virtualdomaindescription", "mailuserquota"],
+    }
 
     # Additional LDAP classes/attributes to check for ZARAFA support
     if config.zarafa:
@@ -81,7 +79,7 @@ def activate():
             logger.error("LDAP mail schema is not up to date: %s objectClass is not included in LDAP directory" % objectClass)
             return False
         for attribute in mailSchema[objectClass]:
-            if not attribute in schema:
+            if attribute not in schema:
                 logger.error("LDAP mail schema is not up to date: %s attribute is not included in LDAP directory" % attribute)
                 return False
 
@@ -120,6 +118,9 @@ def changeMailhost(uid, mailhost):
 def changeMailproxy(uid, mailproxy):
     MailControl().changeMailproxy(uid, mailproxy)
 
+def changeMailhidden(uid, mailhidden):
+    MailControl().changeMailhidden(uid, mailhidden)
+
 def changeQuota(uid, mailuserquota):
     MailControl().changeQuota(uid, mailuserquota)
 
@@ -129,11 +130,17 @@ def removeMail(uid):
 def removeMailGroup(group):
     MailControl().removeMailGroup(group)
 
+def getMailGroup(group):
+    MailControl().getMailGroup(group)
+
 def addMailGroup(group, mail):
     MailControl().addMailGroup(group, mail)
 
-def getMailGroupAlias():
-    return MailControl().getMailGroupAlias()
+def changeMailGroupHidden(group, hidden):
+    MailControl().changeMailGroupHidden(group, hidden)
+
+def getMailGroupAliases():
+    return MailControl().getMailGroupAliases()
 
 def addMailObjectClass(uid):
     MailControl().addMailObjectClass(uid)
@@ -263,7 +270,7 @@ class MailConfig(PluginConfig):
             self.attrs = dict(self.items("mapping"))
         except NoSectionError:
             self.attrs = {}
-        attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy"]
+        attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy", "mailhidden"]
         # validate attribute mapping
         for attr, val in self.attrs.copy().items():
             if not attr in attrs:
@@ -450,8 +457,8 @@ class MailControl(ldapUserGroupControl):
         entry = {
             "mailalias": alias,
             "mailenable": "OK",
-            "objectClass":  ("mailAlias", "top")
-            }
+            "objectClass": ("mailAlias", "top")
+        }
         modlist = ldap.modlist.addModlist(entry)
         self.l.add_s(dn, modlist)
         return 0
@@ -489,7 +496,6 @@ class MailControl(ldapUserGroupControl):
         dn = "mailalias=" + alias + ", " + self.conf.vAliasesDN
         self.l.modrdn_s(dn, "mailalias=%s" % name, True)
         return 0
-
 
     def delVAlias(self, alias):
         """
@@ -720,6 +726,25 @@ class MailControl(ldapUserGroupControl):
         self.changeUserAttributes(uid, self.conf.attrs['mailproxy'], mailproxy, False)
         r.commit()
 
+    def changeMailhidden(self, uid, mailhidden):
+        """
+        Change the user mailhidden attribute.
+
+        @param uid: user name
+        @type uid: str
+        @param mailhidden: if the mail should be hidden or not
+        @type mailhidden: bool
+        """
+        if mailhidden:
+            mailhidden = "YES"
+        else:
+            mailhidden = "NO"
+        userdn = self.searchUserDN(uid)
+        r = AF().log(PLUGIN_NAME, AA.MAIL_CHANGE_MAIL_HIDDEN, [(userdn, AT.MAIL)], mailhidden)
+        if not self.hasMailObjectClass(uid): self.addMailObjectClass(uid)
+        self.changeUserAttributes(uid, self.conf.attrs['mailhidden'], mailhidden, False)
+        r.commit()
+
     def changeQuota(self, uid, mailuserquota):
         """
         Change the user quota attribute.
@@ -842,7 +867,27 @@ class MailControl(ldapUserGroupControl):
         self.l.modify_s(cn, mlist)
         r.commit()
 
-    def getMailGroupAlias(self):
+    def changeMailGroupHidden(self, group, hidden):
+        """
+        @param hidden: true if the mail should be hidden in addressbooks
+        """
+        if hidden is True:
+            hidden = "YES"
+        else:
+            hidden = "NO"
+        group = group.encode("utf-8")
+        cn = 'cn=' + group + ', ' + self.baseGroupsDN
+        attrs = []
+        attrib = self.l.search_s(cn, ldap.SCOPE_BASE)
+        c, attrs = attrib[0]
+        newattrs = copy.deepcopy(attrs)
+        if 'mailGroup' not in newattrs["objectClass"]:
+            return
+        newattrs['mailhidden'] = hidden
+        mlist = ldap.modlist.modifyModlist(attrs, newattrs)
+        self.l.modify_s(cn, mlist)
+
+    def getMailGroupAliases(self):
         """
         Get the list of group mail aliases
         """

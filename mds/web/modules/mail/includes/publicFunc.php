@@ -76,13 +76,23 @@ function _mail_baseGroupEdit($ldapArr, $postArr) {
       print '<table cellspacing="0">';
       if (!hasVDomainSupport()) {
           $m = new TrFormElement(_T("Mail alias", "mail"), new InputTpl("mailgroupalias"));
-	  $m->displayRo(array("value" => $mail));
-      } else {
-          print '<tr><td width="40%" style="text-align: right;">' . _T("Mail alias", "mail") . '</td><td>' . $mail . '<input  type="hidden" value="' . $mail . '" name="mailgroupalias">&nbsp;@&nbsp;';
-	  print '<input type="text" id="autocomplete" name="maildomain" value="' . $maildomain . '" /><div id="autocomplete_choices" class="autocomplete"></div>';
-	  print '<script type="text/javascript">new Ajax.Autocompleter("autocomplete", "autocomplete_choices", "'.urlStrRedirect('mail/domains/ajaxMailDomainFilter').'", {paramName: "value"});</script>';
-	  print '</td></tr>';
+          $m->displayRo(array("value" => $mail));
       }
+      else {
+          print '<tr><td width="40%" style="text-align: right;">' . _T("Mail alias", "mail") . '</td><td>' . $mail . '<input  type="hidden" value="' . $mail . '" name="mailgroupalias">&nbsp;@&nbsp;';
+          print '<input type="text" id="autocomplete" name="maildomain" value="' . $maildomain . '" /><div id="autocomplete_choices" class="autocomplete"></div>';
+          print '<script type="text/javascript">new Ajax.Autocompleter("autocomplete", "autocomplete_choices", "'.urlStrRedirect('mail/domains/ajaxMailDomainFilter').'", {paramName: "value"});</script>';
+          print '</td></tr>';
+      }
+
+      if (isExpertMode()) {
+          $mailhidden = "";
+          if (isset($ldapArr['mailhidden']) && $ldapArr['mailhidden'][0] == 'YES')
+              $mailhidden = 'checked="checked"';
+          print '<tr><td width="40%" style="text-align: right;">' . _T("Mail hidden", "mail") . '</td>';
+          print '<td><input type="checkbox" name="mailhidden" ' . $mailhidden . ' /></td></tr>';
+      }
+
       print "</table>";
       print "</div>";
     }
@@ -108,6 +118,11 @@ function _mail_changeGroup($postArr) {
             else
                 $mail .= "@" . $vdomain;
         }
+
+        $mailhidden = false;
+        if ($postArr["mailhidden"] == "on")
+            $mailhidden = true;
+        changeMailGroupHidden($group, $mailhidden);
 
         if ($mail) {
             addMailGroup($group, $mail);
@@ -238,7 +253,7 @@ function _mail_baseEdit($FH, $mode) {
             $FH->getArrayOrPostValue($attrs['maildrop'], 'array')
         );
 
-    $groupmailaliases = getMailGroupAlias();
+    $groupmailaliases = getMailGroupAliases();
     $useraliases = $FH->getArrayOrPostValue($attrs['mailalias'], 'array');
 
     $mailalias = array_diff($useraliases, $groupmailaliases);
@@ -278,6 +293,18 @@ function _mail_baseEdit($FH, $mode) {
         $f->pop();
         $f->pop();
     }
+
+    $mailhidden = false;
+    if ($FH->getArrayOrPostValue($attrs['mailhidden']) == "YES")
+        $mailhidden = true;
+    $f->push(new DivExpertMode());
+    $f->push(new Table());
+    $f->add(
+        new TrFormElement(_T("Mail hidden", "mail"), new CheckboxTpl('mailhidden')),
+        array("value" => $mailhidden ? "checked" : "")
+    );
+    $f->pop();
+    $f->pop();
 
     if (hasZarafaSupport()) {
         $f->push(new DivForModule(_T("Zarafa properties", "mail"), "#FFD"));
@@ -429,7 +456,14 @@ function _mail_changeUser($FH, $mode) {
             changeMailproxy($uid, $FH->getValue($attrs["mailproxy"]));
         if ($FH->isUpdated($attrs["mailuserquota"]))
             changeQuota($uid, $FH->getValue($attrs["mailuserquota"]));
-
+        if ($FH->isUpdated($attrs["mailhidden"])) {
+            if ($FH->getValue($attrs["mailhidden"]) == "on") {
+                changeMailhidden($uid, true);
+            }
+            else {
+                changeMailhidden($uid, false);
+            }
+        }
         if ($FH->isUpdated('maildisable')) {
             // disable mail
             if ($FH->getValue('maildisable') == "on") {
