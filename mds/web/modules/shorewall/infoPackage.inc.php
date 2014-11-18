@@ -96,6 +96,19 @@ $page = new Page("delete_external_internal_rule");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
+$page = new Page("internal_internal", _T("Internal &rarr; Internal", "shorewall"));
+$submod->addPage($page);
+if (count($lan_zones) <= 1)
+    $page->setOptions(array("visible" => False));
+
+$page = new Page("ajax_internal_internal");
+$page->setOptions(array("visible" => False, "AJAX" => True));
+$submod->addPage($page);
+
+$page = new Page("delete_internal_internal_rule");
+$page->setOptions(array("visible" => False, "AJAX" => True));
+$submod->addPage($page);
+
 $page = new Page("masquerade", _T("NAT"));
 $submod->addPage($page);
 if (!$lan_zones || !$wan_zones)
