@@ -76,6 +76,7 @@ class LdapUserMixin(object):
         return attrs
 
     def list_users(self):
+        global logger
         entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
                                   filterstr=self.user_list_filter,
                                   attrlist=[self.user_pk_field, self.user_timestamp_field])
@@ -85,6 +86,7 @@ class LdapUserMixin(object):
             if user not in self.user_ignore_list:
                 timestamp_str = e[1][self.user_timestamp_field][0]
                 users[user] = self._format_timestamp(timestamp_str)
+        logger.debug('users %s' % users)
         return users
 
     def sync_user_with(self, username, other_ldap):
@@ -116,14 +118,15 @@ class SambaLdap(LdapUserMixin):
 
     def __init__(self, base_dn):
         self.base_dn = base_dn
-        self.l = ldap.initialize(self.LDAP_URI)
+        self.l = ldap.initialize(self.LDAP_URI,
+                                 trace_level=0)
         self.user_base_dn = "CN=Users,%s" % self.base_dn
         self.user_pk_field = "sAMAccountName"
         self.user_timestamp_field = "whenChanged"
-        self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(adminCount=*))))'
-        self.user_ignore_list = ['Guest']
+        self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
+        self.user_ignore_list = ['Guest', 'krbtgt']
 
-    def _create_user(username, password, name, surname):
+    def _create_user(self, username, password, name, surname):
         SambaAD().createUser(username, password, name, surname)
 
     def _format_timestamp(self, timestamp_str):
@@ -285,15 +288,17 @@ class S4Sync(object):
     TIMESTAMP_PATH = "/etc/s4sync.timestamp"
 
     def __init__(self, logger):
-        self.reset()
         self.logger = logger
+        self.reset()
 
     def reset(self):
         samba_base_dn = get_samba_base_dn()
         if samba_base_dn is None:
             raise Samba4NotProvisioned()
+#         self.logger.debug('Samba base dn: %s' % samba_base_dn)
         self.samba_ldap = SambaLdap(samba_base_dn)
         ldap_creds = get_openldap_config()
+#         self.logger.debug('ldap config: %s' % ldap_creds)
         self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'],
                                  ldap_creds['bind_pw'])
 
@@ -467,11 +472,14 @@ def sync_loop(logger, wait_time):
         time.sleep(wait_time)
 
 
+logger = None
+
 if __name__ == "__main__":
 
     WAIT_TIME = 10  # sleep time between each iteration, in seconds
 
     def initialize_logging():
+        global logger
         logger = logging.getLogger("s4sync")
         handler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

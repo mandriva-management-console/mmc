@@ -23,6 +23,9 @@
 
 from pyasn1.type import univ, namedtype, tag
 from pyasn1.codec.ber import encoder, decoder
+import logging
+
+logger = logging.getLogger("s4sync")
 
 
 def _OID(*components):
@@ -112,6 +115,7 @@ def decode_keys(keys):
     dictionaries with the following keys: type, value, salt
     """
     ret = []
+    logger.debug('Keys %s: ', keys)
     if not isinstance(keys, list):
         raise ValueError("Keys parameter must be a list of dict")
     for key in keys:
