@@ -25,7 +25,7 @@ require_once("modules/sshlpk/includes/sshlpk-xmlrpc.php");
 $MMCApp =& MMCApp::getInstance();
 
 $mod = new Module("sshlpk");
-$mod->setVersion("2.5.76");
+$mod->setVersion("2.5.77");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("LDAP Public SSH key management","sshlpk"));
 $mod->setAPIVersion("0:0:0");
