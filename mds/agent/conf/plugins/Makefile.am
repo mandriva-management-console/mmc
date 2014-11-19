@@ -21,7 +21,7 @@
 pluginconfdir = $(sysconfdir)/mmc/plugins
 
 if ENABLE_CONF
-dist_pluginconf_DATA = mail.ini sshlpk.ini userquota.ini bulkimport.ini shorewall.ini
+dist_pluginconf_DATA = mail.ini sshlpk.ini userquota.ini bulkimport.ini shorewall.ini radius.ini
 nodist_pluginconf_DATA = samba.ini samba4.ini network.ini proxy.ini squid.ini
 endif
 

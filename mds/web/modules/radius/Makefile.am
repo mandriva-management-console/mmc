@@ -1,6 +1,4 @@
-# (c) 2011 Mandriva, http://www.mandriva.com
-#
-# $Id$
+# (c) 2014 Mandriva, http://www.mandriva.com
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -17,15 +15,24 @@
 # You should have received a copy of the GNU General Public License
 # along with MMC.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s):
-#   Jean Parpaillon <jparpaillon@mandriva.com>
-#
-pythonmodules = plugins.samba4 plugins.samba4.templates \
-	plugins.samba plugins.mail plugins.network \
-	plugins.proxy plugins.sshlpk plugins.bulkimport \
-	plugins.userquota plugins.shorewall plugins.squid \
-	plugins.radius
+datafiles = \
+	infoPackage.inc.php \
+	includes/radius-xmlrpc.php \
+	includes/publicFunc.php \
+	includes/auditCodes.php
 
-# Expands Python modules list with found *.py files in each module given in pythonmodules
-mmcpythondir = $(pythondir)/$(notdir $(realpath $(srcdir)))
-nobase_mmcpython_PYTHON = $(wildcard $(srcdir)/*.* $(patsubst %,$(srcdir)/%/*.* ,$(subst .,/,$(pythonmodules))))
+langs = pt_BR de_DE fr_FR
+
+module = $(notdir $(realpath $(srcdir)))
+moduledir = $(datadir)/mmc/modules/$(module)
+pofiles = $(foreach lang,$(langs),$(srcdir)/locale/$(lang)/LC_MESSAGES/$(module).po)
+mofiles = $(patsubst %.po,%.mo,$(pofiles))
+
+nobase_module_DATA = $(patsubst %,$(srcdir)/%,$(datafiles)) $(patsubst %,$(srcdir)/%,$(mofiles))
+
+EXTRA_DIST = $(datafiles) $(pofiles)
+CLEANFILES = $(mofiles)
+
+%.mo: %.po
+	$(MKDIR_P) $(@D)
+	$(MSGFMT) -c -o $@ $<
