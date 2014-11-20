@@ -1,0 +1,52 @@
+<style>
+  .entity-list {
+    border: 1px solid #ccc;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    width: 218px;
+    border-radius: 4px;
+    border-bottom: 0px;
+    margin-top: 3px;
+  }
+  .entity-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+  }
+  .entity-list li:hover {
+    background: #eee;
+    cursor: pointer;
+  }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>User / Group</th>
+      <th>Read</th>
+      <th>Write</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="perm in permsList">
+      <td>
+        <img ng-hide="isGroup(perm.entity)" src="img/users/icn_usersList.gif" /><img ng-show="isGroup(perm.entity)" src="img/groups/icn_groupsList.gif" /> {{ getEntity(perm.entity).label }}
+      </td>
+      <td style="text-align: center">
+        <input type="checkbox" name="perms_read[{{ perm.entity }}]" ng-model="perm.read" />
+      </td>
+      <td style="text-align: center">
+        <input type="checkbox" name="perms_write[{{ perm.entity }}]" ng-model="perm.write" />
+      </td>
+      <td style="border: none">
+        <img ng-click="deletePerm(perm.entity)" src="img/common/button_cancel.png" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <input ng-model="search" type="text" placeholder="Search..." />
+        <ul class="entity-list" ng-show="searchResult"><li ng-repeat="result in searchResult" ng-click="addPerm(result.name)">{{ result.label }}</li></ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,4 +1,5 @@
 import os
+import operator
 import ldap
 import stat
 import grp
@@ -29,7 +30,7 @@ except ImportError:
 
 class SambaConf:
     supportedGlobalOptions = ["workgroup", "netbios name", "logon path", "logon drive", "logon home", "logon script", "ldap passwd sync", "wins support"]
-    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable']
+    supportedOptions = ['comment', 'path', 'public', 'read only', 'guest ok', 'browseable', 'browsable', 'group', 'admin users', 'writable', 'writeable', 'write list', 'valid users']
 
     def __init__(self, smbconffile="/etc/samba/smb.conf", conffile=None, conffilebase=None):
         """
@@ -123,7 +124,7 @@ class SambaConf:
         resArray['master'] = self.isValueTrue(self.getContent('global', 'domain master'))
         if resArray['master'] == -1:
             resArray["master"] = self.isValueAuto(self.getContent('global', 'domain master'))
-        resArray['hashomes'] = self.config.has_section('homes')
+        resArray['hashomes'] = 'homes' in self.config
         resArray['pdc'] = (resArray['logons']) and (resArray['master'])
         for option in self.supportedGlobalOptions:
             resArray[option] = self.getContent("global", option)
@@ -332,10 +333,19 @@ class SambaConf:
 
         return returnArr
 
-    def addShare(self, name, path, comment, usergroups, users, permAll, admingroups, browseable=True, av=False, customparameters=None, mod=False):
+    def addShare(self, name, path, comment, perms, admingroups, browseable=True, av=False, customparameters=None, mod=False):
         """
         add a share in smb.conf
         and create it physicaly
+
+        perms = {
+            'rx': ['user1', '@group1'],
+            'rwx': ['user2', '@group2']
+        }
+
+        perms = {
+            'rwx': ['@all']
+        }
         """
 
         if mod:
@@ -396,68 +406,70 @@ class SambaConf:
                     else:
                         raise Exception("invalid samba parameter format")
 
+        tmpInsert['path'] = path
         tmpInsert['comment'] = comment
+        tmpInsert['writeable'] = 'yes'
 
-        if permAll:
+        if not browseable:
+            tmpInsert['browseable'] = 'No'
+
+        # flush ACLs
+        shlaunch("setfacl -b %s" % path)
+
+        if '@all' in perms['rwx']:
             tmpInsert['public'] = 'yes'
             shlaunch("setfacl -b %s" % path)
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
         else:
             tmpInsert['public'] = 'no'
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG)
-            # flush ACLs
-            shlaunch("setfacl -b %s" % path)
-            acl1 = posix1e.ACL(file=path)
+            acls = posix1e.ACL(file=path)
             # Add and set default mask to rwx
             # This is needed by the ACL system, else the ACLs won't be valid
-            e = acl1.append()
+            e = acls.append()
             e.permset.add(posix1e.ACL_READ)
             e.permset.add(posix1e.ACL_WRITE)
             e.permset.add(posix1e.ACL_EXECUTE)
             e.tag_type = posix1e.ACL_MASK
             # For each specified group, we add rwx access
-            for group in usergroups:
-                e = acl1.append()
-                e.permset.add(posix1e.ACL_READ)
-                e.permset.add(posix1e.ACL_WRITE)
-                e.permset.add(posix1e.ACL_EXECUTE)
-                e.tag_type = posix1e.ACL_GROUP
-                # Search the gid number corresponding to the given group
-                ldapobj = ldapUserGroupControl(self.conffilebase)
-                try:
-                    gidNumber = ldapobj.getDetailedGroup(group)['gidNumber'][0]
-                except ldap.NO_SUCH_OBJECT:
-                    gidNumber = grp.getgrnam(group).gr_gid
-                e.qualifier = int(gidNumber)
-                # FIXME
-                # howto use posix1e for this ?
-                shlaunch("setfacl -d -m g:%s:rwx %s" % (str(gidNumber), path))
-            for user in users:
-                e = acl1.append()
-                e.permset.add(posix1e.ACL_READ)
-                e.permset.add(posix1e.ACL_WRITE)
-                e.permset.add(posix1e.ACL_EXECUTE)
-                e.tag_type = posix1e.ACL_USER
-                # Search the gid number corresponding to the given group
-                ldapobj = ldapUserGroupControl(self.conffilebase)
-                try:
-                    uidNumber = ldapobj.getDetailedUser(user)['uidNumber'][0]
-                except KeyError:
-                    uidNumber = pwd.getpwnam(user).pw_uid
-                e.qualifier = int(uidNumber)
-                # FIXME
-                # howto use posix1e for this ?
-                shlaunch("setfacl -d -m u:%s:rwx %s" % (str(uidNumber), path))
+            ldapobj = ldapUserGroupControl(self.conffilebase)
+
+            def add_acl_permset(acl, entity, rights):
+                e = acls.append()
+                if 'r' in rights:
+                    e.permset.add(posix1e.ACL_READ)
+                if 'w' in rights:
+                    e.permset.add(posix1e.ACL_WRITE)
+                if 'x' in rights:
+                    e.permset.add(posix1e.ACL_EXECUTE)
+                if entity.startswith('@'):
+                    e.tag_type = posix1e.ACL_GROUP
+                    try:
+                        gidNumber = ldapobj.getDetailedGroup(entity[1:])['gidNumber'][0]
+                    except ldap.NO_SUCH_OBJECT:
+                        gidNumber = grp.getgrnam(entity[1:]).gr_gid
+                    e.qualifier = int(gidNumber)
+                else:
+                    e.tag_type = posix1e.ACL_USER
+                    try:
+                        uidNumber = ldapobj.getDetailedUser(entity)['uidNumber'][0]
+                    except KeyError:
+                        uidNumber = pwd.getpwnam(entity).pw_uid
+                    e.qualifier = int(uidNumber)
+
+            for rights, entities in perms.items():
+                for entity in entities:
+                    add_acl_permset(acls, entity, rights)
+
             # Test if our ACLs are valid
-            if acl1.valid():
-                acl1.applyto(path)
+            if acls.valid():
+                acls.applyto(path)
+                acls.applyto(path, posix1e.ACL_TYPE_DEFAULT)
             else:
                 logger.error("Cannot save ACL on folder " + path)
 
-        tmpInsert['writeable'] = 'yes'
-        if not browseable:
-            tmpInsert['browseable'] = 'No'
-        tmpInsert['path'] = path
+            tmpInsert['valid users'] = ', '.join(reduce(operator.add, [j for p, j in perms.items()]))
+            tmpInsert['write list'] = ', '.join(reduce(operator.add, [j for p, j in perms.items() if 'w' in p]))
 
         # Set the anti-virus plugin if available
         if av:
@@ -472,6 +484,8 @@ class SambaConf:
             tmpInsert["admin users"] = tmpInsert["admin users"][:-1]
 
         self.config[name] = tmpInsert
+
+        print tmpInsert
 
         info = self.shareInfo(name)
         if mod:
@@ -488,29 +502,43 @@ class SambaConf:
         @param name: name of the share (last component of the path)
         @type name: str
 
-        @rtype: tuple
-        @return: tuple of groups, users that have rwx access to the share.
+        @rtype: dict
+        @return: dict of permissions: [list of users/groups]
         """
-        path = self.getContent(name, "path")
-        ret = ([], [])
         ldapobj = ldapUserGroupControl(self.conffilebase)
-        acl1 = posix1e.ACL(file=path)
-        for e in acl1:
-            if e.permset.write:
-                if e.tag_type == posix1e.ACL_GROUP:
-                    res = ldapobj.getDetailedGroupById(str(e.qualifier))
-                    if res:
-                        ret[0].append(res['cn'][0])
-                    else:
-                        ret[0].append(grp.getgrgid(e.qualifier).gr_name)
-                if e.tag_type == posix1e.ACL_USER:
-                    res = ldapobj.getDetailedUserById(str(e.qualifier))
-                    if res:
-                        ret[1].append(res['uid'][0])
-                    else:
-                        ret[1].append(pwd.getpwuid(e.qualifier).pw_name)
+        path = self.getContent(name, "path")
+        public = self.getContent(name, "public")
+        perms = {'rx': [], 'rwx': []}
+        if path is False:
+            return perms
+        if public == "yes":
+            return {'rwx': ['@all']}
+        acls = posix1e.ACL(file=path)
+        for e in acls:
+            permset = zip(['r', 'w', 'x'], [e.permset.read, e.permset.write, e.permset.execute])
+            perm = ''.join([r for r, b in permset if b is True])
+            entity = ""
 
-        return ret
+            if e.tag_type == posix1e.ACL_GROUP:
+                res = ldapobj.getDetailedGroupById(str(e.qualifier))
+                if res:
+                    entity = '@' + res['cn'][0]
+                else:
+                    entity = '@' + grp.getgrgid(e.qualifier).gr_name
+
+            if e.tag_type == posix1e.ACL_USER:
+                res = ldapobj.getDetailedUserById(str(e.qualifier))
+                if res:
+                    entity = res['uid'][0]
+                else:
+                    entity = pwd.getpwuid(e.qualifier).pw_name
+
+            if perm not in perms and entity:
+                perms[perm] = [entity]
+            elif entity:
+                perms[perm].append(entity)
+
+        return perms
 
     def getAdminUsersOnShare(self, name):
         """

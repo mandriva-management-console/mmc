@@ -22,8 +22,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 require("modules/samba/includes/shares.inc.php");
+require("modules/base/includes/users.inc.php");
 require("modules/base/includes/groups.inc.php");
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
@@ -32,19 +32,21 @@ if (isset($_POST["bcreate"])) {
     $shareName = $_POST["shareName"];
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
-    $shareGroup = $_POST["groupgroupsselected"];
-    $shareUser = $_POST["userusersselected"];
     $adminGroups = $_POST["admingroupsselected"];
     $customParameters = $_POST["customparameters"];
-    $permAll = $_POST["permAll"];
-    if ($_POST["hasAv"]) $av = 1;
-    else $av = 0;
-    if ($_POST["browseable"]) $browseable = 1;
-    else $browseable = 0;
+    if ($_POST["hasAv"])
+        $av = 1;
+    else
+        $av = 0;
+    if ($_POST["browseable"])
+        $browseable = 1;
+    else
+        $browseable = 0;
 
     if (!(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $shareName))) {
-	new NotifyWidgetFailure(_T("Invalid share name"));
-    } else {
+    	new NotifyWidgetFailure(_T("Invalid share name"));
+    }
+    else {
         $add = True;
         if (strlen($sharePath)) {
             if (!isAuthorizedSharePath($sharePath)) {
@@ -53,7 +55,26 @@ if (isset($_POST["bcreate"])) {
             }
         }
         if ($add) {
-            $params = array($shareName, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
+
+            if (isset($_POST["permAll"]) and $_POST["permAll"] == "on") {
+                $perms = array("rwx" => array("@all"));
+            }
+            else {
+                $perms = array();
+                foreach($_POST['perms_read'] as $user => $check) {
+                    $perm = 'r';
+                    if (array_key_exists($user, $_POST['perms_write']))
+                        $perm .= 'w';
+                    // alway add 'x' right
+                    $perm .= 'x';
+
+                    if (!isset($perms[$perm]))
+                        $perms[$perm] = array();
+                    $perms[$perm][] = $user;
+                }
+            }
+
+            $params = array($shareName, $sharePath, $shareDesc, $perms, $adminGroups, $browseable, $av, $customParameters);
             add_share($params);
             if (!isXMLRPCError()) {
                 new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
@@ -70,31 +91,39 @@ if (isset($_POST["bmodify"]))
     $shareName = $_POST["shareName"];
     $sharePath = $_POST["sharePath"];
     $shareDesc = $_POST["shareDesc"];
-    if (isset($_POST["groupgroupsselected"]))
-        $shareGroup = $_POST["groupgroupsselected"];
-    else
-        $shareGroup = array();
-    if (isset($_POST["userusersselected"]))
-        $shareUser = $_POST["userusersselected"];
-    else
-        $shareUser = array();
     if (isset($_POST["admingroupsselected"]))
         $adminGroups = $_POST["admingroupsselected"];
     else
         $adminGroups = array();
     $customParameters = $_POST["customparameters"];
-    if (isset($_POST["permAll"])) {
-        $permAll = $_POST["permAll"];
+    if (isset($_POST["hasAv"]))
+        $av = 1;
+    else
+        $av = 0;
+    if (isset($_POST["browseable"]))
+        $browseable = 1;
+    else
+        $browseable = 0;
+
+    if (isset($_POST["permAll"]) and $_POST["permAll"] == "on") {
+        $perms = array("rwx" => array("@all"));
     }
     else {
-        $permAll = 0;
-    }
-    if (isset($_POST["hasAv"])) $av = 1;
-    else $av = 0;
-    if (isset($_POST["browseable"])) $browseable = 1;
-    else $browseable = 0;
+        $perms = array();
+        foreach($_POST['perms_read'] as $user => $check) {
+            $perm = 'r';
+            if (array_key_exists($user, $_POST['perms_write']))
+                $perm .= 'w';
+            // alway add 'x' right
+            $perm .= 'x';
 
-    $params = array($share, $sharePath, $shareDesc, $shareGroup, $shareUser, $permAll, $adminGroups, $browseable, $av, $customParameters);
+            if (!isset($perms[$perm]))
+                $perms[$perm] = array();
+            $perms[$perm][] = $user;
+        }
+    }
+
+    $params = array($share, $sharePath, $shareDesc, $perms, $adminGroups, $browseable, $av, $customParameters);
     mod_share($params);
 
     if (!isXMLRPCError()) {
@@ -117,6 +146,8 @@ if ($_GET["action"] == "add") {
     $av = False;
     $browseable = True;
     $customParameters = array("");
+    $perms = array("rwx" => array("@all"));
+    $permAll = true;
 } else {
     $share = urldecode($_GET["share"]);
     $title = _T("Properties of share $share");
@@ -125,10 +156,10 @@ if ($_GET["action"] == "add") {
     $customParameters = share_custom_parameters($share);
     $shareDesc = $shareInfos["desc"];
     $sharePath = $shareInfos["sharePath"];
-    $shareGroup = $shareInfos["group"];
-    $permAll = $shareInfos["permAll"];
     $av = $shareInfos["antivirus"];
     $browseable = $shareInfos["browseable"];
+    $perms = getACLOnShare($share);
+    $permAll = in_array('@all', $perms['rwx']);
 }
 
 $p = new PageGenerator($title);
@@ -147,7 +178,7 @@ $p->display();
 }
 ?>
 
-<form id="Form" method="post" action="" onSubmit="autogroupObj.selectAll(); autouserObj.selectAll(); autoadminObj.selectAll(); return validateForm();">
+<form id="Form" method="post" action="" onSubmit="autoadminObj.selectAll(); return validateForm();">
 
 <?php
 
@@ -211,75 +242,160 @@ $d->display();
 
 ?>
 
-<table cellspacing="0">
-    <tr>
-    <td>
-    </td>
-    <td>
-        <?php echo  _T("Permissions"); ?>
-    </td>
-    </tr>
-        <?php
-        if ($permAll) {
-	    $checked = "checked";
-	} else {
-	    $checked = "";
-	}
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular.min.js"></script>
+<script>
+'use strict';
 
-        $param =array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
+angular.module('mmc.samba.perms', [])
 
-        $test = new TrFormElement(_T("Access for all"), new CheckboxTpl("permAll"));
-        $test->setCssError("permAll");
-        $test->display($param);
-         ?>
-</table>
+.controller('permsCtrl', function($scope) {
+    $scope.perms = <?= json_encode($perms); ?>;
+    var users = <?= json_encode(get_users_detailed($error, 'objectClass=sambaSamAccount', 0, 200000)); ?>;
+    var groups = <?= json_encode(search_groups('*')); ?>;
+    // build a list of entities (users, groups)
+    $scope.entities = groups.map(function(arr) {
+        return {name: '@' + arr[0], label: arr[0]}
+    });
+    $scope.entities = $scope.entities.concat(users[1].map(function(obj) {
+        return {name: obj.uid, label: obj.sn + " " + obj.givenName}
+    }));
+})
 
-<?php
-if ($permAll) {
-    echo '<div id="grouptable" style="display:none">';
-} else {
-    echo '<div id="grouptable">';
-}
+.directive('perms', function() {
 
-?>
-<table>
-<?php
-if ($_GET["action"] == "add") $acls = array(array(), array());
-else {
-    $acls = getACLOnShare($share);
-    if ($shareGroup != 'root') {
-        $acls[0][] = $shareGroup;
+    return {
+        restrict: 'E',
+
+        scope: {
+            perms: '=',
+            entities: '='
+        },
+
+        controller: function($scope) {
+
+            function Perm(entity, rights) {
+                this.entity = entity;
+                this.read = rights.read || false;
+                this.write = rights.write || false;
+                this.execute = rights.execute || false;
+
+            };
+            Perm.prototype = {
+                get rights() {
+                    var rights = ['r', 'w', 'x'];
+                    return [this.read, this.write, this.execute].map(function(v, idx) {
+                        if (v)
+                            return rights[idx];
+                        return '';
+                    }).join('');
+                }
+            };
+
+            $scope.toList = function() {
+                var perms = [];
+                for (var rights in $scope.perms) {
+                    $scope.perms[rights].forEach(function(entityName) {
+                        if (entityName == "@all")
+                            return;
+                        perms.push(new Perm(entityName, {read: rights.indexOf('r') !== -1,
+                                                         write: rights.indexOf('w') !== -1,
+                                                         execute: rights.indexOf('x') !== -1}));
+                    });
+                }
+                return perms;
+            };
+            $scope.permsList = $scope.toList();
+
+            $scope.getEntity = function(name) {
+                for (var i in $scope.entities) {
+                    if ($scope.entities[i].name == name)
+                        return $scope.entities[i];
+                }
+            };
+
+            $scope.deletePerm = function(entity) {
+                for (var i in $scope.permsList) {
+                    if ($scope.permsList[i].entity == entity) {
+                        $scope.permsList.splice(i, 1);
+                        break;
+                    }
+                }
+                return true;
+            };
+
+            $scope.addPerm = function(entity) {
+                if (!$scope.hasPerm(entity)) {
+                    $scope.permsList.push(new Perm(entity, {read: true, write: true, execute: true}));
+                    $scope.cleanSearch();
+                }
+            };
+
+            $scope.hasPerm = function(entity) {
+                for (var i in $scope.permsList) {
+                    if ($scope.permsList[i].entity == entity)
+                        return $scope.permsList[i];
+                }
+                return false;
+            };
+
+            $scope.cleanSearch = function() {
+                $scope.search = "";
+                $scope.searchResult = [];
+            };
+
+            $scope.isGroup = function(entity) {
+                return entity.substr(0, 1) == '@';
+            };
+
+            $scope.$watch('search', function(newVal) {
+                if (newVal) {
+                    $scope.searchResult = $scope.entities.filter(function(entity) {
+                        if (entity.label.toLowerCase().indexOf(newVal.toLowerCase()) !== -1 && !$scope.hasPerm(entity.name)) {
+                            return true;
+                        }
+                        else
+                            return false
+                    });
+                }
+                else {
+                    $scope.cleanSearch();
+                }
+            });
+
+        },
+
+        templateUrl: 'modules/samba/shares/perms.html'
     }
-}
-setVar("tpl_groups", $acls[0]);
-global $__TPLref;
-$__TPLref["autocomplete"] = "group";
-renderTPL("groups");
 
-?>
-</table>
+});
 
-<div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
+</script>
+
 <table cellspacing="0">
-    <tr>
-    <td>
-    </td>
-    <td>
-        <?php echo  _T("Users for this share"); ?>
-    </td>
-   </tr>
-
 <?php
+    $checked = "";
+    if ($permAll)
+	    $checked = "checked";
 
+    $param = array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
+    $test = new TrFormElement(_T("Access for all"), new CheckboxTpl("permAll"));
+    $test->setCssError("permAll");
+    $test->display($param);
 
-setVar("tpl_users", $acls[1]);
-$__TPLref["autocomplete"] = "user";
-renderTPL("users");
-
+    if ($permAll) {
+        echo '<tr id="grouptable" style="display:none">';
+    } else {
+        echo '<tr id="grouptable">';
+    }
 ?>
+        <td class="label" style="text-align: right;">Permissions</td>
+        <td>
+            <div id="samba-perms" ng-app="mmc.samba.perms" ng-controller="permsCtrl">
+                <perms perms="perms" entities="entities" />
+            </div>
+        </td>
+    <tr>
 </table>
-</div>
-</div>
 
 <div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
 <table cellspacing="0">
