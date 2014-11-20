@@ -242,7 +242,7 @@ $d->display();
 
 ?>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular.min.js"></script>
+<script src="jsframework/lib/angular.min.js"></script>
 <script>
 'use strict';
 
