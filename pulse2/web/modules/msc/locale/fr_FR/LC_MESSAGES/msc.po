@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-17 01:04+0100\n"
-"PO-Revision-Date: 2014-10-29 16:36+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
+"POT-Creation-Date: 2014-11-24 01:05+0100\n"
+"PO-Revision-Date: 2014-11-20 14:32+0000\n"
+"Last-Translator: Ishak Belahmar <ibelahmar@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/pulse2/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -414,12 +414,12 @@ msgstr "Délais dépassé"
 
 #: modules/msc/includes/widgets.inc.php:402
 msgid "Create a group"
-msgstr ""
+msgstr "Créer un groupe"
 
 #: modules/msc/includes/commands_xmlrpc.inc.php:120
 #, php-format
 msgid "%s deployment subgroup - %s"
-msgstr ""
+msgstr "Sous-groupe de déploiement (%s) - %s"
 
 #: modules/msc/includes/commands_xmlrpc.inc.php:143
 #, php-format
@@ -427,6 +427,8 @@ msgid ""
 "Deploy subgroup created successfully. <br/><a href=\"%s\" "
 "target=\"_blank\">View group</a>"
 msgstr ""
+"Le sous-groupe de déploiement a été créé avec succès. <br/><a href=\"%s\" "
+"target=\"_blank\">Voir le groupe</a>"
 
 #: modules/msc/includes/command_history.php:34
 #: modules/msc/includes/command_history.php:180 modules/msc/msc/launch.php:428
@@ -929,7 +931,7 @@ msgstr "Le groupe sur lequel vous travaillez est vide."
 #: modules/msc/logs/ajaxConsultLogsFilter.php:57
 #: modules/msc/msc/ajaxLogsFilter.php:105
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: modules/msc/logs/ajaxConsultLogsFilter.php:59
 #: modules/msc/logs/ajaxConsultLogsFilter.php:60
@@ -1108,7 +1110,7 @@ msgstr "Contrôle à distance de : "
 
 #: modules/msc/msc/convergence.php:116
 msgid "Convergence on "
-msgstr ""
+msgstr "Convergence sur"
 
 #: modules/msc/msc/download_file.php:32 modules/msc/infoPackage.inc.php:247
 msgid "Download file page"
@@ -1994,7 +1996,7 @@ msgstr "État du déploiement"
 
 #: modules/msc/msc/delete.php:57
 msgid "Delete this command"
-msgstr ""
+msgstr "Supprimer cette commande"
 
 #: modules/msc/infoPackage.inc.php:42
 msgid "Secure Control"
@@ -2115,7 +2117,7 @@ msgstr "Replanifier une commande"
 
 #: modules/msc/infoPackage.inc.php:176
 msgid "Delete a command"
-msgstr ""
+msgstr "Supprimer une commande"
 
 #: modules/msc/infoPackage.inc.php:183
 msgid "Single command status"

@@ -26,21 +26,8 @@
 require_once("modules/dyngroup/includes/includes.php");
 require_once("modules/pulse2/includes/profiles_xmlrpc.inc.php");
 
+$sidemenu->addSideMenuItem(new SideMenuItem(_T("Favourite groups", "dyngroup"), "base", "computers",  "listFavourite", "img/machines/icn_allGroups_active.gif", "img/machines/icn_allGroups_ro.gif"));
 $sidemenu->addSideMenuItem(new SideMenuItem(_T("All groups", "dyngroup"), "base", "computers",  "list", "img/machines/icn_allGroups_active.gif", "img/machines/icn_allGroups_ro.gif"));
 $sidemenu->addSideMenuItem(new SideMenuItem(_T("Add a group", "dyngroup"), "base", "computers", "computersgroupcreator", "img/machines/icn_addGroup_active.gif", "img/machines/icn_addGroup_ro.gif"));
-
-$items = array();
-$groups = getAllGroups(array('canShow'=>true, 'localSidebar'=>true));
-foreach ($groups as $group) {
-    $isA = ($group->isDyn() ? (!$group->isRequest() ? _T('Static group:', 'dyngroup') : _T('Dynamic group:', 'dyngroup')) : (_T('Static group:', 'dyngroup')));
-
-    $s = new SideMenuItemNoAclCheck(
-             sprintf("%s<br />%s", $isA, $group->getName()),
-             "base", "computers", "display&gid=".$group->id."&groupname=".$group->name
-    );
-    $s->setCssId("displayid".$group->id);
-    $items[$group->id] = $s;
-    $sidemenu->addSideMenuItem($items[$group->id]);
-}
 
 ?>
