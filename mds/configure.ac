@@ -70,6 +70,15 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
 dnl
+dnl --enable-systemd
+dnl   Install systemd services instead of init scripts
+dnl
+AC_ARG_ENABLE([systemd],
+              [AS_HELP_STRING([--enable-systemd],
+                              [Install systemd services @<:@default=disable@:>@])])
+AM_CONDITIONAL([ENABLE_SYSTEMD], [test "$enable_systemd" = "yes"])
+
+dnl
 dnl --disable-conf
 dnl   Disable configuration files installation
 dnl
@@ -102,6 +111,18 @@ AC_ARG_WITH([initdir],
             [initdir="$withval"],
             [initdir="${sysconfdir}/init.d"])
 AC_SUBST([initdir])
+
+dnl
+dnl --with-systemddir
+dnl   Set path to systemd services directory
+dnl   Default to /lib/systemd/system
+dnl
+AC_ARG_WITH([systemddir],
+            [AS_HELP_STRING([--with-systemddir],
+                            [path to systemd services directory @<:@default=/lib/systemd/system@:>@])],
+            [systemddir="$withval"],
+	    [systemddir="/lib/systemd/system"])
+AC_SUBST([systemddir])
 
 dnl files to generate with automake
 AC_CONFIG_FILES([Makefile])
