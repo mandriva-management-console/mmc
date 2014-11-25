@@ -1,6 +1,6 @@
 [Unit]
 Description=Runs s4sync daemon
-After=samba.service, slapd.service
+After=samba.service slapd.service
 
 [Service]
 Environment=TERM=linux
