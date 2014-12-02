@@ -64,7 +64,7 @@ network.ini: Makefile
 	    sed -i 's!/var/run/dhcpd.pid!/var/run/dhcpd/dhcpd.pid!g' $@.tmp && \
 	    sed -i 's!/etc/init.d/isc-dhcp-server!/etc/rc.d/init.d/dhcpd!g' $@.tmp && \
 	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \
-	    sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@.tmp && \
+	    sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcpd/dhcpd.leases!g' $@.tmp && \
 	    sed -i 's!/var/run/named/named.pid!/var/lib/named/var/run/named.pid!g' $@.tmp && \
 	    sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@.tmp && \
 	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \
