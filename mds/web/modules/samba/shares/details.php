@@ -257,7 +257,13 @@ angular.module('mmc.samba.perms', [])
         return {name: '@' + arr[0], label: arr[0]}
     });
     $scope.entities = $scope.entities.concat(users[1].map(function(obj) {
-        return {name: obj.uid, label: obj.sn + " " + obj.givenName}
+        var name = function() {
+            if (obj.givenName && obj.sn && (obj.givenName != obj.sn))
+                return obj.givenName + " " + obj.sn;
+            else
+                return obj.uid;
+        };
+        return {name: obj.uid, label: name()}
     }));
 })
 
@@ -350,7 +356,9 @@ angular.module('mmc.samba.perms', [])
             $scope.$watch('search', function(newVal) {
                 if (newVal) {
                     $scope.searchResult = $scope.entities.filter(function(entity) {
-                        if (entity.label.toLowerCase().indexOf(newVal.toLowerCase()) !== -1 && !$scope.hasPerm(entity.name)) {
+                        if ((entity.label.toLowerCase().indexOf(newVal.toLowerCase()) !== -1
+                                || entity.name.toLowerCase().indexOf(newVal.toLowerCase()) !== -1)
+                                && !$scope.hasPerm(entity.name)) {
                             return true;
                         }
                         else
