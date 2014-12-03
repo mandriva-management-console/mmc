@@ -1544,6 +1544,20 @@ class Glpi08(DyngroupDatabaseHelper):
         """
         return self.doesUserHaveAccessToMachines(ctx, [machine_uuid])
 
+
+#SELECT glpi_operatingsystems.name FROM glpi.glpi_computers inner join glpi.glpi_operatingsystems on
+#glpi_operatingsystems.id=glpi_computers.operatingsystems_id where glpi_computers.id=uuid;
+    def getOs(self, uuid):
+        session = create_session()
+        query = self.filterOnUUID(session.query(Machine) \
+                .add_column(self.glpi_operatingsystems.c.name)\
+                .select_from( \
+                        self.machine.outerjoin(self.glpi_operatingsystems)), uuid).all()
+        ret = []
+        for machine,  os in query:
+            ret.append(os)
+        return ret[0]
+
     ##################### for inventory purpose (use the same API than OCSinventory to keep the same GUI)
     def getLastMachineInventoryFull(self, uuid):
         session = create_session()
@@ -1765,7 +1779,12 @@ class Glpi08(DyngroupDatabaseHelper):
         return ret
 
     def getLastMachineSoftwaresPart(self, session, uuid, part, min = 0, max = -1, filt = None, options = {}, count = False):
+
         hide_win_updates = False
+        typeos = "missing"
+        if 'typeos' in options:
+            typeos = options['typeos']
+
         if 'hide_win_updates' in options:
             hide_win_updates = options['hide_win_updates']
 
@@ -1786,15 +1805,28 @@ class Glpi08(DyngroupDatabaseHelper):
             clauses.append(self.software.c.name.like('%'+filt+'%'))
             query = query.filter(or_(*clauses))
 
-        if hide_win_updates:
-            query = query.filter(
-                not_(
-                    and_(
-                        self.manufacturers.c.name.contains('microsoft'),
-                        self.software.c.name.op('regexp')('KB[0-9]+(-v[0-9]+)?(v[0-9]+)?')
+        if typeos == "Linux":
+            if hide_win_updates:
+                query = query.filter(
+                    not_(
+                        and_(
+                            self.software.c.name.op('regexp')('^lib.*')
+                        )
                     )
                 )
-            )
+        elif typeos == "Windows":
+            if hide_win_updates:
+                query = query.filter(
+                    not_(
+                        and_(
+                            self.manufacturers.c.name.contains('microsoft'),
+                            self.software.c.name.op('regexp')('KB[0-9]+(-v[0-9]+)?(v[0-9]+)?')
+                        )
+                    )
+                )
+        elif typeos == "MAC":
+            if hide_win_updates:
+                pass
 
         if min != 0:
             query = query.offset(min)

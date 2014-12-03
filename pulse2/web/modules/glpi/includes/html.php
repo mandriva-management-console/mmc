@@ -38,15 +38,45 @@ class AjaxFilterGlpi extends AjaxFilter {
         <img id="loadimg" src="<?php echo $root; ?>img/common/loader.gif" alt="loader" class="loader"/>
     </div>
     <div id="searchSpan<?php echo $this->formid ?>" class="searchbox" style="float: right;">
+    <?php
+        $OS = getOs($_GET['uuid']);
+        if(stristr($OS, 'Linux') !== FALSE) {
+            $OSLIB="Linux";
+        }
+        elseif (stristr($OS, 'Windows') !== FALSE) {
+            $OSLIB="Windows";
+        }
+        elseif (stristr($OS, 'MAC') !== FALSE) {
+            $OSLIB="missing";
+        }
+        else{
+            $OSLIB="missing";
+        }
+    ?>
+    <input id="ostype" type="hidden" name="ostype" value="<?php echo  $OSLIB; ?>">
+    <?php if($_GET['part'] == 'Softwares' && $OSLIB != "missing" ) { ?>
+        <!-- Hide Windows Updates checkbox -->
+        <input checked style="top: 2px; left: 5px; position: relative; float: left"
+            type="checkbox"
+            class="searchfieldreal"
+            name="hide_win_updates"
+            id="hide_win_updates<?php echo $this->formid ?>" onchange="pushSearch<?php echo $this->formid ?>(); return false;" />
 
-    <?php if($_GET['part'] == 'Softwares') { ?>
-    <!-- Hide Windows Updates checkbox -->
-    <input checked style="top: 2px; left: 5px; position: relative; float: left" 
-        type="checkbox"
-        class="searchfieldreal" 
-        name="hide_win_updates" 
-        id="hide_win_updates<?php echo $this->formid ?>" onchange="pushSearch<?php echo $this->formid ?>(); return false;" />
-    <span style="padding: 7px 15px; position: relative; float: left"><?php echo _T('Hide Windows Updates', "glpi")?></span>
+        <span style="padding: 7px 15px; position: relative; float: left">
+            <?php
+            switch($OSLIB){
+                case "Linux":
+                    echo _T('Hide updates/libraries', "glpi");
+                    break;
+                case "Windows":
+                    echo _T('Hide Windows Updates', "glpi");
+                    break;
+                case "MAC":
+                    echo _T('Hide updates/libraries', "glpi");
+                    break;
+            }
+            ?>
+        </span>
     <?php } ?>
 
     <?php if($_GET['part'] == 'History') { ?>
@@ -94,6 +124,11 @@ if(isset($this->storedfilter)) {
         if(document.Form<?php echo $this->formid ?>.hide_win_updates != undefined){
             hide_win_updates = document.Form<?php echo $this->formid ?>.hide_win_updates.checked;
         }
+        var typeos = "";
+        if(document.Form<?php echo $this->formid ?>.ostype != undefined){
+            typeos = document.Form<?php echo $this->formid ?>.ostype.value;
+        }
+
         // Get the state of the history_delta dropdown
         var history_delta = "";
         if(document.Form<?php echo $this->formid ?>.history_delta != undefined){
@@ -125,13 +160,13 @@ if (isset($this->storedmax)) {
         /**
          * Update div
          */
+
         <?php
-        $url = $this->url."filter='+encodeURIComponent(document.Form".$this->formid.".param.value)+'&maxperpage='+maxperpage+'&hide_win_updates='+hide_win_updates+'&history_delta='+history_delta+'".$this->params;
+        $url = $this->url."filter='+encodeURIComponent(document.Form".$this->formid.".param.value)+'&maxperpage='+maxperpage+'&ostype='+typeos+'&hide_win_updates='+hide_win_updates+'&history_delta='+history_delta+'".$this->params;
         if (isset($this->storedstart) && isset($this->storedend)) {
             $url .= "&start=".$this->storedstart."&end=".$this->storedend;
         }
         ?>
-
         updateSearch<?php echo $this->formid ?> = function() {
             jQuery('#<?php echo  $this->divid; ?>').load('<?php echo $url ?>');
 
@@ -152,7 +187,7 @@ if ($this->refresh) {
             if(document.getElementById('maxperpage') != undefined)
                 maxperpage = document.getElementById('maxperpage').value;
 
-            jQuery('#<?php echo  $this->divid; ?>').load('<?php echo  $this->url; ?>filter='+filter+'&start='+start+'&end='+end+'&maxperpage='+maxperpage+'&hide_win_updates='+hide_win_updates+'&history_delta='+history_delta+'<?php echo  $this->params ?>');
+            jQuery('#<?php echo  $this->divid; ?>').load('<?php echo  $this->url; ?>filter='+filter+'&start='+start+'&end='+end+'&maxperpage='+maxperpage+'&ostype='+typeos+'&hide_win_updates='+hide_win_updates+'&history_delta='+history_delta+'<?php echo  $this->params ?>');
 <?php
 if ($this->refresh) {
 ?>
@@ -171,6 +206,9 @@ if ($this->refresh) {
             // Refresh the state of the hide_win_updates checkbox
             if(document.Form<?php echo $this->formid ?>.hide_win_updates != undefined) {
                 hide_win_updates = document.Form<?php echo $this->formid ?>.hide_win_updates.checked;
+            }
+            if(document.Form<?php echo $this->formid ?>.ostype != undefined){
+                typeos = document.Form<?php echo $this->formid ?>.ostype.value;
             }
             // Refresh the state of the history_delta dropdown
             if(document.Form<?php echo $this->formid ?>.history_delta != undefined) {

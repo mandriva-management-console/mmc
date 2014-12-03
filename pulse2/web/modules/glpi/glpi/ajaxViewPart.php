@@ -56,10 +56,11 @@ function display_part($part, $get, $simpleTableParts, $displayNavBar = True, $pa
     $hide_win_updates = (isset($get['hide_win_updates'])) ? $get['hide_win_updates'] : False;
     $hide_win_updates = (strtolower($hide_win_updates) == 'true') ? True : False;
     $history_delta = (isset($get['history_delta'])) ? $get['history_delta'] : False;
-
+    $ostype = (isset($get['ostype'])) ? $get['ostype'] : "missing";
     $options = array(
         'hide_win_updates' => $hide_win_updates,
         'history_delta' => $history_delta,
+        'typeos'=>$get['ostype']
     );
 
     // Get current part inventory

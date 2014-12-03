@@ -140,6 +140,8 @@ def getLicensesCount(vendor, software, version):
                                                      version=version,
                                                      count=1))
 
+def getOs(uuid):
+    return xmlrpcCleanup(Glpi().getOs(uuid))
 
 def getLastMachineInventoryFull(uuid):
     return xmlrpcCleanup(Glpi().getLastMachineInventoryFull(uuid))
