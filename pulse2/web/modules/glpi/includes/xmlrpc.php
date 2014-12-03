@@ -26,6 +26,10 @@ function glpiExists($uuid) {
     return xmlCall("glpi.inventoryExists", array($uuid));
 }
 
+function getOs($uuid) {
+    return xmlCall("glpi.getOs", array($uuid));
+}
+
 function getLastMachineGlpiFull($uuid) {
     return xmlCall("glpi.getLastMachineInventoryFull", array($uuid));
 }
