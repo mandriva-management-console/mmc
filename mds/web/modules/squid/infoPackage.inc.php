@@ -21,7 +21,7 @@
  */
 
 $mod = new Module("squid");
-$mod->setVersion("2.5.79");
+$mod->setVersion("2.5.80");
 $mod->setRevision('');
 $mod->setDescription(_T("Web Proxy Content filter"),"squid");
 $mod->setAPIVersion('1:1:0');

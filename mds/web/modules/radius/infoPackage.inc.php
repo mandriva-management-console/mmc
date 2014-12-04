@@ -24,7 +24,7 @@ require_once("modules/radius/includes/radius-xmlrpc.php");
 $MMCApp =& MMCApp::getInstance();
 
 $mod = new Module("radius");
-$mod->setVersion("2.5.79");
+$mod->setVersion("2.5.80");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Radius management","radius"));
 $mod->setAPIVersion("0:0:0");
