@@ -94,7 +94,6 @@ foreach($shares as $share) {
 }
 
 $page = new PageGenerator(_T("Current list of shares"));
-$page->setSideMenu($sidemenu);
 $page->display();
 
 $list = new ListInfos($sharesName, _T("Share"));
