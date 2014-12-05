@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-24 01:05+0100\n"
-"PO-Revision-Date: 2014-11-20 05:04+0000\n"
+"POT-Creation-Date: 2014-11-28 18:02+0100\n"
+"PO-Revision-Date: 2014-11-25 13:08+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Chinese (Taiwan) (http://transifex.mandriva.com/projects/p/pulse2/team/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -298,43 +298,15 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
-#: modules/pkgs/pkgs/appstreamSettings.php:29
-#: modules/pkgs/pkgs/localSidebar.php:30 modules/pkgs/infoPackage.inc.php:53
-msgid "Appstream settings"
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:34
-#, php-format
-msgid "Please access the %s to manage your Appstream subscriptions."
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:50
-msgid "Invalid My Credentials, please verify your username/password."
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:52
-msgid "Your My credentials have been set successfuly."
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:55
-msgid "Cannot set My Credentials."
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:63
-msgid "My Account credentials:"
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:69
-msgid "Username"
-msgstr ""
-
-#: modules/pkgs/pkgs/appstreamSettings.php:74
-msgid "Password"
-msgstr ""
-
 #: modules/pkgs/pkgs/localSidebar.php:28 modules/pkgs/infoPackage.inc.php:46
 msgid "Add a package"
 msgstr "新增一個封裝"
+
+#: modules/pkgs/pkgs/localSidebar.php:30
+#: modules/pkgs/pkgs/appstreamSettings.php:31
+#: modules/pkgs/infoPackage.inc.php:53
+msgid "Appstream settings"
+msgstr ""
 
 #: modules/pkgs/pkgs/viewAppstreamUpdates.php:25
 msgid "Appstream updates"
@@ -405,6 +377,43 @@ msgstr "刪除檔案"
 #: modules/pkgs/pkgs/edit.php:287
 msgid "Are you sure you want to delete this file?"
 msgstr "是否確定要刪除此檔案？"
+
+#: modules/pkgs/pkgs/appstreamSettings.php:36
+#, php-format
+msgid "Please access the %s to manage your Appstream subscriptions."
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:51
+msgid "Invalid My Credentials, please verify your username/password."
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:53
+msgid "Your My credentials have been set successfuly."
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:56
+msgid "Cannot set My Credentials."
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:72
+msgid "Your Account credentials are active"
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:73
+msgid "Modify Account credentials"
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:80
+msgid "My Account credentials:"
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:88
+msgid "Username"
+msgstr ""
+
+#: modules/pkgs/pkgs/appstreamSettings.php:93
+msgid "Password"
+msgstr ""
 
 #: modules/pkgs/infoPackage.inc.php:34 modules/pkgs/infoPackage.inc.php:40
 msgid "Packages"

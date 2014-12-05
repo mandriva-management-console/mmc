@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-24 01:05+0100\n"
+"POT-Creation-Date: 2014-11-28 18:02+0100\n"
 "PO-Revision-Date: 2014-07-31 13:36+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Chinese (Taiwan) (http://transifex.mandriva.com/projects/p/pulse2/team/zh_TW/)\n"
@@ -64,20 +64,20 @@ msgstr ""
 msgid "Remote support"
 msgstr "遠端支援"
 
-#: modules/support/includes/panels/remotesupport.inc.php:41
+#: modules/support/includes/panels/remotesupport.inc.php:44
 #: modules/support/infoPackage.inc.php:44
 msgid "Disconnect"
 msgstr "斷開連線"
 
-#: modules/support/includes/panels/remotesupport.inc.php:44
+#: modules/support/includes/panels/remotesupport.inc.php:47
 msgid "Connect to support"
 msgstr "連線至支援"
 
-#: modules/support/includes/panels/remotesupport.inc.php:51
+#: modules/support/includes/panels/remotesupport.inc.php:54
 msgid "Download archive"
 msgstr ""
 
-#: modules/support/includes/panels/remotesupport.inc.php:54
+#: modules/support/includes/panels/remotesupport.inc.php:57
 msgid "Extract log and config files"
 msgstr ""
 

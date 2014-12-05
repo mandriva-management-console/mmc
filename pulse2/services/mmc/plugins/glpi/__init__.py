@@ -235,6 +235,9 @@ def getEntityRule(*args, **kwargs):
 def getAllLocations(*args, **kwargs):
     return xmlrpcCleanup(Glpi().getAllLocations(*args, **kwargs))
 
+def getAllLocationsPowered(*args, **kwargs):
+    return xmlrpcCleanup(Glpi().getAllLocationsPowered(*args, **kwargs))
+
 def addUser(*args, **kwargs):
     return xmlrpcCleanup(Glpi().addUser(*args, **kwargs))
 
@@ -258,3 +261,12 @@ def addLocation(*args, **kwargs):
 
 def getAllEntities(*args, **kwargs):
     return xmlrpcCleanup(Glpi().getAllEntities(*args, **kwargs))
+
+def getAllEntitiesPowered(*args, **kwargs):
+    return xmlrpcCleanup(Glpi().getAllEntitiesPowered(*args, **kwargs))
+
+def moveEntityRuleUp(*args, **kwargs):
+    return xmlrpcCleanup(Glpi().moveEntityRuleUp(*args, **kwargs))
+
+def moveEntityRuleDown(*args, **kwargs):
+    return xmlrpcCleanup(Glpi().moveEntityRuleDown(*args, **kwargs))

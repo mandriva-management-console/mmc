@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pulse 2\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-11-24 01:05+0100\n"
-"PO-Revision-Date: 2014-11-20 14:18+0000\n"
-"Last-Translator: Ishak Belahmar <ibelahmar@mandriva.com>\n"
+"POT-Creation-Date: 2014-11-28 18:02+0100\n"
+"PO-Revision-Date: 2014-11-25 13:08+0000\n"
+"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/pulse2/team/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -512,7 +512,7 @@ msgstr "Type"
 
 #: modules/dyngroup/dyngroup/ajaxListGroups.php:99
 msgid "Favourite"
-msgstr "Favori"
+msgstr ""
 
 #: modules/dyngroup/dyngroup/ajaxListGroups.php:103
 msgid "Display this group's content"
@@ -569,11 +569,11 @@ msgstr "Export CSV"
 
 #: modules/dyngroup/dyngroup/listFavourite.php:29
 msgid "Favourite group list"
-msgstr "Liste des groupes favoris"
+msgstr ""
 
 #: modules/dyngroup/dyngroup/localSidebar.php:29
 msgid "Favourite groups"
-msgstr "Groupes favoris"
+msgstr ""
 
 #: modules/dyngroup/dyngroup/localSidebar.php:30
 msgid "All groups"
@@ -612,7 +612,7 @@ msgstr "résultat"
 #: modules/dyngroup/includes/groups.inc.php:119
 #: modules/dyngroup/includes/groups.inc.php:123
 msgid "Make favourite"
-msgstr "Mettre en favoris"
+msgstr ""
 
 #: modules/dyngroup/dyngroup/save.php:94
 msgid "Save"
@@ -812,7 +812,7 @@ msgstr "Lister tous les groupes d'ordinateurs"
 
 #: modules/dyngroup/infoPackage.inc.php:148
 msgid "List favourite groups"
-msgstr "Liste des groupes favoris"
+msgstr ""
 
 #: modules/dyngroup/infoPackage.inc.php:157
 msgid "Delete a group of computers"

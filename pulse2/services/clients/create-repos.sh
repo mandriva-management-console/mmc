@@ -27,6 +27,7 @@
 BASE_DIR="/var/lib/pulse2/clients"
 NAME="Mandriva Support" 
 EMAIL="sales@mandriva.com"
+HOME="/root"
 GPG_KEY_CONF=$HOME/gpg-key-conf
 GPG_KEY_FILE="pulse2-agents.gpg.key"
 MACROS=$HOME/.rpmmacros
@@ -41,7 +42,7 @@ echo "%_signature    gpg" >> $MACROS
 echo "%_gpg_path     /root/.gnupg" >> $MACROS
 echo "%_topdir             $BASE_DIR" >> $MACROS
 
-
+cd $BASE_DIR
 
 if [ ! -f $GPG_KEY_CONF ]; then
     # --------------------- passphrase generate --------------------------
@@ -87,7 +88,10 @@ GPG_KEY_ID=$(gpg --list-keys --with-colons $EMAIL | awk -F: '/^pub:/ { print $5 
 if [ -d deb ]; then
     DIST="common"
     REPO_SUBDIR="debian"
-
+    if [ -d $REPO_SUBDIR ]; then
+        echo "INFO: Erasing of old debian repository"
+        rm -rf $REPO_SUBDIR
+    fi  
     echo "INFO: Creating DEB repository"
 
     if [ ! -d $REPO_SUBDIR ]; then
@@ -148,6 +152,7 @@ if [ ! -f /usr/bin/createrepo ]; then
     exit 1;
 fi	
 
+cd $BASE_DIR
 
 # ------------------------ RPM REPOSITORY ------------------------------
 if [ -d rpm ]; then
@@ -175,34 +180,32 @@ if [ -d rpm ]; then
 
     /usr/bin/createrepo -d -v rpm
     if [ $? -eq 0 ]; then
-
-    echo "INFO: RPM repository successfully created"	   
- 
-        if [ -f rpm/repodata/repomd.xml.asc ]; then
-	    rm -f rpm/repodata/repomd.xml.asc	
-	fi	
-	gpg --detach-sign --passphrase $PASSPHRASE --armor rpm/repodata/repomd.xml
-
-        if [ $? -eq 0 ]; then
-            echo "INFO: RPM repository successfully signed"
-        else	    
-            echo "WARNING: Signing of RPM repository failed"
-	    exit 1;
-        fi    
-
-	echo "INFO: Creating .repo file"
-	echo "[$RPM_REPO_NAME]" > rpm/$RPM_REPO_FILE
-	echo "name = Pulse2 Agents" >> rpm/$RPM_REPO_FILE
-	echo "baseurl = http://$MY_URL/downloads/rpm" >> rpm/$RPM_REPO_FILE
-	echo "gpgkey = http://$MY_URL/downloads/$GPG_KEY_FILE" >> rpm/$RPM_REPO_FILE
-	echo "enabled=1" >> rpm/$RPM_REPO_FILE
-	echo "gpgcheck=1" >> rpm/$RPM_REPO_FILE
-		
+        echo "INFO: RPM repository successfully created"	   
     else   
-
         echo "WARNING: RPM repository wasn't created !"	   
         exit 1;	
     fi
+ 
+    if [ -f rpm/repodata/repomd.xml.asc ]; then
+        rm -f rpm/repodata/repomd.xml.asc	
+    fi	
+    gpg --detach-sign --no-tty --passphrase $PASSPHRASE --armor rpm/repodata/repomd.xml
+    
+    if [ $? -eq 0 ]; then
+        echo "INFO: RPM repository successfully signed"
+    else	    
+        echo "WARNING: Signing of RPM repository failed"
+        exit 1;
+    fi    
+    
+    echo "INFO: Creating .repo file"
+    echo "[$RPM_REPO_NAME]" > rpm/$RPM_REPO_FILE
+    echo "name = Pulse2 Agents" >> rpm/$RPM_REPO_FILE
+    echo "baseurl = http://$MY_URL/downloads/rpm" >> rpm/$RPM_REPO_FILE
+    echo "gpgkey = http://$MY_URL/downloads/$GPG_KEY_FILE" >> rpm/$RPM_REPO_FILE
+    echo "enabled=1" >> rpm/$RPM_REPO_FILE
+    echo "gpgcheck=1" >> rpm/$RPM_REPO_FILE
+		
 
 else
     echo "WARNING: RPM folder doesn't exists !"	
