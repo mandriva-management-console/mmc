@@ -34,6 +34,12 @@ if (isset($_POST["bcreate"])) {
     $shareDesc = $_POST["shareDesc"];
     $adminGroups = $_POST["admingroupsselected"];
     $customParameters = $_POST["customparameters"];
+    if (isset($_POST["recursive"])) {
+        $recursive = true;
+    }
+    else {
+        $recursive = false;
+    }
     if ($_POST["hasAv"])
         $av = 1;
     else
@@ -74,7 +80,7 @@ if (isset($_POST["bcreate"])) {
                 }
             }
 
-            $params = array($shareName, $sharePath, $shareDesc, $perms, $adminGroups, $browseable, $av, $customParameters);
+            $params = array($shareName, $sharePath, $shareDesc, $perms, $adminGroups, $recursive, $browseable, $av, $customParameters);
             add_share($params);
             if (!isXMLRPCError()) {
                 new NotifyWidgetSuccess(sprintf(_T("Share %s successfully added"), $shareName));
@@ -96,6 +102,12 @@ if (isset($_POST["bmodify"]))
     else
         $adminGroups = array();
     $customParameters = $_POST["customparameters"];
+    if (isset($_POST["recursive"])) {
+        $recursive = true;
+    }
+    else {
+        $recursive = false;
+    }
     if (isset($_POST["hasAv"]))
         $av = 1;
     else
@@ -123,7 +135,7 @@ if (isset($_POST["bmodify"]))
         }
     }
 
-    $params = array($share, $sharePath, $shareDesc, $perms, $adminGroups, $browseable, $av, $customParameters);
+    $params = array($share, $sharePath, $shareDesc, $perms, $adminGroups, $recursive, $browseable, $av, $customParameters);
     mod_share($params);
 
     if (!isXMLRPCError()) {
@@ -379,23 +391,22 @@ angular.module('mmc.samba.perms', [])
 
 </script>
 
-<table cellspacing="0">
 <?php
-    $checked = "";
-    if ($permAll)
-	    $checked = "checked";
+$t = new Table();
+$checked = "";
+if ($permAll)
+    $checked = "checked";
+$param = array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'permsTable\');"');
 
-    $param = array ("value" => $checked,"extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
-    $test = new TrFormElement(_T("Access for all"), new CheckboxTpl("permAll"));
-    $test->setCssError("permAll");
-    $test->display($param);
-
-    if ($permAll) {
-        echo '<tr id="grouptable" style="display:none">';
-    } else {
-        echo '<tr id="grouptable">';
-    }
+$t->add(
+        new TrFormElement(_T("Access for all"), new CheckboxTpl("permAll")),
+        $param
+);
+$t->display();
 ?>
+
+<table cellspacing="0" id="permsTable" <?php if ($permAll) echo 'style="display:none"'; ?>>
+    <tr>
         <td class="label" style="text-align: right;">Permissions</td>
         <td>
             <div id="samba-perms" ng-app="mmc.samba.perms" ng-controller="permsCtrl">
@@ -403,6 +414,10 @@ angular.module('mmc.samba.perms', [])
             </div>
         </td>
     <tr>
+<?php
+    $recursive = new TrFormElement(_T("Apply rights recursively"), new CheckboxTpl("recursive"));
+    $recursive->display(array("value" => "checked"));
+?>
 </table>
 
 <div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>

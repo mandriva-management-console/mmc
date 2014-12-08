@@ -333,7 +333,8 @@ class SambaConf:
 
         return returnArr
 
-    def addShare(self, name, path, comment, perms, admingroups, browseable=True, av=False, customparameters=None, mod=False):
+    def addShare(self, name, path, comment, perms, admingroups, recursive=True,
+                 browseable=True, av=False, customparameters=None, mod=False):
         """
         add a share in smb.conf
         and create it physicaly
@@ -471,6 +472,12 @@ class SambaConf:
             if acls.valid():
                 acls.applyto(path)
                 acls.applyto(path, posix1e.ACL_TYPE_DEFAULT)
+                if recursive:
+                    for root, dirs, files in os.walk(path):
+                        acls.applyto(root)
+                        acls.applyto(root, posix1e.ACL_TYPE_DEFAULT)
+                        for file in map(lambda f: os.path.join(root, f), files):
+                            acls.applyto(file)
             else:
                 logger.error("Cannot save ACL on folder " + path)
 
