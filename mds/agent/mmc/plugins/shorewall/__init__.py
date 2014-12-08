@@ -65,8 +65,8 @@ def activate():
 
 class ShorewallZones(ShorewallConf):
 
-    def __init__(self):
-        ShorewallConf.__init__(self, 'zones',
+    def __init__(self, file='zones'):
+        ShorewallConf.__init__(self, file,
             r'^(?P<name>[\w\d]+)\s+(?P<type>[\w\d]+)$')
         self.read()
 
@@ -80,8 +80,8 @@ class ShorewallZones(ShorewallConf):
 
 class ShorewallRules(ShorewallConf):
 
-    def __init__(self):
-        ShorewallConf.__init__(self, 'rules',
+    def __init__(self, file='rules'):
+        ShorewallConf.__init__(self, file,
             r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:.,]+)\s+(?P<dst>[\w\d:.]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:,\d]*)$')
         self.read()
 
@@ -137,8 +137,8 @@ class ShorewallRules(ShorewallConf):
 
 class ShorewallPolicies(ShorewallConf):
 
-    def __init__(self):
-        ShorewallConf.__init__(self, 'policy',
+    def __init__(self, file='policy'):
+        ShorewallConf.__init__(self, file,
             r'^(?P<src>[\w]+)\s+(?P<dst>[\w]+)\s+(?P<policy>ACCEPT|DROP|REJECT)\s*(?P<log>[\w]*)$')
         self.read()
 
@@ -170,8 +170,8 @@ class ShorewallPolicies(ShorewallConf):
 
 class ShorewallMasq(ShorewallConf):
 
-    def __init__(self):
-        ShorewallConf.__init__(self, 'masq',
+    def __init__(self, file='mask'):
+        ShorewallConf.__init__(self, file,
             r'^(?P<lan_if>[\w]+)\s+(?P<wan_if>[\w]+)$')
         self.read()
 
@@ -187,8 +187,8 @@ class ShorewallMasq(ShorewallConf):
 
 class ShorewallInterfaces(ShorewallConf):
 
-    def __init__(self):
-        ShorewallConf.__init__(self, 'interfaces',
+    def __init__(self, file='interfaces'):
+        ShorewallConf.__init__(self, file,
             r'^(?P<zone>[\w]+)\s+(?P<if>[\w]+)\s*(?P<options>[\w,= ]+)?$')
         self.read()
 
@@ -202,10 +202,9 @@ class ShorewallInterfaces(ShorewallConf):
 
 class ShorewallConfig(ShorewallConf):
 
-    def __init__(self):
-        ShorewallConf.__init__(self, 'shorewall.conf',
-            r'^(?P<option>[^=]+)=(?P<value>.*)',
-            '%s=%s')
+    def __init__(self, file='shorewall.conf'):
+        ShorewallConf.__init__(self, file,
+            r'^(?P<option>[^=]+)=(?P<value>.*)', '%s=%s')
         self.read()
 
     def enable_ip_forward(self):
