@@ -415,12 +415,10 @@ class SambaConf:
         # flush ACLs
         shlaunch("setfacl -b %s" % path)
 
-        def sanitize_group_name(group):
-            if not group.startswith('@'):
-                group = '@' + group
-            if ' ' in group:
-                group = '"' + group + '"'
-            return group
+        def sanitize_name(name):
+            if ' ' in name:
+                name = '"' + name + '"'
+            return name
 
         if '@all' in perms['rwx']:
             tmpInsert['public'] = 'yes'
@@ -476,8 +474,8 @@ class SambaConf:
             else:
                 logger.error("Cannot save ACL on folder " + path)
 
-            tmpInsert['valid users'] = ', '.join(map(sanitize_group_name, reduce(operator.add, [j for p, j in perms.items()])))
-            tmpInsert['write list'] = ', '.join(map(sanitize_group_name, reduce(operator.add, [j for p, j in perms.items() if 'w' in p])))
+            tmpInsert['valid users'] = ', '.join(map(sanitize_name, reduce(operator.add, [j for p, j in perms.items()])))
+            tmpInsert['write list'] = ', '.join(map(sanitize_name, reduce(operator.add, [j for p, j in perms.items() if 'w' in p])))
 
         # Set the anti-virus plugin if available
         if av:
@@ -485,13 +483,13 @@ class SambaConf:
 
         # Set the admin groups for the share
         if admingroups:
-            tmpInsert["admin users"] = ", ".join(map(sanitize_group_name, admingroups))
+            # need to add '@'
+            admingroups = map(lambda g: '@' + g, admingroups)
+            tmpInsert["admin users"] = ", ".join(map(sanitize_name, admingroups))
             # include admin users in valid users list !
             tmpInsert['valid users'] = tmpInsert['valid users'] + ', ' + tmpInsert["admin users"]
 
         self.config[name] = tmpInsert
-
-        print tmpInsert
 
         info = self.shareInfo(name)
         if mod:
