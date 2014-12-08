@@ -456,13 +456,12 @@ function _mail_changeUser($FH, $mode) {
             changeMailproxy($uid, $FH->getValue($attrs["mailproxy"]));
         if ($FH->isUpdated($attrs["mailuserquota"]))
             changeQuota($uid, $FH->getValue($attrs["mailuserquota"]));
-        if ($FH->isUpdated($attrs["mailhidden"])) {
-            if ($FH->getValue($attrs["mailhidden"]) == "on") {
-                changeMailhidden($uid, true);
-            }
-            else {
-                changeMailhidden($uid, false);
-            }
+        // always set mailhidden
+        if ($FH->getValue($attrs["mailhidden"]) == "on") {
+            changeMailhidden($uid, true);
+        }
+        else {
+            changeMailhidden($uid, false);
         }
         if ($FH->isUpdated('maildisable')) {
             // disable mail
