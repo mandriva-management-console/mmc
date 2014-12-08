@@ -408,7 +408,6 @@ class SambaConf:
 
         tmpInsert['path'] = path
         tmpInsert['comment'] = comment
-        tmpInsert['writeable'] = 'yes'
 
         if not browseable:
             tmpInsert['browseable'] = 'No'
@@ -425,10 +424,12 @@ class SambaConf:
 
         if '@all' in perms['rwx']:
             tmpInsert['public'] = 'yes'
+            tmpInsert['writeable'] = 'yes'
             shlaunch("setfacl -b %s" % path)
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
         else:
             tmpInsert['public'] = 'no'
+            tmpInsert['writeable'] = 'no'
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG)
             acls = posix1e.ACL(file=path)
             # Add and set default mask to rwx
