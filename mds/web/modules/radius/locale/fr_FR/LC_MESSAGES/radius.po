@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 10:53+0100\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
 "PO-Revision-Date: 2014-12-10 17:02+0200\n"
 "Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
-"Language-Team: French "
-"<http://translate.mandriva.com/projects/mds-26/radius/fr_FR/>\n"
+"Language-Team: French <http://translate.mandriva.com/projects/mds-26/radius/"
+"fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,27 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.1-dev\n"
 
-#: modules/radius/includes/publicFunc.php:44
-#: modules/radius/infoPackage.inc.php:29
-msgid "Radius management"
-msgstr "Gestion de Radius"
-
-#: modules/radius/includes/publicFunc.php:48
-msgid "Enable Radius management"
-msgstr "Activer la gestion Radius"
-
 #: modules/radius/includes/publicFunc.php:61
 #: modules/radius/infoPackage.inc.php:34
 msgid "Calling Station ID"
 msgstr "Calling Station ID"
 
-#: modules/radius/includes/publicFunc.php:94
-msgid "Radius attributes updated."
-msgstr "Attributs Radius mis à jour."
+#: modules/radius/includes/publicFunc.php:48
+msgid "Enable Radius management"
+msgstr "Activer la gestion Radius"
 
 #: modules/radius/includes/publicFunc.php:100
 msgid "Radius attributes deleted."
 msgstr "Attributs Radius supprimés."
+
+#: modules/radius/includes/publicFunc.php:94
+msgid "Radius attributes updated."
+msgstr "Attributs Radius mis à jour."
+
+#: modules/radius/includes/publicFunc.php:44
+#: modules/radius/infoPackage.inc.php:29
+msgid "Radius management"
+msgstr "Gestion de Radius"
 
 #: modules/radius/infoPackage.inc.php:33
 msgid "Show/Hide radius attributes"
