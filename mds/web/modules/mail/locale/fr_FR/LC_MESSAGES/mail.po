@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
 "POT-Creation-Date: 2014-10-27 01:04+0100\n"
-"PO-Revision-Date: 2014-12-10 17:03+0200\n"
+"PO-Revision-Date: 2014-12-10 17:05+0200\n"
 "Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
 "Language-Team: French "
 "<http://translate.mandriva.com/projects/mds-26/mail/fr_FR/>\n"
@@ -186,7 +186,7 @@ msgstr "Éditer le domaine de messagerie"
 
 #: modules/mail/domains/edit.php:62
 msgid "Invalid domain name"
-msgstr "Nom de domaine de messagerie invalide"
+msgstr "Nom de domaine invalide"
 
 #: modules/mail/domains/edit.php:69
 msgid "The mail domain has been added."
@@ -350,7 +350,7 @@ msgstr "Groupe Zarafa"
 
 #: modules/mail/includes/publicFunc.php:66
 msgid "Enable mail alias for users of this group "
-msgstr "Activer l'alias de messagerie pour les membres de ce groupe"
+msgstr "Activer l'alias de messagerie pour les membres de ce groupe "
 
 #: modules/mail/includes/publicFunc.php:78
 #: modules/mail/includes/publicFunc.php:81
