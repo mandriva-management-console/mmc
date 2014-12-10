@@ -119,14 +119,13 @@ function _mail_changeGroup($postArr) {
                 $mail .= "@" . $vdomain;
         }
 
-        $mailhidden = false;
-        if ($postArr["mailhidden"] == "on")
-            $mailhidden = true;
-        changeMailGroupHidden($group, $mailhidden);
-
         if ($mail) {
             addMailGroup($group, $mail);
             syncMailGroupAliases($group);
+            $mailhidden = false;
+            if ($postArr["mailhidden"] == "on")
+                $mailhidden = true;
+            changeMailGroupHidden($group, $mailhidden);
             return true;
         }
         else {
