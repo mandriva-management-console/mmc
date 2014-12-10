@@ -493,8 +493,9 @@ class SambaConf:
             # need to add '@'
             admingroups = map(lambda g: '@' + g, admingroups)
             tmpInsert["admin users"] = ", ".join(map(sanitize_name, admingroups))
-            # include admin users in valid users list !
+            # include admin users in valid users list and write list
             tmpInsert['valid users'] = tmpInsert['valid users'] + ', ' + tmpInsert["admin users"]
+            tmpInsert['write list'] = tmpInsert['write list'] + ', ' + tmpInsert["admin users"]
 
         self.config[name] = tmpInsert
 
