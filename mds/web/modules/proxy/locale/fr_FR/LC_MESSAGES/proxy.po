@@ -10,14 +10,16 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
 "POT-Creation-Date: 2014-10-27 01:05+0100\n"
-"PO-Revision-Date: 2011-07-26 10:13+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
-"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
+"PO-Revision-Date: 2014-12-10 17:04+0200\n"
+"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/proxy/fr_FR/>\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/proxy/blacklist/add.php:40
 msgid "Invalid domain name"
@@ -59,7 +61,7 @@ msgstr "Êtes vous sûr ?"
 
 #: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
 msgid "Delete"
-msgstr "Suppression"
+msgstr "Supprimer"
 
 #: modules/proxy/blacklist/delete.php:58
 msgid "Cancel"
@@ -157,5 +159,3 @@ msgstr "Redémarrer le service proxy web"
 #: modules/proxy/infoPackage.inc.php:58
 msgid "Proxy status page"
 msgstr "Page de statut du proxy"
-
-
