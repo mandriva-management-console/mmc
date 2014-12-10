@@ -12,15 +12,16 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-09-15 21:01+0000\n"
-"Last-Translator: Andre Machado <andre@mandriva.com>\n"
-"Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/"
-"projects/p/mds/team/pt_BR/)\n"
+"PO-Revision-Date: 2014-12-10 22:05+0200\n"
+"Last-Translator: Andre <andre@mandriva.com>\n"
+"Language-Team: Portuguese (Brazil) "
+"<http://translate.mandriva.com/projects/mds-26/network/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/network/network/edit.php:46
 #, php-format
@@ -199,7 +200,7 @@ msgstr "Intervalo algoritmos de 0 a 255"
 
 #: modules/network/network/dnsrecords/cname.php:20
 msgid "Alias name"
-msgstr "Nome apelido"
+msgstr "Nome do alias"
 
 #: modules/network/network/edit.php:269
 msgid "Also create a related DHCP subnet"
@@ -303,7 +304,7 @@ msgstr "Confirmar"
 #: modules/network/includes/network2.inc.php:538
 msgid "Couldn't determine record parameters. Incorrect ldap data:"
 msgstr ""
-"não pode determinar os parametros para salvar, dados do ldap incorretos: "
+"Não foi possível determinar os parâmetros de gravação. Dados ldap incorretos:"
 
 #: modules/network/network/edithost.php:162
 #: modules/network/network/subnetedithost.php:291
@@ -348,7 +349,7 @@ msgstr "Valor do digest personalizado fora do intervalo"
 
 #: modules/network/network/dnsrecords/sshfp.php:94
 msgid "Custom fingerprint type"
-msgstr "Impressão digital personalizada."
+msgstr "Impressão digital personalizada"
 
 #: modules/network/network/dnsrecords/key.php:148
 msgid "Custom protocol"
@@ -524,11 +525,11 @@ msgstr "Data"
 
 #: modules/network/includes/network2.inc.php:187
 msgid "Day: "
-msgstr "Dia:"
+msgstr "Dia: "
 
 #: modules/network/includes/network2.inc.php:241
 msgid "Days: "
-msgstr "Dias:"
+msgstr "Dias: "
 
 #: modules/network/network/subnetedit.php:347
 msgid "Default lease time"
@@ -547,7 +548,7 @@ msgstr ""
 
 #: modules/network/network/dnsrecords/loc.php:301
 msgid "Degr.: "
-msgstr "Der.:"
+msgstr "Degr.: "
 
 #: modules/network/includes/auditCodes.php:45
 msgid "Del host"
@@ -816,9 +817,9 @@ msgid ""
 "'smtp' the name of your mail server. The host 'smtp' must exists in the zone "
 "(A record)."
 msgstr ""
-"Exemplo: <strong> 10 smtp </ strong> <br /> Onde '10 'é a prioridade e' smtp "
-"'o nome do seu servidor de correio. 'Smtp' O host deve existir na zona "
-"(registro)."
+"Exemplo: <strong> 10 smtp </ strong> <br /> Onde '10 ' é a prioridade e "
+"'smtp' o nome do seu servidor de correio. O servidor 'Smtp' deve existir na "
+"zona (registro)."
 
 #: modules/network/network/dnsrecords/kx.php:30
 #: modules/network/network/dnsrecords/kx.php:53
@@ -936,11 +937,11 @@ msgstr "Aliás de nome de hosts"
 
 #: modules/network/includes/network2.inc.php:188
 msgid "Hour: "
-msgstr "Hora:"
+msgstr "Hora: "
 
 #: modules/network/includes/network2.inc.php:241
 msgid "Hours: "
-msgstr "Horas:"
+msgstr "Horas: "
 
 #: modules/network/network/servicedhcpfailover.php:175
 msgid ""
@@ -1053,7 +1054,7 @@ msgstr "isso tem que ser um nome relativo (ex: %s) ou %s"
 #: modules/network/includes/network2.inc.php:514
 #, php-format
 msgid "It should be relative name (e.g., %s) or FQDN (e.g., %s)"
-msgstr "isso tem que ser um nome relativo (ex: %s), FQDN (ex: %s) "
+msgstr "Isso deve ser um nome relativo (ex.: %s), ou FQDN (ex: %s)"
 
 #: modules/network/includes/network2.inc.php:502
 #, php-format
@@ -1190,7 +1191,7 @@ msgstr "Membros da zona %s"
 #: modules/network/includes/network2.inc.php:188
 #: modules/network/network/dnsrecords/loc.php:302
 msgid "Min.: "
-msgstr "Min:"
+msgstr "Min.: "
 
 #: modules/network/network/dnsrecords/soa.php:76
 #: modules/network/network/dnsrecords/soa.php:107
@@ -1207,7 +1208,7 @@ msgstr "Tempo mínimo em segundos que será assinalado a uma concessão."
 
 #: modules/network/includes/network2.inc.php:242
 msgid "Minutes: "
-msgstr "Minutos:"
+msgstr "Minutos: "
 
 #: modules/network/includes/auditCodes.php:41
 msgid "Modify record"
@@ -1215,7 +1216,7 @@ msgstr "Modificar registro"
 
 #: modules/network/includes/network2.inc.php:187
 msgid "Month: "
-msgstr "Mes:"
+msgstr "Mês: "
 
 #: modules/network/includes/network2.inc.php:465
 #: modules/network/network/ajaxSubnetFilter.php:32
@@ -1565,7 +1566,7 @@ msgstr "Reiniciar serviço DNS"
 
 #: modules/network/network/services.php:43
 msgid "Restart service"
-msgstr "Reiniciar serviço"
+msgstr "Reiniciar o serviço"
 
 #: modules/network/network/subnetedit.php:238
 msgid "Routers"
@@ -1595,7 +1596,7 @@ msgstr "SPKI certificado"
 #: modules/network/includes/network2.inc.php:188
 #: modules/network/network/dnsrecords/loc.php:303
 msgid "Sec.: "
-msgstr "Seg:"
+msgstr "Seg.: "
 
 #: modules/network/network/servicedhcpfailover.php:161
 msgid "Secondary DHCP IP address"
@@ -1615,7 +1616,7 @@ msgstr "Servidores secundários de nomes"
 
 #: modules/network/includes/network2.inc.php:242
 msgid "Seconds: "
-msgstr "Segundos:"
+msgstr "Segundos: "
 
 #: modules/network/network/dnsrecords/soa.php:78
 #: modules/network/network/dnsrecords/soa.php:108
@@ -1671,7 +1672,7 @@ msgstr "Configurar confirmação do host"
 
 #: modules/network/includes/auditCodes.php:43
 msgid "Set pool range"
-msgstr "Set pool range"
+msgstr "Configurar pool range"
 
 #: modules/network/includes/auditCodes.php:33
 msgid "Set subnet"
@@ -1903,8 +1904,8 @@ msgid ""
 "The Fingerprint MUST be represented as a sequence of case-insensitive "
 "hexadecimal digits"
 msgstr ""
-"A impressão digital deve ser representada com seqüência de dígitos "
-"hexadecimais maiúsculas e minúsculas "
+"A impressão digital DEVE ser representada com sequência de dígitos "
+"hexadecimais maiúsculas e minúsculas"
 
 #: modules/network/network/subnetedithost.php:110
 #, php-format
@@ -2020,7 +2021,7 @@ msgstr "Foi solicitada a recarga do serviço."
 
 #: modules/network/network/servicerestart.php:31
 msgid "The service has been asked to restart."
-msgstr "Foi solicitado o reinício do serviço."
+msgstr "O serviço solicitou reiniciar."
 
 #: modules/network/network/servicestart.php:31
 msgid "The service has been asked to start."
@@ -2102,8 +2103,7 @@ msgstr "Intervalo de tempo que a zona deve ser atualizada"
 msgid ""
 "Time interval that should elapse before a failed refresh should be retried"
 msgstr ""
-"Intervalo de tempo para tentar atualizar novamente um atualização mal "
-"sucedida."
+"Intervalo de tempo para tentar executar novamente um atualização mal sucedida"
 
 #: modules/network/network/subnetedithost.php:276
 #: modules/network/network/subnetedit.php:324
@@ -2233,7 +2233,7 @@ msgstr "X.509 como por PKIX"
 
 #: modules/network/includes/network2.inc.php:187
 msgid "Year: "
-msgstr "Ano:"
+msgstr "Ano: "
 
 #: modules/network/network/dnsrecords/key.php:235
 #: modules/network/network/dnsrecords/key.php:236
@@ -2251,7 +2251,7 @@ msgstr ""
 
 #: modules/network/network/servicedhcpfailover.php:52
 msgid "You must restart DHCP services."
-msgstr "Você precisa reiniciar o serviço DHCP"
+msgstr "Você precisa reiniciar os serviços DHCP."
 
 #: modules/network/network/deletehost.php:38
 #, php-format
@@ -2280,7 +2280,7 @@ msgstr "Você vai remover o host %s da sub-rede DHCP."
 
 #: modules/network/network/edit.php:276
 msgid "Your zone name will be resolved to this IP address."
-msgstr "O nome da sua zona que será resolvido por este endereço de IP"
+msgstr "O nome da sua zona que será resolvido por este endereço de IP."
 
 #: modules/network/network/dnsrecords/key.php:317
 msgid "Zone"
@@ -2290,8 +2290,8 @@ msgstr "Zona"
 #: modules/network/network/deleterecord.php:41
 msgid "Zone data was updated. Selected record may be incorrect."
 msgstr ""
-"Os dados da zona foram atualizados. talvez o registro marcado esteja "
-"incorreto. "
+"Os dados da zona foram atualizados. Talvez o registro marcado esteja "
+"incorreto."
 
 #: modules/network/network/dnsrecords/soa.php:58
 msgid "Zone name"
