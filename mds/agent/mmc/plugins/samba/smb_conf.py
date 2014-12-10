@@ -562,16 +562,15 @@ class SambaConf:
         @return: list of administrator groups of the share
         """
         adminusers = self.getContent(name, "admin users")
+        translation_table = dict.fromkeys(map(ord, '"@&+'), None)
         ret = []
         if adminusers:
             for item in adminusers.split(","):
-                item = item.strip().strip('"')
-                if item.startswith("+"):
-                    item = item[1:]
-                    # Remove the SAMBA domain part
-                    if "\\" in item:
-                        item = item.split("\\")[1]
-                    ret.append(item)
+                item = item.strip().translate(translation_table)
+                # Remove the SAMBA domain part
+                if "\\" in item:
+                    item = item.split("\\")[1]
+                ret.append(item)
         return ret
 
     def isBrowseable(self, name):
