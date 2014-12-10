@@ -10,14 +10,16 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
 "POT-Creation-Date: 2014-10-27 01:05+0100\n"
-"PO-Revision-Date: 2014-09-10 20:19+0000\n"
-"Last-Translator: Andre Machado <andre@mandriva.com>\n"
-"Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/projects/p/mds/team/pt_BR/)\n"
+"PO-Revision-Date: 2014-12-10 17:09+0200\n"
+"Last-Translator: Andre <andre@mandriva.com>\n"
+"Language-Team: Portuguese (Brazil) "
+"<http://translate.mandriva.com/projects/mds-26/shorewall/pt_BR/>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/shorewall/includes/functions.inc.php:25
 msgid "Internal"
@@ -121,7 +123,7 @@ msgstr "Remover"
 #: modules/shorewall/shorewall/delete_masquerade_rule.php:40
 #: modules/shorewall/shorewall/delete_rule.php:42
 msgid "Cancel"
-msgstr "Cancela"
+msgstr "Cancelar"
 
 #: modules/shorewall/shorewall/localSidebar.php:32
 #: modules/shorewall/infoPackage.inc.php:45
@@ -322,5 +324,3 @@ msgstr "Regras"
 #: modules/shorewall/infoPackage.inc.php:35
 msgid "Firewall management"
 msgstr "Gerenciamento do Firewall"
-
-
