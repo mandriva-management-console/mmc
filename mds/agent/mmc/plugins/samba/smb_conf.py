@@ -421,10 +421,9 @@ class SambaConf:
                 name = '"' + name + '"'
             return name
 
-        if '@all' in perms['rwx']:
+        if 'rwx' in perms and '@all' in perms['rwx']:
             tmpInsert['public'] = 'yes'
             tmpInsert['writeable'] = 'yes'
-            shlaunch("setfacl -b %s" % path)
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
         else:
             tmpInsert['public'] = 'no'
@@ -481,8 +480,10 @@ class SambaConf:
             else:
                 logger.error("Cannot save ACL on folder " + path)
 
-            tmpInsert['valid users'] = ', '.join(map(sanitize_name, reduce(operator.add, [j for p, j in perms.items()])))
-            tmpInsert['write list'] = ', '.join(map(sanitize_name, reduce(operator.add, [j for p, j in perms.items() if 'w' in p])))
+            tmpInsert['valid users'] = ', '.join(map(sanitize_name,
+                reduce(operator.add, [j for p, j in perms.items()], [])))
+            tmpInsert['write list'] = ', '.join(map(sanitize_name,
+                reduce(operator.add, [j for p, j in perms.items() if 'w' in p], [])))
 
         # Set the anti-virus plugin if available
         if av:
@@ -493,8 +494,10 @@ class SambaConf:
             # need to add '@'
             admingroups = map(lambda g: '@' + g, admingroups)
             tmpInsert["admin users"] = ", ".join(map(sanitize_name, admingroups))
-            # include admin users in valid users list !
-            tmpInsert['valid users'] = tmpInsert['valid users'] + ', ' + tmpInsert["admin users"]
+            # include admin users in valid users list and write list
+            if tmpInsert['writeable'] == 'no':
+                tmpInsert['valid users'] = tmpInsert['valid users'] + ', ' + tmpInsert["admin users"]
+                tmpInsert['write list'] = tmpInsert['write list'] + ', ' + tmpInsert["admin users"]
 
         self.config[name] = tmpInsert
 
@@ -562,16 +565,15 @@ class SambaConf:
         @return: list of administrator groups of the share
         """
         adminusers = self.getContent(name, "admin users")
+        translation_table = dict.fromkeys(map(ord, '"@&+'), None)
         ret = []
         if adminusers:
             for item in adminusers.split(","):
-                item = item.strip().strip('"')
-                if item.startswith("+"):
-                    item = item[1:]
-                    # Remove the SAMBA domain part
-                    if "\\" in item:
-                        item = item.split("\\")[1]
-                    ret.append(item)
+                item = item.strip().translate(translation_table)
+                # Remove the SAMBA domain part
+                if "\\" in item:
+                    item = item.split("\\")[1]
+                ret.append(item)
         return ret
 
     def isBrowseable(self, name):
