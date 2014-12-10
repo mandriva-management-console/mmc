@@ -9,14 +9,16 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
 "POT-Creation-Date: 2014-10-27 01:05+0100\n"
-"PO-Revision-Date: 2013-06-05 13:00+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
-"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/team/fr_FR/)\n"
+"PO-Revision-Date: 2014-12-10 17:09+0200\n"
+"Last-Translator: Jean-François <jfmorcillo@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/shorewall/fr_FR/>\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/shorewall/includes/functions.inc.php:25
 msgid "Internal"
@@ -239,8 +241,8 @@ msgstr "IP(s) source"
 #: modules/shorewall/shorewall/dnat_rules.php:209
 msgid "Allow connection from IP(s) address(es) (separate IPs with ',')."
 msgstr ""
-"Autoriser la connexion depuis les adresses IP (séparer les adresses IPs avec"
-" ',')"
+"Autoriser la connexion depuis les adresses IP (séparer les adresses IPs avec "
+"',')."
 
 #: modules/shorewall/shorewall/dnat_rules.php:225
 #: modules/shorewall/shorewall/dnat_rules.php:228
@@ -268,7 +270,7 @@ msgid ""
 "port(s)"
 msgstr ""
 "Si non spécifié, les ports de destination seront les même que les ports "
-"source."
+"source"
 
 #: modules/shorewall/shorewall/dnat_rules.php:245
 #: modules/shorewall/shorewall/rules.php:157
@@ -324,5 +326,3 @@ msgstr "Règles"
 #: modules/shorewall/infoPackage.inc.php:35
 msgid "Firewall management"
 msgstr "Gestion du firewall"
-
-
