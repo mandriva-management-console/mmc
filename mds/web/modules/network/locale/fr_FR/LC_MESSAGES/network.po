@@ -11,10 +11,10 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-10 17:04+0200\n"
-"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
-"Language-Team: French <http://translate.mandriva.com/projects/mds-26/network/"
-"fr_FR/>\n"
+"PO-Revision-Date: 2014-12-10 18:48+0200\n"
+"Last-Translator: Jean-François <jfmorcillo@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/network/fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -238,7 +238,7 @@ msgstr "Fait autorité"
 
 #: modules/network/network/subnetedit.php:264
 msgid "Automatic proxy configuration URL (PAC)."
-msgstr "URL de configuration automatique du proxy (PAC)"
+msgstr "URL de configuration automatique du proxy (PAC)."
 
 #: modules/network/network/subnetedit.php:224
 msgid "Broadcast address"
@@ -725,7 +725,7 @@ msgstr "Plage(s) d'adresses dynamique pour les clients DHCP inconnus"
 
 #: modules/network/network/subnetedit.php:379
 msgid "Dynamic pools"
-msgstr "Plages "
+msgstr "Plages"
 
 #: modules/network/network/dnsrecords/loc.php:362
 msgid "E"
@@ -830,11 +830,11 @@ msgstr "Temps d'expiration"
 
 #: modules/network/network/servicedhcpfailover.php:78
 msgid "Failed to disable the failover configuration."
-msgstr "Échec de la désactivation de la tolérance de panne"
+msgstr "Échec de la désactivation de la tolérance de panne."
 
 #: modules/network/network/servicedhcpfailover.php:55
 msgid "Failed to update the failover configuration."
-msgstr "Échec de la mise à jour de la tolérance de panne"
+msgstr "Échec de la mise à jour de la tolérance de panne."
 
 #: modules/network/network/servicedhcpfailover.php:76
 msgid "Failover configuration disabled."
@@ -1002,7 +1002,7 @@ msgstr ""
 "Si coché, cette clé est autorisée pour attacher, détacher, et déplacer des "
 "zones en créant et supprimant des enregistrements type NS, glue A, et zone. "
 "Si décochée, cette clé ne peut pas être utilisée pour réaliser des mises à "
-"jour affectant ce type d'enregistrements."
+"jour affectant ce type d'enregistrements"
 
 #: modules/network/network/subnetedit.php:231
 msgid ""
@@ -1107,8 +1107,8 @@ msgid ""
 "Length of time for which a lease may be renewed by either failover peer "
 "without contacting the other"
 msgstr ""
-"Durée pendant laquelle un bail peut être renouvellé par un des hôtes sans "
-"contact de l'autre."
+"Durée pendant laquelle un bail peut être renouvelé par un des hôtes sans "
+"contact de l'autre"
 
 #: modules/network/network/subnetedit.php:235
 msgid "Links the subnet to a DNS zone"
@@ -1116,7 +1116,7 @@ msgstr "Lie le sous-réseau à une zone DNS"
 
 #: modules/network/network/subnetedit.php:240
 msgid "List of routers (gateways) on client's subnet."
-msgstr "Liste des routeurs (passerelles) du sous-réseau"
+msgstr "Liste des routeurs (passerelles) du sous-réseau."
 
 #: modules/network/network/dnsrecords/loc.php:72
 #: modules/network/network/dnsrecords/loc.php:155
@@ -1594,7 +1594,7 @@ msgstr "Certificat SPKI"
 #: modules/network/includes/network2.inc.php:188
 #: modules/network/network/dnsrecords/loc.php:303
 msgid "Sec.: "
-msgstr "Sec.: "
+msgstr "Sec. : "
 
 #: modules/network/network/servicedhcpfailover.php:161
 msgid "Secondary DHCP IP address"
@@ -1795,7 +1795,7 @@ msgstr "Statique"
 
 #: modules/network/network/services.php:79
 msgid "Status"
-msgstr "État"
+msgstr "Statut"
 
 #: modules/network/includes/auditCodes.php:50
 msgid "Stop DHCP service"
@@ -1866,7 +1866,7 @@ msgstr "Texte"
 
 #: modules/network/network/dnsrecords/txt.php:13
 msgid "Text field can't be empty"
-msgstr "Le champs texte ne peut pas être vide."
+msgstr "Le champs texte ne peut pas être vide"
 
 #: modules/network/network/edit.php:114
 msgid "The DHCP and DNS services must be restarted."
@@ -1899,7 +1899,7 @@ msgid ""
 "digits"
 msgstr ""
 "Le digest DOIT être représenté sous la forme d'une séquence de caractères "
-"hexadécimaux insensibles à la casse."
+"hexadécimaux insensibles à la casse"
 
 #: modules/network/network/dnsrecords/sshfp.php:122
 msgid ""
@@ -1907,7 +1907,7 @@ msgid ""
 "hexadecimal digits"
 msgstr ""
 "L'empreinte DOIT être représenté sous la forme d'une séquence de caractères "
-"hexadécimaux insensibles à la casse."
+"hexadécimaux insensibles à la casse"
 
 #: modules/network/network/subnetedithost.php:110
 #, php-format
@@ -1920,7 +1920,7 @@ msgstr "L'URL du certificat SPKI"
 
 #: modules/network/network/dnsrecords/cert.php:193
 msgid "The URL of an X.509 data object"
-msgstr "L'URL d'un objet de données X.509 "
+msgstr "L'URL d'un objet de données X.509"
 
 #: modules/network/network/dnsrecords/cert.php:197
 msgid "The URL of attribute certificate"
@@ -1945,7 +1945,7 @@ msgid ""
 "name already exists:"
 msgstr ""
 "Les alias suivants n'ont pas été positionnés car un enregistrement DNS avec "
-"le même nom existe déjà:"
+"le même nom existe déjà :"
 
 #: modules/network/network/subnetedit.php:59
 #: modules/network/network/edit.php:102
@@ -1962,7 +1962,7 @@ msgstr "L'hôte a été supprimé."
 
 #: modules/network/network/deletehost.php:43
 msgid "The linked CNAME records will also be deleted:"
-msgstr "Les enregistrements CNAME associés seront aussi supprimés."
+msgstr "Les enregistrements CNAME associés seront aussi supprimés :"
 
 #: modules/network/network/edit.php:248
 msgid ""
@@ -2051,7 +2051,7 @@ msgstr "L'adresse IP spécifiée est déjà enregistrée dans la zone."
 #: modules/network/network/subnetedithost.php:87
 #, php-format
 msgid "The specified IP address has been already registered in DNS zone %s."
-msgstr "L'adresse IP spécifiée est déjà enregistrée dans la zone DNS %s"
+msgstr "L'adresse IP spécifiée est déjà enregistrée dans la zone DNS %s."
 
 #: modules/network/network/subnetedithost.php:72
 #: modules/network/network/subnetedithost.php:97
@@ -2261,7 +2261,7 @@ msgstr "Vous devez redémarrer les services DHCP."
 #: modules/network/network/deletehost.php:38
 #, php-format
 msgid "You will delete the %s record"
-msgstr "Vous allez supprimer l'hôte %s."
+msgstr "Vous allez supprimer l'hôte %s"
 
 #: modules/network/network/deleterecord.php:59
 #, php-format
