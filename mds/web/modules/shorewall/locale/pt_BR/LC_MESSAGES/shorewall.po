@@ -10,10 +10,10 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-10 17:09+0200\n"
+"PO-Revision-Date: 2014-12-10 21:46+0200\n"
 "Last-Translator: Andre <andre@mandriva.com>\n"
-"Language-Team: Portuguese (Brazil) <http://translate.mandriva.com/projects/"
-"mds-26/shorewall/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) "
+"<http://translate.mandriva.com/projects/mds-26/shorewall/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "Todos"
 
 #: modules/shorewall/shorewall/dnat_rules.php:209
 msgid "Allow connection from IP(s) address(es) (separate IPs with ',')."
-msgstr "Permite conexões dos endereço(s) IP(s) (separados com ','). "
+msgstr "Permite conexões dos endereço(s) IP(s) (IPs separados com ',')."
 
 #: modules/shorewall/shorewall/delete_dnat_rule.php:42
 #: modules/shorewall/shorewall/delete_masquerade_rule.php:40
@@ -258,7 +258,7 @@ msgstr "O protocolo e a porta precisam ser especificados."
 
 #: modules/shorewall/shorewall/masquerade.php:34
 msgid "Provide internet access to internal network(s)."
-msgstr "Provê acesso da Internet pra a rede(s) interna"
+msgstr "Provê acesso da Internet pra a rede(s) interna(s)."
 
 #: modules/shorewall/infoPackage.inc.php:125
 #: modules/shorewall/shorewall/masquerade.php:94
@@ -270,7 +270,7 @@ msgstr "Reiniciar o serviço"
 #: modules/shorewall/shorewall/rules.php:98
 #: modules/shorewall/shorewall/dnat_rules.php:89
 msgid "Rule added."
-msgstr "Regra adicionada"
+msgstr "Regra adicionada."
 
 #: modules/shorewall/shorewall/rules.php:151
 msgid "Rules"
@@ -336,7 +336,7 @@ msgstr "A regra ja foi removida."
 
 #: modules/shorewall/shorewall/restart_service.php:26
 msgid "The service has been asked to restart."
-msgstr "O serviço foi solicitado a reiniciar."
+msgstr "O serviço solicitou reiniciar."
 
 #: modules/shorewall/includes/functions.inc.php:32
 msgid "Unknow"
