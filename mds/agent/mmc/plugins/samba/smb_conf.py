@@ -421,10 +421,9 @@ class SambaConf:
                 name = '"' + name + '"'
             return name
 
-        if '@all' in perms['rwx']:
+        if 'rwx' in perms and '@all' in perms['rwx']:
             tmpInsert['public'] = 'yes'
             tmpInsert['writeable'] = 'yes'
-            shlaunch("setfacl -b %s" % path)
             os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
         else:
             tmpInsert['public'] = 'no'
@@ -481,8 +480,10 @@ class SambaConf:
             else:
                 logger.error("Cannot save ACL on folder " + path)
 
-            tmpInsert['valid users'] = ', '.join(map(sanitize_name, reduce(operator.add, [j for p, j in perms.items()])))
-            tmpInsert['write list'] = ', '.join(map(sanitize_name, reduce(operator.add, [j for p, j in perms.items() if 'w' in p])))
+            tmpInsert['valid users'] = ', '.join(map(sanitize_name,
+                reduce(operator.add, [j for p, j in perms.items()], [])))
+            tmpInsert['write list'] = ', '.join(map(sanitize_name,
+                reduce(operator.add, [j for p, j in perms.items() if 'w' in p], [])))
 
         # Set the anti-virus plugin if available
         if av:
