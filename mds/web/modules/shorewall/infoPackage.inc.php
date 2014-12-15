@@ -30,7 +30,7 @@ $lan_zones = getShorewallZones($zones_types['internal']);
 $wan_zones = getShorewallZones($zones_types['external']);
 
 $mod = new Module("shorewall");
-$mod->setVersion("2.5.1");
+$mod->setVersion("2.5.82");
 $mod->setRevision('');
 $mod->setDescription(_T("Firewall management", "shorewall"));
 $mod->setAPIVersion("0:0:0");
@@ -93,6 +93,19 @@ $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 
 $page = new Page("delete_external_internal_rule");
+$page->setOptions(array("visible" => False, "AJAX" => True));
+$submod->addPage($page);
+
+$page = new Page("internal_internal", _T("Internal &rarr; Internal", "shorewall"));
+$submod->addPage($page);
+if (count($lan_zones) <= 1)
+    $page->setOptions(array("visible" => False));
+
+$page = new Page("ajax_internal_internal");
+$page->setOptions(array("visible" => False, "AJAX" => True));
+$submod->addPage($page);
+
+$page = new Page("delete_internal_internal_rule");
 $page->setOptions(array("visible" => False, "AJAX" => True));
 $submod->addPage($page);
 

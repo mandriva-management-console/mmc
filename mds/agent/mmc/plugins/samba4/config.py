@@ -21,29 +21,37 @@
 #   Julien Kerihuel <jkerihuel@zentyal.com>
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
-
+from ConfigParser import NoOptionError
 from mmc.support.config import PluginConfig
 
 
 class Samba4Config(PluginConfig):
+    def __init__(self, name="samba4"):
+        # Default values
+        self.samba_prefix = "/usr"
+        self.conf_file = "/etc/samba/smb.conf"
+        self.db_dir = "/var/lib/samba"
+        self.defaultSharesPath = "/home/samba"
+        self.authorizedSharePaths = [self.defaultSharesPath]
+        PluginConfig.__init__(self, name)
 
     def readConf(self):
         PluginConfig.readConf(self)
 
         try:
             self.samba_prefix = self.get("main", "sambaPrefix")
-        except:
+        except NoOptionError:
             pass
 
         try:
             self.conf_file = self.get("main", "sambaConfFile")
-        except:
+        except NoOptionError:
             pass
 
-#         try:
-#             self.init_script = self.get("main", "sambaInitScript")
-#         except:
-#             pass
+        try:
+            self.db_dir = self.get("main", "sambaDBDir")
+        except NoOptionError:
+            pass
 
         self.defaultSharesPath = self.get("main", "defaultSharesPath")
 
@@ -51,9 +59,9 @@ class Samba4Config(PluginConfig):
             listSharePaths = self.get("main", "authorizedSharePaths")
             self.authorizedSharePaths = listSharePaths.replace(' ',
                                                                '').split(',')
-        except:
+        except NoOptionError:
             self.authorizedSharePaths = [self.defaultSharesPath]
 
-    def setDefault(self):
-        self.samba4_conf_file = '/etc/smb.conf'
+#    def setDefault(self):
+#        self.samba4_conf_file = '/etc/smb.conf'
         #self.samba4_init_script = '/etc/rc.d/init.d/samba4'

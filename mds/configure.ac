@@ -23,7 +23,7 @@ AC_PREREQ(2.59)
 dnl autoconf initialization
 define([project], [mds])
 define([gitversion], esyscmd([sh -c "which git > /dev/null && git describe | sed -e 's/]project[-\([^-]\+\)//' | tr -d '\n' || true"]))dnl
-AC_INIT(project, [2.5.1], [http://projects.mandriva.org/projects/mmc])
+AC_INIT(project, [2.5.82], [http://projects.mandriva.org/projects/mmc])
 AC_DEFINE(GITVERSION, "gitversion", [Git version])
 
 AC_CANONICAL_BUILD
@@ -70,6 +70,15 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
 dnl
+dnl --enable-systemd
+dnl   Install systemd services instead of init scripts
+dnl
+AC_ARG_ENABLE([systemd],
+              [AS_HELP_STRING([--enable-systemd],
+                              [Install systemd services @<:@default=disable@:>@])])
+AM_CONDITIONAL([ENABLE_SYSTEMD], [test "$enable_systemd" = "yes"])
+
+dnl
 dnl --disable-conf
 dnl   Disable configuration files installation
 dnl
@@ -103,6 +112,18 @@ AC_ARG_WITH([initdir],
             [initdir="${sysconfdir}/init.d"])
 AC_SUBST([initdir])
 
+dnl
+dnl --with-systemddir
+dnl   Set path to systemd services directory
+dnl   Default to /lib/systemd/system
+dnl
+AC_ARG_WITH([systemddir],
+            [AS_HELP_STRING([--with-systemddir],
+                            [path to systemd services directory @<:@default=/lib/systemd/system@:>@])],
+            [systemddir="$withval"],
+	    [systemddir="/lib/systemd/system"])
+AC_SUBST([systemddir])
+
 dnl files to generate with automake
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([agent/Makefile])
@@ -124,6 +145,7 @@ AC_CONFIG_FILES([web/modules/sshlpk/Makefile])
 AC_CONFIG_FILES([web/modules/userquota/Makefile])
 AC_CONFIG_FILES([web/modules/shorewall/Makefile])
 AC_CONFIG_FILES([web/modules/squid/Makefile])
+AC_CONFIG_FILES([web/modules/radius/Makefile])
 AC_CONFIG_FILES([tests/Makefile])
 AC_CONFIG_FILES([tests/scripts/Makefile])
 AC_CONFIG_FILES([tests/selenium/Makefile])

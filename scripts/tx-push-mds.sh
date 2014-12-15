@@ -18,7 +18,7 @@ test -d .tx || tx init --host=https://transifex.mandriva.com
 
 args=$@
 
-modules="bulkimport mail network proxy samba sshlpk userquota shorewall squid"
+modules="bulkimport mail network proxy samba sshlpk userquota shorewall squid radius"
 
 for mod in $modules
 do

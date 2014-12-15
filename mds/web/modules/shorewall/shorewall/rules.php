@@ -24,6 +24,8 @@ require("modules/shorewall/includes/functions.inc.php");
 require("modules/shorewall/shorewall/localSidebar.php");
 require("graph/navbar.inc.php");
 
+global $errorStatus;
+
 // Handle form return
 
 if (isset($_POST['bpolicy'])) {
@@ -98,6 +100,7 @@ if (isset($_POST['brule'])) {
                 redirectTo(urlStrRedirect("shorewall/shorewall/" . $page));
             }
             else {
+                $errorStatus = false;
                 new NotifyWidgetFailure(_T("Failed to add the rule."));
             }
         }
@@ -227,7 +230,7 @@ $protoTpl->setElementsVal(array("", "tcp", "udp"));
 
 $f->add(new TrFormElement(_T("Protocol"), $protoTpl));
 $f->add(
-        new TrFormElement(_T("Port(s)"), new InputTpl("port", "/^[0-9:,]+$/"),
+        new TrFormElement(_T("Port(s)"), new InputTpl("port", "/^([0-9:,]{1,4}|[1-5][0-9:,]{4}|6[0-4][0-9:,]{3}|65[0-4][0-9:,]{2}|655[0-2][0-9:,]|6553[0-5:,])+$/"),
                           array("tooltip" => _T("You can specify multiple ports using ',' as separator (eg: 22,34,56). Port ranges can be defined with ':' (eg: 3400:3500 - from port 3400 to port 3500)."))),
         array("value" => "")
 );

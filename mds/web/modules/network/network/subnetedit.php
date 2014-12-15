@@ -129,6 +129,12 @@ if (!isset($error) && (isset($_POST["badd"]) || (isset($_POST["bedit"])))) {
             $value = str_replace(" ", ",", $value);
         if (in_array($name, array("domain-name-servers")))
             $value = str_replace(" ", "", $value);
+        if (in_array($name, array("local-pac-server"))) {
+            if (!startswith($value, '"'))
+                $value = '"' . $value;
+            if (!endswith($value, '"'))
+                $value = $value . '"';
+        }
         setSubnetOption($subnet, $name, $value);
     }
 

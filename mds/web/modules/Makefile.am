@@ -20,4 +20,4 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-SUBDIRS = bulkimport mail network proxy samba samba4 sshlpk userquota shorewall squid
+SUBDIRS = bulkimport mail network proxy samba samba4 sshlpk userquota shorewall squid radius

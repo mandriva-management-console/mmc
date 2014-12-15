@@ -39,7 +39,7 @@ from mmc.plugins.samba.smb_ldap import SambaLDAP
 
 logger = logging.getLogger()
 
-VERSION = "2.5.1"
+VERSION = "2.5.82"
 APIVERSION = "5:3:4"
 REVISION = scmRevision("$Rev$")
 
@@ -239,14 +239,14 @@ def setDomainPolicy():
 def isBrowseable(name):
     return SambaConf(SambaConfig("samba").samba_conf_file).isBrowseable(name)
 
-def addShare(name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = 0, customparameters = None):
+def addShare(name, path, comment, perms, admingroups, recursive=True, browseable=True, av=0, customparameters=None):
     smbObj = SambaConf(SambaConfig("samba").samba_conf_file)
-    smbObj.addShare(name, path, comment, usergroups, users, permAll, admingroups, browseable, av, customparameters)
+    smbObj.addShare(name, path, comment, perms, admingroups, recursive, browseable, av, customparameters)
     smbObj.save()
 
-def modShare(name, path, comment, usergroups, users, permAll, admingroups, browseable = True, av = 0, customparameters = None):
+def modShare(name, path, comment, perms, admingroups, recursive=True, browseable = True, av = 0, customparameters = None):
     smbObj = SambaConf(SambaConfig("samba").samba_conf_file)
-    smbObj.addShare(name, path, comment, usergroups, users, permAll, admingroups, browseable, av, customparameters, True)
+    smbObj.addShare(name, path, comment, perms, admingroups, recursive, browseable, av, customparameters, True)
     smbObj.save()
 
 def delShare(name, file):

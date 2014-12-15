@@ -21,7 +21,7 @@
 pluginconfdir = $(sysconfdir)/mmc/plugins
 
 if ENABLE_CONF
-dist_pluginconf_DATA = mail.ini sshlpk.ini userquota.ini bulkimport.ini shorewall.ini
+dist_pluginconf_DATA = mail.ini sshlpk.ini userquota.ini bulkimport.ini shorewall.ini radius.ini
 nodist_pluginconf_DATA = samba.ini samba4.ini network.ini proxy.ini squid.ini
 endif
 
@@ -64,7 +64,7 @@ network.ini: Makefile
 	    sed -i 's!/var/run/dhcpd.pid!/var/run/dhcpd/dhcpd.pid!g' $@.tmp && \
 	    sed -i 's!/etc/init.d/isc-dhcp-server!/etc/rc.d/init.d/dhcpd!g' $@.tmp && \
 	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \
-	    sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcp/dhcpd.leases!g' $@.tmp && \
+	    sed -i 's!/var/lib/dhcp/dhcpd.leases!/var/lib/dhcpd/dhcpd.leases!g' $@.tmp && \
 	    sed -i 's!/var/run/named/named.pid!/var/lib/named/var/run/named.pid!g' $@.tmp && \
 	    sed -i 's!/etc/init.d/bind9!/etc/rc.d/init.d/named!g' $@.tmp && \
 	    sed -i 's!/var/log/syslog!/var/log/messages!g' $@.tmp && \

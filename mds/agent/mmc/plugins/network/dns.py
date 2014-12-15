@@ -29,6 +29,7 @@ import os.path
 import time
 import ldap
 import urllib
+import logging
 
 from mmc.plugins.base import ldapUserGroupControl, LogView
 from tools import ipNext
@@ -36,6 +37,10 @@ from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.network.audit import AT, AA, PLUGIN_NAME
+
+
+logger = logging.getLogger()
+
 
 class Dns(ldapUserGroupControl):
 
@@ -244,21 +249,30 @@ zone "%(zone)s" {
         Add record to ldap
         """
         data = self.getZoneData(zoneName, "")
+        zoneDN = data[0][0]
+        zoneDomain = ldap.dn.str2dn(zoneDN)[2][0][1]
         key = type.capitalize().swapcase() + "Record"
         fqdn = hostname + "." + zoneName
 
         # check if entry exists in zone
+        added = False
         for entry in data:
             if entry[1][self.relativeDomainNameField][0] == hostname or \
                entry[1][self.relativeDomainNameField][0] == fqdn:
-                return self.addRecordToEntry(zoneName, entry, key, value)
+                added = self.addRecordToEntry(zoneName, entry, key, value)
+                break
 
-        # if entry doesn't exists
-        created = self.createEntryWithRecord(zoneName, hostname, key, value)
-        if created:
+        if not added:
+            # if entry doesn't exists
+            created = self.createEntryWithRecord(zoneName, zoneDomain, hostname, key, value)
+
+        if created or added:
             self.updateZoneSerial(zoneName)
+            return True
 
-    def createEntryWithRecord(self, zoneName, hostname, key, value, dnsClass = "IN"):
+        return False
+
+    def createEntryWithRecord(self, zoneName, zoneDomain, hostname, key, value, dnsClass = "IN"):
         """
         Create new entry with new record into ldap
         """
@@ -271,7 +285,7 @@ zone "%(zone)s" {
                 key : value,
             }
         else:
-            entryDN = "relativeDomainName=" + hostname + "," + "ou=" + zoneName + "," + "ou=" + zoneName + "," + self.configDns.dnsDN
+            entryDN = "relativeDomainName=" + hostname + "," + "ou=" + zoneName + "," + "ou=" + zoneDomain + "," + self.configDns.dnsDN
             entry = {
                 "relativeDomainName" : hostname,
                 "objectClass" : ["top", "dNSZone"],
@@ -309,6 +323,8 @@ zone "%(zone)s" {
         Modify record with specific id
         """
         data = self.getZoneData(zoneName, "")
+        zoneDN = data[0][0]
+        zoneDomain = ldap.dn.str2dn(zoneDN)[2][0][1]
         md = self.getRecordMetadataById(data, id)
         # can't find record
         if not md:
@@ -330,7 +346,7 @@ zone "%(zone)s" {
 
         # Create the entry if it does not exists
         if not found:
-            if not self.createEntryWithRecord(zoneName, hostname, key, value):
+            if not self.createEntryWithRecord(zoneName, zoneDomain, hostname, key, value):
                 return False
 
         # Delete old record
@@ -430,7 +446,8 @@ zone "%(zone)s" {
             elif netmask == 24:
                 network = ".".join(elements[0:3])
             else:
-                raise Exception("Won't create reverse zone as asked, netmask is not 8, 16 or 24")
+                logger.warning("Won't create reverse zone as asked, netmask is not 8, 16 or 24")
+                reverse = False
 
         if not self.pdns:
             # Create Bind configuration files

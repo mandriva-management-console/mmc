@@ -22,7 +22,7 @@
 
 $zones_types = getZonesTypes();
 $src = $zones_types['internal'];
-$dst = "fw";
+$dst = ["fw"];
 $page = "internal_fw";
 include('delete_rule.php');
 

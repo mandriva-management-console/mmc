@@ -8,6 +8,7 @@ $module_audit_codes = array(
     'MAIL_CHANGE_MAIL_BOX' => _T("Change mail box", "mail"),
     'MAIL_CHANGE_MAIL_HOST' => _T("Change mail host", "mail"),
     'MAIL_CHANGE_MAIL_PROXY' => _T("Change mail proxy", "mail"),
+    'MAIL_CHANGE_MAIL_HIDDEN' => _T("Change mail hidden", "mail"),
     'MAIL_CHANGE_MAIL_QUOTA' => _T("Change mail quota", "mail"),
     'MAIL_ADD_MAIL_CLASS' => _T("Add mail attributes", "mail"),
     'MAIL_DEL_MAIL_CLASS' => _T("Del mail attributes", "mail"),

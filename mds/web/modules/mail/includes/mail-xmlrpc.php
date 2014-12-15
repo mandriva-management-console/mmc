@@ -47,6 +47,10 @@ function changeMailproxy($login, $mailproxy) {
     return xmlCall("mail.changeMailproxy", array($login, $mailproxy));
 }
 
+function changeMailhidden($login, $mailhidden) {
+    return xmlCall("mail.changeMailhidden", array($login, $mailhidden));
+}
+
 function changeQuota($login, $mailuserquota) {
     return xmlCall("mail.changeQuota", array($login, $mailuserquota));
 }
@@ -63,8 +67,12 @@ function addMailGroup($group, $mail) {
     return xmlCall("mail.addMailGroup",array($group, $mail));
 }
 
-function getMailGroupAlias() {
-    return xmlCall("mail.getMailGroupAlias", null);
+function changeMailGroupHidden($login, $hidden) {
+    return xmlCall("mail.changeMailGroupHidden", array($login, $hidden));
+}
+
+function getMailGroupAliases() {
+    return xmlCall("mail.getMailGroupAliases", null);
 }
 
 function addMailObjectClass($login) {

@@ -545,12 +545,9 @@ class RecordBase {
 
 function supportedRecordsTypes($filter = "all"){
     $result = array();
-    $all = array("A","CNAME","TXT", "MX","NS","PTR","SOA","SRV","AFSDB","SIG","KEY","AAAA","LOC","NAPTR","KX", "CERT", "DNAME", "DS","SSHFP", "RRSIG", "NSEC", _T("custom","network"));
-    //$addable = array("A","CNAME","TXT", "MX","NS","PTR", "SRV", "custom");
-    $reverse = array("PTR","SRV", "NS", "TXT", "DNAME", "NAPTR",  _T("custom","network"));
-    $direct = array("A", "CNAME", "SRV", "TXT", "MX", "NS", "AFSDB", "SIG","KEY","AAAA","LOC", "NAPTR", "KX", "CERT", "DNAME","DS","SSHFP", "RRSIG","NSEC", _T("custom","network"));
-
-    //$clean_array = array_filter($all, "canAdd");
+    $all = array("A","CNAME","TXT", "MX","NS","PTR","SOA","SRV","AFSDB","SIG","KEY","AAAA","LOC","NAPTR","KX", "CERT", "DNAME", "DS","SSHFP", "RRSIG", "NSEC", "Custom");
+    $reverse = array("PTR","SRV", "NS", "TXT", "DNAME", "NAPTR", "Custom");
+    $direct = array("A", "CNAME", "SRV", "TXT", "MX", "NS", "AFSDB", "SIG","KEY","AAAA","LOC", "NAPTR", "KX", "CERT", "DNAME","DS","SSHFP", "RRSIG","NSEC", "Custom");
 
     switch ($filter){
 	case "all":

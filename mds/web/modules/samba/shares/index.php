@@ -60,13 +60,12 @@ $p->setSideMenu($sidemenu);
 $p->display();
 
 $l = new ListInfos($sharesName, _T("Shares"));
-$l->setCssClass("shareName");
+$l->first_elt_padding = 1;
 $l->addExtraInfo($sharesComment, _T("Description"));
 $l->addActionItemArray($editActions);
 $l->addActionItemArray($delActions);
 
 $l->addActionItem(new ActionPopupItem(_T("Archive"),"backup","backup","share"));
-$l->disableFirstColumnActionLink();
 $l->display();
 
 ?>

@@ -1,11 +1,14 @@
 [Unit]
 Description=Runs s4sync daemon
-After=
+After=samba.service slapd.service
 
 [Service]
 Environment=TERM=linux
-ExecStart=/usr/lib/python2.7/site-packages/mmc/s4sync/s4sync.py
+ExecStart=/usr/bin/python /usr/lib/python2.7/site-packages/mmc/s4sync/s4sync.py start
+ExecStop=/usr/bin/python /usr/lib/python2.7/site-packages/mmc/s4sync/s4sync.py stop
+
 Restart=always
+
 RestartSec=0
 KillMode=process
 

@@ -34,4 +34,5 @@ nobase_dist_contrib_DATA = proxy/squidGuard.conf \
 							network/dnszone.schema \
 							network/named.conf \
 							network/dhcpd.conf \
-							network/dhcp.schema
+							network/dhcp.schema \
+							radius/radius.schema

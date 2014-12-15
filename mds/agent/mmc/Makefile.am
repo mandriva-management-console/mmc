@@ -20,9 +20,11 @@
 # Author(s):
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
-pythonmodules = plugins.samba4 plugins.samba4.templates plugins.samba plugins.mail plugins.network \
+pythonmodules = plugins.samba4 plugins.samba4.templates \
+	plugins.samba plugins.mail plugins.network \
 	plugins.proxy plugins.sshlpk plugins.bulkimport \
-	plugins.userquota plugins.shorewall plugins.squid
+	plugins.userquota plugins.shorewall plugins.squid \
+	plugins.radius
 
 # Expands Python modules list with found *.py files in each module given in pythonmodules
 mmcpythondir = $(pythondir)/$(notdir $(realpath $(srcdir)))

@@ -2,9 +2,7 @@
 
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2009 Mandriva, http://www.mandriva.com
- *
- * $Id$
+ * (c) 2007-2014 Mandriva, http://www.mandriva.com
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -24,20 +22,30 @@
 
 require_once("modules/sshlpk/includes/sshlpk-xmlrpc.php");
 
-/**
- * module declaration
- */
- 
+$MMCApp =& MMCApp::getInstance();
+
 $mod = new Module("sshlpk");
-$mod->setVersion("2.5.1");
+$mod->setVersion("2.5.82");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("LDAP Public SSH key management","sshlpk"));
 $mod->setAPIVersion("0:0:0");
 $mod->setPriority(600);
 
 $mod->addACL("showsshkey", _T("Show/Hide SSH key list", "sshlpk"));
-$mod->addACL("sshkeylist", _T("Manage SSH key", "sshlpk"));
+$mod->addACL("sshkeylist", _T("Manage SSH keys", "sshlpk"));
 
-$MMCApp =& MMCApp::getInstance();
 $MMCApp->addModule($mod);
+
+/* Add the ssh edit page to the users module */
+$page = new Page("sshkeys", _T("Change SSH keys", "sshlpk"));
+$page->setFile("modules/sshlpk/keys/edit.php");
+$page->setImg("modules/base/graph/access/img/icn_global_active.gif",
+              "modules/base/graph/access/img/icn_global.gif");
+if ($_SESSION["login"] == 'root')
+    $page->setOptions(array("visible" => False));
+
+$base = &$MMCApp->getModule('base');
+$users = &$base->getSubmod('users');
+$users->addPage($page);
+
 ?>

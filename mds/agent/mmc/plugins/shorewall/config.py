@@ -25,12 +25,13 @@ MMC services plugin configuration
 from ConfigParser import NoOptionError
 from mmc.support.config import PluginConfig
 
+
 class ShorewallPluginConfig(PluginConfig):
 
     def readConf(self):
         PluginConfig.readConf(self)
-        self.external_zones_names = self.get('main', 'external_zones_names')
-        self.internal_zones_names = self.get('main', 'internal_zones_names')
+        self.external_zones_names = self.get('main', 'external_zones_names').split(" ")
+        self.internal_zones_names = self.get('main', 'internal_zones_names').split(" ")
         try:
             self.path = self.get('main', 'path')
         except NoOptionError:

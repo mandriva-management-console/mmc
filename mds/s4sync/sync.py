@@ -37,6 +37,7 @@ import logging
 
 
 class LdapUserMixin(object):
+
     """Mixin with common CRUD operations for users in LDAP: get user,
     list users, create user from another, delete user, sync fields from another
     user.
@@ -46,7 +47,7 @@ class LdapUserMixin(object):
       * self.user_base_dn
       * self.user_list_filter
       * self.user_pk_field
-      * self.user_timestamp_field
+      * self.timestamp_field
       * self.user_ignore_list
 
     And also the following methods:
@@ -54,14 +55,15 @@ class LdapUserMixin(object):
       * _create_user(self, username, password, name, surname)
         * Create the user in ldap.
       * _format_timestamp(self, timestamp_str)
-        * Format a value of a self.user_timestamp_field attribute returning
+        * Format a value of a self.timestamp_field attribute returning
           a datetime object.
     """
     FIELDS_TO_SYNC = ['displayName', 'givenName', 'sn']
 
     def _get_user(self, username, attrs=['*']):
         entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
-                                  filterstr='(%s=%s)' % (self.user_pk_field, username),
+                                  filterstr='(%s=%s)' % (
+                                      self.user_pk_field, username),
                                   attrlist=attrs)
         if len(entries) == 0:
             return (None, None)
@@ -76,15 +78,17 @@ class LdapUserMixin(object):
         return attrs
 
     def list_users(self):
+        global logger
         entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
                                   filterstr=self.user_list_filter,
-                                  attrlist=[self.user_pk_field, self.user_timestamp_field])
+                                  attrlist=[self.user_pk_field, self.timestamp_field])
         users = {}
         for e in entries:
             user = e[1][self.user_pk_field][0]
             if user not in self.user_ignore_list:
-                timestamp_str = e[1][self.user_timestamp_field][0]
+                timestamp_str = e[1][self.timestamp_field][0]
                 users[user] = self._format_timestamp(timestamp_str)
+        logger.debug('users %s' % users)
         return users
 
     def sync_user_with(self, username, other_ldap):
@@ -110,20 +114,44 @@ class LdapUserMixin(object):
             raise UserNotFound(username, "delete it")
         self.l.delete_s(dn)
 
+    def list_groups(self):
+        entries = self.l.search_s(self.group_base_dn,
+                                  self.group_scope,
+                                  filterstr=self.group_list_filter,
+                                  attrlist=[self.group_pk_field, self.timestamp_field])
+
+        for msg in entries:
+            logger.debug('%s groups:\n    %s', self.__class__.__name__, msg)
+
+        groups = {}
+
+        return groups
+
+    def delete_group(self, name):
+        dn = self._get_group(name)
+        if dn is None:
+            raise GroupNotFound(name)
+        self.l.delete_s(dn)
+
 
 class SambaLdap(LdapUserMixin):
-    LDAP_URI = "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi"
+    LDAP_URI = "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi"
 
     def __init__(self, base_dn):
         self.base_dn = base_dn
-        self.l = ldap.initialize(self.LDAP_URI)
+        self.l = ldap.initialize(self.LDAP_URI,
+                                 trace_level=0)
         self.user_base_dn = "CN=Users,%s" % self.base_dn
         self.user_pk_field = "sAMAccountName"
-        self.user_timestamp_field = "whenChanged"
-        self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(adminCount=*))))'
-        self.user_ignore_list = ['Guest']
+        self.timestamp_field = "whenChanged"
+        self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
+        self.user_ignore_list = ['Guest', 'krbtgt']
+        self.group_base_dn = self.base_dn
+        self.group_list_filter = "(&(objectClass=group))"
+        self.group_pk_field = self.user_pk_field
+        self.group_scope = ldap.SCOPE_SUBTREE
 
-    def _create_user(username, password, name, surname):
+    def _create_user(self, username, password, name, surname):
         SambaAD().createUser(username, password, name, surname)
 
     def _format_timestamp(self, timestamp_str):
@@ -134,12 +162,15 @@ class SambaLdap(LdapUserMixin):
         return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
 
     def get_credentials(self, username):
-        dn, attrs = self._get_user(username, ['unicodePwd', 'supplementalCredentials'])
+        dn, attrs = self._get_user(
+            username, [
+                'unicodePwd', 'supplementalCredentials'])
         if not dn:
             raise UserNotFound(username, "get credentials")
         return (attrs['supplementalCredentials'][0], attrs['unicodePwd'][0])
 
-    def update_credentials_for(self, username, supplemental_credentials, unicode_pwd, timestamp):
+    def update_credentials_for(
+            self, username, supplemental_credentials, unicode_pwd, timestamp):
         dn, _ = self._get_user(username)
         if not dn:
             raise UserNotFound(username, "update credentials")
@@ -149,7 +180,8 @@ class SambaLdap(LdapUserMixin):
         # http://msdn.microsoft.com/en-us/library/ms679430%28v=vs.85%29.aspx
         delta = timestamp - datetime(1601, 1, 1, tzinfo=pytz.UTC)
         seconds = int(delta.total_seconds())
-        modlist.append((ldap.MOD_REPLACE, 'pwdLastSet', str(int(seconds * 1e7))))
+        modlist.append(
+            (ldap.MOD_REPLACE, 'pwdLastSet', str(int(seconds * 1e7))))
         control = RequestControl('1.3.6.1.4.1.7165.4.3.12', True)
         self.l.modify_ext_s(dn, modlist, serverctrls=[control])
 
@@ -176,15 +208,23 @@ class SambaLdap(LdapUserMixin):
 
 
 class OpenLdap(LdapUserMixin):
+
     def __init__(self, base_dn, bind_dn, bind_pw, host='localhost'):
         self.l = ldap.open(host)
         self.l.bind_s(bind_dn, bind_pw)
+        # FIXME: get base_dn from mmc base.ini conf
         self.base_dn = base_dn
+        # FIXME: get uses_base_dn from mmc base.ini conf
         self.user_base_dn = "ou=People,%s" % self.base_dn
         self.user_pk_field = "uid"
-        self.user_timestamp_field = "modifyTimestamp"
+        self.timestamp_field = "modifyTimestamp"
         self.user_list_filter = '(&(objectClass=inetOrgPerson)(objectClass=krb5KDCEntry))'
         self.user_ignore_list = []
+        # FIXME: get group_base_dn from mmc base.ini conf
+        self.group_base_dn = "ou=Group,%s" % self.base_dn
+        self.group_list_filter = "(objectClass=*)"
+        self.group_pk_field = "gid"
+        self.group_scope = ldap.SCOPE_ONELEVEL
 
     def _create_user(self, username, password, name, surname):
         ldapUserGroupControl().addUser(username, password, name, surname)
@@ -218,7 +258,7 @@ class OpenLdap(LdapUserMixin):
         modlist = [(ldap.MOD_REPLACE, 'krb5Key', keys),
                    (ldap.MOD_REPLACE, 'userPassword', '{K5KEY}')]
         self.l.modify_s(dn, modlist)
-        #FIXME change ldap schema so pwdChangeTime can be modified?
+        # FIXME change ldap schema so pwdChangeTime can be modified?
         #changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
         #self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
 
@@ -232,12 +272,21 @@ class OpenLdap(LdapUserMixin):
 
 
 class UserNotFound(Exception):
+
     def __init__(self, user, action):
         message = "Not found user %s when trying to %s" % (user, action)
         super(UserNotFound, self).__init__(message)
 
 
-def copy_password_from_samba_to_ldap(username, samba_ldap, openldap, timestamp):
+class GroupNotFound(Exception):
+
+    def __init__(self, group, action):
+        msg = "Not found group %s when trying to %s" % (group, action)
+        super(GroupNotFound, self).__init__(msg)
+
+
+def copy_password_from_samba_to_ldap(
+        username, samba_ldap, openldap, timestamp):
     sup, uni = samba_ldap.get_credentials(username)
     creds = Credentials(unicode_pwd=uni, supplemental_credentials=sup)
     keys = encode_keys(creds.keys)
@@ -247,7 +296,8 @@ def copy_password_from_samba_to_ldap(username, samba_ldap, openldap, timestamp):
     samba_ldap.update_password_timestamp_for(username, openldap_timestamp)
 
 
-def copy_password_from_ldap_to_samba(username, samba_ldap, openldap, timestamp):
+def copy_password_from_ldap_to_samba(
+        username, samba_ldap, openldap, timestamp):
     keys = openldap.get_keys(username)
     keys = decode_keys(keys)
     creds = Credentials(krb5_keys=keys)
@@ -255,6 +305,7 @@ def copy_password_from_ldap_to_samba(username, samba_ldap, openldap, timestamp):
                                       creds.unicode_pwd, timestamp)
 
 # -----------------------------------------------------------------------------
+
 
 def get_samba_base_dn():
     """Return samba4 base dn using mmc samba4 plugin"""
@@ -285,15 +336,17 @@ class S4Sync(object):
     TIMESTAMP_PATH = "/etc/s4sync.timestamp"
 
     def __init__(self, logger):
-        self.reset()
         self.logger = logger
+        self.reset()
 
     def reset(self):
         samba_base_dn = get_samba_base_dn()
         if samba_base_dn is None:
             raise Samba4NotProvisioned()
+#         self.logger.debug('Samba base dn: %s' % samba_base_dn)
         self.samba_ldap = SambaLdap(samba_base_dn)
         ldap_creds = get_openldap_config()
+#         self.logger.debug('ldap config: %s' % ldap_creds)
         self.openldap = OpenLdap(ldap_creds['base_dn'], ldap_creds['bind_dn'],
                                  ldap_creds['bind_pw'])
 
@@ -327,6 +380,10 @@ class S4Sync(object):
         openldap_listed_users = self.openldap.list_users()
         openldap_users = set(openldap_listed_users.keys())
 
+        openldap_groups = self.openldap.list_groups()
+        samba_groups = self.samba_ldap.list_groups()
+        return
+
         common_users = samba_users.intersection(openldap_users)
         for user in common_users:
             # Synchronize passwords
@@ -337,7 +394,10 @@ class S4Sync(object):
             user_changed_since_last_sync = (samba_user_timestamp > last_sync_timestamp or
                                             openldap_user_timestamp > last_sync_timestamp)
             if user_changed_since_last_sync:
-                self._sync_fields(user, samba_user_timestamp, openldap_user_timestamp)
+                self._sync_fields(
+                    user,
+                    samba_user_timestamp,
+                    openldap_user_timestamp)
 
         # Users existing in OpenLdap but not in Samba.
         # We must either create it on Samba or delete it on OpenLdap.
@@ -382,8 +442,11 @@ class S4Sync(object):
                 self.logger.debug("\tCreating user %s on samba" % user)
                 self.openldap.create_user(user, self.samba_ldap)
                 # Enable krb5 overlay
-                if self.openldap.enable_krb5_for(user, self.samba_ldap.realm()):
-                    self.logger.info("\tEnabled krb5 on OpenLdap user %s" % user)
+                if self.openldap.enable_krb5_for(
+                        user, self.samba_ldap.realm()):
+                    self.logger.info(
+                        "\tEnabled krb5 on OpenLdap user %s" %
+                        user)
                 else:
                     raise Exception("Failed to enabled krb5 on %s" % user)
                 # Set password from Samba
@@ -418,7 +481,9 @@ class S4Sync(object):
                 with open(self.TIMESTAMP_PATH, 'r') as timestamp_file:
                     timestamp_content = timestamp_file.read()
                     try:
-                        d = datetime.strptime(timestamp_content, self.TIMESTAMP_FORMAT)
+                        d = datetime.strptime(
+                            timestamp_content,
+                            self.TIMESTAMP_FORMAT)
                         return d.replace(tzinfo=pytz.UTC)
                     except ValueError:
                         raise S4SyncTimestampError("Badformed timestamp file")
@@ -426,7 +491,8 @@ class S4Sync(object):
                 raise S4SyncTimestampError("Error reading timestamp")
         elif os.path.exists(self.TIMESTAMP_PATH):
             # Exists but is not a file
-            raise S4SyncTimestampError("Timestamp file exists but is not a file")
+            raise S4SyncTimestampError(
+                "Timestamp file exists but is not a file")
         else:
             # Doesn't exist, write default value and return it
             beginning_of_time = datetime(1900, 1, 1, tzinfo=pytz.UTC)
@@ -467,14 +533,18 @@ def sync_loop(logger, wait_time):
         time.sleep(wait_time)
 
 
+logger = None
+
 if __name__ == "__main__":
 
     WAIT_TIME = 10  # sleep time between each iteration, in seconds
 
     def initialize_logging():
+        global logger
         logger = logging.getLogger("s4sync")
         handler = logging.StreamHandler()
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         handler.setFormatter(formatter)
         logger.addHandler(handler)
         logger.setLevel(logging.DEBUG)

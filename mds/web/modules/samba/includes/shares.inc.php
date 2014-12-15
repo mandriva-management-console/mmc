@@ -25,7 +25,7 @@
 <?php
 /* $Id$ */
 
-// $name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av, $customParameters
+// $name, $path, $comment, $perms, $admingroups, $recursive, $browseable, $av, $customParameters
 function add_share($params) {
     $name = trim($params[0]);
     # FIXME !
@@ -38,7 +38,7 @@ function add_share($params) {
     xmlCall("samba.addShare", $params);
 }
 
-// $name, $path, $comment, $usergroups, $permAll, $admingroups, $browseable, $av, $customParameters
+// $name, $path, $comment, $perms, $admingroups, $recursive, $browseable, $av, $customParameters
 function mod_share($params) {
     return xmlCall("samba.modShare", $params);
 }

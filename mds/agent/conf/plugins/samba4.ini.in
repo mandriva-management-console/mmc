@@ -1,11 +1,9 @@
 [main]
 disable = 0
 
-#samba3ConfFile = /etc/samba/smb.conf
-
 sambaPrefix = /usr
-sambaConfFile = /etc/smb.conf
-#sambaInitScript = /etc/init.d/samba4
+sambaConfFile = /etc/samba/smb.conf
+sambaDBDir = /var/lib/samba
 
 defaultSharesPath = /home/samba
 # You can specify authorized paths for share creation

@@ -1,7 +1,15 @@
 import re
 import os
+import logging
 
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
+
+
+logger = logging.getLogger(__name__)
+
+
+class ShorewallLineInvalid(Exception):
+    pass
 
 
 class ShorewallLine:
@@ -36,16 +44,17 @@ class ShorewallConf:
         self.file = []
 
     def read(self):
-        f = open(self.path, 'r')
-        lines = f.readlines()
-        f.close()
-        for line in lines:
-            line = line.strip()
-            result = re.match(self.pattern, line)
-            if result:
-                self.file.append(ShorewallLine(result.groups(), self.output_format))
-            else:
-                self.file.append(line)
+        logger.debug("Parsing %s" % self.path)
+        with open(self.path, 'r') as h:
+            for line in h:
+                line = line.strip()
+                result = re.match(self.pattern, line)
+                if result:
+                    self.file.append(ShorewallLine(result.groups(''), self.output_format))
+                    logger.debug(result.groupdict(''))
+                else:
+                    self.file.append(line)
+                    logger.debug("Line '%s' skipped" % line)
 
     def write(self):
         f = open(self.path, 'w+')
@@ -53,8 +62,21 @@ class ShorewallConf:
             f.write(str(line) + "\n")
         f.close()
 
-    def add_line(self, values, position = None):
-        new = ShorewallLine(values, self.output_format)
+    def validate(self, line):
+        """Override for extra validation.
+        Raise ShorewallLineInvalid with an error message."""
+        pass
+
+    def validate_line(self, values):
+        line = ShorewallLine(values, self.output_format)
+        result = re.match(self.pattern, str(line).strip())
+        if not result:
+            raise ShorewallLineInvalid("Invalid shorewall line")
+        self.validate(result.groupdict())
+        return line
+
+    def add_line(self, values, position=None):
+        new = self.validate_line(values)
         # remove identic lines first
         self.del_line(values)
         if position is not None:
@@ -70,8 +92,8 @@ class ShorewallConf:
         return True
 
     def replace_line(self, old_values, new_values):
-        old = ShorewallLine(old_values, self.output_format)
-        new = ShorewallLine(new_values, self.output_format)
+        old = self.validate_line(old_values)
+        new = self.validate_line(new_values)
         for index, line in enumerate(self.file[:]):
             if str(line) == str(old):
                 self.file[index] = new
@@ -80,7 +102,7 @@ class ShorewallConf:
         return False
 
     def del_line(self, values):
-        delete = ShorewallLine(values, self.output_format)
+        delete = self.validate_line(values)
         for index, line in enumerate(self.file[:]):
             if str(line) == str(delete):
                 del self.file[index]
@@ -98,7 +120,7 @@ class ShorewallConf:
         return False
 
     def get_conf(self):
-        return [ line.get() for line in self.file if isinstance(line, ShorewallLine)]
+        return [line.get() for line in self.file if isinstance(line, ShorewallLine)]
 
     def set_conf(self, conf):
         file = []
