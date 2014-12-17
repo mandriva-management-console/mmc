@@ -187,8 +187,11 @@ def computeMailGroupAlias(group):
 def deleteMailGroupAliases(group):
     return MailControl().deleteMailGroupAliases(group)
 
-def syncMailGroupAliases(group, foruser = "*"):
+def syncMailGroupAliases(group, foruser="*"):
     return MailControl().syncMailGroupAliases(group, foruser)
+
+def syncUserMailGroupAliases(uid):
+    return MailControl().syncUserMailGroupAliases(uid)
 
 def getMailAttributes():
     return MailConfig('mail').attrs
@@ -938,7 +941,12 @@ class MailControl(ldapUserGroupControl):
                 self.changeMailalias(uid, mailaliases)
         r.commit()
 
-    def syncMailGroupAliases(self, group, foruser = "*"):
+    def syncUserMailGroupAliases(self, uid):
+        groups = self.getUserGroups(uid)
+        for group in groups:
+            self.syncMailGroupAliases(group, foruser=uid)
+
+    def syncMailGroupAliases(self, group, foruser="*"):
         """
         Sync all users mail aliases for this group
         """
@@ -955,7 +963,7 @@ class MailControl(ldapUserGroupControl):
                     mailaliases = []
                 if uid in groupusers:
                     # Add group mail alias for users of the group that don't have it
-                    if not mailgroup in mailaliases:
+                    if mailgroup not in mailaliases:
                         mailaliases.append(mailgroup)
                         self.changeMailalias(uid, mailaliases)
                 else:
