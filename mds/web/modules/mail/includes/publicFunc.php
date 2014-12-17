@@ -446,8 +446,8 @@ function _mail_changeUser($FH, $mode) {
         if($FH->isUpdated($attrs["maildrop"]))
             changeMaildrop($uid, $FH->getValue($attrs['maildrop']));
         if($FH->isUpdated($attrs["mailalias"])) {
-            $groupmailaliases = getMailGroupAliases();
-            changeMailalias($uid, array_merge($FH->getValue($attrs['mailalias']), $groupmailaliases));
+            changeMailalias($uid, $FH->getValue($attrs['mailalias']));
+            syncUserMailGroupAliases($uid);
         }
         if ($FH->isUpdated($attrs["mailbox"]))
             changeMailbox($uid, $FH->getValue($attrs['mailbox']));

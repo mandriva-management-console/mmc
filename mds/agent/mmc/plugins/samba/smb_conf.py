@@ -496,8 +496,8 @@ class SambaConf:
             tmpInsert["admin users"] = ", ".join(map(sanitize_name, admingroups))
             # include admin users in valid users list and write list
             if tmpInsert['writeable'] == 'no':
-                tmpInsert['valid users'] = tmpInsert['valid users'] + ', ' + tmpInsert["admin users"]
-                tmpInsert['write list'] = tmpInsert['write list'] + ', ' + tmpInsert["admin users"]
+                tmpInsert['valid users'] = ', '.join(filter(bool, [tmpInsert['valid users'], tmpInsert["admin users"]]))
+                tmpInsert['write list'] = ', '.join(filter(bool, [tmpInsert['write list'], tmpInsert["admin users"]]))
 
         self.config[name] = tmpInsert
 
