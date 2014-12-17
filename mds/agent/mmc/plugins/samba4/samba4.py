@@ -54,9 +54,11 @@ class SambaToolException(Exception):
 
 
 class SambaAD:
+
     """
     Handle sam.ldb: users and computers
     """
+
     def __init__(self):
         self.smb_conf = SambaConf()
         self.samdb_url = os.path.join(self.smb_conf.private_dir(), 'sam.ldb')
@@ -69,7 +71,8 @@ class SambaAD:
         if type(username) != type(''):
             raise TypeError("username is expected to be string")
 
-        search_filter = "(&(objectClass=user)(sAMAccountName=%s))" % ldb.binary_encode(username)
+        search_filter = "(&(objectClass=user)(sAMAccountName=%s))" % ldb.binary_encode(
+            username)
         userlist = self.samdb.search(base=self.samdb.domain_dn(),
                                      scope=ldb.SCOPE_SUBTREE,
                                      expression=search_filter,
@@ -92,6 +95,13 @@ class SambaAD:
         cmd = "user create %s '%s'" % (username, password)
         if given_name and surname:
             cmd += " --given-name='%s' --surname='%s'" % (given_name, surname)
+        self._samba_tool(cmd)
+        return True
+
+    def createGroup(self, name, description):
+        cmd = 'group add ' + name
+        if description:
+            cmd += ' --description=' + description
         self._samba_tool(cmd)
         return True
 
@@ -138,7 +148,7 @@ class SambaAD:
                 res.append({
                     "name": str(computer["name"]) + name_suffix,
                     "description":  str(description),
-                    "enabled": 1 # TODO: get what the state actually is
+                    "enabled": 1  # TODO: get what the state actually is
                 })
         return res
 
@@ -149,8 +159,10 @@ class SambaAD:
         @return: list of dicts with Computer name and description
         @rtype: list
         """
-        dcs = self._listComputersInContainer("OU=Domain Controllers,%s" % self.samdb.domain_dn(), ' (dc)')
-        computers = self._listComputersInContainer("CN=Computers,%s" % self.samdb.domain_dn())
+        dcs = self._listComputersInContainer(
+            "OU=Domain Controllers,%s" % self.samdb.domain_dn(), ' (dc)')
+        computers = self._listComputersInContainer(
+            "CN=Computers,%s" % self.samdb.domain_dn())
         return dcs + computers
 
     def deleteMachine(self, name):  # TODO

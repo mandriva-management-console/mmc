@@ -26,6 +26,7 @@ from struct import pack, unpack, calcsize
 
 
 class Credentials(object):
+
     """
     Transform between this attributes:
 
@@ -34,6 +35,7 @@ class Credentials(object):
     The first ones are used on samba4 the latter on openldap using smbkb5
     overlay.
     """
+
     def __init__(self,
                  krb5_keys=None,
                  unicode_pwd=None,
@@ -68,6 +70,7 @@ class Credentials(object):
 
 
 class CommonDataType(object):
+
     def __str__(self):
         return self.encode()
 
@@ -79,9 +82,11 @@ class CommonDataType(object):
 
 
 class UserProperties(CommonDataType):
+
     """
     http://msdn.microsoft.com/en-us/library/cc245500.aspx
     """
+
     def __init__(self, kerberos_keys_or_raw_data):
         if isinstance(kerberos_keys_or_raw_data, list):
             self.keys = kerberos_keys_or_raw_data
@@ -121,7 +126,6 @@ class UserProperties(CommonDataType):
         total_len = calcsize(self._fmt(len_reserved4, 0))
         len_user_properties = len(self._raw) - total_len
         data = unpack(self._fmt(len_reserved4, len_user_properties), self._raw)
-        keys = []
         properties_count = data[6]
         user_properties_str = data[7]
         offset = 0
@@ -135,9 +139,11 @@ class UserProperties(CommonDataType):
 
 
 class KerberosKeyData(CommonDataType):
+
     """
     http://msdn.microsoft.com/en-us/library/cc245504.aspx
     """
+
     def __init__(self, key_or_raw_data, offset=None):
         self.size = calcsize(self._fmt())
         if offset is None:
@@ -170,9 +176,11 @@ class KerberosKeyData(CommonDataType):
 
 
 class KerberosProperty(CommonDataType):
+
     """
     http://msdn.microsoft.com/en-us/library/cc245503.aspx
     """
+
     def __init__(self, keys_or_raw_data):
         if isinstance(keys_or_raw_data, list):
             self.keys = keys_or_raw_data
@@ -205,7 +213,8 @@ class KerberosProperty(CommonDataType):
         credentials_str = ''.join([str(cred) for cred in credentials])
         old_credentials_str = ''.join(old_credentials)
         values_str = ''.join(key_values)
-        default_salt_offset = 16 + 20 + len(credentials_str) + len(old_credentials_str)
+        default_salt_offset = 16 + 20 + \
+            len(credentials_str) + len(old_credentials_str)
         fmt = self._fmt(len(credentials_str))
         ret = pack(fmt,
                    revision,
@@ -229,21 +238,25 @@ class KerberosProperty(CommonDataType):
          salt_offset) = unpack(fmt, self._raw[:calcsize(fmt)])
         if revision != 3:
             raise ValueError("Revision must be 3 (%x)" % revision)
-        salt = self._raw[salt_offset:salt_offset+len_max_salt].decode('utf-16-le')
+        salt = self._raw[
+            salt_offset:salt_offset + len_max_salt].decode('utf-16-le')
         offset = calcsize(fmt)
         for i in xrange(0, n_creds):
             key_data = KerberosKeyData(self._raw[offset:])
             key_type = key_data.key_type
-            key_value = self._raw[key_data.offset:key_data.offset+key_data.key_length]
+            key_value = self._raw[
+                key_data.offset:key_data.offset + key_data.key_length]
             keys.append({'type': key_type, 'value': key_value, 'salt': salt})
             offset += key_data.size
         self.keys = keys
 
 
 class UserProperty(CommonDataType):
+
     """
     http://msdn.microsoft.com/en-us/library/cc245501.aspx
     """
+
     def __init__(self, name_or_raw_data, value=None):
         if value is None:
             self._raw = name_or_raw_data
