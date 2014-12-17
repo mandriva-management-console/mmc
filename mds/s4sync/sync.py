@@ -78,7 +78,6 @@ class LdapUserMixin(object):
         return attrs
 
     def list_users(self):
-        global logger
         entries = self.l.search_s(self.user_base_dn, ldap.SCOPE_SUBTREE,
                                   filterstr=self.user_list_filter,
                                   attrlist=[self.user_pk_field, self.timestamp_field])
@@ -88,7 +87,7 @@ class LdapUserMixin(object):
             if user not in self.user_ignore_list:
                 timestamp_str = e[1][self.timestamp_field][0]
                 users[user] = self._format_timestamp(timestamp_str)
-        logger.debug('users %s' % users)
+#         logger.debug('users %s' % users)
         return users
 
     def sync_user_with(self, username, other_ldap):
@@ -119,13 +118,35 @@ class LdapUserMixin(object):
                                   self.group_scope,
                                   filterstr=self.group_list_filter,
                                   attrlist=[self.group_pk_field, self.timestamp_field])
-
-        for msg in entries:
-            logger.debug('%s groups:\n    %s', self.__class__.__name__, msg)
-
         groups = {}
-
+        for e in entries:
+            # FIXME: samba send a (None, ['ldap://mon.dom/CN=Configuration,DC=mon,DC=dom']) record
+            # the algo
+            if e[0] is None:
+                continue
+#             logger.debug('%s groups:\n    %s', self.__class__.__name__, e)
+            group = e[1][self.group_pk_field][0]
+            if group not in self.group_ignore_list:
+                timestamp_str = e[1][self.timestamp_field][0]
+                groups[group] = self._format_timestamp(timestamp_str)
+#         logger.debug('groups %s' % groups)
         return groups
+
+    def create_group(self, name, other_ldap):
+        self._create_group(name)
+        self.sync_group_with(name, other_ldap)
+
+    def sync_group_with(self, name, other_ldap):
+        """ other_ldap is the reference we sync to"""
+        members = set(self.get_group_members(name))
+        members_to_sync = set(other_ldap.get_group_members(name))
+        members_to_del = members - members_to_sync
+        members_to_add = members_to_sync - members
+        self.del_group_members(name, members_to_del)
+        self.add_group_members(name, members_to_add)
+
+    def _get_group(self, name):
+        raise NotImplementedError()
 
     def delete_group(self, name):
         dn = self._get_group(name)
@@ -133,26 +154,38 @@ class LdapUserMixin(object):
             raise GroupNotFound(name)
         self.l.delete_s(dn)
 
+    def get_group_members(self, group):
+        raise NotImplementedError()
+
+    def del_group_members(self, group, members=None):
+        self._mod_group_members(group, ldap.MOD_DELETE, members)
+
+    def add_group_members(self, group, members=None):
+        self._mod_group_members(group, ldap.MOD_ADD, members)
+
 
 class SambaLdap(LdapUserMixin):
     LDAP_URI = "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi"
 
     def __init__(self, base_dn):
         self.base_dn = base_dn
-        self.l = ldap.initialize(self.LDAP_URI,
-                                 trace_level=0)
+        self.l = ldap.initialize(self.LDAP_URI, trace_level=0)
         self.user_base_dn = "CN=Users,%s" % self.base_dn
         self.user_pk_field = "sAMAccountName"
         self.timestamp_field = "whenChanged"
         self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
         self.user_ignore_list = ['Guest', 'krbtgt']
         self.group_base_dn = self.base_dn
-        self.group_list_filter = "(&(objectClass=group))"
+        self.group_list_filter = '(&(objectClass=group)(sAMAccountType=268435456)(groupType=-2147483646))'
+        self.group_ignore_list = ['Users']
         self.group_pk_field = self.user_pk_field
         self.group_scope = ldap.SCOPE_SUBTREE
 
     def _create_user(self, username, password, name, surname):
         SambaAD().createUser(username, password, name, surname)
+
+    def _create_group(self, name, description=None):
+        SambaAD().createGroup(name, description)
 
     def _format_timestamp(self, timestamp_str):
         date = datetime.strptime(timestamp_str, "%Y%m%d%H%M%S.0Z")
@@ -206,6 +239,50 @@ class SambaLdap(LdapUserMixin):
         modlist = [(ldap.MOD_REPLACE, 'pwdLastSet', str(int(seconds * 1e7)))]
         self.l.modify_ext_s(dn, modlist)
 
+    def get_group_members(self, group):
+        entries = self.l.search_s(self.group_base_dn,
+                                  self.group_scope,
+                                  filterstr='(&(objectClass=group)(sAMAccountName=%s))' % group,
+                                  attrlist=['member'])
+        # len is 2 cause Samba alwaus adds an entry with None
+        if len(entries) > 2:
+            raise Exception(
+                'Many groups with the name ' + group + ' something\'s going wrong')
+        members_dn = entries[0][1].get('member', [])
+        members_cn = []
+        # Checks that members_dn are simple users (not groups, cause of a
+        # limitation in our OpenLdap) and get only the cn aka sAMAccountName
+        for member in members_dn:
+            current_cn = self.l.search_s(member,
+                                         ldap.SCOPE_BASE,
+                                         filterstr='(objectClass=user)',
+                                         attrlist=['sAMAccountName'])
+            logger.debug(current_cn)
+            members_cn.append(current_cn[0][1]['sAMAccountName'][0])
+        logger.debug(
+            'Members of group %s in Samba: %s', group, members_cn)
+        return members_cn
+
+    def _get_group(self, name):
+        entries = self.l.search_s(self.group_base_dn,
+                                  self.group_scope,
+                                  filterstr='(&(objectClass=group)(sAMAccountName=%s))' % name,
+                                  attrlist=[self.group_pk_field])
+        return entries[0][0]
+
+    def _mod_group_members(self, group, mod_type, members=None,):
+        groupdn = self._get_group(group)
+        modlist = [(mod_type, 'member', 'CN=%s,%s' % (member, self.user_base_dn))
+                   for member in members]
+        if modlist:
+            logger.debug('Samba self.l.modify_s(%s, %s)', groupdn, modlist)
+            try:
+                self.l.modify_s(groupdn, modlist)
+            except ldap.ALREADY_EXISTS:
+                # Cause Of the sync we may want to add a user to the group
+                # which is its primary group, we just ignore the exception
+                pass
+
 
 class OpenLdap(LdapUserMixin):
 
@@ -223,11 +300,15 @@ class OpenLdap(LdapUserMixin):
         # FIXME: get group_base_dn from mmc base.ini conf
         self.group_base_dn = "ou=Group,%s" % self.base_dn
         self.group_list_filter = "(objectClass=*)"
-        self.group_pk_field = "gid"
+        self.group_ignore_list = ['users']
+        self.group_pk_field = "cn"
         self.group_scope = ldap.SCOPE_ONELEVEL
 
     def _create_user(self, username, password, name, surname):
         ldapUserGroupControl().addUser(username, password, name, surname)
+
+    def _create_group(self, name, description=None):
+        ldapUserGroupControl().addGroup(name)
 
     def _format_timestamp(self, timestamp_str):
         date = datetime.strptime(timestamp_str, "%Y%m%d%H%M%SZ")
@@ -270,6 +351,34 @@ class OpenLdap(LdapUserMixin):
             raise Exception("OpenLdap User doesn't have  attribute")
         return self._format_timestamp(attrs['pwdChangedTime'][0])
 
+    def get_group_members(self, group):
+        entries = self.l.search_s(self.group_base_dn,
+                                  self.group_scope,
+                                  filterstr='(&(objectClass=posixGroup)(cn=%s))' % group,
+                                  attrlist=['memberUid'])
+        if len(entries) > 1:
+            raise Exception(
+                'Many groups with the name ' + group + ' something going wrong')
+        members = entries[0][1].get('memberUid', [])
+        logger.debug('Members of group %s in OpenLdap: %s', group, members)
+        return members
+
+    def _get_group(self, name):
+        entries = self.l.search_s(self.group_base_dn,
+                                  self.group_scope,
+                                  filterstr='(&(objectClass=posixGroup)(cn=%s))' % name,
+                                  attrlist=[self.group_pk_field])
+        return entries[0][0]
+
+    def _mod_group_members(self, group, mod_type, members=None,):
+        """@members: a list of cn"""
+        groupdn = self._get_group(group)
+        modlist = [(mod_type, 'memberUid', member)
+                   for member in members]
+        if modlist:
+            logger.debug('OpenLdap self.l.modify_s(%s, %s)', groupdn, modlist)
+            self.l.modify_s(groupdn, modlist)
+
 
 class UserNotFound(Exception):
 
@@ -285,8 +394,7 @@ class GroupNotFound(Exception):
         super(GroupNotFound, self).__init__(msg)
 
 
-def copy_password_from_samba_to_ldap(
-        username, samba_ldap, openldap, timestamp):
+def copy_password_from_samba_to_ldap(username, samba_ldap, openldap, timestamp):
     sup, uni = samba_ldap.get_credentials(username)
     creds = Credentials(unicode_pwd=uni, supplemental_credentials=sup)
     keys = encode_keys(creds.keys)
@@ -296,8 +404,7 @@ def copy_password_from_samba_to_ldap(
     samba_ldap.update_password_timestamp_for(username, openldap_timestamp)
 
 
-def copy_password_from_ldap_to_samba(
-        username, samba_ldap, openldap, timestamp):
+def copy_password_from_ldap_to_samba(username, samba_ldap, openldap, timestamp):
     keys = openldap.get_keys(username)
     keys = decode_keys(keys)
     creds = Credentials(krb5_keys=keys)
@@ -373,93 +480,146 @@ class S4Sync(object):
             self.samba_ldap.sync_user_with(user, self.openldap)
 
     def sync(self):
+        def groups_mix():
+            openldap_listed_groups = self.openldap.list_groups()
+            samba_listed_groups = self.samba_ldap.list_groups()
+            openldap_groups = set(openldap_listed_groups.keys())
+            samba_groups = set(samba_listed_groups.keys())
+            common_groups = samba_groups.intersection(openldap_groups)
+
+            for group in common_groups:
+                samba_timestamp = samba_listed_groups[group]
+                openldap_timestamp = openldap_listed_groups[group]
+                if samba_timestamp > last_sync_timestamp:
+                    self.logger.debug(
+                        '\tCommon group:\'%s\' changed in Samba, sync to OpenLdap', group)
+                    self.openldap.sync_group_with(group, self.samba_ldap)
+                elif openldap_timestamp > last_sync_timestamp:
+                    self.logger.debug(
+                        '\tCommon group:\'%s\' changed in OpenLdap, sync to Samba', group)
+                    self.samba_ldap.sync_group_with(group, self.openldap)
+
+            for group in openldap_groups - samba_groups:
+                self.logger.debug(
+                    '\tOpenLdap group %s is not in Samba', group)
+                timestamp = openldap_listed_groups[group]
+                if timestamp > last_sync_timestamp:
+                    # New group, create it on the other side
+                    self.logger.debug("\tCreating group %s on Samba" % group)
+                    self.samba_ldap.create_group(group, self.openldap)
+                else:
+                    # Old group, remove it
+                    self.logger.debug("\tDeleting group %s on OpenLdap because its "
+                                      "timestamp `%s` is previous to the last sync `%s`"
+                                      % (group, timestamp, last_sync_timestamp))
+                    self.openldap.delete_group(group)
+
+            for group in samba_groups - openldap_groups:
+                self.logger.debug(
+                    '\t Samba group \'%s\' is not in OpenLdap', group)
+                timestamp = samba_listed_groups[group]
+                if timestamp > last_sync_timestamp:
+                    # New group, create it on the other side
+                    self.logger.debug(
+                        "\tCreating group %s on OpenLdap" % group)
+                    self.openldap.create_group(group, self.samba_ldap)
+                else:
+                    # Old group, remove it
+                    self.logger.debug("\tDeleting group %s on Samba because its "
+                                      "timestamp `%s` is previous to the last sync `%s`"
+                                      % (group, timestamp, last_sync_timestamp))
+                    self.samba_ldap.delete_group(group)
+
+        def users_mix():
+            samba_listed_users = self.samba_ldap.list_users()
+            samba_users = set(samba_listed_users.keys())
+            openldap_listed_users = self.openldap.list_users()
+            openldap_users = set(openldap_listed_users.keys())
+            common_users = samba_users.intersection(openldap_users)
+            for user in common_users:
+                # Synchronize passwords
+                self._sync_password(user)
+                # Synchronize some fields
+                samba_user_timestamp = samba_listed_users[user]
+                openldap_user_timestamp = openldap_listed_users[user]
+                user_changed_since_last_sync = (samba_user_timestamp > last_sync_timestamp or
+                                                openldap_user_timestamp > last_sync_timestamp)
+                if user_changed_since_last_sync:
+                    self._sync_fields(
+                        user,
+                        samba_user_timestamp,
+                        openldap_user_timestamp)
+
+            # Users existing in OpenLdap but not in Samba.
+            # We must either create it on Samba or delete it on OpenLdap.
+            # Depending whether timestamp is newer than last execution or not.
+            for user in openldap_users - samba_users:
+                self.logger.debug("OpenLdap User %s is not in Samba" % user)
+                user_timestamp = openldap_listed_users[user]
+                if user_timestamp > last_sync_timestamp:
+                    # Create it on Samba
+                    self.logger.debug("\tCreating user %s on samba" % user)
+                    self.samba_ldap.create_user(user, self.openldap)
+                    # Set password from OpenLdap
+                    openldap_timestamp = self.openldap.password_timestamp_for(
+                        user)
+                    copy_password_from_ldap_to_samba(user, self.samba_ldap,
+                                                     self.openldap, openldap_timestamp)
+                else:
+                    # Delete it on OpenLdap
+                    self.logger.debug("\tDeleting user %s on openldap because its "
+                                      "timestamp `%s` is previous to the last sync `%s`"
+                                      % (user, user_timestamp, last_sync_timestamp))
+                    self.openldap.delete_user(user)
+
+            # Users existing in Samba but not in OpenLdap.
+            # We must either create it on Samba or delete it on OpenLdap.
+            # Depending whether timestamp is newer than last execution or not.
+            for user in samba_users - openldap_users:
+                # Maybe the user exists but does not have krb5 enabled
+                # Try to enable smbk5 overlay for this user
+                if self.openldap.enable_krb5_for(user, self.samba_ldap.realm()):
+                    self.logger.info("Enabled krb5 on OpenLdap user %s" % user)
+                    # Set password from Samba
+                    samba_timestamp = self.samba_ldap.password_timestamp_for(
+                        user)
+                    copy_password_from_samba_to_ldap(user, self.samba_ldap,
+                                                     self.openldap, samba_timestamp)
+                    continue
+
+                self.logger.debug("Samba User %s is not in OpenLdap" % user)
+                # User does not exist on OpenLdap
+                user_timestamp = samba_listed_users[user]
+                if user_timestamp > last_sync_timestamp:
+                    # Create it on OpenLdap
+                    self.logger.debug("\tCreating user %s on samba" % user)
+                    self.openldap.create_user(user, self.samba_ldap)
+                    # Enable krb5 overlay
+                    if self.openldap.enable_krb5_for(
+                            user, self.samba_ldap.realm()):
+                        self.logger.info(
+                            "\tEnabled krb5 on OpenLdap user %s" %
+                            user)
+                    else:
+                        raise Exception("Failed to enabled krb5 on %s" % user)
+                    # Set password from Samba
+                    samba_timestamp = self.samba_ldap.password_timestamp_for(
+                        user)
+                    copy_password_from_samba_to_ldap(user, self.samba_ldap,
+                                                     self.openldap, samba_timestamp)
+                else:
+                    # Delete it on Samba
+                    self.logger.debug("\tDeleting user %s on samba because its "
+                                      "timestamp (%s) is previous or equal to the "
+                                      "last sync (%s)" %
+                                      (user, user_timestamp, last_sync_timestamp))
+                    self.samba_ldap.delete_user(user)
+
         now_timestamp = datetime.now(pytz.UTC)
         last_sync_timestamp = self.timestamp()
-        samba_listed_users = self.samba_ldap.list_users()
-        samba_users = set(samba_listed_users.keys())
-        openldap_listed_users = self.openldap.list_users()
-        openldap_users = set(openldap_listed_users.keys())
 
-        openldap_groups = self.openldap.list_groups()
-        samba_groups = self.samba_ldap.list_groups()
-        return
-
-        common_users = samba_users.intersection(openldap_users)
-        for user in common_users:
-            # Synchronize passwords
-            self._sync_password(user)
-            # Synchronize some fields
-            samba_user_timestamp = samba_listed_users[user]
-            openldap_user_timestamp = openldap_listed_users[user]
-            user_changed_since_last_sync = (samba_user_timestamp > last_sync_timestamp or
-                                            openldap_user_timestamp > last_sync_timestamp)
-            if user_changed_since_last_sync:
-                self._sync_fields(
-                    user,
-                    samba_user_timestamp,
-                    openldap_user_timestamp)
-
-        # Users existing in OpenLdap but not in Samba.
-        # We must either create it on Samba or delete it on OpenLdap.
-        # Depending whether timestamp is newer than last execution or not.
-        for user in openldap_users - samba_users:
-            self.logger.debug("OpenLdap User %s is not in Samba" % user)
-            user_timestamp = openldap_listed_users[user]
-            if user_timestamp > last_sync_timestamp:
-                # Create it on Samba
-                self.logger.debug("\tCreating user %s on samba" % user)
-                self.samba_ldap.create_user(user, self.openldap)
-                # Set password from OpenLdap
-                openldap_timestamp = self.openldap.password_timestamp_for(user)
-                copy_password_from_ldap_to_samba(user, self.samba_ldap,
-                                                 self.openldap, openldap_timestamp)
-            else:
-                # Delete it on OpenLdap
-                self.logger.debug("\tDeleting user %s on openldap because its "
-                                  "timestamp `%s` is previous to the last sync `%s`"
-                                  % (user, user_timestamp, last_sync_timestamp))
-                self.openldap.delete_user(user)
-
-        # Users existing in Samba but not in OpenLdap.
-        # We must either create it on Samba or delete it on OpenLdap.
-        # Depending whether timestamp is newer than last execution or not.
-        for user in samba_users - openldap_users:
-            # Maybe the user exists but does not have krb5 enabled
-            # Try to enable smbk5 overlay for this user
-            if self.openldap.enable_krb5_for(user, self.samba_ldap.realm()):
-                self.logger.info("Enabled krb5 on OpenLdap user %s" % user)
-                # Set password from Samba
-                samba_timestamp = self.samba_ldap.password_timestamp_for(user)
-                copy_password_from_samba_to_ldap(user, self.samba_ldap,
-                                                 self.openldap, samba_timestamp)
-                continue
-
-            self.logger.debug("Samba User %s is not in OpenLdap" % user)
-            # User does not exist on OpenLdap
-            user_timestamp = samba_listed_users[user]
-            if user_timestamp > last_sync_timestamp:
-                # Create it on OpenLdap
-                self.logger.debug("\tCreating user %s on samba" % user)
-                self.openldap.create_user(user, self.samba_ldap)
-                # Enable krb5 overlay
-                if self.openldap.enable_krb5_for(
-                        user, self.samba_ldap.realm()):
-                    self.logger.info(
-                        "\tEnabled krb5 on OpenLdap user %s" %
-                        user)
-                else:
-                    raise Exception("Failed to enabled krb5 on %s" % user)
-                # Set password from Samba
-                samba_timestamp = self.samba_ldap.password_timestamp_for(user)
-                copy_password_from_samba_to_ldap(user, self.samba_ldap,
-                                                 self.openldap, samba_timestamp)
-            else:
-                # Delete it on Samba
-                self.logger.debug("\tDeleting user %s on samba because its "
-                                  "timestamp (%s) is previous or equal to the "
-                                  "last sync (%s)" %
-                                  (user, user_timestamp, last_sync_timestamp))
-                self.samba_ldap.delete_user(user)
+        groups_mix()
+        users_mix()
 
         self.update_timestamp(now_timestamp)
 
@@ -519,6 +679,7 @@ def sync_loop(logger, wait_time):
     logger.info("S4Sync daemon started")
     while True:
         try:
+            logger.debug('loop')
             s4sync.sync()
         except Samba4NotProvisioned:
             logger.error("Samba4 not provisioned? exiting...")

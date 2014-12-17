@@ -28,7 +28,7 @@ require_once('modules/network/includes/network-xmlrpc.inc.php');
  * module declaration
  */
 $mod = new Module("network");
-$mod->setVersion("2.5.82");
+$mod->setVersion("2.5.83");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Network management", "network"));
 $mod->setAPIVersion('2:1:0');

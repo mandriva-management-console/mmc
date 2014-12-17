@@ -87,6 +87,10 @@ function syncMailGroupAliases($group, $foruser = "*") {
     xmlCall("mail.syncMailGroupAliases", array($group, $foruser));
 }
 
+function syncUserMailGroupAliases($uid) {
+    xmlCall("mail.syncUserMailGroupAliases", array($uid));
+}
+
 function hasMailObjectClass($login) {
     return xmlCall("mail.hasMailObjectClass",array($login));
 }
