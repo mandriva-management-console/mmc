@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-12-01 01:05+0100\n"
+"POT-Creation-Date: 2014-12-17 11:33+0100\n"
 "PO-Revision-Date: 2012-05-25 14:40+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
@@ -197,11 +197,11 @@ msgstr "Пароль обновился."
 msgid "Attribute(s) modified"
 msgstr "Измененый(е) атрибут(ы)"
 
-#: modules/bulkimport/infoPackage.inc.php:29
+#: modules/bulkimport/infoPackage.inc.php:28
 msgid "Bulk user manager via CSV files"
 msgstr "Менеджер массовой работы с пользователями через файл CSV"
 
-#: modules/bulkimport/infoPackage.inc.php:38
+#: modules/bulkimport/infoPackage.inc.php:37
 msgid "Bulk import (CSV)"
 msgstr "Массовый импорт (CSV)"
 

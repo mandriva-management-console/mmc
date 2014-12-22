@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-12-01 01:05+0100\n"
-"PO-Revision-Date: 2014-01-27 16:25+0000\n"
+"POT-Creation-Date: 2014-12-17 11:34+0100\n"
+"PO-Revision-Date: 2014-12-15 15:09+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -416,7 +416,7 @@ msgid "Computer name"
 msgstr "Nazwa komputera"
 
 #: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:166
+#: modules/samba/shares/details.php:209
 msgid "Comment"
 msgstr "Komentarz"
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Computer successfully modified."
 msgstr ""
 
-#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:161
+#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:204
 msgid "Name"
 msgstr "Nazwa"
 
@@ -473,7 +473,7 @@ msgstr "Nazwa"
 msgid "Disable computer account"
 msgstr ""
 
-#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:334
+#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:473
 msgid "Confirm"
 msgstr "Potwierdź"
 
@@ -555,29 +555,29 @@ msgid "Shares management"
 msgstr "Zarządzanie udziałami"
 
 #: modules/samba/shares/localSidebar.php:31
-#: modules/samba/shares/details.php:112 modules/samba/infoPackage.inc.php:50
+#: modules/samba/shares/details.php:153 modules/samba/infoPackage.inc.php:50
 msgid "Add a share"
 msgstr "Dodaj udział"
 
-#: modules/samba/shares/details.php:46
+#: modules/samba/shares/details.php:53
 msgid "Invalid share name"
 msgstr "Nieprawidłowa nazwa udziału"
 
-#: modules/samba/shares/details.php:51
+#: modules/samba/shares/details.php:59
 msgid "The share path is not authorized by configuration"
 msgstr "Ta ścieżka udziału nie została autoryzowana w konfiguracji."
 
-#: modules/samba/shares/details.php:59
+#: modules/samba/shares/details.php:86
 #, php-format
 msgid "Share %s successfully added"
 msgstr "Dodano udział %s"
 
-#: modules/samba/shares/details.php:101
+#: modules/samba/shares/details.php:142
 #, php-format
 msgid "Share %s successfully modified"
 msgstr "Zmodyfikowano udział %s"
 
-#: modules/samba/shares/details.php:143
+#: modules/samba/shares/details.php:186
 msgid ""
 "The share name can only contains letters (lowercase and uppercase) and "
 "numbers, and must begin with a letter."
@@ -585,40 +585,36 @@ msgstr ""
 "Nazwa udziału może zawierać tylko litery (małe i duże) oraz cyfry oraz musi "
 "się rozpoczynać od litery."
 
-#: modules/samba/shares/details.php:177
+#: modules/samba/shares/details.php:220
 msgid "AntiVirus on this share"
 msgstr "Antywirus dla tego udziału"
 
-#: modules/samba/shares/details.php:189
+#: modules/samba/shares/details.php:232
 #, php-format
 msgid "Share path (leave empty for a default path in %s)"
 msgstr ""
 
-#: modules/samba/shares/details.php:206
+#: modules/samba/shares/details.php:249
 msgid "This share is visible on the domain"
 msgstr "Ten udział jest widoczny w domenie"
 
-#: modules/samba/shares/details.php:219
-msgid "Permissions"
-msgstr "Uprawnienia"
-
-#: modules/samba/shares/details.php:231
+#: modules/samba/shares/details.php:402
 msgid "Access for all"
 msgstr "Dostęp dla wszystkich"
 
-#: modules/samba/shares/details.php:268
-msgid "Users for this share"
+#: modules/samba/shares/details.php:418
+msgid "Apply rights recursively"
 msgstr ""
 
-#: modules/samba/shares/details.php:290
+#: modules/samba/shares/details.php:429
 msgid "Administrator groups for this share"
 msgstr "Grupy administratorów dla tego udziału"
 
-#: modules/samba/shares/details.php:321 modules/samba/shares/details.php:323
+#: modules/samba/shares/details.php:460 modules/samba/shares/details.php:462
 msgid "Custom parameters"
 msgstr ""
 
-#: modules/samba/shares/details.php:331
+#: modules/samba/shares/details.php:470
 msgid "Create"
 msgstr "Utwórz"
 

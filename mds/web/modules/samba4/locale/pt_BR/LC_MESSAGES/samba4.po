@@ -2,8 +2,8 @@
 msgid "Activate roaming profiles for all users."
 msgstr ""
 
-#: modules/samba4/views/users.tpl.php:138
 #: modules/samba4/views/groups.tpl.php:138
+#: modules/samba4/views/users.tpl.php:138
 msgid "Add"
 msgstr ""
 
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Add a new user"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:69 modules/samba4/infoPackage.inc.php:70
+#: modules/samba4/infoPackage.inc.php:70 modules/samba4/shares/edit.php:69
 msgid "Add a share"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Configuration"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:176 modules/samba4/machines/edit.php:77
+#: modules/samba4/machines/edit.php:77 modules/samba4/shares/edit.php:176
 msgid "Confirm"
 msgstr ""
 
@@ -107,8 +107,8 @@ msgstr ""
 msgid "Current list of shares"
 msgstr ""
 
-#: modules/samba4/shares/index.php:89 modules/samba4/views/users.tpl.php:125
-#: modules/samba4/views/groups.tpl.php:125
+#: modules/samba4/shares/index.php:89 modules/samba4/views/groups.tpl.php:125
+#: modules/samba4/views/users.tpl.php:125
 msgid "Delete"
 msgstr ""
 
@@ -125,13 +125,13 @@ msgstr ""
 msgid "Delete data"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:111 modules/samba4/shares/index.php:103
 #: modules/samba4/machines/ajaxFilter.php:56
+#: modules/samba4/shares/edit.php:111 modules/samba4/shares/index.php:103
 msgid "Description"
 msgstr ""
 
-#: modules/samba4/shares/index.php:77
 #: modules/samba4/machines/ajaxFilter.php:42
+#: modules/samba4/shares/index.php:77
 msgid "Disabled"
 msgstr ""
 
@@ -139,8 +139,8 @@ msgstr ""
 msgid "Domain name"
 msgstr ""
 
-#: modules/samba4/shares/index.php:88
 #: modules/samba4/machines/ajaxFilter.php:57
+#: modules/samba4/shares/index.php:88
 msgid "Edit"
 msgstr ""
 

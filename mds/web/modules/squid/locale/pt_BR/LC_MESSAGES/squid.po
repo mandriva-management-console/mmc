@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"POT-Creation-Date: 2014-12-22 01:00+0100\n"
 "PO-Revision-Date: 2013-04-09 21:05+0000\n"
 "Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/"
@@ -90,7 +90,7 @@ msgstr "Cancelar"
 msgid "Default Position"
 msgstr "Posição inicial"
 
-#: modules/squid/includes/manager.php:72 modules/squid/includes/delete.php:41
+#: modules/squid/includes/delete.php:41 modules/squid/includes/manager.php:72
 msgid "Delete"
 msgstr "Remover"
 
@@ -162,8 +162,8 @@ msgid "IP address"
 msgstr "Endereço IP"
 
 #: modules/squid/infoPackage.inc.php:47
-#: modules/squid/internet/machmanager.php:32
 #: modules/squid/internet/localSidebar.php:29
+#: modules/squid/internet/machmanager.php:32
 msgid "IP whitelist"
 msgstr "IP Lista Branca"
 
@@ -235,7 +235,7 @@ msgstr ""
 "listas negras. O intervalo de tempo deve ser no formato de 24 horas. (Por "
 "exemplo: 08:00-18:00)"
 
-#: modules/squid/includes/manager.php:43 modules/squid/includes/delete.php:30
+#: modules/squid/includes/delete.php:30 modules/squid/includes/manager.php:43
 #: modules/squid/infoPackage.inc.php:30
 msgid "Proxy"
 msgstr "Proxy"
@@ -276,8 +276,8 @@ msgid "Time range is not valid."
 msgstr "Intervalo de tempo não é válido."
 
 #: modules/squid/infoPackage.inc.php:41
-#: modules/squid/internet/timemanager.php:32
 #: modules/squid/internet/localSidebar.php:28
+#: modules/squid/internet/timemanager.php:32
 msgid "Time range whitelist"
 msgstr "Intervalo de tempo "
 

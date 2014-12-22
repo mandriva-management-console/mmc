@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
-"POT-Creation-Date: 2014-12-01 01:05+0100\n"
-"PO-Revision-Date: 2014-12-15 00:01+0000\n"
+"POT-Creation-Date: 2014-12-17 11:34+0100\n"
+"PO-Revision-Date: 2014-12-22 00:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,32 +21,40 @@ msgstr ""
 msgid "Public SSH keys management"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:51
+#: modules/sshlpk/includes/publicFunc.php:51 modules/sshlpk/keys/edit.php:58
 msgid "Enable SSH keys management"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:73
+#: modules/sshlpk/includes/publicFunc.php:73 modules/sshlpk/keys/edit.php:73
 msgid "Public SSH Key"
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:113
+#: modules/sshlpk/includes/publicFunc.php:113 modules/sshlpk/keys/edit.php:37
 msgid "SSH public keys updated."
 msgstr ""
 
-#: modules/sshlpk/includes/publicFunc.php:119
+#: modules/sshlpk/includes/publicFunc.php:119 modules/sshlpk/keys/edit.php:42
 msgid "SSH public keys attributes deleted."
 msgstr ""
 
-#: modules/sshlpk/infoPackage.inc.php:34
+#: modules/sshlpk/infoPackage.inc.php:30
 msgid "LDAP Public SSH key management"
 msgstr ""
 
-#: modules/sshlpk/infoPackage.inc.php:38
+#: modules/sshlpk/infoPackage.inc.php:34
 msgid "Show/Hide SSH key list"
 msgstr ""
 
-#: modules/sshlpk/infoPackage.inc.php:39
-msgid "Manage SSH key"
+#: modules/sshlpk/infoPackage.inc.php:35
+msgid "Manage SSH keys"
+msgstr ""
+
+#: modules/sshlpk/infoPackage.inc.php:40
+msgid "Change SSH keys"
+msgstr ""
+
+#: modules/sshlpk/keys/edit.php:48
+msgid "Change your SSH keys"
 msgstr ""
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"POT-Creation-Date: 2014-12-22 01:00+0100\n"
 "PO-Revision-Date: 2013-03-11 14:51+0000\n"
 "Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
 "Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/"
@@ -90,7 +90,7 @@ msgstr "Annuler"
 msgid "Default Position"
 msgstr "Position par défaut"
 
-#: modules/squid/includes/manager.php:72 modules/squid/includes/delete.php:41
+#: modules/squid/includes/delete.php:41 modules/squid/includes/manager.php:72
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -162,8 +162,8 @@ msgid "IP address"
 msgstr "Adresse IP"
 
 #: modules/squid/infoPackage.inc.php:47
-#: modules/squid/internet/machmanager.php:32
 #: modules/squid/internet/localSidebar.php:29
+#: modules/squid/internet/machmanager.php:32
 msgid "IP whitelist"
 msgstr "IPs autorisées"
 
@@ -234,7 +234,7 @@ msgstr ""
 "Accès non filtré à Internet pendant l'intervalle de temps. Prévaut sur les "
 "listes noires. (ex: 08:00-14:00)"
 
-#: modules/squid/includes/manager.php:43 modules/squid/includes/delete.php:30
+#: modules/squid/includes/delete.php:30 modules/squid/includes/manager.php:43
 #: modules/squid/infoPackage.inc.php:30
 msgid "Proxy"
 msgstr "Proxy"
@@ -275,8 +275,8 @@ msgid "Time range is not valid."
 msgstr "L'intervalle n'est pas valide."
 
 #: modules/squid/infoPackage.inc.php:41
-#: modules/squid/internet/timemanager.php:32
 #: modules/squid/internet/localSidebar.php:28
+#: modules/squid/internet/timemanager.php:32
 msgid "Time range whitelist"
 msgstr "Intervalles autorisés"
 
