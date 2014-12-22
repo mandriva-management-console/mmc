@@ -425,4 +425,7 @@ function xmlrpc_getComputerByUUID($uuid) {
     return xmlCall("imaging.getComputerByUUID", array($uuid));
 }
 
+function getMasterAvailable(){
+    return xmlCall("imaging.getMasterAvailable", array());
+}
 ?>

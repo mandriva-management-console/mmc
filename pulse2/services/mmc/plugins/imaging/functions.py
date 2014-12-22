@@ -2192,6 +2192,9 @@ class ImagingRpcProxy(RpcProxyI):
 
         return [True]
 
+    def getMasterAvailable(self):
+        return ImagingDatabase().getMasterAvailableall()
+
     def getMyMenuComputer(self, uuid):
         """ see getMyMenuTarget """
         return xmlrpcCleanup(self.getMyMenuTarget(uuid, P2IT.COMPUTER))

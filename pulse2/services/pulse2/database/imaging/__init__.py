@@ -465,6 +465,22 @@ class ImagingDatabase(DyngroupDatabaseHelper):
         for i in objs:
             i['target'] = id_target[i['fk_target']]
 
+    def getMasterAvailableall(self):
+        session = create_session()
+        ret=session.query(Image.name.label("Image"),Target.name.label("Computer")) \
+            .select_from(self.image.join(self.mastered_on, self.image.c.id == self.mastered_on.c.fk_image )
+                .join(self.imaging_log, self.imaging_log.c.id == self.mastered_on.c.fk_imaging_log)
+                    .join(self.target, self.target.c.id == self.imaging_log.c.fk_target)) \
+                        .filter(self.image.c.is_master == 1 )
+        session.close()
+        ret1=[]
+        for z in ret:
+            val={}
+            val['Image']=z.Image
+            val['Computer']=z.Computer
+            ret1.append(val)
+        return ret1
+
     def getImagingDatabaseVersion(self):
         """
         Return the imaging database version.

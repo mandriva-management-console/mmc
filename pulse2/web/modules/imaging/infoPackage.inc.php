@@ -121,6 +121,10 @@ $page = new Page("imaging_server_link", _T("Link an Imaging Server", "imaging"))
 $page->setOptions(array("AJAX" => True, "visible" => False));
 $submod->addPage($page);
 
+$page = new Page("viewMastersAvailable", _T("Masters list", "imaging"));
+$page->setOptions(array("visible" => False, "noHeader" => True));
+$submod->addPage($page);
+
 if (in_array("dyngroup", $_SESSION["modulesList"])) {
     require_once("modules/dyngroup/includes/includes.php");
     if (isProfilesEnable()) {
