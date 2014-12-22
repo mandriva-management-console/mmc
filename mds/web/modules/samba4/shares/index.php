@@ -30,7 +30,6 @@ require("graph/navbar.inc.php");
 
 $page = new PageGenerator();
 $page->setSideMenu($sidemenu);
-$page->display();
 
 /* protected share */
 $protectedShares = getProtectedSamba4Shares();
@@ -94,6 +93,7 @@ foreach($shares as $share) {
 }
 
 $page = new PageGenerator(_T("Current list of shares"));
+$page->setSideMenu($sidemenu);
 $page->display();
 
 $list = new ListInfos($sharesName, _T("Share"));
