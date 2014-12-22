@@ -121,6 +121,8 @@ class ShorewallRules(ShorewallConf):
         self.del_line([action, src, dst, proto, dst_port])
 
     def get(self, action="", srcs=[], dsts=[], filter=""):
+        if filter: #case Insensitive!
+            filter=filter.lower()
         rules = []
         for line in self.get_conf():
             use = True
@@ -130,10 +132,11 @@ class ShorewallRules(ShorewallConf):
                 use = False
             if dsts and not line[2].startswith(tuple(dsts)):
                 use = False
+            if filter and ((filter not in line[0].lower()) and (filter not in line[1].lower()) and (filter not in line[2].lower())):
+                use = False 
             if use:
                 rules.append(line)
         return rules
-
 
 class ShorewallPolicies(ShorewallConf):
 
