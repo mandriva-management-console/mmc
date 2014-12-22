@@ -196,6 +196,12 @@ def getMachineIp(uuid):
 def setGlpiEditableValue(uuid, name, value):
     return xmlrpcCleanup(Glpi().setGlpiEditableValue(uuid, name, value))
 
+def updateEntities(id,name,oldname,comment):
+    return xmlrpcCleanup(Glpi().updateEntities(id,name,oldname,comment))
+
+def updateLocation(id,name,oldname,comment):
+    return xmlrpcCleanup(Glpi().updateLocation(id,name,oldname,comment))
+
 
 # TODO
 def getInventoryEM(part):

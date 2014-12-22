@@ -56,7 +56,7 @@ if (!$count) {
 $listinfoParams = array();
 
 foreach ($data as $row) {
-    $listinfoParams[] = array('id' => $row['id']);
+    $listinfoParams[] = array('id' => $row['id'], 'name'=> $row['name'], 'comment'=> $row['comment'] );
 }
 
 

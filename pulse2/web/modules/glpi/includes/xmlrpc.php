@@ -97,6 +97,14 @@ function getAllEntitiesPowered($params){
     return xmlCall("glpi.getAllEntitiesPowered", array($params));
 }
 
+function updateEntities($id,$name,$oldname,$comment){
+    return xmlCall("glpi.updateEntities", array($id,$name,$oldname,$comment));
+}
+
+function updateLocation($id, $name, $oldname, $comment){
+    return xmlCall("glpi.updateLocation", array($id,$name,$oldname,$comment));
+}
+
 function addEntity($entity_name, $parent_id, $comment){
     return xmlCall("glpi.addEntity", array($entity_name, $parent_id, $comment));
 }
