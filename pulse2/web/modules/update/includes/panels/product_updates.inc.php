@@ -43,33 +43,51 @@ class UpdatePanel extends Panel {
 	printf('<center style="color:red;font-weight:bold">%s</center>', _T('An error occured while fetching updates'));
 	}
 	else{
-        
+
             $view_updates_text = _T('View updates', 'update');
             $install_updates_text = _T('Install updates', 'update');
-            
-            
+
+
             print '<center>';
-            
+
             if ($update_count == 0)
                 printf('<p><strong>%s</strong></p>', _T('No updates available.', 'update'));
             else{
                 printf('<p><strong>%d %s</strong></p>', $update_count, _T('updates available.', 'update'));
-                
+
+                $yes= _T('Yes', 'update');
+                $no = _T('No', 'update');
+                $msg= _T('confirm Install updates', 'update');
                 print <<<EOS
                 <a title="View updates" class="btnSecondary"
                     href="javascript:;"
                     onclick="PopupWindow(event,'main.php?module=update&amp;submod=update&amp;action=viewProductUpdates', 300); return false;"
                     >$view_updates_text</a><br/><br/>
-                    <a title="Install updates" class="btnSecondary"
-                    href="main.php?module=update&amp;submod=update&amp;action=installProductUpdates"
-                    >$install_updates_text</a>
-                </center>
-EOS;
-                
-            }
 
-	}
-    
+                    <a title="Install updates" class="btnSecondary"
+                    href="javascript:verifyok();">$install_updates_text</a>
+                </center>
+                <script type="text/javascript">
+                function verifyok() {
+                    var message = '<div style="padding: 10px"><div class="alert alert-info">$msg</div>';
+                    message += '<div style="text-align: center">'+
+                    '<button class="btn" onclick="window.location.assign(\'main.php?module=update&amp;submod=update&amp;action=installProductUpdates\');closePopup();">$yes </button>';
+                        message += '<button class="btn" onclick="closePopup();">$no</button>';
+                    message += '</div></div>';
+                    PopupWindow(null, null, 0, function(evt) {
+                        jQuery('#popup').css({
+                            'width': '25%',
+                            'left': '37%',
+                            'hight':'20%',
+                            'top': '40%'
+                        });
+                        jQuery('#overlay').fadeIn().click(closePopup);
+                    }, message);
+                }
+                </script>
+EOS;
+            }
+        }
     }
 
     function display_licence($type, $title) {

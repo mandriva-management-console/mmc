@@ -187,6 +187,28 @@ $root = $conf["global"]["root"];
                 PopupWindow(null, url, 300, _centerPlacement);
             }
 
+            function displaySumitConfirmationPopup(message,objs) {
+                    CloseSubmit = function(){
+                        objs.submit();
+                    }
+                var message = '<div style="padding: 10px"><div class="alert alert-info">' + message + '</div>';
+                message += '<div style="text-align: center">'+
+                '<button class="btn" onclick="closePopup();CloseSubmit();"><?= _('Yes') ?></button>';
+                    message += '<button class="btn" onclick="closePopup();"><?= _('No') ?></button>';
+                message += '</div></div>';
+                PopupWindow(null, null, 0, function(evt) {
+                    jQuery('#popup').css({
+                        'width': '33%',
+                        'left': '33%',
+                        'hight':'20%',
+                        'top': '40%'
+                    });
+
+                    jQuery('#overlay').fadeIn().click(closePopup);
+
+                }, message);
+            }
+
             function displayConfirmationPopup(message, url_yes, url_no, klass) {
 
                 if (!klass)
