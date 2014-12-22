@@ -669,7 +669,9 @@ class S4Sync(object):
             raise S4SyncTimestampError("Error updating timestamp")
 
 
-def sync_loop(logger, wait_time):
+def sync_loop(logg, wait_time):
+    global logger
+    logger = logg
     try:
         s4sync = S4Sync(logger)
     except Samba4NotProvisioned:

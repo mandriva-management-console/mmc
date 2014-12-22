@@ -30,7 +30,7 @@ $lan_zones = getShorewallZones($zones_types['internal']);
 $wan_zones = getShorewallZones($zones_types['external']);
 
 $mod = new Module("shorewall");
-$mod->setVersion("2.5.83");
+$mod->setVersion("2.5.85");
 $mod->setRevision('');
 $mod->setDescription(_T("Firewall management", "shorewall"));
 $mod->setAPIVersion("0:0:0");
