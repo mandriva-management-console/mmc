@@ -28,9 +28,6 @@ require("modules/samba4/includes/shares-xmlrpc.inc.php");
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-$page = new PageGenerator();
-$page->setSideMenu($sidemenu);
-
 /* protected share */
 $protectedShares = getProtectedSamba4Shares();
 
