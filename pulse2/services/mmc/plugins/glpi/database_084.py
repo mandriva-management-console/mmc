@@ -1850,6 +1850,7 @@ class Glpi084(DyngroupDatabaseHelper):
         return ret
 
     def getLastMachineSoftwaresPart(self, session, uuid, part, min = 0, max = -1, filt = None, options = {}, count = False):
+        typeos = self.getComputersOS(uuid)[0]['OSName']
         hide_win_updates = False
         if 'hide_win_updates' in options:
             hide_win_updates = options['hide_win_updates']
@@ -1872,14 +1873,25 @@ class Glpi084(DyngroupDatabaseHelper):
             query = query.filter(or_(*clauses))
 
         if hide_win_updates:
-            query = query.filter(
-                not_(
-                    and_(
-                        self.manufacturers.c.name.contains('microsoft'),
-                        self.software.c.name.op('regexp')('KB[0-9]+(-v[0-9]+)?(v[0-9]+)?')
+            if ("windows" in (typeos.lower())) :
+                query = query.filter(
+                    not_(
+                        and_(
+                            self.manufacturers.c.name.contains('microsoft'),
+                            self.software.c.name.op('regexp')('KB[0-9]+(-v[0-9]+)?(v[0-9]+)?')
+                        )
                     )
                 )
-            )
+            elif ("os x" in (typeos.lower())) :
+                pass
+            else:
+                query = query.filter(
+                    not_(
+                        and_(
+                            self.software.c.name.op('regexp')('^lib.*')
+                        )
+                    )
+                )
 
         if min != 0:
             query = query.offset(min)
