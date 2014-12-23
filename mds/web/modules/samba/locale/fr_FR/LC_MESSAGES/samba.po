@@ -11,15 +11,16 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-01-29 13:41+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
-"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/"
-"team/fr_FR/)\n"
+"PO-Revision-Date: 2014-12-23 10:17+0200\n"
+"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/samba/fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/samba/includes/panels/samba.inc.php:36
 #, php-format
@@ -130,7 +131,7 @@ msgstr "Antivirus sur ce partage"
 
 #: modules/samba/shares/details.php:418
 msgid "Apply rights recursively"
-msgstr ""
+msgstr "Appliquer les droits récursivement"
 
 #: modules/samba/shares/index.php:68
 msgid "Archive"
