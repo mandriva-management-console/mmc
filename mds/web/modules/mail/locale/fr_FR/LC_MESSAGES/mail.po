@@ -111,7 +111,7 @@ msgstr "Utilisateur interne destinataire (maildrop)"
 
 #: modules/mail/includes/auditCodes.php:11
 msgid "Change mail hidden"
-msgstr "Addresse mail cachée"
+msgstr "Changer la visibilité de l'addresse mail"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
