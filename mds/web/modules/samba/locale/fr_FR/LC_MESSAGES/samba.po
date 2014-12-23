@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-23 10:17+0200\n"
+"PO-Revision-Date: 2014-12-23 10:21+0200\n"
 "Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
 "Language-Team: French "
 "<http://translate.mandriva.com/projects/mds-26/samba/fr_FR/>\n"
@@ -66,7 +66,7 @@ msgstr "Expiration du compte"
 
 #: modules/samba/config/index.php:135
 msgid "Activate roaming profiles for all users."
-msgstr "Activer les profiles itinérants pour tous les utilisateurs"
+msgstr "Activer les profiles itinérants pour tous les utilisateurs."
 
 #: modules/samba/machines/ajaxFilter.php:43
 msgid "Active"
@@ -196,7 +196,7 @@ msgstr "Ordinateur %s ajouté"
 #: modules/samba/machines/delete.php:36
 #, php-format
 msgid "Computer <strong>%s</strong> deleted."
-msgstr "L'ordinateur <b>%s</b> a été supprimé"
+msgstr "L'ordinateur <strong>%s</strong> a été supprimé."
 
 #: modules/samba/infoPackage.inc.php:80
 msgid "Computer list"
@@ -212,7 +212,7 @@ msgstr "Nom de la machine"
 
 #: modules/samba/machines/edit.php:50
 msgid "Computer successfully modified."
-msgstr "Ordinateur modifié avec succès"
+msgstr "Ordinateur modifié avec succès."
 
 #: modules/samba/machines/ajaxFilter.php:46 modules/samba/status/index.php:65
 #: modules/samba/status/index.php:114
@@ -305,7 +305,7 @@ msgstr "Désactivation du compte SAMBA"
 
 #: modules/samba/config/index.php:99
 msgid "Domain name"
-msgstr "Nom du domaine"
+msgstr "Nom de domaine"
 
 #: modules/samba/shares/index.php:50 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
@@ -330,7 +330,7 @@ msgstr "Activation/Désactivation du compte"
 #: modules/samba/includes/publicFunc.php:177
 #: modules/samba/includes/publicFunc.php:184
 msgid "Failed to add Samba attributes."
-msgstr "Échec lors de l'ajout des attributs Samba"
+msgstr "Échec lors de l'ajout des attributs Samba."
 
 #: modules/samba/config/index.php:84
 msgid "General options"
@@ -640,7 +640,7 @@ msgstr "Le répertoire de ce partage n'existe pas."
 
 #: modules/samba/config/index.php:152
 msgid "The share must exist and be world-writable."
-msgstr "Le partage doit exister et être en écriture pour tout le monde"
+msgstr "Le partage doit exister et être en écriture pour tout le monde."
 
 #: modules/samba/shares/details.php:186
 msgid ""
@@ -705,11 +705,14 @@ msgid ""
 "\t\t\t</ul>\n"
 "\t\t\t"
 msgstr ""
-"Essayez de remonter votre partition avec le support des ACLs \t\t\t<ul> \t\t"
-"\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li> \t\t"
-"\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de "
-"montage dans /etc/fstab<br/> \t\t\t<pre>ie: /dev/hda6  /home  ext3  defaults,"
-"acl  1  2</pre></li> \t\t\t</ul> "
+"Essayez de remonter votre partition avec le support des ACLs\n"
+"\t\t\t<ul>\n"
+"\t\t\t<li>Vous pouvez utiliser XFS qui supporte nativement les ACLs</li>\n"
+"\t\t\t<li>Pour  le système de fichier ext3 ajoutez \"acl\" à vos options de "
+"montage dans /etc/fstab<br/>\n"
+"\t\t\t    <pre>ex: /dev/hda6  /home  ext3  defaults,acl  1  2</pre></li>\n"
+"\t\t\t</ul>\n"
+"\t\t\t"
 
 #: modules/samba/includes/auditCodes.php:42
 msgid "Unlock user"
@@ -741,7 +744,7 @@ msgstr "Utilisateur verrouillé, si cochée"
 
 #: modules/samba/includes/publicFunc.php:348
 msgid "User must change password on next logon, <br/>if checked"
-msgstr "L'utilisateur doit changer son mot de passe, si coché"
+msgstr "L'utilisateur doit changer son mot de passe, <br/>si coché"
 
 #: modules/samba/includes/auditCodes.php:47
 msgid "User password can expire"
