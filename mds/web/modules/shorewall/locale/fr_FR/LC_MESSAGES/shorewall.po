@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-23 10:16+0200\n"
+"PO-Revision-Date: 2014-12-23 10:17+0200\n"
 "Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
 "Language-Team: French "
 "<http://translate.mandriva.com/projects/mds-26/shorewall/fr_FR/>\n"
@@ -338,7 +338,7 @@ msgstr "La règle est invalide"
 
 #: modules/shorewall/shorewall/restart_service.php:26
 msgid "The service has been asked to restart."
-msgstr "Il a été demandé au service de redémarrer."
+msgstr "Une demande de redémarrage a été envoyée au service."
 
 #: modules/shorewall/includes/functions.inc.php:32
 msgid "Unknow"
