@@ -73,8 +73,11 @@ class ImportUsers {
         return array (
                       "mail",
                       "primaryGroup",
-                      "loginShell",
-                      "telephoneNumber",
+		      "loginShell",
+		      "mailAccess",
+		      "telephoneNumber",
+		      "isSmbDesactive",
+		      "isSamba",
                       "mobile",
                       "gecos",
                       "description",
@@ -312,9 +315,14 @@ class CSVUser {
     function import() {
         if ($this->importable) {
             $user = $this->user;
-            $login = $user["login"];
-            $ret = add_user($login, $user["password"], $user["firstname"], $user["surname"], array_key_exists("homedir", $user) ? $user["homedir"] : "", array_key_exists("createhomedir", $user) ? $user["createhomedir"] : "yes", array_key_exists("primaryGroup", $user) ? $user["primaryGroup"] : "");
-            $this->result .= $ret["info"]." ";
+	    $login = $user["login"];
+	    $uid = $user["login"];
+	    $ret = add_user($login, $user["password"], $user["firstname"], $user["surname"], array_key_exists("homedir", $user) ? $user["homedir"] : "", $user["mail"], array_key_exists("createhomedir", $user) ? $user["createhomedir"] : "yes", array_key_exists("ownHomeDir", $user) ? $user["ownHomeDir"] : "", $user["primaryGroup"]);
+	    $this->result .= $ret["info"]." ";
+	    $mailAccess = preg_replace('/\s+/', '', $user["mailAccess"]);
+	    if (strtolower($mailAccess) == "yes") {
+		changeMailEnable($login,"true");
+	    }
             /*$this->modifiable = true;
               $this->modify();*/
         }
