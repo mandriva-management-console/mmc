@@ -11,10 +11,10 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-10 17:05+0200\n"
+"PO-Revision-Date: 2014-12-23 10:22+0200\n"
 "Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
-"Language-Team: French <http://translate.mandriva.com/projects/mds-26/mail/"
-"fr_FR/>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/mail/fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,9 +110,8 @@ msgid "Change mail drop"
 msgstr "Utilisateur interne destinataire (maildrop)"
 
 #: modules/mail/includes/auditCodes.php:11
-#, fuzzy
 msgid "Change mail hidden"
-msgstr "Changement du serveur de messagerie (mailhost)"
+msgstr "Addresse mail cachée"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
@@ -345,9 +344,8 @@ msgstr "Accès aux alias de messagerie pour groupes"
 
 #: modules/mail/includes/publicFunc.php:92
 #: modules/mail/includes/publicFunc.php:302
-#, fuzzy
 msgid "Mail hidden"
-msgstr "Adresse de messagerie"
+msgstr "Adresse mail cachée"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
