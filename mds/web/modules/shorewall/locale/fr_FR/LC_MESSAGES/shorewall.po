@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-10 17:09+0200\n"
-"Last-Translator: Jean-François <jfmorcillo@mandriva.com>\n"
-"Language-Team: French <http://translate.mandriva.com/projects/mds-26/"
-"shorewall/fr_FR/>\n"
+"PO-Revision-Date: 2014-12-23 10:16+0200\n"
+"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/shorewall/fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -176,9 +176,8 @@ msgstr "Interne &rarr; Externe"
 
 #: modules/shorewall/infoPackage.inc.php:99
 #: modules/shorewall/shorewall/localSidebar.php:45
-#, fuzzy
 msgid "Internal &rarr; Internal"
-msgstr "Externe &rarr; Interne"
+msgstr "Interne &rarr; Interne"
 
 #: modules/shorewall/infoPackage.inc.php:45
 #: modules/shorewall/shorewall/localSidebar.php:32
@@ -191,11 +190,11 @@ msgstr "Réseau interne"
 
 #: modules/shorewall/includes/errorHandling.php:29
 msgid "Invalid port number"
-msgstr ""
+msgstr "Numéro de port invalide"
 
 #: modules/shorewall/includes/errorHandling.php:36
 msgid "Invalid port range"
-msgstr ""
+msgstr "Plage de port invalide"
 
 #: modules/shorewall/infoPackage.inc.php:112
 #: modules/shorewall/shorewall/localSidebar.php:54
@@ -230,7 +229,7 @@ msgstr "Règles de transfert de ports"
 
 #: modules/shorewall/includes/errorHandling.php:30
 msgid "Port should be between 0 and 65535."
-msgstr ""
+msgstr "Le port doit être entre 0 et 65535."
 
 #: modules/shorewall/shorewall/rules.php:233
 #: modules/shorewall/shorewall/ajax_rules.php:52
@@ -244,6 +243,8 @@ msgid ""
 "Ports should be between 0 and 65535 and the left side port must be lower "
 "that the right side port."
 msgstr ""
+"Les ports doivent être compris entre 0 et 65535 et le port de gauche doit "
+"être plus petit que le port de droite."
 
 #: modules/shorewall/shorewall/rules.php:231
 #: modules/shorewall/shorewall/ajax_rules.php:51
@@ -332,9 +333,8 @@ msgid "The rule has been deleted."
 msgstr "La règle à été supprimée."
 
 #: modules/shorewall/includes/errorHandling.php:23
-#, fuzzy
 msgid "The rule is invalid"
-msgstr "La règle à été supprimée."
+msgstr "La règle est invalide"
 
 #: modules/shorewall/shorewall/restart_service.php:26
 msgid "The service has been asked to restart."
