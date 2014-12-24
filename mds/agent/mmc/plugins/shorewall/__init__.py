@@ -133,7 +133,7 @@ class ShorewallRules(ShorewallConf):
             if dsts and not line[2].startswith(tuple(dsts)):
                 use = False
             if filter and ((filter not in line[0].lower()) and (filter not in line[1].lower()) and (filter not in line[2].lower())):
-                use = False 
+                use = False
             if use:
                 rules.append(line)
         return rules
@@ -173,7 +173,7 @@ class ShorewallPolicies(ShorewallConf):
 
 class ShorewallMasq(ShorewallConf):
 
-    def __init__(self, file='mask'):
+    def __init__(self, file='masq'):
         ShorewallConf.__init__(self, file,
             r'^(?P<lan_if>[\w]+)\s+(?P<wan_if>[\w]+)$')
         self.read()
