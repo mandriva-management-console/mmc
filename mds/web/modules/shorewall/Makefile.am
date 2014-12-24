@@ -34,6 +34,8 @@ datafiles = \
 	shorewall/delete_internal_external_rule.php \
 	shorewall/external_internal.php \
 	shorewall/ajax_external_internal.php \
+	shorewall/internal_internal.php \
+	shorewall/ajax_internal_internal.php \
 	shorewall/delete_external_internal_rule.php \
 	shorewall/rules.php \
 	shorewall/ajax_rules.php \
