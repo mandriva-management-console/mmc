@@ -1,7 +1,9 @@
 <?php
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2014 Mandriva, http://www.mandriva.com
+ * (c) 2007-2008 Mandriva, http://www.mandriva.com
+ *
+ * $Id$
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -19,7 +21,6 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-include_once('common.inc.php');
 
 function check_auth($login, $pass) {
     $param = array();
@@ -71,7 +72,10 @@ function auth_user ($login, $pass)
  * @param &$error referenced error String
  */
 function get_users($full = false, $filter = null) {
-    $filter = cleanSearchFilter($filter);
+
+    if ($filter == "") $filter = null;
+    else $filter = "*".$filter . "*";
+
     $tab = xmlCall("base.getUsersLdap", $filter);
     if ($full) {
         return $tab;
@@ -89,8 +93,10 @@ function get_users($full = false, $filter = null) {
  * @return get a detailled ldap users using cpu
  * @param &$error reference String error
  */
-function get_users_detailed(&$error, $filter = null, $start = null, $end = null) {
-    $filter = cleanSearchFilter($filter);
+function get_users_detailed(&$error, $filter = null, $start = null, $end = null)
+{
+    if ($filter == "") $filter = null;
+    else $filter = "*".$filter . "*";
     return xmlCall("base.searchUserAdvanced", array($filter, $start, $end));
 }
 
@@ -102,9 +108,9 @@ function get_users_detailed(&$error, $filter = null, $start = null, $end = null)
  * @param $name user's name
  * @param $homedir user home directory
  */
-function add_user($login, $pass, $firstname, $name, $homedir, $createhomedir, $ownHomeDir, $primaryGroup = "")
+function add_user($login, $password, $firstname, $surname, $homedir, $mail, $createhomedir, $ownHomeDir, $primaryGroup = "")
 {
-    $param = array($login, prepare_string($pass), $firstname, $name, $homedir, $createhomedir, $ownHomeDir, $primaryGroup);
+    $param = array($login, prepare_string($password), $firstname, $surname, $homedir, $mail, $createhomedir, $ownHomeDir, $primaryGroup);
     $ret = xmlCall("base.createUser", $param);
     if ($ret == 5) {
         $msg = sprintf(_("User %s created but password is not valid regarding your password policies.<br/><strong>You must change the user password.</strong>"), $login) . "<br />";
