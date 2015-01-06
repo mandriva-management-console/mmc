@@ -107,7 +107,7 @@ if ($_GET["action"] == "add")  {
 }
 
 $table->add(new TrFormElement(_T("Name"), $input), array("value" => $shareName));
-$table->add(new TrFormElement(_T("Path"), new InputTpl("sharePath")),array("value" => $sharePath));
+// $table->add(new TrFormElement(_T("Path"), new InputTpl("sharePath")),array("value" => $sharePath));
 $table->add(new TrFormElement(_T("Description"), new InputTpl("shareDescription")),array("value" => $shareDescription));
 $table->display();
 ?>
@@ -150,6 +150,18 @@ renderTPL("groups");
 
 <div id="expertMode" class="expertMode" <?php displayExpertCss(); ?>>
 <table cellspacing="0">
+    <tr>
+    <td>
+    </td>
+    <td>
+    <?php
+    $share=new TrFormElement(_T("Path"), new InputTpl("sharePath"));
+    $params=array("value" => $sharePath);
+    $share->display($params);
+    ?>
+    </td>
+   </tr>
+    
     <tr>
     <td>
     </td>
