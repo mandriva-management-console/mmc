@@ -56,6 +56,7 @@ except ImportError:
 
 
 class SambaConf:
+
     """
     Handle smb.conf file for Samba 4
     """
@@ -163,7 +164,7 @@ class SambaConf:
                   'netbios_name': netbios_name,
                   'description': description,
                   'mode': mode,
-                  'sysvol_path': os.path.join(self.prefix, 'var/locks/sysvol'),
+                  'sysvol_path': os.path.join(self.prefix, '/var/lib/samba'),
                   'openchange': openchange,
                   'openchange_conf': openchange_conf,
                   'domain': domain,
@@ -201,7 +202,7 @@ class SambaConf:
             'shareDescription': self.getContent(section, 'comment') or '',
             'shareGuest': guest
         }
-        #return share_detail
+        # return share_detail
         return [share_detail['shareName'], share_detail['sharePath'], share_detail['shareEnable'],
                 share_detail['shareDescription'], share_detail['shareGuest']]
 
@@ -324,7 +325,8 @@ class SambaConf:
             # Raise exception if error is not "File exists"
             if errno != 17:
                 raise OSError(errno, strerror + ' ' + path)
-            else: pass
+            else:
+                pass
 
         # Directory is owned by root
         os.chown(path, 0, 0)
