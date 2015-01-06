@@ -55,7 +55,7 @@ $MMCApp->addModule($module);
 function _createSamba4SharesSubmodule($isProvisioned) {
     $submodule = new SubModule("shares");
 
-    $submodule->setDescription(_T("Shares-4","samba4"));
+    $submodule->setDescription(_T("Shares","samba4"));
     $submodule->setImg('modules/samba4/graph/navbar/share');
     $submodule->setDefaultPage("samba4/shares/index");
     $submodule->setVisibility($isProvisioned);
