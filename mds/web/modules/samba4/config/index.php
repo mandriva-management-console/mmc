@@ -95,7 +95,7 @@ $f->push(new Table());
 #if ($smb["pdc"])
 #    $workgroupTpl = new HiddenTpl("workgroup");
 #else
-    $workgroupTpl = new NetbiosUppercaseInputTpl("realm");
+    $workgroupTpl = new HiddenTpl("realm");
 
 $f->add(
         new TrFormElement(_T("Domain name"), $workgroupTpl),
@@ -103,7 +103,7 @@ $f->add(
 );
 
 $f->add(
-        new TrFormElement(_T("Server name"), new NetbiosUppercaseInputTpl("netbios name")),
+        new TrFormElement(_T("Server name"), new HiddenTpl("netbios name")),
         array("value" => $smb["netbios name"], "required" => True)
 );
 
