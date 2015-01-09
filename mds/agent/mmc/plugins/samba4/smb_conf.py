@@ -164,7 +164,7 @@ class SambaConf:
                   'netbios_name': netbios_name,
                   'description': description,
                   'mode': mode,
-                  'sysvol_path': os.path.join(self.prefix, '/var/lib/samba'),
+                  'sysvol_path': os.path.join(self.prefix, 'var/lib/samba/sysvol'),
                   'openchange': openchange,
                   'openchange_conf': openchange_conf,
                   'domain': domain,
