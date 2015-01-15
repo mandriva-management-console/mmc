@@ -36,7 +36,7 @@ if (strlen($_GET['uuid'])) {
 /*
  * display stuff for a single client
  */
-    if (isset($_GET['bundle_id']) and !isset($_GET['coh_id'])) { # bundle display
+    if (strlen($_GET['bundle_id']) and !strlen($_GET['coh_id'])) { # bundle display
         $bdl = new Bundle($_GET['bundle_id']);
         $act = $bdl->quickDisplay();
         if ($act) {
