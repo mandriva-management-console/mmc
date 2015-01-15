@@ -180,7 +180,7 @@ class SambaConf:
         return params
 
     def writeKrb5Config(self, realm):
-        params = {'realm': realm}
+        params = {'realm': realm.upper()}
         krb5_conf_template = env.get_template('krb5.conf')
         with open(self.KRB5_CONF_PATH, 'w') as f:
             f.write(krb5_conf_template.render(params))
