@@ -164,7 +164,7 @@ class SambaConf:
                   'netbios_name': netbios_name,
                   'description': description,
                   'mode': mode,
-                  'sysvol_path': os.path.join(self.prefix, '/var/lib/samba'),
+                  'sysvol_path': os.path.join(self.prefix, 'var/lib/samba/sysvol'),
                   'openchange': openchange,
                   'openchange_conf': openchange_conf,
                   'domain': domain,
@@ -180,7 +180,7 @@ class SambaConf:
         return params
 
     def writeKrb5Config(self, realm):
-        params = {'realm': realm}
+        params = {'realm': realm.upper()}
         krb5_conf_template = env.get_template('krb5.conf')
         with open(self.KRB5_CONF_PATH, 'w') as f:
             f.write(krb5_conf_template.render(params))
