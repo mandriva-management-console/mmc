@@ -313,7 +313,7 @@ class CSVUser {
         if ($this->importable) {
             $user = $this->user;
             $login = $user["login"];
-            $ret = add_user($login, $user["password"], $user["firstname"], $user["surname"], array_key_exists("homedir", $user) ? $user["homedir"] : "", array_key_exists("createhomedir", $user) ? $user["createhomedir"] : "yes", array_key_exists("primaryGroup", $user) ? $user["primaryGroup"] : "");
+            $ret = add_user($login, $user["password"], $user["firstname"], $user["surname"], array_key_exists("homedir", $user) ? $user["homedir"] : "", $user["mail"],  array_key_exists("createhomedir", $user) ? $user["createhomedir"] : "yes", array_key_exists("primaryGroup", $user) ? $user["primaryGroup"] : "");
             $this->result .= $ret["info"]." ";
             /*$this->modifiable = true;
               $this->modify();*/
