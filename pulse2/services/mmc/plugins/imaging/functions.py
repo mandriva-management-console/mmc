@@ -2195,6 +2195,21 @@ class ImagingRpcProxy(RpcProxyI):
     def getMasterAvailable(self):
         return ImagingDatabase().getMasterAvailableall()
 
+    def Windows_Answer_File_Generator(self, xmlWAFG, title):
+        filexml="/var/lib/pulse2/imaging/postinst/sysprep/"
+        if not path.exists(filexml):
+            makedirs(filexml, 0722)
+        filexml = filexml + title
+        try:
+            f = open(filexml, 'w')
+            f.write(xmlWAFG)
+        except  Exception, e:
+            logging.getLogger().exception(e)
+            return False
+        else:
+            f.close()
+        return True
+
     def getMyMenuComputer(self, uuid):
         """ see getMyMenuTarget """
         return xmlrpcCleanup(self.getMyMenuTarget(uuid, P2IT.COMPUTER))
