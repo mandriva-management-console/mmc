@@ -30,6 +30,7 @@ from mmc.support.config import PluginConfigFactory
 import ldap
 from ldap.controls import RequestControl
 from datetime import datetime, timedelta
+from socket import gethostname
 import pytz
 import time
 import os
@@ -174,7 +175,8 @@ class SambaLdap(LdapUserMixin):
         self.user_pk_field = "sAMAccountName"
         self.timestamp_field = "whenChanged"
         self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
-        self.user_ignore_list = ['Guest', 'krbtgt']
+        user_dns = 'dns-%s' % gethostname()
+        self.user_ignore_list = ['Guest', 'krbtgt', user_dns]
         self.group_base_dn = self.base_dn
         self.group_list_filter = '(&(objectClass=group)(sAMAccountType=268435456)(groupType=-2147483646))'
         self.group_ignore_list = ['Users']
