@@ -42,7 +42,7 @@ from mmc.support.mmctools import shlaunchBackground, progressBackup
 
 logger = logging.getLogger()
 
-VERSION = "2.5.88"
+VERSION = "2.5.89"
 APIVERSION = "1.0.0"
 REVISION = scmRevision("$Rev$")
 
