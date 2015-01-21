@@ -10,16 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-19 01:03+0100\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
-"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/"
-"team/fr_FR/)\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-12-23 10:22+0200\n"
+"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/mail/fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/mail/domains/edit.php:87
 msgid " The quota of all users of this mail domain have been reset."
@@ -35,7 +36,7 @@ msgstr "%s n'est pas un alias de messagerie valide."
 msgid "Add Zarafa attributes"
 msgstr "Ajout des attributs Zarafa"
 
-#: modules/mail/infoPackage.inc.php:66 modules/mail/mainSidebar.php:35
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:66
 msgid "Add a domain"
 msgstr "Ajouter un domaine"
 
@@ -43,8 +44,8 @@ msgstr "Ajouter un domaine"
 msgid "Add a mail domain"
 msgstr "Ajouter un domaine de messagerie"
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:120
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:120
 msgid "Add a virtual alias"
 msgstr "Ajouter un alias virtuel"
 
@@ -110,7 +111,7 @@ msgstr "Utilisateur interne destinataire (maildrop)"
 
 #: modules/mail/includes/auditCodes.php:11
 msgid "Change mail hidden"
-msgstr ""
+msgstr "Changer la visibilité de l'addresse mail"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
@@ -118,7 +119,7 @@ msgstr "Changement du serveur de messagerie (mailhost)"
 
 #: modules/mail/includes/auditCodes.php:10
 msgid "Change mail proxy"
-msgstr ""
+msgstr "Changer le proxy mail"
 
 #: modules/mail/includes/auditCodes.php:12
 msgid "Change mail quota"
@@ -217,7 +218,7 @@ msgstr "Éditer l'alias virtuel"
 
 #: modules/mail/includes/publicFunc.php:66
 msgid "Enable mail alias for users of this group "
-msgstr "Activer l'alias de messagerie pour les membres de ce groupe"
+msgstr "Activer l'alias de messagerie pour les membres de ce groupe "
 
 #: modules/mail/includes/auditCodes.php:4
 msgid "Enable mail delivery"
@@ -248,7 +249,7 @@ msgstr "Cacher dans le carnet d'adresses Zarafa"
 
 #: modules/mail/domains/edit.php:62
 msgid "Invalid domain name"
-msgstr "Nom de domaine de messagerie invalide"
+msgstr "Nom de domaine invalide"
 
 #: modules/mail/domains/ajaxFilter.php:24
 msgid "Login"
@@ -287,15 +288,15 @@ msgstr "Alias de messagerie"
 msgid "Mail attributes added."
 msgstr "Attributs de messagerie ajoutés."
 
-#: modules/mail/includes/publicFunc.php:515
+#: modules/mail/includes/publicFunc.php:513
 msgid "Mail attributes deleted."
 msgstr "Attributs de messagerie supprimés."
 
-#: modules/mail/includes/publicFunc.php:471
+#: modules/mail/includes/publicFunc.php:469
 msgid "Mail delivery disabled."
 msgstr "Livraison de la messagerie désactivée."
 
-#: modules/mail/includes/publicFunc.php:475
+#: modules/mail/includes/publicFunc.php:473
 msgid "Mail delivery enabled."
 msgstr "Livraison d'email activée."
 
@@ -323,7 +324,7 @@ msgid "Mail domain is empty. Group mail alias wasn't set."
 msgstr ""
 "Le domaine de messagerie est vide. L'alias de groupe n'a pas été défini."
 
-#: modules/mail/infoPackage.inc.php:63 modules/mail/mainSidebar.php:30
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:63
 msgid "Mail domains"
 msgstr "Domaines de messagerie"
 
@@ -344,7 +345,7 @@ msgstr "Accès aux alias de messagerie pour groupes"
 #: modules/mail/includes/publicFunc.php:92
 #: modules/mail/includes/publicFunc.php:302
 msgid "Mail hidden"
-msgstr ""
+msgstr "Adresse mail cachée"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
@@ -361,7 +362,7 @@ msgstr "Propriétés de la messagerie"
 
 #: modules/mail/includes/publicFunc.php:289
 msgid "Mail proxy"
-msgstr ""
+msgstr "Proxy Mail"
 
 #: modules/mail/includes/publicFunc.php:235
 msgid "Mail quota (in kB)"
@@ -485,7 +486,7 @@ msgstr "Nom de l'alias virtuel mis à jour."
 msgid "Virtual alias users updated."
 msgstr "Utilisateurs de l'alias mis à jour."
 
-#: modules/mail/infoPackage.inc.php:117 modules/mail/mainSidebar.php:41
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:117
 msgid "Virtual aliases"
 msgstr "Alias virtuels"
 

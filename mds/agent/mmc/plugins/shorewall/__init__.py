@@ -30,7 +30,7 @@ from mmc.support.mmctools import ServiceManager
 from mmc.plugins.shorewall.io import ShorewallConf, ShorewallLineInvalid
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
-VERSION = "2.5.82"
+VERSION = "2.5.89"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 
@@ -121,6 +121,8 @@ class ShorewallRules(ShorewallConf):
         self.del_line([action, src, dst, proto, dst_port])
 
     def get(self, action="", srcs=[], dsts=[], filter=""):
+        if filter: #case Insensitive!
+            filter=filter.lower()
         rules = []
         for line in self.get_conf():
             use = True
@@ -130,10 +132,11 @@ class ShorewallRules(ShorewallConf):
                 use = False
             if dsts and not line[2].startswith(tuple(dsts)):
                 use = False
+            if filter and ((filter not in line[0].lower()) and (filter not in line[1].lower()) and (filter not in line[2].lower())):
+                use = False
             if use:
                 rules.append(line)
         return rules
-
 
 class ShorewallPolicies(ShorewallConf):
 
@@ -170,7 +173,7 @@ class ShorewallPolicies(ShorewallConf):
 
 class ShorewallMasq(ShorewallConf):
 
-    def __init__(self, file='mask'):
+    def __init__(self, file='masq'):
         ShorewallConf.__init__(self, file,
             r'^(?P<lan_if>[\w]+)\s+(?P<wan_if>[\w]+)$')
         self.read()

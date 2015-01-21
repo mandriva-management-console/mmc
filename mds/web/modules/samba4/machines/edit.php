@@ -25,7 +25,7 @@
  */
 
 require("modules/samba4/includes/machines-xmlrpc.inc.php");
-require("modules/samba4/machines/machinesSidebar.php");
+require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
 
 require_once("includes/FormHandler.php");

@@ -34,7 +34,8 @@ if (isset($_POST["brestart"])) {
 }
 
 function get_smbconf() {
-    $smbInfo = xmlCall("samba.getSmbInfo", null);
+    #$smbInfo = xmlCall("samba.getSmbInfo", null);
+    $smbInfo = xmlCall("samba4.getSamba4GlobalInfo", null);
     return $smbInfo;
 }
 
@@ -86,39 +87,40 @@ $p->setSideMenu($sidemenu);
 $p->display();
 
 $smb = get_smbconf();
+#print $smb;
 
 $f = new ValidatingForm();
 $f->push(new Table());
 
-if ($smb["pdc"])
-    $workgroupTpl = new HiddenTpl("workgroup");
-else
-    $workgroupTpl = new NetbiosUppercaseInputTpl("workgroup");
+#if ($smb["pdc"])
+#    $workgroupTpl = new HiddenTpl("workgroup");
+#else
+    $workgroupTpl = new HiddenTpl("realm");
 
 $f->add(
         new TrFormElement(_T("Domain name"), $workgroupTpl),
-        array("value" => $smb["workgroup"], "required" => True)
+        array("value" => $smb["realm"], "required" => True)
 );
 
 $f->add(
-        new TrFormElement(_T("Server name"), new NetbiosUppercaseInputTpl("netbios name")),
+        new TrFormElement(_T("Server name"), new HiddenTpl("netbios name")),
         array("value" => $smb["netbios name"], "required" => True)
 );
 
 $value = "";
-if ($smb["pdc"]) $value = "checked";
-$f->add(
-        new TrFormElement(_T("This server is a PDC"),new CheckboxTpl("pdc")),
-        array("value" => $value)
-);
+#if ($smb["pdc"]) $value = "checked";
+#$f->add(
+#        new TrFormElement(_T("This server is a PDC"),new CheckboxTpl("pdc")),
+#        array("value" => $value)
+#);
 
-$f->add(
-        new TrFormElement(_T("This server is a WINS server"),new CheckboxTpl("wins support")),
-        array("value" => getCheckedState($smb, "wins support"))
-);
+#$f->add(
+#        new TrFormElement(_T("This server is a WINS server"),new CheckboxTpl("wins support")),
+#        array("value" => getCheckedState($smb, "wins support"))
+#);
 
 $value = "";
-if ($smb["hashomes"]) $value = "checked";
+#if ($smb["hashomes"]) $value = "checked";
 $f->add(
         new TrFormElement(_T("Share user's homes"),new CheckboxTpl("hashomes")),
         array("value" => $value)
@@ -126,10 +128,10 @@ $f->add(
 
 $value = "";
 $hasProfiles = false;
-if ($smb['logon path']) {
-    $value = "checked";
-    $hasProfiles = true;
-}
+// if ($smb['logon path']) {
+//     $value = "checked";
+//     $hasProfiles = true;
+// }
 $f->add(
         new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("hasprofiles"),
             array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))),
@@ -163,28 +165,28 @@ $labels = array(_T('Yes'), _T('No'), _T('Only (for smbk5pwd)'));
 $values = array('yes', 'no', 'only');
 $syncTpl->setElements($labels);
 $syncTpl->setElementsVal($values);
-$f->add(
-        new TrFormElement(_T("LDAP password sync"), $syncTpl),
-        array("value" => $smb["ldap passwd sync"])
-);
+// $f->add(
+//         new TrFormElement(_T("LDAP password sync"), $syncTpl),
+//         array("value" => $smb["ldap passwd sync"])
+// );
 
 $d = array(_T("Opening script session") => "logon script",
            _T("Base directory path") => "logon home",
            _T("Connect base directory on network drive") => "logon drive");
 
-foreach ($d as $description => $field) {
-    $f->add(
-        new TrFormElement($description, new IA5InputTpl($field)),
-        array("value"=>$smb[$field])
-    );
-}
+// foreach ($d as $description => $field) {
+//     $f->add(
+//         new TrFormElement($description, new IA5InputTpl($field)),
+//         array("value"=>$smb[$field])
+//     );
+// }
 
 $f->pop();
 $f->pop();
 
-$f->addValidateButton("bsave");
-$f->addExpertButton("brestart", _T("Restart SAMBA"));
-$f->addButton("breload", _T("Reload SAMBA configuration"));
+#$f->addValidateButton("bsave");
+#$f->addExpertButton("brestart", _T("Restart SAMBA"));
+#$f->addButton("breload", _T("Reload SAMBA configuration"));
 
 $f->display();
 

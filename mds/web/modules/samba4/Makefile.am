@@ -54,6 +54,7 @@ datafiles = \
 	includes/common-xmlrpc.inc.php \
 	includes/machines-xmlrpc.inc.php \
 	includes/publicFunc.php \
+	includes/samba-xmlrpc.inc.php \
 	includes/shares-xmlrpc.inc.php \
 	includes/users-xmlrpc.inc.php \
 	machines/delete.php \

@@ -8,16 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 01:00+0100\n"
-"PO-Revision-Date: 2013-04-09 21:05+0000\n"
-"Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
-"Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/"
-"projects/p/mds/team/pt_BR/)\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-12-10 21:43+0200\n"
+"Last-Translator: Andre <andre@mandriva.com>\n"
+"Language-Team: Portuguese (Brazil) "
+"<http://translate.mandriva.com/projects/mds-26/squid/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/squid/includes/manager.php:91
 msgid "Add"
@@ -50,7 +51,7 @@ msgstr "Aplicar configurações"
 
 #: modules/squid/includes/delete.php:39
 msgid "Are you sure ?"
-msgstr "Você tem certeza?"
+msgstr "Você tem certeza ?"
 
 #: modules/squid/internet/whitemanager.php:39
 msgid ""
@@ -90,7 +91,7 @@ msgstr "Cancelar"
 msgid "Default Position"
 msgstr "Posição inicial"
 
-#: modules/squid/includes/delete.php:41 modules/squid/includes/manager.php:72
+#: modules/squid/includes/manager.php:72 modules/squid/includes/delete.php:41
 msgid "Delete"
 msgstr "Remover"
 
@@ -124,7 +125,7 @@ msgstr "Extensão"
 
 #: modules/squid/internet/extmanager.php:37
 msgid "Extension added."
-msgstr "Extensão adicionada"
+msgstr "Extensão adicionada."
 
 #: modules/squid/infoPackage.inc.php:44
 #: modules/squid/internet/extmanager.php:32
@@ -134,19 +135,17 @@ msgstr "Extensões bloqueadas"
 
 #: modules/squid/includes/restart.php:29
 msgid "Failed to reload the Squid service."
-msgstr "O serviço squid falhou ao reiniciar"
+msgstr "O serviço squid falhou ao reiniciar."
 
 #: modules/squid/internet/accesslog.php:88
 #: modules/squid/internet/accesslog/index.php:88
-#, fuzzy
 msgid "Hide different paths"
 msgstr "Esconder caminhos diferentes"
 
 #: modules/squid/internet/accesslog.php:95
 #: modules/squid/internet/accesslog/index.php:95
-#, fuzzy
 msgid "Hide different sub domains"
-msgstr "Esconder sub dominíos diferentes"
+msgstr "Esconder subdominíos diferentes"
 
 #: modules/squid/internet/accesslog.php:50
 #: modules/squid/internet/accesslog/index.php:50
@@ -162,14 +161,14 @@ msgid "IP address"
 msgstr "Endereço IP"
 
 #: modules/squid/infoPackage.inc.php:47
-#: modules/squid/internet/localSidebar.php:29
 #: modules/squid/internet/machmanager.php:32
+#: modules/squid/internet/localSidebar.php:29
 msgid "IP whitelist"
 msgstr "IP Lista Branca"
 
 #: modules/squid/internet/machmanager.php:36
 msgid "Invalid IP address."
-msgstr "Endereço IP invalido"
+msgstr "Endereço IP inválido."
 
 #: modules/squid/internet/blackmanager.php:37
 msgid "Item added to the blacklist."
@@ -181,7 +180,7 @@ msgstr "Item adicionado a lista branca"
 
 #: modules/squid/includes/delete.php:29
 msgid "Item deleted."
-msgstr "Item removido"
+msgstr "Item removido."
 
 #: modules/squid/internet/blackmanager.php:38
 #: modules/squid/internet/whitemanager.php:38
@@ -235,7 +234,7 @@ msgstr ""
 "listas negras. O intervalo de tempo deve ser no formato de 24 horas. (Por "
 "exemplo: 08:00-18:00)"
 
-#: modules/squid/includes/delete.php:30 modules/squid/includes/manager.php:43
+#: modules/squid/includes/manager.php:43 modules/squid/includes/delete.php:30
 #: modules/squid/infoPackage.inc.php:30
 msgid "Proxy"
 msgstr "Proxy"
@@ -276,10 +275,10 @@ msgid "Time range is not valid."
 msgstr "Intervalo de tempo não é válido."
 
 #: modules/squid/infoPackage.inc.php:41
-#: modules/squid/internet/localSidebar.php:28
 #: modules/squid/internet/timemanager.php:32
+#: modules/squid/internet/localSidebar.php:28
 msgid "Time range whitelist"
-msgstr "Intervalo de tempo "
+msgstr "Intervalo de tempo"
 
 #: modules/squid/internet/accesslog.php:52
 #: modules/squid/internet/accesslog/index.php:52
