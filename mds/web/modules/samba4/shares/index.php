@@ -70,7 +70,7 @@ foreach($shares as $share) {
         $shareDescription = "";
     } else {
         $sharesEnabled[] = "disabledRow";
-        $shareDescription = "(" . _T("Disabled") . ") ";
+        $shareDescription = "(" . _T("Hidden") . ") ";
     }
 
     $shareDescription = isset($share[$shareComponent["description"]]) ?

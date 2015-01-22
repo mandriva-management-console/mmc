@@ -22,8 +22,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-xmlCall("samba.restartSamba");
+xmlCall("samba4.restartSamba");
 new NotifyWidgetSuccess(_T("The SAMBA service has been asked to restart."));
-redirectTo(urlStrRedirect("samba/config/index"));
+redirectTo(urlStrRedirect("samba4/config/index"));
 
 ?>

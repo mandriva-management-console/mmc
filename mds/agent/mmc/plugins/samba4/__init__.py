@@ -214,3 +214,21 @@ def deleteSambaUser(username):
 
 def userHasSambaEnabled(username):
     return username and SambaAD().isUserEnabled(username)
+
+
+def restartSamba():
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_RESTART_SAMBA)
+    shlaunchBackground('systemctl restart samba.service')
+    r.commit()
+    return 0
+
+
+def reloadSamba():
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_RELOAD_SAMBA)
+    shlaunchBackground('systemctl reload samba.service')
+    r.commit()
+    return 0
+
+
+def saveOptions(options):
+    return SambaConf().saveOptions(options)
