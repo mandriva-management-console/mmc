@@ -90,6 +90,13 @@ foreach ($cmds as $item) {
         } else {
             $param['gid'] = $gid;
         }
+        if ($bid == '' || !isset($bid)) {
+            unset($param['bundle_id']);
+        }
+        else {
+            unset($param['coh_id']);
+        }
+
         $linkdetail = urlStr("base/computers/msctabs/$tab", $param);
         $linklogs = urlStr("base/computers/msctabs/$tab", array('uuid'=>$target_uuid, 'gid'=>$gid));
     } else {
@@ -197,3 +204,4 @@ a.bundle {
 
 
 </style>
+

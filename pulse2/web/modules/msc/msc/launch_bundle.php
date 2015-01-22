@@ -146,7 +146,7 @@ if (isset($_GET['uuid']) and !isset($_GET['badvanced']) and !isset($_POST['launc
             } else {
                 $cible = array($machine->uuid);
                 $id_bundle = launch_bundle($cible, $orders);
-                header("Location: " . urlStrRedirect("base/computers/msctabs", array('tab'=>'tablogs', 'uuid'=>$machine->uuid, 'hostname'=>$machine->hostname, 'bundle_id'=>$id_bundle[0])));
+                header("Location: " . urlStrRedirect("base/computers/msctabs", array('tab'=>'tablogs', 'uuid'=>$machine->uuid, 'hostname'=>$machine->hostname)));
                 exit;
             }
         // stage 3: user choosed to go into advanced mode
@@ -225,3 +225,4 @@ if (!isset($_GET['badvanced']) && isset($_GET['gid']) && !isset($_POST['launchAc
 }
 
 ?>
+
