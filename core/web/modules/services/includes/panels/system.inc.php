@@ -41,7 +41,7 @@ class SystemPanel extends Panel {
                     }
                     poweroff = function() {
                         var message = "<strong>' . _T("The server will be poweroff. Are you sure ?", "services") . '</strong>";
-                        var url = "' . urlStrRedirect('services/control/reboot') . '";
+                        var url = "' . urlStrRedirect('services/control/poweroff') . '";
                         displayConfirmationPopup(message, url);
                     }
                 </script>
