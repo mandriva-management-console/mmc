@@ -1,4 +1,4 @@
-#: modules/samba4/config/index.php:135
+#: modules/samba4/config/index.php:137
 msgid "Activate roaming profiles for all users."
 msgstr ""
 
@@ -28,7 +28,7 @@ msgstr ""
 msgid "An error has occured during delete process on %s"
 msgstr ""
 
-#: modules/samba4/shares/index.php:107
+#: modules/samba4/shares/index.php:104
 msgid "Archive"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Backup of share <b>%s</b> has been launched in background."
 msgstr ""
 
-#: modules/samba4/config/index.php:172
+#: modules/samba4/config/index.php:174
 msgid "Base directory path"
 msgstr ""
 
@@ -91,23 +91,23 @@ msgstr ""
 msgid "Configuration"
 msgstr ""
 
-#: modules/samba4/machines/edit.php:77 modules/samba4/shares/edit.php:176
+#: modules/samba4/machines/edit.php:77 modules/samba4/shares/edit.php:188
 msgid "Confirm"
 msgstr ""
 
-#: modules/samba4/config/index.php:173
+#: modules/samba4/config/index.php:175
 msgid "Connect base directory on network drive"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:173
+#: modules/samba4/shares/edit.php:185
 msgid "Create"
 msgstr ""
 
-#: modules/samba4/shares/index.php:96
+#: modules/samba4/shares/index.php:92
 msgid "Current list of shares"
 msgstr ""
 
-#: modules/samba4/shares/index.php:89 modules/samba4/views/groups.tpl.php:125
+#: modules/samba4/shares/index.php:85 modules/samba4/views/groups.tpl.php:125
 #: modules/samba4/views/users.tpl.php:125
 msgid "Delete"
 msgstr ""
@@ -126,21 +126,21 @@ msgid "Delete data"
 msgstr ""
 
 #: modules/samba4/machines/ajaxFilter.php:56
-#: modules/samba4/shares/edit.php:111 modules/samba4/shares/index.php:103
+#: modules/samba4/shares/edit.php:111 modules/samba4/shares/index.php:100
 msgid "Description"
 msgstr ""
 
 #: modules/samba4/machines/ajaxFilter.php:42
-#: modules/samba4/shares/index.php:77
+#: modules/samba4/shares/index.php:73
 msgid "Disabled"
 msgstr ""
 
-#: modules/samba4/config/index.php:99
+#: modules/samba4/config/index.php:101
 msgid "Domain name"
 msgstr ""
 
 #: modules/samba4/machines/ajaxFilter.php:57
-#: modules/samba4/shares/index.php:88
+#: modules/samba4/shares/index.php:84
 msgid "Edit"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Edit share"
 msgstr ""
 
-#: modules/samba4/config/index.php:84
+#: modules/samba4/config/index.php:85
 msgid "General options"
 msgstr ""
 
@@ -172,12 +172,8 @@ msgstr ""
 msgid "If checked, the computer account is enabled"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:215
+#: modules/samba4/shares/edit.php:227
 msgid "Invalid share name"
-msgstr ""
-
-#: modules/samba4/config/index.php:167
-msgid "LDAP password sync"
 msgstr ""
 
 #: modules/samba4/infoPackage.inc.php:64
@@ -192,23 +188,23 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: modules/samba4/config/index.php:151
+#: modules/samba4/config/index.php:153
 msgid "Network path for profiles"
 msgstr ""
 
-#: modules/samba4/config/index.php:162
+#: modules/samba4/config/index.php:164
 msgid "No"
 msgstr ""
 
-#: modules/samba4/config/index.php:162
+#: modules/samba4/config/index.php:164
 msgid "Only (for smbk5pwd)"
 msgstr ""
 
-#: modules/samba4/config/index.php:171
+#: modules/samba4/config/index.php:173
 msgid "Opening script session"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:110 modules/samba4/shares/index.php:102
+#: modules/samba4/shares/edit.php:158 modules/samba4/shares/index.php:99
 msgid "Path"
 msgstr ""
 
@@ -222,10 +218,6 @@ msgid ""
 "with your media size will be created."
 msgstr ""
 
-#: modules/samba4/config/index.php:187
-msgid "Reload SAMBA configuration"
-msgstr ""
-
 #: modules/samba4/infoPackage.inc.php:138
 msgid "Reload SAMBA service"
 msgstr ""
@@ -234,11 +226,7 @@ msgstr ""
 msgid "Remove a share"
 msgstr ""
 
-#: modules/samba4/config/index.php:186
-msgid "Restart SAMBA"
-msgstr ""
-
-#: modules/samba4/config/index.php:77
+#: modules/samba4/config/index.php:78
 msgid ""
 "SAMBA configuration saved. You may need to reload or restart the SAMBA "
 "service."
@@ -260,11 +248,11 @@ msgstr ""
 msgid "Samba4 properties"
 msgstr ""
 
-#: modules/samba4/config/index.php:104
+#: modules/samba4/config/index.php:106
 msgid "Server name"
 msgstr ""
 
-#: modules/samba4/shares/index.php:99
+#: modules/samba4/shares/index.php:96
 msgid "Share"
 msgstr ""
 
@@ -291,12 +279,12 @@ msgstr ""
 msgid "Share enabled"
 msgstr ""
 
-#: modules/samba4/config/index.php:123
+#: modules/samba4/config/index.php:125
 msgid "Share user's homes"
 msgstr ""
 
 #: modules/samba4/infoPackage.inc.php:58
-msgid "Shares-4"
+msgid "Shares"
 msgstr ""
 
 #: modules/samba4/config/reload.php:26
@@ -319,11 +307,11 @@ msgstr ""
 msgid "The share %s will be archived."
 msgstr ""
 
-#: modules/samba4/config/index.php:152
+#: modules/samba4/config/index.php:154
 msgid "The share must exist and be world-writable."
 msgstr ""
 
-#: modules/samba4/shares/edit.php:217
+#: modules/samba4/shares/edit.php:229
 msgid "The share path is not authorized by configuration"
 msgstr ""
 
@@ -340,14 +328,6 @@ msgstr ""
 msgid "This operation will last according to the amount of data to backup."
 msgstr ""
 
-#: modules/samba4/config/index.php:111
-msgid "This server is a PDC"
-msgstr ""
-
-#: modules/samba4/config/index.php:116
-msgid "This server is a WINS server"
-msgstr ""
-
 #: modules/samba4/views/users.tpl.php:70
 msgid "This user doesn't exist"
 msgstr ""
@@ -356,7 +336,7 @@ msgstr ""
 msgid "UID field has not been submited."
 msgstr ""
 
-#: modules/samba4/config/index.php:134
+#: modules/samba4/config/index.php:136
 msgid "Use network profiles for users"
 msgstr ""
 
@@ -364,11 +344,11 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: modules/samba4/shares/edit.php:157
+#: modules/samba4/shares/edit.php:169
 msgid "Users for this share"
 msgstr ""
 
-#: modules/samba4/config/index.php:162
+#: modules/samba4/config/index.php:164
 msgid "Yes"
 msgstr ""
 
