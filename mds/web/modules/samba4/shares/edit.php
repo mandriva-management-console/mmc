@@ -155,9 +155,9 @@ renderTPL("groups");
     </td>
     <td>
     <?php
-    $share=new TrFormElement(_T("Path"), new InputTpl("sharePath"));
+    $share_details=new TrFormElement(_T("Path"), new InputTpl("sharePath"));
     $params=array("value" => $sharePath);
-    $share->display($params);
+    $share_details->display($params);
     ?>
     </td>
    </tr>
