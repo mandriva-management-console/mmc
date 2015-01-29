@@ -39,7 +39,7 @@ from mmc.plugins.samba.smb_ldap import SambaLDAP
 
 logger = logging.getLogger()
 
-VERSION = "2.5.90"
+VERSION = "2.5.91"
 APIVERSION = "5:3:4"
 REVISION = scmRevision("$Rev$")
 
