@@ -23,7 +23,7 @@
 import ldap
 from ldap.controls import RequestControl
 from datetime import datetime, timedelta
-from socket import gethostname
+from socket import getfqdn
 import pytz
 import time
 import os
@@ -98,8 +98,10 @@ class LdapUserMixin(object):
         if not dn:
             raise UserNotFound(username, "sync user attributes")
         other_attrs = other_ldap.get_user_attributes(username)
+        # In some case the displayName is not set, so we only sync the common
+        # filds, hence the intersection
         modlist = [(ldap.MOD_REPLACE, field, other_attrs[field][0])
-                   for field in self.FIELDS_TO_SYNC]
+                   for field in set(self.FIELDS_TO_SYNC).intersection(set(other_attrs.keys()))]
         self.l.modify_s(dn, modlist)
 
     def create_user(self, username, other_ldap):
@@ -171,13 +173,22 @@ class SambaLdap(LdapUserMixin):
     LDAP_URI = "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi"
 
     def __init__(self, base_dn):
+        def get_user_dns():
+            try:
+                domain = '.'.join(getfqdn().split('.')[1:])
+                user_dns = getfqdn(domain).split('.')[0]
+            except:
+                user_dns = ''
+            return user_dns
+
         self.base_dn = base_dn
         self.l = ldap.initialize(self.LDAP_URI, trace_level=0)
+        self.l.set_option(ldap.OPT_REFERRALS, 0)
         self.user_base_dn = "CN=Users,%s" % self.base_dn
         self.user_pk_field = "sAMAccountName"
         self.timestamp_field = "whenChanged"
         self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
-        user_dns = 'dns-%s' % gethostname()
+        user_dns = 'dns-%s' % get_user_dns()
         self.user_ignore_list = ['Guest', 'krbtgt', user_dns]
         self.group_base_dn = self.base_dn
         self.group_list_filter = '(&(objectClass=group)(sAMAccountType=268435456)(groupType=-2147483646))'
@@ -248,8 +259,10 @@ class SambaLdap(LdapUserMixin):
                                   self.group_scope,
                                   filterstr='(&(objectClass=group)(sAMAccountName=%s))' % group,
                                   attrlist=['member'])
+
         # filter out None entries
         entries = [(dn, attrs) for dn, attrs in entries if dn is not None]
+
         if len(entries) > 1:
             raise Exception(
                 'Many groups with the name ' + group + ' something\'s going wrong')
@@ -270,7 +283,8 @@ class SambaLdap(LdapUserMixin):
                 sAMAccountName = unicode(sAMAccountName, 'ascii')
                 members_cn.append(sAMAccountName.encode('ascii'))
             except UnicodeDecodeError:
-                logger.warning("The group relation between %s and %s can't be synchronized on OpenLDAP" % (group, sAMAccountName))
+                logger.warning("The group relation between %s and %s can't be synchronized on OpenLDAP" % (
+                    group, sAMAccountName))
 
         logger.debug(
             'Members of group %s in Samba: %s', group, members_cn)
@@ -331,7 +345,8 @@ class OpenLdap(LdapUserMixin):
         dn, user = self._get_user(username)
         if not dn:
             return False
-        principal_name = '%s@%s' % (delete_diacritics(username).encode('utf-8'), realm.upper())
+        principal_name = '%s@%s' % (
+            delete_diacritics(username).encode('utf-8'), realm.upper())
         modlist = [(ldap.MOD_ADD, 'objectclass', 'krb5KDCEntry'),
                    (ldap.MOD_ADD, 'krb5KeyVersionNumber', '0'),
                    (ldap.MOD_ADD, 'krb5PrincipalName', principal_name)]
