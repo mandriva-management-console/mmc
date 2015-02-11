@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-11 15:09+0200\n"
-"PO-Revision-Date: 2015-02-11 15:14+0200\n"
-"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"PO-Revision-Date: 2015-02-11 16:03+0200\n"
+"Last-Translator: Jean-François <jfmorcillo@mandriva.com>\n"
 "Language-Team: French "
 "<http://translate.mandriva.com/projects/mds-26/samba4/fr_FR/>\n"
 "Language: fr_FR\n"
@@ -68,11 +68,11 @@ msgstr "L'ordinateur <strong>%s</strong> a été supprimé."
 
 #: modules/samba4/machines/edit.php:73
 msgid "Computer account is enabled"
-msgstr ""
+msgstr "Le compte de l'ordinateur est activé"
 
 #: modules/samba4/machines/edit.php:70
 msgid "Computer description"
-msgstr ""
+msgstr "Description de l'ordinateur"
 
 #: modules/samba4/infoPackage.inc.php:100
 msgid "Computer list"
@@ -113,7 +113,7 @@ msgstr "Créer"
 
 #: modules/samba4/shares/index.php:92
 msgid "Current list of shares"
-msgstr ""
+msgstr "Liste des partages réseaux"
 
 #: modules/samba4/shares/index.php:85 modules/samba4/views/users.tpl.php:125
 #: modules/samba4/views/groups.tpl.php:125
@@ -123,7 +123,7 @@ msgstr "Supprimer"
 #: modules/samba4/infoPackage.inc.php:114
 #: modules/samba4/machines/delete.php:48
 msgid "Delete a computer"
-msgstr ""
+msgstr "Effacer un ordinateur"
 
 #: modules/samba4/shares/delete.php:48
 msgid "Delete a share"
@@ -131,7 +131,7 @@ msgstr "Supprimer le partage"
 
 #: modules/samba4/shares/delete.php:53
 msgid "Delete data"
-msgstr ""
+msgstr "Effacer les informations"
 
 #: modules/samba4/shares/edit.php:111 modules/samba4/shares/index.php:100
 #: modules/samba4/machines/ajaxFilter.php:56
@@ -140,7 +140,7 @@ msgstr "Description"
 
 #: modules/samba4/machines/ajaxFilter.php:42
 msgid "Disabled"
-msgstr ""
+msgstr "Désactivé"
 
 #: modules/samba4/config/index.php:103
 msgid "Domain name"
@@ -149,7 +149,7 @@ msgstr "Nom de domaine"
 #: modules/samba4/shares/index.php:84
 #: modules/samba4/machines/ajaxFilter.php:57
 msgid "Edit"
-msgstr ""
+msgstr "Éditer"
 
 #: modules/samba4/infoPackage.inc.php:110
 msgid "Edit a computer"
@@ -161,7 +161,7 @@ msgstr "Éditer l'ordinateur"
 
 #: modules/samba4/infoPackage.inc.php:84
 msgid "Edit share"
-msgstr ""
+msgstr "Éditer un partage"
 
 #: modules/samba4/config/index.php:85
 msgid "General options"
@@ -173,7 +173,7 @@ msgstr "Groupes"
 
 #: modules/samba4/shares/edit.php:118
 msgid "Guest access"
-msgstr ""
+msgstr "Accès invité"
 
 #: modules/samba4/shares/index.php:73
 msgid "Hidden"
@@ -181,7 +181,7 @@ msgstr "Caché"
 
 #: modules/samba4/machines/edit.php:74
 msgid "If checked, the computer account is enabled"
-msgstr ""
+msgstr "Si coché, le compte de l'ordinateur est activé"
 
 #: modules/samba4/shares/edit.php:227
 msgid "Invalid share name"
@@ -197,114 +197,121 @@ msgstr "Machines"
 
 #: modules/samba4/shares/edit.php:109
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: modules/samba4/config/index.php:155
 msgid "Network path for profiles"
-msgstr ""
+msgstr "Chemin réseau pour les profils"
 
 #: modules/samba4/shares/edit.php:158 modules/samba4/shares/index.php:99
 msgid "Path"
-msgstr ""
+msgstr "Chemin"
 
 #: modules/samba4/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
 msgstr ""
+"Merci de vous rendre sur la page des statuts et de vérifier l'état des "
+"sauvegardes."
 
 #: modules/samba4/shares/backup.php:51
 msgid ""
 "Please select media size. If your data exceed volume size, several files "
 "with your media size will be created."
 msgstr ""
+"Veuillez choisir la taille du médium à utiliser pour l'archivage. Si le "
+"volume des données dépasse la taille du médium choisi, un jeu de média sera "
+"créé."
 
 #: modules/samba4/config/index.php:191
 msgid "Reload SAMBA configuration"
-msgstr ""
+msgstr "Recharger SAMBA"
 
 #: modules/samba4/infoPackage.inc.php:138
 msgid "Reload SAMBA service"
-msgstr ""
+msgstr "Recharger le service SAMBA"
 
 #: modules/samba4/infoPackage.inc.php:80
 msgid "Remove a share"
-msgstr ""
+msgstr "Suppression d'un partage"
 
 #: modules/samba4/config/index.php:190
 msgid "Restart SAMBA"
-msgstr ""
+msgstr "Redémarrer SAMBA"
 
 #: modules/samba4/infoPackage.inc.php:134
 msgid "Restart SAMBA service"
-msgstr ""
+msgstr "Redémarrer le service SAMBA"
 
 #: modules/samba4/config/index.php:78
 msgid ""
 "SAMBA configuration saved. You may need to reload or restart the SAMBA "
 "service."
 msgstr ""
+"Configuration de SAMBA sauvegardée. Il peut être nécessaire de recharger ou "
+"de redémarrer le service SAMBA."
 
 #: modules/samba4/infoPackage.inc.php:129
 msgid "SAMBA4 configuration"
-msgstr ""
+msgstr "Configuration de SAMBA4"
 
 #: modules/samba4/infoPackage.inc.php:36
 msgid "SAMBA4 management"
-msgstr ""
+msgstr "Gestion de SAMBA4"
 
 #: modules/samba4/includes/publicFunc.php:127
 msgid "Samba access"
-msgstr ""
+msgstr "Accès Samba"
 
 #: modules/samba4/includes/publicFunc.php:116
 msgid "Samba4 properties"
-msgstr ""
+msgstr "Propriétés de Samba4"
 
 #: modules/samba4/config/index.php:108
 msgid "Server name"
-msgstr ""
+msgstr "Nom du serveur"
 
 #: modules/samba4/shares/index.php:96
 msgid "Share"
-msgstr ""
+msgstr "Partage"
 
 #: modules/samba4/shares/delete.php:36
 #, php-format
 msgid "Share %s deleted"
-msgstr ""
+msgstr "Partage %s supprimé"
 
 #: modules/samba4/shares/edit.php:54
 #, php-format
 msgid "Share %s successfully added"
-msgstr ""
+msgstr "Partage %s ajouté"
 
 #: modules/samba4/shares/edit.php:51
 #, php-format
 msgid "Share %s successfully modified"
-msgstr ""
+msgstr "Partage %s modifié"
 
 #: modules/samba4/shares/backup.php:31 modules/samba4/shares/backup.php:49
 msgid "Share backup"
-msgstr ""
+msgstr "Sauvegarde d'un partage"
 
 #: modules/samba4/shares/edit.php:123
 msgid "Share enabled"
-msgstr ""
+msgstr "Partage activé"
 
 #: modules/samba4/config/index.php:127
 msgid "Share user's homes"
-msgstr ""
+msgstr "Partage des répertoires utilisateurs"
 
 #: modules/samba4/infoPackage.inc.php:58
 msgid "Shares"
-msgstr ""
+msgstr "Partages"
 
 #: modules/samba4/config/reload.php:26
 msgid "The SAMBA service has been asked to reload its configuration file."
-msgstr ""
+msgstr "Il a été demandé au service SAMBA de relire sa configuration."
 
 #: modules/samba4/config/restart.php:26
 msgid "The SAMBA service has been asked to restart."
-msgstr ""
+msgstr "Il a été demandé au service SAMBA de redémarrer."
 
 #: modules/samba4/shares/backup.php:35
 #, php-format
@@ -312,65 +319,69 @@ msgid ""
 "The files will be stored in the directory %s of the server at the end of the "
 "backup."
 msgstr ""
+"Les fichiers seront stockés dans le répertoire %s du serveur à la fin de la "
+"sauvegarde."
 
 #: modules/samba4/shares/backup.php:50
 #, php-format
 msgid "The share %s will be archived."
-msgstr ""
+msgstr "Le partage %s va être archivé."
 
 #: modules/samba4/config/index.php:156
 msgid "The share must exist and be world-writable."
-msgstr ""
+msgstr "Le partage doit exister et être en écriture pour tout le monde."
 
 #: modules/samba4/shares/edit.php:229
 msgid "The share path is not authorized by configuration"
-msgstr ""
+msgstr "Le chemin du partage est interdit par configuration"
 
 #: modules/samba4/machines/delete.php:41
 #, php-format
 msgid "There has been a problem while deleting <strong>%s</strong> computer."
 msgstr ""
+"Un problème a été rencontré lors de l'effacement de l'ordinateur "
+"<strong>%s</strong>."
 
 #: modules/samba4/views/groups.tpl.php:70
 msgid "This group doesn't exist"
-msgstr ""
+msgstr "Ce groupe n'existe pas"
 
 #: modules/samba4/shares/backup.php:39
 msgid "This operation will last according to the amount of data to backup."
-msgstr ""
+msgstr "La durée de l'opération dépend du volume de donnée à sauvegarder."
 
 #: modules/samba4/views/users.tpl.php:70
 msgid "This user doesn't exist"
-msgstr ""
+msgstr "Cet utilisateur n'existe pas"
 
 #: modules/samba4/includes/publicFunc.php:183
 msgid "UID field has not been submited."
-msgstr ""
+msgstr "Le champ UID n'a pas été soumis."
 
 #: modules/samba4/config/index.php:138
 msgid "Use network profiles for users"
-msgstr ""
+msgstr "Profils utilisateur itinérants"
 
 #: modules/samba4/views/users.tpl.php:26
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: modules/samba4/shares/edit.php:169
 msgid "Users for this share"
-msgstr ""
+msgstr "Utilisateurs de ce partage"
 
 #: modules/samba4/includes/publicFunc.php:175
 msgid "You have to provision samba4 module before enabling it to the user"
-msgstr ""
+msgstr "Vous devez provisionner samba4 avant d'activer le module utilisateur"
 
 #: modules/samba4/includes/publicFunc.php:194
 msgid "You must reenter your password."
-msgstr ""
+msgstr "Vous devez entrer à nouveau votre mot de passe."
 
 #: modules/samba4/machines/delete.php:49
 #, php-format
 msgid "You will delete the %s computer"
-msgstr ""
+msgstr "Vous allez supprimer la machine <b>%s</b>"
 
 #: modules/samba4/shares/delete.php:49
 #, php-format
