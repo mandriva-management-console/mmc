@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-12-23 10:21+0200\n"
-"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"PO-Revision-Date: 2015-02-11 15:56+0200\n"
+"Last-Translator: Jean-François <jfmorcillo@mandriva.com>\n"
 "Language-Team: French "
 "<http://translate.mandriva.com/projects/mds-26/samba/fr_FR/>\n"
 "Language: fr_FR\n"
@@ -277,7 +277,7 @@ msgstr "Supprimer"
 
 #: modules/samba/infoPackage.inc.php:93 modules/samba/machines/delete.php:40
 msgid "Delete a computer"
-msgstr "Supprimer une machine"
+msgstr "Effacer un ordinateur"
 
 #: modules/samba/shares/delete.php:43
 msgid "Delete a share"
@@ -409,7 +409,7 @@ msgstr "Nom"
 
 #: modules/samba/config/index.php:151
 msgid "Network path for profiles"
-msgstr "Chemin réseau des profiles"
+msgstr "Chemin réseau pour les profils"
 
 #: modules/samba/includes/publicFunc.php:332
 msgid "Network path for user's profile"
@@ -451,8 +451,8 @@ msgstr "Veuillez supprimer puis créer à nouveau ce partage."
 #: modules/samba/shares/backup.php:37
 msgid "Please go to the status page to check the backup status."
 msgstr ""
-"Veuillez consulter la page de statut pour vérifier le processus de "
-"sauvegarde."
+"Merci de vous rendre sur la page des statuts et de vérifier l'état des "
+"sauvegardes."
 
 #: modules/samba/shares/backup.php:51
 msgid ""
@@ -545,7 +545,7 @@ msgstr "Nom du serveur"
 
 #: modules/samba/includes/auditCodes.php:48 modules/samba/status/index.php:85
 msgid "Share"
-msgstr "Partages"
+msgstr "Partage"
 
 #: modules/samba/shares/delete.php:34
 #, php-format
