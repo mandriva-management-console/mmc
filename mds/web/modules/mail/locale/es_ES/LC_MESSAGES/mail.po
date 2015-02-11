@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"POT-Creation-Date: 2015-02-11 15:08+0100\n"
 "PO-Revision-Date: 2014-10-06 09:28+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/"
@@ -282,15 +282,15 @@ msgstr "Alias de correo"
 msgid "Mail attributes added."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:513
+#: modules/mail/includes/publicFunc.php:515
 msgid "Mail attributes deleted."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:469
+#: modules/mail/includes/publicFunc.php:471
 msgid "Mail delivery disabled."
 msgstr ""
 
-#: modules/mail/includes/publicFunc.php:473
+#: modules/mail/includes/publicFunc.php:475
 msgid "Mail delivery enabled."
 msgstr ""
 
