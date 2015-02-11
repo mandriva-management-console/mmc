@@ -75,14 +75,14 @@ function getCheckedState($smb, $option) {
 if (isset($_POST["bsave"])) {
     $ret = save_smbconf();
     if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.")));
+        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.", "samba4")));
     }
 }
 
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-$p = new PageGenerator(_T("General options"));
+$p = new PageGenerator(_T("General options", "samba4"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
@@ -100,12 +100,12 @@ $f->push(new Table());
     $workgroupTpl = new HiddenTpl("realm");
 
 $f->add(
-        new TrFormElement(_T("Domain name"), $workgroupTpl),
+        new TrFormElement(_T("Domain name", "samba4"), $workgroupTpl),
         array("value" => $smb["realm"], "required" => True)
 );
 
 $f->add(
-        new TrFormElement(_T("Server name"), new HiddenTpl("netbios name")),
+        new TrFormElement(_T("Server name", "samba4"), new HiddenTpl("netbios name")),
         array("value" => $smb["netbios name"], "required" => True)
 );
 
@@ -124,7 +124,7 @@ $value = "";
 $value = "";
 if ($smb["hashomes"]) $value = "checked";
 $f->add(
-        new TrFormElement(_T("Share user's homes"),new CheckboxTpl("hashomes")),
+        new TrFormElement(_T("Share user's homes", "samba4"),new CheckboxTpl("hashomes")),
         array("value" => $value)
 );
 
@@ -135,8 +135,8 @@ if ($smb['logon path']) {
     $hasProfiles = true;
 }
 $f->add(
-        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("hasprofiles"),
-            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))),
+        new TrFormElement(_T("Use network profiles for users", "samba4"), new CheckboxTpl("hasprofiles"),
+            array("tooltip" => _T("Activate roaming profiles for all users.", "samba4"))),
         array("value" => $value, "extraArg" => 'onclick=toggleVisibility("profilespath")')
 );
 
@@ -152,8 +152,8 @@ $f->push(new Table());
 $value = "\\\\%N\\profiles\\%U";
 if($hasProfiles) $value = $smb['logon path'];
 $f->add(
-        new TrFormElement(_T("Network path for profiles"), new InputTpl("logon path"),
-            array("tooltip" => _T("The share must exist and be world-writable.", "samba"))),
+        new TrFormElement(_T("Network path for profiles", "samba4"), new InputTpl("logon path"),
+            array("tooltip" => _T("The share must exist and be world-writable.", "samba4"))),
         array("value" => $value)
 );
 $f->pop();
@@ -187,8 +187,8 @@ $f->pop();
 // $f->pop();
 
 $f->addValidateButton("bsave");
-$f->addExpertButton("brestart", _T("Restart SAMBA"));
-$f->addButton("breload", _T("Reload SAMBA configuration"));
+$f->addExpertButton("brestart", _T("Restart SAMBA", "samba4"));
+$f->addButton("breload", _T("Reload SAMBA configuration", "samba4"));
 
 $f->display();
 

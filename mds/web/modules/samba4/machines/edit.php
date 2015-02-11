@@ -51,7 +51,7 @@ if(isset($_POST["bmachineedit"])) {
     $editSuccess = editMachine($name, array($name, $description, $enabled));
 
     if (!isXMLRPCError() and $editSuccess) {
-        new NotifyWidgetSuccess(_T("Computer successfully modified."));
+        new NotifyWidgetSuccess(_T("Computer successfully modified.", "samba4"));
         header("Location: " . urlStrRedirect("samba4/machines/index"));
         exit;
     }

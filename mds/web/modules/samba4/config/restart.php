@@ -23,7 +23,7 @@
  */
 
 xmlCall("samba4.restartSamba");
-new NotifyWidgetSuccess(_T("The SAMBA service has been asked to restart."));
+new NotifyWidgetSuccess(_T("The SAMBA service has been asked to restart.", "samba4"));
 redirectTo(urlStrRedirect("samba4/config/index"));
 
 ?>

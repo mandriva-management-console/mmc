@@ -39,7 +39,7 @@ foreach($domainMembers as $computer) {
     $name = $computer["name"];
     if (! $computer["enabled"]) {
         $computersEnabled[] = "disabledRow";
-        $name .= " (" . _T("Disabled") . ") ";
+        $name .= " (" . _T("Disabled", "samba4") . ") ";
     } else {
         $computersEnabled[] = "enabledRow";
     }
@@ -54,7 +54,7 @@ $list->setCssClasses($computersEnabled);
 $list->setNavBar(new AjaxNavBar(count($domainMembers), $filter));
 
 $list->addExtraInfo($descriptions, _T("Description", "samba4"));
-$list->addActionItem(new ActionItem(_T("Edit"),"edit","edit","machine"));
+$list->addActionItem(new ActionItem(_T("Edit", "samba4"),"edit","edit","machine"));
 //$list->addActionItem(new ActionPopupItem(_T("Delete"),"delete","delete","machine"));
 
 $list->setName(_("Computers"));
