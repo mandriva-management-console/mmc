@@ -73,6 +73,8 @@ datafiles = \
 	config/reload.php \
 	config/restart.php
 
+langs = pt_BR fr_FR
+
 module = $(notdir $(realpath $(srcdir)))
 moduledir = $(datadir)/mmc/modules/$(module)
 pofiles = $(foreach lang,$(langs),$(srcdir)/locale/$(lang)/LC_MESSAGES/$(module).po)
