@@ -1850,6 +1850,7 @@ class Glpi084(DyngroupDatabaseHelper):
         return ret
 
     def getLastMachineSoftwaresPart(self, session, uuid, part, min = 0, max = -1, filt = None, options = {}, count = False):
+        typeos = self.getComputersOS(uuid)[0]['OSName']
         hide_win_updates = False
         if 'hide_win_updates' in options:
             hide_win_updates = options['hide_win_updates']
@@ -1872,14 +1873,25 @@ class Glpi084(DyngroupDatabaseHelper):
             query = query.filter(or_(*clauses))
 
         if hide_win_updates:
-            query = query.filter(
-                not_(
-                    and_(
-                        self.manufacturers.c.name.contains('microsoft'),
-                        self.software.c.name.op('regexp')('KB[0-9]+(-v[0-9]+)?(v[0-9]+)?')
+            if ("windows" in (typeos.lower())) :
+                query = query.filter(
+                    not_(
+                        and_(
+                            self.manufacturers.c.name.contains('microsoft'),
+                            self.software.c.name.op('regexp')('KB[0-9]+(-v[0-9]+)?(v[0-9]+)?')
+                        )
                     )
                 )
-            )
+            elif ("os x" in (typeos.lower())) :
+                pass
+            else:
+                query = query.filter(
+                    not_(
+                        and_(
+                            self.software.c.name.op('regexp')('^lib.*')
+                        )
+                    )
+                )
 
         if min != 0:
             query = query.offset(min)
@@ -2580,6 +2592,70 @@ class Glpi084(DyngroupDatabaseHelper):
             return int(query.scalar())
         else:
             return [[q.id, q.name] for q in query]
+
+    def updateEntities(self, id, name, oldname,comment):
+        level=0
+        tabexistant=[]
+        Parentexitant=""
+        Parent=""
+        session = create_session()
+        query = session.query(Location).filter_by(id = id)
+        for l in query:
+            tabexistant = l.completename.split(">");
+            level = len(tabexistant)
+            if level-2 >= 0:
+                Parentexitant  =  tabexistant[level-2].strip()
+        #mise à jour entite
+        query = session.query(Location)
+        query = query.filter_by(id = id).update({"name" : name.strip(),"comment":comment}, synchronize_session=False)
+
+        listchamptoupdate = session.query(Location).filter(self.location.c.completename.like('%'+oldname+'%'))
+        tab=[]
+        for l in listchamptoupdate:
+            if oldname.strip() in str(l.completename):
+                tab = str(l.completename).split(">" );
+                tab=map(str.strip, tab)
+                if level-2 >= 0 and level-2 <= len(tab)-2:
+                    Parent  =  tab[level-2]
+                if level <= len(tab) and tab[level-1] == oldname.strip() and Parent.strip() == Parentexitant:
+                    tab[level-1]=name.strip()
+                    newcompletename = ' > '.join(tab)
+                    newcompletename = newcompletename.strip()
+                    session.query(Location).filter_by(id = l.id).update({"completename" : newcompletename}, synchronize_session=False)
+        session.close()
+        return True
+
+    def updateLocation(self, id, name, oldname,comment):
+        session = create_session()
+        level=0
+        tabexistant=[]
+        Parentexitant=""
+        Parent=""
+        query = session.query(Locations).filter_by(id = id)
+        for l in query:
+            tabexistant = l.completename.split(">");
+            level = len(tabexistant)
+            if level-2 >= 0:
+                Parentexitant  =  tabexistant[level-2].strip()
+        #mise à jour location
+        query = session.query(Locations)
+        query = query.filter_by(id = id).update({"name" : name.strip(),"comment":comment}, synchronize_session=False)
+
+        listchamptoupdate = session.query(Locations).filter(self.locations.c.completename.like('%'+oldname+'%'))
+        tab=[]
+        for l in listchamptoupdate:
+            if oldname.strip() in str(l.completename):
+                tab = str(l.completename).split(">" );
+                tab=map(str.strip, tab)
+                if level-2 >= 0 and level-2 <= len(tab)-2:
+                    Parent  =  tab[level-2]
+                if level <= len(tab) and tab[level-1] == oldname.strip() and Parent.strip() == Parentexitant:
+                    tab[level-1]=name.strip()
+                    newcompletename = ' > '.join(tab)
+                    newcompletename = newcompletename.strip()
+                    session.query(Locations).filter_by(id = l.id).update({"completename" : newcompletename}, synchronize_session=False)
+        session.close()
+        return True
 
     def getAllEntities(self, ctx, filt = ''):
         """

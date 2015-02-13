@@ -39,6 +39,16 @@ $submod->setDescription(_T("Imaging", "manage"));
 $submod->setImg("modules/imaging/img/imaging");
 $submod->setDefaultPage("imaging/manage/index");
 
+$page = new Page("unattended", _T("Imaging Unattended", "imaging"));
+$page->setFile("modules/imaging/manage/unattended.php");
+$submod->addPage($page);
+
+$page = new Page("ajaxgenereAWFGxml");
+$page->setFile("modules/imaging/manage/ajaxgenereAWFGxml.php");
+$page->setOptions(array("AJAX" => True, "visible" => False));
+$submod->addPage($page);
+
+
 $page = new Page("index", _T("Server status", "imaging"));
 $submod->addPage($page);
 
@@ -119,6 +129,10 @@ $page->setOptions(array("AJAX" => True, "visible" => False));
 $submod->addPage($page);
 $page = new Page("imaging_server_link", _T("Link an Imaging Server", "imaging"));
 $page->setOptions(array("AJAX" => True, "visible" => False));
+$submod->addPage($page);
+
+$page = new Page("viewMastersAvailable", _T("Masters list", "imaging"));
+$page->setOptions(array("visible" => False, "noHeader" => True));
 $submod->addPage($page);
 
 if (in_array("dyngroup", $_SESSION["modulesList"])) {

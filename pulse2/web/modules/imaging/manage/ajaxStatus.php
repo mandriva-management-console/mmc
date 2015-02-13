@@ -60,9 +60,25 @@ if (!empty($global_status)) {
             <h3><?php echo _T('Stats', 'imaging') ?></h3>
             <p class="stat"><img src="img/machines/icn_machinesList.gif" /> <strong><?php echo $short_status['total']; ?></strong> <?php echo _T("client(s) registered", "imaging") ?> (<?php echo $customMenu_count; ?> <?php echo _T("with custom menu", "imaging") ?>)</p>
             <p class="stat"><img src="img/machines/icn_machinesList.gif" /> <strong><?php echo $short_status['rescue']; ?></strong>/<?php echo $short_status['total']; ?> <?php echo _T("client(s) have rescue image(s)", "imaging") ?></p>
-            <p class="stat"><img src="img/common/cd.png" />
-                <strong><?php echo $short_status['master']; ?></strong>
-                <?php echo _T("masters are available", "imaging") ?>
+            <?php
+             if ( $short_status['master']!=0)
+             {
+             echo'
+             <p class="stat">
+             <a
+                 href="javascript:;"
+                 onclick="PopupWindow(event,'."'main.php?module=imaging&amp;submod=manage&amp;action=viewMastersAvailable'".', 300); return false;"><img src="img/common/cd.png" />
+                 <strong>'.$short_status['master'].'</strong>'._T("masters are available", "imaging").'</a>
+             </p>';
+             }else
+             {
+             echo'
+             <p class="stat">
+             <img src="img/common/cd.png" />
+                 <strong>'.$short_status['master'].'</strong>'._T("masters are available", "imaging").'
+             </p>';
+             }
+             ?>
         </div>
     </div>
 

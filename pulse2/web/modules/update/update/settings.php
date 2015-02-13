@@ -39,9 +39,8 @@ if (isset($_POST['bconfirm'])){
     enable_only_os_classes($enabled_os_classes_ids);
 }
 
-
 // Create update commands
-if (isset($_GET['create_update_commands'])){
+if(isset($_POST['update'])){
     create_update_commands();
     new NotifyWidgetSuccess(sprintf(_T("The update deployments scheduled successfully.", "update")));
 }
@@ -74,9 +73,11 @@ $f->addValidateButton("bconfirm");
 
 $f->display();
 
-	print '<br/><hr/><br/><h2>' . _T('Updates deployment', 'update') . '</h2>';
-
-print '<a href="' . $_SERVER['REQUEST_URI'] . '&create_update_commands=1" class="btnPrimary" style="color:white">'._T('Force now', 'update').'</a>';
-
+print '<br/><hr/>';
+$f3 = new PopupForm( _T('Updates deployment', 'update'));
+$f3->addButtonwithconfirm("bconfirm", _T('Confirm Updates deployment'), _T('Force now', 'update'));
+$hidden = new HiddenTpl("update");
+$f3->add($hidden, array("value" => "update", "hide" => True));
+$f3->display();
 
 ?>

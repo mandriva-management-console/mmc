@@ -425,4 +425,12 @@ function xmlrpc_getComputerByUUID($uuid) {
     return xmlCall("imaging.getComputerByUUID", array($uuid));
 }
 
+function getMasterAvailable(){
+    return xmlCall("imaging.getMasterAvailable", array());
+}
+
+function xmlrpc_Windows_Answer_File_Generator( $params, $title) {
+    return xmlCall("imaging.Windows_Answer_File_Generator", array( $params,$title));
+}
+
 ?>

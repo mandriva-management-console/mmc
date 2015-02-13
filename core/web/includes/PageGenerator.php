@@ -2562,6 +2562,11 @@ class Form extends HtmlContainer {
         $this->buttons[] = $b->getButtonString($name, $value, $klass, $extra, $type);
     }
 
+    function addButtonwithconfirm($name, $message, $value, $klass = "btnPrimary", $extra = "", $type = "submit") {
+        $b = new Button();
+        $this->buttons[] = $b->getButtonStringwithconfirm($name, $message, $value, $klass, $extra, $type);
+    }
+
     function addValidateButton($name) {
         $b = new Button();
         $this->buttons[] = $b->getValidateButtonString($name);
@@ -2611,6 +2616,15 @@ class Button {
             $this->action = $_GET["action"];
         } else {
             $this->action = $action;
+        }
+    }
+
+    function getButtonStringwithconfirm($name, $message, $value, $klass = "btnPrimary", $extra = "", $type = "button") {
+        if (hasCorrectAcl($this->module, $this->submod, $this->action)) {
+            return "<input type=\"button\" name=\"$name\" value=\"$value\" class=\"$klass\" onclick=\"displaySumitConfirmationPopup('".$message."',this.form)\" />";
+        }
+        else {
+            return "<input disabled type=\"button\" name=\"$name\" value=\"$value\" class=\"btnDisabled\"  onclick=\"displaySumitConfirmationPopup('".$message."',this.form)\"/>";
         }
     }
 
