@@ -20,6 +20,14 @@
 # Author(s):
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
+from credentials import Credentials
+from k5key_asn1 import encode_keys, decode_keys
+from mmc.plugins.base.config import BasePluginConfig
+from mmc.plugins.base import ldapUserGroupControl
+from mmc.plugins.samba4 import getSamba4GlobalInfo
+from mmc.plugins.samba4.samba4 import SambaAD
+from mmc.plugins.network import addRecordA, setHostAliases
+from mmc.support.config import PluginConfigFactory
 import ldap
 from ldap.controls import RequestControl
 from datetime import datetime, timedelta
@@ -29,14 +37,6 @@ import time
 import os
 import logging
 
-from mmc.plugins.base.config import BasePluginConfig
-from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
-from mmc.plugins.samba4 import getSamba4GlobalInfo
-from mmc.plugins.samba4.samba4 import SambaAD
-from mmc.support.config import PluginConfigFactory
-
-from credentials import Credentials
-from k5key_asn1 import encode_keys, decode_keys
 
 
 class LdapUserMixin(object):
@@ -99,7 +99,7 @@ class LdapUserMixin(object):
             raise UserNotFound(username, "sync user attributes")
         other_attrs = other_ldap.get_user_attributes(username)
         # In some case the displayName is not set, so we only sync the common
-        # filds, hence the intersection
+        # fields, hence the intersection
         modlist = [(ldap.MOD_REPLACE, field, other_attrs[field][0])
                    for field in set(self.FIELDS_TO_SYNC).intersection(set(other_attrs.keys()))]
         self.l.modify_s(dn, modlist)
@@ -167,6 +167,9 @@ class LdapUserMixin(object):
 
     def add_group_members(self, group, members=None):
         self._mod_group_members(group, ldap.MOD_ADD, members)
+
+    def get_dns_entries(self):
+        raise NotImplementedError()
 
 
 class SambaLdap(LdapUserMixin):
@@ -310,6 +313,46 @@ class SambaLdap(LdapUserMixin):
                 # which is its primary group, we just ignore the exception
                 pass
 
+    def get_dns_entries(self):
+        entries = self.l.search_s(self.base_dn,
+                                  ldap.SCOPE_SUBTREE,
+                                  filterstr='(&(samAccountType=805306369)(primaryGroupID=516)(objectCategory=computer))',
+                                  attrlist=['dn',
+                                            'dNSHostName',
+                                            'distinguishedName',
+                                            'whenChanged',
+                                            'servicePrincipalName'])
+#         logger.debug('%s\n', entries)
+        recs = []
+        for e in entries:
+            rec = {'cname': None, 'ip': None}
+            if e[0] is None:
+                continue
+
+            for key in e[1].keys():
+                if key == 'servicePrincipalName':
+                    for name in e[1][key]:
+                        if name.startswith('ldap/') and name.endswith('_msdcs.mon.dom'):
+                            rec['cname'] = ('.').join(
+                                name.split('.')[0:2])[5:]
+                        if name.startswith('ip/'):
+                            rec['ip'] = name[3:]
+                if key == 'whenChanged':
+                    rec['whenChanged'] = e[1][key]
+                if key == 'dNSHostName':
+                    rec['dNSHostName'] = e[1][key][0]
+            recs.append((e[0], rec))
+#         for r in recs:
+#             logger.debug('%s', r)
+#         logger.debug('\n')
+        return recs
+
+    def add_ip_dns(self, dn, ip):
+        logger.debug('adding IP %s', dn, ip)
+        self.l.modify_s(dn, [(ldap.MOD_ADD,
+                              'servicePrincipalName',
+                              'ip/' + ip)])
+
 
 class OpenLdap(LdapUserMixin):
 
@@ -406,6 +449,49 @@ class OpenLdap(LdapUserMixin):
         if modlist:
             logger.debug('OpenLdap self.l.modify_s(%s, %s)', groupdn, modlist)
             self.l.modify_s(groupdn, modlist)
+
+    def get_dns_entries(self):
+        def compute_hostname(dn):
+            part = dn.lower().split(',')
+            host = part[0].split('=')[1]
+            domain = part[1].split('=')[1]
+            if host == '@':
+                return None
+            else:
+                return '.'.join([host, domain])
+
+        entries = self.l.search_s(self.base_dn,
+                                  ldap.SCOPE_SUBTREE,
+                                  filterstr='(objectClass=dNSZone)',
+                                  attrlist=['dn', 'aRecord', 'relativeDomainName', 'cNAMERecord', 'modifyTimeStamp'])
+#         logger.debug('%s\n', entries)
+        recs = []
+        for e in entries:
+            rec = {}
+            if 'aRecord' in e[1].keys():
+                hostname = compute_hostname(e[0])
+                if hostname:
+                    rec['hostname'] = hostname
+                else:
+                    continue
+                rec['aRecord'] = e[1]['aRecord']
+                rec['relativeDomainName'] = e[1]['relativeDomainName']
+                rec['modifyTimestamp'] = e[1]['modifyTimestamp']
+                recs.append((e[0], rec))
+            if 'cNAMERecord'in e[1].keys():
+                hostname = compute_hostname(e[0])
+                if hostname:
+                    rec['hostname'] = hostname
+                else:
+                    continue
+                rec['cNAMERecord'] = e[1]['cNAMERecord']
+                rec['relativeDomainName'] = e[1]['relativeDomainName']
+                rec['modifyTimestamp'] = e[1]['modifyTimestamp']
+                recs.append((e[0], rec))
+#         for r in recs:
+#             logger.debug('%s', r)
+#         logger.debug('\n')
+        return recs
 
 
 class UserNotFound(Exception):
@@ -508,6 +594,65 @@ class S4Sync(object):
             self.samba_ldap.sync_user_with(user, self.openldap)
 
     def sync(self):
+        def dns_mix():
+            openldap_dns_entries = self.openldap.get_dns_entries()
+            samba_dns_entries = self.samba_ldap.get_dns_entries()
+
+            # compute common group
+            common_dns_entry = []
+            for i in range(len(openldap_dns_entries)):
+                common = False
+                o_entrie = openldap_dns_entries[i]
+                for j in range(len(samba_dns_entries)):
+                    s_entrie = samba_dns_entries[j]
+                    if o_entrie[1]['hostname'] == s_entrie[1]['dNSHostName']:
+                        common_dns_entry.append((o_entrie, s_entrie))
+#                         logger.debug(
+#                             '\tfound common (%s,%s)', o_entrie[1], s_entrie[1])
+                        common = True
+                        continue
+                    if j == len(samba_dns_entries) and not common:
+                        logger.debug('only in OpenLdap %s', o_entrie[0])
+#             logger.debug(common_dns_entry)
+            # Update ip if required
+            for e in common_dns_entry:
+                if e[1][1]['ip'] is None:
+                    self.samba_ldap.add_ip_dns(e[1][0], e[0][1]['aRecord'][0])
+
+            # look for entries only in samba
+            for i in range(len(samba_dns_entries)):
+                #                 logger.debug(samba_dns_entries[i])
+                common = False
+                s_entrie = samba_dns_entries[i]
+                for j in range(len(openldap_dns_entries)):
+                    o_entrie = openldap_dns_entries[j]
+                    if o_entrie[1]['hostname'] == s_entrie[1]['dNSHostName']:
+                        common = True
+                        continue
+                    if j == len(openldap_dns_entries) - 1 and not common:
+                        logger.debug('only in Samba %s', s_entrie[0])
+                        logger.debug('\t%s', s_entrie[1])
+                        fqdn = s_entrie[1]['dNSHostName'].split('.')
+                        hostname = fqdn[0]
+                        zone = '.'.join([fqdn[1], fqdn[2]])
+                        ip_addr = s_entrie[1]['ip']
+                        alias = s_entrie[1]['cname']
+                        if zone and hostname and ip_addr and alias:
+                            try:
+                                logger.debug(
+                                    'addRecordA(%s,%s,%s)', zone, hostname, ip_addr)
+                                addRecordA(zone, hostname, ip_addr)
+                            except ldap.ALREADY_EXISTS as ex:
+                                logger.debug(ex)
+
+                            logger.debug(
+                                'setHostAliases(%s,%s,%s)', zone, hostname, [alias])
+                            setHostAliases(zone, hostname, [alias])
+                        else:
+                            logger.debug(
+                                "\tcan't addRecordA(%s,%s,%s) nor setHostAliases(%s,%s,%s)",
+                                zone, hostname, ip_addr, zone, hostname, [alias])
+
         def groups_mix():
             openldap_listed_groups = self.openldap.list_groups()
             samba_listed_groups = self.samba_ldap.list_groups()
@@ -646,6 +791,7 @@ class S4Sync(object):
         now_timestamp = datetime.now(pytz.UTC)
         last_sync_timestamp = self.timestamp()
 
+        dns_mix()
         groups_mix()
         users_mix()
 
