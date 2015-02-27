@@ -20,6 +20,8 @@
 # Author(s):
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
+
+#from __future__ import unicode_literals
 from credentials import Credentials
 from k5key_asn1 import encode_keys, decode_keys
 from mmc.plugins.base.config import BasePluginConfig
@@ -192,7 +194,7 @@ class SambaLdap(LdapUserMixin):
         self.timestamp_field = "whenChanged"
         self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
         user_dns = 'dns-%s' % get_user_dns()
-        self.user_ignore_list = ['Guest', 'krbtgt', user_dns]
+        self.user_ignore_list = ['Guest', 'Invité', 'krbtgt', user_dns]
         self.group_base_dn = self.base_dn
         self.group_list_filter = '(&(objectClass=group)(sAMAccountType=268435456)(groupType=-2147483646))'
         self.group_ignore_list = ['Users']
@@ -375,9 +377,17 @@ class OpenLdap(LdapUserMixin):
         self.group_scope = ldap.SCOPE_ONELEVEL
 
     def _create_user(self, username, password, name, surname):
+        # FIXME ms windows stores strings as UTF-8 while mmc base module waits for ascii
+        # them so we decode
+        #         username = username.decode('utf-8)')
+        #         name = name.decode('utf-8)').encode('ascii', errors='replace')
+        #         surname = surname.decode('utf-8)').encode('ascii', errors='replace')
+        logger.debug('calling ldapUserGroupControl().addUser(%s, %s, %s, %s)',
+                     username, password, name, surname)
         ldapUserGroupControl().addUser(username, password, name, surname)
 
     def _create_group(self, name, description=None):
+        logger.debug('calling ldapUserGroupControl().addGroup(%s)', name)
         ldapUserGroupControl().addGroup(name)
 
     def _format_timestamp(self, timestamp_str):
@@ -460,10 +470,12 @@ class OpenLdap(LdapUserMixin):
             else:
                 return '.'.join([host, domain])
 
+        attrlist = ['dn', 'aRecord', 'relativeDomainName',
+                    'cNAMERecord', 'modifyTimeStamp']
         entries = self.l.search_s(self.base_dn,
                                   ldap.SCOPE_SUBTREE,
                                   filterstr='(objectClass=dNSZone)',
-                                  attrlist=['dn', 'aRecord', 'relativeDomainName', 'cNAMERecord', 'modifyTimeStamp'])
+                                  attrlist=attrlist)
 #         logger.debug('%s\n', entries)
         recs = []
         for e in entries:
@@ -765,7 +777,7 @@ class S4Sync(object):
                 user_timestamp = samba_listed_users[user]
                 if user_timestamp > last_sync_timestamp:
                     # Create it on OpenLdap
-                    self.logger.debug("\tCreating user %s on samba" % user)
+                    self.logger.debug("\tCreating user %s on OpenLdap" % user)
                     self.openldap.create_user(user, self.samba_ldap)
                     # Enable krb5 overlay
                     if self.openldap.enable_krb5_for(
