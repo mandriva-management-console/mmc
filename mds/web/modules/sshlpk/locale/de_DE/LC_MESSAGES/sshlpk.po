@@ -9,25 +9,24 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2011-11-17 14:06+0000\n"
-"Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
-"Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/"
-"mds/team/de_DE/)\n"
+"PO-Revision-Date: 2015-03-02 17:36+0200\n"
+"Last-Translator: Maik <mwagner@mandriva.com>\n"
+"Language-Team: German "
+"<http://translate.mandriva.com/projects/mds-26/sshlpk/de_DE/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/sshlpk/infoPackage.inc.php:40
-#, fuzzy
 msgid "Change SSH keys"
-msgstr "SSH-Schlüssel verwalten"
+msgstr "SSH-Schlüssel ändern"
 
 #: modules/sshlpk/keys/edit.php:48
-#, fuzzy
 msgid "Change your SSH keys"
-msgstr "SSH-Schlüssel verwalten"
+msgstr "SSH-Schlüssel modifizieren"
 
 #: modules/sshlpk/includes/publicFunc.php:51 modules/sshlpk/keys/edit.php:58
 msgid "Enable SSH keys management"
@@ -38,9 +37,8 @@ msgid "LDAP Public SSH key management"
 msgstr "LDAP SSH Public Key-Management"
 
 #: modules/sshlpk/infoPackage.inc.php:35
-#, fuzzy
 msgid "Manage SSH keys"
-msgstr "SSH-Schlüssel verwalten"
+msgstr "Verwaltung der SSH-Schlüssel"
 
 #: modules/sshlpk/includes/publicFunc.php:73 modules/sshlpk/keys/edit.php:73
 msgid "Public SSH Key"
