@@ -10,15 +10,16 @@ msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:18+0100\n"
-"PO-Revision-Date: 2014-01-29 08:55+0000\n"
-"Last-Translator: Maik Wagner <maikwagner@yahoo.com>\n"
-"Language-Team: German (Germany) (http://transifex.mandriva.com/projects/p/"
-"mds/team/de_DE/)\n"
+"PO-Revision-Date: 2015-03-02 17:38+0200\n"
+"Last-Translator: Maik <mwagner@mandriva.com>\n"
+"Language-Team: German "
+"<http://translate.mandriva.com/projects/mds-26/network/de_DE/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/network/network/edit.php:46
 #, php-format
@@ -198,7 +199,7 @@ msgstr "Algorithmus reicht von 0 bis 255"
 
 #: modules/network/network/dnsrecords/cname.php:20
 msgid "Alias name"
-msgstr "Aliasname"
+msgstr "Name des Alias"
 
 #: modules/network/network/edit.php:269
 msgid "Also create a related DHCP subnet"
@@ -263,7 +264,7 @@ msgstr "Kann die Datei dhcpd.leases nicht finden"
 #: modules/network/network/subnetdeletehost.php:73
 #: modules/network/network/delete.php:44
 msgid "Cancel"
-msgstr "abbrechen"
+msgstr "Abbrechen"
 
 #: modules/network/network/dnsrecords/cname.php:22
 #: modules/network/network/dnsrecords/cname.php:34
@@ -297,7 +298,7 @@ msgstr "Klicken Sie hier, um ihn hinzuzufügen"
 #: modules/network/network/subnetedit.php:392
 #: modules/network/network/edit.php:294
 msgid "Confirm"
-msgstr "bestätigen"
+msgstr "Bestätigen"
 
 #: modules/network/includes/network2.inc.php:538
 msgid "Couldn't determine record parameters. Incorrect ldap data:"
@@ -309,7 +310,7 @@ msgstr "Konnte nicht die Aufzeichnungsparameter bestimmen. Falsche ldap Daten:"
 #: modules/network/network/edit.php:292
 #: modules/network/network/editrecord.php:223
 msgid "Create"
-msgstr "erstellen"
+msgstr "Erstellen"
 
 #: modules/network/network/dnsrecords/key.php:164
 #: modules/network/network/dnsrecords/rrsig.php:149
@@ -522,11 +523,11 @@ msgstr "Datum"
 
 #: modules/network/includes/network2.inc.php:187
 msgid "Day: "
-msgstr "Tag:"
+msgstr "Tag: "
 
 #: modules/network/includes/network2.inc.php:241
 msgid "Days: "
-msgstr "Tage:"
+msgstr "Tage: "
 
 #: modules/network/network/subnetedit.php:347
 msgid "Default lease time"
@@ -540,8 +541,8 @@ msgid ""
 "initial \"*\" for a wildcard."
 msgstr ""
 "Definition einer nicht-negativen Anzahl wieviele Labels in dem original SIG "
-"Record-Owner-Name sind, wobei das Null-Label für root und jedes vorrangige "
-"\"*\" für eine Wildcard nicht gezählt werden. "
+"Record-Owner-Name sind, wobei das Null-Label für root und jedes vorrangige \""
+"*\" für eine Wildcard nicht gezählt werden."
 
 #: modules/network/network/dnsrecords/loc.php:301
 msgid "Degr.: "
@@ -561,7 +562,7 @@ msgstr "Zone löschen"
 
 #: modules/network/includes/network2.inc.php:79
 msgid "Delete"
-msgstr "Löschen"
+msgstr "Entfernen"
 
 #: modules/network/network/deletehost.php:37
 #: modules/network/network/deleterecord.php:58
@@ -674,7 +675,7 @@ msgstr "Domain-Name"
 #: modules/network/network/dnsrecords/sig.php:122
 #: modules/network/network/dnsrecords/ds.php:86
 msgid "Domain name"
-msgstr "Domainname"
+msgstr "Name der Domain"
 
 #: modules/network/network/dnsrecords/key.php:250
 #: modules/network/network/dnsrecords/rrsig.php:223
@@ -689,8 +690,8 @@ msgstr "Domainname (Privat)"
 msgid ""
 "Domain name of a host that has a server for the cell named by the owner name"
 msgstr ""
-"Domainname eines Hosts, der einen Server für die Zelle, die nach dem "
-"Besitzernamen benannt ist, hat."
+"Domainname eines Hosts, mit einen Server für die Zelle, die nach dem "
+"Besitzernamen benannt ist."
 
 #: modules/network/network/dnsrecords/rrsig.php:125
 #: modules/network/network/dnsrecords/rrsig.php:212
@@ -822,7 +823,7 @@ msgstr ""
 #: modules/network/network/dnsrecords/kx.php:30
 #: modules/network/network/dnsrecords/kx.php:53
 msgid "Exchanger"
-msgstr "Exchanger"
+msgstr "Austauscher"
 
 #: modules/network/network/dnsrecords/soa.php:74
 #: modules/network/network/dnsrecords/soa.php:106
@@ -835,7 +836,7 @@ msgstr "Fehler beim Deaktivieren der Failoverkonfiguration."
 
 #: modules/network/network/servicedhcpfailover.php:55
 msgid "Failed to update the failover configuration."
-msgstr "Fehler beim Update der Failoverkonfiguration"
+msgstr "Fehler beim Update der Failoverkonfiguration."
 
 #: modules/network/network/servicedhcpfailover.php:76
 msgid "Failover configuration disabled."
@@ -869,7 +870,7 @@ msgstr "Fingerprintart reicht von 0 bis 255"
 #: modules/network/network/dnsrecords/naptr.php:66
 #: modules/network/network/dnsrecords/naptr.php:92
 msgid "Flags"
-msgstr "Flags"
+msgstr "Flaggen"
 
 #: modules/network/includes/network.inc.php:76
 msgid "Get next free IP address"
@@ -932,15 +933,15 @@ msgstr "Host, der diesen Dienst bereit stellt"
 #: modules/network/network/edithost.php:165
 #: modules/network/network/edithost.php:169
 msgid "Hostname alias"
-msgstr "Hostname alias"
+msgstr "Alias des Hostnamens"
 
 #: modules/network/includes/network2.inc.php:188
 msgid "Hour: "
-msgstr "Stunde:"
+msgstr "Stunde: "
 
 #: modules/network/includes/network2.inc.php:241
 msgid "Hours: "
-msgstr "Stunden:"
+msgstr "Stunden: "
 
 #: modules/network/network/servicedhcpfailover.php:175
 msgid ""
@@ -1071,14 +1072,15 @@ msgstr "Es sollte ein relativer Name sein (z.B., %s), FQDN (e.g., %s) oder %s"
 #: modules/network/network/dnsrecords/ds.php:123
 #: modules/network/network/dnsrecords/ds.php:154
 msgid "Key tag"
-msgstr "Key tag"
+msgstr "Schlüsseletikett"
 
 #: modules/network/network/dnsrecords/rrsig.php:173
 #: modules/network/network/dnsrecords/cert.php:141
 #: modules/network/network/dnsrecords/sig.php:172
 #: modules/network/network/dnsrecords/ds.php:125
 msgid "Key tag is a decimal number that ranges from 0 to 65535"
-msgstr "Key tag ist eine Dezimalzahl die sich von 0 bis 65535 erstreckt."
+msgstr ""
+"Schlüsseletikett ist eine Dezimalzahl, die sich von 0 bis 65535 erstreckt."
 
 #: modules/network/network/dnsrecords/rrsig.php:157
 #: modules/network/network/dnsrecords/rrsig.php:207
@@ -1648,7 +1650,7 @@ msgstr "Serviceport"
 #: modules/network/network/dnsrecords/naptr.php:70
 #: modules/network/network/dnsrecords/naptr.php:93
 msgid "Services"
-msgstr "Dienst"
+msgstr "Dienste"
 
 #: modules/network/includes/auditCodes.php:39
 msgid "Set NS record"
