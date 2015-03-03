@@ -522,6 +522,17 @@ def size_format(b):
     elif 1000000000000 <= b:
         return '%.1f' % float(b/1000000000000.0) + 'TB'
 
+
+def to_str(value):
+    """
+    Transform an unicode value in an utf-8 encoded string
+    if not unicode, return the same value.
+    """
+    if isinstance(value, unicode):
+        return value.encode("utf-8")
+    return value
+
+
 class ServiceManager:
     """
     Class to know a service state, and start/stop/reload it
