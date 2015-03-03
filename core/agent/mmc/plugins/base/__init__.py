@@ -55,6 +55,7 @@ import random
 import string
 import re
 import os
+import grp
 import time
 import copy
 import tempfile
@@ -899,31 +900,32 @@ class LdapUserGroupControl:
 
         # Create insertion array in ldap dir
         # FIXME: document shadow attributes choice
-        user_info = {'loginShell':shell,
-                     'uidNumber':str(uidNumber),
-                     'gidnumber':str(gidNumber),
-                     'objectclass':['inetOrgPerson','posixAccount','shadowAccount','top','person'],
-                     'uid':uid,
-                     'gecos':gecos,
+        user_info = {'loginShell': shell,
+                     'uidNumber': str(uidNumber),
+                     'gidnumber': str(gidNumber),
+                     'objectclass': ['inetOrgPerson', 'posixAccount',
+                                     'shadowAccount', 'top', 'person'],
+                     'uid': uid,
+                     'gecos': gecos,
                      'cn': firstN + " " + lastN,
                      'displayName': firstN + " " + lastN,
-                     'sn':lastN,
-                     'givenName':firstN,
-                     'homeDirectory' : homeDir,
-                     'shadowExpire' : '-1', # Password never expire
-                     'shadowInactive':'-1',
-                     'shadowWarning':'7',
-                     'shadowMin':'-1',
-                     'shadowMax':'99999',
-                     'shadowFlag':'134538308',
-                     'shadowLastChange':'11192',
+                     'sn': lastN,
+                     'givenName': firstN,
+                     'homeDirectory': homeDir,
+                     'shadowExpire': '-1',  # Password never expire
+                     'shadowInactive': '-1',
+                     'shadowWarning': '7',
+                     'shadowMin': '-1',
+                     'shadowMax': '99999',
+                     'shadowFlag': '134538308',
+                     'shadowLastChange': '11192',
                      }
 
         user_info = self._applyUserDefault(user_info, self.userDefault["base"])
 
         # Search Python unicode string and encode them to UTF-8
         attributes = []
-        for k,v in user_info.items():
+        for k, v in user_info.items():
             fields = []
             v = to_str(v)
             if type(v) == list:
@@ -987,9 +989,9 @@ class LdapUserGroupControl:
 
     def getDefaultShells(self):
         return {'enabledShell': self.defaultShellEnable,
-            'disabledShell': self.defaultShellDisable }
+                'disabledShell': self.defaultShellDisable}
 
-    def getHomeDir(self, uid, homeDir = None, checkExists = True):
+    def getHomeDir(self, uid, homeDir=None, checkExists=True):
         """
         Check if home directory can be created
         Returns path
@@ -1024,19 +1026,18 @@ class LdapUserGroupControl:
         entry = 'cn=' + cn + ',' + self.baseGroupsDN
         r = AF().log(PLUGIN_NAME, AA.BASE_ADD_GROUP, [(entry, AT.GROUP)])
         maxgid = self.maxGID()
-        gidNumber = maxgid + 1;
+        gidNumber = maxgid + 1
 
         # creating group skel
-        group_info = {'cn':cn,
-                    'gidnumber':str(gidNumber),
-                    'objectclass':('posixGroup','top')
-                     }
-        attributes = [ (k,v) for k,v in group_info.items() ]
+        group_info = {'cn': cn,
+                      'gidnumber': str(gidNumber),
+                      'objectclass': ('posixGroup', 'top')}
+        attributes = [(k, v) for k, v in group_info.items()]
         self.l.add_s(entry, attributes)
         r.commit()
         return self.getGroupEntry(cn)
 
-    def getGroupEntry(self, cn, base = None):
+    def getGroupEntry(self, cn, base=None):
         """
         Search a group entry and returns the raw LDAP entry content of a group.
 
@@ -1150,7 +1151,6 @@ class LdapUserGroupControl:
         try:
             group = self.getDetailedGroupById(gidNumber)["cn"][0]
         except KeyError:
-            import grp
             group = grp.getgrgid(gidNumber)[0]
         return group
 
@@ -1173,7 +1173,7 @@ class LdapUserGroupControl:
             pass
         return secondary
 
-    def addUserToGroup(self, cngroup, uid, base = None):
+    def addUserToGroup(self, cngroup, uid, base=None):
         """
          add memberUid attributes corresponding param user to an ldap posixGroup entry
 
@@ -1438,7 +1438,7 @@ class LdapUserGroupControl:
         newattrs = copy.deepcopy(attrs)
         return newattrs
 
-    def getUserEntry(self, uid, base = None, operational = False):
+    def getUserEntry(self, uid, base=None, operational=False):
         """
         Search a user entry and returns the raw LDAP entry content of a user.
 
@@ -1461,8 +1461,8 @@ class LdapUserGroupControl:
             myattrlist = ['+', '*']
         else:
             myattrlist = None
-        attrib = self.l.search_s(userdn, ldap.SCOPE_BASE, attrlist = myattrlist)
-        c,attrs=attrib[0]
+        attrib = self.l.search_s(userdn, ldap.SCOPE_BASE, attrlist=myattrlist)
+        c, attrs = attrib[0]
         newattrs = copy.deepcopy(attrs)
 
         if 'krb5Key' in newattrs:
@@ -1538,8 +1538,8 @@ class LdapUserGroupControl:
         group = to_str(group)
         dn = 'cn=' + group + ',' + base
         attrs = []
-        attrib = self.l.search_s(cn, ldap.SCOPE_BASE)
-        c,attrs=attrib[0]
+        attrib = self.l.search_s(dn, ldap.SCOPE_BASE)
+        c, attrs = attrib[0]
         newattrs = copy.deepcopy(attrs)
         return newattrs
 

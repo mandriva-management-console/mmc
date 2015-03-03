@@ -510,6 +510,7 @@ def progressBackup(self, data):
         if (group):
             self.progress = int(group)/int(self.volumeNumber) + ((int(self.currVolume)-1) *100/int(self.volumeNumber))
 
+
 def size_format(b):
     if b < 1000:
         return '%i' % b + 'B'
