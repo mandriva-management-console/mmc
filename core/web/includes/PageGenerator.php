@@ -2504,6 +2504,11 @@ class Form extends HtmlContainer {
         $this->buttons[] = $b->getCancelButtonString($name);
     }
 
+    function addPopupButton($name, $value, $mod, $submod, $action, $klass="", $extra="") {
+        $b = new Button();
+        $this->buttons[] = $b->getPopupButtonString($name, $value, $mod, $submod, $action, $klass, $extra);
+    }
+
     function addExpertButton($name, $value) {
         $d = new DivExpertMode();
         $b = new Button();
@@ -2546,7 +2551,7 @@ class Button {
         }
     }
 
-    function getButtonString($name, $value, $klass = "btnPrimary", $extra = "", $type = "submit") {
+    function getButtonString($name, $value, $klass="", $extra="", $type="submit") {
         if (hasCorrectAcl($this->module, $this->submod, $this->action)) {
             return $this->getButtonStringWithRight($name, $value, $klass, $extra, $type);
         } else {
@@ -2554,20 +2559,32 @@ class Button {
         }
     }
 
-    function getButtonStringWithRight($name, $value, $klass = "btnPrimary", $extra = "", $type = "submit") {
-        return "<input type=\"$type\" name=\"$name\" value=\"$value\" class=\"$klass\" $extra />";
+    function getButtonStringWithRight($name, $value, $klass="btn-secondary", $extra="", $type="submit") {
+        return "<input type=\"$type\" name=\"$name\" value=\"$value\" class=\"btn $klass\" $extra />";
     }
 
-    function getButtonStringWithNoRight($name, $value, $klass = "btnPrimary", $extra = "", $type = "submit") {
-        return "<input disabled type=\"$type\" name=\"$name\" value=\"$value\" class=\"btnDisabled\" $extra />";
+    function getButtonStringWithNoRight($name, $value, $klass="", $extra="", $type="submit") {
+        return "<input disabled type=\"$type\" name=\"$name\" value=\"$value\" class=\"btn\" $extra disabled />";
     }
 
-    function getValidateButtonString($name, $klass = "btnPrimary", $extra = "", $type = "submit") {
-        return $this->getButtonString($name, _("Confirm"), $klass);
+    function getValidateButtonString($name) {
+        return $this->getButtonString($name, _("Confirm"), "btn-primary");
     }
 
-    function getCancelButtonString($name, $klass = "btnSecondary", $extra = "", $type = "submit") {
-        return $this->getButtonString($name, _("Cancel"), $klass);
+    function getCancelButtonString($name) {
+        return $this->getButtonString($name, _("Cancel"));
+    }
+
+    function getPopupButtonString($name, $value, $mod, $submod, $action, $params=array(), $klass="", $extra="") {
+        $popupUrl = urlStrRedirect("$mod/$submod/$action", $params);
+        $str = '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" class="btn '.$klass.'" '.$extra.' onclick="PopupWindow(event, \''.$popupUrl.'\', 300); return false;"';
+        if (hasCorrectAcl($mod, $submod, $action)) {
+            $str .= "/>";
+        }
+        else {
+            $str .= "disabled />";
+        }
+        return $str;
     }
 
     function getOnClickButton($text, $url, $klass = "btnPrimary", $extra = "", $type = "button") {
