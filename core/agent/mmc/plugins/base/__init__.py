@@ -34,9 +34,9 @@ from mmc.plugins.base.provisioning import ProvisioningManager
 from mmc.plugins.base.externalldap import ExternalLdapAuthenticator, ExternalLdapProvisioner
 from mmc.plugins.base.ldapconnect import LDAPConnection
 from mmc.support import mmctools
-from mmc.support.mmctools import cSort, rchown, copytree, cleanFilter, \
-                                 xmlrpcCleanup, RpcProxyI, ContextMakerI, \
-                                 SecurityContext
+from mmc.support.mmctools import (cSort, rchown, copytree, cleanFilter,
+                                  xmlrpcCleanup, RpcProxyI, ContextMakerI,
+                                  SecurityContext, to_str)
 from mmc.site import mmcconfdir, localstatedir
 from mmc.core.version import scmRevision
 from mmc.core.audit import AuditFactory as AF
@@ -55,6 +55,7 @@ import random
 import string
 import re
 import os
+import grp
 import time
 import copy
 import tempfile
@@ -93,6 +94,7 @@ def getRevision(): return REVISION
 
 def listEvent():
     return mmctools.ProcessScheduler().listEvent()
+
 
 def activate():
     """
@@ -877,58 +879,60 @@ class LdapUserGroupControl:
         shell = self.defaultShellEnable
 
         # Put default value in firstN and lastN
-        if not firstN: firstN = uid
-        if not lastN: lastN = uid
+        if not firstN:
+            firstN = uid
+        else:
+            firstN = to_str(firstN)
+        if not lastN:
+            lastN = uid
+        else:
+            lastN = to_str(lastN)
 
         # For the gecos LDAP field, make a full ASCII string
         try:
-            gecosFirstN=str(delete_diacritics((firstN.encode("UTF-8"))))
-            gecosLastN=str(delete_diacritics((lastN.encode("UTF-8"))))
+            gecosFirstN = str(delete_diacritics(firstN))
+            gecosLastN = str(delete_diacritics(lastN))
             gecos = gecosFirstN + ' ' + gecosLastN
         # If we failed to build the gecos from the last and firstname
         # fallback to uid
         except UnicodeEncodeError:
             gecos = uid
 
-        # Build a UTF-8 representation of the unicode strings
-        lastN = str(lastN.encode("utf-8"))
-        firstN = str(firstN.encode("utf-8"))
-
         # Create insertion array in ldap dir
         # FIXME: document shadow attributes choice
-        user_info = {'loginShell':shell,
-                     'uidNumber':str(uidNumber),
-                     'gidnumber':str(gidNumber),
-                     'objectclass':['inetOrgPerson','posixAccount','shadowAccount','top','person'],
-                     'uid':uid,
-                     'gecos':gecos,
+        user_info = {'loginShell': shell,
+                     'uidNumber': str(uidNumber),
+                     'gidnumber': str(gidNumber),
+                     'objectclass': ['inetOrgPerson', 'posixAccount',
+                                     'shadowAccount', 'top', 'person'],
+                     'uid': uid,
+                     'gecos': gecos,
                      'cn': firstN + " " + lastN,
                      'displayName': firstN + " " + lastN,
-                     'sn':lastN,
-                     'givenName':firstN,
-                     'homeDirectory' : homeDir,
-                     'shadowExpire' : '-1', # Password never expire
-                     'shadowInactive':'-1',
-                     'shadowWarning':'7',
-                     'shadowMin':'-1',
-                     'shadowMax':'99999',
-                     'shadowFlag':'134538308',
-                     'shadowLastChange':'11192',
+                     'sn': lastN,
+                     'givenName': firstN,
+                     'homeDirectory': homeDir,
+                     'shadowExpire': '-1',  # Password never expire
+                     'shadowInactive': '-1',
+                     'shadowWarning': '7',
+                     'shadowMin': '-1',
+                     'shadowMax': '99999',
+                     'shadowFlag': '134538308',
+                     'shadowLastChange': '11192',
                      }
 
         user_info = self._applyUserDefault(user_info, self.userDefault["base"])
 
         # Search Python unicode string and encode them to UTF-8
         attributes = []
-        for k,v in user_info.items():
+        for k, v in user_info.items():
             fields = []
+            v = to_str(v)
             if type(v) == list:
                 for item in v:
-                    if type(item) == unicode: item = item.encode("utf-8")
+                    item = to_str(item)
                     fields.append(item)
                 attributes.append((k, fields))
-            elif type(v) == unicode:
-                attributes.append((k, v.encode("utf-8")))
             else:
                 attributes.append((k, v))
 
@@ -985,9 +989,9 @@ class LdapUserGroupControl:
 
     def getDefaultShells(self):
         return {'enabledShell': self.defaultShellEnable,
-            'disabledShell': self.defaultShellDisable }
+                'disabledShell': self.defaultShellDisable}
 
-    def getHomeDir(self, uid, homeDir = None, checkExists = True):
+    def getHomeDir(self, uid, homeDir=None, checkExists=True):
         """
         Check if home directory can be created
         Returns path
@@ -997,7 +1001,8 @@ class LdapUserGroupControl:
         """
 
         # Make a home string if none was given
-        if not homeDir: homeDir = os.path.join(self.defaultHomeDir, uid)
+        if not homeDir:
+            homeDir = os.path.join(self.defaultHomeDir, delete_diacritics(uid))
         if not self.isAuthorizedHome(os.path.realpath(homeDir)):
             raise Exception(homeDir + " is not an authorized home dir.")
         # Return homedir path
@@ -1021,19 +1026,18 @@ class LdapUserGroupControl:
         entry = 'cn=' + cn + ',' + self.baseGroupsDN
         r = AF().log(PLUGIN_NAME, AA.BASE_ADD_GROUP, [(entry, AT.GROUP)])
         maxgid = self.maxGID()
-        gidNumber = maxgid + 1;
+        gidNumber = maxgid + 1
 
         # creating group skel
-        group_info = {'cn':cn,
-                    'gidnumber':str(gidNumber),
-                    'objectclass':('posixGroup','top')
-                     }
-        attributes = [ (k,v) for k,v in group_info.items() ]
+        group_info = {'cn': cn,
+                      'gidnumber': str(gidNumber),
+                      'objectclass': ('posixGroup', 'top')}
+        attributes = [(k, v) for k, v in group_info.items()]
         self.l.add_s(entry, attributes)
         r.commit()
         return self.getGroupEntry(cn)
 
-    def getGroupEntry(self, cn, base = None):
+    def getGroupEntry(self, cn, base=None):
         """
         Search a group entry and returns the raw LDAP entry content of a group.
 
@@ -1046,8 +1050,10 @@ class LdapUserGroupControl:
         @return: full raw ldap array (dictionnary of lists)
         @type: dict
         """
-        if not base: base = self.baseGroupsDN
-        ret = self.search("cn=" + str(cn), base)
+        cn = to_str(cn)
+        if not base:
+            base = self.baseGroupsDN
+        ret = self.search("cn=" + cn, base)
         newattrs = {}
         if ret:
             for result in ret:
@@ -1067,8 +1073,8 @@ class LdapUserGroupControl:
         @param uiduser: user uid (not full ldap path)
         @type uiduser: unicode
         """
-        cngroup = cngroup.encode("utf-8")
-        uiduser = uiduser.encode("utf-8")
+        cngroup = to_str(cngroup)
+        uiduser = to_str(uiduser)
         groupdn = 'cn=' + cngroup + ',' + self.baseGroupsDN
         userdn = self.searchUserDN(uiduser)
         r = AF().log(PLUGIN_NAME, AA.BASE_DEL_USER_FROM_GROUP, [(groupdn, AT.GROUP), (userdn, AT.USER)])
@@ -1086,11 +1092,12 @@ class LdapUserGroupControl:
         @param uid: login of the user
         @type uid: unicode
         """
+        uid = to_str(uid)
         ret = self.search("memberUid=" + uid, self.baseGroupsDN)
         if ret:
             for result in ret:
                 group = result[0][1]["cn"][0]
-                self.delUserFromGroup(group.decode("utf-8"), uid)
+                self.delUserFromGroup(group, uid)
         return 0
 
     def changeUserPrimaryGroup(self, uid, group):
@@ -1144,7 +1151,6 @@ class LdapUserGroupControl:
         try:
             group = self.getDetailedGroupById(gidNumber)["cn"][0]
         except KeyError:
-            import grp
             group = grp.getgrgid(gidNumber)[0]
         return group
 
@@ -1167,7 +1173,7 @@ class LdapUserGroupControl:
             pass
         return secondary
 
-    def addUserToGroup(self, cngroup, uid, base = None):
+    def addUserToGroup(self, cngroup, uid, base=None):
         """
          add memberUid attributes corresponding param user to an ldap posixGroup entry
 
@@ -1177,9 +1183,10 @@ class LdapUserGroupControl:
          @param uid: user uid (not full ldap path)
          @type uid: unicode
          """
-        if not base: base = self.baseGroupsDN
-        cngroup = cngroup.encode("utf-8")
-        uid = uid.encode("utf-8")
+        if not base:
+            base = self.baseGroupsDN
+        cngroup = to_str(cngroup)
+        uid = to_str(uid)
         groupdn = 'cn=' + cngroup + ',' + base
         userdn = self.searchUserDN(uid)
         r = AF().log(PLUGIN_NAME, AA.BASE_ADD_USER_TO_GROUP, [(groupdn, AT.GROUP), (userdn, AT.USER)])
@@ -1431,7 +1438,7 @@ class LdapUserGroupControl:
         newattrs = copy.deepcopy(attrs)
         return newattrs
 
-    def getUserEntry(self, uid, base = None, operational = False):
+    def getUserEntry(self, uid, base=None, operational=False):
         """
         Search a user entry and returns the raw LDAP entry content of a user.
 
@@ -1447,14 +1454,15 @@ class LdapUserGroupControl:
         @return: full raw ldap array (dictionnary of lists)
         @type: dict
         """
+        uid = to_str(uid)
         userdn = self.searchUserDN(uid)
         attrs = []
         if operational:
             myattrlist = ['+', '*']
         else:
             myattrlist = None
-        attrib = self.l.search_s(userdn, ldap.SCOPE_BASE, attrlist = myattrlist)
-        c,attrs=attrib[0]
+        attrib = self.l.search_s(userdn, ldap.SCOPE_BASE, attrlist=myattrlist)
+        c, attrs = attrib[0]
         newattrs = copy.deepcopy(attrs)
 
         if 'krb5Key' in newattrs:
@@ -1503,6 +1511,7 @@ class LdapUserGroupControl:
         @return: the DN of the user entry, or an empty string if not found
         @rtype: str
         """
+        uid = to_str(uid)
         if uid == 'root':
             ret = self.config.username
         else:
@@ -1524,11 +1533,13 @@ class LdapUserGroupControl:
          @type: dict
 
         """
-        if not base: base = self.baseGroupsDN
-        cn = 'cn=' + group.encode("utf-8") + ', ' + base
+        if not base:
+            base = self.baseGroupsDN
+        group = to_str(group)
+        dn = 'cn=' + group + ',' + base
         attrs = []
-        attrib = self.l.search_s(cn, ldap.SCOPE_BASE)
-        c,attrs=attrib[0]
+        attrib = self.l.search_s(dn, ldap.SCOPE_BASE)
+        c, attrs = attrib[0]
         newattrs = copy.deepcopy(attrs)
         return newattrs
 
@@ -1599,9 +1610,9 @@ class LdapUserGroupControl:
     def search(self, searchFilter='', basedn = None, attrs = None, scope = ldap.SCOPE_SUBTREE):
         """
         @param searchFilter: LDAP search filter
-        @type searchFilter: unicode
+        @type searchFilter: unicode / str
         """
-        searchFilter = searchFilter.encode("utf-8")
+        searchFilter = to_str(searchFilter)
         if not basedn:
             basedn = self.baseDN
         result_set = []

@@ -510,6 +510,7 @@ def progressBackup(self, data):
         if (group):
             self.progress = int(group)/int(self.volumeNumber) + ((int(self.currVolume)-1) *100/int(self.volumeNumber))
 
+
 def size_format(b):
     if b < 1000:
         return '%i' % b + 'B'
@@ -521,6 +522,17 @@ def size_format(b):
         return '%.1f' % float(b/1000000000.0) + 'GB'
     elif 1000000000000 <= b:
         return '%.1f' % float(b/1000000000000.0) + 'TB'
+
+
+def to_str(value):
+    """
+    Transform an unicode value in an utf-8 encoded string
+    if not unicode, return the same value.
+    """
+    if isinstance(value, unicode):
+        return value.encode("utf-8")
+    return value
+
 
 class ServiceManager:
     """

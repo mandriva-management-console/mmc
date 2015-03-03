@@ -20,13 +20,6 @@
 # Author(s):
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
-from credentials import Credentials
-from k5key_asn1 import encode_keys, decode_keys
-from mmc.plugins.base.config import BasePluginConfig
-from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.samba4 import getSamba4GlobalInfo
-from mmc.plugins.samba4.samba4 import SambaAD
-from mmc.support.config import PluginConfigFactory
 import ldap
 from ldap.controls import RequestControl
 from datetime import datetime, timedelta
@@ -35,6 +28,15 @@ import pytz
 import time
 import os
 import logging
+
+from mmc.plugins.base.config import BasePluginConfig
+from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
+from mmc.plugins.samba4 import getSamba4GlobalInfo
+from mmc.plugins.samba4.samba4 import SambaAD
+from mmc.support.config import PluginConfigFactory
+
+from credentials import Credentials
+from k5key_asn1 import encode_keys, decode_keys
 
 
 class LdapUserMixin(object):
@@ -246,8 +248,9 @@ class SambaLdap(LdapUserMixin):
                                   self.group_scope,
                                   filterstr='(&(objectClass=group)(sAMAccountName=%s))' % group,
                                   attrlist=['member'])
-        # len is 2 cause Samba alwaus adds an entry with None
-        if len(entries) > 2:
+        # filter out None entries
+        entries = [(dn, attrs) for dn, attrs in entries if dn is not None]
+        if len(entries) > 1:
             raise Exception(
                 'Many groups with the name ' + group + ' something\'s going wrong')
         members_dn = entries[0][1].get('member', [])
@@ -259,8 +262,16 @@ class SambaLdap(LdapUserMixin):
                                          ldap.SCOPE_BASE,
                                          filterstr='(objectClass=user)',
                                          attrlist=['sAMAccountName'])
-            logger.debug(current_cn)
-            members_cn.append(current_cn[0][1]['sAMAccountName'][0])
+            sAMAccountName = current_cn[0][1]['sAMAccountName'][0]
+            try:
+                # check if the sAMAccountName is an ascii string
+                # so that it can be stored in the memberUid attribute
+                # on the OpenLDAP side. If not we ignore it.
+                sAMAccountName = unicode(sAMAccountName, 'ascii')
+                members_cn.append(sAMAccountName.encode('ascii'))
+            except UnicodeDecodeError:
+                logger.warning("The group relation between %s and %s can't be synchronized on OpenLDAP" % (group, sAMAccountName))
+
         logger.debug(
             'Members of group %s in Samba: %s', group, members_cn)
         return members_cn
@@ -320,7 +331,7 @@ class OpenLdap(LdapUserMixin):
         dn, user = self._get_user(username)
         if not dn:
             return False
-        principal_name = '%s@%s' % (username, realm.upper())
+        principal_name = '%s@%s' % (delete_diacritics(username).encode('utf-8'), realm.upper())
         modlist = [(ldap.MOD_ADD, 'objectclass', 'krb5KDCEntry'),
                    (ldap.MOD_ADD, 'krb5KeyVersionNumber', '0'),
                    (ldap.MOD_ADD, 'krb5PrincipalName', principal_name)]

@@ -157,11 +157,9 @@ if ($error) {
 if ($result) {
     $resultPopup->add('<div class="alert alert-success">' . $result . '</div>');
 }
-// in case of modification/creation success, redirect to the edit page
+// in case of modification/creation success, redirect to the index page
 if ($redirect) {
-    header('Location: ' . urlStrRedirect("base/users/edit",
-        array("user" => $uid)));
-    exit;
+    redirectTo(urlStrRedirect("base/users/index"));
 }
 
 // in case of failure, set errorStatus to 0 in order to display the edit form
@@ -179,8 +177,12 @@ $f = new ValidatingForm(array('method' => 'POST',
 $f->addValidateButton("buser");
 // enable/disable buttons
 if($mode == 'edit') {
-    $f->addButton("enableAccount", _("Enable account"), "btnSecondary");
-    $f->addButton("disableAccount", _("Disable account"), "btnSecondary");
+    $f->addButton("enableAccount", _("Enable account"), "btn-info");
+    $f->addButton("disableAccount", _("Disable account"), "btn-warning");
+    $f->addPopupButton("deleteAccount", _("Delete account"),
+        "base", "users", "delete", array("user" => $uid),
+        "btn-danger"
+    );
 }
 // add reset form button
 $f->addCancelButton("breset");
