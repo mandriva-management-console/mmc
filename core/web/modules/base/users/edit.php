@@ -179,8 +179,12 @@ $f = new ValidatingForm(array('method' => 'POST',
 $f->addValidateButton("buser");
 // enable/disable buttons
 if($mode == 'edit') {
-    $f->addButton("enableAccount", _("Enable account"), "btnSecondary");
-    $f->addButton("disableAccount", _("Disable account"), "btnSecondary");
+    $f->addButton("enableAccount", _("Enable account"), "btn-info");
+    $f->addButton("disableAccount", _("Disable account"), "btn-warning");
+    $f->addPopupButton("deleteAccount", _("Delete account"),
+        "base", "users", "delete", array("user" => $uid),
+        "btn-danger"
+    );
 }
 // add reset form button
 $f->addCancelButton("breset");
