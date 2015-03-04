@@ -214,4 +214,8 @@ function setZarafaGroup($group, $value) {
     return xmlCall("mail.setZarafaGroup", array($group, $value));
 }
 
+function delUserMails($uid) {
+    return xmlCall("mail.delUserMails", array($uid));
+}
+
 ?>

@@ -57,7 +57,7 @@ function _samba4_changeUser($FH, $mode) {
     }
 }
 
-function _samba4_delUser($username) {
+function _samba4_delUser($username, $delfiles) {
     if (userHasSambaAccount($username)) {
         deleteSambaUser($username);
     }

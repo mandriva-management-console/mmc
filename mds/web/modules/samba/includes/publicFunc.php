@@ -25,8 +25,9 @@
 include ("user-xmlrpc.inc.php");
 
 
-function _samba_delUser($uid) {
-    if (hasSmbAttr($uid)) rmSmbAttr($uid);
+function _samba_delUser($uid, $delfiles) {
+    if (hasSmbAttr($uid))
+        rmSmbAttr($uid);
 }
 
 function _samba_enableUser($paramsArr) {
