@@ -39,7 +39,6 @@ $submod->setDescription(_T("Inventory", "inventory"));
 $submod->setImg('modules/inventory/graph/img/inventory');
 $submod->setDefaultPage("inventory/inventory/incoming");
 
-
 $page = new Page("incoming", _T("Incoming", "inventory"));
 $submod->addPage($page);
 $page = new Page("index", _T("Bios", "inventory"));

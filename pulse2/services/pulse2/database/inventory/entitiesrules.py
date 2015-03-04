@@ -32,9 +32,6 @@ class EntitiesRules:
     """
     Class for object that computes an inventory entity list according to a
     computer inventory and rules.
-    
-plugins/inventory/provisioning_plugins/network_to_entity/__init__.py:44:class NetworkRules(EntitiesRules):
-
 
     It allows the inventory server to assign a computer to an entity.
     """

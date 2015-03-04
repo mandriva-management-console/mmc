@@ -51,6 +51,7 @@ import os
 from pulse2.inventoryserver.config import Pulse2OcsserverConfigParser
 MAX_REQ_NUM = 100
 
+
 class UserTable(object):
     pass
 
@@ -480,6 +481,7 @@ class Inventory(DyngroupDatabaseHelper):
             return self.optimizedQuery(ctx, filt)
         else:
             result = self.getMachinesOnly(ctx, filt)
+
         tables = self.config.content
         if len(tables) == 1 and "Registry" in tables:
             # The inventory to display is to be taken from the same Registry
@@ -1030,6 +1032,13 @@ class Inventory(DyngroupDatabaseHelper):
         if len(owners) > 0:
             # the most frequent occurence of user
             return max(owners, key=owners.get)
+
+
+
+
+
+
+
 
 
 
@@ -1632,6 +1641,7 @@ class Inventory(DyngroupDatabaseHelper):
     def createEntity(self, name, parent_name = False):
         """
         Create a new entity under parent entity
+
         If parent_name is False the parent will be the root entity
         """
         session = create_session()
@@ -1648,6 +1658,7 @@ class Inventory(DyngroupDatabaseHelper):
                     raise Exception("Parent entity %s doesn't exists" % parent_name)
                 else:
                     e.parentId = p.id
+
             session.add(e)
             session.flush()
         session.close()
@@ -2140,6 +2151,7 @@ class Inventory(DyngroupDatabaseHelper):
                         self.table['Inventory'].c.id == self.table['hasEntity'].c.inventory
                     )
                 )
+
         query = query.filter(self.inventory.c.Last == 1)
         if hasattr(ctx, 'locationsid'):
             query = query.filter(self.table['hasEntity'].c.entity.in_(ctx.locationsid))
@@ -2358,7 +2370,6 @@ class Inventory(DyngroupDatabaseHelper):
                 ens.append(toUUID(str(q.id)))
         session.close()
         return ens
-
 
     def getLocationParentPath(self, loc_uuid):
         """
@@ -3230,6 +3241,8 @@ class InventoryCreator(Inventory):
         return True
 
 
+
+
 # TODO - Get this info on the PXE client side !
 class InventoryNetworkComplete :
     """
@@ -3317,7 +3330,5 @@ class InventoryNetworkComplete :
         @rtype: dict
         """
         return self._inventory
-
-
 
 
