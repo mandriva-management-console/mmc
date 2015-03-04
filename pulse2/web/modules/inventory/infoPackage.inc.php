@@ -39,6 +39,7 @@ $submod->setDescription(_T("Inventory", "inventory"));
 $submod->setImg('modules/inventory/graph/img/inventory');
 $submod->setDefaultPage("inventory/inventory/incoming");
 
+
 $page = new Page("incoming", _T("Incoming", "inventory"));
 $submod->addPage($page);
 $page = new Page("index", _T("Bios", "inventory"));
@@ -208,6 +209,28 @@ if (!empty($submod)) {
     $page->setFile("modules/inventory/inventory/inventory_diff.php");
     $page->setOptions(array("visible" => False));
 
+    $submod->addPage($page);
+
+    
+    $page = new Page("ajaxEntityList", _T('Entities (ajax)', 'inventory'));
+    $page->setFile("modules/inventory/inventory/ajaxEntityList.php");
+    $page->setOptions(array("visible"=>False, "AJAX" =>True));
+    $submod->addPage($page);
+
+    $page = new Page("ajaxEntityRules", _T('Entity rules (ajax)', 'inventory'));
+    $page->setFile("modules/inventory/inventory/ajaxEntityRules.php");
+    $page->setOptions(array("visible"=>False, "AJAX" =>True));
+    $submod->addPage($page);
+    
+    
+    $page = new Page("moveRuleUp", _T("Change entity rule order (up)", "inventory"));
+    $page->setFile("modules/inventory/inventory/moveRuleUp.php");
+    $page->setOptions(array("visible" => False, "noHeader" => True));
+    $submod->addPage($page);
+
+    $page = new Page("moveRuleDown", _T("Change entity rule order (down)", "inventory"));
+    $page->setFile("modules/inventory/inventory/moveRuleDown.php");
+    $page->setOptions(array("visible" => False, "noHeader" => True));
     $submod->addPage($page);
 
     unset($submod);

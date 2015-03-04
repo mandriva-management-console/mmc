@@ -23,7 +23,7 @@
 
 import logging
 import re
-
+import os
 from mmc.site import mmcconfdir
 from pulse2.utils import checkEntityName
 
@@ -32,6 +32,9 @@ class EntitiesRules:
     """
     Class for object that computes an inventory entity list according to a
     computer inventory and rules.
+    
+plugins/inventory/provisioning_plugins/network_to_entity/__init__.py:44:class NetworkRules(EntitiesRules):
+
 
     It allows the inventory server to assign a computer to an entity.
     """
@@ -92,6 +95,11 @@ class EntitiesRules:
             except Exception:
                 self.logger.error("Error while reading this rule: %s" % line)
                 raise
+
+   
+    def reload_file_rule(self):
+        #self.rules = []
+        #self._readRulesFile()
 
     def printRules(self):
         self.logger.debug(self.rules)
