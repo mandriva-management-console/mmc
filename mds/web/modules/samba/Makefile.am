@@ -47,6 +47,7 @@ datafiles = \
 	shares/localSidebar.php \
 	shares/add.php \
 	shares/details.php \
+	shares/ajaxFilter.php \
 	config/index.php \
 	config/reload.php \
 	config/restart.php \

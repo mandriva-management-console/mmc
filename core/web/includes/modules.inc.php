@@ -38,7 +38,7 @@ require_once("ModulesGenerator.php");
 function orderModulesList($list) {
     sort($list);
     array_splice($list, array_search("base", $list), 1);
-    return array_merge(["base"], $list);
+    return array_merge(array("base"), $list);
 }
 
 /**

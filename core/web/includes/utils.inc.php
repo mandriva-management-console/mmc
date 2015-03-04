@@ -55,4 +55,27 @@ function endsWith($haystack, $needle) {
     return (substr($haystack, -$length) === $needle);
 }
 
+function fromGET($key) {
+    if (isset($_GET[$key])) {
+        return $_GET[$key];
+    }
+    return null;
+}
+
+function fromPOST($key) {
+    if (isset($_POST[$key])) {
+        return $_POST[$key];
+    }
+    return null;
+}
+
+function fromGETorPOST($key) {
+    return fromGET($key) || fromPOST($key);
+}
+
+function fromPOSTorGET($key) {
+    return fromPOST($key) || fromGET($key);
+}
+
+
 ?>

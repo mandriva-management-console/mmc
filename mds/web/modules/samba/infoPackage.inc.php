@@ -47,6 +47,10 @@ $page->setImg("modules/samba/graph/img/shares/icn_global_active.gif",
               "modules/samba/graph/img/shares/icn_global.gif");
 $submod->addPage($page);
 
+$page = new Page("ajaxFilter", "Shares list");
+$page->setOptions(array("AJAX" => True, "visible" => False));
+$submod->addPage($page);
+
 $page = new Page("add",_T("Add a share","samba"));
 $page->setImg("modules/samba/graph/img/shares/icn_addShare_active.gif",
               "modules/samba/graph/img/shares/icn_addShare.gif");
