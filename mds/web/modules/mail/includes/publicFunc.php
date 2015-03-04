@@ -157,6 +157,9 @@ function _mail_delUserFromGroup($user, $group) {
 
 function _mail_delUser($uid, $delfiles) {
     delVAliasesUser($uid);
+    if ($delfiles) {
+        delUserMails($uid);
+    }
 }
 
 function _mail_delGroup($group) {
