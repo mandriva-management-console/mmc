@@ -1,9 +1,7 @@
 <?php
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2008 Mandriva, http://www.mandriva.com
- *
- * $Id$
+ * (c) 2007-2015 Mandriva, http://www.mandriva.com
  *
  * This file is part of Mandriva Management Console (MMC).
  *
@@ -28,19 +26,26 @@ if (isset($_GET["user"])) $user = urldecode($_GET["user"]);
 if (isset($_POST["user"])) $user = $_POST["user"];
 
 if (isset($_POST["bdeluser"])) {
-    del_user($user, $_POST["delfiles"]);
+    $delfiles = false;
+    if (isset($_POST["delfiles"]) && $_POST["delfiles"] == "on")
+        $delfiles = true;
+    del_user($user, $delfiles);
     if (!isXMLRPCError()) {
         new NotifyWidgetSuccess(sprintf(_("User %s has been successfully deleted"), $user));
     }
-    header("Location: " . urlStrRedirect("base/users/index" ));
-    exit;
-} else {
+    redirectTo(urlStrRedirect("base/users/index"));
+}
+else {
     $f = new PopupForm(_("Delete user"));
-    $f->addText(sprintf(_("You will delete user <b>%s</b>."),$user));
-    $cb = new CheckboxTpl("delfiles", _("Delete all user's files"));
-    $f->add($cb, array("value" => ""));
-    $hidden = new HiddenTpl("user");
-    $f->add($hidden, array("value" => $user, "hide" => True));
+    $f->addText(sprintf(_("You will delete user <b>%s</b>."), $user));
+    $f->add(
+        new CheckboxTpl("delfiles", _("Delete all user's files (home directory, mails...)")),
+        array("value" => "")
+    );
+    $f->add(
+        new HiddenTpl("user"),
+        array("value" => $user, "hide" => True)
+    );
     $f->addValidateButton("bdeluser");
     $f->addCancelButton("bback");
     $f->display();

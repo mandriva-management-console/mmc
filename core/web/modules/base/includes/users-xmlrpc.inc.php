@@ -122,13 +122,11 @@ function add_user($login, $pass, $firstname, $name, $homedir, $createhomedir, $o
     }
 }
 
-function del_user($login, $files)
+function del_user($login, $delfiles)
 {
-   callPluginFunction("delUser", array($login));
-   if ($files=="on") {$fichier=1;} else {$fichier=0;}
-   $param=array ($login,$fichier);
+   callPluginFunction("delUser", array($login, $delfiles));
    xmlCall("base.delUserFromAllGroups", $login);
-   return xmlCall("base.delUser",$param);
+   return xmlCall("base.delUser", array($login, $delfiles));
 }
 
 function getAllGroupsFromUser($uid) {

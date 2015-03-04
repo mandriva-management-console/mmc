@@ -155,7 +155,7 @@ function _mail_delUserFromGroup($user, $group) {
     syncMailGroupAliases($group, $user);
 }
 
-function _mail_delUser($uid) {
+function _mail_delUser($uid, $delfiles) {
     delVAliasesUser($uid);
 }
 
