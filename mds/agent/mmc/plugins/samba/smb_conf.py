@@ -9,6 +9,7 @@ import tempfile
 import logging
 from time import mktime, strptime
 from configobj import ConfigObj, ParseError
+from fnmatch import fnmatch
 
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.mmctools import shLaunch, shlaunch
@@ -222,22 +223,27 @@ class SambaConf:
         self.save()
         return 0
 
-    def getDetailedShares(self):
+    def getDetailedShares(self, filter, start=0, end=None):
         """return detailed list of shares"""
         resList = []
         # foreach element in smb.conf
         # so for each element in self.config
         for section in self.getSectionList():
             if section not in ["global", "printers", "print$"]:
-                localArr = []
-                localArr.append(section)
                 comment = self.getContent(section, 'comment')
+                share = [section]
                 if comment:
-                    localArr.append(comment)
-                resList.append(localArr)
-
+                    share.append(comment)
+                resList.append(share)
         resList.sort()
-        return resList
+
+        if filter:
+            resList = [(s, c) for s, c in resList if fnmatch(s, filter) or
+                       fnmatch(c, filter)]
+
+        if type(end) == int:
+            return resList[start:end]
+        return resList[start:]
 
     def getSectionList(self):
         section_list = []

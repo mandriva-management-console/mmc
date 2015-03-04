@@ -217,10 +217,10 @@ def getDefaultSharesPath():
     """
     return SambaConfig("samba").defaultSharesPath
 
-def getDetailedShares():
+def getDetailedShares(filter="", start=0, end=None):
     """Get a complete array of information about all shares"""
     smbObj = SambaConf(SambaConfig("samba").samba_conf_file)
-    resList=smbObj.getDetailedShares()
+    resList = smbObj.getDetailedShares(filter, start, end)
     return resList
 
 def getACLOnShare(name):

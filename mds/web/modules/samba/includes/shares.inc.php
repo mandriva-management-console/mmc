@@ -61,10 +61,8 @@ function getAdminUsersOnShare($name) {
     return xmlCall('samba.getAdminUsersOnShare', array($name));
 }
 
-
-function get_shares_detailed() {
-    $shares = xmlCall("samba.getDetailedShares", null);
-    return $shares;
+function get_shares_detailed($filter="", $start=0, $end=null) {
+    return xmlCall("samba.getDetailedShares", array($filter, $start, $end));
 }
 
 /* Get share path */
