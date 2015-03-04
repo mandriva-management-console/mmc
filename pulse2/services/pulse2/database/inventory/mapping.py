@@ -158,4 +158,3 @@ class OcsMapping(Singleton):
                 pass
 
         return inventory
-
