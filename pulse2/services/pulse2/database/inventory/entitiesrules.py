@@ -97,6 +97,7 @@ class EntitiesRules:
     def reload_file_rule(self):
         #self.rules = []
         #self._readRulesFile()
+        pass
 
     def printRules(self):
         self.logger.debug(self.rules)
