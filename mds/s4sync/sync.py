@@ -1,6 +1,6 @@
 # -*- coding: utf-8; -*-
 #
-# (c) 2014 Mandriva, http://www.mandriva.com/
+# (c) 2014-2015 Mandriva, http://www.mandriva.com/
 #
 # This file is part of Mandriva Management Console (MMC).
 #
@@ -21,15 +21,6 @@
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
 
-#from __future__ import unicode_literals
-from credentials import Credentials
-from k5key_asn1 import encode_keys, decode_keys
-from mmc.plugins.base.config import BasePluginConfig
-from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.samba4 import getSamba4GlobalInfo
-from mmc.plugins.samba4.samba4 import SambaAD
-from mmc.plugins.network import addRecordA, setHostAliases
-from mmc.support.config import PluginConfigFactory
 import ldap
 from ldap.controls import RequestControl
 from datetime import datetime, timedelta
@@ -39,6 +30,15 @@ import time
 import os
 import logging
 
+from mmc.plugins.base.config import BasePluginConfig
+from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
+from mmc.plugins.samba4 import getSamba4GlobalInfo
+from mmc.plugins.samba4.samba4 import SambaAD
+from mmc.plugins.network import addRecordA, setHostAliases
+from mmc.support.config import PluginConfigFactory
+
+from credentials import Credentials
+from k5key_asn1 import encode_keys, decode_keys
 
 
 class LdapUserMixin(object):
@@ -421,8 +421,8 @@ class OpenLdap(LdapUserMixin):
                    (ldap.MOD_REPLACE, 'userPassword', '{K5KEY}')]
         self.l.modify_s(dn, modlist)
         # FIXME change ldap schema so pwdChangeTime can be modified?
-        #changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
-        #self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
+        # changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
+        # self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
 
     def password_timestamp_for(self, username):
         dn, attrs = self._get_user(username, ['pwdChangedTime'])
