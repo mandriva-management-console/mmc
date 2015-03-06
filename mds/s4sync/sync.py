@@ -30,6 +30,11 @@ import time
 import os
 import logging
 
+import ldb
+from samba.samdb import SamDB
+from samba.param import LoadParm
+from samba.auth import system_session
+
 from mmc.plugins.base.config import BasePluginConfig
 from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
 from mmc.plugins.samba4 import getSamba4GlobalInfo
@@ -39,6 +44,9 @@ from mmc.support.config import PluginConfigFactory
 
 from credentials import Credentials
 from k5key_asn1 import encode_keys, decode_keys
+
+
+lp = LoadParm()
 
 
 class LdapUserMixin(object):
@@ -215,12 +223,23 @@ class SambaLdap(LdapUserMixin):
         return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
 
     def get_credentials(self, username):
-        dn, attrs = self._get_user(
-            username, [
-                'unicodePwd', 'supplementalCredentials'])
-        if not dn:
+        # Use ldb tools to get unicodePwd
+        # It is not available through ldapsearch when
+        # the primary DC is a Windows server
+        samdb = SamDB(url='/var/lib/samba/private/sam.ldb',
+                      session_info=system_session(),
+                      lp=lp)
+        attrs = ['unicodePwd', 'supplementalCredentials']
+        result = samdb.search(self.user_base_dn, scope=ldb.SCOPE_SUBTREE,
+                              expression="CN=" + username,
+                              attrs=attrs)
+        if not result:
             raise UserNotFound(username, "get credentials")
-        return (attrs['supplementalCredentials'][0], attrs['unicodePwd'][0])
+        if len(result) > 1:
+            raise Exception("Too many users found!")
+
+        user = result[0]
+        return (str(user.get('supplementalCredentials')), str(user.get('unicodePwd')))
 
     def update_credentials_for(
             self, username, supplemental_credentials, unicode_pwd, timestamp):
@@ -646,7 +665,7 @@ class S4Sync(object):
                         logger.debug('\t%s', s_entrie[1])
                         fqdn = s_entrie[1]['dNSHostName'].split('.')
                         hostname = fqdn[0]
-                        zone = '.'.join([fqdn[1], fqdn[2]])
+                        zone = '.'.join(fqdn[1:])
                         ip_addr = s_entrie[1]['ip']
                         alias = s_entrie[1]['cname']
                         if zone and hostname and ip_addr and alias:
@@ -877,6 +896,7 @@ def sync_loop(logg, wait_time):
             s4sync.reset()
         except:
             logger.exception("Error syncing")
+            break
             s4sync.reset()
 
         time.sleep(wait_time)
