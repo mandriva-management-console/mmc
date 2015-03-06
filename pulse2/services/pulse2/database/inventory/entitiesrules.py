@@ -130,21 +130,14 @@ plugins/inventory/provisioning_plugins/network_to_entity/__init__.py:44:class Ne
         rules.
         """
         self.reload_file_rule()
-        #self.logger.info("input %s",input)
-        #self.logger.info('rules %s' %(self.rules))
         ret = []
         for entities, mainop, rules in self.rules:
-            #self.logger.info('entities %s %s %s' %(entities, mainop, rules))
-            #entities ['EPDV'] 
-            #mainop none 
-            #rules [('Network/IP', 'match', <_sre.SRE_Pattern object at 0x265b030>)]
             result = None
             for rule in rules:
                 operand1, operator, operand2 = rule
                 # Get the values of the first operand
                 values = self._getValues(input, operand1)
                 #if operand1 network/ip value tab des ips
-                #self.logger.info('values %s %s' %(values, operand1))
                 if values == []:
                     # No corresponding value found, we break the loop
                     self.logger.debug("No corresponding value found for operand '%s', skipping the line" % operand1)
@@ -172,7 +165,7 @@ plugins/inventory/provisioning_plugins/network_to_entity/__init__.py:44:class Ne
                     if tmpresult:
                         self.logger.info('operator [%s] %s %s %s' %(operator, values, operand2, tmpresult))
                         break
-                
+
                 if mainop == 'none':
                     result = tmpresult
                 elif mainop == 'and':

@@ -168,5 +168,4 @@ class OcsMapping(Singleton):
                 else:
                     registerval[registerkey]=EntryRegister[EntryRegister1]
         inventory[u'RegistryInfos']=[registerval]
-        #self.logger.info('inventory %s',inventory)
         return inventory

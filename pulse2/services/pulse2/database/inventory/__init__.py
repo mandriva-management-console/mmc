@@ -51,20 +51,6 @@ import os
 from pulse2.inventoryserver.config import Pulse2OcsserverConfigParser
 MAX_REQ_NUM = 100
 
-#def dump(obj):
-  #'''return a printable representation of an object for debugging'''
-  #newobj=obj
-  #if '__dict__' in dir(obj):
-    #newobj=obj.__dict__
-    #if ' object at ' in str(obj) and not newobj.has_key('__type__'):
-      #newobj['__type__']=str(obj)
-    #for attr in newobj:
-      #newobj[attr]=dump(newobj[attr])
-  #return newobj
-
-
-
-
 class UserTable(object):
     pass
 
@@ -113,7 +99,6 @@ class Inventory(DyngroupDatabaseHelper):
         """
         Initialize all SQLalchemy mappers needed for the inventory database
         """
-
         self.table = {}
         self.klass = {}
         self.version = Table("Version", self.metadata, autoload = True)
@@ -482,7 +467,6 @@ class Inventory(DyngroupDatabaseHelper):
         Return a list of computers, but try to optimize the way we get its
         inventory.
         """
-        print "ooooooooooooooooooooooooooooooooo"
         optimization = False
         if 'optimization' in filt:
             if 'criterion' in filt['optimization']:
@@ -492,15 +476,10 @@ class Inventory(DyngroupDatabaseHelper):
             # In optimized mode, we don't return the full of inventory of the
             # computers corresponding to the request, but just list of couples
             # (UUID, hostname)
-            print "yyyyyyyyyyyyyyyyyyyyy"
-            print self.optimizedQuery(ctx, filt)
             return self.optimizedQuery(ctx, filt)
         else:
-            print "zzzzzzzzzzzzzzzzzzzzzz"
             result = self.getMachinesOnly(ctx, filt)
-            print result
         tables = self.config.content
-        print tables
         if len(tables) == 1 and "Registry" in tables:
             # The inventory to display is to be taken from the same Registry
             # table
@@ -1806,8 +1785,6 @@ class Inventory(DyngroupDatabaseHelper):
         for index in range(0, ref['nb_regle']):
             for index1 in range(0, ref['count']):
                 if int(ref['data'][index1]['numRule']) == index+1:
-                    #print "index %d ref['nb_regle'] %d"%(index,ref['nb_regle'])
-                    #print "%s"%(ref['data'])
                     if not ref['data'][index]['actif']:
                         actif="#"
                     else:
