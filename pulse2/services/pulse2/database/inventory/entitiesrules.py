@@ -32,6 +32,9 @@ class EntitiesRules:
     """
     Class for object that computes an inventory entity list according to a
     computer inventory and rules.
+    
+plugins/inventory/provisioning_plugins/network_to_entity/__init__.py:44:class NetworkRules(EntitiesRules):
+
 
     It allows the inventory server to assign a computer to an entity.
     """
@@ -80,6 +83,7 @@ class EntitiesRules:
                             else:
                                 operand1, operator, operand2 = words[0:3]
                                 operator = operator.lower()
+                                
                                 if operator in self.operators:
                                     # TODO: Maybe check operand1 value
                                     if operator == 'match':
