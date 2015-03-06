@@ -51,6 +51,19 @@ import os
 from pulse2.inventoryserver.config import Pulse2OcsserverConfigParser
 MAX_REQ_NUM = 100
 
+#def dump(obj):
+  #'''return a printable representation of an object for debugging'''
+  #newobj=obj
+  #if '__dict__' in dir(obj):
+    #newobj=obj.__dict__
+    #if ' object at ' in str(obj) and not newobj.has_key('__type__'):
+      #newobj['__type__']=str(obj)
+    #for attr in newobj:
+      #newobj[attr]=dump(newobj[attr])
+  #return newobj
+
+
+
 
 class UserTable(object):
     pass
@@ -469,6 +482,7 @@ class Inventory(DyngroupDatabaseHelper):
         Return a list of computers, but try to optimize the way we get its
         inventory.
         """
+        print "ooooooooooooooooooooooooooooooooo"
         optimization = False
         if 'optimization' in filt:
             if 'criterion' in filt['optimization']:
@@ -478,11 +492,15 @@ class Inventory(DyngroupDatabaseHelper):
             # In optimized mode, we don't return the full of inventory of the
             # computers corresponding to the request, but just list of couples
             # (UUID, hostname)
+            print "yyyyyyyyyyyyyyyyyyyyy"
+            print self.optimizedQuery(ctx, filt)
             return self.optimizedQuery(ctx, filt)
         else:
+            print "zzzzzzzzzzzzzzzzzzzzzz"
             result = self.getMachinesOnly(ctx, filt)
-
+            print result
         tables = self.config.content
+        print tables
         if len(tables) == 1 and "Registry" in tables:
             # The inventory to display is to be taken from the same Registry
             # table
@@ -1032,13 +1050,6 @@ class Inventory(DyngroupDatabaseHelper):
         if len(owners) > 0:
             # the most frequent occurence of user
             return max(owners, key=owners.get)
-
-
-
-
-
-
-
 
 
 
@@ -1641,7 +1652,6 @@ class Inventory(DyngroupDatabaseHelper):
     def createEntity(self, name, parent_name = False):
         """
         Create a new entity under parent entity
-
         If parent_name is False the parent will be the root entity
         """
         session = create_session()
@@ -1658,7 +1668,6 @@ class Inventory(DyngroupDatabaseHelper):
                     raise Exception("Parent entity %s doesn't exists" % parent_name)
                 else:
                     e.parentId = p.id
-
             session.add(e)
             session.flush()
         session.close()
@@ -1779,7 +1788,6 @@ class Inventory(DyngroupDatabaseHelper):
         self.rewritte_file_rule_obj(ref)
         return True
 
-
     def confFileRule(self):
         cfgfile = os.path.join(mmcconfdir,"pulse2","inventory-server","inventory-server.ini")
         config = Pulse2OcsserverConfigParser()
@@ -1798,11 +1806,14 @@ class Inventory(DyngroupDatabaseHelper):
         for index in range(0, ref['nb_regle']):
             for index1 in range(0, ref['count']):
                 if int(ref['data'][index1]['numRule']) == index+1:
+                    #print "index %d ref['nb_regle'] %d"%(index,ref['nb_regle'])
+                    #print "%s"%(ref['data'])
                     if not ref['data'][index]['actif']:
                         actif="#"
                     else:
                         actif=""
                     fichier.write("#@%d" % (index+1) + "\n")
+                    
                     strstring= "%s\"%s\"   %s   %s   %s   %s" % (actif,
                                                      ref['data'][index1]['entitie'], 
                                                      ref['data'][index1]['aggregator'],
@@ -1813,33 +1824,17 @@ class Inventory(DyngroupDatabaseHelper):
         fichier.close()
 
     def operatorTagAll(self):
-        listType=[]
-        #OcsNGMapXml = mmcconfdir + "/pulse2/inventory-server/OcsNGMap.xml"
-        #tree = etree.parse(OcsNGMapXml)
-        #for MappedObject in tree.xpath("/MappedFields/MappedObject"):            
-            #MappedObjectelement = MappedObject.get("name")
-            #if MappedObjectelement in ["VIDEOS","MODEMS","PORTS","PRINTERS","SOUNDS",
-                                       #"STORAGES","SLOTS","ACCOUNTINFO","ACCESSLOG",
-                                       #"DEVICEID","MEMORIES","INPUTS","BIOSDRIVES",
-                                       #"DRIVES","CONTROLLERS","BIOS","MONITORS"]:
-                #continue
-            #for MappedField in tree.xpath("/MappedFields/MappedObject[@name='"+MappedObjectelement+"']/MappedField"):
-                #MappedFieldelement=MappedField.get("to")
-                #if MappedFieldelement in ["Description","Date","RegisteredCompany","OSSerialNumber",
-                                          #"RegisteredName","Build","RamTotal"]:
-                    #continue
-                #listType.append( MappedObjectelement.title()+ "/" + MappedFieldelement.upper())
-        listType.append("Network/IP")
+        listType=["Network/IP"]
+        cfgfile = os.path.join(mmcconfdir,"pulse2","inventory-server","inventory-server.ini")
+        config = Pulse2OcsserverConfigParser()
+        config.setup(cfgfile)
+        listma = []
+        for ttt in config.rules_matching:
+            key,value = ttt
+            listmalist =  value.split(",")
+            listType.extend(listmalist)
         return listType
 
-    #def confFileOcsNGMapXml():
-        #cfgfile = os.path.join(mmcconfdir,"pulse2","inventory-server","inventory-server.ini")
-        #config = Pulse2OcsserverConfigParser()
-        #config.setup(cfgfile)        
-        #if not config.entities_rules_file:
-            #logging.getLogger().warn("Error conf file  entities_rules_file in inventory-server.ini missing")
-            #raise 
-        #return config.ocsmapping
 
     def operatorType(self):
         listType=[]
@@ -1861,13 +1856,14 @@ class Inventory(DyngroupDatabaseHelper):
         operatorstab = ['match']
         rulestab = []
         tabretour=[]
+        operatorlist=["match","equal","noequal","contains","nocontains","starts","finishes"]
         #conffile = mmcconfdir + '/pulse2/inventory-server/entities-rules'        
         actif = False
         tab=[]
         ret={}
         conffile =  self.confFileRule()
         num = 0
-        
+
         for line in file(conffile):
             line = line.replace('\t',' ')
             line = line.strip()          
@@ -1897,7 +1893,7 @@ class Inventory(DyngroupDatabaseHelper):
                     rule = m.group(2)
                 else:
                     entities, rule = line.split(None, 1)
-                self.logger.debug('entities %s rule %s' % (entities,rule))      
+                #self.logger.debug('entities %s rule %s' % (entities,rule))      
                 ## rule line working on severals entity 
                 entitieslist = entities.split(',')
                 entitieslist1 = [x for x in entitieslist if re.match('^[a-zA-Z0-9]{3,64}$', x)]
@@ -1916,6 +1912,13 @@ class Inventory(DyngroupDatabaseHelper):
                 # check rules
                 # colonne 2 operator  EMPTY or AND or OR
                 words = rule.split()
+                
+                ###rule must be 4 or 5 Column     
+                #cols = line.split()
+                #self.logger.debug('rule nb cols %d' % (len(cols)))
+                #if len(cols) != 4 or len(cols) != 5:
+                    #self.logger.debug('not rule legal ignored %s' % (line))     
+                    #continue
                 
                 prefix = 'none'
                 subexprs = []
@@ -1938,20 +1941,20 @@ class Inventory(DyngroupDatabaseHelper):
                 operator = operator.lower()
                 #self.logger.debug('operator %s test match' % (operator))
                 #self.logger.debug('operatorstab %s ' % (operatorstab))
-                
                 if operator.strip() in operatorstab:
                     # TODO: Maybe check operand1 value
-                    if operator == 'match':
-                        #verify regexp compile
-                        try:
-                            regexp = re.compile(operand2)
-                            self.logger.debug("compile regexp :  %s ok" % (operand2) )
-                        except Exception:
-                            self.logger.debug("no compile regexp %s" % (operator) )
-                            continue
-                else:
-                    self.logger.debug("Operator %s is not supported for rule, skipping" % (operator) )
-                    continue
+                    if operator.strip() in operatorlist:
+                        if operator.strip() == 'match':
+                            #verify regexp compile
+                            try:
+                                regexp = re.compile(operand2)
+                                #self.logger.debug("compile regexp :  %s ok" % (operand2) )
+                            except Exception:
+                                #self.logger.debug("no compile regexp %s" % (operator) )
+                                continue
+                    else:
+                        self.logger.debug("Operator %s is not supported for rule, skipping" % (operator) )
+                        continue
                 num = num + 1
                 for ent in entitieslist:
                     ref={}
@@ -1966,8 +1969,7 @@ class Inventory(DyngroupDatabaseHelper):
             except Exception:
                 self.logger.debug("exception on %s rule"% (line) )
                 pass
-            
-            
+
         if param != None and ['filters'] and str(param['filters']).strip() != "":
             for index in range(len(tab)):
                 if str(param['filters']).strip() in tab[index]['entitie'].strip():
@@ -1996,12 +1998,15 @@ class Inventory(DyngroupDatabaseHelper):
         for index in range(0, nb_ligne):
             numRule = int(ref['data'][index]['numRule'])
             if numRule == int(idrule):
-                supprime.append(index) 
+                supprime.append(index)
+                
             elif numRule > int(idrule):
                 ajusteindex.append(index)
+                self.logger.debug('ajusteindex %s' % (index))
         for val in ajusteindex:
             ref['data'][val]['numRule'] = int(ref['data'][val]['numRule'] -1)
-        for val in supprime:
+        for val in supprime[::-1]:
+            self.logger.debug('delete ligne %s' % (index))
             del ref['data'][val]
         ref['nb_regle']=ref['nb_regle']-1
         ref['count']=ref['count']-len(supprime)
@@ -2013,26 +2018,34 @@ class Inventory(DyngroupDatabaseHelper):
         for val in Location['data']:
             if str(val['id']) ==  id:
                 return val['Label']
+                #return val['Labelval'].replace(' -> ', '/')
         return Location['data'][0]['Label']
 
     def addEntityRule(self, ruleobj):
-        self.logger.debug('add Rule %s' % (ruleobj))
+        #self.logger.debug('add Rule %s' % (ruleobj))
         nblignerule = len(ruleobj['target_location'])
         ref = self.parse_file_rule()
+        #self.logger.debug('ref %s' % (ref))
+        
         idrule=int(ruleobj['numRuleadd'])
         supprime=[]
         ajusteindex=[]
         nb_regle = int(ref['nb_regle'])
         nb_ligne = int(ref['count'])
         numreglemodifier = int(ruleobj['numRuleadd'])
+        #if numreglemodifier < 
         for index in range(0, nb_ligne):
+            self.logger.debug('nb_ligne %d index %d numero de rule%d ' % (nb_ligne,index,int(ref['data'][index]['numRule'])))
             numRule = int(ref['data'][index]['numRule'])
             if numRule == int(idrule):
                 supprime.append(index)
-        for val in supprime:
+                self.logger.debug('supprime line %s' % (valindex))
+        for val in supprime[::-1]:
             del ref['data'][val]
+            self.logger.debug('supprime line %s' % (val))
+        self.logger.debug('nb_ligne %d nb_ligne %d' % (nb_ligne,nb_ligne - len(supprime)))    
         nb_ligne = nb_ligne - len(supprime)
-        #inser in list new regle
+        #insere dans liste new regle
         for index in range (0, nblignerule):
             ref1={}
             ref1['operand1'] = ruleobj['operator'][index]
@@ -2040,13 +2053,18 @@ class Inventory(DyngroupDatabaseHelper):
             ref1['entitie'] = self.getNameIdentityById(str(ruleobj['target_location'][index]))
             ref1['aggregator'] = ruleobj['aggregator'].lower()
             ref1['operator'] = ruleobj['operators'][index]
-            if ruleobj['active']:
-                active = True
-            else:
+            try:
+                if ruleobj['active']:
+                    active = True
+                else:
+                    active = False
+            except:
                 active = False
             ref1['actif'] = active
             ref1['numRule'] = int(ruleobj['numRuleadd'])
             ref['data'].append(ref1)
+            
+            self.logger.debug('add %s' % (ref1))   
         ref['count'] = nb_ligne + nblignerule
         numreglemodifier = int(ruleobj['numRuleadd'])
         if numreglemodifier > nb_regle :       
@@ -2066,7 +2084,7 @@ class Inventory(DyngroupDatabaseHelper):
             ret = False
         session.close()
         return ret
-    
+
     def locationExistsbypath(self, location):
         """
         Returns true if the given location exists in database
@@ -2077,7 +2095,7 @@ class Inventory(DyngroupDatabaseHelper):
             if val['Labelval'] ==  location:
                 return True
         return False
-    
+
 
     @DatabaseHelper._session
     def getMachineByOsLike(self, session, ctx, osnames, count = 0):
@@ -2370,6 +2388,7 @@ class Inventory(DyngroupDatabaseHelper):
                 ens.append(toUUID(str(q.id)))
         session.close()
         return ens
+
 
     def getLocationParentPath(self, loc_uuid):
         """
@@ -3027,6 +3046,9 @@ class InventoryCreator(Inventory):
             k = i+k
         if k == 0:
             return False
+        
+        
+        
         dates = date.split(' ')
         if len(dates) != 2:
             # Fix needed for MAC OS OCS inventory agent, which is using a
@@ -3330,5 +3352,7 @@ class InventoryNetworkComplete :
         @rtype: dict
         """
         return self._inventory
+
+
 
 
