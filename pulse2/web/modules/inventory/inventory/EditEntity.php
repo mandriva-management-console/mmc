@@ -1,4 +1,3 @@
- 
 <?php
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
@@ -26,6 +25,7 @@
 require_once("modules/inventory/includes/xmlrpc.php");
 require("modules/base/computers/localSidebar.php");
 require("graph/navbar.inc.php");
+
 $ID = intval(@max($_GET['id'],$_POST['id']));
 $NAME = $_GET['Label'];
 //traitement si confirm
@@ -35,8 +35,8 @@ if (isset($_POST['bconfirm'])){
         'id'  =>  $_POST['id'],
         'comment'  =>  $_POST['comment']
     );
-    if ($ID) {
-    //Le champ name ne doit pas contenir d'espaces ni de virgules ni de slash (/) 
+    if ($ID) {    
+        //Le champ name ne doit pas contenir d'espaces ni de virgules ni de slash (/) 
         updateEntities($cfg['id'],$cfg['name']);
         if (!isXMLRPCError()){
             header('location: main.php?module=base&submod=computers&action=entityList');

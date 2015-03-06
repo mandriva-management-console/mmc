@@ -29,7 +29,6 @@ $p = new PageGenerator(_T("Entity rules", 'inventory'));
 $p->setSideMenu($sidemenu);
 $p->display();
 
-
 $ajax = new AjaxFilterLocation(urlStrRedirect("base/computers/ajaxEntityRules"), "container", "status", $params);
 
 $ajax->setElements(array(
@@ -40,5 +39,4 @@ $ajax->setElementsVal(array('0'));
 $ajax->display();
 echo "<br/><br/>";
 $ajax->displayDivToUpdate();
-
 ?>

@@ -21,7 +21,9 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 require_once("modules/inventory/includes/xmlrpc.php");
+
 if (isset($_GET['numRule'])) {
     echo  $_GET['entitie']." rule " . $_GET['numRule']." up";
     moveEntityRuleUp($_GET['numRule']);

@@ -25,13 +25,11 @@ require_once("modules/inventory/includes/xmlrpc.php");
 
 
 if (isset($_POST["bconfirm"], $_POST["numRule"])) {
-    syslog(LOG_WARNING,"bconfirm");
     // Delete selected rule
     deleteEntityRule($_POST["numRule"]);
     if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The entity rule has been deleted successfully.", "inventory"));
     return;
 } else {
-    syslog(LOG_WARNING,"formulaire");
     $title = _T("Delete this rule?", 'inventory');
     $f = new PopupForm($title, 'deleteEntityRuleForm');
     $f->add(new HiddenTpl("numRule"), array("value" => $_GET['numRule'], "hide" => True));

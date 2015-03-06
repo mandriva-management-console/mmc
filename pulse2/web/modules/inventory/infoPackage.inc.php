@@ -1,5 +1,4 @@
 <?php
-
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  *
@@ -33,7 +32,6 @@ $mod->setDescription(_T("Inventory", "inventory"));
 $mod->setAPIVersion("0:0:0");
 $mod->setPriority(700);
 
-
 $submod = new SubModule("inventory");
 $submod->setDescription(_T("Inventory", "inventory"));
 $submod->setImg('modules/inventory/graph/img/inventory');
@@ -51,7 +49,6 @@ $page = new Page("controller", _T("Controller", "inventory"));
 $submod->addPage($page);
 $page = new Page("summary", _T("Summary", "inventory"));
 $submod->addPage($page);
-
 
 $page = new Page("drive", _T("Drive", "inventory"));
 $submod->addPage($page);
@@ -209,7 +206,6 @@ if (!empty($submod)) {
     $page->setOptions(array("visible" => False));
 
     $submod->addPage($page);
-
     
     $page = new Page("ajaxEntityList", _T('Entities (ajax)', 'inventory'));
     $page->setFile("modules/inventory/inventory/ajaxEntityList.php");

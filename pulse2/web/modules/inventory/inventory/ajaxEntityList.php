@@ -1,5 +1,4 @@
 <?php
-
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007 Mandriva, http://www.mandriva.com/
@@ -52,6 +51,7 @@ if (!$count || $count <= 0 ) {
     print _T('No entry found', 'inventory');
     return;
 }
+
 $cols = listInfoFriendly($data);
 $n = new OptimizedListInfos($cols['Labelval'], _T('Entity name', 'inventory'), '');
 $n->first_elt_padding = '0';

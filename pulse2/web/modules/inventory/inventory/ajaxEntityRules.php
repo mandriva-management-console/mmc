@@ -1,5 +1,4 @@
 <?php
-
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007 Mandriva, http://www.mandriva.com/
@@ -47,10 +46,7 @@ $params = array(
 );
 if (isset($_GET["filter"]) && $_GET["filter"])
     $params['filters']= $_GET["filter"];
-
-
 extract(parse_file_rule($params));
-
 
 if (!$count) {
     print _T('No entry found', 'inventory');
@@ -84,5 +80,7 @@ $n->setNavBar(new AjaxNavBar($count, $status));
 $n->start = 0;
 $n->end = $maxperpage;
 $n->disableFirstColumnActionLink();
+
 $n->display();
+
 ?>

@@ -21,11 +21,6 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-//require_once("modules/inventory/includes/xmlrpc.php");
-// require("modules/inventory/inventory/localSidebar.php");
-// require("modules/base/computers/localSidebar.php");
-// require("graph/navbar.inc.php");
-// require("modules/base/computers/localSidebar.php");
 
 require_once("modules/inventory/includes/xmlrpc.php");
 require("modules/base/computers/localSidebar.php");
@@ -38,12 +33,10 @@ $params = array(
 
 //Receiving form data
 if (isset($_POST['name'], $_POST['parent'])){
-    //     addEntity($_POST['name'], $_POST['parent']);
     //Le champ name ne doit pas contenir d'espaces ni de virgules ni de slash (/) '^[a-zA-Z0-9]{3,64}$'
     createLocation($_POST['name'], $_POST['parent']);
     if (!isXMLRPCError()){
         header('location: main.php?module=base&submod=computers&action=entityList&filter='.$_POST['name']);
-        //if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The entity has been added successfully.", "inventory"));
     }
 }
 $p = new PageGenerator(_T("Add entity", 'inventory'));

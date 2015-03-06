@@ -64,10 +64,6 @@ if (isset($_POST['bconfirm'])){
         if (!isXMLRPCError()) new NotifyWidgetSuccess(_T("The entity rule has been added successfully.", "inventory"));
     }
     else{
-//      echo "<pre>";
-//         print_r($_POST);
-//     echo "</pre>"; 
-// exit(1);
         addEntityRule($_POST);
         header('location: main.php?module=base&submod=computers&action=entityRules');
     }
@@ -75,10 +71,6 @@ if (isset($_POST['bconfirm'])){
 
 $rule=array();
 $datarule = parse_file_rule($params);
-// echo "<pre>";
-//     print_r($datarule);
-// echo "</pre>";
-
 if (isset($_GET['numRule'])){
     $regle = $_GET['numRule'];
     //edition rule mode
@@ -89,9 +81,6 @@ if (isset($_GET['numRule'])){
             $exitrule = True;
         }
     }
-//     echo "<pre>";
-//         print_r($datarule['data'] );
-//     echo "</pre>"; 
 }
 else{
     // add rule mode    
@@ -120,11 +109,11 @@ $f->push(new Table());
 $f->add(
     new TrFormElement(_T("Active", "inventory"), new CheckboxTpl('active')), array("value" => ($rule[0]['actif'] == 1 ? 'checked' : ''))
 );
-// =================================
+
 $selectOperatorType=new SelectItemtitle("operator[]",_T('selection from this item','inventory')."\n".);
 $selectOperatorType->setElements($operatorType);
 $selectOperatorType->setElementsVal($operatorType);
-// =================================
+
 $aggregator_select = new SelectItemtitle("aggregator",_T('aggregator a rule','inventory')."\n".
                                                       _T('AND all rules TRUE select entitie','inventory')."\n".
                                                       _T('OR one rule TRUE select entitie','inventory')."\n".
@@ -135,8 +124,9 @@ $f->add(
     new TrFormElement(_T('Aggregator','inventory'), $aggregator_select),
     array("value" =>$rule[0]['aggregator'] )//,"required" => True
 );
+// or sans aggregator
 //$f->add(new HiddenTpl("aggregator"), array("value" => "", "hide" => True));
-// =================================
+
 $operator_select = new SelectItemtitle("operators[]", 
                                                     _T('Match','inventory').":\n".
                                                     _T(' regular expression','inventory')."\n".
@@ -163,7 +153,7 @@ $operators = array( "match"=> _T('matches (regex)', 'inventory'),
 );
 $operator_select->setElements(array_values($operators));        
 $operator_select->setElementsVal(array_keys($operators));
-// =================================
+
 $locations_select = new SelectItemtitle("target_location[]",_T('entities list','inventory'));
 $location_list = array();
 foreach ($entity['data'] as $location){
@@ -171,10 +161,9 @@ foreach ($entity['data'] as $location){
 }
 $locations_select->setElements(array_values($location_list));
 $locations_select->setElementsVal(array_keys($location_list));
-// ================================= _T('equal to', 'glpi'),
+
 $pattern_input = new InputTplTitle('patterns[]',_T('regular expression or value','inventory')."\n".
                                     _T('must not contain space character','inventory')."\n");
-// =================================
 
 for ($i = 0 ; $i < count($rule); $i++) {
     // Fields//$criteria_select,
@@ -189,7 +178,7 @@ for ($i = 0 ; $i < count($rule); $i++) {
         $pattern_input,
         new SpanElement("<br>"),
         new buttonTpl2('removeLine',_T('Remove', 'inventory'),'removeLine')
-    );//buttonTpl2
+    );
 
 $values = array(
     "",
@@ -216,26 +205,6 @@ $f->add(
 );
 
     $f->add(new HiddenTpl("numRuleadd"), array("value" => $newnumRule, "hide" => True));
-
-/*
-// Assign to entity
-$entities_select = new SelectItem("target_entity");
-$entities = getUserLocations();
-$entity_list = array();
-$entity_list['-1'] = _T('Do not assign', 'inventory');
-foreach ($entities as $entity){
-    $id = str_replace('UUID', '', $entity['uuid']);
-    $entity_list[$id] = $entity['name'];
-}
-$entities_select->setElements(array_values($entity_list));
-$entities_select->setElementsVal(array_keys($entity_list));
-$f->add(
-    new TrFormElement(_T('Target entity','inventory'), $entities_select),
-    array("value" => $rule['target_entity'],"required" => True)
-);
-// Location list
-*/
-
 $f->pop();
 $f->addValidateButton("bconfirm");
 $f->display();
@@ -243,15 +212,15 @@ $f->display();
 
 <script type="text/javascript">
 jQuery(function(){
-    
+
     modelLine = jQuery('.removeLine:first').parents('tr:first').clone();
-        
+
      // Remove line button
      jQuery('.removeLine').click(function(){
          if (jQuery('.removeLine').length > 1)
              jQuery(this).parents('tr:first').remove();
      });
-     
+
      // Add line button
      jQuery('#addLine').click(function(){
         var newline = modelLine.clone().insertBefore(jQuery(this).parents('tr:first'));

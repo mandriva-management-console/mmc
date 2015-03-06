@@ -22,7 +22,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 require("graph/navbar.inc.php");
 require("modules/base/computers/localSidebar.php");
 $p = new PageGenerator(_T("Entity list", 'inventory'));
