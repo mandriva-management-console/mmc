@@ -119,17 +119,16 @@ class OcsMapping(Singleton):
             else:
                 # Unhandled error, just re-raise it
                 raise e
-
         if not xml:
             # Let's try another encoding
             xml = self.parseSafe(xmltext)
-
         inventory = {}
         for tablename in self.tables:
             in_network = tablename == u'NETWORKS'
             try:
                 dbtablename = self.tables[tablename][0]
                 inventory[dbtablename] = []
+                #tag node list
                 for tag in xml.getElementsByTagName(tablename):
                     entry = {}
                     if in_network:
@@ -156,6 +155,12 @@ class OcsMapping(Singleton):
                     inventory[dbtablename].append(entry)
             except IndexError:
                 pass
-
+        registerval={}
+        for EntryRegister in inventory['Registry']:
+            for EntryRegister1 in EntryRegister:
+                if EntryRegister1 != 'Value':
+                    registerkey=EntryRegister[EntryRegister1]
+                else:
+                    registerval[registerkey]=EntryRegister[EntryRegister1]
+        inventory[u'RegistryInfos']=[registerval]
         return inventory
-
