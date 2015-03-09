@@ -75,6 +75,7 @@ class Pulse2OcsserverConfigParser(InventoryDatabaseConfig):
 
     def setup(self, config_file):
         InventoryDatabaseConfig.setup(self, config_file)
+        self.rules_matching = []
         if self.dbname == None:
             self.dbname = 'inventory'
 
