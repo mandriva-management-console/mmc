@@ -30,7 +30,7 @@ import string
 import uuid
 import readline   # pyflakes.ignore
 import shutil
-import netifaces as net
+import netifaces
 import netaddr
 import hashlib
 from copy import deepcopy
@@ -735,6 +735,26 @@ class SetupApp(object):
         else:
             return read_ip(name, default)
 
+    def find_ip(self):
+        for ip_interface in netifaces.interfaces():
+            if ip_interface == "lo":
+                continue
+            try:
+                return netifaces.ifaddresses(ip_interface)[2][0]['addr']
+            except:
+                pass
+        return "127.0.0.1"
+    
+    def net_mask_ip(self, adr):
+        interfacedeclare = netifaces.interfaces()
+        for ip_interface in interfacedeclare:
+            try:
+                ip4_adresse = netifaces.ifaddresses(ip_interface)[2][0]['addr']
+                if ip4_adresse == adr :
+                    return netifaces.ifaddresses(ip_interface)[2][0]['netmask']
+            except:
+                pass
+        return "255.255.255.0"
 
     def load_defaults(self):
         """ Load default values from config files objects
@@ -768,18 +788,19 @@ class SetupApp(object):
 
         self.defaults['wol'] = self.confs['pulse2/launchers/launchers.ini'].get('wol', 'wol_path')
 
-        self.defaults['glpiurl'] = self.options["glpi_url"] or "http://localhost"
+        self.defaults['glpiurl'] = self.options["glpi_url"] or "http://127.0.0.1"
         self.defaults['glpidbuser'] = self.options["glpi_dbuser"]
         self.defaults['glpidbpassword'] = self.options["glpi_dbpassword"] or ""
         self.defaults['glpidbname'] = self.options["glpi_dbname"] or "glpi"
-        self.defaults['glpidbhost'] = self.options["glpi_dbhost"] or "localhost"
+        self.defaults['glpidbhost'] = self.options["glpi_dbhost"] or "127.0.0.1"
         self.defaults['glpi_purge_machines'] = self.options["glpi_purge_machines"]
         self.defaults['glpi_webservices_user'] = self.options["glpi_webservices_user"]
         self.defaults['glpi_webservices_passwd'] = self.options["glpi_webservices_passwd"]
-        self.defaults['ipexternal'] = self.options["ipexternal"] or None
+        self.defaults['ipexternal'] = self.options["ipexternal"] or self.find_ip()
         self.defaults['backuppc_ip'] = self.options["backuppc_ip"] or '127.0.0.1'
         self.defaults['backuppc_entity'] = self.options["backuppc_entity"] or 'UUID1'
-	address = net.ifaddresses('eth0')[2][0]['addr']
+	address =    self.defaults['ipexternal']
+	netmask = self.net_mask_ip(address)
 	self.defaults['monitoring_url'] = self.options["monitoring_url"] or "http://"+address+"/zabbix"
 	self.defaults['monitoring_username'] = self.options["monitoring_username"] or 'Admin'
 	self.defaults['monitoring_password'] = self.options["monitoring_password"] or 'zabbix'
@@ -804,7 +825,8 @@ class SetupApp(object):
 	self.config['monitoring_url'] = self.read_opt('Zabbix uri', self.defaults['monitoring_url'])
         self.config['monitoring_username'] = self.read_opt('Zabbix admin', self.defaults['monitoring_username'])
         # Generate a password for zabbix root if zabbix on localhost
-	address = net.ifaddresses('eth0')[2][0]['addr']
+	address =  self.config['server.ip.external']
+        netmask = self.net_mask_ip(address)
 	if self.config['monitoring_url']=="http://"+address+"/zabbix":
         	self.defaults['monitoring_password'] = gen_passwd()
 	self.config['monitoring_password'] = self.read_passwd('Zabbix password', self.defaults['monitoring_password'])
@@ -999,7 +1021,7 @@ class SetupApp(object):
                     raise e
 
 	# Change zabbix root password if localhost
-	address = net.ifaddresses('eth0')[2][0]['addr']
+	address = self.config['server.ip.external']
 	if self.defaults['monitoring_url'] == "http://"+address+"/zabbix":
 		passwd = hashlib.md5(self.defaults['monitoring_password']).hexdigest()
 		conn.execute('USE zabbix; UPDATE `users` SET `passwd`="%s",`autologout`="900" WHERE `userid`="1";' % passwd)
