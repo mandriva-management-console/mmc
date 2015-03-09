@@ -799,12 +799,11 @@ class SetupApp(object):
         self.defaults['ipexternal'] = self.options["ipexternal"] or self.find_ip()
         self.defaults['backuppc_ip'] = self.options["backuppc_ip"] or '127.0.0.1'
         self.defaults['backuppc_entity'] = self.options["backuppc_entity"] or 'UUID1'
-	address =    self.defaults['ipexternal']
+	address = self.defaults['ipexternal']
 	netmask = self.net_mask_ip(address)
 	self.defaults['monitoring_url'] = self.options["monitoring_url"] or "http://"+address+"/zabbix"
 	self.defaults['monitoring_username'] = self.options["monitoring_username"] or 'Admin'
 	self.defaults['monitoring_password'] = self.options["monitoring_password"] or 'zabbix'
-	netmask = net.ifaddresses('eth0')[2][0]['netmask']
 	cidr = netaddr.IPNetwork('%s/%s' %(address, netmask)).cidr
         self.defaults['monitoring_nmap_network'] = self.options["monitoring_nmap_network"] or str(cidr)
 
@@ -825,13 +824,12 @@ class SetupApp(object):
 	self.config['monitoring_url'] = self.read_opt('Zabbix uri', self.defaults['monitoring_url'])
         self.config['monitoring_username'] = self.read_opt('Zabbix admin', self.defaults['monitoring_username'])
         # Generate a password for zabbix root if zabbix on localhost
-	address =  self.config['server.ip.external']
+	address = self.config['server.ip.external']
         netmask = self.net_mask_ip(address)
 	if self.config['monitoring_url']=="http://"+address+"/zabbix":
         	self.defaults['monitoring_password'] = gen_passwd()
 	self.config['monitoring_password'] = self.read_passwd('Zabbix password', self.defaults['monitoring_password'])
         self.config['monitoring_nmap_network'] = self.read_ip('NMAP network to discover', self.defaults['monitoring_nmap_network'])
-
 
     def init_ldap(self):
         invalids = ['ldapurl', 'ldapbasedn', 'ldapadmindn', 'ldappasswd']
