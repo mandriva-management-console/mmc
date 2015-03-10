@@ -1204,7 +1204,7 @@ class SetupApp(object):
                 invsvr_conf = self.confs["pulse2/inventory-server/inventory-server.ini"]
                 invsvr_conf.set("main", "enable_forward", False)
 
-        Enable BackupPC module
+        #Enable BackupPC module
         self.confs['plugins/backuppc.ini'].set('main', 'disable', 0)
 
         # Change monitoring webservices variables
