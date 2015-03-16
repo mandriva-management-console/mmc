@@ -48,8 +48,6 @@ if (isset($_POST["bconfirm"])) {
     elseif (isset($_POST['bundle_id']) && $_POST['bundle_id'] != ""){	
         delete_bundle($_POST['bundle_id']);
     }
-    header("Location: " . urlStrRedirect("$module/$submod/$page", $url));
-    exit;
 }
 
 

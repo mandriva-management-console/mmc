@@ -2536,8 +2536,8 @@ class ValidatingForm extends Form {
  */
 class PopupForm extends Form {
 
-    function PopupForm($title) {
-        $options = array("action" => $_SERVER["REQUEST_URI"]);
+    function PopupForm($title, $id = 'Form') {
+        $options = array("action" => $_SERVER["REQUEST_URI"], 'id' => $id);
         $this->Form($options);
         $this->title = $title;
         $this->text = array();
