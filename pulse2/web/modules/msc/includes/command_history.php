@@ -175,6 +175,13 @@ class CommandHistory {
     function CommandHistory($coh_id) {
         // TODO : ch is a list, we have to chose the good one (ie : the most recent date)
         $this->db_ch = get_command_history($coh_id);
+        $tries = 0;
+        while (!$this->db_ch){
+            $this->db_ch = get_command_history($coh_id);
+            sleep(1);
+            if ($tries++ == 3)
+                break;
+        }
         $this->db_coh = get_commands_on_host($coh_id);
         if ($this->db_coh['fk_use_as_proxy'])
             $this->db_lproxy = get_commands_on_host($this->db_coh['fk_use_as_proxy']);
