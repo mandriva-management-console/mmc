@@ -26,7 +26,7 @@
  * module declaration
  */
 $mod = new Module("proxy");
-$mod->setVersion("2.5.93");
+$mod->setVersion("2.5.94");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Web proxy"),"proxy");
 $mod->setAPIVersion('1:1:0');
