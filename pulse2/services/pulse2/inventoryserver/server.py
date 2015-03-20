@@ -128,7 +128,7 @@ class InventoryServer:
             Common().addInventory(deviceid, from_ip, cont)
 
         # Forwarding the inventories to GLPI (if enabled)
-        if self.config.enable_forward :
+        if self.config.enable_forward  or self.config.enable_forward_ocsserver:
             self.glpi_forward(content, from_ip, query)
 
         self.send_response(200)
@@ -383,7 +383,7 @@ class TreatInv(Thread):
             except Exception, exc :
                 self.logger.error("LightPull: An error occurred when trying to resolve UUID from GLPI: %s" % str(exc))
 
-        if self.config.enable_forward:
+        if self.config.enable_forward and not self.config.enable_forward_ocsserver:
             return False
 
         # Native case - inventory handling
@@ -489,7 +489,7 @@ class TreatInv(Thread):
             ret = None
             if isinstance(result, list) and len(result) == 2 :
                 # disabling light pull on GLPI mode when Pulse2 inventory creator is enabled
-                if not self.config.enable_forward :
+                if not self.config.enable_forward or self.config.enable_forward_ocsserver:
                     ret, machine_uuid = result
                     AttemptToScheduler(content, machine_uuid)
             else :
@@ -546,7 +546,7 @@ class InventoryGetService(Singleton):
         except IOError, e:
             self.logger.error(e)
             return False
-        if self.config.enable_forward:
+        if self.config.enable_forward and not self.config.enable_forward_ocsserver:
             return True
 
         try:
