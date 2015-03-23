@@ -1,23 +1,62 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# # Translators:
+# 
+## Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-16 01:01+0100\n"
+"Report-Msgid-Bugs-To: http://projects.mandriva.org/projects/mmc/issues\n"
+"POT-Creation-Date: 2015-03-16 01:15+0100\n"
 "PO-Revision-Date: 2013-08-16 13:12+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
-"Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/"
-"mds/team/ru_RU/)\n"
-"Language: ru_RU\n"
+"Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/mds/team/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: modules/userquota/includes/publicFunc.php:39
+msgid "Quota settings"
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:110
+#, php-format
+msgid "Disk quota set to %sMb."
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:114
+msgid "Disk quota removed."
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:126
+#, php-format
+msgid "Network quota set to %sMo on %s."
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:130
+msgid "Network quota removed."
+msgstr ""
+
+#: modules/userquota/includes/publicFunc.php:149
+msgid "Quota plugin - Filesystem"
+msgstr "Плагин квот - Файловая система"
+
+#: modules/userquota/includes/publicFunc.php:152
+#: modules/userquota/includes/publicFunc.php:165
+msgid "Quota's applied here affect all members of the group"
+msgstr "Примененная здесь квота распространяется на всех членов группы"
+
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
+msgid "Overwrite all existing quotas"
+msgstr "Перезаписать все существующие квоты"
+
+#: modules/userquota/includes/publicFunc.php:154
+#: modules/userquota/includes/publicFunc.php:167
+msgid "Current quota is smaller than the new quota, or does not exist"
+msgstr "Текущая квота меньше, чем новая квота или не задана"
 
 #: modules/userquota/includes/publicFunc.php:154
 #: modules/userquota/includes/publicFunc.php:167
@@ -26,59 +65,20 @@ msgstr "Текущая квота больше, чем новая квота и�
 
 #: modules/userquota/includes/publicFunc.php:154
 #: modules/userquota/includes/publicFunc.php:167
-msgid "Current quota is smaller than the new quota, or does not exist"
-msgstr "Текущая квота меньше, чем новая квота или не задана"
-
-#: modules/userquota/includes/publicFunc.php:114
-msgid "Disk quota removed."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:110
-#, php-format
-msgid "Disk quota set to %sMb."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:154
-#: modules/userquota/includes/publicFunc.php:167
 msgid "Don't overwrite any existing quotas"
 msgstr "Не перезаписывать существующие квоты"
-
-#: modules/userquota/infoPackage.inc.php:32
-msgid "Manage user quotas for filesystems and networks"
-msgstr "Управление квотами пользователя для файловых систем и сетей"
-
-#: modules/userquota/includes/publicFunc.php:130
-msgid "Network quota removed."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:126
-#, php-format
-msgid "Network quota set to %sMo on %s."
-msgstr ""
-
-#: modules/userquota/includes/publicFunc.php:154
-#: modules/userquota/includes/publicFunc.php:167
-msgid "Overwrite all existing quotas"
-msgstr "Перезаписать все существующие квоты"
 
 #: modules/userquota/includes/publicFunc.php:157
 #: modules/userquota/includes/publicFunc.php:170
 msgid "Overwrite mode for existing quotas"
 msgstr "Режим перезаписи для существующих квот"
 
-#: modules/userquota/includes/publicFunc.php:149
-msgid "Quota plugin - Filesystem"
-msgstr "Плагин квот - Файловая система"
-
 #: modules/userquota/includes/publicFunc.php:162
 msgid "Quota plugin - Network"
 msgstr "Плагин квот - Сеть"
 
-#: modules/userquota/includes/publicFunc.php:39
-msgid "Quota settings"
-msgstr ""
+#: modules/userquota/infoPackage.inc.php:32
+msgid "Manage user quotas for filesystems and networks"
+msgstr "Управление квотами пользователя для файловых систем и сетей"
 
-#: modules/userquota/includes/publicFunc.php:152
-#: modules/userquota/includes/publicFunc.php:165
-msgid "Quota's applied here affect all members of the group"
-msgstr "Примененная здесь квота распространяется на всех членов группы"
+
