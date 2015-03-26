@@ -48,6 +48,7 @@ datafiles = \
 	shares/add.php \
 	shares/details.php \
 	shares/ajaxFilter.php \
+	shares/perms.html \
 	config/index.php \
 	config/reload.php \
 	config/restart.php \

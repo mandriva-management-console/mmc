@@ -141,13 +141,10 @@ class SambaAD:
         res = []
         if computers:
             for computer in computers:
-                try:
-                    description = computer["description"]
-                except KeyError:
-                    description = computer["operatingSystem"]
+                description = computer.get("description", computer.get("operatingSystem", ""))
                 res.append({
                     "name": str(computer["name"]) + name_suffix,
-                    "description":  str(description),
+                    "description": str(description),
                     "enabled": 1  # TODO: get what the state actually is
                 })
         return res

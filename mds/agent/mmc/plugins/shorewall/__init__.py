@@ -22,6 +22,7 @@ MDS shorewall plugin for the MMC agent.
 """
 
 import os
+import re
 import glob
 import logging
 
@@ -30,7 +31,7 @@ from mmc.support.mmctools import ServiceManager
 from mmc.plugins.shorewall.io import ShorewallConf, ShorewallLineInvalid
 from mmc.plugins.shorewall.config import ShorewallPluginConfig
 
-VERSION = "2.5.92"
+VERSION = "2.5.94"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 
@@ -82,7 +83,7 @@ class ShorewallRules(ShorewallConf):
 
     def __init__(self, file='rules'):
         ShorewallConf.__init__(self, file,
-            r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:.,]+)\s+(?P<dst>[\w\d:.]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:,\d]*)$')
+            r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d:/!~.,-]+)\s+(?P<dst>[\w\d:/!~.,-]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[:,\d]*)$')
         self.read()
 
     def add(self, action, src, dst, proto="", dst_port=""):
@@ -103,6 +104,18 @@ class ShorewallRules(ShorewallConf):
             if port < 0 or port > 65535:
                 raise ShorewallLineInvalid("Invalid port number")
 
+        def _check_ip(ip):
+            if not re.match('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$', ip):
+                raise ShorewallLineInvalid("Invalid IP")
+
+        def _check_masq(masq):
+            try:
+                masq = int(masq)
+                if not masq > 0 and not masq < 33:
+                    raise ShorewallLineInvalid("Invalid network masq")
+            except:
+                raise ShorewallLineInvalid("Invalid network masq")
+
         ports = line['dst_port']
         for range in ports.split(','):
             if ':' in range:
@@ -117,12 +130,41 @@ class ShorewallRules(ShorewallConf):
             else:
                 _check_port_number(range)
 
+        try:
+            dst_limits = line['dst'].split(':')[1]
+        except IndexError:
+            dst_limits = None
+        try:
+            src_limits = line['src'].split(':')[1]
+        except IndexError:
+            src_limits = None
+        for limits in (dst_limits, src_limits):
+            if limits is None:
+                continue
+            for limit in limits.split(','):
+                if '-' in limit:
+                    if len(limit.split('-')) != 2:
+                        raise ShorewallLineInvalid("Invalid IP range")
+                    else:
+                        start, stop = limit.split('-')
+                        _check_ip(start)
+                        _check_ip(stop)
+                elif '/' in limit:
+                    if len(limit.split('/')) != 2:
+                        raise ShorewallLineInvalid("Invalid network")
+                    else:
+                        ip, masq = limit.split('/')
+                        _check_ip(ip.lstrip('!'))
+                        _check_masq(masq)
+                else:
+                    _check_ip(limit)
+
     def delete(self, action, src, dst, proto="", dst_port=""):
         self.del_line([action, src, dst, proto, dst_port])
 
     def get(self, action="", srcs=[], dsts=[], filter=""):
-        if filter: #case Insensitive!
-            filter=filter.lower()
+        if filter:  # case Insensitive!
+            filter = filter.lower()
         rules = []
         for line in self.get_conf():
             use = True
@@ -137,6 +179,7 @@ class ShorewallRules(ShorewallConf):
             if use:
                 rules.append(line)
         return rules
+
 
 class ShorewallPolicies(ShorewallConf):
 

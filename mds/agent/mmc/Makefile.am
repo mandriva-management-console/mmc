@@ -28,4 +28,4 @@ pythonmodules = plugins.samba4 plugins.samba4.templates \
 
 # Expands Python modules list with found *.py files in each module given in pythonmodules
 mmcpythondir = $(pythondir)/$(notdir $(realpath $(srcdir)))
-nobase_mmcpython_PYTHON = $(wildcard $(srcdir)/*.* $(patsubst %,$(srcdir)/%/*.* ,$(subst .,/,$(pythonmodules))))
+nobase_mmcpython_PYTHON = $(wildcard $(patsubst %, $(srcdir)/%/*.*, $(subst .,/,$(pythonmodules))))

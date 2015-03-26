@@ -39,4 +39,32 @@ $errItem->setLevel(1);
 $errItem->setTraceBackDisplay(False);
 $errObj->add($errItem);
 
+$errItem = new ErrorHandlingItem(": Invalid IP");
+$errItem->setMsg(_T("Invalid IP", "shorewall"));
+$errItem->setAdvice(_T("The IP address is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid IP range");
+$errItem->setMsg(_T("Invalid IP range", "shorewall"));
+$errItem->setAdvice(_T("The IP range is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid network");
+$errItem->setMsg(_T("Invalid network", "shorewall"));
+$errItem->setAdvice(_T("The network is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid network masq");
+$errItem->setMsg(_T("Invalid network masq", "shorewall"));
+$errItem->setAdvice(_T("The network masq is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
 ?>
