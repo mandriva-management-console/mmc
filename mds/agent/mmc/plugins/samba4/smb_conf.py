@@ -65,7 +65,8 @@ class SambaConf:
                               'netbios name', 'server role',
                               'logon path', 'logon drive',
                               'logon home', 'logon script',
-                              'ldap passwd sync', 'wins support']
+                              'ldap passwd sync', 'wins support',
+                              'dns forwarder']
 
     KRB5_CONF_PATH = '/etc/krb5.conf'
 
@@ -153,7 +154,8 @@ class SambaConf:
     def workgroupFromRealm(self, realm):
         return realm.split('.')[0][:15].upper()
 
-    def writeSambaConfig(self, mode, netbios_name, realm, description, logon_path='', hashomes=True):
+    def writeSambaConfig(self, mode, netbios_name, realm, description,
+                         logon_path='', dns_forwarder=None, hashomes=True):
         """
         Write SAMBA configuration file (smb.conf) to disk.
 
@@ -178,6 +180,7 @@ class SambaConf:
                   'domain': domain,
                   'interfaces': get_internal_interfaces(),
                   'logon_path': logon_path,
+                  'dns_forwarder': dns_forwarder,
                   'hashomes': hashomes}
 
         smb_conf_template = env.get_template("smb.conf")
