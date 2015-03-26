@@ -3,8 +3,6 @@
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
- * $Id$
- *
  * This file is part of Mandriva Management Console (MMC).
  *
  * MMC is free software; you can redistribute it and/or modify
@@ -75,7 +73,8 @@ function getCheckedState($smb, $option) {
 if (isset($_POST["bsave"])) {
     $ret = save_smbconf();
     if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.", "samba4")));
+        $n = new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.", "samba4")));
+        handleServicesModule($n, array("samba" => "SAMBA"));
     }
 }
 
@@ -120,6 +119,11 @@ $value = "";
 #        new TrFormElement(_T("This server is a WINS server"),new CheckboxTpl("wins support")),
 #        array("value" => getCheckedState($smb, "wins support"))
 #);
+
+$f->add(
+        new TrFormElement(_T("DNS forwarder"), new IPInputTpl("dns forwarder")),
+        array("value" => $smb["dns forwarder"])
+);
 
 $value = "";
 if ($smb["hashomes"]) $value = "checked";
