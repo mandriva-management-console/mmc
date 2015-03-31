@@ -39,7 +39,6 @@ from mmc.plugins.base.config import BasePluginConfig
 from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
 from mmc.plugins.samba4 import getSamba4GlobalInfo
 from mmc.plugins.samba4.samba4 import SambaAD
-from mmc.plugins.network import addRecordA, setHostAliases
 from mmc.support.config import PluginConfigFactory
 
 from credentials import Credentials
@@ -625,65 +624,6 @@ class S4Sync(object):
             self.samba_ldap.sync_user_with(user, self.openldap)
 
     def sync(self):
-        def dns_mix():
-            openldap_dns_entries = self.openldap.get_dns_entries()
-            samba_dns_entries = self.samba_ldap.get_dns_entries()
-
-            # compute common group
-            common_dns_entry = []
-            for i in range(len(openldap_dns_entries)):
-                common = False
-                o_entrie = openldap_dns_entries[i]
-                for j in range(len(samba_dns_entries)):
-                    s_entrie = samba_dns_entries[j]
-                    if o_entrie[1]['hostname'] == s_entrie[1]['dNSHostName']:
-                        common_dns_entry.append((o_entrie, s_entrie))
-#                         logger.debug(
-#                             '\tfound common (%s,%s)', o_entrie[1], s_entrie[1])
-                        common = True
-                        continue
-                    if j == len(samba_dns_entries) and not common:
-                        logger.debug('only in OpenLdap %s', o_entrie[0])
-#             logger.debug(common_dns_entry)
-            # Update ip if required
-            for e in common_dns_entry:
-                if e[1][1]['ip'] is None:
-                    self.samba_ldap.add_ip_dns(e[1][0], e[0][1]['aRecord'][0])
-
-            # look for entries only in samba
-            for i in range(len(samba_dns_entries)):
-                #                 logger.debug(samba_dns_entries[i])
-                common = False
-                s_entrie = samba_dns_entries[i]
-                for j in range(len(openldap_dns_entries)):
-                    o_entrie = openldap_dns_entries[j]
-                    if o_entrie[1]['hostname'] == s_entrie[1]['dNSHostName']:
-                        common = True
-                        continue
-                    if j == len(openldap_dns_entries) - 1 and not common:
-                        logger.debug('only in Samba %s', s_entrie[0])
-                        logger.debug('\t%s', s_entrie[1])
-                        fqdn = s_entrie[1]['dNSHostName'].split('.')
-                        hostname = fqdn[0]
-                        zone = '.'.join(fqdn[1:])
-                        ip_addr = s_entrie[1]['ip']
-                        alias = s_entrie[1]['cname']
-                        if zone and hostname and ip_addr and alias:
-                            try:
-                                logger.debug(
-                                    'addRecordA(%s,%s,%s)', zone, hostname, ip_addr)
-                                addRecordA(zone, hostname, ip_addr)
-                            except ldap.ALREADY_EXISTS as ex:
-                                logger.debug(ex)
-
-                            logger.debug(
-                                'setHostAliases(%s,%s,%s)', zone, hostname, [alias])
-                            setHostAliases(zone, hostname, [alias])
-                        else:
-                            logger.debug(
-                                "\tcan't addRecordA(%s,%s,%s) nor setHostAliases(%s,%s,%s)",
-                                zone, hostname, ip_addr, zone, hostname, [alias])
-
         def groups_mix():
             openldap_listed_groups = self.openldap.list_groups()
             samba_listed_groups = self.samba_ldap.list_groups()
@@ -822,7 +762,6 @@ class S4Sync(object):
         now_timestamp = datetime.now(pytz.UTC)
         last_sync_timestamp = self.timestamp()
 
-        dns_mix()
         groups_mix()
         users_mix()
 
