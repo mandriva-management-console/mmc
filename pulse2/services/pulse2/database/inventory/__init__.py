@@ -47,7 +47,6 @@ import logging
 import os
 
 
-
 from pulse2.inventoryserver.config import Pulse2OcsserverConfigParser
 MAX_REQ_NUM = 100
 
@@ -55,6 +54,9 @@ class UserTable(object):
     pass
 
 class UserEntitiesTable(object):
+    pass
+
+class RightUserEntitiesTable(object):
     pass
 
 class Hardware(object):
@@ -106,6 +108,10 @@ class Inventory(DyngroupDatabaseHelper):
         self.inventory = Table("Inventory", self.metadata, autoload = True)
         self.user = Table("User", self.metadata, autoload = True)
         self.userentities = Table('UserEntities',
+                                  self.metadata,
+                                  Column('fk_User', Integer, ForeignKey('User.id'), primary_key = True),
+                                  Column('fk_Entity', Integer, ForeignKey('Entity.id'), primary_key = True))
+        self.rightuserentities = Table('RightUserEntities',
                                   self.metadata,
                                   Column('fk_User', Integer, ForeignKey('User.id'), primary_key = True),
                                   Column('fk_Entity', Integer, ForeignKey('Entity.id'), primary_key = True))
@@ -179,6 +185,7 @@ class Inventory(DyngroupDatabaseHelper):
             mapper(InventoryTable, self.inventory)
             mapper(UserTable, self.user)
             mapper(UserEntitiesTable, self.userentities)
+            mapper(RightUserEntitiesTable, self.rightuserentities)
         except:
             pass
 
@@ -1559,6 +1566,36 @@ class Inventory(DyngroupDatabaseHelper):
         trans.commit()
         return True
 
+    def createUserEntities(self, username, idEntitie):
+        session = create_session()
+        # Start transaction
+        session.begin()
+        # Create or get user if no exist
+        try:
+            u = session.query(UserTable).filter_by(uid = username).one()
+        except Exception:
+            u = UserTable()
+            u.uid = username
+            session.add(u)
+            session.flush()
+        id_UserTable = u.id
+
+        try:
+            #verify exist entity
+            e = session.query(self.klass['Entity']).filter_by(id = idEntitie).one()
+        except Exception:
+            session.close()
+            return False
+        #association entity and user if not exist
+        try:
+            z = RightUserEntitiesTable()
+            z.fk_Entity = idEntitie
+            z.fk_User = id_UserTable
+            session.add(z)
+            session.flush()
+        except Exception:
+            pass
+        session.close()
 
     # User management method
 
@@ -1627,6 +1664,30 @@ class Inventory(DyngroupDatabaseHelper):
             session.add(ue)
         session.commit()
         session.close()
+        self.addProfileUserEntity(userid)
+
+    def addProfileUserEntity(self, userid):
+        session = create_session()
+        try:
+            u = session.query(UserTable).filter_by(uid = userid).one()
+            id = u.id
+        except Exception:
+            return False
+
+        except Exception:
+            pass
+        #select tous les entrees urilsateurs id in RightUserEntitiesTable
+        for ue in session.query(RightUserEntitiesTable).filter_by(fk_User = id):
+            #add utilsateur
+            z = UserEntitiesTable()
+            try:
+                z.fk_Entity = ue.fk_Entity
+                z.fk_User   = ue.fk_User
+                session.add(z)
+                session.flush()
+            except Exception:
+                pass
+        session.close()
 
     def createEntity(self, name, parent_name = False):
         """
@@ -1665,14 +1726,88 @@ class Inventory(DyngroupDatabaseHelper):
         session.close()
         return True
 
+    def setLocationsForUser(self, username, attrs):
+        self.delUserEntitiesbyUseruid(username)
+        for fkentitie in attrs:
+            self.createUserEntities(username, fkentitie)
+        return True
+
+    def getLocationsForUser(self, username):
+        session = create_session()
+        try:
+            u = session.query(UserTable).filter_by(uid = username).one()
+        except Exception:
+            u = UserTable()
+            u.uid = username
+            session.add(u)
+            session.flush()
+        # load from table userentities entitie id
+        ret=[]
+        for ue in session.query(RightUserEntitiesTable).filter_by(fk_User = u.id):
+            ret.append(ue.fk_Entity)
+        session.close()
+        return ret
+
+    def delUserEntitiesbyfkEntity(self, fk_entity):
+        session = create_session()
+        for ue in session.query(RightUserEntitiesTable).filter_by(fk_Entity = fk_entity):
+            session.delete(ue)
+        session.flush()
+        for ie in session.query(UserEntitiesTable).filter_by(fk_Entity = fk_entity):
+            session.delete(ie)
+        session.flush()
+        session.close()
+
+    def delUserEntitiesbyfkUser(self, fk_user):
+        session = create_session()
+        for ue in session.query(RightUserEntitiesTable).filter_by(fk_User = fk_user):
+            session.delete(ue)
+        session.flush()
+        for ie in session.query(UserEntitiesTable).filter_by(fk_User = fk_user):
+            session.delete(ie)
+        session.flush()
+        session.close()
+
+    def delUserEntitiesbyUseruid(self, user):
+        session = create_session()
+        try:
+            u = session.query(UserTable).filter_by(uid = user).one()
+            userid = u.id
+        except Exception:
+            return False
+        for ue in session.query(RightUserEntitiesTable).filter_by(fk_User = userid):
+            session.delete(ue)
+        session.flush()
+        for ie in session.query(UserEntitiesTable).filter_by(fk_User = userid):
+            session.delete(ie)
+        session.flush()
+        session.close()
+
+    def delUser(self, uidUser):
+        raise
+        fkuser=-1
+        session = create_session()
+        try:
+            u = session.query(UserTable).filter_by(uid = uidUser).one()
+            fkuser = u.id
+            session.delete(u)
+            session.flush()
+        except Exception:
+            pass
+        session.close()
+        #clear entitie of deleted user
+        if fkuser != -1:
+            self.delUserEntitiesbyfkUser(fkuser)
+
     def deleteEntities(self, id, Label, parentId):
-        self.logger.debug('deleteEntities regle %s' % (id))
         session = create_session()
         session.query(self.klass['Entity']).filter_by(id = id).delete()
         f = session.query(self.klass['Entity']).filter_by(parentId = id).all()
         for i in f:
             i.parentId = parentId
         session.flush()
+        #clear entitie of deleted entitie
+        self.delUserEntitiesbyfkEntity(id)
 
     def updateEntities(self, id, name):
         """
@@ -1732,7 +1867,7 @@ class Inventory(DyngroupDatabaseHelper):
         ref1['data']=tabretour[int(params['min']):int(params['max'])]
         return ref1
 
-    def moveEntityRuleUp(self, idrule):        
+    def moveEntityRuleUp(self, idrule):
         idrule1 = int(idrule)
         newNumRule = idrule1 - 1
         if (idrule1 -1) <= 0:
@@ -1790,11 +1925,10 @@ class Inventory(DyngroupDatabaseHelper):
                     else:
                         actif=""
                     fichier.write("#@%d" % (index+1) + "\n")
-                    
                     strstring= "%s\"%s\"   %s   %s   %s   %s" % (actif,
-                                                     ref['data'][index1]['entitie'], 
+                                                     ref['data'][index1]['entitie'],
                                                      ref['data'][index1]['aggregator'],
-                                                     ref['data'][index1]['operand1'],  
+                                                     ref['data'][index1]['operand1'],
                                                      ref['data'][index1]['operator'],
                                                      ref['data'][index1]['operand2'])
                     fichier.write(strstring + "\n")
@@ -1857,8 +1991,8 @@ class Inventory(DyngroupDatabaseHelper):
             else:
                 actif = True
 
-            ## line two comments deleted 
-            if line.startswith('#'):        
+            ## line two comments deleted
+            if line.startswith('#'):
                continue
             try:
                 ## The first column may contain the quoted entity list
@@ -1869,21 +2003,32 @@ class Inventory(DyngroupDatabaseHelper):
                     rule = m.group(2)
                 else:
                     entities, rule = line.split(None, 1)
-                ## rule line working on severals entity 
+                ## rule line working on severals entity
                 entitieslist = entities.split(',')
                 entitieslist1 = [x for x in entitieslist if re.match('^[a-zA-Z0-9]{3,64}$', x)]
                 entitieslist = [x for x in entitieslist1 if self.locationExists(x)]
                 entitiesNoExist = list(set(entitieslist1) - set(entitieslist))
                 if len(entitiesNoExist) != 0:
                     self.logger.debug('entities %s not exist ' % (entitiesNoExist))
-                # list empty  
-                if len(entitieslist) <= 0: #not entitieslist:# and 
+                #entitieslist = [x for x in entitieslist if re.match('^[a-zA-Z0-9\/]{3,64}$', x)]
+                #entitieslist = [x for x in entitieslist if self.locationExistsbypath(x)]
+                # list empty
+                #self.logger.debug('list entity nb %d'%len(entitieslist) )
+                if len(entitieslist) <= 0: #not entitieslist:# and
                     self.logger.debug('empty list entity')
                     continue
 
                 # check rules
                 # colonne 2 operator  EMPTY or AND or OR
                 words = rule.split()
+
+                ###rule must be 4 or 5 Column
+                #cols = line.split()
+                #self.logger.debug('rule nb cols %d' % (len(cols)))
+                #if len(cols) != 4 or len(cols) != 5:
+                    #self.logger.debug('not rule legal ignored %s' % (line))
+                    #continue
+
                 prefix = 'none'
                 subexprs = []
                 if not words or ( len(words) < 3) :
@@ -1896,9 +2041,10 @@ class Inventory(DyngroupDatabaseHelper):
                     words = words[1:]
                 elif len(words) == 3 :
                     prefix = ""
-                else:    
+                else:
                     self.logger.debug('operator error in rule')
                     continue
+
                 operand1, operator, operand2 = words[0:3]
                 operator = operator.lower()
                 if operator.strip() in operatorstab:
@@ -1908,9 +2054,7 @@ class Inventory(DyngroupDatabaseHelper):
                             #verify regexp compile
                             try:
                                 regexp = re.compile(operand2)
-                                #self.logger.debug("compile regexp :  %s ok" % (operand2) )
                             except Exception:
-                                #self.logger.debug("no compile regexp %s" % (operator) )
                                 continue
                     else:
                         self.logger.debug("Operator %s is not supported for rule, skipping" % (operator) )
@@ -1959,7 +2103,6 @@ class Inventory(DyngroupDatabaseHelper):
             numRule = int(ref['data'][index]['numRule'])
             if numRule == int(idrule):
                 supprime.append(index)
-                
             elif numRule > int(idrule):
                 ajusteindex.append(index)
                 self.logger.debug('ajusteindex %s' % (index))
@@ -1982,8 +2125,11 @@ class Inventory(DyngroupDatabaseHelper):
         return Location['data'][0]['Label']
 
     def addEntityRule(self, ruleobj):
+        self.logger.debug('add Rule %s' % (ruleobj))
         nblignerule = len(ruleobj['target_location'])
         ref = self.parse_file_rule()
+        #self.logger.debug('ref %s' % (ref))
+
         idrule=int(ruleobj['numRuleadd'])
         supprime=[]
         ajusteindex=[]
@@ -1997,7 +2143,7 @@ class Inventory(DyngroupDatabaseHelper):
                 supprime.append(index)
         for val in supprime[::-1]:
             del ref['data'][val]
-            self.logger.debug('supprime line %s' % (val))
+            self.logger.debug('supprime line %s' % (val))  
         nb_ligne = nb_ligne - len(supprime)
         #insere dans liste new regle
         for index in range (0, nblignerule):
@@ -2017,8 +2163,7 @@ class Inventory(DyngroupDatabaseHelper):
             ref1['actif'] = active
             ref1['numRule'] = int(ruleobj['numRuleadd'])
             ref['data'].append(ref1)
-            
-            self.logger.debug('add %s' % (ref1))   
+            self.logger.debug('add %s' % (ref1))
         ref['count'] = nb_ligne + nblignerule
         numreglemodifier = int(ruleobj['numRuleadd'])
         if numreglemodifier > nb_regle :       
@@ -2049,7 +2194,6 @@ class Inventory(DyngroupDatabaseHelper):
             if val['Labelval'] ==  location:
                 return True
         return False
-
 
     @DatabaseHelper._session
     def getMachineByOsLike(self, session, ctx, osnames, count = 0):
@@ -2702,8 +2846,6 @@ class Inventory(DyngroupDatabaseHelper):
             orange = 10
 
         return (red, orange)
-
-
 
     def getMachineListByState(self, ctx, groupName):
         """

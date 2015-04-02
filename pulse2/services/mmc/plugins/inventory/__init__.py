@@ -62,7 +62,6 @@ def activate():
         return False
 
     logger.info("Plugin inventory: Inventory database version is %d" % Inventory().dbversion)
-
     ComputerManager().register("inventory", InventoryComputers)
     ProvisioningManager().register('inventory', InventoryProvisioner)
     ComputerLocationManager().register('inventory', InventoryLocation)
@@ -304,3 +303,12 @@ def addEntityRule(ruleobj):
 
 def deleteEntityRule(idrule):
     return InventoryLocation().deleteEntityRule(idrule)
+
+def setLocationsForUser(username, attrs):
+    return InventoryLocation().setLocationsForUser(username, attrs)
+
+def getLocationsForUser(username):
+    return InventoryLocation().getLocationsForUser(username)
+
+def delUser(username):
+    return InventoryLocation().delUser(username)
