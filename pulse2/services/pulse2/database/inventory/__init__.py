@@ -1784,7 +1784,6 @@ class Inventory(DyngroupDatabaseHelper):
         session.close()
 
     def delUser(self, uidUser):
-        raise
         fkuser=-1
         session = create_session()
         try:

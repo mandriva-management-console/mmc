@@ -22,7 +22,7 @@
 """
 Module to link entities to users depending on their profile.
 """
-
+import logging
 import os.path
 import imp
 
