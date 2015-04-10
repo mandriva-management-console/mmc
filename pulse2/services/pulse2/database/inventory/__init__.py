@@ -46,8 +46,6 @@ import re
 import logging
 import os
 from pulse2.inventoryserver.config import Pulse2OcsserverConfigParser
-
-
 MAX_REQ_NUM = 100
 
 class UserTable(object):
@@ -261,7 +259,6 @@ class Inventory(DyngroupDatabaseHelper):
             requested_cols = set([col[0] for col in Inventory().config.display])
         except:
             requested_cols = set([])
-
         # Avoid doing joins if search is not requested
         if 'hostname' in pattern and pattern['hostname'].strip():
             if 'displayName' in requested_cols:
@@ -272,7 +269,6 @@ class Inventory(DyngroupDatabaseHelper):
                 join_query = join_query.outerjoin(self.table['hasHardware'], self.table['hasHardware'].c.machine == Machine.id).outerjoin(self.table['Hardware'], self.table['Hardware'].c.id == self.table['hasHardware'].c.hardware)
             if "Registry" in self.config.content:
                 join_query = join_query.outerjoin(self.table['hasRegistry'], self.table['hasRegistry'].c.machine == Machine.id).outerjoin(self.table['Registry'], self.table['Registry'].c.id == self.table['hasRegistry'].c.registry)
-
         if count:
             query = session.query(func.count(Machine.id)).select_from(join_query).filter(query_filter)
         else:
@@ -281,11 +277,9 @@ class Inventory(DyngroupDatabaseHelper):
 
         # Always select the last inventory
         query = query.filter(self.inventory.c.Last == 1)
-
         # We first filter the computer list according to the entities the user
         # has the right to see.
         query = query.filter(self.table['Entity'].c.id.in_(ctx.locationsid))
-
         # Then we apply extra filter according to pattern content
         if pattern:
             if 'green' in pattern:
@@ -322,7 +316,6 @@ class Inventory(DyngroupDatabaseHelper):
                 # Filtering on Registy params
                 if "Registry" in self.config.content:
                     clauses.append(self.table['Registry'].c.Value.like("%"+ pattern['hostname'] + "%"))
-
                 # Entity filtering
                 if 'entity' in requested_cols:
                     clauses.append(self.table['Entity'].c.Label.like("%" + pattern['hostname'] + "%"))
@@ -511,6 +504,14 @@ class Inventory(DyngroupDatabaseHelper):
                     for inv in row[1]:
                         computers[uuid][1][inv["Path"]] = inv["Value"]
             # Build the result
+            ret1={}
+            result = self.getMachinesOnly(ctx, filt)
+            for m in result: # glpi mapping
+                if m.uuid() in uuids:
+                    attributcomputer =  m.toDN(ctx)[1]
+                    keycomputer =attributcomputer.keys()
+                    for ky in keycomputer:
+                        computers[m.uuid()][1][ky] = attributcomputer[ky]
             ret = []
             for uuid in uuids:
                 ret.append(computers[uuid])
@@ -2076,7 +2077,6 @@ class Inventory(DyngroupDatabaseHelper):
             return ret
 
     def deleteEntityRule(self, idrule):
-        #self.logger.debug('delete Rule %s' % (idrule))
         supprime=[]
         ajusteindex=[]
         ref = self.parse_file_rule()
@@ -2094,7 +2094,6 @@ class Inventory(DyngroupDatabaseHelper):
         for val in ajusteindex:
             ref['data'][val]['numRule'] = int(ref['data'][val]['numRule'] -1)
         for val in supprime[::-1]:
-            #self.logger.debug('delete ligne %s' % (index))
             del ref['data'][val]
         ref['nb_regle']=ref['nb_regle']-1
         ref['count']=ref['count']-len(supprime)
@@ -2125,7 +2124,6 @@ class Inventory(DyngroupDatabaseHelper):
                 supprime.append(index)
         for val in supprime[::-1]:
             del ref['data'][val]
-            #self.logger.debug('supprime line %s' % (val))
         nb_ligne = nb_ligne - len(supprime)
         #insere dans liste new regle
         for index in range (0, nblignerule):
@@ -2145,10 +2143,9 @@ class Inventory(DyngroupDatabaseHelper):
             ref1['actif'] = active
             ref1['numRule'] = int(ruleobj['numRuleadd'])
             ref['data'].append(ref1)
-            #self.logger.debug('add %s' % (ref1))
         ref['count'] = nb_ligne + nblignerule
         numreglemodifier = int(ruleobj['numRuleadd'])
-        if numreglemodifier > nb_regle :       
+        if numreglemodifier > nb_regle :
             ref['nb_regle']=int(ref['nb_regle'])+1
         self.rewritte_file_rule_obj(ref)
         return True
