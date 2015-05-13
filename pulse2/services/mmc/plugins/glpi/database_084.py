@@ -41,7 +41,7 @@ from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy.exc import OperationalError
 
 from mmc.site import mmcconfdir
-from mmc.database.database_helper import DatabaseHelper
+from pulse2.database.database_helper import DatabaseHelper
 # TODO rename location into entity (and locations in location)
 from pulse2.utils import same_network, unique, noNone
 from pulse2.database.dyngroup.dyngroup_database_helper import DyngroupDatabaseHelper
