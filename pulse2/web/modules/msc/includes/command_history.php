@@ -191,6 +191,13 @@ class CommandHistory {
     }
     function display() {
         // display parameters
+        $tries = 0;
+        while (!$this->db_ch){
+            $this->db_ch = get_command_history($coh_id);
+            sleep(1);
+            if ($tries++ == 3)
+                break;
+        }
         if (!$this->db_ch) { # use does not have the good permissions
             $widget = new RenderedMSCCommandDontExists();
             $widget->display();
