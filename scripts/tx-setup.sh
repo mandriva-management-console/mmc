@@ -18,7 +18,7 @@ test -d .tx || tx init --host=https://transifex.mandriva.com
 
 mmc_modules="base ppolicy services dashboard report report-templates"
 mds_modules="bulkimport mail network proxy samba sshlpk userquota shorewall squid radius"
-pulse2_modules="dyngroup glpi imaging inventory msc pkgs pulse2 backuppc update support monitoring"
+pulse2_modules="dyngroup glpi imaging inventory msc pkgs pulse2 backuppc update support"
 
 dir=`pwd`
 
