@@ -1,0 +1,46 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: mds
+Source: http://projects.mandriva.org/projects/mmc
+
+Files: *
+Copyright: 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
+           2007-2012 Mandriva S.A, http://www.mandriva.com
+License: GPL-2.0+
+
+Files: debian/*
+Copyright: 2010-2012 Adam Cécile <acecile@mandriva.com>
+License: GPL-2.0+
+
+
+Files: web/modules/bulkimport/*
+Copyright: 2009 Open Systems Specilists - Glen Ogilvie
+License: GPL-2.0+
+
+Files: web/modules/userquota/*
+Copyright: 2009 Open Systems Specilists - Glen Ogilvie
+License: GPL-2.0+
+
+Files: agent/mmc/plugins/bulkimport/*
+Copyright: 2009 Open Systems Specilists - Glen Ogilvie
+License: GPL-2.0+
+
+Files: agent/mmc/plugins/userquota/*
+Copyright: 2009 Open Systems Specilists - Glen Ogilvie
+License: GPL-2.0+
+
+License: GPL-2.0+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".

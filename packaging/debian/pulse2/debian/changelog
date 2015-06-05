@@ -1,0 +1,281 @@
+pulse2 (3.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- root <root@zoidberg.mandriva.com>  Mon, 02 Mar 2015 17:00:11 +0100
+
+pulse2 (2.2-1) unstable; urgency=medium
+
+  * Add Appstream
+  * Add cool backuppc features
+  * Bundles save
+  * Update on groups
+  * and much more bug fixing
+
+ -- Jean-Christophe VASSORT <jcvassort@mandriva.com>  Wed, 04 Feb 2015 18:25:08 +0100
+
+pulse2 (2.1.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Jean-Christophe VASSORT <jcvassort@mandriva.com>  Wed, 29 Oct 2014 09:02:44 +0200
+
+pulse2 (2.0.13.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Jean-Christophe VASSORT <jcvassort@mandriva.com>  Tue, 01 Aug 2014 09:02:44 +0200
+
+pulse2 (2.0.12.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 02 Jul 2014 16:12:44 +0200
+
+pulse2 (2.0.10-1) unstable; urgency=low
+
+  * Improve inventory backend.
+
+ -- Adam Cécile <acecile@mandriva.com>  Wed, 07 May 2014 15:28:44 +0200
+
+pulse2 (2.0.9-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 06 May 2014 16:09:51 +0200
+
+pulse2 (2.0.8-2) unstable; urgency=medium
+
+  * New upstream release.
+  * Create /etc/mmc/plugins/support directory for reverse ssh.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 29 Apr 2014 11:03:43 +0200
+
+pulse2 (2.0.7-1) unstable; urgency=medium
+
+  * New upstream release.
+  * New "support" plugin to provide remote server access.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 25 Apr 2014 10:09:27 +0200
+
+pulse2 (2.0.6-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 20 Mar 2014 11:08:11 +0100
+
+pulse2 (2.0.5-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 17 Mar 2014 15:08:36 +0100
+
+pulse2 (2.0.4-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 11 Mar 2014 17:19:54 +0100
+
+pulse2 (2.0.3-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 07 Mar 2014 10:28:15 +0100
+
+pulse2 (2.0.2-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 28 Feb 2014 09:49:36 +0100
+
+pulse2 (2.0.1.2-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 21 Feb 2014 10:52:05 +0100
+
+pulse2 (2.0.1.1-1) unstable; urgency=low
+
+  * New upstream release:
+    - Bump minimal mmc-core dependency to 3.1.1-1.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 18 Feb 2014 10:19:40 +0100
+
+pulse2 (2.0.1-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 06 Feb 2014 11:44:48 +0100
+
+pulse2 (2.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * New update and report modules.
+  * Strip out common database files (moved to core).
+  * New package "pulse2-dlp-server" for pull mode.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 27 Jan 2014 12:31:12 +0100
+
+pulse2 (1.5.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Install pulse2-debug binary.
+  * Install pulse2-dbupdate binary.
+  * Pulse2-imaging-server is now an empty transitional package,
+    its features have been merged into pulse2-package-server.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 14 Oct 2013 21:41:24 +0200
+
+pulse2 (1.5.0-1) unstable; urgency=low
+
+  * New BackupPC module.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 25 Jun 2013 17:14:58 +0200
+
+pulse2 (1.4.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Install new pulse2-scheduler-proxy binary.
+  * Add new binutils-multiarch | binutils dependency on package-server.
+  * Metapackage pulse2 should depend on either inventory or glpi backend.
+  * Add new tool and ini file required for GLPI history.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 26 Mar 2013 15:56:51 -0300
+
+pulse2 (1.4.0-2) unstable; urgency=low
+
+  * Add missing xsltproc, docbook-xsl and docbook-xml build dependency
+    to re-generate documentation.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 11 Feb 2013 12:03:28 +0100
+
+pulse2 (1.4.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * New post-imaging scripts.
+  * Ability to convert post-imaging scripts into boot services.
+  * New DBAN boot service (disk wipe).
+  * Tones of bugs fixed.
+  * New post-imaging script to deploy Pulse2 agents automatically.
+  * Fix GLPI backend.
+  * FusionInventory agent is now used on Windows.
+  * Inventory server can now fix the incoming XML using Python scripts.
+  * New package creation page with uploading directly from the interface.
+  * Add genisoimage dependency on package-server.
+  * New pie chart with last inventory date on dashboard page.
+  * New pie chart with deployement percentage for each command.
+  * New sheduler algorithm to improve handling of unavaible computers:
+    No more number of tries and time between differents tries, everything
+    is handled by the scheduler itself which will avoid trying again and
+    again a computer that failed once instead of trying another one.
+    It will also requeue a command when the inventory-server says "I just
+    received an inventory" which means the computer has just been powered up.
+    Scheduler will stop queuing new action a few minutes before the end time
+    to avoid killing commands that have just been started.
+  * Inventory-server is now able to act as proxy for GLPI server.
+  * It's now possible to register a computer in GLPI from PXE.
+  * Switch to dpkg-source 3.0 (quilt) format.
+  * Remove obsolete quilt patch system.
+  * Remove dh_autoreconf.
+  * Remove obsolete nsis build-dep.
+  * Fix debian/rules (CPPFLAGS) to build with hardening.
+  * Fix a couple of lintian warnings.
+  * Fix compatibility with never Python Twisted (>= 11.1) and
+    newer SQLAlchemy.
+  * Launchers have been protected against over memory usage.
+  * Computers can be registered through PXE with GLPI backend.
+  * Dynamic groups against GLPI entity fixed.
+  * Add missing python-psutil (>= 0.6.1) dependency on pulse2-common.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 08 Feb 2013 15:12:16 +0100
+
+pulse2 (1.3.2-3) unstable; urgency=low
+
+  * New upstream release.
+  * Rename pulse-launcher package to pulse2-launchers to match upstream.
+  * Drop useless patch "pulse2-setup_debian_specific.diff".
+  * Add curl, dnsutils and nsis dependencies to pulse2-common (required to
+    build the agents pack).
+  * Install pulse2-load-defaults in pulse2-common package.
+  * New pulse2 package depending on all what's needed.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 10 Sep 2012 19:23:12 +0200
+
+pulse2 (1.3.1.1+git20120628-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add python-configobj as a dependency of pulse2-common.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 28 Jun 2012 13:30:09 +0200
+
+pulse2 (1.3.1.1+git20120620-2) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Wed, 20 Jun 2012 15:42:57 +0200
+
+pulse2 (1.3.1.1+git20120620-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Wed, 20 Jun 2012 11:45:31 +0200
+
+pulse2 (1.3.1.1+git20120619-2) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 19 Jun 2012 14:51:26 +0200
+
+pulse2 (1.3.1.1+git20120611-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 11 Jun 2012 17:54:30 +0200
+
+pulse2 (1.3.1.1+git20120411-2) unstable; urgency=low
+
+  * Fix initscripts to use should-start instead of required.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 12 Apr 2012 11:40:56 +0200
+
+pulse2 (1.3.1.1+git20120411-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Wed, 11 Apr 2012 15:53:20 +0200
+
+pulse2 (1.3.1.1+git20120403-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 03 Apr 2012 09:56:42 +0200
+
+pulse2 (1.3.1.1+git20120116-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 16 Jan 2012 11:12:30 +0100
+
+pulse2 (1.3.1.1+git20120112-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 12 Jan 2012 15:22:54 +0100
+
+pulse2 (1.3.1.1+git20111220-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 15 Dec 2011 14:30:22 +0100
+
+pulse2 (1.3.1.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 13 Dec 2011 17:33:44 +0100
+
+pulse2 (1.3.0-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 14 Jun 2010 10:21:27 +0200

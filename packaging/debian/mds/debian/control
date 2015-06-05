@@ -1,0 +1,150 @@
+Source: mds
+Section: admin
+Priority: extra
+Maintainer: Adam Cécile <acecile@mandriva.com>
+Build-Depends: debhelper (>= 5.0.37.2), autotools-dev
+Build-Depends-Indep: python-all, python-support (>= 0.5.3), gettext
+Standards-Version: 3.9.3
+Homepage: http://mds.mandriva.org
+
+Package: python-mmc-samba
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-pylibacl, acl, python-mmc-base (>= 3.1.1), samba-common, python-smbpasswd, python-configobj
+Description: Mandriva Management Console SAMBA plugin
+ SAMBA management plugin for the MMC.
+
+Package: python-mmc-mail
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Description: Mandriva Management Console base plugin
+ Mail account management plugin for the MMC.
+
+Package: python-mmc-proxy
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), squidguard
+Description: Mandriva Management Console proxy plugin
+ Squidguard/Squid management plugin for the MMC.
+
+Package: python-mmc-network
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Description: Mandriva Management Console network plugin
+ DNS/DHCP management plugin for the MMC.
+ .
+ This plugin requires a LDAP-patched version of ISC DHCPD and BIND9.
+
+Package: python-mmc-sshlpk
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Description: Mandriva Management Console sshlpk plugin
+ OpenSSH LDAP Public Key management plugin for the MMC.
+ .
+ This plugin works with OpenSSH patched with the OpenSSH LDAP Public
+ Key patch. It provides an easy way of centralizing strong user
+ authentication by using an LDAP server for retrieving public keys
+ instead of ~/.ssh/authorized_keys.
+
+Package: python-mmc-bulkimport
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Description: Mandriva Management Console bulkimport plugin
+ Massive LDAP user import or update using CSV files.
+
+Package: python-mmc-userquota
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), quota
+Description: Mandriva Management Console userquota plugin
+ Disk and network quota management plugin for the MMC.
+
+Package: python-mmc-shorewall
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), shorewall
+Description: Mandriva Management Console shorewall plugin
+ Configure shorewall firewall within MMC interface.
+
+Package: python-mmc-squid
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), squid3, sarg
+Description: Mandriva Management Console squid plugin
+ Configure squid proxy server within MMC interface.
+
+Package: mmc-web-samba
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: samba module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the SAMBA module.
+
+Package: mmc-web-mail
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: mail module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the Mail module.
+
+Package: mmc-web-proxy
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: proxy module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the Squid/SquidGuard module.
+
+Package: mmc-web-network
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: network module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the DNS/DHCP management module.
+
+Package: mmc-web-sshlpk
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: sshlpk module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the OpenSSH LDAP Public Key module.
+
+Package: mmc-web-bulkimport
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: bulkimport module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the massive user import/update module.
+
+Package: mmc-web-userquota
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: userquota module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the user and network quota management module.
+
+Package: mmc-web-shorewall
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: shorewall module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the shorewall management module.
+
+Package: mmc-web-squid
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: squid module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the squid configuration module.

@@ -1,0 +1,67 @@
+mds (2.5.1-1) unstable; urgency=medium
+
+  * New upstream release:
+    - Bump minimum mmc-core dependency to 3.1.1.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 18 Feb 2014 09:49:06 +0100
+
+mds (2.5.0-1) unstable; urgency=low
+
+  * New upstream release:
+    - New shorewall module,
+    - New squid module,
+    - Bump minimum mmc-core dependency to 3.0.91,
+    - Documentation is now installed in /usr/share/doc/mmc.
+
+ -- Adam Cécile <acecile@mandriva.com>  Thu, 13 Jun 2013 09:49:39 +0200
+
+mds (2.4.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 09 Oct 2012 11:56:23 +0200
+
+mds (2.4.3-2) unstable; urgency=low
+
+  * Add missing python-configobj dependency on package python-mmc-samba.
+  * Rewrite debian/copyright using machine readable format.
+  * Fix a couple of lintian's warnings. 
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 24 Sep 2012 10:07:54 +0200
+
+mds (2.4.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bump mmc-core dependencies to >= 3.0.5.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 07 Sep 2012 12:15:32 +0200
+
+mds (2.4.2.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 02 Apr 2012 16:41:17 +0200
+
+mds (2.4.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Fri, 28 Oct 2011 10:07:28 +0200
+
+mds (2.4.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Mon, 26 Sep 2011 17:43:28 +0200
+
+mds (2.4.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Adam Cécile <acecile@mandriva.com>  Wed, 20 Jul 2011 10:43:10 +0200
+
+mds (2.4.0-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Adam Cécile <acecile@mandriva.com>  Tue, 27 Apr 2010 15:14:12 +0200

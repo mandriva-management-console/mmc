@@ -1,0 +1,4 @@
+usr/lib/python2.?/*-packages/mmc/plugins/samba
+etc/mmc/plugins/samba.ini
+usr/lib/mmc
+usr/share/doc/mmc/contrib/samba

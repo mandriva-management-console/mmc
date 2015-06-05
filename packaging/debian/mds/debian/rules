@@ -1,0 +1,61 @@
+#!/usr/bin/make -f
+
+PACKAGE=mds
+DESTDIR=$(CURDIR)/debian/tmp
+
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+config.status: configure
+	dh_testdir
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+	./configure --host=$(DEB_HOST_GNU_TYPE) \
+		--build=$(DEB_BUILD_GNU_TYPE) \
+		--prefix=/usr \
+		--sysconfdir=/etc
+
+build-arch:
+build-indep:
+build: build-stamp
+build-stamp: config.status
+	$(MAKE)
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	[ ! -f Makefile ] || $(MAKE) distclean
+	rm -f config.sub config.guess build-stamp config.status config.log
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	$(MAKE) install DESTDIR=$(DESTDIR)
+
+binary-arch: build install
+binary-indep: build install
+	dh_testdir -i
+	dh_testroot -i
+	dh_install --sourcedir=$(DESTDIR) --fail-missing
+	dh_pysupport -i
+	dh_fixperms -i -X/etc/mmc
+	dh_installchangelogs -i
+	dh_installdocs -i
+	dh_installinit -i
+	dh_link -i
+	dh_compress -i
+	dh_installdeb -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install
