@@ -1956,7 +1956,115 @@ class Glpi084(DyngroupDatabaseHelper):
             self.logger.error(e)
             return False
 
+    def getLastMachineSummaryPartWithoutFusion(self, session, uuid, part, min = 0, max = -1, filt = None, options = {}, count = False):
+        """
+        Quick and dirty solution for displaying Summary
+        of GLPI installs without Fusioninventory plugin installed
+        I'm not very proud...
+        This method is a copy-paste of getLastMachineSummaryPart, without
+        fusion tables :-(((
+        """
+        query = self.filterOnUUID(
+            session.query(Machine).add_entity(Infocoms) \
+            .add_column(self.location.c.name) \
+            .add_column(self.locations.c.name) \
+            .add_column(self.os.c.name) \
+            .add_column(self.manufacturers.c.name) \
+            .add_column(self.glpi_computertypes.c.name) \
+            .add_column(self.glpi_computermodels.c.name) \
+            .add_column(self.glpi_operatingsystemservicepacks.c.name) \
+            .add_column(self.glpi_domains.c.name) \
+            .add_column(self.state.c.name) \
+            .select_from(
+                self.machine.outerjoin(self.location) \
+                .outerjoin(self.locations) \
+                .outerjoin(self.os) \
+                .outerjoin(self.manufacturers) \
+                .outerjoin(self.infocoms) \
+                .outerjoin(self.glpi_computertypes) \
+                .outerjoin(self.glpi_computermodels) \
+                .outerjoin(self.glpi_operatingsystemservicepacks) \
+                .outerjoin(self.state) \
+                .outerjoin(self.glpi_domains)
+            ), uuid)
+
+        if count:
+            ret = query.count()
+        else:
+            ret = []
+            for machine, infocoms, entity, location, os, manufacturer, type, model, servicepack, domain, state in query:
+                endDate = ''
+                if infocoms is not None:
+                    endDate = self.getWarrantyEndDate(infocoms)
+
+                modelType = []
+                if model is not None:
+                    modelType.append(model)
+                if type is not None:
+                    modelType.append(type)
+
+                if len(modelType) == 0:
+                    modelType = ''
+                elif len(modelType) == 1:
+                    modelType = modelType[0]
+                elif len(modelType) == 2:
+                    modelType = " / ".join(modelType)
+
+                manufacturerWarranty = False
+                if machine.serial is not None and len(machine.serial) > 0:
+                    manufacturerWarranty = self.getManufacturerWarranty(manufacturer, machine.serial)
+
+                if manufacturerWarranty:
+                    if manufacturerWarranty['type'] == 'get':
+                        url = manufacturerWarranty['url'] + '?' + manufacturerWarranty['params']
+                        serialNumber = '%s / <a href="%s" target="_blank">@@WARRANTY_LINK_TEXT@@</a>' % (machine.serial, url)
+                    else:
+                        url = manufacturerWarranty['url']
+                        serialNumber = '%s / <form action="%s" method="post" target="_blank" id="warrantyCheck" style="display: inline">' % (machine.serial, url)
+                        for param in manufacturerWarranty['params'].split('&'):
+                            name, value = param.split('=')
+                            serialNumber += '<input type="hidden" name="%s" value="%s" />' % (name, value)
+                        serialNumber += '<a href="#" onclick="jQuery(\'#warrantyCheck\').submit(); return false;">@@WARRANTY_LINK_TEXT@@</a></form>'
+                else:
+                    serialNumber = machine.serial
+
+                entityValue = ''
+                if entity:
+                    entityValue += entity
+                if location:
+                    entityValue += ' (%s)' % location
+
+                owner_login, owner_firstname, owner_realname = self.getMachineOwner(machine)
+
+		# Last inventory date
+		date_mod = machine.date_mod
+
+                l = [
+                    ['Computer Name', ['computer_name', 'text', machine.name]],
+                    ['Description', ['description', 'text', machine.comment]],
+                    ['Entity (Location)', '%s' % entityValue],
+                    ['Domain', domain],
+                    ['Last Logged User', machine.contact],
+                    ['Owner', owner_login],
+                    ['Owner Firstname', owner_firstname],
+                    ['Owner Realname', owner_realname],
+                    ['OS', os],
+                    ['Service Pack', servicepack],
+                    ['Windows Key', machine.os_license_number],
+                    ['Model / Type', modelType],
+                    ['Manufacturer', manufacturer],
+                    ['Serial Number', serialNumber],
+                    ['Inventory Number', ['inventory_number', 'text', machine.otherserial]],
+                    ['State', state],
+                    ['Warranty End Date', endDate],
+                    ['Last Inventory Date', date_mod.strftime("%Y-%m-%d %H:%M:%S")],
+                ]
+                ret.append(l)
+        return ret
+
     def getLastMachineSummaryPart(self, session, uuid, part, min = 0, max = -1, filt = None, options = {}, count = False):
+	if self.fusionagents is None:
+            return self.getLastMachineSummaryPartWithoutFusion(session, uuid, part, min=min, max=max, filt=filt, options=options, count=count)
         query = self.filterOnUUID(
             session.query(Machine).add_entity(Infocoms) \
             .add_column(self.location.c.name) \

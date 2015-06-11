@@ -37,7 +37,7 @@ class GlpiComputers(ComputerI):
         self.config = GlpiConfig("glpi", conffile)
         self.glpi = Glpi()
 
-    def getComputer(self, ctx, filt = None):
+    def getComputer(self, ctx, filt = None, empty_macs=False):
         if filt == None or filt == '':
             filt = {}
         try:
@@ -50,7 +50,7 @@ class GlpiComputers(ComputerI):
             pass
 
         try:
-            return self.glpi.getComputer(ctx, filt)
+            return self.glpi.getComputer(ctx, filt, empty_macs)
         except Exception, e:
             if len(e.args) > 0 and e.args[0].startswith('NOPERM##'):
                 machine = e.args[0].replace('NOPERM##', '')
@@ -241,7 +241,7 @@ class GlpiComputers(ComputerI):
     def canDelComputer(self):
         return True
 
-    def delComputer(self, ctx, uuid, backend):
+    def delComputer(self, ctx, uuid, backup):
         """
         Remove a computer, given its uuid
         """
@@ -266,6 +266,9 @@ class GlpiComputers(ComputerI):
             'description': ['displayName', 'Description'],
             'type': ['type', 'Computer Type'],
             'user': ['user', 'Last Logged User'],
+            'owner': ['owner', 'Owner'],
+            'owner_firstname': ['owner_firstname', 'Owner Firstname'],
+            'owner_realname': ['owner_realname', 'Owner Realname'],
             'inventorynumber': ['inventorynumber', 'Inventory Number'],
             'state': ['state', 'State'],
             'entity': ['entity', 'Entity'],
@@ -279,3 +282,20 @@ class GlpiComputers(ComputerI):
     def isComputerNameAvailable(self, ctx, locationUUID, name):
         return self.glpi.isComputerNameAvailable(ctx, locationUUID, name)
 
+    def getComputerByHostnameAndMacs(self, ctx, hostname, macs):
+        """
+        Get machine who match given hostname and at least one of macs
+
+        @param ctx: context
+        @type ctx: dict
+
+        @param hostname: hostname of wanted machine
+        @type hostname: str
+
+        @param macs: list of macs
+        @type macs: list
+
+        @return: UUID of wanted machine or False
+        @rtype: str or None
+        """
+        return self.glpi.getMachineByHostnameAndMacs(ctx, hostname, macs)
