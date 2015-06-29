@@ -21,15 +21,15 @@
  * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$id = (isset($_GET['id'])) ? $_GET['id'] : $_GET['gid'];
+$id   = (isset($_GET['id'])) ? $_GET['id'] : $_GET['gid'];
+$type = (isset($_GET['type']) ? $_GET['type'] : '');
 $paramArray = array(
     // if no $_GET['id'], get the $_GET['gid'] value
     // to be checked with profiles activated...
     'id' => $id,
     'gid' => $_GET['gid'],
     'groupname' => $_GET['groupname'],
-    'type' => $_GET['type'],
-);
+    'type' => $type);
 
 $actions = array();
 
