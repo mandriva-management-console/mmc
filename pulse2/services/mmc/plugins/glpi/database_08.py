@@ -1580,7 +1580,7 @@ class Glpi08(DyngroupDatabaseHelper):
                     l = [
                         ['Supplier', supplierName],
                         ['Invoice Number', infocoms.bill],
-                        ['Date Of Purchase', infocoms.buy_date.strftime('%Y-%m-%d')],
+                        ['Date Of Purchase', dateOfPurchase],
                         ['Warranty End Date', endDate],
                     ]
                     ret.append(l)
