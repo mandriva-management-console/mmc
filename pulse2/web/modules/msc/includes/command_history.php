@@ -354,7 +354,7 @@ class CommandHistory {
         ### Display to be transfered files ###
         $files = array(_T('List of files to be transfered is empty.', 'msc'));
         if ($this->db_cmd["files"]!="" && $this->db_cmd["files"]!=array()) {
-            if (gettype($command["files"]) != 'array') {
+            if (gettype($this->db_cmd["files"]) != 'array') {
                 $files = explode("\n", $this->db_cmd["files"]);
             } else {
                 $files = $this->db_cmd["files"];
