@@ -287,153 +287,157 @@ Launch Pulse² Setup
 
 Follow instructions on screen to complete setup.
 If you use **GLPI**, say **yes** to **Enable GLPI plugin**.
-> INFO    Load values from config
-INPUT    - Enable inventory server (Y/n): y
-INPUT    - Enable GLPI plugin (y/N): y
-INPUT    - Enable package server (proxy) (Y/n): y
-INPUT    - Server external IP address (default: 127.0.0.2): 172.16.0.6
-INPUT    - BackupPC IP (default: 127.0.0.1): 
-INPUT    - BackupPC Entity (default: UUID1): 
-INFO    Run setup
-INPUT    - Database host (default: localhost): 
-INPUT    - Database admin user (default: root): 
-INPUT    - Database admin password (default: ): 
-INFO    Update database schema for module dyngroup
-INFO    'dyngroup' database updated from version 0 to 6
-INFO    Update database schema for module imaging
-INFO    'imaging' database updated from version 0 to 9
-INFO    Update database schema for module inventory
-INFO    'inventory' database updated from version 0 to 15
-INFO    Update database schema for module msc
-INFO    'msc' database updated from version 0 to 28
-INFO    Update database schema for module pulse2
-INFO    'pulse2' database updated from version 0 to 1
-INFO    Update database schema for module backuppc
-INFO    'backuppc' database updated from version 0 to 2
-INFO    Update database schema for module report
-INFO    'report' database updated from version 0 to 3
-INFO    Update database schema for module update
-INFO    'update' database updated from version 0 to 6
-INFO    Setup db credentials
-INFO    Creates user mmc@localhost
-INFO    Updating user password: 'mmc'@'localhost'
-INFO    Grant rights on db dyngroup
-INFO    Grant rights on db imaging
-INFO    Grant rights on db inventory
-INFO    Grant rights on db msc
-INFO    Grant rights on db pulse2
-INFO    Grant rights on db backuppc
-INFO    Grant rights on db report
-INFO    Grant rights on db update
-INFO    Creates user mmc@127.0.0.1
-INFO    Updating user password: 'mmc'@'127.0.0.1'
-INFO    Grant rights on db dyngroup
-INFO    Grant rights on db imaging
-INFO    Grant rights on db inventory
-INFO    Grant rights on db msc
-INFO    Grant rights on db pulse2
-INFO    Grant rights on db backuppc
-INFO    Grant rights on db report
-INFO    Grant rights on db update
-INPUT    - Glpi URL (default: http://127.0.0.1): http://pulse.localdomain/glpiINPUT    - GLPI database user: root
-INPUT    - GLPI database password (default: ): 
-INPUT    - GLPI database host (default: 127.0.0.1): 
-INPUT    - GLPI database name (default: glpi): 
-INPUT    - Purge machines from GLPI dustbin (default: False): 
-INPUT    - GLPI Webservices Username: pulse
-INPUT    - GLPI Webservices password: pulse
-INPUT    - LDAP uri (default: ldap://127.0.0.1:389): 
-INPUT    - LDAP base DN (default: dc=localdomain): 
-INPUT    - LDAP admin DN (default: cn=admin, dc=localdomain): 
-INPUT    - LDAP admin password (default: pulse): 
-INFO    Connection to LDAP succesfull.
-INFO    Check for MMC schema
-INPUT    - Default user group (default: Domain Users): 
-INFO    Creating directory: /var/lib/pulse2/packages
-INFO    Creating directory: /var/lib/pulse2/downloads
-INFO    Creating directory: /var/lib/pulse2/package-server-tmpdir
-INPUT    - Wake-on-lan tool path (default: /usr/sbin/pulse2-wol): 
-INFO    Enabling service: mmc-agent
-INFO    Enabling service: pulse2-inventory-server
-INFO    Enabling service: pulse2-launchers
-INFO    Enabling service: pulse2-package-server
-INFO    Enabling service: pulse2-scheduler
-INFO    Enabling service: pulse2-cm
-INFO    Check for root user RSA key pair
-INFO    Creating a RSA key pair for user root
-Generating public/private rsa key pair.
-Created directory '/root/.ssh'.
-Your identification has been saved in /root/.ssh/id_rsa.
-Your public key has been saved in /root/.ssh/id_rsa.pub.
-The key fingerprint is:
-2c:cb:63:b5:8f:54:3f:d3:47:00:ee:fb:8a:02:4a:7a root@pulse
-The key's randomart image is:
-+--[ RSA 2048]----+
-|            .    |
-|           . .   |
-|            . .  |
-|       .   .   . |
-|      . S . .   .|
-|    ...+ o . o . |
-|   o .=.o   = . .|
-|  . E. o.o . + . |
-|   .    ..o ...  |
-+-----------------+
-INFO    Generated uuid (603f1d19-c2a5-478e-9309-a6b5868b9020) for package server
-INFO    Reloading service: apache2
-[ ok ] Reloading web server config: apache2.
-INFO    Wrote configuration file: /etc/mmc/plugins/inventory.ini.local
-INFO    Wrote configuration file: /etc/mmc/pulse2/package-server/package-server.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/report.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/imaging.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/dyngroup.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/update.ini.local
-INFO    Wrote configuration file: /etc/mmc/pulse2/cm/cm.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/pulse2.ini.local
-INFO    Wrote configuration file: /etc/mmc/pulse2/uuid-resolver/uuid-resolver.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/backuppc.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/msc.ini.local
-INFO    Wrote configuration file: /etc/mmc/agent/config.ini.local
-INFO    Wrote configuration file: /etc/mmc/pulse2/inventory-server/inventory-server.ini.local
-INFO    Wrote configuration file: /etc/mmc/pulse2/launchers/launchers.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/base.ini.local
-INFO    Wrote configuration file: /etc/mmc/pulse2/scheduler/scheduler.ini.local
-INFO    Wrote configuration file: /etc/mmc/plugins/glpi.ini.local
-INFO    Stopping service: mmc-agent
-Stopping Mandriva Management Console : mmc-agent : done.
-INFO    Starting service: mmc-agent
-Starting Mandriva Management Console : mmc-agent : done.
-INFO    Stopping service: pulse2-inventory-server
-Stopping Pulse2 inventoryserver : no pid
-INFO    Starting service: pulse2-inventory-server
-Starting Pulse2 inventoryserver : done.
-INFO    Stopping service: pulse2-launchers
-Stopping Pulse2 launchers : done.
-INFO    Starting service: pulse2-launchers
-Starting Pulse2 launchers : done.
-INFO    Stopping service: pulse2-package-server
-Stopping Pulse2 Package Server : pulse2-package-server : done.
-INFO    Starting service: pulse2-package-server
-Starting Pulse2 Package Server : pulse2-package-server : done.
-INFO    Stopping service: pulse2-scheduler
-Stopping Pulse2 Scheduler : done.
-INFO    Starting service: pulse2-scheduler
-Starting Pulse2 Scheduler : done.
-INFO    Stopping service: pulse2-cm
-Stopping Pulse2 Connection Manager : done.
-INFO    Starting service: pulse2-cm
-Starting Pulse2 Connection Manager : done.
-INFO - Imaging server not registered
-INFO    Registering imaging server
-INFO - Registration succeeded
-INFO    BackupPC server http://127.0.0.1/backuppc/index.cgi associated to entity UUID1
-Group 'Domain Users' successfully created: {'objectClass': ['posixGroup', 'top'], 'gidNumber': ['10001'], 'cn': ['Domain Users']}
-INFO    Group Domain Users successfully created
-INFO    Wrote configuration file: /etc/mmc/agent/config.ini.local
-INFO    Stopping service: mmc-agent
-Stopping Mandriva Management Console : mmc-agent : done.
-INFO    Starting service: mmc-agent
-Starting Mandriva Management Console : mmc-agent : done.
+
+**Installation Log**
+
+    INFO Load values from config
+    INPUT - Enable inventory server (Y/n): y
+    INPUT - Enable GLPI plugin (y/N): y
+    INPUT - Enable package server (proxy) (Y/n): y
+    INPUT - Server external IP address (default: 127.0.0.2): 172.16.0.6
+    INPUT - BackupPC IP (default: 127.0.0.1):
+    INPUT - BackupPC Entity (default: UUID1):
+    INFO Run setup
+    INPUT - Database host (default: localhost):
+    INPUT - Database admin user (default: root):
+    INPUT - Database admin password (default: ):
+    INFO Update database schema for module dyngroup
+    INFO ‘dyngroup’ database updated from version 0 to 6
+    INFO Update database schema for module imaging
+    INFO ‘imaging’ database updated from version 0 to 9
+    INFO Update database schema for module inventory
+    INFO ‘inventory’ database updated from version 0 to 15
+    INFO Update database schema for module msc
+    INFO ‘msc’ database updated from version 0 to 28
+    INFO Update database schema for module pulse2
+    INFO ‘pulse2’ database updated from version 0 to 1
+    INFO Update database schema for module backuppc
+    INFO ‘backuppc’ database updated from version 0 to 2
+    INFO Update database schema for module report
+    INFO ‘report’ database updated from version 0 to 3
+    INFO Update database schema for module update
+    INFO ‘update’ database updated from version 0 to 6
+    INFO Setup db credentials
+    INFO Creates user mmc@localhost
+    INFO Updating user password: ‘mmc’@’localhost’
+    INFO Grant rights on db dyngroup
+    INFO Grant rights on db imaging
+    INFO Grant rights on db inventory
+    INFO Grant rights on db msc
+    INFO Grant rights on db pulse2
+    INFO Grant rights on db backuppc
+    INFO Grant rights on db report
+    INFO Grant rights on db update
+    INFO Creates user mmc@127.0.0.1
+    INFO Updating user password: ‘mmc’@’127.0.0.1’
+    INFO Grant rights on db dyngroup
+    INFO Grant rights on db imaging
+    INFO Grant rights on db inventory
+    INFO Grant rights on db msc
+    INFO Grant rights on db pulse2
+    INFO Grant rights on db backuppc
+    INFO Grant rights on db report
+    INFO Grant rights on db update
+    INPUT - Glpi URL (default: http://127.0.0.1): http://pulse.localdomain/glpi
+    INPUT - GLPI database user: root
+    INPUT - GLPI database password (default: ):
+    INPUT - GLPI database host (default: 127.0.0.1):
+    INPUT - GLPI database name (default: glpi):
+    INPUT - Purge machines from GLPI dustbin (default: False):
+    INPUT - GLPI Webservices Username: pulse
+    INPUT - GLPI Webservices password: pulse
+    INPUT - LDAP uri (default: ldap://127.0.0.1:389):
+    INPUT - LDAP base DN (default: dc=localdomain):
+    INPUT - LDAP admin DN (default: cn=admin, dc=localdomain):
+    INPUT - LDAP admin password (default: pulse):
+    INFO Connection to LDAP succesfull.
+    INFO Check for MMC schema
+    INPUT - Default user group (default: Domain Users):
+    INFO Creating directory: /var/lib/pulse2/packages
+    INFO Creating directory: /var/lib/pulse2/downloads
+    INFO Creating directory: /var/lib/pulse2/package-server-tmpdir
+    INPUT - Wake-on-lan tool path (default: /usr/sbin/pulse2-wol):
+    INFO Enabling service: mmc-agent
+    INFO Enabling service: pulse2-inventory-server
+    INFO Enabling service: pulse2-launchers
+    INFO Enabling service: pulse2-package-server
+    INFO Enabling service: pulse2-scheduler
+    INFO Enabling service: pulse2-cm
+    INFO Check for root user RSA key pair
+    INFO Creating a RSA key pair for user root
+    Generating public/private rsa key pair.
+    Created directory ‘/root/.ssh’.
+    Your identification has been saved in /root/.ssh/id_rsa.
+    Your public key has been saved in /root/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    2c:cb:63:b5:8f:54:3f:d3:47:00:ee:fb:8a:02:4a:7a root@pulse
+    The key’s randomart image is:
+    +–[ RSA 2048]—-+
+    | . |
+    | . . |
+    | . . |
+    | . . . |
+    | . S . . .|
+    | …+ o . o . |
+    | o .=.o = . .|
+    | . E. o.o . + . |
+    | . ..o … |
+    +—————–+
+    INFO Generated uuid (603f1d19-c2a5-478e-9309-a6b5868b9020) for package server
+    INFO Reloading service: apache2
+    [ ok ] Reloading web server config: apache2.
+    INFO Wrote configuration file: /etc/mmc/plugins/inventory.ini.local
+    INFO Wrote configuration file: /etc/mmc/pulse2/package-server/package-server.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/report.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/imaging.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/dyngroup.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/update.ini.local
+    INFO Wrote configuration file: /etc/mmc/pulse2/cm/cm.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/pulse2.ini.local
+    INFO Wrote configuration file: /etc/mmc/pulse2/uuid-resolver/uuid-resolver.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/backuppc.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/msc.ini.local
+    INFO Wrote configuration file: /etc/mmc/agent/config.ini.local
+    INFO Wrote configuration file: /etc/mmc/pulse2/inventory-server/inventory-server.ini.local
+    INFO Wrote configuration file: /etc/mmc/pulse2/launchers/launchers.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/base.ini.local
+    INFO Wrote configuration file: /etc/mmc/pulse2/scheduler/scheduler.ini.local
+    INFO Wrote configuration file: /etc/mmc/plugins/glpi.ini.local
+    INFO Stopping service: mmc-agent
+    Stopping Mandriva Management Console : mmc-agent : done.
+    INFO Starting service: mmc-agent
+    Starting Mandriva Management Console : mmc-agent : done.
+    INFO Stopping service: pulse2-inventory-server
+    Stopping Pulse2 inventoryserver : no pid
+    INFO Starting service: pulse2-inventory-server
+    Starting Pulse2 inventoryserver : done.
+    INFO Stopping service: pulse2-launchers
+    Stopping Pulse2 launchers : done.
+    INFO Starting service: pulse2-launchers
+    Starting Pulse2 launchers : done.
+    INFO Stopping service: pulse2-package-server
+    Stopping Pulse2 Package Server : pulse2-package-server : done.
+    INFO Starting service: pulse2-package-server
+    Starting Pulse2 Package Server : pulse2-package-server : done.
+    INFO Stopping service: pulse2-scheduler
+    Stopping Pulse2 Scheduler : done.
+    INFO Starting service: pulse2-scheduler
+    Starting Pulse2 Scheduler : done.
+    INFO Stopping service: pulse2-cm
+    Stopping Pulse2 Connection Manager : done.
+    INFO Starting service: pulse2-cm
+    Starting Pulse2 Connection Manager : done.
+    INFO - Imaging server not registered
+    INFO Registering imaging server
+    INFO - Registration succeeded
+    INFO BackupPC server http://127.0.0.1/backuppc/index.cgi associated to entity UUID1
+    Group ‘Domain Users’ successfully created: {‘objectClass’: [‘posixGroup’, ‘top’], ‘gidNumber’: [‘10001’], ‘cn’: [‘Domain Users’]}
+    INFO Group Domain Users successfully created
+    INFO Wrote configuration file: /etc/mmc/agent/config.ini.local
+    INFO Stopping service: mmc-agent
+    Stopping Mandriva Management Console : mmc-agent : done.
+    INFO Starting service: mmc-agent
+    Starting Mandriva Management Console : mmc-agent : done.
 
 When finished go to and you should have an up and running Pulse² Server ;)
 
