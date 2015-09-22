@@ -1,10 +1,10 @@
-**Pulse²** server install Debian GNU/Linux 7.0
+Pulse² server install Debian GNU/Linux 7.0
 ===================================
 
 **1 - Introduction**
 ----------------
 
-This document describes the steps to install a full featured version of **Pulse²** on a Debian based system.
+This document describes the steps to install a full featured version of Pulse 2 on a Debian based system.
 
 Before that you must have a fresh up-to-date [Debian Wheezy 7.0](https://www.debian.org/releases/wheezy/) installation on your server.
 
@@ -29,7 +29,7 @@ Filename, path, option or command :
 **3 - Sources**
 -----------
 
-A **Pulse²** source is available at github.
+A Pulse² source is available at github.
 
     https://github.com/mandriva-management-console/mmc
 
@@ -80,7 +80,7 @@ Choose :
  - Omit : `No`
  - Set your domain name, default : `localdomain` (good for LAN)
  - Set your organization name, default : `localdomain` (set your company name if you want)
- - LDAP password (write it down, it's mandatory for **Pulse²**) : `pulse`
+ - LDAP password (write it down, it's mandatory for Pulse²) : `pulse`
  - LDAP v2 use : `No`
  - Man : `No`
 
@@ -165,7 +165,7 @@ If you want to change configuration to restrict default backuppc admin panel, ed
 ####4.3.1 Installation
 **GLPI** is a free asset and IT management software package, it also offers functionalities like servicedesk ITIL or license tracking and software auditing.
 
-Installation is optional but recommended because **GLPI** is more powerful than the embedded **Pulse²** inventory server.
+Installation is optional but recommended because **GLPI** is more powerful than the embedded Pulse² inventory server.
 If you do not want to have an advanced inventory of your computers, you can skip this step.
 
 You can install **GLPI** by using debian package (0.83.31 in Wheezy) :
@@ -228,7 +228,7 @@ And last, restrict permissions to sensible directories
 
 #### 4.3.2 Fusion Inventory for GLPI
 
-This plugin is mandatory to use GLPI with **Pulse²**.
+This plugin is mandatory to use GLPI with Pulse².
 
 To install it follow [the documentation on the official website](http://fusioninventory.org/documentation/documentation/fi4g/installation.html) **or** use this tutorial (url could be obsolete)
 
@@ -247,7 +247,7 @@ Download plugin archive, extract, move to **GLPI** plugins folder and change rig
 
 #### 4.3.3 Web services for GLPI
 
-This plugin is mandatory to use wth **Pulse²**
+This plugin is mandatory to use wth Pulse²
 
 [Download](https://forge.glpi-project.org/projects/webservices/files) & extract the latest copy (url could be obsolete)
 
@@ -265,15 +265,15 @@ Test **Web Services** access
 
     # cp /var/www/glpi/plugins/webservices/scripts/testxmlrpc.php .   
 
-**GLPI** is now ready to work with **Pulse²**
+**GLPI** is now ready to work with Pulse²
 
-###**4.4 - **Pulse²** install**
+###**4.4 - Pulse² install**
 
 Install required packages
 
     # apt-get install docbook-xsl xsltproc
 
-Install **Pulse²**
+Install Pulse²
 
     # cd mmc/pulse2
     # ./autogen.sh
@@ -281,7 +281,7 @@ Install **Pulse²**
     # make
     # make install
 
-Launch **Pulse²** Setup
+Launch Pulse² Setup
 
     # pulse2-setup
 
@@ -505,7 +505,7 @@ Download the pre-generated package ([temporary url](https://github.com/psyray/mm
     # cd mmc\pulse2\services\pulse2\pulse_update_manager\win32
     # makensis installer.nsi
 
-Install generated file (**pulse2-secure-agent-windows-update-plugin-1.0.0.exe**) on Windows desktop and wait for client to appear in the **Pulse²** admin
+Install generated file (**pulse2-secure-agent-windows-update-plugin-1.0.0.exe**) on Windows desktop and wait for client to appear in the Pulse² admin
 
 #### 4.5.4 Give access from computers to agent/doc from browser
 Create `/etc/apache2/conf.d/pulse2.conf` file
@@ -541,7 +541,7 @@ Now your client could have access to agent download from http://pulse.localdomai
 ### 4.6 - Imaging server
 Last step is to configure the imaging server to permit, with PXE boot, to boot on network and perform imaging, computer registering...
 
-PXE boot will make possible to boot a computer, register to the **Pulse²** server and deploy agent silently to target.
+PXE boot will make possible to boot a computer, register to the Pulse² server and deploy agent silently to target.
 #### 4.6.1 Extract PXE skeleton
 Download PXE boot skeleton ([temporary URL](https://github.com/psyray/mmc/blob/docs/pulse2/services/contrib/imaging-server/pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true))
 
@@ -575,14 +575,14 @@ If error : `clnt_create: RPC: Program not registered`
     # service nfs-kernel-server restart
 
 #### 4.6.3 Configure DHCP
-If you are already using a DHCP server, you have to configure your server to send PXE boot request to **Pulse²** server.
+If you are already using a DHCP server, you have to configure your server to send PXE boot request to Pulse² server.
 
 For example, with IPFire/IPCop you could use this configuration in the fixed lease section of the DCHP settings.
 ![enter image description here](http://pix.toile-libre.org/upload/original/1442897131.png)
 
-Important thing is to set the **next-server** directive, with IP of the **Pulse²** server and the **filename** directive, relative to /var/lib/pulse2/imaging
+Important thing is to set the **next-server** directive, with IP of the Pulse² server and the **filename** directive, relative to /var/lib/pulse2/imaging
 
-If you want to use **Pulse²** server as the DHCP server, install the required DHCP package and set the configuration.
+If you want to use Pulse² server as the DHCP server, install the required DHCP package and set the configuration.
 For example with ISC-DHCP server (not tested):
 
     # apt-get install isc-dhcp-server
@@ -590,41 +590,40 @@ For example with ISC-DHCP server (not tested):
 Edit `/etc/default/isc-dhcp-server`
 And put (replace IP range with yours)
 
->    ###########################################
->    #                     This is a dhcpd sample file for Pulse²                          #
->    ###########################################
->    
->    ddns-update-style ad-hoc; # mandatory since 3.0b2pl11
->    
->    # When using a NAS, uses DHCP option 177
->    option pulse2-nfs code 177 = text;
->    
->    # PXE definitions
->    option space PXE;
->    option PXE.mtftp-ip code 1 = ip-address; 
->    option PXE.mtftp-cport code 2 = unsigned integer 16;
->    option PXE.mtftp-sport code 3 = unsigned integer 16;
->    option PXE.mtftp-tmout code 4 = unsigned integer 8; 
->    option PXE.mtftp-delay code 5 = unsigned integer 8; 
->    option PXE.discovery-control code 6 = unsigned integer 8;
->    option PXE.discovery-mcast-addr code 7 = ip-address;
->    
->    # PXE boot following the PXE specs 
->    class "PXE" { 
->            match if substring(option vendor-class-identifier, 0, 9) = "PXEClient"; 
->            vendor-option-space PXE; 
->            option PXE.mtftp-ip 0.0.0.0; 
->            }   
->            
->   # Etherboot boot 
->   class "Etherboot" { 
+    ###########################################
+    # This is a dhcpd sample file for Pulse 2 # 
+    ########################################### 
+    ddns-update-style ad-hoc; # mandatory since 3.0b2pl11 
+    
+    # When using a NAS, uses DHCP option 177 
+    option pulse2-nfs code 177 = text; 
+    
+    # PXE definitions 
+        option space PXE; 
+        option PXE.mtftp-ip code 1 = ip-address; 
+        option PXE.mtftp-cport code 2 = unsigned integer 16; 
+        option PXE.mtftp-sport code 3 = unsigned integer 16; 
+        option PXE.mtftp-tmout code 4 = unsigned integer 8; 
+        option PXE.mtftp-delay code 5 = unsigned integer 8; 
+        option PXE.discovery-control code 6 = unsigned integer 8; 
+        option PXE.discovery-mcast-addr code 7 = ip-address;
+        
+    # PXE boot following the PXE specs 
+    class "PXE" { 
+        match if substring(option vendor-class-identifier, 0, 9) = "PXEClient"; 
+         vendor-option-space PXE; 
+         option PXE.mtftp-ip 0.0.0.0; 
+            }   
+            
+    # Etherboot boot 
+    class "Etherboot" { 
         match if substring (option vendor-class-identifier, 0, 11) = "Etherboot-5"; 
         option vendor-encapsulated-options 3c:09:45:74:68:65:72:62:6f:6f:74:ff; 
         option vendor-class-identifier "Etherboot-5.0"; 
         vendor-option-space PXE; 
         option PXE.mtftp-ip 0.0.0.0; 
                   } 
-      subnet 192.168.30.0 netmask 255.255.255.0 { 
+    subnet 192.168.30.0 netmask 255.255.255.0 { 
           option broadcast-address 192.168.30.255;        # broadcast address 
           option domain-name "pulse2.test";               # domain name 
           option domain-name-servers 192.168.30.1;        # dns servers 
@@ -636,13 +635,15 @@ And put (replace IP range with yours)
                         range 192.168.30.170 192.168.30.180; 
                         filename "/bootloader/pxe_boot"; 
                         next-server 192.168.30.1; 
+        } 
      } 
-} 
+
+Restart DHCP service
 
     # service isc-dhcp-server restart
 
 #### 4.6.4 TFP Installation
-**Pulse²** use the atftpd server as it supports multicast.
+Pulse 2 use the atftpd server as it supports multicast.
 
     # apt-get install atftpd atftp
 Configuration should be set like this :
@@ -658,12 +659,12 @@ Check configuration
     rm pxe_boot
     
 
-When finished you should have an up and running **Pulse²** Server ;)
+When finished you should have an up and running Pulse² Server ;)
 
 ![enter image description here](http://pix.toile-libre.org/upload/original/1442888207.png)
 
-If you have any problem you could post your problem in the [**Pulse²** forum](http://forum.pulse2.fr)
+If you have any problem you could post your problem in the [Pulse² forum](http://forum.pulse2.fr)
 
 If you found any issue, thanks to report it to [GitHub Repository](https://github.com/mandriva-management-console/mmc/issues)
 
-Have fun with **Pulse²**
+Have fun with Pulse²
