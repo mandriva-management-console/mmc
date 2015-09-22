@@ -574,6 +574,9 @@ If error : `clnt_create: RPC: Program not registered`
     # service rpcbind restart
     # service nfs-kernel-server restart
 
+> <i class="icon-info"></i>  If you are running Pulse² in an OpenVZ container, you must activate the NFS support by typing this command in the host system 
+> `vzctl set $CTID --feature nfsd:on --save`
+
 #### 4.6.3 Configure DHCP
 If you are already using a DHCP server, you have to configure your server to send PXE boot request to Pulse² server.
 
@@ -623,6 +626,7 @@ And put (replace IP range with yours)
         vendor-option-space PXE; 
         option PXE.mtftp-ip 0.0.0.0; 
                   } 
+                  
     subnet 192.168.30.0 netmask 255.255.255.0 { 
           option broadcast-address 192.168.30.255;        # broadcast address 
           option domain-name "pulse2.test";               # domain name 
@@ -642,7 +646,7 @@ Restart DHCP service
 
     # service isc-dhcp-server restart
 
-#### 4.6.4 TFP Installation
+#### 4.6.4 TFTP Installation
 Pulse 2 use the atftpd server as it supports multicast.
 
     # apt-get install atftpd atftp
@@ -653,11 +657,27 @@ Configuration should be set like this :
 
 Check configuration
 
-    # atftp localhost
+    # atftp 127.0.0.1
     tftp> get /bootloader/pxe_boot
     tftp> quit
     rm pxe_boot
     
+#### 4.6.5 Activate default imaging server
+Now that DHCP, TFTP and NFS is up and running, **you must set a default imaging server** to permit network boot.
+
+Go to http://pulse.localdomain/mmc/main.php?module=imaging&submod=manage&action=index and click on the **Add** button at the right of the imaging server
+
+When imaging server is correctly set you should see this screen
+![enter image description here](http://pix.toile-libre.org/upload/original/1442934510.png)
+
+Now try to boot from a workstation with PXE boot actived in the BIOS and you should see this screen
+![enter image description here](http://pix.toile-libre.org/upload/original/1442935185.png)
+
+Select **Register Pulse client**, enter the **hostname** (follow instructions displayed) and you should normally see the client in the Pulse² MMC admin panel
+![enter image description here](http://pix.toile-libre.org/upload/original/1442941251.png)
+
+----------
+
 
 When finished you should have an up and running Pulse² Server ;)
 
