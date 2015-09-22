@@ -676,6 +676,24 @@ Now try to boot from a workstation with PXE boot actived in the BIOS and you sho
 Select **Register Pulse client**, enter the **hostname** (follow instructions displayed) and you should normally see the client in the Pulse² MMC admin panel
 ![enter image description here](http://pix.toile-libre.org/upload/original/1442941251.png)
 
+### 5 - Update MMC
+
+You can update the entire installation with the latest changes by running the following command in the git directory:
+
+    # git pull origin master
+
+To keep your configuration files intact you may change the configure line to:
+
+    # ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-conf
+
+And run the compilation again
+
+    # make clean
+    # make
+    # make install
+
+The option ``--disable-conf`` will disable configuration files installation.
+
 ----------
 
 
