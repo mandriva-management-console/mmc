@@ -1,10 +1,10 @@
-Pulse² server install Debian GNU/Linux 7.0
+**Pulse²** server install Debian GNU/Linux 7.0
 ===================================
 
 **1 - Introduction**
 ----------------
 
-This document describes the steps to install a full featured version of Pulse 2 on a Debian based system.
+This document describes the steps to install a full featured version of **Pulse²** on a Debian based system.
 
 Before that you must have a fresh up-to-date [Debian Wheezy 7.0](https://www.debian.org/releases/wheezy/) installation on your server.
 
@@ -29,7 +29,7 @@ Filename, path, option or command :
 **3 - Sources**
 -----------
 
-A Pulse² source is available at github.
+A **Pulse²** source is available at github.
 
     https://github.com/mandriva-management-console/mmc
 
@@ -80,7 +80,7 @@ Choose :
  - Omit : `No`
  - Set your domain name, default : `localdomain` (good for LAN)
  - Set your organization name, default : `localdomain` (set your company name if you want)
- - LDAP password (write it down, it's mandatory for Pulse²) : `pulse`
+ - LDAP password (write it down, it's mandatory for **Pulse²**) : `pulse`
  - LDAP v2 use : `No`
  - Man : `No`
 
@@ -157,15 +157,15 @@ Test the backuppc default admin panel (*required only for test, because later we
 http://pulse.localdomain/backuppc/
 
 If you want to change configuration to restrict default backuppc admin panel, edit `/etc/apache2/conf.d/backuppc.conf` and add before the `</Directory>`
-> 	Order Deny, Allow
-	Deny from all
-	Allow from 127.0.0.1
+>   Order Deny, Allow
+    Deny from all
+    Allow from 127.0.0.1
 
 ### **4.3 - GLPI**
 ####4.3.1 Installation
 **GLPI** is a free asset and IT management software package, it also offers functionalities like servicedesk ITIL or license tracking and software auditing.
 
-Installation is optional but recommended because **GLPI** is more powerful than the embedded Pulse² inventory server.
+Installation is optional but recommended because **GLPI** is more powerful than the embedded **Pulse²** inventory server.
 If you do not want to have an advanced inventory of your computers, you can skip this step.
 
 You can install **GLPI** by using debian package (0.83.31 in Wheezy) :
@@ -228,7 +228,7 @@ And last, restrict permissions to sensible directories
 
 #### 4.3.2 Fusion Inventory for GLPI
 
-This plugin is mandatory to use GLPI with Pulse².
+This plugin is mandatory to use GLPI with **Pulse²**.
 
 To install it follow [the documentation on the official website](http://fusioninventory.org/documentation/documentation/fi4g/installation.html) **or** use this tutorial (url could be obsolete)
 
@@ -247,7 +247,7 @@ Download plugin archive, extract, move to **GLPI** plugins folder and change rig
 
 #### 4.3.3 Web services for GLPI
 
-This plugin is mandatory to use wth Pulse²
+This plugin is mandatory to use wth **Pulse²**
 
 [Download](https://forge.glpi-project.org/projects/webservices/files) & extract the latest copy (url could be obsolete)
 
@@ -265,15 +265,15 @@ Test **Web Services** access
 
     # cp /var/www/glpi/plugins/webservices/scripts/testxmlrpc.php .   
 
-**GLPI** is now ready to work with Pulse²
+**GLPI** is now ready to work with **Pulse²**
 
-###**4.4 - Pulse² install**
+###**4.4 - **Pulse²** install**
 
 Install required packages
 
     # apt-get install docbook-xsl xsltproc
 
-Install Pulse²
+Install **Pulse²**
 
     # cd mmc/pulse2
     # ./autogen.sh
@@ -281,7 +281,7 @@ Install Pulse²
     # make
     # make install
 
-Launch Pulse² Setup
+Launch **Pulse²** Setup
 
     # pulse2-setup
 
@@ -439,7 +439,231 @@ If you use **GLPI**, say **yes** to **Enable GLPI plugin**.
     INFO Starting service: mmc-agent
     Starting Mandriva Management Console : mmc-agent : done.
 
-When finished go to and you should have an up and running Pulse² Server ;)
+
+### 4.5 - Agents for computers
+#### 4.5.1 Generate agents
+    # cd /var/lib/pulse2/clients/
+    # ./generate-agents    
+Install the generated agent on the computers to manage.
+
+ - For **Windows**: agents are in the **win32** folder
+  - pulse2-win32-agents-installer.exe
+  - pulse2-win32-agents-pack.exe
+  - pulse2-win32-agents-pack-noprompt.exe
+  - pulse2-win32-agents-pack-silent.exe
+ - For **Mac**: agents are in the **mac** folder
+  - Pulse2AgentsInstaller.tar
+ - For **Debian**/**Ubuntu**/**Mint**: agents are in the **deb** folder
+  - pulse2-agents-installer.deb
+  - pulse2-agents-installer-nordp.deb
+ - For **Suse**/**Mandriva**/**Fedora**: agents are in the **rpm** folder
+  - pulse2-agents-installer-0.1-7.noarch.rpm
+  - pulse2-agents-installer-nordp-0.1-7.noarch.rpm
+  - pulse2-agents-installer-suse-0.1-7.noarch.rpm
+  - pulse2-agents-installer-suse-nordp-0.1-7.noarch.rpm
+ 
+#### 4.5.2 Create debian repository (optional)
+
+For debian-based client, you can generate a repository on the pulse server, that you can add to the client */etc/apt/sources.list*.
+
+Use the entire absolute path command below or it will not work (eg: don't use ./create-repos.sh).
+
+    # /var/lib/pulse2/clients/create-repos.sh
+
+If you should create entropy use `ls -R /` command in another console.
+
+#### 4.5.3 Generate pulse-update-client (to manage Windows Update for Windows computers)
+**FROM A WINDOWS DESKTOP CLIENT**
+
+Install 
+
+ - **Python 2.7** : https://www.python.org/ftp/python/2.7.10/python-2.7.10.amd64.msi
+ - **cx_Freeze pour python 2.7** : https://pypi.python.org/packages/2.7/c/cx_Freeze/cx_Freeze-4.3.4.win-amd64-py2.7.exe#md5=5a11ce9c92572af5a4efa612a8fa9d5d
+ - **pywin32 pour python 2.7** : http://heanet.dl.sourceforge.net/project/pywin32/pywin32/Build%20219/pywin32-219.win-amd64-py2.7.exe
+    
+Download in a folder the last GIT version of MMC
+https://github.com/mandriva-management-console/mmc/archive/master.zip
+
+Copy ***mmc-master\pulse2\services\pulse2\pulse_update_manager*** folder in a temp folder to make pre-built for Windows
+
+Copy all the **src** folder in the **temp folder**, and also **build.bat** and **setup.py** which is in the **win32** folder.
+Temp folder should be like this
+![enter image description here](http://pix.toile-libre.org/upload/original/1442891705.png)
+
+Lauch **build.bat** from command line and check for errors, if the path to Python is not correct change it.
+
+Copy the **build/exe.win-amd64-2.7** folder to the Pulse Server in the GIT folder ***mmc\pulse2\services\pulse2\pulse_update_manager\win32\bin***
+
+**Or**
+
+Download the pre-generated package ([temporary url](https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true))
+
+    # wget https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true
+
+**FROM PULSE SERVER**
+
+    # cd mmc\pulse2\services\pulse2\pulse_update_manager\win32
+    # makensis installer.nsi
+
+Install generated file (**pulse2-secure-agent-windows-update-plugin-1.0.0.exe**) on Windows desktop and wait for client to appear in the **Pulse²** admin
+
+#### 4.5.4 Give access from computers to agent/doc from browser
+Create `/etc/apache2/conf.d/pulse2.conf` file
+
+Add this configuration
+> Alias /downloads /var/lib/pulse2/clients/
+Alias /doc /usr/share/doc/pulse2/
+
+>     <Directory /var/lib/pulse2/clients/>
+        Options +Indexes
+        AllowOverride None
+        # Apache < 2.4
+        Order allow,deny
+        allow from all
+        # Apache >= 2.4
+        #Require all granted
+      </Directory>
+
+>     <Directory /usr/share/doc/pulse2/>
+        Options +Indexes
+        AllowOverride None
+        # Apache < 2.4
+        Order allow,deny
+        allow from all
+        # Apache >= 2.4
+        #Require all granted
+      </Directory>
+
+    # service apache2 reload
+
+Now your client could have access to agent download from http://pulse.localdomain/downloads/ and the doc will be available from here http://pulse.localdomain/doc/
+
+### 4.6 - Imaging server
+Last step is to configure the imaging server to permit, with PXE boot, to boot on network and perform imaging, computer registering...
+
+PXE boot will make possible to boot a computer, register to the **Pulse²** server and deploy agent silently to target.
+#### 4.6.1 Extract PXE skeleton
+Download PXE boot skeleton ([temporary URL](https://github.com/psyray/mmc/blob/docs/pulse2/services/contrib/imaging-server/pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true))
+
+    # cd ~
+    # wget https://github.com/psyray/mmc/blob/docs/pulse2/services/contrib/imaging-server/pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true
+
+Extract to /
+
+    # tar xvzf pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true -C /
+
+#### 4.6.2 Configure NFS
+Edit `/etc/exports`
+
+Add
+
+> /var/lib/pulse2/imaging/computers *(async,rw,no_root_squash,subtree_check)
+/var/lib/pulse2/imaging/masters *(async,rw,no_root_squash,subtree_check)
+/var/lib/pulse2/imaging/postinst *(async,ro,no_root_squash,subtree_check)
+
+    # service nfs-kernel-server reload
+    # showmount -e
+    Export list for imaging:
+    /var/lib/pulse2/imaging/masters *
+    /var/lib/pulse2/imaging/postinst *
+    /var/lib/pulse2/imaging/computers *
+
+    
+If error : `clnt_create: RPC: Program not registered`
+
+    # service rpcbind restart
+    # service nfs-kernel-server restart
+
+#### 4.6.3 Configure DHCP
+If you are already using a DHCP server, you have to configure your server to send PXE boot request to **Pulse²** server.
+
+For example, with IPFire/IPCop you could use this configuration in the fixed lease section of the DCHP settings.
+![enter image description here](http://pix.toile-libre.org/upload/original/1442897131.png)
+
+Important thing is to set the **next-server** directive, with IP of the **Pulse²** server and the **filename** directive, relative to /var/lib/pulse2/imaging
+
+If you want to use **Pulse²** server as the DHCP server, install the required DHCP package and set the configuration.
+For example with ISC-DHCP server (not tested):
+
+    # apt-get install isc-dhcp-server
+
+Edit `/etc/default/isc-dhcp-server`
+And put (replace IP range with yours)
+
+>    ###########################################
+>    #                     This is a dhcpd sample file for Pulse²                          #
+>    ###########################################
+>    
+>    ddns-update-style ad-hoc; # mandatory since 3.0b2pl11
+>    
+>    # When using a NAS, uses DHCP option 177
+>    option pulse2-nfs code 177 = text;
+>    
+>    # PXE definitions
+>    option space PXE;
+>    option PXE.mtftp-ip code 1 = ip-address; 
+>    option PXE.mtftp-cport code 2 = unsigned integer 16;
+>    option PXE.mtftp-sport code 3 = unsigned integer 16;
+>    option PXE.mtftp-tmout code 4 = unsigned integer 8; 
+>    option PXE.mtftp-delay code 5 = unsigned integer 8; 
+>    option PXE.discovery-control code 6 = unsigned integer 8;
+>    option PXE.discovery-mcast-addr code 7 = ip-address;
+>    
+>    # PXE boot following the PXE specs 
+>    class "PXE" { 
+>            match if substring(option vendor-class-identifier, 0, 9) = "PXEClient"; 
+>            vendor-option-space PXE; 
+>            option PXE.mtftp-ip 0.0.0.0; 
+>            }   
+>            
+>   # Etherboot boot 
+>   class "Etherboot" { 
+        match if substring (option vendor-class-identifier, 0, 11) = "Etherboot-5"; 
+        option vendor-encapsulated-options 3c:09:45:74:68:65:72:62:6f:6f:74:ff; 
+        option vendor-class-identifier "Etherboot-5.0"; 
+        vendor-option-space PXE; 
+        option PXE.mtftp-ip 0.0.0.0; 
+                  } 
+      subnet 192.168.30.0 netmask 255.255.255.0 { 
+          option broadcast-address 192.168.30.255;        # broadcast address 
+          option domain-name "pulse2.test";               # domain name 
+          option domain-name-servers 192.168.30.1;        # dns servers 
+          option routers 192.168.30.1;                    # default gateway 
+    pool { # Only defined pool 
+                        # uncomment the two following lines for PXE-only boot 
+                        # allow members of "PXE"; # PXE-only 
+                        # allow members of "Etherboot"; # PXE-only 
+                        range 192.168.30.170 192.168.30.180; 
+                        filename "/bootloader/pxe_boot"; 
+                        next-server 192.168.30.1; 
+     } 
+} 
+
+    # service isc-dhcp-server restart
+
+#### 4.6.4 TFP Installation
+**Pulse²** use the atftpd server as it supports multicast.
+
+    # apt-get install atftpd atftp
+Configuration should be set like this :
+
+ - don't use inetd
+ - tftp root: **/var/lib/pulse2/imaging**
+
+Check configuration
+
+    # atftp localhost
+    tftp> get /bootloader/pxe_boot
+    tftp> quit
+    rm pxe_boot
+    
+
+When finished you should have an up and running **Pulse²** Server ;)
 
 ![enter image description here](http://pix.toile-libre.org/upload/original/1442888207.png)
 
+If you have any problem you could post your problem in the [**Pulse²** forum](http://forum.pulse2.fr)
+
+If you found any issue, thanks to report it to [GitHub Repository](https://github.com/mandriva-management-console/mmc/issues)
+
+Have fun with **Pulse²**
