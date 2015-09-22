@@ -125,7 +125,7 @@ Modify MMC base configuration according to LDAP configuration above
 Change `baseDN` (line 35) according to the LDAP domain name set above, here :
 > baseDN = dc=localdomain
 
-For example : if your domain name is mydomain.com you should set `dc=mandriva,dc=com`
+For example : if your domain name is mydomain.com you should set `dc=mydomain,dc=com`
 
  Change also the LDAP password (line 42) according to the one you set above, here :
  > password = pulse
