@@ -18,13 +18,17 @@ Command launched by the root user :
 
     # command
 
-File modification :
-
-    Text in file
-
 Filename, path, option or command :
 
     /etc/init.d/ssh
+
+File modification :
+
+>     Text to modify in given file
+
+Comment, important remark :
+
+> Comment or remark
 
 **3 - Sources**
 -----------
@@ -171,9 +175,10 @@ Test the backuppc default admin panel (*required only for test, because later we
 http://pulse.localdomain/backuppc/
 
 If you want to change configuration to restrict default backuppc admin panel, edit `/etc/apache2/conf.d/backuppc.conf` and add before the `</Directory>`
->   Order Deny, Allow
-    Deny from all
-    Allow from 127.0.0.1
+
+>       Order Deny, Allow
+      Deny from all
+      Allow from 127.0.0.1
 
 ### **4.3 - GLPI**
 ####4.3.1 Installation
@@ -535,27 +540,27 @@ Create `/etc/apache2/conf.d/pulse2.conf` file
 
 Add this configuration
 
-    Alias /downloads /var/lib/pulse2/clients/
-    Alias /doc /usr/share/doc/pulse2/>
-    <Directory /var/lib/pulse2/clients/>
-        Options +Indexes
-        AllowOverride None
-        # Apache < 2.4
-        Order allow,deny
-        allow from all
-        # Apache >= 2.4
-        #Require all granted
-    </Directory>
+>       Alias /downloads /var/lib/pulse2/clients/
+      Alias /doc /usr/share/doc/pulse2/>
+      <Directory /var/lib/pulse2/clients/>
+          Options +Indexes
+          AllowOverride None
+          # Apache < 2.4
+          Order allow,deny
+          allow from all
+          # Apache >= 2.4
+          #Require all granted
+      </Directory>
     
-    <Directory /usr/share/doc/pulse2/>
-        Options +Indexes
-        AllowOverride None
-        # Apache < 2.4
-        Order allow,deny
-        allow from all
-        # Apache >= 2.4
-        #Require all granted
-    </Directory>
+           <Directory /usr/share/doc/pulse2/>
+               Options +Indexes
+               AllowOverride None
+               # Apache < 2.4
+               Order allow,deny
+               allow from all
+               # Apache >= 2.4
+               #Require all granted
+           </Directory>
 
 Reload Apache configuration
 
@@ -600,7 +605,7 @@ Install the Clonezilla backend
 To use Clonezilla backend you should check if the package-server.ini has the correct directive
 Add this directive to the `/etc/mmc/pulse2/package-server/package-server.ini.local` file to override the default one
 
-    [imaging_api]
+>     [imaging_api]
     diskless_folder = 'davos'
     diskless_kernel = 'vmlinuz'
     diskless_initrd = 'initrd.img'
@@ -615,7 +620,7 @@ Edit `/etc/exports`
 
 Add
 
-    /var/lib/pulse2/imaging/computers *(async,rw,no_root_squash,subtree_check)
+>     /var/lib/pulse2/imaging/computers *(async,rw,no_root_squash,subtree_check)
     /var/lib/pulse2/imaging/masters *(async,rw,no_root_squash,subtree_check)
     /var/lib/pulse2/imaging/postinst *(async,ro,no_root_squash,subtree_check)
 
@@ -660,15 +665,15 @@ For example with ISC-DHCP server (not tested):
 Edit `/etc/default/isc-dhcp-server`
 And put (replace IP range with yours)
 
-    ###########################################
+>     ###########################################
     # This is a dhcpd sample file for Pulse 2 # 
     ########################################### 
     ddns-update-style ad-hoc; # mandatory since 3.0b2pl11 
     
-    # When using a NAS, uses DHCP option 177 
+>     # When using a NAS, uses DHCP option 177 
     option pulse2-nfs code 177 = text; 
     
-    # PXE definitions 
+>     # PXE definitions 
         option space PXE; 
         option PXE.mtftp-ip code 1 = ip-address; 
         option PXE.mtftp-cport code 2 = unsigned integer 16; 
@@ -678,14 +683,14 @@ And put (replace IP range with yours)
         option PXE.discovery-control code 6 = unsigned integer 8; 
         option PXE.discovery-mcast-addr code 7 = ip-address;
         
-    # PXE boot following the PXE specs 
+>     # PXE boot following the PXE specs 
     class "PXE" { 
         match if substring(option vendor-class-identifier, 0, 9) = "PXEClient"; 
          vendor-option-space PXE; 
          option PXE.mtftp-ip 0.0.0.0; 
             }   
             
-    # Etherboot boot 
+>     # Etherboot boot 
     class "Etherboot" { 
         match if substring (option vendor-class-identifier, 0, 11) = "Etherboot-5"; 
         option vendor-encapsulated-options 3c:09:45:74:68:65:72:62:6f:6f:74:ff; 
@@ -694,12 +699,12 @@ And put (replace IP range with yours)
         option PXE.mtftp-ip 0.0.0.0; 
                   } 
                   
-    subnet 192.168.30.0 netmask 255.255.255.0 { 
+>     subnet 192.168.30.0 netmask 255.255.255.0 { 
           option broadcast-address 192.168.30.255;        # broadcast address 
           option domain-name "pulse2.test";               # domain name 
           option domain-name-servers 192.168.30.1;        # dns servers 
           option routers 192.168.30.1;                    # default gateway 
-    pool { # Only defined pool 
+>     pool { # Only defined pool 
                         # uncomment the two following lines for PXE-only boot 
                         # allow members of "PXE"; # PXE-only 
                         # allow members of "Etherboot"; # PXE-only 
@@ -776,6 +781,7 @@ You must check logfile after MMC restart to find out if there are no problem.
 The `pulse2-setup` is designed to be launched **only the first time**, for the setup of Pulse².
 
 So be aware, that if you launch this command many times (and while the system is in production) you will have :
+
 - duplicate "Local imaging server",
 - config files override
 - and many others side effects.
