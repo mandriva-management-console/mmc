@@ -20,7 +20,7 @@ Command launched by the root user :
 
 File modification :
 
-> Text in file
+    Text in file
 
 Filename, path, option or command :
 
@@ -109,12 +109,26 @@ Restart slapd daemon
 
     # service slapd restart
 
-#### 4.1.6 Apache configuration
+#### 4.1.6 Apache & PHP configuration
 
 Enable mmc in your web server.
 There is a sample conf file for Apache2, so you can do:
 
     # ln -s /etc/mmc/apache/mmc.conf /etc/apache2/conf.d/
+    
+Modify your PHP configuration to permit larger package upload in Pulse²
+Edit `/etc/php5/apache2/php.ini` file
+And change this directive
+
+    # memory_limit (256M minimum)
+    # post_max_size
+    # upload_max_filesize
+
+Depending on what package you want to deploy (eg: Libre Office could take more than 200M), you could set the last 2 directives to `999M`.
+If you encounter memory limit error, raise the value of the `memory_limit` directive.
+
+Restart Apache
+
     # service apache2 restart
 
 #### 4.1.7 MMC configuration
@@ -219,7 +233,7 @@ Add glpi directory to apache defaut site, edit `/etc/apache2/sites-available/def
 
 Restart Apache 
 
-    service apache2 restart
+    # service apache2 restart
 
 And last, restrict permissions to sensible directories
 
@@ -263,7 +277,15 @@ This plugin is mandatory to use wth Pulse²
 
 Test **Web Services** access
 
-    # cp /var/www/glpi/plugins/webservices/scripts/testxmlrpc.php .   
+    # php /var/www/glpi/plugins/webservices/scripts/testxmlrpc.php   
+Cette commande doit répondre
+
+    + Calling 'glpi.test' on http://localhost//glpi/plugins/webservices/xmlrpc.php
+    + Response: Array
+      (
+          [glpi] => 0.85.5
+          [webservices] => 1.5.0
+       )
 
 **GLPI** is now ready to work with Pulse²
 
@@ -447,7 +469,6 @@ If you use **GLPI**, say **yes** to **Enable GLPI plugin**.
 Install the generated agent on the computers to manage.
 
  - For **Windows**: agents are in the **win32** folder
-  - pulse2-win32-agents-installer.exe
   - pulse2-win32-agents-pack.exe
   - pulse2-win32-agents-pack-noprompt.exe
   - pulse2-win32-agents-pack-silent.exe
@@ -496,14 +517,16 @@ Copy the **build/exe.win-amd64-2.7** folder to the Pulse Server in the GIT folde
 
 **Or**
 
-Download the pre-generated package ([temporary url](https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true))
+Download the pre-generated 64bits package ([temporary url](https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true))
 
     # wget https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true
+    # mv exe.win-amd64-2.7.tar.gz\?raw\=true exe.win-amd64-2.7.tar.gz
+    # tar xvzf exe.win-amd64-2.7.tar.gz
 
 **FROM PULSE SERVER**
 
-    # cd mmc\pulse2\services\pulse2\pulse_update_manager\win32
-    # makensis installer.nsi
+    # cd mmc/pulse2/services/pulse2/pulse_update_manager/win32
+    # makensis installer.nsicd ..
 
 Install generated file (**pulse2-secure-agent-windows-update-plugin-1.0.0.exe**) on Windows desktop and wait for client to appear in the Pulse² admin
 
@@ -511,10 +534,10 @@ Install generated file (**pulse2-secure-agent-windows-update-plugin-1.0.0.exe**)
 Create `/etc/apache2/conf.d/pulse2.conf` file
 
 Add this configuration
-> Alias /downloads /var/lib/pulse2/clients/
-Alias /doc /usr/share/doc/pulse2/
 
->     <Directory /var/lib/pulse2/clients/>
+    Alias /downloads /var/lib/pulse2/clients/
+    Alias /doc /usr/share/doc/pulse2/>
+    <Directory /var/lib/pulse2/clients/>
         Options +Indexes
         AllowOverride None
         # Apache < 2.4
@@ -522,9 +545,9 @@ Alias /doc /usr/share/doc/pulse2/
         allow from all
         # Apache >= 2.4
         #Require all granted
-      </Directory>
-
->     <Directory /usr/share/doc/pulse2/>
+    </Directory>
+    
+    <Directory /usr/share/doc/pulse2/>
         Options +Indexes
         AllowOverride None
         # Apache < 2.4
@@ -532,7 +555,9 @@ Alias /doc /usr/share/doc/pulse2/
         allow from all
         # Apache >= 2.4
         #Require all granted
-      </Directory>
+    </Directory>
+
+Reload Apache configuration
 
     # service apache2 reload
 
@@ -542,24 +567,59 @@ Now your client could have access to agent download from http://pulse.localdomai
 Last step is to configure the imaging server to permit, with PXE boot, to boot on network and perform imaging, computer registering...
 
 PXE boot will make possible to boot a computer, register to the Pulse² server and deploy agent silently to target.
-#### 4.6.1 Extract PXE skeleton
-Download PXE boot skeleton ([temporary URL](https://github.com/psyray/mmc/blob/docs/pulse2/services/contrib/imaging-server/pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true))
 
-    # cd ~
-    # wget https://github.com/psyray/mmc/blob/docs/pulse2/services/contrib/imaging-server/pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true
+#### 4.6.1 Installation
+Configure Pulse² repository
 
-Extract to /
+    # deb http://repo.pulse2.fr/pub/pulse2/server/debian wheezy 3.0
+    # apt-get update
 
-    # tar xvzf pulse2-imaging-client-binary-1.3.1_i386.tar.gz?raw=true -C /
+#### 4.6.2 Choose your imaging backend
+Pulse² comes with two different backend for the Imaging system :
+- Pulse² Imaging (support OS up to Windows 7 - no GPT support, only legacy partition)
+- Clonezilla (support all type of partition table)
+
+At this time we haven't fully tested the GPT support for the Pulse² Imaging backend.
+We recommend to install the **Pulse² Imaging backend** because it is more stable than the Clonezilla one.
+
+Install the Pulse² Imaging backend
+ 
+    # apt-get install pulse2-imaging-server
+    # apt-get install pulse2-imaging-client
+
+** Or **
+
+If you encounter problems with GPT partitions (not tested yet), give it a try to Clonezilla backend.
+
+Install the Clonezilla backend
+
+    # apt-get remove pulse2-imaging-server
+    # apt-get remove pulse2-imaging-client
+    # apt-get install pulse2-davos-client
+    
+To use Clonezilla backend you should check if the package-server.ini has the correct directive
+Add this directive to the `/etc/mmc/pulse2/package-server/package-server.ini.local` file to override the default one
+
+    [imaging_api]
+    diskless_folder = 'davos'
+    diskless_kernel = 'vmlinuz'
+    diskless_initrd = 'initrd.img'
+
+And restart the mmc
+	# service restart mmc-agent
+
+> Please don't install other Pulse Debian package of this repository, they are quite old compared to the github repo
 
 #### 4.6.2 Configure NFS
 Edit `/etc/exports`
 
 Add
 
-> /var/lib/pulse2/imaging/computers *(async,rw,no_root_squash,subtree_check)
-/var/lib/pulse2/imaging/masters *(async,rw,no_root_squash,subtree_check)
-/var/lib/pulse2/imaging/postinst *(async,ro,no_root_squash,subtree_check)
+    /var/lib/pulse2/imaging/computers *(async,rw,no_root_squash,subtree_check)
+    /var/lib/pulse2/imaging/masters *(async,rw,no_root_squash,subtree_check)
+    /var/lib/pulse2/imaging/postinst *(async,ro,no_root_squash,subtree_check)
+
+Reload NFS server and check mount points
 
     # service nfs-kernel-server reload
     # showmount -e
@@ -574,8 +634,15 @@ If error : `clnt_create: RPC: Program not registered`
     # service rpcbind restart
     # service nfs-kernel-server restart
 
-> <i class="icon-info"></i>  If you are running Pulse² in an OpenVZ container, you must activate the NFS support by typing this command in the host system 
+> <i class="icon-info"></i>  If you are running Pulse² in an OpenVZ container, you must shutdown the container and activate the NFS support by typing this command in the host system (specify CT number)
+> 
 > `vzctl set $CTID --feature nfsd:on --save`
+
+Notice about computer image
+
+> Computers images will going to the masters folder. If you delete a computer, all attached images of this computer will be deleted too.
+> Images of a computer cannot be share with other computers, unless you convert these images to master through Pulse web interface.
+> If you want to keep images of a deleted computer, convert them to masters. But masters images must be generic images who can be deployed on any computer. It is another part...
 
 #### 4.6.3 Configure DHCP
 If you are already using a DHCP server, you have to configure your server to send PXE boot request to Pulse² server.
@@ -655,9 +722,9 @@ Configuration should be set like this :
  - don't use inetd
  - tftp root: **/var/lib/pulse2/imaging**
 
-Check configuration
+Check configuration by tring to join Pulse² server from a workstation
 
-    # atftp 127.0.0.1
+    # atftp pulse.localdomain
     tftp> get /bootloader/pxe_boot
     tftp> quit
     rm pxe_boot
@@ -706,3 +773,4 @@ If you have any problem you could post your problem in the [Pulse² forum](http:
 If you found any issue, thanks to report it to [GitHub Repository](https://github.com/mandriva-management-console/mmc/issues)
 
 Have fun with Pulse²
+
