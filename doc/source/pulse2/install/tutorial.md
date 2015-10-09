@@ -18,7 +18,7 @@ Command launched by the root user :
 
     # command
 
-Filename, path, option or command :
+Filename, path, option or terminal output :
 
     /etc/init.d/ssh
 
@@ -552,15 +552,15 @@ Add this configuration
           #Require all granted
       </Directory>
     
-           <Directory /usr/share/doc/pulse2/>
-               Options +Indexes
-               AllowOverride None
-               # Apache < 2.4
-               Order allow,deny
-               allow from all
-               # Apache >= 2.4
-               #Require all granted
-           </Directory>
+>       <Directory /usr/share/doc/pulse2/>
+          Options +Indexes
+          AllowOverride None
+          # Apache < 2.4
+          Order allow,deny
+          allow from all
+          # Apache >= 2.4
+          #Require all granted
+      </Directory>
 
 Reload Apache configuration
 
