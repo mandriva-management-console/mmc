@@ -743,7 +743,9 @@ Now try to boot from a workstation with PXE boot actived in the BIOS and you sho
 Select **Register Pulse client**, enter the **hostname** (follow instructions displayed) and you should normally see the client in the Pulse² MMC admin panel
 ![enter image description here](http://pix.toile-libre.org/upload/original/1442941251.png)
 
-### 5 - Update MMC
+### 5 - Update MMC & Pulse²
+
+#### 5.1 Update MMC
 
 You can update the entire installation with the latest changes by running the following command in the git directory:
 
@@ -760,6 +762,85 @@ And run the compilation again
     # make install
 
 The option ``--disable-conf`` will disable configuration files installation.
+
+Restart mmc
+
+    # service mmc-agent restart
+
+You must check logfile after MMC restart to find out if there are no problem.
+
+> Tips: You could use `multitail` which can make a tail -f on multiple log file, eg: multitail /var/log/mmc/*.log
+
+#### 5.2 Update Pulse²
+
+The `pulse2-setup` is designed to be launched **only the first time**, for the setup of Pulse².
+
+So be aware, that if you launch this command many times (and while the system is in production) you will have :
+- duplicate "Local imaging server",
+- config files override
+- and many others side effects.
+
+**To update update Pulse² GIT files, you only need to follow the 5.1 section directives.**
+This command should only replace the core files (with fixed bugs)
+
+If you want to do a fresh re-install of pulse, with full database & config reset, use this command
+
+    # pulse2-setup --reset-db --reset-conf
+
+You could also check the `pulse2-setup` commands availability by launching
+
+    # pulse2-setup --help
+
+Here is the full list :
+
+    Usage: pulse2-setup [options]
+    
+    Options:
+      -h, --help            show this help message and exit
+      -d, --debug           Print debug messages
+      -b, --batch           Do not ask any question. Uses the default config
+                            files.
+      -R, --reset-conf      Reset configuration
+      --reset-db            Reset all databases (imaging, inventory, dyngroup...)
+      --mysql-host=DBHOST   MySQL server hostname
+      --mysql-user=DBADMINUSER
+                            MySQL administrator username
+      --mysql-passwd=DBADMINPASSWD
+                            MySQL administrator password
+      --ldap-uri=LDAPURL    LDAP uri
+      --ldap-basedn=LDAPBASEDN
+                            LDAP base DN
+      --ldap-admindn=LDAPADMINDN
+                            LDAP admin DN
+      --ldap-passwd=LDAPPASSWD
+                            LDAP administrator password
+      --disable-inventory   Disable inventory server
+      --disable-package     Disable package server
+      --glpi-enable         Enable GLPI plugin
+      --glpi-purge-machines
+                            Purge machines from dustbin in GLPI when they are
+                            deleted in Pulse
+      --glpi-webservices-user=GLPI_WEBSERVICES_USER
+                            GLPI Webservices user
+      --glpi-webservices-passwd=GLPI_WEBSERVICES_PASSWD
+                            GLPI Webservices password
+      --glpi-url=GLPIURL    GLPI url
+      --glpi-dbhost=GLPIDBHOST
+                            MySQL server hostname
+      --glpi-dbname=GLPIDBNAME
+                            MySQL server database name
+      --glpi-dbuser=GLPIDBUSER
+                            MySQL administrator username
+      --glpi-dbpasswd=GLPIDBPASSWD
+                            MySQL administrator password
+      --external-ip-address=IPEXTERNAL
+                            Set an external IP Address used in package-server.ini
+                            and launchers.ini
+      --backuppc-ip=BACKUPPC_IP
+                            BackupPC IP, you can specify port. Per example:
+                            127.0.0.1:81
+      --backuppc-entity=BACKUPPC_ENTITY
+                            Entity who will be linked to BackupPC (default: UUID1)
 
 ----------
 
