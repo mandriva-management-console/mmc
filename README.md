@@ -1,6 +1,8 @@
-## Mandriva Management Console ##
+## IT infrastructure manager ##
 
-This repository is the place where you will find **Mandriva Directory Server** and **Mandriva Pulse** projects.
-Both share the same framework: **Mandriva Management Console**, this is why you have to install the core part first.
+This repository is the place where you will find **Directory Server** and **Pulse** projects.
+Both share the same framework: **IT infrastructure manager**, this is why you have to install the core part first.
 
 Read INSTALL files of each project for installation instructions.
+
+Documentation : http://pulse-automation-tools.readthedocs.org/
