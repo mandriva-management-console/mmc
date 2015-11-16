@@ -1,8 +1,8 @@
-=========================
-IT infrastructure manager
-=========================
+=====================================
+IT infrastructure management software
+=====================================
 
-IT infrastructure manager is a framework used in Directory
+IT infrastructure management software is a framework used in Directory
 Server and Pulse projects that provides plugins for MMC.
 
 If you plan to install :doc:`MDS <mds/index>` plugins or Pulse 2 plugins you
