@@ -179,7 +179,7 @@ htmlhelp_basename = 'ITInfrastructureManagementSoftwaredoc'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'ITInfrastructureManagementSoftware.tex', u'IT Infrastructure Management Software Documentation',
-   u'Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse', Yvan Manon \\textless{}yvan.manon@siveo.net\\textgreater{},'manual'),
+   u'Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse, Yvan Manon \\textless{}yvan.manon@siveo.net\\textgreater{}','manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
