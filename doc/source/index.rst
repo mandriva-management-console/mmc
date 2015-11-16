@@ -1,9 +1,9 @@
-=========================================
-Mandriva Management Console documentation
-=========================================
+=========================
+IT infrastructure manager
+=========================
 
-Mandriva Management Console (MMC) is a framework used in Mandriva Directory
-Server and Pulse 2 projects that provides plugins for MMC.
+IT infrastructure manager is a framework used in Directory
+Server and Pulse projects that provides plugins for MMC.
 
 If you plan to install :doc:`MDS <mds/index>` plugins or Pulse 2 plugins you
 first need to install and configure MMC (see section :doc:`mmc/index`).
