@@ -1,0 +1,14 @@
+branches:
+  only:
+    - master
+  
+language: php
+
+install:
+
+notifications:
+  email:
+    recipients:
+      - nicolas.lecureuil@siveo.net
+    on_success: change
+    on_failure: always
