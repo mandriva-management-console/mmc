@@ -1,7 +1,9 @@
 branches:
   only:
     - master
-  
+
+language: php
+
 before_install:
     cd pulse
 
