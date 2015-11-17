@@ -9,6 +9,9 @@ before_install:
 
 install: sh -c ' cd core && sh autogen.sh && ./configure && make && sudo make install &&  cd ../pulse2 && sh autogen.sh && ./configure && make && sudo make install '
 
+script:
+    - echo "DONE"
+
 notifications:
   email:
     recipients:
