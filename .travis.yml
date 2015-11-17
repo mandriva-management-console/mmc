@@ -6,7 +6,7 @@ language: php
 
 before_install:
     - sudo apt-get update -qq
-    - sudo apt-get install -y python-sqlalchemy python-mysqldb
+    - sudo apt-get install -y python-sqlalchemy python-mysqldb python-twisted-web
 
 install: sh -c ' cd pulse2 && sh autogen.sh && ./configure && make'
 
