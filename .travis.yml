@@ -2,9 +2,10 @@ branches:
   only:
     - master
   
-language: php
+before_install:
+    cd pulse
 
-install:
+install: sh autogen.sh && ./configure && make
 
 notifications:
   email:
