@@ -4,10 +4,8 @@ branches:
 
 language: php
 
-before_install:
-    cd pulse
 
-install: sh autogen.sh && ./configure && make
+install: sh -c ' cd pulse && sh autogen.sh && ./configure && make'
 
 notifications:
   email:
