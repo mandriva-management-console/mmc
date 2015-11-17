@@ -6,7 +6,7 @@ language: php
 
 before_install:
     - sudo apt-get update -qq
-    - sudo apt-get install -y python-sqlalchemy python-mysqldb python-twisted-web python-ldap python-gobject
+    - sudo apt-get install -y python-sqlalchemy python-mysqldb python-twisted-web python-ldap python-gobject xsltproc
 
 install: sh -c ' cd core && sh autogen.sh && ./configure && make && sudo make install &&  cd ../pulse2 && sh autogen.sh && ./configure && make && sudo make install '
 
