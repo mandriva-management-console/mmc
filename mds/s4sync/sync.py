@@ -1,8 +1,8 @@
 # -*- coding: utf-8; -*-
 #
-# (c) 2014 Mandriva, http://www.mandriva.com/
+# (c) 2014-2015 Mandriva, http://www.mandriva.com/
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,20 +20,32 @@
 # Author(s):
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
-from credentials import Credentials
-from k5key_asn1 import encode_keys, decode_keys
-from mmc.plugins.base.config import BasePluginConfig
-from mmc.plugins.base import ldapUserGroupControl
-from mmc.plugins.samba4 import getSamba4GlobalInfo
-from mmc.plugins.samba4.samba4 import SambaAD
-from mmc.support.config import PluginConfigFactory
+
 import ldap
 from ldap.controls import RequestControl
 from datetime import datetime, timedelta
+from socket import getfqdn
 import pytz
 import time
 import os
 import logging
+
+import ldb
+from samba.samdb import SamDB
+from samba.param import LoadParm
+from samba.auth import system_session
+
+from mmc.plugins.base.config import BasePluginConfig
+from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
+from mmc.plugins.samba4 import getSamba4GlobalInfo
+from mmc.plugins.samba4.samba4 import SambaAD
+from mmc.support.config import PluginConfigFactory
+
+from credentials import Credentials
+from k5key_asn1 import encode_keys, decode_keys
+
+
+lp = LoadParm()
 
 
 class LdapUserMixin(object):
@@ -95,8 +107,10 @@ class LdapUserMixin(object):
         if not dn:
             raise UserNotFound(username, "sync user attributes")
         other_attrs = other_ldap.get_user_attributes(username)
+        # In some case the displayName is not set, so we only sync the common
+        # fields, hence the intersection
         modlist = [(ldap.MOD_REPLACE, field, other_attrs[field][0])
-                   for field in self.FIELDS_TO_SYNC]
+                   for field in set(self.FIELDS_TO_SYNC).intersection(set(other_attrs.keys()))]
         self.l.modify_s(dn, modlist)
 
     def create_user(self, username, other_ldap):
@@ -163,18 +177,31 @@ class LdapUserMixin(object):
     def add_group_members(self, group, members=None):
         self._mod_group_members(group, ldap.MOD_ADD, members)
 
+    def get_dns_entries(self):
+        raise NotImplementedError()
+
 
 class SambaLdap(LdapUserMixin):
     LDAP_URI = "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi"
 
     def __init__(self, base_dn):
+        def get_user_dns():
+            try:
+                domain = '.'.join(getfqdn().split('.')[1:])
+                user_dns = getfqdn(domain).split('.')[0]
+            except:
+                user_dns = ''
+            return user_dns
+
         self.base_dn = base_dn
         self.l = ldap.initialize(self.LDAP_URI, trace_level=0)
+        self.l.set_option(ldap.OPT_REFERRALS, 0)
         self.user_base_dn = "CN=Users,%s" % self.base_dn
         self.user_pk_field = "sAMAccountName"
         self.timestamp_field = "whenChanged"
         self.user_list_filter = '(&(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))))'
-        self.user_ignore_list = ['Guest', 'krbtgt']
+        user_dns = 'dns-%s' % get_user_dns()
+        self.user_ignore_list = ['Guest', 'Invité', 'krbtgt', user_dns]
         self.group_base_dn = self.base_dn
         self.group_list_filter = '(&(objectClass=group)(sAMAccountType=268435456)(groupType=-2147483646))'
         self.group_ignore_list = ['Users']
@@ -195,12 +222,23 @@ class SambaLdap(LdapUserMixin):
         return ".".join(self.base_dn.upper().split(',')).replace('DC=', '')
 
     def get_credentials(self, username):
-        dn, attrs = self._get_user(
-            username, [
-                'unicodePwd', 'supplementalCredentials'])
-        if not dn:
+        # Use ldb tools to get unicodePwd
+        # It is not available through ldapsearch when
+        # the primary DC is a Windows server
+        samdb = SamDB(url='/var/lib/samba/private/sam.ldb',
+                      session_info=system_session(),
+                      lp=lp)
+        attrs = ['unicodePwd', 'supplementalCredentials']
+        result = samdb.search(self.user_base_dn, scope=ldb.SCOPE_SUBTREE,
+                              expression="CN=" + username,
+                              attrs=attrs)
+        if not result:
             raise UserNotFound(username, "get credentials")
-        return (attrs['supplementalCredentials'][0], attrs['unicodePwd'][0])
+        if len(result) > 1:
+            raise Exception("Too many users found!")
+
+        user = result[0]
+        return (str(user.get('supplementalCredentials')), str(user.get('unicodePwd')))
 
     def update_credentials_for(
             self, username, supplemental_credentials, unicode_pwd, timestamp):
@@ -244,8 +282,11 @@ class SambaLdap(LdapUserMixin):
                                   self.group_scope,
                                   filterstr='(&(objectClass=group)(sAMAccountName=%s))' % group,
                                   attrlist=['member'])
-        # len is 2 cause Samba alwaus adds an entry with None
-        if len(entries) > 2:
+
+        # filter out None entries
+        entries = [(dn, attrs) for dn, attrs in entries if dn is not None]
+
+        if len(entries) > 1:
             raise Exception(
                 'Many groups with the name ' + group + ' something\'s going wrong')
         members_dn = entries[0][1].get('member', [])
@@ -257,8 +298,17 @@ class SambaLdap(LdapUserMixin):
                                          ldap.SCOPE_BASE,
                                          filterstr='(objectClass=user)',
                                          attrlist=['sAMAccountName'])
-            logger.debug(current_cn)
-            members_cn.append(current_cn[0][1]['sAMAccountName'][0])
+            sAMAccountName = current_cn[0][1]['sAMAccountName'][0]
+            try:
+                # check if the sAMAccountName is an ascii string
+                # so that it can be stored in the memberUid attribute
+                # on the OpenLDAP side. If not we ignore it.
+                sAMAccountName = unicode(sAMAccountName, 'ascii')
+                members_cn.append(sAMAccountName.encode('ascii'))
+            except UnicodeDecodeError:
+                logger.warning("The group relation between %s and %s can't be synchronized on OpenLDAP" % (
+                    group, sAMAccountName))
+
         logger.debug(
             'Members of group %s in Samba: %s', group, members_cn)
         return members_cn
@@ -283,6 +333,46 @@ class SambaLdap(LdapUserMixin):
                 # which is its primary group, we just ignore the exception
                 pass
 
+    def get_dns_entries(self):
+        entries = self.l.search_s(self.base_dn,
+                                  ldap.SCOPE_SUBTREE,
+                                  filterstr='(&(samAccountType=805306369)(primaryGroupID=516)(objectCategory=computer))',
+                                  attrlist=['dn',
+                                            'dNSHostName',
+                                            'distinguishedName',
+                                            'whenChanged',
+                                            'servicePrincipalName'])
+#         logger.debug('%s\n', entries)
+        recs = []
+        for e in entries:
+            rec = {'cname': None, 'ip': None}
+            if e[0] is None:
+                continue
+
+            for key in e[1].keys():
+                if key == 'servicePrincipalName':
+                    for name in e[1][key]:
+                        if name.startswith('ldap/') and name.endswith('_msdcs.mon.dom'):
+                            rec['cname'] = ('.').join(
+                                name.split('.')[0:2])[5:]
+                        if name.startswith('ip/'):
+                            rec['ip'] = name[3:]
+                if key == 'whenChanged':
+                    rec['whenChanged'] = e[1][key]
+                if key == 'dNSHostName':
+                    rec['dNSHostName'] = e[1][key][0]
+            recs.append((e[0], rec))
+#         for r in recs:
+#             logger.debug('%s', r)
+#         logger.debug('\n')
+        return recs
+
+    def add_ip_dns(self, dn, ip):
+        logger.debug('adding IP %s', dn, ip)
+        self.l.modify_s(dn, [(ldap.MOD_ADD,
+                              'servicePrincipalName',
+                              'ip/' + ip)])
+
 
 class OpenLdap(LdapUserMixin):
 
@@ -305,9 +395,17 @@ class OpenLdap(LdapUserMixin):
         self.group_scope = ldap.SCOPE_ONELEVEL
 
     def _create_user(self, username, password, name, surname):
+        # FIXME ms windows stores strings as UTF-8 while mmc base module waits for ascii
+        # them so we decode
+        #         username = username.decode('utf-8)')
+        #         name = name.decode('utf-8)').encode('ascii', errors='replace')
+        #         surname = surname.decode('utf-8)').encode('ascii', errors='replace')
+        logger.debug('calling ldapUserGroupControl().addUser(%s, %s, %s, %s)',
+                     username, password, name, surname)
         ldapUserGroupControl().addUser(username, password, name, surname)
 
     def _create_group(self, name, description=None):
+        logger.debug('calling ldapUserGroupControl().addGroup(%s)', name)
         ldapUserGroupControl().addGroup(name)
 
     def _format_timestamp(self, timestamp_str):
@@ -318,7 +416,8 @@ class OpenLdap(LdapUserMixin):
         dn, user = self._get_user(username)
         if not dn:
             return False
-        principal_name = '%s@%s' % (username, realm.upper())
+        principal_name = '%s@%s' % (
+            delete_diacritics(username).encode('utf-8'), realm.upper())
         modlist = [(ldap.MOD_ADD, 'objectclass', 'krb5KDCEntry'),
                    (ldap.MOD_ADD, 'krb5KeyVersionNumber', '0'),
                    (ldap.MOD_ADD, 'krb5PrincipalName', principal_name)]
@@ -340,8 +439,8 @@ class OpenLdap(LdapUserMixin):
                    (ldap.MOD_REPLACE, 'userPassword', '{K5KEY}')]
         self.l.modify_s(dn, modlist)
         # FIXME change ldap schema so pwdChangeTime can be modified?
-        #changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
-        #self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
+        # changed_time = timestamp.strftime("%Y%m%d%H%M%SZ")
+        # self.l.modify_s(dn, [(ldap.MOD_REPLACE, 'pwdChangedTime', changed_time)])
 
     def password_timestamp_for(self, username):
         dn, attrs = self._get_user(username, ['pwdChangedTime'])
@@ -378,6 +477,51 @@ class OpenLdap(LdapUserMixin):
         if modlist:
             logger.debug('OpenLdap self.l.modify_s(%s, %s)', groupdn, modlist)
             self.l.modify_s(groupdn, modlist)
+
+    def get_dns_entries(self):
+        def compute_hostname(dn):
+            part = dn.lower().split(',')
+            host = part[0].split('=')[1]
+            domain = part[1].split('=')[1]
+            if host == '@':
+                return None
+            else:
+                return '.'.join([host, domain])
+
+        attrlist = ['dn', 'aRecord', 'relativeDomainName',
+                    'cNAMERecord', 'modifyTimeStamp']
+        entries = self.l.search_s(self.base_dn,
+                                  ldap.SCOPE_SUBTREE,
+                                  filterstr='(objectClass=dNSZone)',
+                                  attrlist=attrlist)
+#         logger.debug('%s\n', entries)
+        recs = []
+        for e in entries:
+            rec = {}
+            if 'aRecord' in e[1].keys():
+                hostname = compute_hostname(e[0])
+                if hostname:
+                    rec['hostname'] = hostname
+                else:
+                    continue
+                rec['aRecord'] = e[1]['aRecord']
+                rec['relativeDomainName'] = e[1]['relativeDomainName']
+                rec['modifyTimestamp'] = e[1]['modifyTimestamp']
+                recs.append((e[0], rec))
+            if 'cNAMERecord'in e[1].keys():
+                hostname = compute_hostname(e[0])
+                if hostname:
+                    rec['hostname'] = hostname
+                else:
+                    continue
+                rec['cNAMERecord'] = e[1]['cNAMERecord']
+                rec['relativeDomainName'] = e[1]['relativeDomainName']
+                rec['modifyTimestamp'] = e[1]['modifyTimestamp']
+                recs.append((e[0], rec))
+#         for r in recs:
+#             logger.debug('%s', r)
+#         logger.debug('\n')
+        return recs
 
 
 class UserNotFound(Exception):
@@ -592,7 +736,7 @@ class S4Sync(object):
                 user_timestamp = samba_listed_users[user]
                 if user_timestamp > last_sync_timestamp:
                     # Create it on OpenLdap
-                    self.logger.debug("\tCreating user %s on samba" % user)
+                    self.logger.debug("\tCreating user %s on OpenLdap" % user)
                     self.openldap.create_user(user, self.samba_ldap)
                     # Enable krb5 overlay
                     if self.openldap.enable_krb5_for(
@@ -691,6 +835,7 @@ def sync_loop(logg, wait_time):
             s4sync.reset()
         except:
             logger.exception("Error syncing")
+            break
             s4sync.reset()
 
         time.sleep(wait_time)

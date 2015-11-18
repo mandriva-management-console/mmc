@@ -5,7 +5,7 @@
 #
 # $Id: build_pot.sh 6329 2010-03-30 07:51:21Z cdelfosse $
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

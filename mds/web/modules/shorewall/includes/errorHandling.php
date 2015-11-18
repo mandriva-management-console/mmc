@@ -2,7 +2,7 @@
 /**
  * (c) 2014 Mandriva, http://www.mandriva.com
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,34 @@ $errObj->add($errItem);
 $errItem = new ErrorHandlingItem(": Invalid port range");
 $errItem->setMsg(_T("Invalid port range", "shorewall"));
 $errItem->setAdvice(_T("Ports should be between 0 and 65535 and the left side port must be lower that the right side port.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid IP");
+$errItem->setMsg(_T("Invalid IP", "shorewall"));
+$errItem->setAdvice(_T("The IP address is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid IP range");
+$errItem->setMsg(_T("Invalid IP range", "shorewall"));
+$errItem->setAdvice(_T("The IP range is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid network");
+$errItem->setMsg(_T("Invalid network", "shorewall"));
+$errItem->setAdvice(_T("The network is not correct.", "shorewall"));
+$errItem->setLevel(1);
+$errItem->setTraceBackDisplay(False);
+$errObj->add($errItem);
+
+$errItem = new ErrorHandlingItem(": Invalid network masq");
+$errItem->setMsg(_T("Invalid network masq", "shorewall"));
+$errItem->setAdvice(_T("The network masq is not correct.", "shorewall"));
 $errItem->setLevel(1);
 $errItem->setTraceBackDisplay(False);
 $errObj->add($errItem);

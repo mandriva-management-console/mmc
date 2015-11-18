@@ -3,7 +3,7 @@
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
 # (c) 2007-2014 Mandriva, http://www.mandriva.com
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,11 +23,13 @@
 MDS mail plugin for the MMC agent.
 """
 
+import os
 import ldap.modlist
 from ldap.dn import str2dn
 import copy
 import logging
 from ConfigParser import NoOptionError, NoSectionError
+import shutil
 
 from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
@@ -39,7 +41,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.mail.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "6:2:4"
 REVISION = scmRevision("$Rev$")
 
@@ -229,6 +231,9 @@ def delVAliasUser(alias, uid):
 def delVAliasesUser(uid):
     return MailControl().delVAliasesUser(uid)
 
+def delUserMails(uid):
+    return MailControl().delUserMails(uid)
+
 def addVAliasExternalUser(alias, mail):
     return MailControl().addVAliasExternalUser(alias, mail)
 
@@ -290,6 +295,7 @@ class MailConfig(PluginConfig):
         self.vAliasesSupport = False
         self.userDefault = {}
         self.zarafa = False
+
 
 class MailControl(ldapUserGroupControl):
 
@@ -1032,3 +1038,15 @@ class MailControl(ldapUserGroupControl):
         if mlist:
             self.l.modify_s(cn, mlist)
         r.commit()
+
+    def delUserMails(self, uid):
+        """
+        Delete mail files of the user uid
+
+        @param uid: user uidi
+        @type uid: str
+        """
+        user = self.getDetailedUser(uid)
+        if 'mailbox' in user and user['mailbox']:
+            if os.path.exists(user['mailbox'][0]):
+                shutil.rmtree(user['mailbox'][0])

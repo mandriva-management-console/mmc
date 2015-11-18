@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,10 +33,10 @@ if (isset($_POST["bdeleteshare"])) {
     $deletionSuccess = deleteShare($share, $deleteFiles);
 
     if (!isXMLRPCError() and $deletionSuccess) {
-        $successMessage = sprintf(_T("Share %s deleted"), $share);
+        $successMessage = sprintf(_T("Share %s deleted", "samba4"), $share);
         new NotifyWidgetSuccess($successMessage);
     } else {
-        $failureMessage = sprintf(_T("An error has occured during delete process on %s"), $share);
+        $failureMessage = sprintf(_T("An error has occured during delete process on %s", "samba4"), $share);
         new NotifyWidgetFailure($failureMessage);
     }
 
@@ -45,12 +45,12 @@ if (isset($_POST["bdeleteshare"])) {
 } else {
     $share = urldecode($_GET["share"]);
 
-    $form = new PopupForm(_T("Delete a share"));
-    $form->addText(sprintf(_T("You will delete the share <b>%s</b>"), $share));
+    $form = new PopupForm(_T("Delete a share", "samba4"));
+    $form->addText(sprintf(_T("You will delete the share <b>%s</b>", "samba4"), $share));
 
     $form->push(new Table());
 
-    $tr = new TrFormElement(_T("Delete data"), new CheckboxTpl("deleteFiles"));
+    $tr = new TrFormElement(_T("Delete data", "samba4"), new CheckboxTpl("deleteFiles"));
     $form->add($tr, array("value" => ""));
 
     $form->pop();

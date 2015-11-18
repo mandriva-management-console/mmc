@@ -6,7 +6,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -155,8 +155,11 @@ function _mail_delUserFromGroup($user, $group) {
     syncMailGroupAliases($group, $user);
 }
 
-function _mail_delUser($uid) {
+function _mail_delUser($uid, $delfiles) {
     delVAliasesUser($uid);
+    if ($delfiles) {
+        delUserMails($uid);
+    }
 }
 
 function _mail_delGroup($group) {

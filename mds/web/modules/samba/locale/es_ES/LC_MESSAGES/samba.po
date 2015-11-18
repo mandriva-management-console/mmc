@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-01-27 16:25+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/"
 "team/es_ES/)\n"
@@ -67,8 +67,8 @@ msgstr "Activar perfil móvil para todos los usuarios"
 msgid "Active"
 msgstr "Activo"
 
-#: modules/samba/views/groups.tpl.php:138
 #: modules/samba/views/users.tpl.php:138
+#: modules/samba/views/groups.tpl.php:138
 msgid "Add"
 msgstr "Añadir"
 
@@ -80,9 +80,8 @@ msgstr "Añadir atributo de SAMBA"
 msgid "Add SAMBA properties"
 msgstr "Añadir propiedades de SAMBA"
 
-#: modules/samba/machines/add.php:42
+#: modules/samba/shares/localSidebar.php:37 modules/samba/machines/add.php:42
 #: modules/samba/machines/localSidebar.php:31
-#: modules/samba/shares/localSidebar.php:37
 msgid "Add a computer"
 msgstr "Añadir una máquina"
 
@@ -94,8 +93,9 @@ msgstr "Añadir un grupo nuevo"
 msgid "Add a new user"
 msgstr "Añadir nuevo usuario"
 
-#: modules/samba/infoPackage.inc.php:50 modules/samba/shares/details.php:153
+#: modules/samba/shares/details.php:153
 #: modules/samba/shares/localSidebar.php:31
+#: modules/samba/infoPackage.inc.php:50
 msgid "Add a share"
 msgstr "Añadir un recurso"
 
@@ -147,8 +147,8 @@ msgstr ""
 msgid "Backup share"
 msgstr "Realizar copia de seguridad de un recurso"
 
-#: modules/samba/config/index.php:172
 #: modules/samba/includes/publicFunc.php:368
+#: modules/samba/config/index.php:172
 msgid "Base directory path"
 msgstr "Ruta al directorio raíz"
 
@@ -176,8 +176,8 @@ msgstr "Cambiar grupo primario del usuario"
 msgid "Check your custom parameters."
 msgstr "Compruebe los parámetros personalizados"
 
-#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:209
+#: modules/samba/shares/details.php:209 modules/samba/machines/add.php:54
+#: modules/samba/machines/edit.php:68
 msgid "Comment"
 msgstr "Comentario"
 
@@ -203,7 +203,7 @@ msgstr "Lista de máquinas"
 msgid "Computer management"
 msgstr "Administración de equipos"
 
-#: modules/samba/machines/add.php:50 modules/samba/machines/ajaxFilter.php:38
+#: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
 msgid "Computer name"
 msgstr "Nombre de la máquina"
 
@@ -216,8 +216,8 @@ msgstr "Computador modificado correctamente"
 msgid "Computers"
 msgstr "Máquinas"
 
-#: modules/samba/machines/localSidebar.php:28
 #: modules/samba/shares/localSidebar.php:34
+#: modules/samba/machines/localSidebar.php:28
 msgid "Computers management"
 msgstr "Administración de máquinas"
 
@@ -225,12 +225,12 @@ msgstr "Administración de máquinas"
 msgid "Configuration"
 msgstr "Configuración"
 
-#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:473
+#: modules/samba/shares/details.php:473 modules/samba/machines/edit.php:82
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: modules/samba/config/index.php:173
 #: modules/samba/includes/publicFunc.php:369
+#: modules/samba/config/index.php:173
 msgid "Connect base directory on network drive"
 msgstr "Conectar al directorio raíz en una unidad de red"
 
@@ -266,9 +266,9 @@ msgstr "Eliminar una máquina"
 msgid "Del share"
 msgstr "Eliminar un recurso"
 
-#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:51
+#: modules/samba/shares/index.php:51 modules/samba/views/users.tpl.php:125
 #: modules/samba/views/groups.tpl.php:125
-#: modules/samba/views/users.tpl.php:125
+#: modules/samba/machines/ajaxFilter.php:45
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -284,7 +284,7 @@ msgstr "Eliminar un recurso"
 msgid "Delete all data"
 msgstr "Eliminar todos los datos"
 
-#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:64
+#: modules/samba/shares/index.php:64 modules/samba/machines/ajaxFilter.php:42
 msgid "Description"
 msgstr "Descripción"
 
@@ -304,7 +304,7 @@ msgstr "Desactivar cuenta de usuario Samba"
 msgid "Domain name"
 msgstr "Nombre de dominio"
 
-#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:50
+#: modules/samba/shares/index.php:50 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
 msgstr "Editar"
 
@@ -400,7 +400,7 @@ msgstr "Modificar recurso"
 msgid "Must change password"
 msgstr ""
 
-#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:204
+#: modules/samba/shares/details.php:204 modules/samba/machines/edit.php:63
 msgid "Name"
 msgstr "Nombre"
 
@@ -436,8 +436,8 @@ msgstr ""
 msgid "Opened sessions"
 msgstr "Sesiones abiertas"
 
-#: modules/samba/config/index.php:171
 #: modules/samba/includes/publicFunc.php:367
+#: modules/samba/config/index.php:171
 msgid "Opening script session"
 msgstr "Script de inicio de sesión"
 
@@ -476,7 +476,7 @@ msgstr "Recargar servicio de SAMBA"
 msgid "Remove a share"
 msgstr "Eliminar un recurso"
 
-#: modules/samba/config/index.php:186 modules/samba/includes/auditCodes.php:30
+#: modules/samba/includes/auditCodes.php:30 modules/samba/config/index.php:186
 msgid "Restart SAMBA"
 msgstr "Reiniciar SAMBA"
 
@@ -576,8 +576,8 @@ msgstr "Ruta del recurso (dejelo en blanco para la ruta por defecto en %s)"
 msgid "Share user's homes"
 msgstr "Compartir carpetas raíz de los usuarios"
 
-#: modules/samba/infoPackage.inc.php:40 modules/samba/shares/index.php:58
-#: modules/samba/shares/index.php:62
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
 msgid "Shares"
 msgstr "Recursos"
 
@@ -755,7 +755,7 @@ msgstr ""
 msgid "User password doesn't expire"
 msgstr ""
 
-#: modules/samba/status/index.php:64 modules/samba/views/users.tpl.php:26
+#: modules/samba/views/users.tpl.php:26 modules/samba/status/index.php:64
 msgid "Users"
 msgstr "Usuarios"
 
@@ -784,3 +784,9 @@ msgstr "Va a eliminar el recurso <b>%s</b>"
 #: modules/samba/infoPackage.inc.php:116
 msgid "restart SAMBA service"
 msgstr "Reiniciar el servicio SAMBA"
+
+#~ msgid "Permissions"
+#~ msgstr "Permisos"
+
+#~ msgid "Users for this share"
+#~ msgstr "Usuarios para este recurso"

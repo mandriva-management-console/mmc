@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,10 +48,10 @@ if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 
     if (isset($_POST["bshareedit"])) {
         $action = "edit";
-        $successMessage = sprintf(_T("Share %s successfully modified"), $shareName);
+        $successMessage = sprintf(_T("Share %s successfully modified", "samba4"), $shareName);
     } else if (isset($_POST["bshareadd"])) {
         $action = "add";
-        $successMessage = sprintf(_T("Share %s successfully added"), $shareName);
+        $successMessage = sprintf(_T("Share %s successfully added", "samba4"), $shareName);
     }
 
     $actionResult = False;
@@ -66,7 +66,7 @@ if (isset($_POST["bshareedit"]) or isset($_POST["bshareadd"]))
 /* This will show the form (empty if adding) with the share details
    After adding or editing the share (above) then just show the share again (below) */
 if ($_GET["action"] == "add") {
-    $title = _T("Add a share");
+    $title = _T("Add a share", "samba4");
     $activeItem = "add";
     $shareName = "";
     $sharePath= "";
@@ -77,7 +77,7 @@ if ($_GET["action"] == "add") {
     $shareUser = "";
 } else {
     $share = urldecode($_GET["share"]);
-    $title = _T("Properties of share $share");
+    $title = _T("Properties of share $share", "samba4");
     $activeItem = "index";
     $shareDetails = getShare($share);
     $shareName = $shareDetails[0];
@@ -106,21 +106,21 @@ if ($_GET["action"] == "add")  {
     $input = new HiddenTpl("shareName");
 }
 
-$table->add(new TrFormElement(_T("Name"), $input), array("value" => $shareName));
+$table->add(new TrFormElement(_T("Name", "samba4"), $input), array("value" => $shareName));
 // $table->add(new TrFormElement(_T("Path"), new InputTpl("sharePath")),array("value" => $sharePath));
-$table->add(new TrFormElement(_T("Description"), new InputTpl("shareDescription")),array("value" => $shareDescription));
+$table->add(new TrFormElement(_T("Description", "samba4"), new InputTpl("shareDescription")),array("value" => $shareDescription));
 $table->display();
 ?>
 
 <table cellspacing="0">
 <?php
 $param = array("value" => $shareGuest, "extraArg"=>'onclick="toggleVisibility(\'grouptable\');"');
-$test = new TrFormElement(_T("Guest access"), new CheckboxTpl("shareGuest"));
+$test = new TrFormElement(_T("Guest access", "samba4"), new CheckboxTpl("shareGuest"));
 $test->setCssError("shareGuest");
 $test->display($param);
 
 $param = array("value" => $shareEnabled);
-$test = new TrFormElement(_T("Share enabled"), new CheckboxTpl("shareEnabled"));
+$test = new TrFormElement(_T("Share enabled", "samba4"), new CheckboxTpl("shareEnabled"));
 $test->display($param);
 ?>
 </table>
@@ -155,18 +155,18 @@ renderTPL("groups");
     </td>
     <td>
     <?php
-    $share=new TrFormElement(_T("Path"), new InputTpl("sharePath"));
+    $share_details=new TrFormElement(_T("Path", "samba4"), new InputTpl("sharePath"));
     $params=array("value" => $sharePath);
-    $share->display($params);
+    $share_details->display($params);
     ?>
     </td>
    </tr>
-    
+
     <tr>
     <td>
     </td>
     <td>
-        <?php echo  _T("Users for this share"); ?>
+        <?php echo  _T("Users for this share", "samba4"); ?>
     </td>
    </tr>
 
@@ -182,10 +182,10 @@ renderTPL("users");
 </div>
 
 <?php if ($_GET["action"] == "add")  { ?>
-<input name="bshareadd" type="submit" class="btnPrimary" value="<?php echo  _T("Create"); ?>" />
+<input name="bshareadd" type="submit" class="btnPrimary" value="<?php echo  _T("Create", "samba4"); ?>" />
 <?php } else { ?>
 <input name="share" type="hidden" value="<?php echo $share; ?>" />
-<input name="bshareedit" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm"); ?>" />
+<input name="bshareedit" type="submit" class="btnPrimary" value="<?php echo  _T("Confirm", "samba4"); ?>" />
 <?php }
 
 ?>
@@ -224,9 +224,9 @@ function _getShareValue() {
 
 function _shareNameAndPathCheckings($name, $path) {
     if ($name and !(preg_match("/^[a-zA-Z][a-zA-Z0-9.]*$/", $name)))
-        new NotifyWidgetFailure(_T("Invalid share name"));
+        new NotifyWidgetFailure(_T("Invalid share name", "samba4"));
     else if (!isAuthorizedSharePath($path))
-        new NotifyWidgetFailure(_T("The share path is not authorized by configuration"));
+        new NotifyWidgetFailure(_T("The share path is not authorized by configuration", "samba4"));
     else
         return True;
 

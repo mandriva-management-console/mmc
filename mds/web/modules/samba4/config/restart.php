@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-xmlCall("samba.restartSamba");
-new NotifyWidgetSuccess(_T("The SAMBA service has been asked to restart."));
-redirectTo(urlStrRedirect("samba/config/index"));
+xmlCall("samba4.restartSamba");
+new NotifyWidgetSuccess(_T("The SAMBA service has been asked to restart.", "samba4"));
+redirectTo(urlStrRedirect("samba4/config/index"));
 
 ?>

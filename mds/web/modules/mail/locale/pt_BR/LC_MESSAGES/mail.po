@@ -11,16 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
-"Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/"
-"projects/p/mds/team/pt_BR/)\n"
+"POT-Creation-Date: 2015-02-11 15:08+0100\n"
+"PO-Revision-Date: 2014-12-10 22:07+0200\n"
+"Last-Translator: Andre <andre@mandriva.com>\n"
+"Language-Team: Portuguese (Brazil) <http://translate.mandriva.com/projects/"
+"mds-26/mail/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/mail/domains/edit.php:87
 msgid " The quota of all users of this mail domain have been reset."
@@ -35,7 +36,7 @@ msgstr "%s não é um aliás válido para email."
 msgid "Add Zarafa attributes"
 msgstr "Adiciona Zarafa atributos"
 
-#: modules/mail/infoPackage.inc.php:66 modules/mail/mainSidebar.php:35
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:66
 msgid "Add a domain"
 msgstr "Adicionar um domínio"
 
@@ -43,8 +44,8 @@ msgstr "Adicionar um domínio"
 msgid "Add a mail domain"
 msgstr "Adicionar um domínio de emails"
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:120
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:120
 msgid "Add a virtual alias"
 msgstr "Adiciona alias virtual"
 
@@ -110,7 +111,7 @@ msgstr "Alterar entrega de mail"
 
 #: modules/mail/includes/auditCodes.php:11
 msgid "Change mail hidden"
-msgstr ""
+msgstr "Alterar e-mail oculto"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
@@ -118,7 +119,7 @@ msgstr "Alterar endereço/host de e-mail"
 
 #: modules/mail/includes/auditCodes.php:10
 msgid "Change mail proxy"
-msgstr ""
+msgstr "Alterar proxy de email"
 
 #: modules/mail/includes/auditCodes.php:12
 msgid "Change mail quota"
@@ -158,7 +159,7 @@ msgstr "Remover domínio virtual"
 
 #: modules/mail/aliases/delete.php:45 modules/mail/domains/delete.php:46
 msgid "Delete"
-msgstr "Deletar"
+msgstr "Remover"
 
 #: modules/mail/infoPackage.inc.php:77
 msgid "Delete a mail domain"
@@ -320,7 +321,7 @@ msgstr "Domínio de email"
 msgid "Mail domain is empty. Group mail alias wasn't set."
 msgstr "Domínio de email está vazio. Email do grupo não pode ser definido."
 
-#: modules/mail/infoPackage.inc.php:63 modules/mail/mainSidebar.php:30
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:63
 msgid "Mail domains"
 msgstr "Lista de Domínio"
 
@@ -341,7 +342,7 @@ msgstr "Acesso a aliás de mensagens para grupos"
 #: modules/mail/includes/publicFunc.php:92
 #: modules/mail/includes/publicFunc.php:302
 msgid "Mail hidden"
-msgstr ""
+msgstr "Email oculto"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
@@ -358,7 +359,7 @@ msgstr "Propriedades do email"
 
 #: modules/mail/includes/publicFunc.php:289
 msgid "Mail proxy"
-msgstr ""
+msgstr "Proxy de Email"
 
 #: modules/mail/includes/publicFunc.php:235
 msgid "Mail quota (in kB)"
@@ -407,7 +408,7 @@ msgstr "Caixa compartilhado"
 
 #: modules/mail/aliases/edit.php:62
 msgid "The alias name is required."
-msgstr "O nome do alias é obrigatório"
+msgstr "O nome do alias é obrigatório."
 
 #: modules/mail/domains/edit.php:69
 msgid "The mail domain has been added."
@@ -443,7 +444,7 @@ msgstr "Usuário"
 
 #: modules/mail/aliases/edit.php:163
 msgid "Users"
-msgstr "Usuarios"
+msgstr "Usuários"
 
 #: modules/mail/domains/ajaxDomainFilter.php:29
 msgid "View domain members"
@@ -476,13 +477,13 @@ msgstr "Alias dos usuarios externos atualizados."
 
 #: modules/mail/aliases/edit.php:70
 msgid "Virtual alias name updated."
-msgstr "Nome do alias virtual atualizado"
+msgstr "Nome do alias virtual atualizado."
 
 #: modules/mail/aliases/edit.php:86
 msgid "Virtual alias users updated."
-msgstr "Alias dos usuarios atualizado"
+msgstr "Alias dos usuários atualizados."
 
-#: modules/mail/infoPackage.inc.php:117 modules/mail/mainSidebar.php:41
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:117
 msgid "Virtual aliases"
 msgstr "Aliases Virtuais"
 
@@ -506,7 +507,7 @@ msgstr ""
 
 #: modules/mail/aliases/delete.php:41
 msgid "You will delete the virtual mail alias "
-msgstr "Você irá apagar o alias virtual"
+msgstr "Você irá apagar o alias virtual "
 
 #: modules/mail/domains/delete.php:42
 msgid "You will delete the virtual mail domain "
@@ -526,7 +527,7 @@ msgstr "Zarafa propriedades"
 
 #: modules/mail/includes/publicFunc.php:349
 msgid "Zarafa send as user list"
-msgstr " Lista de usuários que poderá enviar \"em nome de\""
+msgstr "Zarafa envia como lista de usuários"
 
 #: modules/mail/includes/auditCodes.php:33
 msgid "mail"

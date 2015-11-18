@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ function _samba4_changeUser($FH, $mode) {
     }
 }
 
-function _samba4_delUser($username) {
+function _samba4_delUser($username, $delfiles) {
     if (userHasSambaAccount($username)) {
         deleteSambaUser($username);
     }
@@ -113,7 +113,7 @@ function _samba4_changeUserPasswd($paramsArray) {
  * Anything "->display()" will be shown at the begining of the page (warnings?...)
  */
 function _samba4_baseEdit($FH, $mode) {
-    $form = new DivForModule(_T("Samba4 properties","samba4"), "#F3E2F2");
+    $form = new DivForModule(_T("Samba4 properties", "samba4"), "#F3E2F2");
 
     if (! isSamba4Provisioned())
         $form->setVisibility(False);
@@ -124,7 +124,7 @@ function _samba4_baseEdit($FH, $mode) {
 
     $form->push(new Table());
 
-    $tr = new TrFormElement(_T("Samba access","samba"), new CheckboxTpl("isSamba4"));
+    $tr = new TrFormElement(_T("Samba access", "samba4"), new CheckboxTpl("isSamba4"));
     $form->add($tr, array("value" => userHasSambaEnabled($username) ? "checked" : ""));
 
     $form->pop();
@@ -172,7 +172,7 @@ function _disablingSamba4ToAExistingUser($FH, $mode) {
 /* Checking functions */
 function _checkSambaProvisionError() {
     if (! isSamba4Provisioned()) {
-        return  _T("You have to provision samba4 module before enabling it to the user","samba4")."<br />\n";
+        return  _T("You have to provision samba4 module before enabling it to the user", "samba4")."<br />\n";
     }
 
     return "";

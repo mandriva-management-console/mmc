@@ -5,7 +5,7 @@
  *
  * $Id: services.php 29 2007-04-19 12:49:54Z cedric $
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

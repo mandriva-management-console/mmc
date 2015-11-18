@@ -5,7 +5,7 @@
 #
 # $Id$
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.proxy.audit import AT, AA, PLUGIN_NAME
 
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "1:1:0"
 REVISION = scmRevision("$Rev$")
 

@@ -5,7 +5,7 @@
  *
  * $Id: edit.php 61 2007-05-29 15:55:22Z cedric $
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
 "PO-Revision-Date: 2011-07-29 17:52+0000\n"
 "Last-Translator: Francisco Garcia <fgarpe@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://transifex.mandriva.com/projects/p/mds/"
@@ -64,7 +64,7 @@ msgstr "Crear"
 msgid "Del blacklist"
 msgstr "Eliminar lista negra"
 
-#: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
+#: modules/proxy/blacklist/index.php:44 modules/proxy/blacklist/delete.php:57
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -90,8 +90,8 @@ msgstr "Nombre"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: modules/proxy/blacklist/localSidebar.php:27
 #: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
+#: modules/proxy/blacklist/localSidebar.php:27
 msgid "Proxy status"
 msgstr "Estado del proxy"
 

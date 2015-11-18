@@ -3,7 +3,7 @@
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
 # (c) 2007-2012 Mandriva, http://www.mandriva.com
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ from mmc.plugins.samba.smb_ldap import SambaLDAP
 
 logger = logging.getLogger()
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "5:3:4"
 REVISION = scmRevision("$Rev$")
 
@@ -217,10 +217,10 @@ def getDefaultSharesPath():
     """
     return SambaConfig("samba").defaultSharesPath
 
-def getDetailedShares():
+def getDetailedShares(filter="", start=0, end=None):
     """Get a complete array of information about all shares"""
     smbObj = SambaConf(SambaConfig("samba").samba_conf_file)
-    resList=smbObj.getDetailedShares()
+    resList = smbObj.getDetailedShares(filter, start, end)
     return resList
 
 def getACLOnShare(name):

@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * module declaration
  */
 $mod = new Module("samba");
-$mod->setVersion("2.5.89");
+$mod->setVersion("2.5.95");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("SAMBA management"),"samba");
 $mod->setAPIVersion("5:3:4");
@@ -45,6 +45,10 @@ $submod->setPriority(20);
 $page = new Page("index",_T("List shares","samba"));
 $page->setImg("modules/samba/graph/img/shares/icn_global_active.gif",
               "modules/samba/graph/img/shares/icn_global.gif");
+$submod->addPage($page);
+
+$page = new Page("ajaxFilter", "Shares list");
+$page->setOptions(array("AJAX" => True, "visible" => False));
 $submod->addPage($page);
 
 $page = new Page("add",_T("Add a share","samba"));

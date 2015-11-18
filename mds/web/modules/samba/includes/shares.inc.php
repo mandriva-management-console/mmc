@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,10 +61,8 @@ function getAdminUsersOnShare($name) {
     return xmlCall('samba.getAdminUsersOnShare', array($name));
 }
 
-
-function get_shares_detailed() {
-    $shares = xmlCall("samba.getDetailedShares", null);
-    return $shares;
+function get_shares_detailed($filter="", $start=0, $end=null) {
+    return xmlCall("samba.getDetailedShares", array($filter, $start, $end));
 }
 
 /* Get share path */

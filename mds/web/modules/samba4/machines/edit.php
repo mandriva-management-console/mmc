@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ if(isset($_POST["bmachineedit"])) {
     $editSuccess = editMachine($name, array($name, $description, $enabled));
 
     if (!isXMLRPCError() and $editSuccess) {
-        new NotifyWidgetSuccess(_T("Computer successfully modified."));
+        new NotifyWidgetSuccess(_T("Computer successfully modified.", "samba4"));
         header("Location: " . urlStrRedirect("samba4/machines/index"));
         exit;
     }

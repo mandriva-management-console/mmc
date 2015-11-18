@@ -3,7 +3,7 @@
 # (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
 # (c) 2007-2014 Mandriva, http://www.mandriva.com
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.support.config import PluginConfig
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 

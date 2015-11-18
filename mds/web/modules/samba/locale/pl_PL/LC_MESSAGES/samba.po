@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-01-27 16:25+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl_PL\n"
@@ -72,8 +72,8 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: modules/samba/views/groups.tpl.php:138
 #: modules/samba/views/users.tpl.php:138
+#: modules/samba/views/groups.tpl.php:138
 msgid "Add"
 msgstr "Dodaj"
 
@@ -85,9 +85,8 @@ msgstr ""
 msgid "Add SAMBA properties"
 msgstr ""
 
-#: modules/samba/machines/add.php:42
+#: modules/samba/shares/localSidebar.php:37 modules/samba/machines/add.php:42
 #: modules/samba/machines/localSidebar.php:31
-#: modules/samba/shares/localSidebar.php:37
 msgid "Add a computer"
 msgstr "Dodaj komputer"
 
@@ -99,8 +98,9 @@ msgstr "Dodaj nową grupę"
 msgid "Add a new user"
 msgstr ""
 
-#: modules/samba/infoPackage.inc.php:50 modules/samba/shares/details.php:153
+#: modules/samba/shares/details.php:153
 #: modules/samba/shares/localSidebar.php:31
+#: modules/samba/infoPackage.inc.php:50
 msgid "Add a share"
 msgstr "Dodaj udział"
 
@@ -150,8 +150,8 @@ msgstr "Rozpoczęto tworzenie kopii udziału <b>%s</b> w tle."
 msgid "Backup share"
 msgstr ""
 
-#: modules/samba/config/index.php:172
 #: modules/samba/includes/publicFunc.php:368
+#: modules/samba/config/index.php:172
 msgid "Base directory path"
 msgstr "Ścieżka do katalogu bazowego"
 
@@ -179,8 +179,8 @@ msgstr ""
 msgid "Check your custom parameters."
 msgstr ""
 
-#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:209
+#: modules/samba/shares/details.php:209 modules/samba/machines/add.php:54
+#: modules/samba/machines/edit.php:68
 msgid "Comment"
 msgstr "Komentarz"
 
@@ -206,7 +206,7 @@ msgstr "Lista komputerów"
 msgid "Computer management"
 msgstr ""
 
-#: modules/samba/machines/add.php:50 modules/samba/machines/ajaxFilter.php:38
+#: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
 msgid "Computer name"
 msgstr "Nazwa komputera"
 
@@ -219,8 +219,8 @@ msgstr ""
 msgid "Computers"
 msgstr "Komputery"
 
-#: modules/samba/machines/localSidebar.php:28
 #: modules/samba/shares/localSidebar.php:34
+#: modules/samba/machines/localSidebar.php:28
 msgid "Computers management"
 msgstr "Zarządzanie komputerami"
 
@@ -228,12 +228,12 @@ msgstr "Zarządzanie komputerami"
 msgid "Configuration"
 msgstr "Konfiguracja"
 
-#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:473
+#: modules/samba/shares/details.php:473 modules/samba/machines/edit.php:82
 msgid "Confirm"
 msgstr "Potwierdź"
 
-#: modules/samba/config/index.php:173
 #: modules/samba/includes/publicFunc.php:369
+#: modules/samba/config/index.php:173
 msgid "Connect base directory on network drive"
 msgstr "Połącz podstawowy katalog bazowyna dysku sieciowym"
 
@@ -269,9 +269,9 @@ msgstr ""
 msgid "Del share"
 msgstr ""
 
-#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:51
+#: modules/samba/shares/index.php:51 modules/samba/views/users.tpl.php:125
 #: modules/samba/views/groups.tpl.php:125
-#: modules/samba/views/users.tpl.php:125
+#: modules/samba/machines/ajaxFilter.php:45
 msgid "Delete"
 msgstr "Usuń"
 
@@ -287,7 +287,7 @@ msgstr "Usuń udział"
 msgid "Delete all data"
 msgstr "Usuń wszystkie dane"
 
-#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:64
+#: modules/samba/shares/index.php:64 modules/samba/machines/ajaxFilter.php:42
 msgid "Description"
 msgstr "Opis"
 
@@ -307,7 +307,7 @@ msgstr ""
 msgid "Domain name"
 msgstr "Nazwa domeny"
 
-#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:50
+#: modules/samba/shares/index.php:50 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Must change password"
 msgstr ""
 
-#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:204
+#: modules/samba/shares/details.php:204 modules/samba/machines/edit.php:63
 msgid "Name"
 msgstr "Nazwa"
 
@@ -437,8 +437,8 @@ msgstr ""
 msgid "Opened sessions"
 msgstr "Otwarte sesje"
 
-#: modules/samba/config/index.php:171
 #: modules/samba/includes/publicFunc.php:367
+#: modules/samba/config/index.php:171
 msgid "Opening script session"
 msgstr "Otwieranie skryptu sesji"
 
@@ -474,7 +474,7 @@ msgstr "Przeładuj usługę SAMBA"
 msgid "Remove a share"
 msgstr "Usuń udział"
 
-#: modules/samba/config/index.php:186 modules/samba/includes/auditCodes.php:30
+#: modules/samba/includes/auditCodes.php:30 modules/samba/config/index.php:186
 msgid "Restart SAMBA"
 msgstr "Zrestartuj SAMBĘ"
 
@@ -574,8 +574,8 @@ msgstr ""
 msgid "Share user's homes"
 msgstr "Współdziel katalogi 'home' użytkowników"
 
-#: modules/samba/infoPackage.inc.php:40 modules/samba/shares/index.php:58
-#: modules/samba/shares/index.php:62
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
 msgid "Shares"
 msgstr "Udziały"
 
@@ -745,7 +745,7 @@ msgstr ""
 msgid "User password doesn't expire"
 msgstr ""
 
-#: modules/samba/status/index.php:64 modules/samba/views/users.tpl.php:26
+#: modules/samba/views/users.tpl.php:26 modules/samba/status/index.php:64
 msgid "Users"
 msgstr "Użytkownicy"
 
@@ -774,3 +774,6 @@ msgstr "Usuniesz udział <b>%s</b>"
 #: modules/samba/infoPackage.inc.php:116
 msgid "restart SAMBA service"
 msgstr "zrestartuj usługę SAMBA"
+
+#~ msgid "Permissions"
+#~ msgstr "Uprawnienia"

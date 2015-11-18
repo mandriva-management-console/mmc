@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-01-27 16:25+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/"
 "mds/team/ru_RU/)\n"
@@ -75,8 +75,8 @@ msgstr "Активировать роуминговые профили для п
 msgid "Active"
 msgstr "Активировать"
 
-#: modules/samba/views/groups.tpl.php:138
 #: modules/samba/views/users.tpl.php:138
+#: modules/samba/views/groups.tpl.php:138
 msgid "Add"
 msgstr "Добавить"
 
@@ -88,9 +88,8 @@ msgstr "Добавить атрибуты SAMBA"
 msgid "Add SAMBA properties"
 msgstr "Добавить свойства SAMBA"
 
-#: modules/samba/machines/add.php:42
+#: modules/samba/shares/localSidebar.php:37 modules/samba/machines/add.php:42
 #: modules/samba/machines/localSidebar.php:31
-#: modules/samba/shares/localSidebar.php:37
 msgid "Add a computer"
 msgstr "Добавить компьютер"
 
@@ -102,8 +101,9 @@ msgstr "Добавить новую группу"
 msgid "Add a new user"
 msgstr "Добавить нового пользователя"
 
-#: modules/samba/infoPackage.inc.php:50 modules/samba/shares/details.php:153
+#: modules/samba/shares/details.php:153
 #: modules/samba/shares/localSidebar.php:31
+#: modules/samba/infoPackage.inc.php:50
 msgid "Add a share"
 msgstr "Добавить общий ресурс"
 
@@ -154,8 +154,8 @@ msgstr ""
 msgid "Backup share"
 msgstr "Резервное копирование общего ресурса"
 
-#: modules/samba/config/index.php:172
 #: modules/samba/includes/publicFunc.php:368
+#: modules/samba/config/index.php:172
 msgid "Base directory path"
 msgstr "Путь основного каталога"
 
@@ -183,8 +183,8 @@ msgstr "Изменить первичную группу пользовател�
 msgid "Check your custom parameters."
 msgstr "Проверьте ваши пользовательские параметры."
 
-#: modules/samba/machines/add.php:54 modules/samba/machines/edit.php:68
-#: modules/samba/shares/details.php:209
+#: modules/samba/shares/details.php:209 modules/samba/machines/add.php:54
+#: modules/samba/machines/edit.php:68
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -210,7 +210,7 @@ msgstr "Список компьютеров"
 msgid "Computer management"
 msgstr "Управление компьютерами"
 
-#: modules/samba/machines/add.php:50 modules/samba/machines/ajaxFilter.php:38
+#: modules/samba/machines/ajaxFilter.php:38 modules/samba/machines/add.php:50
 msgid "Computer name"
 msgstr "Имя компьютера"
 
@@ -223,8 +223,8 @@ msgstr "Компьютер успешно изменен."
 msgid "Computers"
 msgstr "Компьютеры"
 
-#: modules/samba/machines/localSidebar.php:28
 #: modules/samba/shares/localSidebar.php:34
+#: modules/samba/machines/localSidebar.php:28
 msgid "Computers management"
 msgstr "Управление компьютерами"
 
@@ -232,12 +232,12 @@ msgstr "Управление компьютерами"
 msgid "Configuration"
 msgstr "Настройка"
 
-#: modules/samba/machines/edit.php:82 modules/samba/shares/details.php:473
+#: modules/samba/shares/details.php:473 modules/samba/machines/edit.php:82
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: modules/samba/config/index.php:173
 #: modules/samba/includes/publicFunc.php:369
+#: modules/samba/config/index.php:173
 msgid "Connect base directory on network drive"
 msgstr "Подключить основной каталог на сетевом диске"
 
@@ -273,9 +273,9 @@ msgstr "Удалить компьютер"
 msgid "Del share"
 msgstr "Удалить общий ресурс"
 
-#: modules/samba/machines/ajaxFilter.php:45 modules/samba/shares/index.php:51
+#: modules/samba/shares/index.php:51 modules/samba/views/users.tpl.php:125
 #: modules/samba/views/groups.tpl.php:125
-#: modules/samba/views/users.tpl.php:125
+#: modules/samba/machines/ajaxFilter.php:45
 msgid "Delete"
 msgstr "Удалить"
 
@@ -291,7 +291,7 @@ msgstr "Удалить общий ресурс"
 msgid "Delete all data"
 msgstr "Удалить все данные"
 
-#: modules/samba/machines/ajaxFilter.php:42 modules/samba/shares/index.php:64
+#: modules/samba/shares/index.php:64 modules/samba/machines/ajaxFilter.php:42
 msgid "Description"
 msgstr "Описание"
 
@@ -311,7 +311,7 @@ msgstr "Отключить пользователя"
 msgid "Domain name"
 msgstr "Имя домена"
 
-#: modules/samba/machines/ajaxFilter.php:44 modules/samba/shares/index.php:50
+#: modules/samba/shares/index.php:50 modules/samba/machines/ajaxFilter.php:44
 msgid "Edit"
 msgstr "Изменить"
 
@@ -407,7 +407,7 @@ msgstr "Изменить общий ресурс"
 msgid "Must change password"
 msgstr ""
 
-#: modules/samba/machines/edit.php:63 modules/samba/shares/details.php:204
+#: modules/samba/shares/details.php:204 modules/samba/machines/edit.php:63
 msgid "Name"
 msgstr "Имя"
 
@@ -443,8 +443,8 @@ msgstr ""
 msgid "Opened sessions"
 msgstr "Открытые сеансы"
 
-#: modules/samba/config/index.php:171
 #: modules/samba/includes/publicFunc.php:367
+#: modules/samba/config/index.php:171
 msgid "Opening script session"
 msgstr "Открытие сессии скрипта"
 
@@ -482,7 +482,7 @@ msgstr "Перезагрузить службу SAMBA"
 msgid "Remove a share"
 msgstr "Удалить общий ресурс"
 
-#: modules/samba/config/index.php:186 modules/samba/includes/auditCodes.php:30
+#: modules/samba/includes/auditCodes.php:30 modules/samba/config/index.php:186
 msgid "Restart SAMBA"
 msgstr "Перезапустить SAMBA"
 
@@ -582,8 +582,8 @@ msgstr "Путь общего ресурса (оставьте пустым дл
 msgid "Share user's homes"
 msgstr "Общий ресурс домашних каталогов пользователей"
 
-#: modules/samba/infoPackage.inc.php:40 modules/samba/shares/index.php:58
-#: modules/samba/shares/index.php:62
+#: modules/samba/shares/index.php:58 modules/samba/shares/index.php:62
+#: modules/samba/infoPackage.inc.php:40
 msgid "Shares"
 msgstr "Общие ресурсы"
 
@@ -760,7 +760,7 @@ msgstr ""
 msgid "User password doesn't expire"
 msgstr ""
 
-#: modules/samba/status/index.php:64 modules/samba/views/users.tpl.php:26
+#: modules/samba/views/users.tpl.php:26 modules/samba/status/index.php:64
 msgid "Users"
 msgstr "Пользователи"
 
@@ -789,3 +789,9 @@ msgstr "Вы удалите общий ресурс <b>%s</b>"
 #: modules/samba/infoPackage.inc.php:116
 msgid "restart SAMBA service"
 msgstr "Перезапустить службу SAMBA"
+
+#~ msgid "Permissions"
+#~ msgstr "Права доступа"
+
+#~ msgid "Users for this share"
+#~ msgstr "Пользователи для этого общего ресурса"

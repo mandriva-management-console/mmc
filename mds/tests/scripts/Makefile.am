@@ -2,7 +2,7 @@
 #
 # $Id$
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,6 @@
 #   Jean Parpaillon <jparpaillon@mandriva.com>
 #
 EXTRA_DIST = bootstrap.sh install.sh \
-	Debian-5.0.4 MandrivaLinux-2006.0 MandrivaLinux-2009.0 \
-	MandrivaLinux-2010.0 \
+	Debian-5.0.4 Mageia-5 \
+	Mageia-6 \
 	prepare-for-selenium-tests.sh uninstall.sh

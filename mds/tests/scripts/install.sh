@@ -6,7 +6,7 @@
 #
 # $Id$
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ RELEASE=`lsb_release -r -s`
 
 PKGS=
 ARCH=
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     if [ `arch` == "x86_64" ]; then
         ARCH=64
     fi
@@ -50,7 +50,7 @@ fi
 
 function packages_to_install () {
     # for MDS samba plugin
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "Mageia" ]; then
         PKGS="$PKGS samba-server smbldap-tools nss_ldap quota"
         if [ $RELEASE == "2010.0" ];
             then
@@ -78,7 +78,7 @@ function packages_to_install () {
     fi
 
     # for MDS network plugin DHCP
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "Mageia" ]; then
         PKGS="$PKGS dhcp-server"
     fi
     if [ $DISTRIBUTION == "Debian" ]; then
@@ -86,14 +86,14 @@ function packages_to_install () {
     fi
 
     # for MDS network plugin BIND
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "Mageia" ]; then
         PKGS="$PKGS bind"
     fi
     if [ $DISTRIBUTION == "Debian" ]; then
         PKGS="$PKGS bind9"
     fi
     # for MDS proxy plugin
-    if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+    if [ $DISTRIBUTION == "Mageia" ]; then
         PKGS="$PKGS squid"
         if [ $RELEASE == "2006.0" -o $RELEASE == "2009.0" ];
             then
@@ -121,7 +121,7 @@ if [ -z $FORCE ];
 fi
 
 packages_to_install
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     urpmi --auto --no-suggests $PKGS
     rpm -q $PKGS
 fi
@@ -152,7 +152,7 @@ popd
 
 popd
 
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     schema_dir=/etc/openldap/schema
 fi
 if [ $DISTRIBUTION == "Debian" ]; then
@@ -173,7 +173,7 @@ echo "include ${schema_dir}/quota.schema" >> ${schema_dir}/local.schema
 # Setup SAMBA
 #############
 cp $TMPCO/mds/agent/contrib/samba/smb.conf /etc/samba/
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     /etc/init.d/smb stop || true
     sed -i 's/cn=admin/uid=LDAP Admin,ou=System Accounts/' /etc/samba/smb.conf
 fi
@@ -184,7 +184,7 @@ if [ $DISTRIBUTION == "Debian" ]; then
     invoke-rc.d samba stop
 fi
 
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     # Remove old smbldap-tools confs
     rm -f /etc/smbldap-tools/smbldap.conf
     rm -f /etc/smbldap-tools/smbldap_bind.conf
@@ -233,13 +233,13 @@ sed -i "s/^\(userScript=\).*$/\1\"\"/" /etc/smbldap-tools/smbldap.conf
 # Populate LDAP for SAMBA
 echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbldap-populate -m 512 -a administrator -b guest
 
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     sed -i 's!sambaInitScript = /etc/init.d/samba!sambaInitScript = /etc/init.d/smb!' /etc/mmc/plugins/samba.ini
 fi
 
 sed -i "s/^\(passwd:\).*$/\1 files ldap/" /etc/nsswitch.conf
 sed -i "s/^\(group:\).*$/\1 files ldap/" /etc/nsswitch.conf
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     cp /usr/share/doc/nss_ldap*/ldap.conf /etc/ldap.conf
     sed -i "s/base dc=padl,dc=com/base dc=mandriva,dc=com/" /etc/ldap.conf
 fi
@@ -249,7 +249,7 @@ echo -e "${ADMINCNPW}\n${ADMINCNPW}" | smbpasswd -s -a administrator
 mkdir -p /home/samba
 
 # Restart LDAP & APACHE
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     service ldap restart
     service httpd restart
 fi
@@ -260,7 +260,7 @@ fi
 
 # Setup DHCP
 # Setup DHCP LDAP schema
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     service dhcpd stop
     cp $TMPCO/mds/agent/contrib/dhcpd/dhcpd.conf /etc/dhcpd.conf
     sed -i "s!leases = /var/lib/dhcp3/dhcpd.leases!leases = /var/lib/dhcp/dhcpd.leases!" /etc/mmc/plugins/network.ini
@@ -275,7 +275,7 @@ if [ $DISTRIBUTION == "Debian" ]; then
 fi
 
 # Setup BIND
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     service named stop || true
     sed -i "s!init = /etc/init.d/dhcp3-server!init = /etc/init.d/dhcpd!" /etc/mmc/plugins/network.ini
     sed -i "s!init = /etc/init.d/bind9!init = /etc/init.d/named!" /etc/mmc/plugins/network.ini
@@ -293,7 +293,7 @@ if [ $DISTRIBUTION == "Debian" ]; then
 fi
 
 # Setup SQUID / squidGuard
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     if [ $RELEASE == "2009.0" ]; then
         BLACKLIST=/usr/share/squidGuard-1.4/db/bad.destdomainlist
     elif [ $RELEASE == "2006.0" ]; then
@@ -309,7 +309,7 @@ if [ $DISTRIBUTION == "MandrivaLinux" ]; then
 fi
 
 # Restart MMC agent
-if [ $DISTRIBUTION == "MandrivaLinux" ]; then
+if [ $DISTRIBUTION == "Mageia" ]; then
     service mmc-agent force-stop
     rm -f /var/run/mmc-agent.pid
     service mmc-agent start

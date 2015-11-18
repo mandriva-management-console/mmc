@@ -2,7 +2,7 @@
 # (c) 2009 Open Systems Specilists - Glen Ogilvie
 # (c) 2012 Mandriva
 #
-# This file is a plugin for Mandriva Management Console (MMC).
+# This file is a plugin for Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ from string import Template
 
 INI = mmcconfdir + "/plugins/userquota.ini"
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "0:0:0"
 REVISION = scmRevision("$Rev$")
 

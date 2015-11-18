@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ require_once('modules/network/includes/network-xmlrpc.inc.php');
  * module declaration
  */
 $mod = new Module("network");
-$mod->setVersion("2.5.89");
+$mod->setVersion("2.5.95");
 $mod->setRevision('$Rev$');
 $mod->setDescription(_T("Network management", "network"));
 $mod->setAPIVersion('2:1:0');

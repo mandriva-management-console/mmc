@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,9 @@
 include ("user-xmlrpc.inc.php");
 
 
-function _samba_delUser($uid) {
-    if (hasSmbAttr($uid)) rmSmbAttr($uid);
+function _samba_delUser($uid, $delfiles) {
+    if (hasSmbAttr($uid))
+        rmSmbAttr($uid);
 }
 
 function _samba_enableUser($paramsArr) {
