@@ -13,3 +13,10 @@ Both share the same framework: **IT Infrastructure Management Software**, this i
 Read INSTALL files of each project for installation instructions.
 
 Documentation : http://pulse-automation-tools.readthedocs.org/
+
+IRC Chat
+
+You can start a conversation with our comunity here. If you have any problem, or any question, do not hesitate! We are friendly.
+
+server : irc.freenode.net
+channel : #pulse-fr, #pulse-en
