@@ -44,10 +44,8 @@ $n = new ListInfos($decision, _T("Decision"));
 $n->first_elt_padding = 1;
 $n->disableFirstColumnActionLink();
 $n->addExtraInfo($service, _T("Service"));
-if (count($src_zones) > 1)
-    $n->addExtraInfo($source, _T("Source"));
-if (count($dst_zones) > 1)
-    $n->addExtraInfo($destination, _T("Destination"));
+$n->addExtraInfo($source, _T("Source"));
+$n->addExtraInfo($destination, _T("Destination"));
 $n->addExtraInfo($proto, _T("Protocol"));
 $n->addExtraInfo($port, _T("Port(s)"));
 $n->setParamInfo($ids);
