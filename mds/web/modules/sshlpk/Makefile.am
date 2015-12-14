@@ -24,7 +24,8 @@ datafiles = \
 	infoPackage.inc.php \
 	includes/sshlpk-xmlrpc.php \
 	includes/publicFunc.php \
-	includes/auditCodes.php
+	includes/auditCodes.php \
+	keys/edit.php
 
 langs = nb_NO es_ES ru_RU pt_BR da_DK de_DE pl_PL fr_FR
 
