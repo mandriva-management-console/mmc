@@ -22,7 +22,7 @@
 
 $sidemenu = new SideMenu();
 $sidemenu->setClass("shorewall");
-$sidemenu->setBackgroundImage("img/users/icn_users_large.gif");
+$sidemenu->setBackgroundImage("modules/base/graph/users/img/icn_users_large.gif");
 
 $zones_types = getZonesTypes();
 $lan_zones = getShorewallZones($zones_types['internal']);
