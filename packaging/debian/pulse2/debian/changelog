@@ -1,3 +1,9 @@
+pulse2 (3.0.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Mon, 04 Jan 2016 17:00:11 +0100
+
 pulse2 (3.0-1) unstable; urgency=low
 
   * New upstream release
