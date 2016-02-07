@@ -205,6 +205,27 @@ Copy `glpi` dir to apache root and change user right
     # mv glpi /var/www/
     # chown www-data:www-data /var/www/glpi -R
 
+Add glpi directory to apache conf, create `/etc/apache2/conf.d/glpi`,
+
+    # nano /etc/apache2/conf.d/glpi
+
+and add :
+>        Alias /glpi /var/www/glpi
+	<Directory /var/www/glpi>
+	  DirectoryIndex index.php
+	  Options FollowSymLinks
+	  AllowOverride Limit Options FileInfo
+	</Directory>
+	# some people prefer a simple URL like http://glpi.example.com
+	#<VirtualHost 1.2.3.4>
+	#  DocumentRoot /usr/share/glpi
+	#  ServerName glpi.example.com
+	#</VirtualHost>
+
+Restart Apache 
+
+    # service apache2 restart
+
 Access from browser and follow instructions to install GLPI
 http://pulse.localdomain/glpi
 
@@ -214,31 +235,10 @@ Main parameters :
  - Database user/pass : root/yourpass
  - Database name : glpi
  
-After installation, delete installation file, set config file permissions and **GLPI** change default passwords (from admin panel) :
+After installation, delete installation file, set config file permissions and change default passwords (from admin panel) :
 
     # rm /var/www/glpi/install/install.php
     # chmod 400 /var/www/glpi/config/config_db.php
-
-Add glpi directory to apache defaut site, edit `/etc/apache2/sites-available/default`, and add :
->        <Directory /var/www/glpi/>
-                Options Indexes FollowSymLinks MultiViews
-                AllowOverride All
-                Order allow,deny
-                allow from all
-        </Directory>
-
-  after
-
->        <Directory /var/www/>
-                Options Indexes FollowSymLinks MultiViews
-                AllowOverride None
-                Order allow,deny
-                allow from all
-        </Directory>
-
-Restart Apache 
-
-    # service apache2 restart
 
 And last, restrict permissions to sensible directories
 
@@ -258,7 +258,7 @@ Download plugin archive, extract, move to **GLPI** plugins folder and change rig
     # mv fusioninventory /var/www/glpi/plugins/
     # chown www-data:www-data /var/www/glpi/plugins/fusioninventory -R
 
- - Connect to **GLPI**
+ - Connect to **GLPI** with user **glpi** and password **glpi**
  - Go in the menu ***Setup*** > ***Plugins***
  - Install the plugin **FusionInventory**
  - Activate **FusionInventory** 
@@ -499,7 +499,12 @@ Use the entire absolute path command below or it will not work (eg: don't use ./
 If you should create entropy use `ls -R /` command in another console.
 
 #### 4.5.3 Generate pulse-update-client (to manage Windows Update for Windows computers)
-**FROM A WINDOWS DESKTOP CLIENT**
+
+You have 2 possibilities :
+- Generate your own file from Windows desktop client
+- Use the already generated one in GIT tree **mmc/pulse2/services/pulse2/pulse_update_manager/win32/bin**
+
+**GENERATE YOUR OWN FILE FROM A WINDOWS DESKTOP CLIENT**
 
 Install 
 
@@ -518,20 +523,19 @@ Temp folder should be like this
 
 Lauch **build.bat** from command line and check for errors, if the path to Python is not correct change it.
 
-Copy the **build/exe.win-amd64-2.7** folder to the Pulse Server in the GIT folder ***mmc\pulse2\services\pulse2\pulse_update_manager\win32\bin***
+Copy the **build/exe.win-amd64-2.7** folder to the Pulse Server in the GIT folder ***mmc/pulse2/services/pulse2/pulse_update_manager/win32/bin***
 
 **Or**
 
-Download the pre-generated 64bits package ([temporary url](https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true))
+**USE THE ALREADY GENERATED ONE IN GIT TREE FROM PULSE SERVER**
 
-    # wget https://github.com/psyray/mmc/blob/docs/pulse2/services/pulse2/pulse_update_manager/win32/bin/exe.win-amd64-2.7.tar.gz?raw=true
-    # mv exe.win-amd64-2.7.tar.gz\?raw\=true exe.win-amd64-2.7.tar.gz
-    # tar xvzf exe.win-amd64-2.7.tar.gz
+    # cd ~/mmc/pulse2/services/pulse2/pulse_update_manager/win32/bin
+    # tar xvzf exe.win-amd64-2.7.tar.gz --strip-components=1
 
-**FROM PULSE SERVER**
+**FOR BOTH CASE, LAUNCH THIS COMMAND TO GENERATE THE EXE**
 
-    # cd mmc/pulse2/services/pulse2/pulse_update_manager/win32
-    # makensis installer.nsicd ..
+    # cd ~/mmc/pulse2/services/pulse2/pulse_update_manager/win32/bin
+    # makensis installer.nsi
 
 Install generated file (**pulse2-secure-agent-windows-update-plugin-1.0.0.exe**) on Windows desktop and wait for client to appear in the Pulse² admin
 
@@ -541,7 +545,7 @@ Create `/etc/apache2/conf.d/pulse2.conf` file
 Add this configuration
 
 >       Alias /downloads /var/lib/pulse2/clients/
-      Alias /doc /usr/share/doc/pulse2/>
+      Alias /doc /usr/share/doc/pulse2/
       <Directory /var/lib/pulse2/clients/>
           Options +Indexes
           AllowOverride None
@@ -576,7 +580,7 @@ PXE boot will make possible to boot a computer, register to the Pulse² server a
 #### 4.6.1 Installation
 Configure Pulse² repository
 
-    # deb http://repo.pulse2.fr/pub/pulse2/server/debian wheezy 3.0
+    # echo 'deb http://repo.pulse2.fr/pub/pulse2/server/debian wheezy 3.0' >> /etc/apt/sources.list
     # apt-get update
 
 #### 4.6.2 Choose your imaging backend
@@ -611,7 +615,8 @@ Add this directive to the `/etc/mmc/pulse2/package-server/package-server.ini.loc
     diskless_initrd = 'initrd.img'
 
 And restart the mmc
-	# service restart mmc-agent
+
+    # service mmc-agent restart
 
 > Please don't install other Pulse Debian package of this repository, they are quite old compared to the github repo
 
@@ -739,7 +744,7 @@ Now that DHCP, TFTP and NFS is up and running, **you must set a default imaging 
 
 Go to http://pulse.localdomain/mmc/main.php?module=imaging&submod=manage&action=index and click on the **Add** button at the right of the imaging server
 
-When imaging server is correctly set you should see this screen
+When imaging server is correctly set you should see this screen, if not reboot server
 ![enter image description here](http://pix.toile-libre.org/upload/original/1442934510.png)
 
 Now try to boot from a workstation with PXE boot actived in the BIOS and you should see this screen
