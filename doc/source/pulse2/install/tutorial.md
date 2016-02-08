@@ -264,6 +264,15 @@ Download plugin archive, extract, move to **GLPI** plugins folder and change rig
  - Activate **FusionInventory** 
  - Go in the menu ***Administration*** > ***Entities*** > ***Root entity*** > ***tab FusionInventory*** to set the **Service URL**, here http://pulse.localdomain/glpi.
 
+If you encounters problem with duplicate computer in GLPI, you should modify link rules.
+
+By default GLPI check if the computer exists by evaluating the **uuid + serial number**, sometimes the serial number was not correctly reported (particularly while using VirtualBox), the check failed and the computer is added at every inventory....not good....
+
+So, to work around this problem, you could set this link rule
+![enter image description here](http://pix.toile-libre.org/upload/original/1454952185.jpg)
+
+To set this rule go to **Setup -> Plugins -> FusionInventory -> Rules -> Equipment Import and Link Rules**, edit the **computer (update by uuid)**, activate it, validate, and set it on top of the list by clicking the up arrow on the right.
+
 #### 4.3.3 Web services for GLPI
 
 This plugin is mandatory to use wth Pulse²
