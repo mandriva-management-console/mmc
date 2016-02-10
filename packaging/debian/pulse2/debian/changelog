@@ -1,8 +1,60 @@
+pulse2 (3.0.2-9) unstable; urgency=low
+  * Bugfixes ( multicast, menus, ... ) ( 8d8908e1f4555d751b15db1f561e620514f11b3d )
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 9 Feb 2016 17:00:11 +0100
+
+pulse2 (3.0.2-8) unstable; urgency=low
+  * Bugfixes ( multicast, menus, ... )
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
+pulse2 (3.0.2-7) unstable; urgency=low
+  * Fix several menu bugs
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
+pulse2 (3.0.2-6) unstable; urgency=low
+  * Fix sysinit choice.
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
+pulse2 (3.0.2-5) unstable; urgency=low
+  * Fix postinst scripts 
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
+pulse2 (3.0.2-4) unstable; urgency=low
+  * Fix pulse2-cm initscript
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
+pulse2 (3.0.2-3) unstable; urgency=low
+  * Fix support with newer sqlalchemy
+  * Fix support with newer python-twisted
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
+pulse2 (3.0.2-2) unstable; urgency=low
+  * Multicast fixes
+
+ -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Wed, 13 Jan 2016 17:00:11 +0100
+
 pulse2 (3.0.2-1) unstable; urgency=low
+  * Add Support for multicast
 
-  * New upstream release
+ -- root <root@zoidberg.mandriva.com>  Mon, 02 Mar 2015 17:00:11 +0100
 
- -- Nicolas Lécureuil <nicolas.lecureuil@siveo.net>  Mon, 04 Jan 2016 17:00:11 +0100
+pulse2 (3.0-6) unstable; urgency=low
+  * Fix support URL
+
+ -- root <root@zoidberg.mandriva.com>  Mon, 02 Mar 2015 17:00:11 +0100
+
+pulse2 (3.0-5) unstable; urgency=low
+  * New Snaphot
+  * Fix URL
+  * Fix icons
+  * Fix logo
+
+ -- root <root@zoidberg.mandriva.com>  Mon, 02 Mar 2015 17:00:11 +0100
 
 pulse2 (3.0-1) unstable; urgency=low
 
