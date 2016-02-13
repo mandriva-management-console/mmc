@@ -3540,8 +3540,6 @@ class ImagingDatabase(DyngroupDatabaseHelper):
             session.close()
             return False
 
-
-
     def setLocationSynchroState(self, uuid, state):
         self.logger.debug(">>> setLocationSynchroState %s %s"%(uuid, str(state)))
         session = create_session()
@@ -3562,23 +3560,6 @@ class ImagingDatabase(DyngroupDatabaseHelper):
 
         session.flush()
         session.close()
-        return True
-
-    def _synchroEntitieMachineTarget(self, entity , computer_uuid ):
-        session = create_session()
-        try:
-            target=session.query( Target).filter_by(uuid=computer_uuid).one()
-            self.logger.info("valeur computer_uuid :%s"%computer_uuid)
-            self.logger.info("valeur target.fk_entity :%s"%target.fk_entity)
-            self.logger.info("valeurentity :%s"%fromUUID(entity))
-            self.logger.info("*************************")
-            #stmt = update(Target).where(uuid.c.id==computer_uuid).values(fk_entity=fromUUID(entity))
-            target.fk_entity = str(fromUUID(entity))
-            session.flush()
-        except InvalidRequestError, e:
-            self.logger.info("InvalidRequestError :%s"%e.message)
-            session.close()
-            return False
         return True
 
     def changeTargetsSynchroState(self, uuids, target_type, state):
@@ -4196,9 +4177,15 @@ class ImagingDatabase(DyngroupDatabaseHelper):
         session.flush()
         session.close()
         return True
-
+    
+    def getLocationImagingServerByServerUUID(self,imaging_server_uuid ):
+        session = create_session()
+        ims = session.query(ImagingServer).filter(self.imaging_server.c.packageserver_uuid == imaging_server_uuid).first()
+        LocationServer = ims.fk_entity
+        session.close()
+        return LocationServer
+    
     # Computer basic inventory stuff
-
     def injectInventory(self, imaging_server_uuid, computer_uuid, inventory):
         """
         Inject a computer inventory into the dabatase.
@@ -4235,6 +4222,9 @@ class ImagingDatabase(DyngroupDatabaseHelper):
                         cp.start = int(part['start'])
                         cd.partitions.append(cp)
                         target.disks.append(cd)
+            locationServerImaging = self.getLocationImagingServerByServerUUID(imaging_server_uuid)
+            target.fk_entity = locationServerImaging
+            self.logger.debug("Attribution location %s for computer  %s"%(target.fk_entity,target.name ))
             session.add(target)
             session.commit()
         except InvalidRequestError, e:

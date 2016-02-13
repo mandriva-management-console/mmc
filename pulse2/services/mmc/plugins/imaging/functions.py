@@ -58,7 +58,6 @@ class ImagingRpcProxy(RpcProxyI):
         return xmlrpcCleanup(menu)
     
     def check_process(self, process):
-        #jfk  print pulse2.utils.check_process(process)
         return xmlrpcCleanup(pulse2.utils.check_process(process))
 
     """ XML/RPC Bindings """
@@ -436,7 +435,7 @@ class ImagingRpcProxy(RpcProxyI):
     
     ## Imaging server configuration
     def check_process_multicast(self, process):
-        # controle execution process multicast jfk check_process_multicast
+        # controle execution process multicast
         location=process['location']
         db = ImagingDatabase()
         my_is = db.getImagingServerByUUID(location)
@@ -450,11 +449,8 @@ class ImagingRpcProxy(RpcProxyI):
             deferred = []
         return deferred
 
-    def synchroEntitieMachineTarget(self):
-        return _synchroEntitieMachineTarget()
-
     def check_process_multicast_finish(self, process):
-        # controle execution process multicast jfk check_process_multicast
+        # controle execution process multicast finish
         location=process['location']
         db = ImagingDatabase()
         my_is = db.getImagingServerByUUID(location)
@@ -469,7 +465,7 @@ class ImagingRpcProxy(RpcProxyI):
         return deferred
 
     def muticast_script_exist(self,process):
-        # controle existance  multicast script jfk check_process_multicast
+        # controle existance multicast script
         location=process['location']
         db = ImagingDatabase()
         my_is = db.getImagingServerByUUID(location)
@@ -522,18 +518,24 @@ class ImagingRpcProxy(RpcProxyI):
         temp=10;
         while(ImagingRpcProxy.checkThread[objmenu['location']] == True):
             time.sleep(temp)
-            logging.getLogger().info("monitorsUDPSender")
+            logging.getLogger().debug("monitorsUDPSender")
             result=self.checkDeploymentUDPSender(objmenu)
-            logging.getLogger().info("[tranfert] %s"%ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'])
-            if ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] == True:
-                logging.getLogger().info("[tranfert] %s"%ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'])
+            try:
+                logging.getLogger().debug("[checkThreadData] %s"%ImagingRpcProxy.checkThreadData)
+                logging.getLogger().debug("[tranfert] %s"%ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'])
+                if ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] == True:
+                    logging.getLogger().debug("[tranfert] %s"%ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'])
+                    ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] = False
+                    ImagingRpcProxy.checkThread[objmenu['location']] = False
+                    logging.getLogger().debug("REGENERATE menu group %s [%s]"%(objmenu['description'],objmenu['group']))
+                    self.synchroProfile(objmenu['group'])
+                    return
+            except KeyError:
+                logging.getLogger().debug("[initialisation checkThreadData]")
+                ImagingRpcProxy.checkThreadData[objmenu['location']]={}
                 ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] = False
-                ImagingRpcProxy.checkThread[objmenu['location']] = False
-                logging.getLogger().info("REGENERATE menu group %s [%s]"%(objmenu['description'],objmenu['group']))
-                self.synchroProfile(objmenu['group'])
-                return
         else:
-            logging.getLogger().info("REGENERATE menu group %s [%s]"%(objmenu['description'],objmenu['group']))
+            logging.getLogger().debug("REGENERATE menu group %s [%s]"%(objmenu['description'],objmenu['group']))
             self.synchroProfile(objmenu['group'])
 
     def checkDeploymentUDPSender(self,process):
@@ -542,7 +544,7 @@ class ImagingRpcProxy(RpcProxyI):
         """
         resultat = False
         logger = logging.getLogger()
-        logging.getLogger().info("**** checkDeploymentUDPSender %s"%process)
+        logging.getLogger().debug("checkDeploymentUDPSender %s"%process)
         location=process['location']
         db = ImagingDatabase()
         my_is = db.getImagingServerByUUID(location)
@@ -3276,15 +3278,6 @@ def synchroComputers(ctx, uuids, ctype = P2IT.COMPUTER):
     ret = synchroTargets(ctx, uuids, ctype)
     return xmlrpcCleanup(ret)
 
-def _synchroEntitieMachineTarget():
-    logging.getLogger().info("synchroEntitieMachineTarget")
-    locationsuuid = ComputerLocationManager().getAllHostnamesid()
-    locations = ComputerLocationManager().getMachinesLocations(locationsuuid)
-    db = ImagingDatabase()
-    for t in locations.keys():
-        db._synchroEntitieMachineTarget(locations[t]['uuid'], t)
-    return [t  for t in locations.keys()]
-
 def synchroTargets(ctx, uuids, target_type, macs = {}, wol = False):
     """
     synchronize boot menus
@@ -3507,8 +3500,6 @@ def chooseImagingApiUrl(location):
 
 
 def generateMenusContent(menu, menu_items, loc_uuid, target_uuid = None, h_pis = {}):
-    # verifie coherence target
-    _synchroEntitieMachineTarget()
     menu['bootservices'] = {}
     menu['images'] = {}
     default_item_counter = 0 # keep track of the item number to generate a relative default menu entry number
