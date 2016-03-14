@@ -1,0 +1,25 @@
+Here is quick notes from http://forum.pulse2.fr/t/using-debian-packaging/60/2
+
+I build debian package in a chrooted environment with pbuilder:
+
+    # apt-get install pbuilder
+
+I create a chrooted environment:
+
+    sudo pbuilder --create --distribution wheezy --architecture amd64 --basetgz /var/cache/pbuilder/wheezy-amd64.tgz --mirror http://httpredir.debian.org/debian
+
+With the command above, I build a Debian 64 bit Wheezy environment. You can replace amd64 by i386 to get a 32 bit environment.
+
+To build pulse2 packages, we need a tar.gz file, so in mmc/pulse2 path:
+
+    # ./autogen.sh
+    # ./configure
+    # make dist
+
+And you are done. For mmc package, you have a ./build_sdist script.
+
+Extract the tar.gz file you just created in another place, and add the debian folder in the extracted files.
+
+Finally, to build the Debian packages:
+
+    sudo /usr/bin/pdebuild --use-pdebuild-internal -- --basetgz /var/cache/pbuilder/wheezy-amd64.tgz --distribution wheezy
