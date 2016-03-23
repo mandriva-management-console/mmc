@@ -26,7 +26,8 @@ Pulse 2 Package Server Imaging API common functions
 import logging
 import os
 import shutil
-
+import re
+import subprocess
 from time import gmtime
 import uuid
 
@@ -37,13 +38,13 @@ from pulse2.package_server.config import P2PServerCP as PackageServerConfig
 from pulse2.package_server.imaging.api.client import ImagingXMLRPCClient
 from pulse2.package_server.imaging.cache import UUIDCache
 from pulse2.package_server.imaging.api.status import Status
-from pulse2.package_server.imaging.menu import isMenuStructure, ImagingDefaultMenuBuilder, ImagingComputerMenuBuilder, changeDefaultMenuItem, ImagingBootServiceItem
+from pulse2.package_server.imaging.menu import isMenuStructure, ImagingDefaultMenuBuilder, ImagingComputerMenuBuilder, changeDefaultMenuItem, ImagingBootServiceItem, ImagingMulticastMenuBuilder
 from pulse2.package_server.imaging.computer import ImagingComputerConfiguration
 from pulse2.package_server.imaging.iso import ISOImage
 from pulse2.package_server.imaging.archiver import Archiver
 from pulse2.package_server.imaging.rpcreplay import RPCReplay
 
-from pulse2.utils import isMACAddress, splitComputerPath, macToNode, isUUID, rfc3339Time, humanReadable, SingletonN
+from pulse2.utils import isMACAddress, splitComputerPath, macToNode, isUUID, rfc3339Time, humanReadable, SingletonN, check_process, start_process, stop_process
 from pulse2.apis import makeURL
 from pulse2.imaging.image import Pulse2Image
 
@@ -1000,6 +1001,104 @@ class Imaging(object):
         return ret
 
     ## Imaging server configuration
+    def imagingServermenuMulticast(self, objmenu):
+        # create menu multicast 
+        m = ImagingMulticastMenuBuilder(objmenu)
+        ret = m.make()
+        return [ret]
+
+    def _checkProcessDrblClonezilla(self):
+        """ check server dbrl running"""
+        s = subprocess.Popen("ps cax | grep drbl-ocs",
+                             shell=True,
+                             stdout=subprocess.PIPE
+                           )
+        returnprocess = False
+        for x in s.stdout:
+            if re.search("drbl-ocs", x):
+                returnprocess = True
+        s.stdout.close()
+        return returnprocess
+
+    ## Imaging server configuration
+    def check_process_multicast(self, objprocess):
+        # check execution process multicast
+        return self._checkProcessDrblClonezilla()
+    
+    def check_process_multicast_finish(self, objprocess):
+        # check process multicast terminat
+        return os.path.exists("/tmp/processmulticast") and not self._checkProcessDrblClonezilla()
+
+    def muticast_script_exist(self, objprocess):
+        # controle script existance script multicast
+        return os.path.exists(objprocess['process'])
+
+    def clear_script_multicast(self, objprocess):
+        ## suppression commande multicast 
+        # renvoi le groupe a regenerer bootmenu pour unicast
+        if os.path.exists("/tmp/processmulticast"):
+            os.remove("/tmp/processmulticast")
+        if os.path.exists("/tmp/multicast.sh"):
+            f = open("/tmp/multicast.sh",'r')
+            lignes  = f.readlines()
+            f.close()
+            s=[x.split("=")[1].strip(' \t\n\r') for x in lignes if x.startswith( 'groupuuid' ) ]
+            if len(s)== 0:
+                return -1
+            os.remove("/tmp/multicast.sh")
+            return s[0]
+        else:
+            return -1
+
+    def start_process_multicast(self, objprocess):
+        # start execution process multicast
+        start_process(objprocess['process'])
+        return self._checkProcessDrblClonezilla()
+
+    def checkDeploymentUDPSender(self, objprocess):
+        result = {}
+        result['data']=""
+        result['tranfert'] = False
+        self.logger.info('verify exist file /tmp/udp-sender.log')
+        if os.path.isfile("/tmp/udp-sender.log"):
+            self.logger.info('file /tmp/udp-sender.log exist')
+            self.logger.info("exec : grep 'Starting transfer'  /tmp/udp-sender.log")  
+            s = subprocess.Popen("grep 'Starting transfer'  /tmp/udp-sender.log",
+                            shell=True,
+                            stdout=subprocess.PIPE)
+            result['tranfert'] = False
+            for x in s.stdout:
+                result['tranfert'] = True
+                break;
+            s.stdout.close()
+            s.wait()
+            if result['tranfert'] == True:
+                self.logger.info("Starting transfer exist in the file")
+            else:
+                self.logger.info("Starting transfer no exist in the file")
+            self.logger.info("exec : tail -n 1 /tmp/udp-sender.log  -> for next bar progression")     
+            r = subprocess.Popen("tail -n 1 /tmp/udp-sender.log",
+                            shell=True,
+                            stdout=subprocess.PIPE)
+            for x in r.stdout:
+                result['data']= x
+            r.wait()
+            self.logger.info("last line of /tmp/udp-sender.log: %s"%result['data'])     
+            r.stdout.close()
+        else:
+            self.logger.info('file /tmp/udp-sender.log no exist')
+        self.logger.info("return function checkDeploymentUDPSender on imaging server: %s"%result )   
+        return result
+
+
+    def stop_process_multicast(self, objprocess):
+        # stop execution process multicast
+        s = subprocess.Popen("/usr/sbin/drbl-ocs -h 127.0.0.1 stop",
+                             shell=True,
+                             stdout=subprocess.PIPE
+                           )
+        stop_process(objprocess['process'])
+        return self._checkProcessDrblClonezilla()
 
     def imagingServerConfigurationSet(self, conf):
         """

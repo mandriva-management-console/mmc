@@ -49,6 +49,15 @@ $page->setOptions(array("AJAX" => True, "visible" => False));
 $submod->addPage($page);
 
 
+$page = new Page("multicastaction");
+$page->setFile("modules/imaging/manage/multicastaction.php");
+$submod->addPage($page);
+
+
+$page = new Page("ajaxcheckstatusmulticast");
+$page->setFile("modules/imaging/manage/ajaxcheckstatusmulticast.php");
+$submod->addPage($page);
+
 $page = new Page("index", _T("Server status", "imaging"));
 $submod->addPage($page);
 
@@ -390,7 +399,11 @@ if (!empty($submod)) {
     $page->setFile("modules/imaging/imaging/images_iso.php");
     $page->setOptions(array("visible" => False, "noHeader" => True));
     $submod->addPage($page);
-
+    $page = new Page("multicast", _T("init multicast", "imaging"));
+    $page->setFile("modules/imaging/imaging/multicast.php");
+    $page->setOptions(array("visible" => False, "noHeader" => True));
+    $submod->addPage($page);
+    
     unset($submod);
 }
 ?>

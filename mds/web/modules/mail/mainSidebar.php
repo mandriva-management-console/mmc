@@ -5,7 +5,7 @@
  *
  * $Id: mainSidebar.php 7484 2010-09-16 14:45:45Z jpbraun $
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

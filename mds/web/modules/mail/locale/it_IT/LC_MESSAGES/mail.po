@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
+"POT-Creation-Date: 2015-02-11 15:08+0100\n"
+"PO-Revision-Date: 2014-10-06 09:28+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it_IT\n"
@@ -30,7 +30,7 @@ msgstr "%s non è un alias mail valido."
 msgid "Add Zarafa attributes"
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:66 modules/mail/mainSidebar.php:35
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:66
 msgid "Add a domain"
 msgstr "Aggiungi un dominio"
 
@@ -38,8 +38,8 @@ msgstr "Aggiungi un dominio"
 msgid "Add a mail domain"
 msgstr "Aggiungi un dominio mail"
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:120
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:120
 msgid "Add a virtual alias"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgstr "Dominio Mail"
 msgid "Mail domain is empty. Group mail alias wasn't set."
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:63 modules/mail/mainSidebar.php:30
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:63
 msgid "Mail domains"
 msgstr ""
 
@@ -335,8 +335,9 @@ msgstr "Accesso ad alias mail di gruppi"
 
 #: modules/mail/includes/publicFunc.php:92
 #: modules/mail/includes/publicFunc.php:302
+#, fuzzy
 msgid "Mail hidden"
-msgstr ""
+msgstr "Indirizzo Mail"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
@@ -477,7 +478,7 @@ msgstr ""
 msgid "Virtual alias users updated."
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:117 modules/mail/mainSidebar.php:41
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:117
 msgid "Virtual aliases"
 msgstr ""
 

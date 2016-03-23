@@ -20,15 +20,16 @@
 # along with Pulse 2; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
-
+from distutils.version import StrictVersion
 from sqlalchemy import __version__
 
 MIN_VERSION = '0.6.3' # Debian Squeeze version
-MAX_VERSION = '0.7.9' # Debian Jessie version
+MAX_VERSION = '0.9.8' # Debian Jessie version
 CUR_VERSION = __version__
 
 def checkSqlalchemy():
-    if MIN_VERSION <= CUR_VERSION <= MAX_VERSION:
+    #if MIN_VERSION <= CUR_VERSION <= MAX_VERSION:
+    if StrictVersion(MIN_VERSION) <= StrictVersion(CUR_VERSION) <=  StrictVersion(MAX_VERSION) :
         return True
     else:
         return False

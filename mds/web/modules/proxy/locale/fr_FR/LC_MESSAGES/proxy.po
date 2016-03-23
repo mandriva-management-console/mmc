@@ -9,16 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2011-07-26 10:13+0000\n"
-"Last-Translator: Jean-Philippe Braun <jpbraun@mandriva.com>\n"
-"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/"
-"team/fr_FR/)\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-12-10 17:04+0200\n"
+"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"Language-Team: French <http://translate.mandriva.com/projects/mds-26/proxy/"
+"fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
 #: modules/proxy/blacklist/add.php:60 modules/proxy/infoPackage.inc.php:51
 msgid "Add a domain in the blacklist"
@@ -66,9 +67,9 @@ msgstr "Créer"
 msgid "Del blacklist"
 msgstr "Suppression de la liste noire"
 
-#: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
+#: modules/proxy/blacklist/index.php:44 modules/proxy/blacklist/delete.php:57
 msgid "Delete"
-msgstr "Suppression"
+msgstr "Supprimer"
 
 #: modules/proxy/blacklist/delete.php:67
 #, php-format
@@ -92,8 +93,8 @@ msgstr "Nom"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: modules/proxy/blacklist/localSidebar.php:27
 #: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
+#: modules/proxy/blacklist/localSidebar.php:27
 msgid "Proxy status"
 msgstr "Statut du proxy"
 

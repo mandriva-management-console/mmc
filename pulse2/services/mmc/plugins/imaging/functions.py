@@ -25,7 +25,7 @@
 Class to manage imaging mmc-agent api
 imaging plugin
 """
-
+import time
 import logging
 from twisted.internet import defer
 from sets import Set as set
@@ -43,11 +43,12 @@ from pulse2.database.imaging import ImagingDatabase, NoImagingServerError
 from pulse2.database.imaging.types import P2IT, P2ISS, P2IM, P2ERR
 from pulse2.apis.clients.imaging import ImagingApi
 import pulse2.utils
-
+import threading
 from os import path, makedirs
 
 class ImagingRpcProxy(RpcProxyI):
-
+    checkThread = {}
+    checkThreadData={}
     def getGeneratedMenu(self, mac):
         # uuid
         logger = logging.getLogger()
@@ -55,7 +56,9 @@ class ImagingRpcProxy(RpcProxyI):
         uuid = 'UUID' + str(db_computer.id)
         menu = generateMenus(logger, ImagingDatabase(), [uuid], unique=True)
         return xmlrpcCleanup(menu)
-
+    
+    def check_process(self, process):
+        return xmlrpcCleanup(pulse2.utils.check_process(process))
 
     """ XML/RPC Bindings """
     ################################################### web def
@@ -408,6 +411,180 @@ class ImagingRpcProxy(RpcProxyI):
         db = ImagingDatabase()
         db.setLocationSynchroState(loc_id, P2ISS.TODO)
         return db.moveItemDownInMenu4Location(loc_id, mi_uuid)
+
+    def imagingServermenuMulticast(self, objmenu):
+        try:    
+            if ImagingRpcProxy.checkThread[objmenu['location']]==False:
+                ImagingRpcProxy.checkThread[objmenu['location']] = True
+        except KeyError:
+            ImagingRpcProxy.checkThread[objmenu['location']] = True
+        finally:
+            a = threading.Thread(None, self.monitorsUDPSender, None, (objmenu,))
+            a.start()
+        location=objmenu['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.imagingServermenuMulticast(objmenu)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
+    
+    ## Imaging server configuration
+    def check_process_multicast(self, process):
+        # controle execution process multicast
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.check_process_multicast(process)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
+
+    def check_process_multicast_finish(self, process):
+        # controle execution process multicast finish
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.check_process_multicast_finish(process)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
+
+    def muticast_script_exist(self,process):
+        # controle existance multicast script
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.muticast_script_exist(process)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
+
+    def clear_script_multicast(self, process):
+        #check if the script is installed multicast.sh
+        try:    
+            if ImagingRpcProxy.checkThread[process['location']]==True:
+                ImagingRpcProxy.checkThread[process['location']] = False
+        except KeyError:        
+            ImagingRpcProxy.checkThread[process['location']] = False
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.clear_script_multicast(process)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
+
+    def start_process_multicast(self,process):
+        # Multicast start
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.start_process_multicast(process)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
+
+    def monitorsUDPSender(self,objmenu):
+        temp=10;
+        while(ImagingRpcProxy.checkThread[objmenu['location']] == True):
+            time.sleep(temp)
+            logging.getLogger().debug("monitorsUDPSender")
+            result=self.checkDeploymentUDPSender(objmenu)
+            try:
+                logging.getLogger().debug("[checkThreadData] %s"%ImagingRpcProxy.checkThreadData)
+                logging.getLogger().debug("[tranfert] %s"%ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'])
+                if ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] == True:
+                    logging.getLogger().debug("[tranfert] %s"%ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'])
+                    ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] = False
+                    ImagingRpcProxy.checkThread[objmenu['location']] = False
+                    logging.getLogger().debug("REGENERATE menu group %s [%s]"%(objmenu['description'],objmenu['group']))
+                    self.synchroProfile(objmenu['group'])
+                    return
+            except KeyError:
+                logging.getLogger().debug("[initialisation checkThreadData]")
+                ImagingRpcProxy.checkThreadData[objmenu['location']]={}
+                ImagingRpcProxy.checkThreadData[objmenu['location']]['tranfert'] = False
+        else:
+            logging.getLogger().debug("REGENERATE menu group %s [%s]"%(objmenu['description'],objmenu['group']))
+            self.synchroProfile(objmenu['group'])
+
+    def checkDeploymentUDPSender(self,process):
+        """
+        check whether multicast transfer is in progress
+        """
+        resultat = False
+        logger = logging.getLogger()
+        logging.getLogger().debug("checkDeploymentUDPSender %s"%process)
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i == None:
+            logger.error("couldn't initialize the ImagingApi to %s"%( my_is.url))
+            return [False, "couldn't initialize the ImagingApi to %s"%( my_is.url)]
+        
+        def treatResult(results):
+            if results:
+                ImagingRpcProxy.checkThreadData[process['location']]=results
+                resultat=results
+                return [resultat]
+            else:
+                ImagingRpcProxy.checkThreadData={}
+                return []
+        
+        d = i.checkDeploymentUDPSender(process)
+        d.addCallback(treatResult)
+        return d
+
+    def stop_process_multicast(self,process):
+        # Multicast stop
+        try:    
+            if ImagingRpcProxy.checkThread[process['location']]==True:
+                ImagingRpcProxy.checkThread[process['location']] = False
+        except KeyError:        
+            ImagingRpcProxy.checkThread[process['location']] = False
+        location=process['location']
+        db = ImagingDatabase()
+        my_is = db.getImagingServerByUUID(location)
+        imaging_server = my_is.url
+        i = ImagingApi(imaging_server.encode('utf8'))
+        if i != None:
+            deferred = i.stop_process_multicast(process)
+            deferred.addCallback(lambda x: x)
+        else:
+            deferred = []
+        return deferred
 
     ###### IMAGES
     def imagingServerISOCreate(self, image_uuid, size, title):
@@ -2200,8 +2377,38 @@ class ImagingRpcProxy(RpcProxyI):
                 defer_list = defer.DeferredList(defer_list)
                 defer_list.addCallback(sendResult)
                 return defer_list
-
         return [True]
+
+    def Windows_Answer_list_File(self,start=0,end=-1):
+        """
+            returns a list of names (with extension, without full path) of all files 
+        """
+        filexml="/var/lib/pulse2/imaging/postinst/sysprep/"
+        if not path.exists(filexml):
+            makedirs(filexml, 0722)
+        files = []
+        osfile = []
+        for name in listdir(filexml):
+            absolufile = path.join(filexml, name)
+            if name.endswith('.xml') and path.isfile(absolufile):
+                files.append(name)
+                fichier = open(absolufile,"r")
+                for ligne in fichier:
+                    if ligne.startswith("OS"):
+                        print ligne
+                        osfile.append(ligne)
+                        break;
+                else:
+                    osfile.append("os missing")
+                fichier.close()
+        # create object reponse
+        result = {}
+        result['count'] = len(files)
+        if end == -1:
+            end = result['count']
+        result['file'] = files[start:end]
+        result['os'] = osfile[start:end]
+        return result
 
     def Windows_Answer_File_Generator(self, xmlWAFG, title):
         filexml="/var/lib/pulse2/imaging/postinst/sysprep/"
@@ -3092,11 +3299,14 @@ def synchroTargets(ctx, uuids, target_type, macs = {}, wol = False):
 
     # initialize stuff
     logger = logging.getLogger()
+    ListImagingServerAssociated=[]
     db = ImagingDatabase()
 
     # store the fact that we are attempting a sync
     db.changeTargetsSynchroState(uuids, target_type, P2ISS.RUNNING)
-
+    dfdf = db.getListImagingServerAssociated()
+    for t in dfdf:
+        ListImagingServerAssociated.append(t.url)
     # Load up l_uuids with the required info (computer within profile OR given computers)
     if target_type == P2IT.PROFILE:
         pid = uuids[0]
@@ -3204,12 +3414,24 @@ def synchroTargets(ctx, uuids, target_type, macs = {}, wol = False):
 
     distinct_loc = xmlrpcCleanup(distinct_loc)
     if len(defer_list) == 0:
-        return synchroTargetsSecondPart(ctx, distinct_loc, target_type, pid, macs = macs)
+        distinct_locs = distinct_loc
+        keyvaleur = distinct_loc.keys()
+        for tt in ListImagingServerAssociated:
+            for z in keyvaleur:
+                distinct_loc[z][0]=tt
+                synchroTargetsSecondPart(ctx, distinct_loc, target_type, pid, macs = macs)
+        return synchroTargetsSecondPart(ctx, distinct_locs, target_type, pid, macs = macs)
     else:
         def sendResult(results, distinct_loc = distinct_loc, target_type = target_type, pid = pid, db = db):
             for result, uuids in results:
                 db.delProfileMenuTarget(uuids)
-            return synchroTargetsSecondPart(ctx, distinct_loc, target_type, pid, macs = macs)
+            distinct_locs = distinct_loc    
+            keyvaleur = distinct_loc.keys()
+            for tt in ListImagingServerAssociated:
+                for z in keyvaleur:
+                    distinct_loc[z][0]=tt
+                    synchroTargetsSecondPart(ctx, distinct_loc, target_type, pid, macs = macs)
+            return synchroTargetsSecondPart(ctx, distinct_locs, target_type, pid, macs = macs)
         defer_list = defer.DeferredList(defer_list)
         defer_list.addCallback(sendResult)
         return defer_list

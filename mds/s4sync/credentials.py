@@ -2,7 +2,7 @@
 #
 # (c) 2014 Mandriva, http://www.mandriva.com/
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,16 @@
 #
 # Author(s):
 #   Jesús García Sáez <jgarcia@zentyal.com>
-#
+#   Jean-Philippe Braun <jpbraun@mandriva.com>
 
 import binascii
-from struct import pack, unpack, calcsize
+import logging
+
+from samba.ndr import ndr_unpack, ndr_pack
+from samba.dcerpc import drsblobs
+
+
+logger = logging.getLogger(__name__)
 
 
 class Credentials(object):
@@ -53,20 +59,18 @@ class Credentials(object):
 
     def _encode_samba_credentials(self):
         keys = {key['type']: key for key in self.keys}
-
-        if any(key_type not in keys for key_type in (1, 3, 23)):
-            raise ValueError("Kerberos keys don't have the proper types, "
-                             "expected 1, 3 and 23")
-
-        self.unicode_pwd = keys[23]['value']
-        self.supplemental_credentials = UserProperties([keys[3],
-                                                        keys[1]]).encode()
+        logger.debug("Encoding supplemental_credentials using keys: %s" % keys)
+        self.unicode_pwd = keys.pop(23)['value']
+        self.supplemental_credentials = UserProperties(keys).encode()
+        logger.debug("Encoding done")
 
     def _decode_samba_credentials(self):
+        logger.debug("Decoding supplemental_credentials")
         self.keys = UserProperties(self.supplemental_credentials).keys
         self.keys.append({'type': 23,
                           'value': self.unicode_pwd,
                           'salt': self.keys[0]['salt']})
+        logger.debug("Decoded keys: %s" % self.keys)
 
 
 class CommonDataType(object):
@@ -88,98 +92,98 @@ class UserProperties(CommonDataType):
     """
 
     def __init__(self, kerberos_keys_or_raw_data):
-        if isinstance(kerberos_keys_or_raw_data, list):
+        if isinstance(kerberos_keys_or_raw_data, dict):
             self.keys = kerberos_keys_or_raw_data
         else:
             self._raw = kerberos_keys_or_raw_data
             self.decode()
 
-    def _encode_user_properties(self):
-        return [UserProperty('Primary:Kerberos', KerberosProperty(self.keys)),
-                UserProperty('Packages', 'Kerberos'.encode('utf-16-le'))]
-
-    def _fmt(self, len_reserved4, len_user_properties):
-        return "<lLhh%dshh%dsB" % (len_reserved4, len_user_properties)
-
     def encode(self):
-        reserved4 = binascii.unhexlify("2000") * 48
-        signature = 0x50
-        user_properties = self._encode_user_properties()
-        properties_count = len(user_properties)
-        user_properties_str = ''.join([str(up) for up in user_properties])
-        total_len = 4 + len(reserved4) + len(user_properties_str)
-        fmt = self._fmt(len_reserved4=len(reserved4),
-                        len_user_properties=len(user_properties_str))
-        return pack(fmt,
-                    0,
-                    total_len,
-                    0,
-                    0,
-                    reserved4,
-                    signature,
-                    properties_count,
-                    user_properties_str,
-                    0)
+        package_names = []
+        kerberos = []
+        kerberos_newer_keys = []
+        cred_List = []
 
-    def decode(self):
-        len_reserved4 = 96
-        total_len = calcsize(self._fmt(len_reserved4, 0))
-        len_user_properties = len(self._raw) - total_len
-        data = unpack(self._fmt(len_reserved4, len_user_properties), self._raw)
-        properties_count = data[6]
-        user_properties_str = data[7]
-        offset = 0
-        for i in xrange(0, properties_count):
-            prop = UserProperty(user_properties_str[offset:])
-            if prop.name == "Primary:Kerberos".encode('utf-16-le'):
-                self.keys = KerberosProperty(prop.value).keys
-            else:
-                print "Ignored user property %r" % prop.name.decode('utf-16-le')
-            offset += prop.size
+        # Order matters
+        for key_id in (3, 1):
+            if key_id in self.keys:
+                kerberos.append(self.keys[key_id])
+        for key_id in (18, 17):
+            if key_id in self.keys:
+                kerberos_newer_keys.append(self.keys[key_id])
 
+        if kerberos_newer_keys and kerberos:
+            logger.debug("compute Primary:Kerberos-Newer-Keys")
+            creddata_Primary_Kerberos_Newer = KerberosNewerKeysProperty(kerberos_newer_keys + kerberos).encode()
+            credname_Primary_Kerberos_Newer = "Primary:Kerberos-Newer-Keys"
+            cred_Primary_Kerberos_Newer = drsblobs.supplementalCredentialsPackage()
+            cred_Primary_Kerberos_Newer.name = credname_Primary_Kerberos_Newer
+            cred_Primary_Kerberos_Newer.name_len = len(credname_Primary_Kerberos_Newer)
+            cred_Primary_Kerberos_Newer.data = creddata_Primary_Kerberos_Newer
+            cred_Primary_Kerberos_Newer.data_len = len(creddata_Primary_Kerberos_Newer)
+            cred_Primary_Kerberos_Newer.reserved = 1
+            cred_List.append(cred_Primary_Kerberos_Newer)
+            package_names.append('Kerberos-Newer-Keys')
 
-class KerberosKeyData(CommonDataType):
+        if kerberos:
+            logger.debug("compute Primary:Kerberos")
+            creddata_Primary_Kerberos = KerberosProperty(kerberos).encode()
+            credname_Primary_Kerberos = "Primary:Kerberos"
+            cred_Primary_Kerberos = drsblobs.supplementalCredentialsPackage()
+            cred_Primary_Kerberos.name = credname_Primary_Kerberos
+            cred_Primary_Kerberos.name_len = len(credname_Primary_Kerberos)
+            cred_Primary_Kerberos.data = creddata_Primary_Kerberos
+            cred_Primary_Kerberos.data_len = len(creddata_Primary_Kerberos)
+            cred_Primary_Kerberos.reserved = 1
+            cred_List.append(cred_Primary_Kerberos)
+            package_names.append('Kerberos')
 
-    """
-    http://msdn.microsoft.com/en-us/library/cc245504.aspx
-    """
-
-    def __init__(self, key_or_raw_data, offset=None):
-        self.size = calcsize(self._fmt())
-        if offset is None:
-            self._raw = key_or_raw_data
-            self.decode()
+        if package_names:
+            krb_blob_Packages = '\0'.join(package_names).encode('utf-16-le')
+            cred_PackagesBlob_data = binascii.hexlify(krb_blob_Packages).upper()
+            cred_PackagesBlob_name = "Packages"
+            cred_PackagesBlob = drsblobs.supplementalCredentialsPackage()
+            cred_PackagesBlob.name = cred_PackagesBlob_name
+            cred_PackagesBlob.name_len = len(cred_PackagesBlob_name)
+            cred_PackagesBlob.data = cred_PackagesBlob_data
+            cred_PackagesBlob.data_len = len(cred_PackagesBlob_data)
+            cred_PackagesBlob.reserved = 2
+            cred_List.append(cred_PackagesBlob)
         else:
-            self.key_type = key_or_raw_data['type']
-            self.key_length = len(key_or_raw_data['value'])
-            self.offset = offset
+            raise Exception("Can't buid credentials, no keys provided")
 
-    def _fmt(self):
-        return '<hhlLLl'
+        sub = drsblobs.supplementalCredentialsSubBlob()
+        sub.num_packages = len(cred_List)
+        sub.packages = cred_List
+        sub.signature = drsblobs.SUPPLEMENTAL_CREDENTIALS_SIGNATURE
+        sub.prefix = drsblobs.SUPPLEMENTAL_CREDENTIALS_PREFIX
 
-    def encode(self):
-        return pack(self._fmt(),
-                    0,
-                    0,
-                    0,
-                    self.key_type,
-                    self.key_length,
-                    self.offset)
+        sc = drsblobs.supplementalCredentialsBlob()
+        sc.sub = sub
+
+        sc_blob = ndr_pack(sc)
+        return sc_blob
 
     def decode(self):
-        (_,
-         _,
-         _,
-         self.key_type,
-         self.key_length,
-         self.offset) = unpack(self._fmt(), self._raw[:self.size])
+        sc = ndr_unpack(drsblobs.supplementalCredentialsBlob, self._raw)
+        kerberos_keys = []
+        kerberos_newer_keys = []
+        for p in sc.sub.packages:
+            if p.name == "Primary:Kerberos":
+                kerberos_keys = KerberosProperty(p.data).keys
+            elif p.name == "Primary:Kerberos-Newer-Keys":
+                kerberos_newer_keys = KerberosNewerKeysProperty(p.data).keys
+            else:
+                logger.debug("Ignored user property %r" % p.name)
+        if kerberos_newer_keys:
+            self.keys = kerberos_newer_keys
+        elif kerberos_keys:
+            self.keys = kerberos_keys
+        else:
+            raise Exception("Can't found any key!")
 
 
-class KerberosProperty(CommonDataType):
-
-    """
-    http://msdn.microsoft.com/en-us/library/cc245503.aspx
-    """
+class KerberosProp(CommonDataType):
 
     def __init__(self, keys_or_raw_data):
         if isinstance(keys_or_raw_data, list):
@@ -188,103 +192,94 @@ class KerberosProperty(CommonDataType):
             self._raw = binascii.unhexlify(str(keys_or_raw_data))
             self.decode()
 
-    def _fmt(self, len_credentials=None):
-        if len_credentials is None:
-            return "<hhhhhhL"
-        else:
-            return "<hhhhhhL%ds20x" % len_credentials
+    def check_key_value(self, key):
+        lengths = {
+            18: 32,  # aes256
+            17: 16,  # aes12
+            3: 8,    # des_md5
+            1: 8     # des_crc
+        }
+        assert len(key['value']) == lengths[key['type']]
+
+    def keys_to_blob(self, keys_list):
+        keys = []
+        for key in keys_list:
+            # type = -140 can be safely iignored
+            if key['type'] == 4294967156:
+                continue
+            self.check_key_value(key)
+            keys.append(self.key_to_blob(key))
+        return keys
+
+    def key_to_blob(self, key):
+        raise NotImplementedError()
+
+
+class KerberosProperty(KerberosProp):
+
+    def key_to_blob(self, key):
+        k = drsblobs.package_PrimaryKerberosKey3()
+        k.keytype = key['type']
+        k.value = key['value']
+        k.value_len = len(key['value'])
+        return k
 
     def encode(self):
-        revision = 3
-        flags = 0
-        salt = self.keys[0]['salt'].encode('utf-16-le')
-        len_default_salt = len(salt)
-        len_default_salt_max = len_default_salt
+        keys = self.keys_to_blob(self.keys)
 
-        credentials = []
-        old_credentials = []
-        key_values = []
-        key_value_offset = 16 + 20 + len(self.keys) * 20 + len_default_salt
-        for key in self.keys:
-            credentials.append(KerberosKeyData(key, key_value_offset))
-            key_values.append(key['value'])
-            key_value_offset += 8
+        salt3 = drsblobs.package_PrimaryKerberosString()
+        salt3.string = self.keys[0]['salt']
 
-        credentials_str = ''.join([str(cred) for cred in credentials])
-        old_credentials_str = ''.join(old_credentials)
-        values_str = ''.join(key_values)
-        default_salt_offset = 16 + 20 + \
-            len(credentials_str) + len(old_credentials_str)
-        fmt = self._fmt(len(credentials_str))
-        ret = pack(fmt,
-                   revision,
-                   flags,
-                   len(credentials),
-                   len(old_credentials),
-                   len_default_salt,
-                   len_default_salt_max,
-                   default_salt_offset,
-                   credentials_str)
-        return ret + old_credentials_str + salt + values_str
+        ctr3 = drsblobs.package_PrimaryKerberosCtr3()
+        ctr3.salt = salt3
+        ctr3.num_keys = len(keys)
+        ctr3.keys = keys
+
+        krb_Primary_Kerberos = drsblobs.package_PrimaryKerberosBlob()
+        krb_Primary_Kerberos.version = 3
+        krb_Primary_Kerberos.ctr = ctr3
+
+        return binascii.hexlify(ndr_pack(krb_Primary_Kerberos)).upper()
 
     def decode(self):
         keys = []
-        fmt = self._fmt()
-        (revision,
-         flags, n_creds,
-         n_old_creds,
-         len_salt,
-         len_max_salt,
-         salt_offset) = unpack(fmt, self._raw[:calcsize(fmt)])
-        if revision != 3:
-            raise ValueError("Revision must be 3 (%x)" % revision)
-        salt = self._raw[
-            salt_offset:salt_offset + len_max_salt].decode('utf-16-le')
-        offset = calcsize(fmt)
-        for i in xrange(0, n_creds):
-            key_data = KerberosKeyData(self._raw[offset:])
-            key_type = key_data.key_type
-            key_value = self._raw[
-                key_data.offset:key_data.offset + key_data.key_length]
-            keys.append({'type': key_type, 'value': key_value, 'salt': salt})
-            offset += key_data.size
+        krb = ndr_unpack(drsblobs.package_PrimaryKerberosBlob, self._raw)
+        assert krb.version == 3
+        for key in krb.ctr.keys:
+            keys.append({'type': key.keytype, 'value': key.value, 'salt': krb.ctr.salt.string})
         self.keys = keys
 
 
-class UserProperty(CommonDataType):
+class KerberosNewerKeysProperty(KerberosProp):
 
-    """
-    http://msdn.microsoft.com/en-us/library/cc245501.aspx
-    """
-
-    def __init__(self, name_or_raw_data, value=None):
-        if value is None:
-            self._raw = name_or_raw_data
-            self.decode()
-        else:
-            self.name = name_or_raw_data.encode('utf-16-le')
-            self.value = binascii.hexlify(str(value)).upper()
-        self.size = 0
-
-    def _fmt(self, len_name=None, len_value=None):
-        if len_name is not None and len_value is not None:
-            if len_name is None or len_value is None:
-                raise ValueError("Parameter required: len_name and len_value")
-            fmt = "<hhh%ds%ds" % (len_name, len_value)
-            self.size = calcsize(fmt)
-            return fmt
-        else:
-            return "<hhh"
+    def key_to_blob(self, key):
+        k = drsblobs.package_PrimaryKerberosKey4()
+        k.keytype = key['type']
+        k.value = key['value']
+        k.value_len = len(key['value'])
+        return k
 
     def encode(self):
-        len_name = len(self.name)
-        len_value = len(self.value)
-        return pack(self._fmt(len_name, len_value), len_name, len_value,
-                    0, self.name, self.value)
+        keys = self.keys_to_blob(self.keys)
+
+        salt4 = drsblobs.package_PrimaryKerberosString()
+        salt4.string = self.keys[0]['salt']
+
+        ctr4 = drsblobs.package_PrimaryKerberosCtr4()
+        ctr4.salt = salt4
+        ctr4.num_keys = len(keys)
+        ctr4.keys = keys
+
+        krb_Primary_Kerberos_Newer = drsblobs.package_PrimaryKerberosBlob()
+        krb_Primary_Kerberos_Newer.version = 4
+        krb_Primary_Kerberos_Newer.ctr = ctr4
+
+        return binascii.hexlify(ndr_pack(krb_Primary_Kerberos_Newer)).upper()
 
     def decode(self):
-        fmt = self._fmt()
-        (len_name, len_value, _) = unpack(fmt, self._raw[0:calcsize(fmt)])
-        fmt = self._fmt(len_name, len_value)
-        (_, _, _, self.name, self.value) = unpack(fmt,
-                                                  self._raw[0:calcsize(fmt)])
+        keys = []
+        krb = ndr_unpack(drsblobs.package_PrimaryKerberosBlob, self._raw)
+        assert krb.version == 4
+        for key in krb.ctr.keys:
+            keys.append({'type': key.keytype, 'value': key.value, 'salt': krb.ctr.salt.string})
+        self.keys = keys

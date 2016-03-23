@@ -1,11 +1,9 @@
 <?php
 /**
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
- * (c) 2007-2008 Mandriva, http://www.mandriva.com/
+ * (c) 2007-2015 Mandriva, http://www.mandriva.com/
  *
- * $Id$
- *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,51 +19,17 @@
  * along with MMC; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-/* $Id$ */
 
-/* protected share */
-$protectedShare= array ("","homes","netlogon","archives");
-
-require("modules/samba/includes/shares.inc.php");
 require("modules/samba/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-global $conf;
-
-$shares = get_shares_detailed();
-$sharesName = array();
-$sharesComment = array();
-
-$editActions = array();
-$delActions = array();
-//$backupActions = array();
-
-foreach($shares as $share) {
-    $sharesName[] = $share[0];
-    if (isset($share[1]))
-        $sharesComment[] = $share[1];
-    else
-        $sharesComment[] = "";
-    if (!in_array($share[0], $protectedShare)) {
-        $editActions[] = new ActionItem(_T("Edit"),"details","edit","share");
-        $delActions[] = new ActionPopupItem(_T("Delete"),"delete","delete","share");
-    } else {
-        $editActions[] = new EmptyActionItem();
-        $delActions[] = new EmptyActionItem();
-    }
-}
+$ajax = new AjaxFilter(urlStrRedirect("samba/shares/ajaxFilter"));
+$ajax->display();
 
 $p = new PageGenerator(_T("Shares"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
-$l = new ListInfos($sharesName, _T("Shares"));
-$l->first_elt_padding = 1;
-$l->addExtraInfo($sharesComment, _T("Description"));
-$l->addActionItemArray($editActions);
-$l->addActionItemArray($delActions);
-
-$l->addActionItem(new ActionPopupItem(_T("Archive"),"backup","backup","share"));
-$l->display();
+$ajax->displayDivToUpdate();
 
 ?>

@@ -22,7 +22,7 @@
  */
 $root = $conf["global"]["root"];
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Mandriva Management Console</title>
@@ -113,13 +113,14 @@ $root = $conf["global"]["root"];
 
             // Popup under mouseevent
             function _defaultPlacement(evt) {
-                var left = Math.max(0, evt.clientX - jQuery('#popup').outerWidth() + jQuery(window).scrollLeft());
-                var top = Math.max(0, evt.clientY + jQuery(window).scrollTop());
+                var window_width = jQuery(window).width();
+                var  window_height = jQuery(window).height();
+                var top = (window_height/ 2) - (jQuery('#popup').height() / 2) + jQuery(window).scrollTop();
+                var left = (window_width/ 2) - (jQuery('#popup').width() / 2) + jQuery(window).scrollLeft();
                 jQuery('#popup').css({'left': left + "px", 'top': top + "px"});
             }
 
             function _centerPlacement(evt) {
-
                 jQuery('#popup').css({
                     'width': '50%',
                     'left': '25%',
@@ -206,7 +207,7 @@ $root = $conf["global"]["root"];
                     jQuery('#popup').css({
                         'width': '50%',
                         'left': '25%',
-                        'top': '15%'
+                        'top': '25%'
                     });
                     jQuery('#overlay').fadeIn().click(closePopup);
 
@@ -239,7 +240,7 @@ $root = $conf["global"]["root"];
                     jQuery('#popup').css({
                         'width': '50%',
                         'left': '25%',
-                        'top': '15%'
+                        'top':  '25%'
                     });
                     jQuery('#overlay').fadeIn().click(closePopup);
 

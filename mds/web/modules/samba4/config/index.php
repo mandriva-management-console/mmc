@@ -3,9 +3,7 @@
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007-2008 Mandriva, http://www.mandriva.com/
  *
- * $Id$
- *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +24,10 @@ require("modules/samba4/includes/shares-xmlrpc.inc.php");
 require("modules/samba4/includes/samba-xmlrpc.inc.php");
 
 if (isset($_POST["brestart"])) {
-    header("Location: " . urlStrRedirect("samba/config/restart"));
+    header("Location: " . urlStrRedirect("samba4/config/restart"));
     exit;
 } else if (isset($_POST["breload"])) {
-    header("Location: " . urlStrRedirect("samba/config/reload"));
+    header("Location: " . urlStrRedirect("samba4/config/reload"));
     exit;
 }
 
@@ -57,12 +55,12 @@ function save_smbconf() {
         $options['hashomes'] = false;
     else
         $options['hashomes'] = true;
-    if(!isset($_POST['pdc']))
-        $options['pdc'] = false;
-    else
-        $options['pdc'] = true;
+//     if(!isset($_POST['pdc']))
+//         $options['pdc'] = false;
+//     else
+//         $options['pdc'] = true;
     # apply samba options
-    return xmlCall("samba.smbInfoSave", array($options));
+    return xmlCall("samba4.saveOptions", array($options));
 }
 
 function getCheckedState($smb, $option) {
@@ -75,19 +73,22 @@ function getCheckedState($smb, $option) {
 if (isset($_POST["bsave"])) {
     $ret = save_smbconf();
     if (!isXMLRPCError()) {
-        new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.")));
+        $n = new NotifyWidgetSuccess(sprintf(_T("SAMBA configuration saved. You may need to reload or restart the SAMBA service.", "samba4")));
+        handleServicesModule($n, array("samba" => "SAMBA"));
     }
 }
 
 require("modules/samba4/mainSidebar.php");
 require("graph/navbar.inc.php");
 
-$p = new PageGenerator(_T("General options"));
+$p = new PageGenerator(_T("General options", "samba4"));
 $p->setSideMenu($sidemenu);
 $p->display();
 
 $smb = get_smbconf();
-#print $smb;
+// foreach($smb as $key => $i){
+//      print("$key=$i<br>");
+//  }
 
 $f = new ValidatingForm();
 $f->push(new Table());
@@ -98,12 +99,12 @@ $f->push(new Table());
     $workgroupTpl = new HiddenTpl("realm");
 
 $f->add(
-        new TrFormElement(_T("Domain name"), $workgroupTpl),
+        new TrFormElement(_T("Domain name", "samba4"), $workgroupTpl),
         array("value" => $smb["realm"], "required" => True)
 );
 
 $f->add(
-        new TrFormElement(_T("Server name"), new HiddenTpl("netbios name")),
+        new TrFormElement(_T("Server name", "samba4"), new HiddenTpl("netbios name")),
         array("value" => $smb["netbios name"], "required" => True)
 );
 
@@ -119,22 +120,27 @@ $value = "";
 #        array("value" => getCheckedState($smb, "wins support"))
 #);
 
-$value = "";
-#if ($smb["hashomes"]) $value = "checked";
 $f->add(
-        new TrFormElement(_T("Share user's homes"),new CheckboxTpl("hashomes")),
+        new TrFormElement(_T("DNS forwarder"), new IPInputTpl("dns forwarder")),
+        array("value" => $smb["dns forwarder"])
+);
+
+$value = "";
+if ($smb["hashomes"]) $value = "checked";
+$f->add(
+        new TrFormElement(_T("Share user's homes", "samba4"),new CheckboxTpl("hashomes")),
         array("value" => $value)
 );
 
 $value = "";
 $hasProfiles = false;
-// if ($smb['logon path']) {
-//     $value = "checked";
-//     $hasProfiles = true;
-// }
+if ($smb['logon path']) {
+    $value = "checked";
+    $hasProfiles = true;
+}
 $f->add(
-        new TrFormElement(_T("Use network profiles for users"), new CheckboxTpl("hasprofiles"),
-            array("tooltip" => _T("Activate roaming profiles for all users.", "samba"))),
+        new TrFormElement(_T("Use network profiles for users", "samba4"), new CheckboxTpl("hasprofiles"),
+            array("tooltip" => _T("Activate roaming profiles for all users.", "samba4"))),
         array("value" => $value, "extraArg" => 'onclick=toggleVisibility("profilespath")')
 );
 
@@ -150,29 +156,29 @@ $f->push(new Table());
 $value = "\\\\%N\\profiles\\%U";
 if($hasProfiles) $value = $smb['logon path'];
 $f->add(
-        new TrFormElement(_T("Network path for profiles"), new InputTpl("logon path"),
-            array("tooltip" => _T("The share must exist and be world-writable.", "samba"))),
+        new TrFormElement(_T("Network path for profiles", "samba4"), new InputTpl("logon path"),
+            array("tooltip" => _T("The share must exist and be world-writable.", "samba4"))),
         array("value" => $value)
 );
 $f->pop();
 $f->pop();
 
-$f->push(new DivExpertMode());
-$f->push(new Table());
+// $f->push(new DivExpertMode());
+// $f->push(new Table());
 
-$syncTpl = new SelectItem("ldap passwd sync");
-$labels = array(_T('Yes'), _T('No'), _T('Only (for smbk5pwd)'));
-$values = array('yes', 'no', 'only');
-$syncTpl->setElements($labels);
-$syncTpl->setElementsVal($values);
+// $syncTpl = new SelectItem("ldap passwd sync");
+// $labels = array(_T('Yes'), _T('No'), _T('Only (for smbk5pwd)'));
+// $values = array('yes', 'no', 'only');
+// $syncTpl->setElements($labels);
+// $syncTpl->setElementsVal($values);
 // $f->add(
 //         new TrFormElement(_T("LDAP password sync"), $syncTpl),
 //         array("value" => $smb["ldap passwd sync"])
 // );
 
-$d = array(_T("Opening script session") => "logon script",
-           _T("Base directory path") => "logon home",
-           _T("Connect base directory on network drive") => "logon drive");
+// $d = array(_T("Opening script session") => "logon script",
+//            _T("Base directory path") => "logon home",
+//            _T("Connect base directory on network drive") => "logon drive");
 
 // foreach ($d as $description => $field) {
 //     $f->add(
@@ -181,12 +187,12 @@ $d = array(_T("Opening script session") => "logon script",
 //     );
 // }
 
-$f->pop();
-$f->pop();
+// $f->pop();
+// $f->pop();
 
-#$f->addValidateButton("bsave");
-#$f->addExpertButton("brestart", _T("Restart SAMBA"));
-#$f->addButton("breload", _T("Reload SAMBA configuration"));
+$f->addValidateButton("bsave");
+$f->addExpertButton("brestart", _T("Restart SAMBA", "samba4"));
+$f->addButton("breload", _T("Reload SAMBA configuration", "samba4"));
 
 $f->display();
 

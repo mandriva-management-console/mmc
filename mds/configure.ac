@@ -1,7 +1,7 @@
 dnl configure.in for mds project.
 dnl (c) 2011 mandriva, http://www.mandriva.com
 dnl
-dnl This file is part of Mandriva Management Console (MMC).
+dnl This file is part of Management Console.
 dnl
 dnl MMC is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ AC_PREREQ(2.59)
 dnl autoconf initialization
 define([project], [mds])
 define([gitversion], esyscmd([sh -c "which git > /dev/null && git describe | sed -e 's/]project[-\([^-]\+\)//' | tr -d '\n' || true"]))dnl
-AC_INIT(project, [2.5.89], [http://projects.mandriva.org/projects/mmc])
+AC_INIT(project, [2.5.95], [http://projects.mandriva.org/projects/mmc])
 AC_DEFINE(GITVERSION, "gitversion", [Git version])
 
 AC_CANONICAL_BUILD

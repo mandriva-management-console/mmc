@@ -35,7 +35,12 @@ from configobj import ConfigObj
 from sqlalchemy import and_, create_engine, MetaData, Table, Column, String, \
         Integer, Date, ForeignKey, asc, or_, not_, desc, func, distinct
 from sqlalchemy.orm import create_session, mapper, relationship
-from sqlalchemy.sql.expression import ColumnOperators
+
+try:
+    from sqlalchemy.sql.expression import ColumnOperators
+except ImportError:
+    from sqlalchemy.sql.operators import ColumnOperators
+
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy.exc import OperationalError
 
@@ -51,6 +56,8 @@ from mmc.plugins.glpi.utilities import complete_ctx
 from mmc.plugins.glpi.database_utils import decode_latin1, encode_latin1, decode_utf8, encode_utf8, fromUUID, toUUID, setUUID
 from mmc.plugins.glpi.database_utils import DbTOA # pyflakes.ignore
 from mmc.plugins.dyngroup.config import DGConfig
+from distutils.version import LooseVersion, StrictVersion
+
 
 
 class Glpi084(DyngroupDatabaseHelper):
@@ -77,7 +84,8 @@ class Glpi084(DyngroupDatabaseHelper):
             self._glpi_version = self.db.execute('SELECT version FROM glpi_configs').fetchone().values()[0].replace(' ', '')
 	except OperationalError:
             self._glpi_version = self.db.execute('SELECT value FROM glpi_configs WHERE name = "version"').fetchone().values()[0].replace(' ', '')
-        if self._glpi_version >= '0.84':
+        if LooseVersion(self._glpi_version) >= LooseVersion('0.84') and LooseVersion(self._glpi_version) <  LooseVersion("0.85"):
+#	if self._glpi_version >= '0.84':
             logging.getLogger().debug('GLPI version %s found !' % self._glpi_version)
             return True
         else:
@@ -3441,7 +3449,7 @@ class Glpi084(DyngroupDatabaseHelper):
         Get a machine mac addresses
         """
         return self.getMachinesMac(uuid)[uuid]
-
+    
     def orderIpAdresses(self, uuid, hostname, netiface, empty_macs=False):
         ret_ifmac = []
         ret_ifaddr = []

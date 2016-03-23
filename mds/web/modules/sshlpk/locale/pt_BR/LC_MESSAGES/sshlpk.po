@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2012-12-13 17:44+0000\n"
+"Last-Translator: Alexandre Proença <alexandre@mandriva.com.br>\n"
 "Language-Team: Portuguese (Brazilian) (http://transifex.mandriva.com/"
 "projects/p/mds/team/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -21,12 +21,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: modules/sshlpk/infoPackage.inc.php:40
+#, fuzzy
 msgid "Change SSH keys"
-msgstr ""
+msgstr "Gerenciar chave SSH"
 
 #: modules/sshlpk/keys/edit.php:48
+#, fuzzy
 msgid "Change your SSH keys"
-msgstr ""
+msgstr "Gerenciar chave SSH"
 
 #: modules/sshlpk/includes/publicFunc.php:51 modules/sshlpk/keys/edit.php:58
 msgid "Enable SSH keys management"
@@ -37,8 +39,9 @@ msgid "LDAP Public SSH key management"
 msgstr "Gerenciamento LDAP público de chaves SSH"
 
 #: modules/sshlpk/infoPackage.inc.php:35
+#, fuzzy
 msgid "Manage SSH keys"
-msgstr ""
+msgstr "Gerenciar chave SSH"
 
 #: modules/sshlpk/includes/publicFunc.php:73 modules/sshlpk/keys/edit.php:73
 msgid "Public SSH Key"

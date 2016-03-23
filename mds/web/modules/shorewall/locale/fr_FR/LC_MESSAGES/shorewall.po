@@ -8,20 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
-"Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
-"Language-Team: French (France) (http://transifex.mandriva.com/projects/p/mds/"
-"team/fr_FR/)\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
+"PO-Revision-Date: 2014-12-23 10:17+0200\n"
+"Last-Translator: Jean-Philippe <jpbraun@mandriva.com>\n"
+"Language-Team: French "
+"<http://translate.mandriva.com/projects/mds-26/shorewall/fr_FR/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
-#: modules/shorewall/shorewall/dnat_rules.php:124
 #: modules/shorewall/shorewall/rules.php:133
 #: modules/shorewall/shorewall/rules.php:167
+#: modules/shorewall/shorewall/dnat_rules.php:124
 msgid "Accept"
 msgstr "Accepter"
 
@@ -34,9 +35,9 @@ msgstr "Ajouter une règle NAT"
 msgid "Add port forwarding rule"
 msgstr "Ajouter une règle de transfert de ports"
 
-#: modules/shorewall/shorewall/dnat_rules.php:245
 #: modules/shorewall/shorewall/rules.php:160
 #: modules/shorewall/shorewall/rules.php:240
+#: modules/shorewall/shorewall/dnat_rules.php:245
 msgid "Add rule"
 msgstr "Ajouter une règle"
 
@@ -48,7 +49,7 @@ msgstr "Tous"
 msgid "Allow connection from IP(s) address(es) (separate IPs with ',')."
 msgstr ""
 "Autoriser la connexion depuis les adresses IP (séparer les adresses IPs avec "
-"',')"
+"',')."
 
 #: modules/shorewall/shorewall/delete_dnat_rule.php:42
 #: modules/shorewall/shorewall/delete_masquerade_rule.php:40
@@ -60,8 +61,8 @@ msgstr "Annuler"
 msgid "Custom..."
 msgstr "Personnaliser..."
 
-#: modules/shorewall/shorewall/ajax_rules.php:43
 #: modules/shorewall/shorewall/rules.php:170
+#: modules/shorewall/shorewall/ajax_rules.php:43
 msgid "Decision"
 msgstr "Décision"
 
@@ -75,8 +76,8 @@ msgstr "Supprimer"
 msgid "Delete NAT rule"
 msgstr "Supprimer la règle de NAT"
 
-#: modules/shorewall/shorewall/ajax_dnat_rules.php:28
 #: modules/shorewall/shorewall/ajax_rules.php:28
+#: modules/shorewall/shorewall/ajax_dnat_rules.php:28
 msgid "Delete rule"
 msgstr "Supprimer la règle"
 
@@ -86,10 +87,10 @@ msgstr "Supprimer la règle"
 msgid "Delete this rule ?"
 msgstr "Supprimer cette règle ?"
 
-#: modules/shorewall/shorewall/ajax_dnat_rules.php:48
-#: modules/shorewall/shorewall/ajax_rules.php:50
 #: modules/shorewall/shorewall/rules.php:204
 #: modules/shorewall/shorewall/rules.php:207
+#: modules/shorewall/shorewall/ajax_rules.php:50
+#: modules/shorewall/shorewall/ajax_dnat_rules.php:48
 msgid "Destination"
 msgstr "Destination"
 
@@ -106,9 +107,9 @@ msgstr "Port(s) de destination"
 msgid "Destination zone"
 msgstr "Zone de destination"
 
-#: modules/shorewall/shorewall/dnat_rules.php:124
 #: modules/shorewall/shorewall/rules.php:133
 #: modules/shorewall/shorewall/rules.php:167
+#: modules/shorewall/shorewall/dnat_rules.php:124
 msgid "Drop"
 msgstr "Refuser"
 
@@ -130,25 +131,25 @@ msgstr "Externe &rarr; Serveur"
 msgid "External network (Internet)"
 msgstr "Réseau externe (Internet)"
 
-#: modules/shorewall/shorewall/dnat_rules.php:95
 #: modules/shorewall/shorewall/rules.php:104
+#: modules/shorewall/shorewall/dnat_rules.php:95
 msgid "Failed to add the rule."
 msgstr "Erreur lors de l'ajout de la règle."
 
-#: modules/shorewall/shorewall/dnat_rules.php:44
 #: modules/shorewall/shorewall/rules.php:43
+#: modules/shorewall/shorewall/dnat_rules.php:44
 msgid "Failed to change the policy."
 msgstr "Erreur lors du changement de la politique."
 
 #: modules/shorewall/infoPackage.inc.php:39
-#: modules/shorewall/shorewall/delete_dnat_rule.php:29
-#: modules/shorewall/shorewall/delete_masquerade_rule.php:28
-#: modules/shorewall/shorewall/delete_rule.php:29
-#: modules/shorewall/shorewall/dnat_rules.php:39
-#: modules/shorewall/shorewall/dnat_rules.php:90
 #: modules/shorewall/shorewall/masquerade.php:44
 #: modules/shorewall/shorewall/rules.php:40
 #: modules/shorewall/shorewall/rules.php:99
+#: modules/shorewall/shorewall/delete_dnat_rule.php:29
+#: modules/shorewall/shorewall/delete_masquerade_rule.php:28
+#: modules/shorewall/shorewall/dnat_rules.php:39
+#: modules/shorewall/shorewall/dnat_rules.php:90
+#: modules/shorewall/shorewall/delete_rule.php:29
 msgid "Firewall"
 msgstr "Firewall"
 
@@ -158,11 +159,11 @@ msgstr "Gestion du firewall"
 
 #: modules/shorewall/shorewall/dnat_rules.php:240
 msgid ""
-"If not specified, destination port(s) will be the same as the incoming port"
-"(s)"
+"If not specified, destination port(s) will be the same as the incoming "
+"port(s)"
 msgstr ""
 "Si non spécifié, les ports de destination seront les même que les ports "
-"source."
+"source"
 
 #: modules/shorewall/includes/functions.inc.php:25
 msgid "Internal"
@@ -176,7 +177,7 @@ msgstr "Interne &rarr; Externe"
 #: modules/shorewall/infoPackage.inc.php:99
 #: modules/shorewall/shorewall/localSidebar.php:45
 msgid "Internal &rarr; Internal"
-msgstr ""
+msgstr "Interne &rarr; Interne"
 
 #: modules/shorewall/infoPackage.inc.php:45
 #: modules/shorewall/shorewall/localSidebar.php:32
@@ -189,11 +190,11 @@ msgstr "Réseau interne"
 
 #: modules/shorewall/includes/errorHandling.php:29
 msgid "Invalid port number"
-msgstr ""
+msgstr "Numéro de port invalide"
 
 #: modules/shorewall/includes/errorHandling.php:36
 msgid "Invalid port range"
-msgstr ""
+msgstr "Plage de port invalide"
 
 #: modules/shorewall/infoPackage.inc.php:112
 #: modules/shorewall/shorewall/localSidebar.php:54
@@ -212,13 +213,13 @@ msgstr "Règle de NAT"
 msgid "NAT rule added."
 msgstr "Règle NAT ajoutée."
 
-#: modules/shorewall/shorewall/dnat_rules.php:111
 #: modules/shorewall/shorewall/rules.php:120
+#: modules/shorewall/shorewall/dnat_rules.php:111
 msgid "Policy"
 msgstr "Politique"
 
-#: modules/shorewall/shorewall/dnat_rules.php:38
 #: modules/shorewall/shorewall/rules.php:39
+#: modules/shorewall/shorewall/dnat_rules.php:38
 msgid "Policy changed."
 msgstr "Politique modifiée."
 
@@ -228,12 +229,12 @@ msgstr "Règles de transfert de ports"
 
 #: modules/shorewall/includes/errorHandling.php:30
 msgid "Port should be between 0 and 65535."
-msgstr ""
+msgstr "Le port doit être entre 0 et 65535."
 
-#: modules/shorewall/shorewall/ajax_dnat_rules.php:46
+#: modules/shorewall/shorewall/rules.php:233
 #: modules/shorewall/shorewall/ajax_rules.php:52
 #: modules/shorewall/shorewall/dnat_rules.php:178
-#: modules/shorewall/shorewall/rules.php:233
+#: modules/shorewall/shorewall/ajax_dnat_rules.php:46
 msgid "Port(s)"
 msgstr "Ports(s)"
 
@@ -242,16 +243,18 @@ msgid ""
 "Ports should be between 0 and 65535 and the left side port must be lower "
 "that the right side port."
 msgstr ""
+"Les ports doivent être compris entre 0 et 65535 et le port de gauche doit "
+"être plus petit que le port de droite."
 
-#: modules/shorewall/shorewall/ajax_dnat_rules.php:45
+#: modules/shorewall/shorewall/rules.php:231
 #: modules/shorewall/shorewall/ajax_rules.php:51
 #: modules/shorewall/shorewall/dnat_rules.php:176
-#: modules/shorewall/shorewall/rules.php:231
+#: modules/shorewall/shorewall/ajax_dnat_rules.php:45
 msgid "Protocol"
 msgstr "Protocole"
 
-#: modules/shorewall/shorewall/dnat_rules.php:60
 #: modules/shorewall/shorewall/rules.php:57
+#: modules/shorewall/shorewall/dnat_rules.php:60
 msgid "Protocol and port must be specified."
 msgstr "Le protocole et le port doit être spécifié."
 
@@ -260,14 +263,14 @@ msgid "Provide internet access to internal network(s)."
 msgstr "Permet à vos réseaux internes d'accéder à Internet."
 
 #: modules/shorewall/infoPackage.inc.php:125
-#: modules/shorewall/shorewall/dnat_rules.php:251
 #: modules/shorewall/shorewall/masquerade.php:94
 #: modules/shorewall/shorewall/rules.php:246
+#: modules/shorewall/shorewall/dnat_rules.php:251
 msgid "Restart service"
 msgstr "Redémarrer le service"
 
-#: modules/shorewall/shorewall/dnat_rules.php:89
 #: modules/shorewall/shorewall/rules.php:98
+#: modules/shorewall/shorewall/dnat_rules.php:89
 msgid "Rule added."
 msgstr "Règle ajoutée."
 
@@ -275,8 +278,8 @@ msgstr "Règle ajoutée."
 msgid "Rules"
 msgstr "Règles"
 
-#: modules/shorewall/shorewall/dnat_rules.php:132
 #: modules/shorewall/shorewall/rules.php:141
+#: modules/shorewall/shorewall/dnat_rules.php:132
 msgid "Save"
 msgstr "Sauvegarder"
 
@@ -284,22 +287,22 @@ msgstr "Sauvegarder"
 msgid "Server"
 msgstr "Serveur"
 
-#: modules/shorewall/shorewall/ajax_dnat_rules.php:42
+#: modules/shorewall/shorewall/rules.php:219
 #: modules/shorewall/shorewall/ajax_rules.php:46
 #: modules/shorewall/shorewall/dnat_rules.php:164
-#: modules/shorewall/shorewall/rules.php:219
+#: modules/shorewall/shorewall/ajax_dnat_rules.php:42
 msgid "Service"
 msgstr "Service"
 
-#: modules/shorewall/shorewall/dnat_rules.php:100
 #: modules/shorewall/shorewall/rules.php:109
+#: modules/shorewall/shorewall/dnat_rules.php:100
 msgid "Service must be specified."
 msgstr "Le service doit être spécifié."
 
-#: modules/shorewall/shorewall/ajax_dnat_rules.php:47
-#: modules/shorewall/shorewall/ajax_rules.php:48
 #: modules/shorewall/shorewall/rules.php:184
 #: modules/shorewall/shorewall/rules.php:187
+#: modules/shorewall/shorewall/ajax_rules.php:48
+#: modules/shorewall/shorewall/ajax_dnat_rules.php:47
 msgid "Source"
 msgstr "Source"
 
@@ -318,8 +321,8 @@ msgid ""
 msgstr ""
 "L'adresse IP de l'ordinateur dans le réseau interne qui recevra la requête."
 
-#: modules/shorewall/shorewall/dnat_rules.php:115
 #: modules/shorewall/shorewall/rules.php:124
+#: modules/shorewall/shorewall/dnat_rules.php:115
 msgid "The policy applies if no rule match the request."
 msgstr "La politique s'applique si aucune règle ne s'applique."
 
@@ -331,18 +334,18 @@ msgstr "La règle à été supprimée."
 
 #: modules/shorewall/includes/errorHandling.php:23
 msgid "The rule is invalid"
-msgstr ""
+msgstr "La règle est invalide"
 
 #: modules/shorewall/shorewall/restart_service.php:26
 msgid "The service has been asked to restart."
-msgstr "Il a été demandé au service de redémarrer."
+msgstr "Une demande de redémarrage a été envoyée au service."
 
 #: modules/shorewall/includes/functions.inc.php:32
 msgid "Unknow"
 msgstr "Inconnu"
 
-#: modules/shorewall/shorewall/dnat_rules.php:179
 #: modules/shorewall/shorewall/rules.php:234
+#: modules/shorewall/shorewall/dnat_rules.php:179
 msgid ""
 "You can specify multiple ports using ',' as separator (eg: 22,34,56). Port "
 "ranges can be defined with ':' (eg: 3400:3500 - from port 3400 to port 3500)."

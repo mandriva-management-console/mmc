@@ -2,7 +2,7 @@
 #
 # (c) 2014 Mandriva, http://www.mandriva.com/
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -60,6 +60,14 @@ class SambaConf:
     """
     Handle smb.conf file for Samba 4
     """
+
+    supportedGlobalOptions = ['realm', 'workgroup',
+                              'netbios name', 'server role',
+                              'logon path', 'logon drive',
+                              'logon home', 'logon script',
+                              'ldap passwd sync', 'wins support',
+                              'dns forwarder']
+
     KRB5_CONF_PATH = '/etc/krb5.conf'
 
     def __init__(self):
@@ -137,16 +145,17 @@ class SambaConf:
         """
         return main information about global section
         """
-        GLOBAL_OPTIONS = ['realm', 'workgroup', 'netbios name', 'server role']
         resArray = {}
-        for option in GLOBAL_OPTIONS:
+        for option in self.supportedGlobalOptions:
             resArray[option] = self.getContent('global', option)
+        resArray['hashomes'] = 'homes' in self.config
         return resArray
 
     def workgroupFromRealm(self, realm):
         return realm.split('.')[0][:15].upper()
 
-    def writeSambaConfig(self, mode, netbios_name, realm, description):
+    def writeSambaConfig(self, mode, netbios_name, realm, description,
+                         logon_path='', dns_forwarder=None, hashomes=True):
         """
         Write SAMBA configuration file (smb.conf) to disk.
 
@@ -159,16 +168,21 @@ class SambaConf:
         netbios_name = netbios_name.lower()
         realm = realm.upper()
         domain = realm.lower()
+
         params = {'workgroup': workgroup,
                   'realm': realm,
                   'netbios_name': netbios_name,
                   'description': description,
                   'mode': mode,
-                  'sysvol_path': os.path.join(self.prefix, 'var/lib/samba/sysvol'),
+                  'sysvol_path': os.path.join(self.db_dir, 'sysvol'),
                   'openchange': openchange,
                   'openchange_conf': openchange_conf,
                   'domain': domain,
-                  'interfaces': get_internal_interfaces()}
+                  'interfaces': get_internal_interfaces(),
+                  'logon_path': logon_path,
+                  'dns_forwarder': dns_forwarder,
+                  'hashomes': hashomes}
+
         smb_conf_template = env.get_template("smb.conf")
         with open(self.smb_conf_path, 'w') as f:
             f.write(smb_conf_template.render(params))
@@ -449,3 +463,89 @@ class SambaConf:
             if ret:
                 break
         return ret
+
+    def remove(self, section, option):
+        """
+        Remove an option from a section.
+        """
+        try:
+            del self.config[section][option]
+        except KeyError:
+            pass
+
+    def mapOptionValue(self, value):
+        """
+        Translate option value to SAMBA value
+        """
+        mapping = {"on": "Yes", "off": "No"}
+        try:
+            ret = mapping[value]
+        except KeyError:
+            ret = value
+        return ret
+
+    def saveOptions(self, options):
+        """ Set information in global section:
+         @param options: dict with global options """
+
+        current = self.getGlobalInfo()
+
+        # Don't write an empty value
+        # Use the SAMBA default
+        for option in ["logon home", "logon drive"]:
+            if option in options and options[option] == "":
+                self.remove("global", option)
+                del options[option]
+
+        # We update only what has changed from the current configuration
+        protected_options = ['workgroup', 'server role']
+        for option in set(self.supportedGlobalOptions) - set(protected_options):
+            try:
+                if option in options:
+                    options[option] = self.mapOptionValue(options[option])
+                    if options[option] != current[option]:
+                        self.setContent("global", option, options[option])
+                    # else do nothing, the option is already set
+                else:
+                    self.remove("global", option)
+            except KeyError:
+                # Just ignore the option if it was not sent
+                pass
+
+#         if current["pdc"] != options['pdc']:
+#             if options['pdc']:
+#                 self.setContent('global', 'domain logons', 'yes')
+#                 self.setContent('global', 'domain master', 'yes')
+#                 self.setContent('global', 'os level', '255')
+#             else:
+#                 self.setContent('global', 'domain logons', 'no')
+#                 self.remove('global', 'domain master')
+#                 self.remove('global', 'os level')
+
+        if options['hashomes']:
+            self.setContent('homes', 'comment', 'Home Directories')
+            self.setContent('homes', 'path', '/home/%S')
+            self.setContent('homes', 'browseable', 'no')
+            self.setContent('homes', 'read only', 'no')
+            self.setContent('homes', 'create mask', '0611')
+            self.setContent('homes', 'directory mask', '0711')
+            self.setContent('homes', 'vfs objects', 'acl_xattr full_audit')
+            self.setContent(
+                'homes', 'full_audit:success', 'connect opendir disconnect unlink mk')
+            self.setContent(
+                'homes', 'full_audit:failure', 'connect opendir disconnect unlink mk')
+# Set the vscan-av plugin if available
+#             if os.path.exists(SambaConfig("samba").av_so):
+#                 self.setContent("homes", "vfs objects", os.path.splitext(
+#                     os.path.basename(SambaConfig("samba").av_so))[0])
+        elif 'homes' in self.config:
+            del self.config["homes"]
+            self.setContent('global', 'logon home', '')
+
+        # Disable global profiles
+        if not options['hasprofiles']:
+            self.setContent('global', 'logon path', '')
+
+        # Save file
+        self.save()
+        return 0

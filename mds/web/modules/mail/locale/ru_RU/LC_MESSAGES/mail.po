@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2014-12-15 15:09+0000\n"
+"POT-Creation-Date: 2015-02-11 15:08+0100\n"
+"PO-Revision-Date: 2014-10-06 09:28+0000\n"
 "Last-Translator: Buildbot Mandriva <buildbot@mandriva.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/"
 "mds/team/ru_RU/)\n"
@@ -36,7 +36,7 @@ msgstr "%s не верный почтовый псевдоним."
 msgid "Add Zarafa attributes"
 msgstr "Добавить атрибуты Zarafa"
 
-#: modules/mail/infoPackage.inc.php:66 modules/mail/mainSidebar.php:35
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:66
 msgid "Add a domain"
 msgstr "Добавить домен"
 
@@ -44,8 +44,8 @@ msgstr "Добавить домен"
 msgid "Add a mail domain"
 msgstr "Добавить почтовый домен"
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:120
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:120
 msgid "Add a virtual alias"
 msgstr ""
 
@@ -110,8 +110,9 @@ msgid "Change mail drop"
 msgstr "Изменить сброс почты"
 
 #: modules/mail/includes/auditCodes.php:11
+#, fuzzy
 msgid "Change mail hidden"
-msgstr ""
+msgstr "Изменить почтовый узел"
 
 #: modules/mail/includes/auditCodes.php:9
 msgid "Change mail host"
@@ -323,7 +324,7 @@ msgstr "Почтовый домен"
 msgid "Mail domain is empty. Group mail alias wasn't set."
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:63 modules/mail/mainSidebar.php:30
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:63
 msgid "Mail domains"
 msgstr ""
 
@@ -343,8 +344,9 @@ msgstr "Использовать почтовый псевдоним групп�
 
 #: modules/mail/includes/publicFunc.php:92
 #: modules/mail/includes/publicFunc.php:302
+#, fuzzy
 msgid "Mail hidden"
-msgstr ""
+msgstr "Почтовый адрес"
 
 #: modules/mail/infoPackage.inc.php:36
 msgid "Mail management"
@@ -485,7 +487,7 @@ msgstr ""
 msgid "Virtual alias users updated."
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:117 modules/mail/mainSidebar.php:41
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:117
 msgid "Virtual aliases"
 msgstr ""
 

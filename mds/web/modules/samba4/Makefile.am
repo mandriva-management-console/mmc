@@ -2,7 +2,7 @@
 #
 # $Id$
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -72,6 +72,8 @@ datafiles = \
 	config/index.php \
 	config/reload.php \
 	config/restart.php
+
+langs = pt_BR fr_FR
 
 module = $(notdir $(realpath $(srcdir)))
 moduledir = $(datadir)/mmc/modules/$(module)

@@ -1,116 +1,124 @@
-#: modules/samba4/config/index.php:137
-msgid "Activate roaming profiles for all users."
+msgid ""
 msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-02 17:26+0200\n"
+"PO-Revision-Date: 2015-03-02 17:43+0200\n"
+"Last-Translator: Maik <mwagner@mandriva.com>\n"
+"Language-Team: German "
+"<http://translate.mandriva.com/projects/mds-26/samba4/de_DE/>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 
-#: modules/samba4/views/groups.tpl.php:138
+#: modules/samba4/config/index.php:139
+msgid "Activate roaming profiles for all users."
+msgstr "Aktivieren von Roamingprofilen für alle Benutzer."
+
 #: modules/samba4/views/users.tpl.php:138
+#: modules/samba4/views/groups.tpl.php:138
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: modules/samba4/machines/localSidebar.php:33
 msgid "Add a computer"
-msgstr ""
+msgstr "Einen Rechner hinzufügen"
 
 #: modules/samba4/views/groups.tpl.php:129
 msgid "Add a new group"
-msgstr ""
+msgstr "Eine neue Gruppe hinzufügen"
 
 #: modules/samba4/views/users.tpl.php:129
 msgid "Add a new user"
-msgstr ""
+msgstr "Einen neuen Benutzer hinzufügen"
 
-#: modules/samba4/infoPackage.inc.php:70 modules/samba4/shares/edit.php:69
+#: modules/samba4/shares/edit.php:69 modules/samba4/infoPackage.inc.php:70
 msgid "Add a share"
-msgstr ""
+msgstr "Eine Freigabe hinzufügen"
 
 #: modules/samba4/shares/delete.php:39
 #, php-format
 msgid "An error has occured during delete process on %s"
-msgstr ""
+msgstr "Ein Fehler ist bei der Löschung von %s aufgetreten"
 
 #: modules/samba4/shares/index.php:104
 msgid "Archive"
-msgstr ""
+msgstr "Archiv"
 
 #: modules/samba4/infoPackage.inc.php:76
 msgid "Backup a share"
-msgstr ""
+msgstr "Eine Freigabe sichern"
 
 #: modules/samba4/shares/backup.php:33
 #, php-format
 msgid "Backup of share <b>%s</b> has been launched in background."
-msgstr ""
-
-#: modules/samba4/config/index.php:174
-msgid "Base directory path"
-msgstr ""
+msgstr "Die Sicherung der Freigabe <b>%s</b> wurde im Hintergrund gestartet."
 
 #: modules/samba4/shares/backup.php:43
 msgid "Can't launch backup"
-msgstr ""
+msgstr "Kann die Sicherung nicht starten"
 
 #: modules/samba4/machines/delete.php:38
 #, php-format
 msgid "Computer <strong>%s</strong> deleted."
-msgstr ""
+msgstr "Rechner <strong>%s</strong> gelöscht."
 
 #: modules/samba4/machines/edit.php:73
 msgid "Computer account is enabled"
-msgstr ""
+msgstr "Konto des Rechners ist aktiviert"
 
 #: modules/samba4/machines/edit.php:70
 msgid "Computer description"
-msgstr ""
+msgstr "Beschreibung des Rechners"
 
 #: modules/samba4/infoPackage.inc.php:100
 msgid "Computer list"
-msgstr ""
+msgstr "Liste der Rechner"
 
 #: modules/samba4/machines/index.php:34
 msgid "Computer management"
-msgstr ""
+msgstr "Verwaltung der Rechner"
 
 #: modules/samba4/machines/ajaxFilter.php:50
 #: modules/samba4/machines/edit.php:67
 msgid "Computer name"
-msgstr ""
+msgstr "Rechnername"
 
 #: modules/samba4/machines/edit.php:54
 msgid "Computer successfully modified."
-msgstr ""
+msgstr "Rechner erfolgreich modifiziert."
 
 #: modules/samba4/machines/ajaxFilter.php:60
 msgid "Computers"
-msgstr ""
+msgstr "Rechner"
 
 #: modules/samba4/machines/localSidebar.php:30
 msgid "Computers management"
-msgstr ""
+msgstr "Verwaltung der Rechner"
 
 #: modules/samba4/infoPackage.inc.php:125
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
-#: modules/samba4/machines/edit.php:77 modules/samba4/shares/edit.php:188
+#: modules/samba4/shares/edit.php:188 modules/samba4/machines/edit.php:77
 msgid "Confirm"
-msgstr ""
-
-#: modules/samba4/config/index.php:175
-msgid "Connect base directory on network drive"
-msgstr ""
+msgstr "Bestätigen"
 
 #: modules/samba4/shares/edit.php:185
 msgid "Create"
-msgstr ""
+msgstr "Erstellen"
 
 #: modules/samba4/shares/index.php:92
 msgid "Current list of shares"
-msgstr ""
+msgstr "Aktuelle Liste der Freigaben"
 
-#: modules/samba4/shares/index.php:85 modules/samba4/views/groups.tpl.php:125
-#: modules/samba4/views/users.tpl.php:125
+#: modules/samba4/shares/index.php:85 modules/samba4/views/users.tpl.php:125
+#: modules/samba4/views/groups.tpl.php:125
 msgid "Delete"
-msgstr ""
+msgstr "Entfernen"
 
 #: modules/samba4/infoPackage.inc.php:114
 #: modules/samba4/machines/delete.php:48
@@ -125,24 +133,23 @@ msgstr ""
 msgid "Delete data"
 msgstr ""
 
-#: modules/samba4/machines/ajaxFilter.php:56
 #: modules/samba4/shares/edit.php:111 modules/samba4/shares/index.php:100
+#: modules/samba4/machines/ajaxFilter.php:56
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: modules/samba4/machines/ajaxFilter.php:42
-#: modules/samba4/shares/index.php:73
 msgid "Disabled"
 msgstr ""
 
-#: modules/samba4/config/index.php:101
+#: modules/samba4/config/index.php:103
 msgid "Domain name"
-msgstr ""
+msgstr "Name der Domain"
 
-#: modules/samba4/machines/ajaxFilter.php:57
 #: modules/samba4/shares/index.php:84
+#: modules/samba4/machines/ajaxFilter.php:57
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: modules/samba4/infoPackage.inc.php:110
 msgid "Edit a computer"
@@ -168,6 +175,10 @@ msgstr ""
 msgid "Guest access"
 msgstr ""
 
+#: modules/samba4/shares/index.php:73
+msgid "Hidden"
+msgstr ""
+
 #: modules/samba4/machines/edit.php:74
 msgid "If checked, the computer account is enabled"
 msgstr ""
@@ -186,22 +197,10 @@ msgstr ""
 
 #: modules/samba4/shares/edit.php:109
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
-#: modules/samba4/config/index.php:153
+#: modules/samba4/config/index.php:155
 msgid "Network path for profiles"
-msgstr ""
-
-#: modules/samba4/config/index.php:164
-msgid "No"
-msgstr ""
-
-#: modules/samba4/config/index.php:164
-msgid "Only (for smbk5pwd)"
-msgstr ""
-
-#: modules/samba4/config/index.php:173
-msgid "Opening script session"
 msgstr ""
 
 #: modules/samba4/shares/edit.php:158 modules/samba4/shares/index.php:99
@@ -218,12 +217,24 @@ msgid ""
 "with your media size will be created."
 msgstr ""
 
+#: modules/samba4/config/index.php:191
+msgid "Reload SAMBA configuration"
+msgstr ""
+
 #: modules/samba4/infoPackage.inc.php:138
 msgid "Reload SAMBA service"
 msgstr ""
 
 #: modules/samba4/infoPackage.inc.php:80
 msgid "Remove a share"
+msgstr ""
+
+#: modules/samba4/config/index.php:190
+msgid "Restart SAMBA"
+msgstr ""
+
+#: modules/samba4/infoPackage.inc.php:134
+msgid "Restart SAMBA service"
 msgstr ""
 
 #: modules/samba4/config/index.php:78
@@ -248,7 +259,7 @@ msgstr ""
 msgid "Samba4 properties"
 msgstr ""
 
-#: modules/samba4/config/index.php:106
+#: modules/samba4/config/index.php:108
 msgid "Server name"
 msgstr ""
 
@@ -279,7 +290,7 @@ msgstr ""
 msgid "Share enabled"
 msgstr ""
 
-#: modules/samba4/config/index.php:125
+#: modules/samba4/config/index.php:127
 msgid "Share user's homes"
 msgstr ""
 
@@ -307,7 +318,7 @@ msgstr ""
 msgid "The share %s will be archived."
 msgstr ""
 
-#: modules/samba4/config/index.php:154
+#: modules/samba4/config/index.php:156
 msgid "The share must exist and be world-writable."
 msgstr ""
 
@@ -336,20 +347,16 @@ msgstr ""
 msgid "UID field has not been submited."
 msgstr ""
 
-#: modules/samba4/config/index.php:136
+#: modules/samba4/config/index.php:138
 msgid "Use network profiles for users"
 msgstr ""
 
 #: modules/samba4/views/users.tpl.php:26
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: modules/samba4/shares/edit.php:169
 msgid "Users for this share"
-msgstr ""
-
-#: modules/samba4/config/index.php:164
-msgid "Yes"
 msgstr ""
 
 #: modules/samba4/includes/publicFunc.php:175
@@ -368,8 +375,4 @@ msgstr ""
 #: modules/samba4/shares/delete.php:49
 #, php-format
 msgid "You will delete the share <b>%s</b>"
-msgstr ""
-
-#: modules/samba4/infoPackage.inc.php:134
-msgid "restart SAMBA service"
 msgstr ""

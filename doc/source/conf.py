@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Mandriva Management Console documentation build configuration file, created by
+# IT Infrastructure Management Software documentation build configuration file, created by
 # sphinx-quickstart on Tue Oct 11 09:18:29 2011.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Mandriva Management Console'
-copyright = u'2011, Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse'
+project = u'IT Infrastructure Management Software'
+copyright = u'2011, Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse, Yvan Manon'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -164,7 +164,7 @@ html_last_updated_fmt = '%b %d, %Y'
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'MandrivaManagementConsoledoc'
+htmlhelp_basename = 'ITInfrastructureManagementSoftwaredoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -178,8 +178,8 @@ htmlhelp_basename = 'MandrivaManagementConsoledoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'MandrivaManagementConsole.tex', u'Mandriva Management Console Documentation',
-   u'Jean-Philippe Braun \\textless{}jpbraun@mandriva.com\\textgreater{}, Jean Parpaillon \\textless{}jparpaillon@mandriva.com\\textgreater{}, Nicolas Rueff \\textless{}nrueff@mandriva.com\\textgreater{}, Cédric Delfosse', 'manual'),
+  ('index', 'ITInfrastructureManagementSoftware.tex', u'IT Infrastructure Management Software Documentation',
+   u'Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse, Yvan Manon \\textless{}yvan.manon@siveo.net\\textgreater{}','manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -211,8 +211,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'mandrivamanagementconsole', u'Mandriva Management Console Documentation',
-     [u'Jean-Philippe Braun <jpbraun@mandriva.com>, Jean Parpaillon <jparpaillon@mandriva.com>, Nicolas Rueff <nrueff@mandriva.com>, Cédric Delfosse'], 1)
+    ('index', 'itinfrastructuremanagementsoftware', u'IT Infrastructure Management Software Documentation',
+     [u'Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse'], 1)
 ]
 
 

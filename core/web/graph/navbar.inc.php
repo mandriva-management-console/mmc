@@ -31,6 +31,39 @@ $root = $conf["global"]["root"];
 
 <div id="header">
 
+
+
+<!--navbar-->
+<div id="navbar">
+<?php
+if (getMMCLogo()) {
+?>
+<a href="http://www.siveo.net/solution-2/pulse-en/">
+	<img src="<?=getMMCLogo()?>" alt="SIVEO Pulse" id="logo" />
+</a>
+<?php
+}
+?>
+
+<ul>
+<?php
+
+autoGenerateNavbar(); //auto generation of navbar for new modules;
+
+if ($_SESSION["login"]=='root') {
+    $favact = "_disabled";
+} else {
+    $favact = "";
+}
+
+?>
+</ul>
+</div>
+<!--navbar-->
+
+
+
+<!--menuTopRight-->
 <div id="menuTopRight">
 
   <ul>
@@ -53,7 +86,18 @@ if (isExpertMode()) {
 
   </ul>
 </div>
+<!--menuTopRight-->
 
+
+
+
+</div>
+
+
+
+
+
+<!--path-->
 <p class="path">
 <?php
 /* Path automatic creation */
@@ -63,7 +107,7 @@ if ($_GET["submod"] != "main" && $_GET["action"] != "default")
 $MMCApp =&MMCApp::getInstance();
 $mod = $MMCApp->_modules[$_GET['module']];
 $submod = $mod->_submod[$_GET['submod']];
-list($m, $s, $a) = split('/',$submod->_defaultpage,3);
+list($m, $s, $a) = preg_split('@/@',$submod->_defaultpage,3);
 print '<a href="'. urlStr("$m/$s/$a") .'">' . $submod->getDescription() . '</a>';
 $action = $submod->_pages[$_GET["action"]];
 if (is_object($action)) {
@@ -72,24 +116,10 @@ if (is_object($action)) {
 }
 ?>
 </p>
-</div>
+<!--path-->
 
-<div id="navbar">
-<img src="<?=getMMCLogo()?>" alt="Mandriva" id="logo" />
-    <ul>
-<?php
 
-autoGenerateNavbar(); //auto generation of navbar for new modules;
 
-if ($_SESSION["login"]=='root') {
-    $favact = "_disabled";
-} else {
-    $favact = "";
-}
-
-?>
-</ul>
-</div>
 
 <div id="overlay" class="overlay" style="display: none"></div>
 <div id="popup" class="popup" style="display: none;">

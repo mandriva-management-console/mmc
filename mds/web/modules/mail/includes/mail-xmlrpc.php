@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -212,6 +212,10 @@ function isZarafaGroup($group) {
 
 function setZarafaGroup($group, $value) {
     return xmlCall("mail.setZarafaGroup", array($group, $value));
+}
+
+function delUserMails($uid) {
+    return xmlCall("mail.delUserMails", array($uid));
 }
 
 ?>

@@ -45,7 +45,7 @@ if (isset($_POST["bConnect"])) {
     $pass = $_POST["password"];
 
     /* Session creation */
-    $ip = ereg_replace('\.','',$_SERVER["REMOTE_ADDR"]);
+    $ip = preg_replace('@\.@','',$_SERVER["REMOTE_ADDR"]);
     $sessionid = md5 (time() . $ip . mt_rand());
 
     session_destroy();
@@ -78,12 +78,10 @@ if (isset($_GET["agentsessionexpired"])) {
 }
 
 ?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <!DOCTYPE html>
 <html>
 <head>
-        <title>Mandriva Linux / Mandriva Management Console</title>
+        <title>Siveo / Management Console</title>
         <link href="graph/login/index.css" rel="stylesheet" media="screen" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="icon" href="img/common/favicon.ico" />
@@ -94,9 +92,11 @@ if (isset($_GET["agentsessionexpired"])) {
 
 <div id="loginBox">
         <div id="header">
-        <div id="headerLeft"><div id="headerRight">
+        <!--<div id="headerLeft"><div id="headerRight">
             <p class="lock"></p>
-        </div></div></div>
+        </div></div>-->
+<img src="img/login/pulse_logo.png" alt ="[x]"/></a>
+        </div>
 
         <div id="interface">
         <div id="content">

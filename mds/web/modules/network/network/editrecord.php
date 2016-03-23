@@ -6,7 +6,7 @@
  *
  * $Id: edithost.php 172 2008-12-10 15:13:01Z cdelfosse $
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

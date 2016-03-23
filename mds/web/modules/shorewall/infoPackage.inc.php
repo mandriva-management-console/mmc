@@ -4,7 +4,7 @@
  * (c) 2004-2007 Linbox / Free&ALter Soft, http://linbox.com
  * (c) 2007-2012 Mandriva, http://www.mandriva.com
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ $lan_zones = getShorewallZones($zones_types['internal']);
 $wan_zones = getShorewallZones($zones_types['external']);
 
 $mod = new Module("shorewall");
-$mod->setVersion("2.5.89");
+$mod->setVersion("2.5.95");
 $mod->setRevision('');
 $mod->setDescription(_T("Firewall management", "shorewall"));
 $mod->setAPIVersion("0:0:0");

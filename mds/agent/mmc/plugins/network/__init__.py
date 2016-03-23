@@ -5,7 +5,7 @@
 #
 # $Id$
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ from mmc.plugins.network.audit import AA, PLUGIN_NAME
 
 INI = mmcconfdir + "/plugins/network.ini"
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "2:1:0"
 REVISION = scmRevision("$Rev$")
 

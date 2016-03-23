@@ -2,7 +2,7 @@
 #
 # $Id$
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -47,6 +47,8 @@ datafiles = \
 	shares/localSidebar.php \
 	shares/add.php \
 	shares/details.php \
+	shares/ajaxFilter.php \
+	shares/perms.html \
 	config/index.php \
 	config/reload.php \
 	config/restart.php \

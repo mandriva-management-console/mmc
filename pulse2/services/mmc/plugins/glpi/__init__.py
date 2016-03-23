@@ -201,18 +201,14 @@ def setGlpiEditableValue(uuid, name, value):
 def getInventoryEM(part):
     return []
 
-
 def getGlpiMachineUri():
     return Glpi().config.glpi_computer_uri
-
 
 def getMachineUUIDByMacAddress(mac):
     return xmlrpcCleanup(Glpi().getMachineUUIDByMacAddress(mac))
 
-
 def getMachinesLocations(uuids):
     return xmlrpcCleanup(Glpi().getMachinesLocations(uuids))
-
 
 def hasKnownOS(uuid):
     return xmlrpcCleanup(Glpi().hasKnownOS(uuid))

@@ -2,7 +2,7 @@
 #
 # (c) 2014 Mandriva, http://www.mandriva.com/
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ from mmc.support.mmctools import shlaunchBackground, progressBackup
 
 logger = logging.getLogger()
 
-VERSION = "2.5.89"
+VERSION = "2.5.95"
 APIVERSION = "1.0.0"
 REVISION = scmRevision("$Rev$")
 
@@ -214,3 +214,21 @@ def deleteSambaUser(username):
 
 def userHasSambaEnabled(username):
     return username and SambaAD().isUserEnabled(username)
+
+
+def restartSamba():
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_RESTART_SAMBA)
+    shlaunchBackground('systemctl restart samba.service')
+    r.commit()
+    return 0
+
+
+def reloadSamba():
+    r = AF().log(PLUGIN_NAME, AA.SAMBA4_RELOAD_SAMBA)
+    shlaunchBackground('systemctl reload samba.service')
+    r.commit()
+    return 0
+
+
+def saveOptions(options):
+    return SambaConf().saveOptions(options)

@@ -2,7 +2,7 @@
 #
 # (c) 2014 Mandriva, http://www.mandriva.com/
 #
-# This file is part of Mandriva Management Console (MMC).
+# This file is part of Management Console.
 #
 # MMC is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,9 +25,11 @@
 import logging
 import os
 import sys
+
+from mmc.support.mmctools import shlaunch, to_str
+
 from mmc.plugins.samba4.config import Samba4Config
 from mmc.plugins.samba4.smb_conf import SambaConf
-from mmc.support.mmctools import shlaunch
 
 
 logger = logging.getLogger()
@@ -68,11 +70,8 @@ class SambaAD:
 # v Users ---------------------------------------------------------------------
 
     def isUserEnabled(self, username):
-        if type(username) != type(''):
-            raise TypeError("username is expected to be string")
-
         search_filter = "(&(objectClass=user)(sAMAccountName=%s))" % ldb.binary_encode(
-            username)
+            to_str(username))
         userlist = self.samdb.search(base=self.samdb.domain_dn(),
                                      scope=ldb.SCOPE_SUBTREE,
                                      expression=search_filter,
@@ -84,7 +83,7 @@ class SambaAD:
         return 0 == (uac_flags & dsdb.UF_ACCOUNTDISABLE)
 
     def existsUser(self, username):
-        return username in self._samba_tool("user list")
+        return to_str(username) in self._samba_tool("user list")
 
     def updateUserPassword(self, username, password):
         self._samba_tool("user setpassword %s --newpassword='%s'" %
@@ -94,7 +93,8 @@ class SambaAD:
     def createUser(self, username, password, given_name=None, surname=None):
         cmd = "user create %s '%s'" % (username, password)
         if given_name and surname:
-            cmd += " --given-name='%s' --surname='%s'" % (given_name, surname)
+            cmd += " --given-name='%s' --surname='%s'" % (to_str(given_name),
+                                                          to_str(surname))
         self._samba_tool(cmd)
         return True
 
@@ -141,13 +141,10 @@ class SambaAD:
         res = []
         if computers:
             for computer in computers:
-                try:
-                    description = computer["description"]
-                except KeyError:
-                    description = computer["operatingSystem"]
+                description = computer.get("description", computer.get("operatingSystem", ""))
                 res.append({
                     "name": str(computer["name"]) + name_suffix,
-                    "description":  str(description),
+                    "description": str(description),
                     "enabled": 1  # TODO: get what the state actually is
                 })
         return res

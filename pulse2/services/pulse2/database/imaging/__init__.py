@@ -3152,6 +3152,17 @@ class ImagingDatabase(DyngroupDatabaseHelper):
         session.close()
         return True
 
+    def getListImagingServerAssociated(self):
+        """
+        method return list imaging server associated
+        @return: @return: list of imaging server associated
+        @rtype: list
+        """
+        session = create_session()
+        q = session.query(ImagingServer).filter(self.imaging_server.c.associated == 1)
+        q = q.all()
+        session.close()
+        return q
 
     def __getLinkedImagingServerForEntity(self, session, loc_id):
         """
@@ -3528,8 +3539,6 @@ class ImagingDatabase(DyngroupDatabaseHelper):
             logging.getLogger().error(str(e))
             session.close()
             return False
-
-
 
     def setLocationSynchroState(self, uuid, state):
         self.logger.debug(">>> setLocationSynchroState %s %s"%(uuid, str(state)))
@@ -4168,9 +4177,15 @@ class ImagingDatabase(DyngroupDatabaseHelper):
         session.flush()
         session.close()
         return True
-
+    
+    def getLocationImagingServerByServerUUID(self,imaging_server_uuid ):
+        session = create_session()
+        ims = session.query(ImagingServer).filter(self.imaging_server.c.packageserver_uuid == imaging_server_uuid).first()
+        LocationServer = ims.fk_entity
+        session.close()
+        return LocationServer
+    
     # Computer basic inventory stuff
-
     def injectInventory(self, imaging_server_uuid, computer_uuid, inventory):
         """
         Inject a computer inventory into the dabatase.
@@ -4207,6 +4222,9 @@ class ImagingDatabase(DyngroupDatabaseHelper):
                         cp.start = int(part['start'])
                         cd.partitions.append(cp)
                         target.disks.append(cd)
+            locationServerImaging = self.getLocationImagingServerByServerUUID(imaging_server_uuid)
+            target.fk_entity = locationServerImaging
+            self.logger.debug("Attribution location %s for computer  %s"%(target.fk_entity,target.name ))
             session.add(target)
             session.commit()
         except InvalidRequestError, e:

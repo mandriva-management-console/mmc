@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
-"PO-Revision-Date: 2015-05-24 23:00+0000\n"
+"POT-Creation-Date: 2015-02-11 15:08+0100\n"
+"PO-Revision-Date: 2014-11-03 00:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da_DK\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Add Zarafa attributes"
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:66 modules/mail/mainSidebar.php:35
+#: modules/mail/mainSidebar.php:35 modules/mail/infoPackage.inc.php:66
 msgid "Add a domain"
 msgstr ""
 
@@ -38,8 +38,8 @@ msgstr ""
 msgid "Add a mail domain"
 msgstr ""
 
-#: modules/mail/aliases/edit.php:44 modules/mail/infoPackage.inc.php:120
-#: modules/mail/mainSidebar.php:46
+#: modules/mail/aliases/edit.php:44 modules/mail/mainSidebar.php:46
+#: modules/mail/infoPackage.inc.php:120
 msgid "Add a virtual alias"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Mail domain is empty. Group mail alias wasn't set."
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:63 modules/mail/mainSidebar.php:30
+#: modules/mail/mainSidebar.php:30 modules/mail/infoPackage.inc.php:63
 msgid "Mail domains"
 msgstr ""
 
@@ -477,7 +477,7 @@ msgstr ""
 msgid "Virtual alias users updated."
 msgstr ""
 
-#: modules/mail/infoPackage.inc.php:117 modules/mail/mainSidebar.php:41
+#: modules/mail/mainSidebar.php:41 modules/mail/infoPackage.inc.php:117
 msgid "Virtual aliases"
 msgstr ""
 

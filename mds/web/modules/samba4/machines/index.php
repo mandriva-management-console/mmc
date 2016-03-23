@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ require("graph/navbar.inc.php");
 $ajax = new AjaxFilter(urlStrRedirect("samba4/machines/ajaxFilter"));
 $ajax->display();
 
-$page = new PageGenerator(_T("Computer management"));
+$page = new PageGenerator(_T("Computer management", "samba4"));
 $page->setSideMenu($sidemenu);
 $page->display();
 

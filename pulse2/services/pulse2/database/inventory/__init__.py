@@ -40,7 +40,9 @@ from sqlalchemy import and_, create_engine, MetaData, Table, Column, \
         Integer, ForeignKey, or_, desc, func, not_, distinct
 from sqlalchemy.orm import create_session, mapper
 import sqlalchemy.databases
-from lxml import etree 
+from lxml import etree
+# standard modules
+import time
 import datetime
 import re
 import logging
@@ -269,9 +271,13 @@ class Inventory(DyngroupDatabaseHelper):
             if set(['macAddress','ipHostNumber','subnetMask']) & requested_cols:
                 join_query = join_query.outerjoin(self.table['hasNetwork'], self.table['hasNetwork'].c.machine == Machine.id).outerjoin(self.table['Network'], self.table['Network'].c.id == self.table['hasNetwork'].c.network)
             if set(['os','user','type','domain','fullname']) & requested_cols:
-                join_query = join_query.outerjoin(self.table['hasHardware'], self.table['hasHardware'].c.machine == Machine.id).outerjoin(self.table['Hardware'], self.table['Hardware'].c.id == self.table['hasHardware'].c.hardware)
+                join_query = join_query.outerjoin(self.table['hasHardware'],
+                                                  and_(self.table['hasHardware'].c.machine == Machine.id,
+                                                       self.table['hasHardware'].c.inventory == self.inventory.c.id)).outerjoin(self.table['Hardware'], self.table['Hardware'].c.id == self.table['hasHardware'].c.hardware)
             if "Registry" in self.config.content:
-                join_query = join_query.outerjoin(self.table['hasRegistry'], self.table['hasRegistry'].c.machine == Machine.id).outerjoin(self.table['Registry'], self.table['Registry'].c.id == self.table['hasRegistry'].c.registry)
+                join_query = join_query.outerjoin(self.table['hasRegistry'],
+                                                  and_( self.table['hasRegistry'].c.machine == Machine.id,
+                                                        self.table['hasRegistry'].c.inventory == self.inventory.c.id)).outerjoin(self.table['Registry'], self.table['Registry'].c.id == self.table['hasRegistry'].c.registry)
 
         if count:
             query = session.query(func.count(Machine.id)).select_from(join_query).filter(query_filter)
@@ -514,6 +520,17 @@ class Inventory(DyngroupDatabaseHelper):
                     for inv in row[1]:
                         computers[uuid][1][inv["Path"]] = inv["Value"]
             # Build the result
+            ret1={}
+            result = self.getMachinesOnly(ctx, filt)
+            for m in result: # glpi mapping
+                if m.uuid() in uuids:
+                    attributcomputer =  m.toDN(ctx)[1]
+                    keycomputer =attributcomputer.keys()
+                    for ky in keycomputer:
+                        computers[m.uuid()][1][ky] = attributcomputer[ky]            
+            
+            
+            
             ret = []
             for uuid in uuids:
                 ret.append(computers[uuid])
@@ -1802,6 +1819,44 @@ class Inventory(DyngroupDatabaseHelper):
         #clear entitie of deleted user
         if fkuser != -1:
             self.delUserEntitiesbyfkUser(fkuser)
+            
+    def updateNameWithHardwareHost(self, uuid, name):
+        """
+        name machine est synchronisée avec le host du hardware
+        """
+        session = create_session()
+        query = session.query(Machine)
+        query = query.select_from(self.machine
+                    .join(self.table['hasHardware'], self.machine.c.id == self.table['hasHardware'].c.machine)
+                    .join(self.table['Hardware'], self.table['Hardware'].c.id == self.table['hasHardware'].c.hardware)
+                    .join(self.table['Inventory'], self.table['Inventory'].c.id == self.table['hasHardware'].c.inventory)
+                )
+        query = query.filter( 
+                and_(
+                    self.machine.c.id == fromUUID(uuid),
+                    self.inventory.c.Last == 1,
+                )
+            )
+        ret = query.all()
+        session1 = create_session()
+        query1 = session1.query(Hardware)
+        query1 = query1.select_from(self.hardware
+                    .join(self.table['hasHardware'], self.table['Hardware'].c.id == self.table['hasHardware'].c.hardware)
+                    .join(self.machine, self.machine.c.id == self.table['hasHardware'].c.machine)
+                    .join(self.table['Inventory'], self.table['Inventory'].c.id == self.table['hasHardware'].c.inventory)                 
+                )
+        query1 = query1.filter( 
+                and_(
+                    self.machine.c.id == fromUUID(uuid),
+                    self.inventory.c.Last == 1,
+                )
+            )
+        ret1 = query1.all()
+        session1.close()
+        if ret1[0].Host != ret[0].Name :
+            ret[0].Name=ret1[0].Host
+            session.flush()
+        session.close()
 
     def deleteEntities(self, id, Label, parentId):
         session = create_session()
@@ -2154,7 +2209,7 @@ class Inventory(DyngroupDatabaseHelper):
             #self.logger.debug('add %s' % (ref1))
         ref['count'] = nb_ligne + nblignerule
         numreglemodifier = int(ruleobj['numRuleadd'])
-        if numreglemodifier > nb_regle :       
+        if numreglemodifier > nb_regle :
             ref['nb_regle']=int(ref['nb_regle'])+1
         self.rewritte_file_rule_obj(ref)
         return True
@@ -2560,6 +2615,7 @@ class Inventory(DyngroupDatabaseHelper):
         return ret
 
     def __getInventoryHistory(self, session, days, only_new, pattern, max = 10, min = 0):
+        nowsystem = time.strftime("%Y-%m-%d %H:%M:%S")
         if only_new:
             only_new_filter = self.inventory.c.Last == 1
         else:
@@ -2568,7 +2624,7 @@ class Inventory(DyngroupDatabaseHelper):
         return session.query(self.klass['Inventory']).add_entity(Machine). \
                   select_from(self.table['hasInventory'].join(self.machine). \
                   join(self.table['Inventory'])). \
-                  filter(and_((func.to_days(func.now()) - func.to_days(self.klass['Inventory'].Date)) <= days, \
+                  filter(and_((func.to_days(nowsystem) - func.to_days(self.klass['Inventory'].Date)) <= days, \
                   Machine.Name.like('%' + pattern + '%'), only_new_filter)). \
                   order_by(self.klass['Inventory'].id.desc()).group_by(self.klass['Inventory'].id). \
                   offset(min)

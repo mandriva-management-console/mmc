@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mandriva Directory Server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 01:02+0200\n"
+"POT-Creation-Date: 2014-12-10 17:18+0100\n"
 "PO-Revision-Date: 2011-08-02 06:36+0000\n"
 "Last-Translator: Irina Sikach <i.sence.i@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://transifex.mandriva.com/projects/p/"
@@ -67,7 +67,7 @@ msgstr "Создать"
 msgid "Del blacklist"
 msgstr "Удалить черный список"
 
-#: modules/proxy/blacklist/delete.php:57 modules/proxy/blacklist/index.php:44
+#: modules/proxy/blacklist/index.php:44 modules/proxy/blacklist/delete.php:57
 msgid "Delete"
 msgstr "Удалить"
 
@@ -93,8 +93,8 @@ msgstr "Имя"
 msgid "Proxy"
 msgstr "Прокси-сервер"
 
-#: modules/proxy/blacklist/localSidebar.php:27
 #: modules/proxy/blacklist/statut.php:33 modules/proxy/blacklist/statut.php:51
+#: modules/proxy/blacklist/localSidebar.php:27
 msgid "Proxy status"
 msgstr "Состояние прокси-сервера"
 

@@ -23,7 +23,9 @@
 
 require_once("modules/pulse2/includes/utilities.php"); # for quickGet method
 require("modules/dyngroup/includes/groups.inc.php");
-
+if (in_array("imaging", $_SESSION["modulesList"])) {
+                    require_once('modules/imaging/includes/xmlrpc.inc.php');
+                    }
 $name = quickGet('name', $p_first = True, $urldecode = False);
 $id = quickGet('id');
 $visibility = quickGet('visible');
@@ -147,6 +149,28 @@ if (isset($_POST["bdelmachine_x"])) {
                 new NotifyWidgetSuccess(_T("Group successfully modified", "dyngroup"));
             } else { // Imaging group
                 // Synchro Profile
+                // Synchro Profile
+                if (in_array("imaging", $_SESSION["modulesList"])) {
+                    // Get Current Location
+                    //include('modules/imaging/includes/xmlrpc.inc.php');
+                    $location = xmlrpc_getProfileLocation($group->id);
+                    $objprocess=array();
+                    $scriptmulticast = 'multicast.sh';
+                    $path="/tmp/";
+                    $objprocess['location'] = $location;
+                    $objprocess['process'] = $path.$scriptmulticast;
+                    if (xmlrpc_check_process_multicast($objprocess)){
+                        $msg = _T("The bootmenus cannot be generated as a multicast deployment is currently running.", "imaging");
+                        new NotifyWidgetFailure($msg);
+                        header("Location: " . urlStrRedirect("imaging/manage/index"));
+                        exit;
+                    }
+                    else{
+                        $ret = xmlrpc_synchroProfile($group->id);
+                        xmlrpc_clear_script_multicast($objprocess);
+                    }
+                }
+            
                 $ret = xmlrpc_synchroProfile($group->id);
 
                 if (count($dontAddedToProfile) > 0) {

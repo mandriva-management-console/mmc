@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ require("modules/samba4/includes/common-xmlrpc.inc.php");
 $module = new Module("samba4");
 $module->setVersion("1.0.1");
 $module->setRevision('$Rev$');
-$module->setDescription(_T("SAMBA4 management"), "samba4");
+$module->setDescription(_T("SAMBA4 management", "samba4"), "samba4");
 $module->setAPIVersion("1:0:1");
 $module->setPriority(20);
 
@@ -125,16 +125,16 @@ function _createSamba4ConfigSubmodule($isProvisioned) {
     $submodule->setDescription(_T("Configuration"),"samba4");
     $submodule->setVisibility(False);
     $submodule->setAlias('shares');
-    
+
     $page = new Page("index",_T("SAMBA4 configuration","samba4"));
     $page->setImg("modules/samba4/graph/img/config/icn_global_active.gif",
             "modules/samba4/graph/img/config/icn_global.gif");
     $submodule->addPage($page);
-    
-    $page = new Page("restart",_T("restart SAMBA service","samba4"));
+
+    $page = new Page("restart",_T("Restart SAMBA service","samba4"));
     $page->setOptions(array("visible"=>False));
     $submodule->addPage($page);
-    
+
     $page = new Page("reload",_T("Reload SAMBA service","samba4"));
     $page->setOptions(array("visible"=>False));
     $submodule->addPage($page);

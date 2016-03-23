@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,18 +35,18 @@ if (isset($_POST["bdeleletemachine"])) {
     $deleteActionSuccess = deleteMachine($machine);
 
     if (!isXMLRPCError() and $deleteActionSuccess) {
-        $computerDeletedMessage = sprintf(_T("Computer <strong>%s</strong> deleted."), $machine);
+        $computerDeletedMessage = sprintf(_T("Computer <strong>%s</strong> deleted.", "samba4"), $machine);
         new NotifyWidgetSuccess($computerDeletedMessage);
     } else {
-        $computerDeletedMessage = sprintf(_T("There has been a problem while deleting <strong>%s</strong> computer."), $machine);
+        $computerDeletedMessage = sprintf(_T("There has been a problem while deleting <strong>%s</strong> computer.", "samba4"), $machine);
         new NotifyWidgetFailure($computerDeletedMessage);
     }
 
     header("location: " . urlStrRedirect('samba4/machines/index'));
     exit;
 } else {
-    $form = new PopupForm(_T("Delete a computer"));
-    $form->addText(sprintf(_T("You will delete the %s computer"), "<strong>$machine</strong>"));
+    $form = new PopupForm(_T("Delete a computer", "samba4"));
+    $form->addText(sprintf(_T("You will delete the %s computer", "samba4"), "<strong>$machine</strong>"));
     $form->addValidateButton("bdeleletemachine");
     $form->addCancelButton("bback");
     $form->display();

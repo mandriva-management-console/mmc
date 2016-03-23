@@ -21,6 +21,7 @@
  * along with MMC.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once('modules/imaging/includes/xmlrpc.inc.php');
 require("modules/pulse2/includes/profiles_xmlrpc.inc.php");
 
 global $conf;
@@ -52,7 +53,6 @@ if ($is_gp == 1) { # Profile
 }
 $filter = $_GET["filter"];
 
-
 $ids  = array();
 $name = array();
 $type = array();
@@ -66,7 +66,13 @@ if ($is_gp != 1) { // Simple Group
 $empty = new EmptyActionItem();
 
 foreach ($list as $group) {
-    $ids[]=  array("id"=>$group->id, "gid"=>$group->id, "groupname"=> $group->name, 'type'=>$is_gp);
+    if($is_gp == 1){
+        $profile = xmlrpc_getProfileLocation($group->id);
+        $ids[] =  array("id"=>$group->id, "gid"=>$group->id, "groupname"=> $group->name, 'type'=>$is_gp,'profile'=>$profile);
+    }else{
+        $ids[]=  array("id"=>$group->id, "gid"=>$group->id, "groupname"=> $group->name, 'type'=>$is_gp);
+    }
+    
     $name[]= $group->getName();
     if ($group->isDyn()) {
         $type[]= (!$group->isRequest() ? sprintf(_T('result (%s)', 'dyngroup'), $group->countResult()) : _T('query', 'dyngroup'));

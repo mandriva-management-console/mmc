@@ -791,7 +791,7 @@ class ImagingImageItem(ImagingItem):
                     f = file(postinst, 'w+')
                     f.write('#!/bin/sh\n')
                     f.write('\n')
-                    f.write('. /opt/lib/libpostinst.sh')
+                    f.write('. /usr/lib/libpostinst.sh')
                     f.write('\n')
                     f.write('echo "==> postinstall script #%d : %s"\n' % (order, script['name'].encode('utf-8')))
                     f.write('set -v\n')
@@ -875,3 +875,180 @@ def changeDefaultMenuItem(macaddress, value):
                         % (backupname, filename, e))
         return True
     return False
+
+
+
+class ImagingMulticastMenuBuilder:
+    """
+    Class that builds an imaging menu according to its dict structure.
+    """
+
+    def __init__(self,  menu):
+        """
+        The object builder Menu multicast
+        @param config : the imaging server config
+        @param menu : the menu dict
+
+        @return the object
+        """
+        
+        self.pathBootMenu = os.path.join(PackageServerConfig().imaging_api['base_folder'],
+                            PackageServerConfig().imaging_api['bootmenus_folder'])
+        self.logger = logging.getLogger('imaging')
+        self.logger.debug('creation commande et menu [%s] '%(menu))
+        self.menu = menu
+        self.public_ip = PackageServerConfig().public_ip
+        self.server_address = self.ipV4toDecimal(self.public_ip)
+        self.public_mask = PackageServerConfig().public_mask
+        self.mask_server = self.ipV4toDecimal(self.public_mask)
+        self.networkserver = self.server_address & self.mask_server
+        self.ipPart=self.public_ip.split(".")
+        #self.listnameinterface=os.listdir("/sys/class/net/")
+        #for interface in self.listnameinterface:
+            #if pulse2.utils.get_ip_address(interface)==self.public_ip:
+                #self.nameinterface=interface
+                #break
+        #self.logger.info('interface [%s] ip [%s]'%(self.nameinterface,self.public_ip))
+        self.action = "startdisk"
+        diskfile = os.path.join(self.menu['path'], "disk")
+        #load disk restore
+        fid = file(diskfile, 'r')
+        lines = fid.readlines()
+        fid.close()
+        self.disk=[ x.strip(' \t\n\r"') for x in lines if x.strip(' \t\n\r"')!= ""]
+        #self.templatecmdline = """#!/bin/bash
+#mastername="%s"
+#localisationmaster="%s"
+#masteruuid=%s
+#mastersize=%s
+#groupuuid=%s
+#waitting=%s
+#locationuuid=%s
+#cat /var/lib/pulse2/imaging/masters/%s/sda1.ntfs-ptcl-img.uncomp.aa |udp-sender --full-duplex --min-clients %s --interface %s --nokbd --mcast-all-addr 224.0.0.1 --portbase 2232 --ttl 1"""%(
+                                        #self.menu['description'] , 
+                                        #self.menu['path'] , 
+                                        #self.menu['master'] , 
+                                        #self.menu['size'] ,
+                                        #self.menu['group'] ,
+                                        #self.menu['nbcomputer'],
+                                        #self.menu['location'],                                        
+                                        #self.menu['master'] ,
+                                        #self.menu['nbcomputer'],
+                                        #self.nameinterface )
+
+        self.templatecmdline = """#!/bin/bash
+echo -e "NE PAS EFFACER\nDO NOT DELETE" > /tmp/processmulticast  
+echo "" > /tmp/udp-sender.log
+mastername="%s"
+localisationmaster="%s"
+masteruuid=%s
+mastersize=%s
+groupuuid=%s
+waitting=%s
+locationuuid=%s
+drbl-ocs -b -g auto -e1 auto -e2 -x -j2 --clients-to-wait %s -l en_US.UTF-8 -h "127.0.0.1" %s multicast_restore %s %s &>> /tmp/%s.log"""%(
+                                        self.menu['description'] , 
+                                        self.menu['path'] , 
+                                        self.menu['master'] , 
+                                        self.menu['size'] ,
+                                        self.menu['group'] ,
+                                        self.menu['nbcomputer'],
+                                        self.menu['location'],
+                                        self.menu['nbcomputer'],
+                                        self.action,
+                                        self.menu['master'] ,
+                                        self.disk[0],
+                                        self.menu['master'])
+        self.template="""
+timeout 10
+default 0
+splashimage /bootloader/bootsplash.xpm
+color 7/1 15/3
+
+title Restore Multicast
+
+desc %s
+
+kernel (nd)/davos/vmlinuz boot=live config noswap edd=on nomodeset nosplash noprompt vga=788 fetch=tftp://%s/davos/fs.squashfs mac=%s revorestorenfs image_uuid=%s davos_action=RESTORE_IMAGE_MULTICAST
+
+initrd (nd)/davos/initrd.img
+"""
+
+    def ipV4toDecimal(self, ipv4):
+        d = ipv4.split('.')
+        return (int(d[0])*256*256*256) + (int(d[1])*256*256) + (int(d[2])*256) +int(d[3])
+
+    def isValidIPv4Address(self, adressmachine):
+        self.logger.info("controle of the machine address %s in network %s"%(adressmachine,self.networkserver))
+        adressmachine = adressmachine.split(":")[0]
+        reseaumachine = self.ipV4toDecimal(adressmachine) &  self.mask_server
+        if self.networkserver == reseaumachine :
+            self.logger.info("machine address %s in network %s"%(adressmachine,self.networkserver))
+            return True
+        return False
+
+    def chooseMacAddress(self):
+        rest = True
+        for k, v in self.menu['computer'].iteritems():
+            if self.isValidIPv4Address(v):
+                mac = pulse2.utils.reduceMACAddress(k)
+                self.logger.debug("create bootMenu [%s] Computer ip [%s]"%(k,v))
+                menuval= self.template%( self.menu['description'],
+                                self.public_ip,
+                                k, #mac
+                                self.menu['master']
+                                )
+                self.logger.debug("bootMenu [%s]\n%s"%(mac, menuval))
+                if self.writeMenuMulticast( mac, menuval) == False:
+                    rest = False
+            else:
+                self.logger.debug("mac [%s] ip [%s] non selected"%(k,v))
+        return rest
+
+    def writeMenuMulticast(self,filename,content):
+        backupname = os.path.join(self.pathBootMenu,"%s.backup" % filename)
+        fichier = os.path.join(self.pathBootMenu,filename)
+        try:
+            os.rename(fichier, backupname)
+        except OSError, e:  # can make a backup : give up !
+            self.logger.error("While backuping boot menu %s as %s : %s"
+                         % (fichier, backupname, e))
+
+        # Write new boot menu
+        try:
+            fid = file(fichier, 'w+b')
+            fid.write(content)
+            fid.close()
+            self.logger.debug('Successfully wrote boot menu for computer MAC %s into file %s' % (filename, fichier))
+        except IOError, e:
+            self.logger.error("While writing boot menu for %s : %s"
+                         % (filename, e))
+            return False
+        # Remove boot menu backup
+        try:
+            os.unlink(backupname)
+        except OSError, e:
+            self.logger.warn("While removing backup %s of %s : %s"
+                        % (backupname, filename, e))
+        return True
+
+    def make(self):
+        """
+        """
+        ##generation bootmenu for multicast
+        if not self.chooseMacAddress():
+            return False
+        ##generation command line in tmp
+        fichier = os.path.join("/tmp","multicast.sh")
+        try:
+            fid = file(fichier, 'w+b')
+            fid.write(self.templatecmdline)
+            fid.close()
+            os.chmod(fichier, stat.S_IXUSR| stat.S_IWUSR |stat.S_IRUSR)
+            self.logger.debug('Successfully wrote multicast command into file %s' % ( fichier))
+            return True
+        except IOError, e:
+            self.logger.error("While writing commande for multicast command"
+                         % (filename, e))
+            return False
+        return True

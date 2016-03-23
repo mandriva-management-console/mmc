@@ -6,7 +6,7 @@
  *
  * $Id: publicFunc.php 87 2008-03-04 08:59:44Z cedric $
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

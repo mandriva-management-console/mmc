@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ foreach($shares as $share) {
         $shareDescription = "";
     } else {
         $sharesEnabled[] = "disabledRow";
-        $shareDescription = "(" . _T("Disabled") . ") ";
+        $shareDescription = "(" . _T("Hidden", "samba4") . ") ";
     }
 
     $shareDescription = isset($share[$shareComponent["description"]]) ?
@@ -81,27 +81,27 @@ foreach($shares as $share) {
                                             $share[$shareComponent["guest_access"]] : "";
 
     if (isset($protectedShares) and !in_array($share[$shareComponent["name"]], $protectedShares)) {
-        $editActions[] = new ActionItem(_T("Edit"),"edit","edit","share");
-        $delActions[] = new ActionPopupItem(_T("Delete"),"delete","delete","share");
+        $editActions[] = new ActionItem(_T("Edit", "samba4"),"edit","edit","share");
+        $delActions[] = new ActionPopupItem(_T("Delete", "samba4"),"delete","delete","share");
     } else {
         $editActions[] = new EmptyActionItem();
         $delActions[] = new EmptyActionItem();
     }
 }
 
-$page = new PageGenerator(_T("Current list of shares"));
+$page = new PageGenerator(_T("Current list of shares", "samba4"));
 $page->setSideMenu($sidemenu);
 $page->display();
 
-$list = new ListInfos($sharesName, _T("Share"));
+$list = new ListInfos($sharesName, _T("Share", "samba4"));
 $list->setCssClass("shareName");
 $list->setCssClasses($sharesEnabled);
-$list->addExtraInfo($sharesPath, _T("Path"));
-$list->addExtraInfo($sharesDescription, _T("Description"));
+$list->addExtraInfo($sharesPath, _T("Path", "samba4"));
+$list->addExtraInfo($sharesDescription, _T("Description", "samba4"));
 $list->addActionItemArray($editActions);
 $list->addActionItemArray($delActions);
 
-$list->addActionItem(new ActionPopupItem(_T("Archive"),"backup","backup","share"));
+$list->addActionItem(new ActionPopupItem(_T("Archive", "samba4"),"backup","backup","share"));
 $list->disableFirstColumnActionLink();
 $list->display();
 

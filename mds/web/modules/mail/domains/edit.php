@@ -6,7 +6,7 @@
  *
  * $Id: infoPackage.inc.php 8 2006-11-13 11:08:22Z cedric $
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

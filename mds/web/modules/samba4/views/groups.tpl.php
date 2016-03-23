@@ -5,7 +5,7 @@
  *
  * $Id$
  *
- * This file is part of Mandriva Management Console (MMC).
+ * This file is part of Management Console.
  *
  * MMC is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@
 
             }
             else {
-                window.alert("<?php echo  _T("This group doesn't exist"); ?>");
+                window.alert("<?php echo  _T("This group doesn't exist", "samba4"); ?>");
             }
         }
 
@@ -115,7 +115,7 @@
                 this.select.options[i].selected = true;
             }
        }
- 
+
        auto<?php echo  $autocomplete; ?>Obj = new auto<?= $autocomplete; ?>();
 
     -->
@@ -126,7 +126,7 @@
 
     </td>
     </tr>
-    <tr><td style="text-align: right;"><?php echo  _T("Add a new group"); ?></td><td>
+    <tr><td style="text-align: right;"><?php echo  _T("Add a new group", "samba4"); ?></td><td>
 
     <input type="text" id="auto<?php echo  $autocomplete; ?>" name="auto<?= $autocomplete; ?>" size="23" onkeypress="return auto<?= $autocomplete; ?>Obj.validOnEnter(this,event);" />
     <div id="auto<?php echo  $autocomplete; ?>_choices" class="autocomplete">
