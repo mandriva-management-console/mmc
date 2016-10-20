@@ -7,4 +7,4 @@ Read INSTALL files of each project for installation instructions.
 
 ### Note ###
 
-This project is not maintained anymore. A fork is born from the ashes of Pulse component named Nytrio. You can check it out at nytrio.com
+This project is not maintained anymore. A fork is born from the ashes of Pulse component named Nytrio. You can check it out at [nytrio.com](https://nytrio.com)
