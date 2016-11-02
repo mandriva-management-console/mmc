@@ -2105,6 +2105,11 @@ class ldapAuthen:
         if isinstance(password, xmlrpclib.Binary):
             password = str(password)
 
+        # Current twisted version returns something like:
+        # {'scalar': 'password', 'xmlrpc_type': 'base64'}
+        if isinstance(password, dict) and 'scalar' in password:
+            password = password['scalar']
+
         self.result = False
         try:
             l.simple_bind_s(username, password)
