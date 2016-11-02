@@ -97,7 +97,7 @@ class ServerAPI {
     }
     function fromURI($uri) {
         $uri = base64_decode($uri);
-        $uri = split('##', $uri);
+        $uri = explode('##', $uri);
         $this->server = $uri[0];
         $this->port = $uri[1];
         $this->mountpoint = $uri[2];

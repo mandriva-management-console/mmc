@@ -83,9 +83,9 @@ foreach ($db_logs as $log) {
 
     $status = $log['imaging_log_state'];
     $date = _toDate($log['timestamp']);
-    /*if(ereg('backup', $status)) {
+    /*if(preg_match('/backup/', $status)) {
         $date = '<img src="modules/imaging/graph/images/backup.png" style="vertical-align: bottom"/>&nbsp;'.$date;
-    } elseif (ereg('restore', $status)) {
+    } elseif (preg_match('/restore/', $status)) {
         $date = '<img src="modules/imaging/graph/images/restore.png" style="vertical-align: bottom"/>&nbsp;'.$date;
     }*/
 
