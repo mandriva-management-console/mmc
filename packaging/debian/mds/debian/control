@@ -77,6 +77,20 @@ Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), squid3,
 Description: Mandriva Management Console squid plugin
  Configure squid proxy server within MMC interface.
 
+Package: python-mmc-radius
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Description: Mandriva Management Console radius plugin
+ Configure radius server within MMC interface.
+
+Package: python-mmc-samba4
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Description: Mandriva Management Console samba4 plugin
+ Configure Samba 4 server within MMC interface.
+
 Package: mmc-web-samba
 Architecture: all
 Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
@@ -148,3 +162,19 @@ Description: squid module for the MMC web interface
  Mandriva Management Console web interface.
  .
  This is the squid configuration module.
+
+Package: mmc-web-radius
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: radius module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the radius configuration module.
+
+Package: mmc-web-samba4
+Architecture: all
+Depends: ${misc:Depends}, mmc-web-base (>= 3.1.1)
+Description: samba4 module for the MMC web interface
+ Mandriva Management Console web interface.
+ .
+ This is the samba4 configuration module.

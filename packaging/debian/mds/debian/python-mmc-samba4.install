@@ -1,0 +1,3 @@
+usr/lib/python2.?/*-packages/mmc/plugins/samba4
+usr/lib/python2.?/*-packages/mmc/s4sync
+etc/mmc/plugins/samba4.ini
