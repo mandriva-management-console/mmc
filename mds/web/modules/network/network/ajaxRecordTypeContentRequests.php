@@ -52,7 +52,7 @@ function makeContentResponse($id, $trtype, $zone){
 
 switch($_GET['request']) {
     case 'getRecordTypeContent':
-        list($type, $zone) = split(" ", $_GET['params']);
+        list($type, $zone) = explode(" ", $_GET['params']);
         $content = "dnsrecords/".strtolower($type).".php";
         makeContentResponse("getRecordTypeContent",$type, $zone);
         break;

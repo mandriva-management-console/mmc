@@ -300,7 +300,7 @@ class rrsigRecord extends RecordBase{
     
     function dateTplTimeToBindTime($time){
 	$result = "";
-	$times = split("/", $time);
+	$times = explode("/", $time);
 	$result = sprintf("%04s%02s%02s%02s%02s%02s",$times[0], $times[1], $times[2], $times[3], $times[4], $times[5]);
 	/*$sizes = array(4, 2, 2, 2, 2, 2);
 	for ($i = 0; $i < count($t); $i++){

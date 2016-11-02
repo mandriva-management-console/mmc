@@ -331,7 +331,7 @@ class BindRemainingTimeTpl extends InputTpl {
 
     static function bindTimeStringFromValue($value, $inSeconds = false){
 	$times = array(60*60*24,60*60, 60, 1);
-	$values = split("/",$value);
+	$values = explode("/",$value);
 
 	if ($inSeconds){
 	    $result = 0;

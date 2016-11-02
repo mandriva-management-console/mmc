@@ -195,7 +195,7 @@ class LocDataParser{
     }
     
     function parse($data){
-	$values = split(" ", $data);
+	$values = explode(" ", $data);
 	
 	$pos = $this->parseCoordinate("latitude", $values, 0);
 	if ($pos == -1)
@@ -376,7 +376,7 @@ class GlobalLocationTpl extends InputTpl{
     }
     
     static function arrayValue($strValue){
-	$value = split("/", $strValue);
+	$value = explode("/", $strValue);
 	$keys = array("deg","min","sec","dir");
 	foreach($keys as $k => $v)
 	    $result[$v]=$value[$k];
@@ -458,7 +458,7 @@ class MeasureInputTpl extends InputTpl{
     }
     
     static function arrayValue($strValue){
-	$value = split("/", $strValue);
+	$value = explode("/", $strValue);
 	$keys = array("value","unit");
 	foreach($keys as $k => $v)
 	    $result[$v]=$value[$k];
@@ -570,7 +570,7 @@ class SizeMeasureInputTpl extends InputTpl{
     }
 
     static function arrayValue($strValue){
-	$value = split("/", $strValue);
+	$value = explode("/", $strValue);
 	$keys = array("base","deg","unit");
 	foreach($keys as $k => $v)
 	    $result[$v]=$value[$k];
