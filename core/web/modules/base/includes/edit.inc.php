@@ -33,7 +33,7 @@ function createAclArray($aclString) {
     if (strpos($aclString, '/') === False) {
         $acl = $aclString;
     } else {
-        list($acl, $aclattr) = split('/', $aclString);
+        list($acl, $aclattr) = explode('/', $aclString);
     }
 
     $retacl = array();
@@ -41,23 +41,23 @@ function createAclArray($aclString) {
     $retaclattr = array();
 
     /* get pages ACL */
-    $arrayMod = split(':', $acl);
+    $arrayMod = explode(':', $acl);
     foreach($arrayMod as $items) {
         if (substr_count($items, "#") == 2) {
-            list($mod, $submod, $action) = split('#', $items);
+            list($mod, $submod, $action) = explode('#', $items);
             $retacl[$mod][$submod][$action]["right"] = "on";
         } else if (substr_count($items, "#") == 3) {
-            list($mod, $submod, $action, $tab) = split('#', $items);
+            list($mod, $submod, $action, $tab) = explode('#', $items);
             $retacltab[$mod][$submod][$action][$tab]["right"] = "on";
         }
     }
 
     /* get attribute ACL */
     if (strlen($aclattr)) {
-        $arrayAttr=split(':',$aclattr);
+        $arrayAttr=explode(':',$aclattr);
         foreach($arrayAttr as $items) {
             if (!empty($items)) {
-                list($attrName,$value) = split('=',$items);
+                list($attrName,$value) = explode('=',$items);
                 $retaclattr[$attrName]=$value;
             }
         }
