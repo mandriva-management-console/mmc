@@ -1,3 +1,9 @@
+mmc-core (1:3.1.83+git20161102-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Wed, 02 Nov 2016 20:03:52 +0100
+
 mmc-core (1:3.1.1-3) unstable; urgency=low
 
   * Implement reloading in init script.
