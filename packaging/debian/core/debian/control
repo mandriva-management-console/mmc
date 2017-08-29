@@ -68,7 +68,8 @@ Description: Mandriva Management Console Agent
 
 Package: mmc-web-base
 Architecture: all
-Depends: ${misc:Depends}, libapache2-mod-php5, php5-xmlrpc, php5-gd, apache2 | apache2-mpm-prefork, wwwconfig-common
+Depends: ${misc:Depends}
+Recommends: libapache2-mod-php | libapache2-mod-php7.0 | libapache2-mod-php5, php-xmlrpc | php7.0-xmlrpc | php5-xmlrpc, php-gd | php7.0-gd | php5-gd, apache2 | apache2-mpm-prefork, wwwconfig-common
 Description: MMC web interface to interact with a MMC agent
  Mandriva Management Console web interface designed by Mandriva.
 
