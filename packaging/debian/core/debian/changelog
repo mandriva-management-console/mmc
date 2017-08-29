@@ -1,8 +1,12 @@
-mmc-core (1:3.1.83+git20161102-1) unstable; urgency=medium
+mmc-core (1:3.1.83+git20170929.d32132c-1) unstable; urgency=medium
 
   * New upstream release.
+  * Add php (unversionned) and php7.0 alternatives to php5 ones for
+    Debian Stretch+.
+  * Move Apache and PHP dependencies to Recommends as it can be run
+    through Nginx and FPM for example.
 
- -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Wed, 02 Nov 2016 20:03:52 +0100
+ -- Adam Cecile <acecile@le-vert.net>  Tue, 29 Aug 2017 09:59:52 +0100
 
 mmc-core (1:3.1.1-3) unstable; urgency=low
 
