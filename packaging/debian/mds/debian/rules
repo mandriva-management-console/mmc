@@ -47,7 +47,7 @@ binary-indep: build install
 	rm -f $(DESTDIR)/usr/lib/python2.?/*-packages/mmc/Makefile.am
 	rm -f $(DESTDIR)/usr/lib/python2.?/*-packages/mmc/Makefile.in
 	dh_install --sourcedir=$(DESTDIR) --fail-missing
-	dh_pysupport -i
+	dh_python2 -i
 	dh_fixperms -i -X/etc/mmc
 	dh_installchangelogs -i
 	dh_installdocs -i

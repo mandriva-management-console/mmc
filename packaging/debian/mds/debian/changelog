@@ -1,8 +1,10 @@
-mds (2.5.89+git20161102-1) unstable; urgency=medium
+mds (2.5.89+git20170929.d32132c-1) unstable; urgency=medium
 
   * New upstream release.
+  * Switch from python-support to dh-python.
+  * Bump debhelper compat to 9.
 
- -- Adam Cécile (Le_Vert) <gandalf@le-vert.net>  Wed, 02 Nov 2016 20:07:29 +0100
+ -- Adam Cecile <acecile@le-vert.net>  Tue, 29 Aug 2017 09:59:52 +0100
 
 mds (2.5.1-1) unstable; urgency=medium
 

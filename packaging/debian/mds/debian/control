@@ -2,9 +2,9 @@ Source: mds
 Section: admin
 Priority: extra
 Maintainer: Adam Cécile <acecile@mandriva.com>
-Build-Depends: debhelper (>= 5.0.37.2), autotools-dev
-Build-Depends-Indep: python-all, python-support (>= 0.5.3), gettext
-Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 9), autotools-dev
+Build-Depends-Indep: python-all, dh-python, gettext
+Standards-Version: 4.0.0
 Homepage: http://mds.mandriva.org
 
 Package: python-mmc-samba

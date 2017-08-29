@@ -2,8 +2,8 @@ Source: mmc-core
 Section: admin
 Priority: extra
 Maintainer: Adam Cécile <acecile@mandriva.com>
-Build-Depends: debhelper (>= 5.0.37.2), lsb-release, python-all (>= 2.5), python-support (>= 0.5.3), gettext, autotools-dev
-Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 9), lsb-release, python-all (>= 2.7), dh-python, gettext, autotools-dev
+Standards-Version: 4.0.0
 Homepage: http://mds.mandriva.org
 
 Package: python-mmc-core
