@@ -339,6 +339,11 @@ class SambaLDAP(ldapUserGroupControl):
         # If the passwd has been encoded in the XML-RPC stream, decode it
         if isinstance(password, xmlrpclib.Binary):
             password = str(password)
+        # If the passwd is in a dict
+        # {'scalar': 'thepassword', 'xmlrpc_type': 'base64'}
+        # take scalar
+        if isinstance(password, dict):
+            password = password['scalar']
         new['sambaLMPassword'] = [smbpasswd.lmhash(password)]
         new['sambaNTPassword'] = [smbpasswd.nthash(password)]
         new['sambaPwdLastSet'] = [str(int(time()))]
