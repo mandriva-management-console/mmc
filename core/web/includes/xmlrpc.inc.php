@@ -77,7 +77,7 @@ function openSocket($proto, $conf) {
         stream_context_set_option($context, "ssl", "allow_self_signed", true);
         stream_context_set_option($context, "ssl", "verify_peer", false);
         stream_context_set_option($context, "ssl", "peer_name", "cert");
-        $sock = stream_socket_client('tls://'.$_SESSION["XMLRPC_agent"]["host"].":".$_SESSION["XMLRPC_agent"]["port"], $errNo, $errString, ini_get("default_socket_timeout"), STREAM_CLIENT_CONNECT, $context);
+        $sock = stream_socket_client($_SESSION["XMLRPC_agent"]["host"].":".$_SESSION["XMLRPC_agent"]["port"], $errNo, $errString, ini_get("default_socket_timeout"), STREAM_CLIENT_CONNECT, $context);
         $ret = array($sock, $errNo, $errString);
     } else {
         $context = stream_context_create();
