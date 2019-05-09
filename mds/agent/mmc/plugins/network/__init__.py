@@ -120,7 +120,7 @@ def activate():
         # Create DHCP ou
         head, path = config.dhcpDN.split(",", 1)
         ouName = head.split("=")[1]
-        ldapObj.addOu(ouName, path)
+        ldapObj.addOu(bytes(ouName), path)
         # Create DHCP config base structure
         d = Dhcp()
         try:
@@ -143,7 +143,7 @@ def activate():
         # Create DNS ou
         head, path = config.dnsDN.split(",", 1)
         ouName = head.split("=")[1]
-        ldapObj.addOu(ouName, path)
+        ldapObj.addOu(bytes(ouName), path)
         if serverType == "bind":
             try:
                 gidNumber = grp.getgrnam(config.bindGroup)

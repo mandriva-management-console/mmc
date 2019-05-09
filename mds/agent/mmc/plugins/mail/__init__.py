@@ -87,13 +87,13 @@ def activate():
         # Create required OU
         head, path = config.vAliasesDN.split(",", 1)
         ouName = head.split("=")[1]
-        ldapObj.addOu(ouName, path)
+        ldapObj.addOu(bytes(ouName), path)
 
     if config.vDomainSupport:
         # Create required OU
         head, path = config.vDomainDN.split(",", 1)
         ouName = head.split("=")[1]
-        ldapObj.addOu(ouName, path)
+        ldapObj.addOu(bytes(ouName), path)
 
     return True
 

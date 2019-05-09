@@ -135,7 +135,7 @@ def activate():
     for ou in ous:
         head, path = ou.split(",", 1)
         ouName = head.split("=")[1]
-        ldapObj.addOu(ouName, path)
+        ldapObj.addOu(bytes(ouName), path)
 
     # Create the default user group
     if not ldapObj.existGroup(ldapObj.defaultUserGroup):
