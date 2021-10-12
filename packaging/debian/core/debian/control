@@ -2,67 +2,67 @@ Source: mmc-core
 Section: admin
 Priority: extra
 Maintainer: Adam Cécile <acecile@mandriva.com>
-Build-Depends: debhelper (>= 9), lsb-release, python-all (>= 2.7), dh-python, gettext, autotools-dev
+Build-Depends: debhelper (>= 9), lsb-release, python3-all, dh-python, gettext, autotools-dev
 Standards-Version: 4.0.0
 Homepage: http://mds.mandriva.org
 
-Package: python-mmc-core
+Package: python3-mmc-core
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python:Depends}, python-twisted-web
-Suggests: python-sqlalchemy (>= 0.5), python-mysqldb (>= 1.2.2-7)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-twisted-web
+Suggests: python3-sqlalchemy (>= 0.5), python3-mysqldb (>= 1.2.2-7)
 Description: Core shared dependency for MMC API
  Contains base functions used by MMC.
 
-Package: python-mmc-base
+Package: python3-mmc-base
 Architecture: all
 Section: python
-Pre-depends: python-mmc-core (= ${source:Version})
-Depends: ${misc:Depends}, ${python:Depends}, python-ldap
+Pre-depends: python3-mmc-core (= ${source:Version})
+Depends: ${misc:Depends}, ${python3:Depends}, python3-ldap
 Description: Mandriva Management Console base plugin
  Contains the base infrastructure for all MMC plugins:
   * support classes
   * base LDAP management classes
 
-Package: python-mmc-ppolicy
+Package: python3-mmc-ppolicy
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (= ${source:Version})
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version})
 Suggests: mmc-check-password
 Description: Mandriva Management Console password policy plugin
  Contains password policy plugin to enforce minimum password security in MMC.
 
-Package: python-mmc-dashboard
+Package: python3-mmc-dashboard
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (= ${source:Version}), python-psutil (>= 0.6.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-psutil (>= 0.6.1)
 Description: Mandriva Management Console dashboard plugin
  Provides a simple dashboard in MMC.
 
-Package: python-mmc-services
+Package: python3-mmc-services
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (= ${source:Version}), python-systemd-dbus (>= 0.1), systemd
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-systemd-dbus (>= 0.1), systemd
 Description: Mandriva Management Console systemd services plugin
  Handles system services through systemd.
 
-Package: python-mmc-database
+Package: python3-mmc-database
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (= ${source:Version}), python-sqlalchemy (>= 0.7), python-mysqldb 
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-sqlalchemy (>= 0.7), python3-mysqldb 
 Description: Mandriva Management Console database common files
  Allow the use of SQL databases within MMC framework.
 
-Package: python-mmc-report
+Package: python3-mmc-report
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (= ${source:Version}), python-mmc-database (= ${source:Version}), python-pygal, python-weasyprint, python-xlwt
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-mmc-database (= ${source:Version}), python3-pygal, python3-weasyprint, python3-xlwt
 Description: Generate reports within MMC framework
  Module to generate reports for other modules.
 
 Package: mmc-agent
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (= ${source:Version}), python-openssl | python-pyopenssl, python (>= 2.6) | python-multiprocessing, ldap-utils, python-gobject (>= 2.21.4)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-openssl | python3-pyopenssl, python3 | python3-multiprocessing, ldap-utils, python3-gobject (>= 2.21.4)
 Description: Mandriva Management Console Agent
  XMLRPC server of the MMC API.
 

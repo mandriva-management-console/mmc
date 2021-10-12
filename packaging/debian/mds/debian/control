@@ -3,44 +3,44 @@ Section: admin
 Priority: extra
 Maintainer: Adam Cécile <acecile@mandriva.com>
 Build-Depends: debhelper (>= 9), autotools-dev
-Build-Depends-Indep: python-all, dh-python, gettext
+Build-Depends-Indep: python3-all, dh-python, gettext
 Standards-Version: 4.0.0
 Homepage: http://mds.mandriva.org
 
-Package: python-mmc-samba
+Package: python3-mmc-samba
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-pylibacl, acl, python-mmc-base (>= 3.1.1), samba-common, python-smbpasswd, python-configobj
+Depends: ${misc:Depends}, ${python3:Depends}, python3-pylibacl, acl, python3-mmc-base (>= 3.1.1), samba-common, python3-smbpasswd, python3-configobj
 Description: Mandriva Management Console SAMBA plugin
  SAMBA management plugin for the MMC.
 
-Package: python-mmc-mail
+Package: python3-mmc-mail
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
 Description: Mandriva Management Console base plugin
  Mail account management plugin for the MMC.
 
-Package: python-mmc-proxy
+Package: python3-mmc-proxy
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), squidguard
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), squidguard
 Description: Mandriva Management Console proxy plugin
  Squidguard/Squid management plugin for the MMC.
 
-Package: python-mmc-network
+Package: python3-mmc-network
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
 Description: Mandriva Management Console network plugin
  DNS/DHCP management plugin for the MMC.
  .
  This plugin requires a LDAP-patched version of ISC DHCPD and BIND9.
 
-Package: python-mmc-sshlpk
+Package: python3-mmc-sshlpk
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
 Description: Mandriva Management Console sshlpk plugin
  OpenSSH LDAP Public Key management plugin for the MMC.
  .
@@ -49,45 +49,45 @@ Description: Mandriva Management Console sshlpk plugin
  authentication by using an LDAP server for retrieving public keys
  instead of ~/.ssh/authorized_keys.
 
-Package: python-mmc-bulkimport
+Package: python3-mmc-bulkimport
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
 Description: Mandriva Management Console bulkimport plugin
  Massive LDAP user import or update using CSV files.
 
-Package: python-mmc-userquota
+Package: python3-mmc-userquota
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), quota
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), quota
 Description: Mandriva Management Console userquota plugin
  Disk and network quota management plugin for the MMC.
 
-Package: python-mmc-shorewall
+Package: python3-mmc-shorewall
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), shorewall
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), shorewall
 Description: Mandriva Management Console shorewall plugin
  Configure shorewall firewall within MMC interface.
 
-Package: python-mmc-squid
+Package: python3-mmc-squid
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1), squid3, sarg
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), squid3, sarg
 Description: Mandriva Management Console squid plugin
  Configure squid proxy server within MMC interface.
 
-Package: python-mmc-radius
+Package: python3-mmc-radius
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
 Description: Mandriva Management Console radius plugin
  Configure radius server within MMC interface.
 
-Package: python-mmc-samba4
+Package: python3-mmc-samba4
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-mmc-base (>= 3.1.1)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
 Description: Mandriva Management Console samba4 plugin
  Configure Samba 4 server within MMC interface.
 

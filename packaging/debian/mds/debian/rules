@@ -44,10 +44,10 @@ binary-arch: build install
 binary-indep: build install
 	dh_testdir -i
 	dh_testroot -i
-	rm -f $(DESTDIR)/usr/lib/python2.?/*-packages/mmc/Makefile.am
-	rm -f $(DESTDIR)/usr/lib/python2.?/*-packages/mmc/Makefile.in
+	rm -f $(DESTDIR)/usr/lib/python3/*-packages/mmc/Makefile.am
+	rm -f $(DESTDIR)/usr/lib/python3/*-packages/mmc/Makefile.in
 	dh_install --sourcedir=$(DESTDIR) --fail-missing
-	dh_python2 -i
+	dh_python3 -i
 	dh_fixperms -i -X/etc/mmc
 	dh_installchangelogs -i
 	dh_installdocs -i

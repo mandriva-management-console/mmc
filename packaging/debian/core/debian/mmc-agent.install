@@ -1,4 +1,4 @@
-usr/lib/python2.?/*-packages/mmc/agent.py
+usr/lib/python3/*-packages/mmc/agent.py
 usr/sbin
 usr/bin
 etc/mmc/agent
