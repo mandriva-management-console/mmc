@@ -29,7 +29,7 @@ MDS samba4 plugin for the MMC agent.
 import os
 import os.path
 import logging
-import xmlrpclib
+import xmlrpc.client
 from time import strftime
 from mmc.core.version import scmRevision
 from mmc.plugins.base import BasePluginConfig
@@ -191,7 +191,7 @@ def userHasSambaAccount(username):
 
 
 def updateSambaUserPassword(username, password):
-    if isinstance(password, xmlrpclib.Binary):
+    if isinstance(password, xmlrpc.client.Binary):
         password = str(password)
     return SambaAD().updateUserPassword(username, password)
 

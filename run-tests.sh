@@ -10,7 +10,7 @@
 files="$(git diff-index --name-only --cached HEAD)"
 error="0"
 
-echo $files |grep '\.py'|xargs pyflakes || error=1
+echo $files |grep '\.py'|xargs python3 -m pyflakes || error=1
 echo $files |grep '\.sh'|xargs sh -n || error=1
 for file in $files; do
   [ ! -s "$file" ] && error=1 && echo "File $file is empty, please check it"

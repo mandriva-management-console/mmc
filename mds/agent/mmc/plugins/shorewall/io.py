@@ -135,25 +135,25 @@ if __name__ == "__main__":
     conf = ShorewallConf('/etc/shorewall/interfaces', r'^(?P<zone>[\w\d]+)\s+(?P<interface>[\w\d]+)')
     conf.read()
     conf.add_line(["foo", "eth2"])
-    print "-----"
+    print("-----")
     conf.add_line(["foo1", "eth3"], 0)
-    print "-----"
-    print conf.get_line(0)
-    print "-----"
+    print("-----")
+    print(conf.get_line(0))
+    print("-----")
     conf.set_conf([['lan', 'eth0'], ['wan', 'eth1']])
-    print "-----"
+    print("-----")
     tmp = conf.get_conf()
     tmp.append(['foo', 'eth2'])
     conf.set_conf(tmp)
-    print "-----"
+    print("-----")
     conf = ShorewallConf('/etc/shorewall/policy', r'^(?P<src>[\w\d]+)\s+(?P<dst>[\w\d]+)\s+(?P<policy>[\w]+)\s*(?P<log>[\w]*)')
     conf.read()
     conf.write()
-    print "-----"
+    print("-----")
     conf = ShorewallConf('/etc/shorewall/zones', r'^(?P<name>[\w\d]+)\s+(?P<type>[\w\d]+)')
     conf.read()
     conf.write()
-    print "-----"
+    print("-----")
     conf = ShorewallConf('/etc/shorewall/rules', r'^(?P<action>[\w\d/]+)\s+(?P<src>[\w\d]+)\s+(?P<dst>[\w\d]+)\s*(?P<proto>[\w\d]*)\s*(?P<dst_port>[\w\d]*)')
     conf.read()
     conf.write()

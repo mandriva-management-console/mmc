@@ -20,8 +20,8 @@
 # Author(s):
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
-from credentials import Credentials
-from k5key_asn1 import encode_keys, decode_keys
+from .credentials import Credentials
+from .k5key_asn1 import encode_keys, decode_keys
 from mmc.plugins.base.config import BasePluginConfig
 from mmc.plugins.base import ldapUserGroupControl
 from mmc.plugins.samba4 import getSamba4GlobalInfo

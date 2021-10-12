@@ -21,7 +21,7 @@
 #   Julien Kerihuel <jkerihuel@zentyal.com>
 #   Jesús García Sáez <jgarcia@zentyal.com>
 #
-from ConfigParser import NoOptionError
+from configparser import NoOptionError
 from mmc.support.config import PluginConfig
 
 

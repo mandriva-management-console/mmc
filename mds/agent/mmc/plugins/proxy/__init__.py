@@ -29,7 +29,7 @@ import logging
 from mmc.core.version import scmRevision
 from mmc.support import mmctools
 from mmc.support.config import PluginConfig, ConfigException
-from ConfigParser import NoSectionError, NoOptionError
+from configparser import NoSectionError, NoOptionError
 
 from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.proxy.audit import AT, AA, PLUGIN_NAME
@@ -59,10 +59,10 @@ def activate():
     msg = ""
     try:
         config.check()
-    except ConfigException, ce:
+    except ConfigException as ce:
         msg = str(ce)
         result = False
-    except Exception, e:
+    except Exception as e:
         msg = str(e)
         result = False
     if not result:

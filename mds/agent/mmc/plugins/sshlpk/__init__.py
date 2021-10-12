@@ -244,4 +244,4 @@ def delSSHKeyObjectClass(uid):
 if __name__ == "__main__":
     if not hasSshKeyObjectClass("user1"):
         addSshKeyObjectClass("user1")
-    print getAllSshKey("user1")
+    print(getAllSshKey("user1"))

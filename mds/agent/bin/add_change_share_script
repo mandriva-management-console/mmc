@@ -59,8 +59,10 @@ if PREFIX and mode == "add":
 
 try:
     os.makedirs(pathName)
-    os.chmod(pathName, 0777)
-except OSError , (errno, strerror):
+    os.chmod(pathName, 0o777)
+except OSError as xxx_todo_changeme:
+    # Raise exception if error is not "File exists"
+    (errno, strerror) = xxx_todo_changeme.args
     # Raise exception if error is not "File exists"
     if errno != 17:
         raise OSError(errno, strerror + ' ' + pathName)
@@ -76,6 +78,6 @@ s.save()
 if UID and GID and mode == "add":
     os.chown(pathName, UID, GID)
 
-os.chmod(configFile, 0644)
+os.chmod(configFile, 0o644)
 
 sys.exit(0)

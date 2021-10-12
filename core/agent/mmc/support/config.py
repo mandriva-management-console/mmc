@@ -25,12 +25,12 @@
 Contains classes to read MMC agent plugin configuration files.
 """
 
-import mmctools
+from . import mmctools
 
 import ldap
 import re
 from os.path import isfile
-from ConfigParser import ConfigParser, NoOptionError, NoSectionError, InterpolationError
+from configparser import ConfigParser, NoOptionError, NoSectionError, InterpolationError
 
 
 class ConfigException(Exception):
@@ -114,10 +114,10 @@ class PluginConfig(MMCConfigParser):
             self.conffile = mmctools.getConfigFile(name)
         else: self.conffile = conffile
         self.setDefault()
-        fid = file(self.conffile, "r")
+        fid = open(self.conffile, "r")
         self.readfp(fid, self.conffile)
         if isfile(self.conffile + '.local'):
-            fid = file(self.conffile + '.local', "r")
+            fid = open(self.conffile + '.local', "r")
             self.readfp(fid, self.conffile)
         self.readConf()
 

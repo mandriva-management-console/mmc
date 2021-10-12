@@ -53,7 +53,7 @@ def getUptime():
     """
     Returns the machine uptime
     """
-    f = file('/proc/uptime')
+    f = open('/proc/uptime')
     data = f.read()
     f.close()
     return data
@@ -65,7 +65,7 @@ def listProcess():
     ret = []
     psdict = ProcessScheduler().listProcess()
 
-    for i in psdict.keys():
+    for i in list(psdict.keys()):
         assoc = []
         if time() - psdict[i].time > 60:
             # Process do not respond for 60 secondes or exited for 60

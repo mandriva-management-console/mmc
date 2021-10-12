@@ -207,7 +207,7 @@ class SambaConf:
                 share_detail['shareDescription'], share_detail['shareGuest']]
 
     def _getSharesSectionList(self):
-        return [k for k, _ in self.config.items()
+        return [k for k, _ in list(self.config.items())
                 if k not in ("global", "printers", "print$")]
 
     def save(self):
@@ -321,7 +321,9 @@ class SambaConf:
                 os.renames(oldPath, path)
             else:
                 os.makedirs(path)
-        except OSError, (errno, strerror):
+        except OSError as xxx_todo_changeme:
+            # Raise exception if error is not "File exists"
+            (errno, strerror) = xxx_todo_changeme.args
             # Raise exception if error is not "File exists"
             if errno != 17:
                 raise OSError(errno, strerror + ' ' + path)

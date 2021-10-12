@@ -27,7 +27,7 @@ import ldap.modlist
 from ldap.dn import str2dn
 import copy
 import logging
-from ConfigParser import NoOptionError, NoSectionError
+from configparser import NoOptionError, NoSectionError
 
 from mmc.core.version import scmRevision
 from mmc.plugins.base import ldapUserGroupControl
@@ -275,7 +275,7 @@ class MailConfig(PluginConfig):
             self.attrs = {}
         attrs = ["mailalias", "maildrop", "mailenable", "mailbox", "mailuserquota", "mailhost", "mailproxy", "mailhidden"]
         # validate attribute mapping
-        for attr, val in self.attrs.copy().items():
+        for attr, val in list(self.attrs.copy().items()):
             if not attr in attrs:
                 del self.attrs[attr]
                 logger.error("Can't map attribute %s. Attribute not supported." % attr)
@@ -411,10 +411,10 @@ class MailControl(ldapUserGroupControl):
         """
         filt = filt.strip()
         if not filt:
-            filt = u"*"
+            filt = "*"
         else:
-            filt = u"*" + filt + u"*"
-        query = u"(&(objectClass=mailDomain)(virtualdomain=%s))" % filt
+            filt = "*" + filt + "*"
+        query = "(&(objectClass=mailDomain)(virtualdomain=%s))" % filt
         return [r[0] for r in self.search(query, self.conf.vDomainDN)]
 
     def getVAlias(self, alias):
@@ -439,11 +439,11 @@ class MailControl(ldapUserGroupControl):
         """
         filt = filt.strip()
         if not filt:
-            filt = u"*"
+            filt = "*"
         else:
-            filt = u"*" + filt + u"*"
+            filt = "*" + filt + "*"
         if self.conf.vAliasesSupport:
-            query = u"(&(objectClass=mailAlias)(mailalias=%s))" % filt
+            query = "(&(objectClass=mailAlias)(mailalias=%s))" % filt
             return [r[0] for r in self.search(query, self.conf.vAliasesDN)]
         else:
             return ()

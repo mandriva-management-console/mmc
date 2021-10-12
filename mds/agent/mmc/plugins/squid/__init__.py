@@ -24,7 +24,7 @@ MDS squid plugin for the MMC agent.
 
 import os
 import logging
-from ConfigParser import NoSectionError, NoOptionError
+from configparser import NoSectionError, NoOptionError
 
 from mmc.core.version import scmRevision
 from mmc.support.config import PluginConfig, ConfigException

@@ -17,6 +17,7 @@ from mmc.core.audit import AuditFactory as AF
 from mmc.plugins.samba.config import SambaConfig
 from mmc.plugins.samba.audit import AT, AA, PLUGIN_NAME
 from mmc.plugins.samba.signals import share_modified, share_created
+from functools import reduce
 
 
 logger = logging.getLogger()
@@ -54,7 +55,7 @@ class SambaConf:
             self.config = ConfigObj(self.smbConfFile, interpolation=False,
                                     list_values=False, write_empty_values=True,
                                     encoding='utf8')
-        except ParseError, e:
+        except ParseError as e:
             logger.error("Failed to parse %s : %s " % (self.smbConfFile, e))
 
     def validate(self, conffile="/etc/samba/smb.conf"):
@@ -241,7 +242,7 @@ class SambaConf:
 
     def getSectionList(self):
         section_list = []
-        for k, v in self.config.items():
+        for k, v in list(self.config.items()):
             section_list.append(k)
         return section_list
 
@@ -327,7 +328,7 @@ class SambaConf:
         """
 
         returnArr = []
-        for key, value in self.config[name].iteritems():
+        for key, value in self.config[name].items():
             if key not in self.supportedOptions:
                 returnArr.append(key + " = " + value)
 
@@ -377,7 +378,9 @@ class SambaConf:
                 os.renames(oldPath, path)
             else:
                 os.makedirs(path)
-        except OSError, (errno, strerror):
+        except OSError as xxx_todo_changeme:
+            # Raise exception if error is not "File exists"
+            (errno, strerror) = xxx_todo_changeme.args
             # Raise exception if error is not "File exists"
             if errno != 17:
                 raise OSError(errno, strerror + ' ' + path)
@@ -463,7 +466,7 @@ class SambaConf:
                         uidNumber = pwd.getpwnam(entity).pw_uid
                     e.qualifier = int(uidNumber)
 
-            for rights, entities in perms.items():
+            for rights, entities in list(perms.items()):
                 for entity in entities:
                     add_acl_permset(acls, entity, rights)
 
@@ -475,15 +478,15 @@ class SambaConf:
                     for root, dirs, files in os.walk(path):
                         acls.applyto(root)
                         acls.applyto(root, posix1e.ACL_TYPE_DEFAULT)
-                        for file in map(lambda f: os.path.join(root, f), files):
+                        for file in [os.path.join(root, f) for f in files]:
                             acls.applyto(file)
             else:
                 logger.error("Cannot save ACL on folder " + path)
 
             tmpInsert['valid users'] = ', '.join(map(sanitize_name,
-                reduce(operator.add, [j for p, j in perms.items()], [])))
+                reduce(operator.add, [j for p, j in list(perms.items())], [])))
             tmpInsert['write list'] = ', '.join(map(sanitize_name,
-                reduce(operator.add, [j for p, j in perms.items() if 'w' in p], [])))
+                reduce(operator.add, [j for p, j in list(perms.items()) if 'w' in p], [])))
 
         # Set the anti-virus plugin if available
         if av:
@@ -492,7 +495,7 @@ class SambaConf:
         # Set the admin groups for the share
         if admingroups:
             # need to add '@'
-            admingroups = map(lambda g: '@' + g, admingroups)
+            admingroups = ['@' + g for g in admingroups]
             tmpInsert["admin users"] = ", ".join(map(sanitize_name, admingroups))
             # include admin users in valid users list and write list
             if tmpInsert['writeable'] == 'no':
@@ -529,7 +532,7 @@ class SambaConf:
             return {'rwx': ['@all']}
         acls = posix1e.ACL(file=path)
         for e in acls:
-            permset = zip(['r', 'w', 'x'], [e.permset.read, e.permset.write, e.permset.execute])
+            permset = list(zip(['r', 'w', 'x'], [e.permset.read, e.permset.write, e.permset.execute]))
             perm = ''.join([r for r, b in permset if b is True])
             entity = ""
 
@@ -565,7 +568,7 @@ class SambaConf:
         @return: list of administrator groups of the share
         """
         adminusers = self.getContent(name, "admin users")
-        translation_table = dict.fromkeys(map(ord, '"@&+'), None)
+        translation_table = dict.fromkeys(list(map(ord, '"@&+')), None)
         ret = []
         if adminusers:
             for item in adminusers.split(","):

@@ -4,7 +4,7 @@ from time import time
 import ldap
 import ldap.modlist
 import logging
-import xmlrpclib
+import xmlrpc.client
 
 from mmc.support.mmctools import generateBackgroundProcess, shLaunch, shLaunchDeferred
 from mmc.plugins.base import ldapUserGroupControl, delete_diacritics
@@ -159,7 +159,7 @@ class SambaLDAP(ldapUserGroupControl):
                     options['sambaLockoutThreshold'] = ["0"]
 
                 update = False
-                for attr, value in options.iteritems():
+                for attr, value in options.items():
                     # Update attributes if needed
                     if new[attr] != value:
                         new[attr] = value
@@ -208,7 +208,7 @@ class SambaLDAP(ldapUserGroupControl):
             }
 
         ident = 'uid=' + uid + ',' + self.baseComputersDN
-        attributes=[ (k,v) for k,v in user_info.items() ]
+        attributes=[ (k,v) for k,v in list(user_info.items()) ]
         self.l.add_s(ident,attributes)
 
         if not addMachineScript:
@@ -267,7 +267,7 @@ class SambaLDAP(ldapUserGroupControl):
         c, old = s[0]
         # We update the old attributes array with the new SAMBA attributes
         new = old.copy()
-        for key in options.keys():
+        for key in list(options.keys()):
             value = options[key]
             if value == "":
                 # Maybe delete this SAMBA LDAP attribute
@@ -337,7 +337,7 @@ class SambaLDAP(ldapUserGroupControl):
         new["sambaAcctFlags"] = ["[U          ]"]
         new["sambaSID"] = [domainInfo['sambaSID'][0] + '-' + str(int(domainInfo['sambaNextRid'][0]) + 1)]
         # If the passwd has been encoded in the XML-RPC stream, decode it
-        if isinstance(password, xmlrpclib.Binary):
+        if isinstance(password, xmlrpc.client.Binary):
             password = str(password)
         new['sambaLMPassword'] = [smbpasswd.lmhash(password)]
         new['sambaNTPassword'] = [smbpasswd.nthash(password)]
@@ -366,7 +366,7 @@ class SambaLDAP(ldapUserGroupControl):
             userdn = self.searchUserDN(uid)
             r = AF().log(PLUGIN_NAME, AA.SAMBA_CHANGE_USER_PASS, [(userdn,AT.USER)])
             # If the passwd has been encoded in the XML-RPC stream, decode it
-            if isinstance(passwd, xmlrpclib.Binary):
+            if isinstance(passwd, xmlrpc.client.Binary):
                 passwd = str(passwd)
             s = self.l.search_s(userdn, ldap.SCOPE_BASE)
             c, old = s[0]
@@ -409,7 +409,7 @@ class SambaLDAP(ldapUserGroupControl):
 
         # We update the old attributes array with the new SAMBA attributes
         new = old.copy()
-        for key in attributes.keys():
+        for key in list(attributes.keys()):
             if key.startswith("samba"):
                 value = attributes[key]
                 if "old_" + key in attributes:

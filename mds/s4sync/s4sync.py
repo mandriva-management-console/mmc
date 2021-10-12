@@ -22,7 +22,7 @@
 #
 import logging
 from daemon import runner
-from sync import sync_loop
+from .sync import sync_loop
 
 
 class S4SyncApp(object):

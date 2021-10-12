@@ -28,11 +28,11 @@ import os
 import os.path
 import time
 import ldap
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import logging
 
 from mmc.plugins.base import ldapUserGroupControl, LogView
-from tools import ipNext
+from .tools import ipNext
 from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
 from mmc.core.audit import AuditFactory as AF
@@ -178,7 +178,7 @@ zone "%(zone)s" {
         id = 1
         for entry in data:
             hostname = entry[1][self.relativeDomainNameField][0]
-            keys = entry[1].keys()
+            keys = list(entry[1].keys())
             needle = "Record";
             for k in keys:
                 index = k.rfind(needle)
@@ -214,7 +214,7 @@ zone "%(zone)s" {
         id = 0
 
         for i in range(len(zoneData)):
-            keys = zoneData[i][1].keys()
+            keys = list(zoneData[i][1].keys())
             for k in keys:
                 index = k.rfind("Record")
                 if (index >= 0):
@@ -294,7 +294,7 @@ zone "%(zone)s" {
                 key : value,
             }
 
-        attributes = [ (k,v) for k,v in entry.items() ]
+        attributes = [ (k,v) for k,v in list(entry.items()) ]
         try:
             self.l.add_s(entryDN, attributes)
         except ldap.UNDEFINED_TYPE:
@@ -374,7 +374,7 @@ zone "%(zone)s" {
         Delete record from ldap
         """
         entryRecordsCount = 0
-        for k in entry[1].keys():
+        for k in list(entry[1].keys()):
             i = k.rfind("Record")
             if (i >= 0):
                 entryRecordsCount = entryRecordsCount + len(entry[1][k])
@@ -455,15 +455,15 @@ zone "%(zone)s" {
             d = {
                 "zone" : name,
                 "ldapurl" : self.config.ldapurl + "/" + self.configDns.dnsDN,
-                "dnsreader": urllib.quote(self.configDns.dnsReader),
-                "dnsreaderpasswd" : urllib.quote(self.configDns.dnsReaderPassword)
+                "dnsreader": urllib.parse.quote(self.configDns.dnsReader),
+                "dnsreaderpasswd" : urllib.parse.quote(self.configDns.dnsReaderPassword)
                 }
             f.write(self.templateZone % d)
             if reverse:
                 d["zone"] = self.reverseZone(network)
                 f.write(self.templateZone % d)
             f.close()
-            os.chmod(os.path.join(self.configDns.bindLdapDir, name), 0640)
+            os.chmod(os.path.join(self.configDns.bindLdapDir, name), 0o640)
 
             f = open(self.configDns.bindLdap, "r")
             found = False
@@ -573,7 +573,7 @@ zone "%(zone)s" {
                 "relativeDomainName" : zoneName + ".",
                 }
             if description: entry["tXTRecord"] = [description]
-        attributes = [ (k,v) for k,v in entry.items() ]
+        attributes = [ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
 
     def addSOA(self, zoneName, container = None, dnsClass = "IN"):
@@ -586,7 +586,7 @@ zone "%(zone)s" {
                 "relativeDomainName" : "@",
                 "dnsClass" : dnsClass
                 }
-            attributes=[ (k,v) for k,v in entry.items() ]
+            attributes=[ (k,v) for k,v in list(entry.items()) ]
             self.l.add_s(dn, attributes)
 
     def setSOARecord(self, zoneName, record):
@@ -845,7 +845,7 @@ zone "%(zone)s" {
                 "dNSClass" : dnsClass,
                 "CNAMERecord" : cname,
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
         self.updateZoneSerial(zone)
         r.commit()
@@ -877,7 +877,7 @@ zone "%(zone)s" {
                 "dNSClass" : dnsClass,
                 "aRecord" : ip,
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
         self.updateZoneSerial(zone)
 
@@ -912,7 +912,7 @@ zone "%(zone)s" {
                         "dNSClass" : dnsClass,
                         "pTRRecord" : hostname + "." + zone + ".",
                     }
-                attributes=[ (k,v) for k,v in entry.items() ]
+                attributes=[ (k,v) for k,v in list(entry.items()) ]
                 self.l.add_s(dn, attributes)
                 self.updateZoneSerial(revZone)
                 ret = 0

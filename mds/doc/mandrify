@@ -76,7 +76,7 @@ replace_arr = [
 
 
 def usage():
-    print str(sys.argv[0])+" <input-file> <ouput-file>"
+    print(str(sys.argv[0])+" <input-file> <ouput-file>")
 
 
 def convert(handleopen, handlewrite):
@@ -97,15 +97,15 @@ if __name__ == "__main__":
     #try opening file
     try:
         filer = open(sys.argv[1],'r')
-    except IOError, e:
-        print "file "+str(sys.argv[0])+" not exist"
+    except IOError as e:
+        print("file "+str(sys.argv[0])+" not exist")
         sys.exit(1)
 
     #try writing file
     try:
         filew = open(sys.argv[2],'w')
-    except IOError, e:
-        print "cannot write file "+str(sys.argv[1])
+    except IOError as e:
+        print("cannot write file "+str(sys.argv[1]))
         sys.exit(2)
 
     convert(filer,filew)

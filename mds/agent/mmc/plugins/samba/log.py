@@ -34,7 +34,7 @@ class SambaLog:
         for logFile in self.logs:
             l = {}
             firstdate = 0
-            f = file(logFile)
+            f = open(logFile)
             for line in f:
                 if line.startswith("["):
                     firstdate = 1

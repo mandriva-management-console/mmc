@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Mandriva Management Console'
-copyright = u'2011, Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse'
+project = 'Mandriva Management Console'
+copyright = '2011, Jean-Philippe Braun, Jean Parpaillon, Nicolas Rueff, Cédric Delfosse'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -178,8 +178,8 @@ htmlhelp_basename = 'MandrivaManagementConsoledoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'MandrivaManagementConsole.tex', u'Mandriva Management Console Documentation',
-   u'Jean-Philippe Braun \\textless{}jpbraun@mandriva.com\\textgreater{}, Jean Parpaillon \\textless{}jparpaillon@mandriva.com\\textgreater{}, Nicolas Rueff \\textless{}nrueff@mandriva.com\\textgreater{}, Cédric Delfosse', 'manual'),
+  ('index', 'MandrivaManagementConsole.tex', 'Mandriva Management Console Documentation',
+   'Jean-Philippe Braun \\textless{}jpbraun@mandriva.com\\textgreater{}, Jean Parpaillon \\textless{}jparpaillon@mandriva.com\\textgreater{}, Nicolas Rueff \\textless{}nrueff@mandriva.com\\textgreater{}, Cédric Delfosse', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -211,8 +211,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'mandrivamanagementconsole', u'Mandriva Management Console Documentation',
-     [u'Jean-Philippe Braun <jpbraun@mandriva.com>, Jean Parpaillon <jparpaillon@mandriva.com>, Nicolas Rueff <nrueff@mandriva.com>, Cédric Delfosse'], 1)
+    ('index', 'mandrivamanagementconsole', 'Mandriva Management Console Documentation',
+     ['Jean-Philippe Braun <jpbraun@mandriva.com>, Jean Parpaillon <jparpaillon@mandriva.com>, Nicolas Rueff <nrueff@mandriva.com>, Cédric Delfosse'], 1)
 ]
 
 

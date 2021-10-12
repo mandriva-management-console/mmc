@@ -22,7 +22,7 @@
 MMC services plugin configuration
 """
 
-from ConfigParser import NoOptionError
+from configparser import NoOptionError
 from mmc.support.config import PluginConfig
 
 

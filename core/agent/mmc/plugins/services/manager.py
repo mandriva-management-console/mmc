@@ -33,9 +33,7 @@ from mmc.plugins.services.config import ServicesConfig
 logger = logging.getLogger()
 
 
-class ServiceManager(object):
-    __metaclass__ = SingletonN
-
+class ServiceManager(object, metaclass=SingletonN):
     def __init__(self):
         self.m = Manager()
         self.config = ServicesConfig("services")
@@ -64,7 +62,7 @@ class ServiceManager(object):
         list = {}
         plugins = PluginManager().getEnabledPluginNames()
         for plugin in plugins:
-            for plugin_services, services in self.config.services.items():
+            for plugin_services, services in list(self.config.services.items()):
                 if plugin == plugin_services and services:
                     list[plugin] = []
                     for service in services:
@@ -78,7 +76,7 @@ class ServiceManager(object):
         Return True if one of the plugin's services
         is not active
         """
-        for plugin, services in self.list_plugins_services().items():
+        for plugin, services in list(self.list_plugins_services().items()):
             for service in services:
                 if service['active_state'] not in ("active", "unavailable"):
                     return True
@@ -93,7 +91,7 @@ class ServiceManager(object):
             if not self.is_plugin_service(unit['id']) and \
                unit['id'].endswith(".service") and \
                unit['unit_file_state'] != "static":
-                if filter and any(v for k, v in unit.items() if filter in str(v)):
+                if filter and any(v for k, v in list(unit.items()) if filter in str(v)):
                     list.append(unit)
                 if not filter:
                     list.append(unit)
@@ -183,16 +181,16 @@ class ServiceManager(object):
                 if "Reboot" in line:
                     logs.append({"MESSAGE": "Reboot"})
         for message in logs:
-            if "MESSAGE" in message and isinstance(message["MESSAGE"], basestring):
+            if "MESSAGE" in message and isinstance(message["MESSAGE"], str):
                 if "_SOURCE_REALTIME_TIMESTAMP" in message:
                     message["TIMESTAMP"] = int(int(message["_SOURCE_REALTIME_TIMESTAMP"]) / 1000000)
                 else:
                     message["TIMESTAMP"] = False
                 # remove unneeded fields
-                for key, value in message.copy().items():
+                for key, value in list(message.copy().items()):
                     if key not in fields:
                         del message[key]
-                if filter and any(filter in str(v) for k, v in message.items()):
+                if filter and any(filter in str(v) for k, v in list(message.items())):
                     result.append(message)
                 if not filter:
                     result.append(message)

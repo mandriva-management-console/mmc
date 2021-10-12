@@ -30,7 +30,7 @@ import ldap
 import logging
 import os.path
 import grp
-from ConfigParser import NoOptionError
+from configparser import NoOptionError
 from mmc.core.version import scmRevision
 from mmc.site import mmcconfdir
 from mmc.plugins.base import ldapUserGroupControl
@@ -154,16 +154,16 @@ def activate():
 
             try:
                 os.mkdir(config.bindLdapDir)
-                os.chmod(config.bindLdapDir, 02750)
+                os.chmod(config.bindLdapDir, 0o2750)
                 os.chown(config.bindLdapDir, -1, gidNumber)
-            except OSError, e:
+            except OSError as e:
                 # errno = 17 is "File exists"
                 if e.errno != 17: raise
 
             if not os.path.exists(config.bindLdap):
                 f = open(config.bindLdap, "w")
                 f.close()
-                os.chmod(config.bindLdap, 0640)
+                os.chmod(config.bindLdap, 0o640)
                 os.chown(config.bindLdap, -1, gidNumber)
 
     return True

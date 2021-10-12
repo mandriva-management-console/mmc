@@ -397,7 +397,7 @@ class UserQuotaControl(ldapUserGroupControl):
         user = self.getDetailedUser(uid)
         logger.debug("Del object class")
 
-        if "quota" in user.keys() or "networkquota" in user.keys():
+        if "quota" in list(user.keys()) or "networkquota" in list(user.keys()):
             return False
 
         logger.debug("Del object class removal")
@@ -416,8 +416,8 @@ class UserQuotaControl(ldapUserGroupControl):
         """
         group = self.getDetailedGroup(cn)
         logger.debug("Del Group object class")
-        logger.debug("group keys" + str(group.keys()))
-        if "quota" in group.keys() or "networkquota" in group.keys():
+        logger.debug("group keys" + str(list(group.keys())))
+        if "quota" in list(group.keys()) or "networkquota" in list(group.keys()):
             return False
 
         logger.info("Del object class removal")
@@ -518,14 +518,14 @@ class UserQuotaControl(ldapUserGroupControl):
         groupdefaults = self.getDetailedGroup(group)
 
         # @todo, check components before action
-        if "quota" in groupdefaults.keys():
+        if "quota" in list(groupdefaults.keys()):
             # copy quota values to user
             logger.debug("copy quota values to user:" + uid)
             self.addDiskQuotaObjectClass(uid)
             self.changeUserAttributes(uid, "quota", groupdefaults["quota"])
             keys.append('quota')
 
-        if "networkquota" in groupdefaults.keys():
+        if "networkquota" in list(groupdefaults.keys()):
             # copy networkquota values to user
             logger.debug("copy network quota values to user:" + uid)
             self.addDiskQuotaObjectClass(uid)

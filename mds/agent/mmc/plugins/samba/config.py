@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser
 
 from mmc.support.config import PluginConfig
 
@@ -14,8 +14,8 @@ class SambaConfig(PluginConfig):
                 self.defaultSharesPath = self.get("main", "defaultSharesPath")
             else:
                 self.defaultSharesPath = self.get("main", "sharespath")
-        except ConfigParser.NoOptionError:
-            raise ConfigParser.NoOptionError("defaultSharesPath", "main")
+        except configparser.NoOptionError:
+            raise configparser.NoOptionError("defaultSharesPath", "main")
 
         try: self.samba_conf_file = self.get("main", "sambaConfFile")
         except: pass

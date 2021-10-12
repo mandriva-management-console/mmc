@@ -30,7 +30,7 @@ class Event(object):
 class Source(object):
     pass
 
-class Initiator(object):	
+class Initiator(object):    
     pass
 
 class Current_Value(object):
@@ -51,13 +51,13 @@ class Object_Log(object):
     pass
 
 class Object(object):
-    pass	
+    pass    
 
 class Parameters(object):
-	
+    
     def __init__(self,param_name,value):
         self.param_name=param_name
-     	self.param_value=value
+        self.param_value=value
 
 class Module(object):
     pass

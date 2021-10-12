@@ -38,6 +38,6 @@ s = smbConf(configFile)
 s.delShare(shareName, False)
 s.save()
 
-os.chmod(configFile, 0644)
+os.chmod(configFile, 0o644)
 
 sys.exit(0)

@@ -129,12 +129,12 @@ class UserProperties(CommonDataType):
         properties_count = data[6]
         user_properties_str = data[7]
         offset = 0
-        for i in xrange(0, properties_count):
+        for i in range(0, properties_count):
             prop = UserProperty(user_properties_str[offset:])
             if prop.name == "Primary:Kerberos".encode('utf-16-le'):
                 self.keys = KerberosProperty(prop.value).keys
             else:
-                print "Ignored user property %r" % prop.name.decode('utf-16-le')
+                print("Ignored user property %r" % prop.name.decode('utf-16-le'))
             offset += prop.size
 
 
@@ -241,7 +241,7 @@ class KerberosProperty(CommonDataType):
         salt = self._raw[
             salt_offset:salt_offset + len_max_salt].decode('utf-16-le')
         offset = calcsize(fmt)
-        for i in xrange(0, n_creds):
+        for i in range(0, n_creds):
             key_data = KerberosKeyData(self._raw[offset:])
             key_type = key_data.key_type
             key_value = self._raw[

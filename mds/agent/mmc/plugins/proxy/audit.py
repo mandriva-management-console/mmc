@@ -26,16 +26,16 @@ Constants for the audit framework and the proxy plugin.
 
 from mmc.plugins.base.audit import AT
 
-PLUGIN_NAME=u'MMC-PROXY'
+PLUGIN_NAME='MMC-PROXY'
 
 class AuditActions:
-    PROXY_ADD_BLACKLIST=u'PROXY_ADD_BLACKLIST'
-    PROXY_DEL_BLACKLIST=u'PROXY_DEL_BLACKLIST'
-    PROXY_RESTART_SQUID=u'PROXY_RESTART_SQUID'
+    PROXY_ADD_BLACKLIST='PROXY_ADD_BLACKLIST'
+    PROXY_DEL_BLACKLIST='PROXY_DEL_BLACKLIST'
+    PROXY_RESTART_SQUID='PROXY_RESTART_SQUID'
 
 AA = AuditActions
-	
+    
 class AuditTypes(AT):
-    BLACKLIST=u'BLACKLIST'
+    BLACKLIST='BLACKLIST'
 
 AT = AuditTypes

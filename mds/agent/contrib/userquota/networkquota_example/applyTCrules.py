@@ -88,15 +88,15 @@ def hasQuota(username):
                    
 def processNetworkQuotas(username, actualbytes):
     if not hasQuota(username):
-        print "User: %s does not have a network quota set in ldap" % (username)
+        print("User: %s does not have a network quota set in ldap" % (username))
         removeRateLimiting(username)
         return False
     
     network = "Internet:0.0.0.0/0:any"
     quotabytes = getBytes(username, network)
-    print "User: %s has used %s of %s bytes for network: %s" % (username, actualbytes, quotabytes , network)
+    print("User: %s has used %s of %s bytes for network: %s" % (username, actualbytes, quotabytes , network))
     if int(actualbytes) > int(quotabytes):
-        print "%s is over the limit by %d bytes" % (username, (int(actualbytes) - int(quotabytes)))
+        print("%s is over the limit by %d bytes" % (username, (int(actualbytes) - int(quotabytes))))
         applyRateLimiting(username)
     else:
         removeRateLimiting(username)
@@ -104,11 +104,11 @@ def processNetworkQuotas(username, actualbytes):
         
 def applyRateLimiting(username):
     if (isRateLimited(username)):
-        print "User: %s already rate limited" % (username)
+        print("User: %s already rate limited" % (username))
         return True
-    print "Rate limiting user: %s (%s)" % (username, getUid(username)) 
+    print("Rate limiting user: %s (%s)" % (username, getUid(username))) 
     uid = (getUid(username))
-    print "CMD: " + tcapplycmd % (uid, int(uid))
+    print("CMD: " + tcapplycmd % (uid, int(uid)))
     res = subprocess.call(tcapplycmd % (uid, int(uid)), shell=True)
     if res != 0:
         raise NameError("problem running apply cmd: %s" % tcapplycmd)
@@ -116,9 +116,9 @@ def applyRateLimiting(username):
 
 def removeRateLimiting(username):
     if (isRateLimited(username)):
-                print "removing quota for: " + username
+                print("removing quota for: " + username)
                 uid = (getUid(username))
-                print "CMD: " + tcremovecmd % (uid, int(uid))
+                print("CMD: " + tcremovecmd % (uid, int(uid)))
                 res = subprocess.call(tcremovecmd % (uid, int(uid)), shell=True)
                 if res != 0:
                     raise NameError("problem running remove cmd: %s" % tcremovecmd)
@@ -126,7 +126,7 @@ def removeRateLimiting(username):
     return False 
 
 def isRateLimited(username):
-    print "Checking if user: %s (%s) is rate limited" % (username, getUid(username))
+    print("Checking if user: %s (%s) is rate limited" % (username, getUid(username)))
     # python regex
     p = re.compile('filter parent 1: protocol ip pref 1 fw handle 0x([0-9A-Fa-f]+) classid 1:[0-9A-Fa-f]+')
     for r in tcrules:
@@ -137,18 +137,18 @@ def isRateLimited(username):
 #            print "match found" + str(uid)
 #            print "uid from username" + getUid(username)
             if uid == int(getUid(username)):
-                print "matching rule found " + r
+                print("matching rule found " + r)
                 return True
     return False
 # connect to ldap
 l = ldap.initialize(uri)
 res = l.search_s(base, scope, filterstr, attrlist)
 resall = l.search_s(base, scope, filterstrall, attrlistall)
-print "\nLDAP Search results"
+print("\nLDAP Search results")
 for dn, record in res:
     if "networkquota" in record:
 #        print "Processing: " + repr(dn)
-        print "%-15s: %s" % (record["uid"], record["networkquota"])
+        print("%-15s: %s" % (record["uid"], record["networkquota"]))
 #    print repr(record)
 l.unbind()
 
@@ -167,12 +167,12 @@ c = db.cursor(MySQLdb.cursors.DictCursor)
 #ulog where username is not null and bytes_in is not null and bytes_out is not null;"""
 
 c.execute(query)
-print "\nMysql Results:"
+print("\nMysql Results:")
 results = c.fetchall()
 # Sanity check.
 if len(results) < 1:
     raise NameError("MySQL search did not find any users with traffic.  This is unexpected");
 
 for x in results:
-    print "%(username)-15s: %(bytes)s\n" % x
+    print("%(username)-15s: %(bytes)s\n" % x)
     processNetworkQuotas(x["username"], x["bytes"])

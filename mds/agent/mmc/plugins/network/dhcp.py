@@ -28,7 +28,7 @@ import ldap
 from ldap.dn import str2dn
 import re
 from mmc.plugins.base import ldapUserGroupControl, LogView
-from tools import ipNext, ipInRange
+from .tools import ipNext, ipInRange
 from mmc.support.mmctools import ServiceManager
 import mmc.plugins.network
 from mmc.core.audit import AuditFactory as AF
@@ -110,7 +110,7 @@ class Dhcp(ldapUserGroupControl):
             "dhcpPrimaryDN" : self.configDhcp.dhcpDN,
             "objectClass" : ["top", "dhcpService"]
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(serviceDN, attributes)
 
     def getServices(self):
@@ -173,7 +173,7 @@ class Dhcp(ldapUserGroupControl):
             "objectClass" : ["top", "dhcpServer", "dhcpOptions"],
             "dhcpOption" : "local-pac-server code 252 = text"
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(serverDN, attributes)
 
     def addSecondaryServer(self, serverName, serviceName = None):
@@ -299,9 +299,9 @@ class Dhcp(ldapUserGroupControl):
                              'primaryPort': [m.group("primaryPort")], 'secondaryPort': [m.group("secondaryPort")],
                              'delay': [m.group("delay")], 'update': [m.group("update")], "balance": [m.group("balance")],
                              'mclt': [m.group("mclt")], "split": [m.group("split")] }
-            return dict({ 'primary': [primaryName], 'secondary': [secondaryName] }.items() + self.getFailoverDefaultValues().items())
+            return dict(list({ 'primary': [primaryName], 'secondary': [secondaryName] }.items()) + list(self.getFailoverDefaultValues().items()))
         elif primaryDN:
-            return dict({ 'primary': [primaryName] }.items() + self.getFailoverDefaultValues().items())
+            return dict(list({ 'primary': [primaryName] }.items()) + list(self.getFailoverDefaultValues().items()))
         else:
             return self.getFailoverDefaultValues()
 
@@ -428,7 +428,7 @@ class Dhcp(ldapUserGroupControl):
             "dhcpComments" : name,
             "objectClass" : ["top", "dhcpSubnet", "dhcpOptions"]
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
         r.commit()
 
@@ -490,8 +490,8 @@ class Dhcp(ldapUserGroupControl):
         pools = self.l.search_s("cn=%s,cn=DHCP Config,%s" % (subnet, self.configDhcp.dhcpDN), ldap.SCOPE_SUBTREE, "(objectClass=dhcpPool)", None)
         ret = []
         for p in pools:
-    	    ret.append(p[1]["dhcpRange"][0])
-    	return ret
+            ret.append(p[1]["dhcpRange"][0])
+        return ret
 
     def setPoolsRanges(self, subnet, ranges):
         pools = self.l.search_s("cn=%s,cn=DHCP Config,%s" % (subnet, self.configDhcp.dhcpDN), ldap.SCOPE_SUBTREE, "(objectClass=dhcpPool)", None)
@@ -517,7 +517,7 @@ class Dhcp(ldapUserGroupControl):
             "dhcpRange" : dhcprange,
             "objectClass" : ["top", "dhcpPool", "dhcpOptions"]
         }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
         r.commit()
 
@@ -578,7 +578,7 @@ class Dhcp(ldapUserGroupControl):
             "cn" : groupname,
             "objectClass" : ["top", "dhcpGroup", "dhcpOptions"]
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
 
     def delGroup(self, groupname):
@@ -642,7 +642,7 @@ class Dhcp(ldapUserGroupControl):
             "cn" : hostname,
             "objectClass" : ["top", "dhcpHost", "dhcpOptions"]
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
         r.commit()
 
@@ -653,7 +653,7 @@ class Dhcp(ldapUserGroupControl):
             "cn" : hostname,
             "objectClass" : ["top", "dhcpHost", "dhcpOptions"]
             }
-        attributes=[ (k,v) for k,v in entry.items() ]
+        attributes=[ (k,v) for k,v in list(entry.items()) ]
         self.l.add_s(dn, attributes)
 
     def delHost(self, subnet, hostname):
@@ -733,7 +733,7 @@ class DhcpLeases:
         HARDWARE = "hardware ethernet"
         HOSTNAME = "client-hostname"
         leases = {}
-        leasesFile = file(self.config.dhcpLeases)
+        leasesFile = open(self.config.dhcpLeases)
         current = None
         for line in leasesFile:
             line = line.strip().strip(";")

@@ -81,7 +81,7 @@ class DBEngine:
                                         host=self.host,
                                         port=self.port,
                                         db=self.db)
-        except Exception, exc:
+        except Exception as exc:
             self.log.error("Can't connect to the database: %s" % str(exc))
             return None
 
@@ -92,7 +92,7 @@ class DBEngine:
         """
         try:
             return self.conn.cursor()
-        except Exception, exc:
+        except Exception as exc:
             self.log.error("Error while creating cursor: %s" % str(exc))
 
     def __del__(self):
@@ -145,7 +145,7 @@ class DBScriptLaunchInterface:
                 self.log.error("Error while execute script '%s': %s" % (filename, err))
                 return None
             return ret
-        except Exception, exc:
+        except Exception as exc:
             self.log.error("Error while execute script '%s': %s" % (filename, str(exc)))
             return None
 
@@ -363,7 +363,7 @@ class DBControl:
         @rtype: string
         """
 
-        version_slice = range(version_in_db + 1, version_to_install + 1)
+        version_slice = list(range(version_in_db + 1, version_to_install + 1))
 
         for script in self.ddl_manager.get_scripts(self.module, fullpath=True):
             script_number = self.ddl_manager.get_script_number(script)
@@ -401,6 +401,6 @@ class DBControl:
             return True
         else:
             self.log.error("Database '%s' version conflict" % self.module)
-            self.log.error("Installed version is %d, but you are trying to install the version %d." %
+            self.log.error("Installed version of %s is %d, but you are trying to install the version %d." %
                            (self.module, version_in_db, version_to_install))
             return False

@@ -75,7 +75,7 @@ class TestManageUserGroup(unittest.TestCase):
         self.assertEqual(self.l.addGroup("allusers"), 10001)
 
     def test_addDelUser(self):
-        self.assertEqual(self.l.addUser("usertest", "userpass", u"ùnïcôde", u"çàùôéé"), 0)
+        self.assertEqual(self.l.addUser("usertest", "userpass", "ùnïcôde", "çàùôéé"), 0)
 
         self.assertEqual(ldapAuthen("usertest", "userpass", "tests-mds/basetest.ini").isRightPass(), True)
         self.assertEqual(ldapAuthen("usertest", "userbadpass", "tests-mds/basetest.ini").isRightPass(), False)
@@ -97,7 +97,7 @@ class TestManageUserGroup(unittest.TestCase):
         self.assertEqual(self.l.delUser("usertest", 1), 0)
         self.assertEqual(os.path.exists("/home/usertest"), False)
         self.assertEqual(len(self.l.searchUser()), 0)
-	self.l.delGroup("allusers")
+        self.l.delGroup("allusers")
         self.assertEqual(len(self.l.searchGroup()), 0)
         self.assertEqual(os.path.exists("tmp/base_del_user_usertest"), True)
 
@@ -108,12 +108,12 @@ class TestManageUserGroup(unittest.TestCase):
         self.assertEqual(len(self.l.searchGroup("grouptest")), 1)
         self.assertEqual(len(self.l.searchGroup("grouptestfoo")), 0)
         self.assertEqual(self.l.getMembers("grouptest"), [])
-	self.assertEqual(self.l.delGroup("grouptest"), None)
+        self.assertEqual(self.l.delGroup("grouptest"), None)
         self.assertEqual(len(self.l.searchGroup("grouptest")), 0)
         self.assertEqual(len(self.l.searchGroup()), 1)
 
     def test_addUserToGroup(self):
-        self.assertEqual(self.l.addUser("usertest", "userpass", u"ùnïcôde", u"çàùôéé"), 0)
+        self.assertEqual(self.l.addUser("usertest", "userpass", "ùnïcôde", "çàùôéé"), 0)
         self.assertEqual(self.l.addGroup("grouptest"), 10002)
         self.assertEqual(self.l.addUserToGroup("grouptest", "usertest"), 0)
         self.assertEqual(self.l.getMembers("grouptest"), ["usertest"])
@@ -121,11 +121,11 @@ class TestManageUserGroup(unittest.TestCase):
         self.assertEqual(self.l.delUser("usertest", 1), 0)
 
     def test_userdefault(self):
-        self.l.addUser("usertest", "userpass", u"Héléonôre", u"Rêve")
+        self.l.addUser("usertest", "userpass", "Héléonôre", "Rêve")
         d = self.l.getDetailedUser("usertest")
         self.assertEqual(d["mail"][0], "HELEONORE.REVE@mandriva.com")
-        self.assertEqual(d["displayName"][0], u"héléonôre rêve".encode("utf-8"))
-        self.assertEqual(d["cn"][0], u"Héléonôre Rêve".encode("utf-8"))
+        self.assertEqual(d["displayName"][0], "héléonôre rêve".encode("utf-8"))
+        self.assertEqual(d["cn"][0], "Héléonôre Rêve".encode("utf-8"))
         self.assertEqual("shadowExpire" in d, False)
         self.assertEqual("lmcUserObject" in d["objectClass"], True)
         self.assertEqual(d["lmcACL"][0], ":base#users#passwd/")
