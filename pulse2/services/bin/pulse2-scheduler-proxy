@@ -65,7 +65,7 @@ if __name__ == "__main__" :
     config_file = os.path.join(mmcconfdir, "pulse2", "scheduler", "scheduler.ini")
  
     if not os.path.exists(config_file):
-        print "Config file '%s' does not exist." % config_file
+        print("Config file '%s' does not exist." % config_file)
         sys.exit(3)
  
     logging.config.fileConfig(config_file)
@@ -74,7 +74,7 @@ if __name__ == "__main__" :
     logger.info("XMLRPC Proxy: Reading configuration file: %s" % config_file)
     try:
         SchedulerConfig().setup(config_file)
-    except Exception, e:
+    except Exception as e:
         logger.error("XMLRPC Proxy: %s" % str(e))
         logger.error("XMLRPC Proxy: Please fix the configuration file")
         sys.exit(1)

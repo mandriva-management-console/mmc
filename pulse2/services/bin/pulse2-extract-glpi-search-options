@@ -105,9 +105,9 @@ if __name__ == '__main__':
     # Parse and analyse args
     (options, args) = parser.parse_args()
     if options.glpi_path is None:
-        print
-        print "Mandatory Glpi root path option is missing !!"
-        print
+        print()
+        print("Mandatory Glpi root path option is missing !!")
+        print()
         parser.print_help()
         exit(1)
 
@@ -123,9 +123,9 @@ if __name__ == '__main__':
             f.write(inikey)
             for k in dict:
                 f.write('%s = %s\n' % (k, dict[k]))
-        except Exception, e:
-            print e
+        except Exception as e:
+            print(e)
 
     f.close()
-    print 'Ini file was written in current directory:\n%s' % fpath
-    print 'You have to copy it in your mmc plugin conf dir (Default: /etc/mmc/plugins/)'
+    print('Ini file was written in current directory:\n%s' % fpath)
+    print('You have to copy it in your mmc plugin conf dir (Default: /etc/mmc/plugins/)')

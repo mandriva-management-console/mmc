@@ -39,7 +39,7 @@ from subprocess import call
 from optparse import OptionParser
 from configobj import ConfigObj, MissingInterpolationOption
 import gzip
-from StringIO import StringIO
+from io import StringIO
 import sqlalchemy as sa
 import logging
 import ldap
@@ -64,7 +64,7 @@ def read_opt(prompt, default=None):
     if default is not None:
         prompt += ' (default: %s)' % default
     prompt = 'INPUT    - ' + prompt + ': '
-    s = raw_input(prompt)
+    s = input(prompt)
     if not s and default is not None:
         s = default
     return s
@@ -79,7 +79,7 @@ def read_bool(prompt, default):
     correct = False
     ret = default
     while not correct:
-        s = raw_input(prompt)
+        s = input(prompt)
         if len(s) == 0:
             break
 
@@ -127,7 +127,7 @@ def read_ip(prompt, default):
     correct = False
     ret = default
     while not correct:
-        s = raw_input(prompt)
+        s = input(prompt)
         if len(s) == 0:
             break
 
@@ -401,14 +401,14 @@ def apply_conf_diff(origin, current, only_override=False):
     @rtype: ConfigObj
     """
 
-    for (sec_name, section) in current.items():
+    for (sec_name, section) in list(current.items()):
         if sec_name in origin:
             options_to_delete = []
             for opt_name in section:
                 try:
                     value = current[sec_name].get(opt_name)
 
-                except MissingInterpolationOption, e:
+                except MissingInterpolationOption as e:
                     current.interpolation = False
                     value = current[sec_name].get(opt_name)
                     current.interpolation = True
@@ -416,7 +416,7 @@ def apply_conf_diff(origin, current, only_override=False):
                 if opt_name in origin[sec_name]:
                     try:
                         orig_value = origin[sec_name].get(opt_name)
-                    except MissingInterpolationOption, e:
+                    except MissingInterpolationOption as e:
 
                         origin.interpolation = False
                         if only_override:
@@ -488,7 +488,7 @@ class Pulse2ConfigFile(object):
             log.debug("Load config file %s" % loc_path)
             try:
                 self.local_config = ConfigObj(loc_path, list_values=False)
-            except Exception, e:
+            except Exception as e:
                 log.error("Error while parsing file: %s" % loc_path)
                 log.error(str(e))
                 sys.exit(1)
@@ -497,7 +497,7 @@ class Pulse2ConfigFile(object):
             log.debug("Load config file %s" % fpath)
             try:
                 self.config = ConfigObj(fpath, list_values=False)
-            except Exception, e:
+            except Exception as e:
                 log.error("Error while parsing file: %s" % fpath)
                 log.error(str(e))
                 sys.exit(1)
@@ -523,7 +523,7 @@ class Pulse2ConfigFile(object):
     def _populate(self, d):
         if not self.config:
             self.config = ConfigObj(list_values=False)
-        for name, section in d.iteritems():
+        for name, section in d.items():
             self.config[name] = section
 
     def write_path(self, path):
@@ -536,7 +536,7 @@ class Pulse2ConfigFile(object):
             self.config.write()
             os.chmod(path, self.mode)
             log.info("Wrote configuration file: %s" % path)
-        except IOError, e:
+        except IOError as e:
             log.error("Can not write file: %s" % path)
             log.debug(str(e))
             sys.exit(1)
@@ -856,15 +856,15 @@ class SetupApp(object):
             try:
                 invalids = []
                 conn.simple_bind_s(self.config['ldapadmindn'], self.config['ldappasswd'])
-            except ldap.INVALID_CREDENTIALS, e:
+            except ldap.INVALID_CREDENTIALS as e:
                 invalids += ['ldapbasedn', 'ldapadmindn', 'ldappasswd']
                 log.error("Invalid credentials, check base DN, admin DN and password.")
                 log.debug(str(e))
-            except ldap.SERVER_DOWN, e:
+            except ldap.SERVER_DOWN as e:
                 invalids += ['ldapurl']
                 log.error("Incorrect server")
                 log.debug(str(e))
-            except ldap.UNWILLING_TO_PERFORM, e:
+            except ldap.UNWILLING_TO_PERFORM as e:
                 invalids += ['ldappasswd']
                 log.error("Empty password not supported")
                 log.debug(str(e))
@@ -911,7 +911,7 @@ class SetupApp(object):
         try:
             crs = conn.execute("SELECT schema_name FROM information_schema.schemata;")
             databases = [line[0] for line in crs.fetchall()]
-        except sa.exc.OperationalError, e:
+        except sa.exc.OperationalError as e:
             raise e
 
         return databases
@@ -934,7 +934,7 @@ class SetupApp(object):
             try:
                 conn = self.engine.connect()
                 invalid = False
-            except sa.exc.OperationalError, e:
+            except sa.exc.OperationalError as e:
                 log.error("Can't connect to the database")
                 log.debug(str(e))
 
@@ -946,7 +946,7 @@ class SetupApp(object):
                     try:
                         conn.execute('DROP DATABASE IF EXISTS `%s`' % db)
                         log.info("Database '%s' dropped" % db)
-                    except sa.exc.OperationalError, e:
+                    except sa.exc.OperationalError as e:
                         raise e
             # remove computer boot menus
             dir = "/var/lib/pulse2/imaging/"
@@ -995,7 +995,7 @@ class SetupApp(object):
                 # Do not know how to check if user exists, then try and catch
                 conn.execute('CREATE USER %s@%s', self.config['dbuser'], host)
                 log.info('Creates user %s@%s' % (self.config['dbuser'], host))
-            except sa.exc.OperationalError, e:
+            except sa.exc.OperationalError as e:
                 if e.orig[0]==1396:
                     # This error means 'user exists'
                     log.debug('User already exists: %s@%s' % (self.config['dbuser'], host))
@@ -1017,7 +1017,7 @@ class SetupApp(object):
                     log.info('Grant rights on db %s' % module)
                     # Put db name without sqlalchemy quoting: it was surrounded by `''
                     conn.execute('GRANT ALL on `%s`.* to %%s@%%s' % module, self.config['dbuser'], host)
-            except sa.exc.OperationalError, e:
+            except sa.exc.OperationalError as e:
                 if e.orig[0]==1044:
                     log.error('Access denied: please check user \'%s\'@\'%s\' has grant rights.' % (
                         self.config['dbuser'], self.config['dbhost']))
@@ -1205,7 +1205,7 @@ class SetupApp(object):
         if not os.path.exists(key_path):
             log.info('Creating a RSA key pair for user root')
             ret = call("/usr/bin/ssh-keygen -t rsa -N '' -f %s" % key_path, shell=True)
-            if ret<>0:
+            if ret!=0:
                 log.error('Can not create RSA key pair for user root')
                 sys.exit(1)
 
@@ -1277,7 +1277,7 @@ class SetupApp(object):
     def commit(self):
         """ Write down all config files
         """
-        for (path, conf) in self.confs.iteritems():
+        for (path, conf) in self.confs.items():
             conf.config = apply_conf_diff(self.orig_confs[path].config, conf.config)
             if len(conf.config) == 0:
                 # if empty local config do not generate

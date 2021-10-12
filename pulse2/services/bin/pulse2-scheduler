@@ -121,7 +121,7 @@ class App :
                 os.unlink(self.socket_file)
             self.listen_unix = reactor.listenUNIX(self.socket_file, gateway)
 
-        except Exception, e:
+        except Exception as e:
             self.logger.error("Unix socket start failed: %s" % str(e))
             return False
         return True
@@ -159,10 +159,10 @@ class App :
             self.logger.info('XMLRPC Proxy pid=%s' % (self.proxy_pid))
 
             return True
-        except OSError, e:
+        except OSError as e:
             self.logger.error("Start of XMLRPC Proxy failed: %s" % str(e))
             return False
-        except Exception, e:
+        except Exception as e:
             self.logger.error("Start of XMLRPC Proxy failed: %s" % str(e))
             return False
 
@@ -252,7 +252,7 @@ def startService(config):
         except :
             pass
 
-    launchers = map(lambda(a): 'xml://%s:%s' % (config.launchers[a]['host'], config.launchers[a]['port']), config.launchers)
+    launchers = ['xml://%s:%s' % (config.launchers[a]['host'], config.launchers[a]['port']) for a in config.launchers]
     logger.info('scheduler %s: available launchers: %s' % (config.name, ' '.join(launchers)))
 
 
@@ -286,7 +286,7 @@ def main():
     (options, args) = parser.parse_args()
 
     if not os.path.exists(options.config_file):
-        print "Config file '%s' does not exist." % options.config_file
+        print("Config file '%s' does not exist." % options.config_file)
         sys.exit(3)
 
     # start logger
@@ -305,7 +305,7 @@ def main():
     logger.info("Reading configuration file: %s" % options.config_file)
     try:
         config.setup(options.config_file)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         logger.error("Please fix the configuration file")
         sys.exit(1)
@@ -315,7 +315,7 @@ def main():
         confmsc.setup(options.config_file)
         if not MscDatabase().activate(confmsc): # does the db_check
             sys.exit(1)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         logger.error("Please fix the configuration file")
         sys.exit(1)

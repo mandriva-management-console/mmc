@@ -51,7 +51,7 @@ import sys
 try:
     from sqlalchemy import *
 except ImportError:
-    print "SqlAlchemy was not found, please install it !"
+    print("SqlAlchemy was not found, please install it !")
     sys.exit(1)
 
 import sqlalchemy
@@ -80,7 +80,7 @@ def deleteOldInventories(inventory):
     """
     Clean up the Inventory table, i.e. delete old inventories (Last != 1)
     """
-    to_delete = map(lambda x: x['id'], inventory.select(inventory.c.Last != 1).execute().fetchall())
+    to_delete = [x['id'] for x in inventory.select(inventory.c.Last != 1).execute().fetchall()]
     if len(to_delete) > 0:
         logger.info("deleteOldInventories : will purge %d inventories" % len(to_delete))
         for i in range(0, 1+len(to_delete)/split_on): # delete by split_on-pack
@@ -98,12 +98,10 @@ def deleteWrongInventories(inventory):
         # First we look for inventory parts not linked all mandatory has*
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_merge = map(lambda x: x['id'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-                outerjoin(inventory, has_table, has_table.c.inventory == inventory.c.id).\
+        to_merge = [x['id'] for x in outerjoin(inventory, has_table, has_table.c.inventory == inventory.c.id).\
                 select(has_table.c.inventory == None).\
                 execute().\
-                fetchall()
-            )
+                fetchall()]
         if to_delete == None:
             to_delete = to_merge
         else:
@@ -129,12 +127,10 @@ def deleteWrongMachines(machine):
         # First we look for inventory parts not linked all mandatory has*
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_merge = map(lambda x: x['id'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-                outerjoin(machine, has_table, has_table.c.machine == machine.c.id).\
+        to_merge = [x['id'] for x in outerjoin(machine, has_table, has_table.c.machine == machine.c.id).\
                 select(has_table.c.machine == None).\
                 execute().\
-                fetchall()
-            )
+                fetchall()]
         if to_delete == None:
             to_delete = to_merge
         else:
@@ -161,12 +157,10 @@ def deleteHasTablesMissingInventories(inventory):
     for table in peripheral_tables:
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_delete = map(lambda x: x['inventory'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-            outerjoin(has_table, inventory, has_table.c.inventory == inventory.c.id).\
+        to_delete = [x['inventory'] for x in outerjoin(has_table, inventory, has_table.c.inventory == inventory.c.id).\
             select(inventory.c.id == None).\
             execute().\
-            fetchall()
-        )
+            fetchall()]
 
         if len(to_delete) > 0:
             logger.info("deleteHasTablesMissingInventories : on table has%s: will purge %d rows" % (table, len(to_delete)))
@@ -187,12 +181,10 @@ def deleteHasTablesMissingMachines(machine):
     for table in peripheral_tables:
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_delete = map(lambda x: x['machine'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-            outerjoin(has_table, machine, has_table.c.machine == machine.c.id).\
+        to_delete = [x['machine'] for x in outerjoin(has_table, machine, has_table.c.machine == machine.c.id).\
             select(machine.c.id == None).\
             execute().\
-            fetchall()
-        )
+            fetchall()]
 
         if len(to_delete) > 0:
             logger.info("deleteHasTablesMissingMachines : on table has%s: will purge %d rows" % (table, len(to_delete)))
@@ -215,12 +207,10 @@ def deleteHasTablesMissingParts(machine):
         element = Table(table, metadata, autoload = True)
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_delete = map(lambda x: x[table.lower()], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-            outerjoin(has_table, element, has_table.c.get(table.lower()) == element.c.id).\
+        to_delete = [x[table.lower()] for x in outerjoin(has_table, element, has_table.c.get(table.lower()) == element.c.id).\
             select(element.c.id == None).\
             execute().\
-            fetchall()
-        )
+            fetchall()]
 
         if len(to_delete) > 0:
             logger.info("deleteHasTablesMissingParts : on table %s: will purge %d rows" % (table, len(to_delete)))
@@ -243,12 +233,10 @@ def cleanUpInventoryParts(inventory):
         element = Table(table, metadata, autoload = True)
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_delete = map(lambda x: x['id'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-            outerjoin(element, has_table, has_table.c.get(table.lower()) == element.c.id).\
+        to_delete = [x['id'] for x in outerjoin(element, has_table, has_table.c.get(table.lower()) == element.c.id).\
             select(has_table.c.get(table.lower()) == None).\
             execute().\
-            fetchall()
-        )
+            fetchall()]
 
         if len(to_delete) > 0:
             logger.info("cleanUpInventoryParts : on table %s: will purge %d rows" % (table, len(to_delete)))
@@ -274,12 +262,10 @@ def deleteEmptyInventories(inventory):
         # First we look for inventory parts not linked to any has*
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_merge = map(lambda x: x['id'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-                outerjoin(inventory, has_table, has_table.c.inventory == inventory.c.id).\
+        to_merge = [x['id'] for x in outerjoin(inventory, has_table, has_table.c.inventory == inventory.c.id).\
                 select(has_table.c.inventory == None).\
                 execute().\
-                fetchall()
-            )
+                fetchall()]
         if to_delete == None:
             to_delete = to_merge
         else:
@@ -305,12 +291,10 @@ def deleteEmptyMachines(machine):
         # First we look for inventory parts not linked to any has*
         has_table = Table("has" + table, metadata, autoload = True)
 
-        to_merge = map(lambda x: x['id'], # I may use list(set()) to deduplicate entries, but it would fake the real number of delete rows (one ID may lead to several rows deleted)
-                outerjoin(machine, has_table, has_table.c.machine == machine.c.id).\
+        to_merge = [x['id'] for x in outerjoin(machine, has_table, has_table.c.machine == machine.c.id).\
                 select(has_table.c.machine == None).\
                 execute().\
-                fetchall()
-            )
+                fetchall()]
         if to_delete == None:
             to_delete = to_merge
         else:
@@ -335,7 +319,7 @@ def optimizeTables():
         res = text('OPTIMIZE TABLE %s' % table, bind=mysql_db).execute()
         logger.info("optimizeTables : optimized %s" % (table))
 
-    for table in map(lambda x: 'has%s' % x, peripheral_tables):
+    for table in ['has%s' % x for x in peripheral_tables]:
         logger.info("optimizeTables : will optimize %s" % (table))
         res = text('OPTIMIZE TABLE %s' % table, bind=mysql_db).execute().fetchone()
         logger.info("optimizeTables : optimized %s" % (table))
@@ -346,8 +330,8 @@ def optimizeTables():
         logger.info("optimizeTables : optimized %s" % (table))
 
 def usage(argv):
-    print >> sys.stderr, 'Usage: %s [db_conn_string]' % argv[0]
-    print >> sys.stderr, 'Where db_conn_string is a SQLAlchemy connection string, e.g. mysql://user:password@host/database'
+    print('Usage: %s [db_conn_string]' % argv[0], file=sys.stderr)
+    print('Where db_conn_string is a SQLAlchemy connection string, e.g. mysql://user:password@host/database', file=sys.stderr)
     return 1
 
 if __name__ == "__main__":

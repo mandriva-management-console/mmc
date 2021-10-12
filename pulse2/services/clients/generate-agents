@@ -47,7 +47,7 @@ import fileinput
 
 from distutils import dir_util, file_util, archive_util
 from subprocess import Popen, PIPE
-from ConfigParser import RawConfigParser
+from configparser import RawConfigParser
 
 
 class ParameterError(Exception):
@@ -138,7 +138,7 @@ class Config(object):
         try:
             actual = self.cp.getint("main", "release")
         except TypeError:
-            print "Release number must be integer type"
+            print("Release number must be integer type")
             sys.exit(1)
 
         self.cp.set("main", "release", actual + 1)
@@ -225,7 +225,7 @@ class InventoryURLGen(object):
         p = Popen(["hostname", "-f"], stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         if err:
-            print "ERROR: %s" % err
+            print("ERROR: %s" % err)
         fqdn = out.split("\n")
         return fqdn[0]
 
@@ -292,7 +292,7 @@ class AbsCreator(object):
         self.release = self.config.release
 
 
-        print "Creating [%s] agent pack" % self.platform_directory
+        print("Creating [%s] agent pack" % self.platform_directory)
 
 
     @property
@@ -477,7 +477,7 @@ class MacCreator(AbsCreator):
                                   verbose=1
                                   )
         os.chdir(origin_dir)
-        print "[mac] package %s built successfully" % self.package_name
+        print("[mac] package %s built successfully" % self.package_name)
 
 
     def _declare_vnc_password(self):
@@ -547,11 +547,11 @@ Description: A metapackage to install and configure Pulse2 agents
         p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         if err:
-            print "ERROR: %s" % err
+            print("ERROR: %s" % err)
         if verbose_mode:
-            print "[deb]: %s" % out
+            print("[deb]: %s" % out)
 
-        print "[deb] package %s built successfully" % self.package_name
+        print("[deb] package %s built successfully" % self.package_name)
 
         os.chdir(origin_dir)
 
@@ -685,9 +685,9 @@ rm -rf /%{opt_dir}/%{name}/
         p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         if err:
-            print "ERROR: %s" % err
+            print("ERROR: %s" % err)
         if verbose_mode:
-            print "rpm: %s" % out
+            print("rpm: %s" % out)
 
         os.chdir(origin_dir)
 
@@ -705,7 +705,7 @@ rm -rf /%{opt_dir}/%{name}/
 
         file_util.move_file(rpms_dir, self.platform_directory)
 
-        print "[rpm] package %s built successfully" % self.package_name
+        print("[rpm] package %s built successfully" % self.package_name)
 
 
 class DebServerCreator(DebCreator):
@@ -768,10 +768,10 @@ class Win32Creator(AbsCreator):
         out, err = p.communicate()
 
         if verbose_mode:
-            print out
+            print(out)
 
 
-        print "[win32] package built successfully"
+        print("[win32] package built successfully")
 
 
 
@@ -837,7 +837,7 @@ class SmartAgentPrepare(object):
                        ]:
             succeed = method()
             if not succeed:
-                print "ERROR: An error occurred during execute %s" % method.__name__
+                print("ERROR: An error occurred during execute %s" % method.__name__)
                 return 1
         return 0
 
@@ -847,7 +847,7 @@ class SmartAgentPrepare(object):
 
         installer = os.path.join(MODULE_DIR, self.INSTALLER)
         file_util.copy_file("%s.in" % installer, installer)
-        print "INFO: Installer create..."
+        print("INFO: Installer create...")
         return self.replace({"DOMAIN": self.host}, installer)
 
 
@@ -863,7 +863,7 @@ class SmartAgentPrepare(object):
                    }
 
         file_util.copy_file("%s.in" % defaults, defaults)
-        print "INFO: Defaults prepare"
+        print("INFO: Defaults prepare")
         return self.replace(pattern, defaults)
 
 
@@ -882,7 +882,7 @@ class SmartAgentPrepare(object):
                             self.vpn_variables_pattern[variable] = value
             return True
         else:
-            print "WARNING: %s not found!" % var_file
+            print("WARNING: %s not found!" % var_file)
             return False
 
 
@@ -898,7 +898,7 @@ class SmartAgentPrepare(object):
         """
         replaced_items = 0
         for line in fileinput.input(in_script, inplace=1):
-            for (old, new) in pattern.iteritems():
+            for (old, new) in pattern.items():
                 search_exp = "@@%s@@" % old
                 if search_exp in line:
                     line = line.replace(search_exp, new)
@@ -909,7 +909,7 @@ class SmartAgentPrepare(object):
 
 
     def create_archive(self):
-        print "INFO: Agent archive create..."
+        print("INFO: Agent archive create...")
         name = os.path.join(MODULE_DIR, self.AGENT_FOLDER)
         #archive_util.make_archive(self.AGENT_FOLDER,
         archive_util.make_archive(name,
@@ -926,7 +926,7 @@ class BuildSoftEtherClient(object):
     command = "build.sh"
 
     def __init__(self):
-        print "INFO: Prepare SoftEther VPN Client installer for Windows ..."
+        print("INFO: Prepare SoftEther VPN Client installer for Windows ...")
         current_directory = os.path.dirname(os.path.abspath(__file__))
         self.build()
         os.chdir(current_directory)
@@ -941,9 +941,9 @@ class BuildSoftEtherClient(object):
         p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
 
-        print "INFO: (build of SoftEther VPN Client) %s" % out
+        print("INFO: (build of SoftEther VPN Client) %s" % out)
         if len(err) > 0:
-            print "ERROR: (build of SoftEther VPN Client) %s" % err
+            print("ERROR: (build of SoftEther VPN Client) %s" % err)
 
 
 
@@ -985,13 +985,13 @@ def args_parse(script_path, args):
     if len(args) > 1:
         for arg in args:
             if not any([a in arg for a in allowed_args]):
-                print __doc__
+                print(__doc__)
                 sys.exit(0)
             if arg == "--verbose" :
                 verbose_mode = True
                 continue
             if arg in ["-h", "--help"]:
-                print __doc__
+                print(__doc__)
                 sys.exit(0)
             if "=" in arg:
                 key, value = arg.split("=")
@@ -1006,7 +1006,7 @@ if __name__ == "__main__":
     kwargs = args_parse(__file__, sys.argv)
     inv = InventoryURLGen(**kwargs)
     inventory_url = inv.get_url()
-    print "INFO: Inventory URL: %s" % inventory_url
+    print("INFO: Inventory URL: %s" % inventory_url)
     tag = inv.get_tag()
 
     if not "--cm-only" in sys.argv:

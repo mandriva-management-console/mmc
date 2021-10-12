@@ -333,10 +333,10 @@ class DispatchProxies :
             # authentication key
             self.auth_key = sys.argv[11]
 
-        except ValueError, val_exc:
+        except ValueError as val_exc:
             log.warn("VNC Proxy: Arguments parsing failure: %s" % str(val_exc))
             self.stop_proxies()
-        except IndexError, idx_exc:
+        except IndexError as idx_exc:
             log.warn("VNC Proxy: Arguments parsing failure: %s" % str(idx_exc))
             self.stop_proxies()
 
@@ -359,7 +359,7 @@ class DispatchProxies :
                     stopper()
             except AttributeError :
                 log.debug("VNC Proxy: service probably stopped, going to next")
-            except Exception, exc:
+            except Exception as exc:
                 log.warn("VNC Proxy: Stopping failed: %s" % str(exc))
 
         log.info("VNC Proxy: Proxy for %s (%s) closed" % (self.to_ip, self.machine_name))
@@ -389,7 +389,7 @@ class DispatchProxies :
         try:
             if hasattr(self.out_proxy, "process"):
                 self.register_stopper(self.out_proxy.process.sendSigKill)
-        except Exception, e:
+        except Exception as e:
             log.warn("VNC Proxy: %s" %str(e))
 
     def _eb_output_proxy(self, failure):

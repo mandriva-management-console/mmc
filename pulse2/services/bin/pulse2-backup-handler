@@ -17,14 +17,14 @@ def main():
     try:
         bin, host, hostIP, type, cmdType = sys.argv
     except:
-        print 'Invalid params, leaving'
+        print('Invalid params, leaving')
         sys.exit(1)
 
     # Checking ssh
     o, e, ec = runInShell('/usr/bin/ssh -x -o StrictHostKeyChecking=no -o PasswordAuthentication=no -l root %s echo SSH Ok' % hostIP)
     
     if ec != 0:
-        print "SSH Error : " + e
+        print("SSH Error : " + e)
         sys.exit(1)
 
     # Running specific state script
@@ -40,8 +40,8 @@ def main():
 
     if script.strip():
         o, e, ec = runOnHost(hostIP, script)
-        print o
-        print e
+        print(o)
+        print(e)
         sys.exit(ec)
     
 

@@ -36,14 +36,14 @@ def listBackupServers():
     db = initdb()
     servers = db.get_backupservers_list()
     if not servers:
-	print "No entry found."
+	print("No entry found.")
 	return
-    print "="*80
-    print "Entity UUID\tBackupPC Server CGI URL"
-    print "="*80
+    print("="*80)
+    print("Entity UUID\tBackupPC Server CGI URL")
+    print("="*80)
     for server in servers:
-        print "%s\t\t%s" % (server['entity_uuid'],server['backupserver_url'])
-    print "="*80
+        print("%s\t\t%s" % (server['entity_uuid'],server['backupserver_url']))
+    print("="*80)
 
 
 if __name__ == "__main__":
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if not options.entity:
-        print "Error: No entity UUID specified"
+        print("Error: No entity UUID specified")
         parser.print_help()
         sys.exit(1)
 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 	if options.url:
 	    initdb().add_backupserver(options.entity.upper(),options.url)
 	else:
-	    print "Error: No Backup server URL specified"
+	    print("Error: No Backup server URL specified")
     else:
         initdb().remove_backupserver(options.entity.upper())
 

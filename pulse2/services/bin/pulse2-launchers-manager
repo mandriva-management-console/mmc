@@ -63,7 +63,7 @@ def start_launcher(name, config):
     if pid:
         if pid_is_alive(pid):
             logger.error('failed to start launcher "%s": seems to be running under pid %d' % (name, pid))
-            print 'failed to start launcher "%s": seems to be running under pid %d' % (name, pid)
+            print('failed to start launcher "%s": seems to be running under pid %d' % (name, pid))
             return False
         else:
             clear_pidfile(config, name)
@@ -89,9 +89,9 @@ def start_launcher(name, config):
 
             # TODO: implement second stage here !
             return True
-    except OSError, e:
+    except OSError as e:
         logger.error('daemonization part #1 failed: %d (%s)' % (e.errno, e.strerror))
-        print >> sys.stderr, "daemonization part #1 failed: %d (%s)" % (e.errno, e.strerror)
+        print("daemonization part #1 failed: %d (%s)" % (e.errno, e.strerror), file=sys.stderr)
         sys.exit(1)
 
     # decouple from parent environment
@@ -108,7 +108,7 @@ def start_launcher(name, config):
             logger.info('daemonization succedeed: "%s", pid %d' % (name, pid) ) # exit from second parent, print eventual PID before
             set_pidfile(config, name, pid) # records the PID from here, as it is the only place where we know it
             sys.exit(0)
-    except OSError, e:
+    except OSError as e:
         logger.error('daemonization part #2 failed: %d (%s)' % (e.errno, e.strerror))
         sys.exit(1)
 
@@ -145,12 +145,12 @@ def stop_launcher(name, config):
                 return False
         else:
             logger.error('failed to stop launcher "%s": was supposed to be running under pid %d' % (name, pid))
-            print 'failed to stop launcher "%s": was supposed to be running under pid %d' % (name, pid)
+            print('failed to stop launcher "%s": was supposed to be running under pid %d' % (name, pid))
             clear_pidfile(config, name)
             return False
     else:
         logger.error('failed to stop launcher "%s": was not running' % (name))
-        print 'failed to stop launcher "%s": was not running' % (name)
+        print('failed to stop launcher "%s": was not running' % (name))
         clear_pidfile(config, name)
         return False
 
@@ -182,7 +182,7 @@ def kill_pid(pid, signal):
     os.seteuid(0)
     try:
         os.kill(pid, signal)
-    except OSError, err:
+    except OSError as err:
         if err.errno == errno.ESRCH:
             os.setegid(config.daemon_group)
             os.seteuid(config.daemon_user)
@@ -229,11 +229,11 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     if not os.path.exists(options.config_file):
-        print "Config file '%s' does not exist." % options.config_file
+        print("Config file '%s' does not exist." % options.config_file)
         sys.exit(1)
 
     if len(args)!=1:
-        print "command is missing"
+        print("command is missing")
         sys.exit(2)
 
     # we have to advance carefully here in order not to break the logging system
@@ -270,7 +270,7 @@ if __name__ == "__main__":
         print('Starting Pulse2 Launchers:')
         # parse sections to keep launchers-specifics
         for section in config.launchers:
-            print('\t%s' % section)
+            print(('\t%s' % section))
             if start_launcher(section, config):
                 logger.info('Launcher "%s" started' % section)
                 print('OK')
@@ -281,7 +281,7 @@ if __name__ == "__main__":
         logger.info('stopping Pulse2 Launchers')
         print('Stopping Pulse2 Launchers:')
         for section in config.launchers:
-            print('\t%s' % section)
+            print(('\t%s' % section))
             if stop_launcher(section, config):
                 logger.info('Launcher "%s" started' % section)
                 print('OK')

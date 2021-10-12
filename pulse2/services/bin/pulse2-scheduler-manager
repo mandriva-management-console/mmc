@@ -66,7 +66,7 @@ def start_scheduler(config):
     if pid:
         if pid_is_alive(pid):
             logger.error('failed to start scheduler "%s": seems to be running under pid %d' % (name, pid))
-            print 'failed to start scheduler "%s": seems to be running under pid %d' % (name, pid)
+            print('failed to start scheduler "%s": seems to be running under pid %d' % (name, pid))
             return False
         else:
             clear_pidfile(config)
@@ -92,9 +92,9 @@ def start_scheduler(config):
 
             # TODO: implement second stage here !
             return True
-    except OSError, e:
+    except OSError as e:
         logger.error('daemonization part #1 failed: %d (%s)' % (e.errno, e.strerror))
-        print >> sys.stderr, "daemonization part #1 failed: %d (%s)" % (e.errno, e.strerror)
+        print("daemonization part #1 failed: %d (%s)" % (e.errno, e.strerror), file=sys.stderr)
         sys.exit(1)
 
     # decouple from parent environment
@@ -111,7 +111,7 @@ def start_scheduler(config):
             logger.info('daemonization succedeed: "%s", pid %d' % (name, pid) ) # exit from second parent, print eventual PID before
             set_pidfile(config, pid) # records the PID from here, as it is the only place where we know it
             sys.exit(0)
-    except OSError, e:
+    except OSError as e:
         logger.error('daemonization part #2 failed: %d (%s)' % (e.errno, e.strerror))
         sys.exit(1)
 
@@ -147,7 +147,7 @@ def stop_scheduler(config, wait_for_completion = False):
                     return True
                 elif wait_for_completion:
                     sys.stdout.softspace = 0 # prevent to print additionnal spaces
-                    print ".",
+                    print(".", end=' ')
                     sys.stdout.flush()
                     logger.warn('Still waiting for scheduler "%s" to stop' % name)
                     attempts_left -= 1
@@ -159,12 +159,12 @@ def stop_scheduler(config, wait_for_completion = False):
                     return False
         else:
             logger.error('failed to stop scheduler "%s": was supposed to be running under pid %d' % (name, pid))
-            print 'failed to stop scheduler "%s": was supposed to be running under pid %d' % (name, pid)
+            print('failed to stop scheduler "%s": was supposed to be running under pid %d' % (name, pid))
             clear_pidfile(config)
             return False
     else:
         logger.error('failed to stop scheduler "%s": was not running' % (name))
-        print 'failed to stop scheduler "%s": was not running' % (name)
+        print('failed to stop scheduler "%s": was not running' % (name))
         clear_pidfile(config)
         return True
 
@@ -196,7 +196,7 @@ def kill_pid(pid, signal):
     os.seteuid(0)
     try:
         os.killpg(os.getpgid(pid), signal)
-    except OSError, err:
+    except OSError as err:
         if err.errno == errno.ESRCH:
             os.setegid(config.daemon_group)
             os.seteuid(config.daemon_user)
@@ -247,13 +247,13 @@ def set_resource_usage(config):
         try:
             res, soft, hard = limits[:3]
         except ValueError:
-            print "Malformed resource limit expression, must be: limit soft hard (was '%s')" % config.setrlimit
+            print("Malformed resource limit expression, must be: limit soft hard (was '%s')" % config.setrlimit)
             sys.exit(3)
         try:
             resource.setrlimit(eval("resource." + res), (int(soft), int(hard)))
-        except Exception, e:
-            print "Can't set resource limits for resource='%s', soft='%s', hard='%s'" % (res, soft, hard)
-            print e
+        except Exception as e:
+            print("Can't set resource limits for resource='%s', soft='%s', hard='%s'" % (res, soft, hard))
+            print(e)
             sys.exit(3)
         limits = limits[3:]
 
@@ -267,9 +267,9 @@ def log_resource_usage(config):
         try:
             resource.getrlimit(eval("resource." + res))
             logging.getLogger().info("Resource '%s' set to soft='%s', hard='%s'" % (res, soft, hard))
-        except Exception, e:
-            print "Can't get resource limits for resource='%s'" % res
-            print e
+        except Exception as e:
+            print("Can't get resource limits for resource='%s'" % res)
+            print(e)
             sys.exit(4)
         limits = limits[3:]
 
@@ -277,7 +277,7 @@ if __name__ == "__main__":
 
     def __start():
         logger.info('Starting Pulse2 Scheduler')
-        print('Starting Pulse2 Scheduler ...'),
+        print(('Starting Pulse2 Scheduler ...'), end=' ')
         sys.stdout.flush()
         if start_scheduler(config):
             logger.info('Scheduler started')
@@ -290,7 +290,7 @@ if __name__ == "__main__":
 
     def __graceful_stop():
         logger.info('stopping Pulse2 Scheduler')
-        print('Stopping Pulse2 Scheduler ...'),
+        print(('Stopping Pulse2 Scheduler ...'), end=' ')
         sys.stdout.flush()
         if stop_scheduler(config, wait_for_completion = False):
             logger.info('Scheduler stopped')
@@ -303,7 +303,7 @@ if __name__ == "__main__":
 
     def __stop():
         logger.info('stopping Pulse2 Scheduler')
-        print('Stopping Pulse2 Scheduler ...'),
+        print(('Stopping Pulse2 Scheduler ...'), end=' ')
         sys.stdout.flush()
         if stop_scheduler(config, wait_for_completion = True):
             logger.info('Scheduler stopped')
@@ -320,7 +320,7 @@ if __name__ == "__main__":
             print('Pulse2 Scheduler is stopped')
             return 3
         elif pid_is_alive(pid) :
-            print('Pulse2 Scheduler (pid %s) is running...' % pid)
+            print(('Pulse2 Scheduler (pid %s) is running...' % pid))
             return 0
         else:
             print('Pulse2 Scheduler dead but pid file exists')
@@ -333,11 +333,11 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     if not os.path.exists(options.config_file):
-        print "Config file '%s' does not exist." % options.config_file
+        print("Config file '%s' does not exist." % options.config_file)
         sys.exit(1)
 
     if len(args)!=1:
-        print "command is missing"
+        print("command is missing")
         sys.exit(2)
 
     # we have to advance carefully here in order not to break the logging system

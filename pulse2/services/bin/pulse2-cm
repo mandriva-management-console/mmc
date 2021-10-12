@@ -53,8 +53,8 @@ def running(cfgfile, daemonize):
 
     try:
         dp = Dispatcher(config)
-    except Exception, e:
-        print e
+    except Exception as e:
+        print(e)
         logger.exception(e)
         raise
 
@@ -66,7 +66,7 @@ def running(cfgfile, daemonize):
     # Become a daemon
     if daemonize:
         daemon(config.daemon.pidfile)
-    print dp
+    print(dp)
     reactor.callWhenRunning(dp.run)
     reactor.run()
     return 0
@@ -81,8 +81,8 @@ def daemon(pidfile):
 
     # Test if mmcagent has been already launched in daemon mode
     if os.path.isfile(pidfile):
-        print pidfile+" pid already exist. Maybe pulse2-cm is already running\n"
-        print "use /etc/init.d script to stop and relaunch it"
+        print(pidfile+" pid already exist. Maybe pulse2-cm is already running\n")
+        print("use /etc/init.d script to stop and relaunch it")
         sys.exit(0)
 
     # do the UNIX double-fork magic, see Stevens' "Advanced
@@ -92,8 +92,8 @@ def daemon(pidfile):
         if pid > 0:
             # exit first parent
             sys.exit(0)
-    except OSError, e:
-        print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
+    except OSError as e:
+        print("fork #1 failed: %d (%s)" % (e.errno, e.strerror), file=sys.stderr)
         sys.exit(1)
 
     # decouple from parent environment
@@ -108,13 +108,13 @@ def daemon(pidfile):
         pid = os.fork()
         if pid > 0:
             # exit from second parent, print eventual PID before
-            print "Daemon PID %d" % pid
+            print("Daemon PID %d" % pid)
             os.seteuid(0)
             os.setegid(0)
             os.system("echo " + str(pid) + " > " + pidfile)
             sys.exit(0)
-    except OSError, e:
-        print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
+    except OSError as e:
+        print("fork #2 failed: %d (%s)" % (e.errno, e.strerror), file=sys.stderr)
         sys.exit(1)
 
 
@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
 
     if not os.path.exists(cfgfile):
-        print "File '%s' does not exist." % cfgfile
+        print("File '%s' does not exist." % cfgfile)
         sys.exit(3)
 
     # Start the daemon main loop

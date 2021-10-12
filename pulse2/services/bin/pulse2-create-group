@@ -110,7 +110,7 @@ class GroupCreator(object):
         @d.addCallback
         def result_groups(result):
             if isinstance(result, dict):
-                return self.name in [name for (name, desc, n) in result.itervalues()]
+                return self.name in [name for (name, desc, n) in result.values()]
             else:
                 logger.warn("Strange result of occurence of group '%s': %s (dict expected)" % (self.name, repr(result)))
                 return False

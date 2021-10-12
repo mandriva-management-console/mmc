@@ -47,7 +47,7 @@ def db_update (options):
                                module=options.database,
                                log=log) 
         db_control.process()
-    except Exception, exc :
+    except Exception as exc :
         log.warn("An error occured when running dbupdate : %s" % str(exc))
 
 def options_validate(options):

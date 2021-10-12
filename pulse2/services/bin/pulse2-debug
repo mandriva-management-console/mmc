@@ -27,13 +27,13 @@ import subprocess
 import pprint
 import readline
 import atexit
-import xmlrpclib
-import urlparse
+import xmlrpc.client
+import urllib.parse
 import argparse
 from collections import namedtuple
 from pydoc import pager as textpager
-from ConfigParser import ConfigParser
-from httplib import CannotSendRequest
+from configparser import ConfigParser
+from http.client import CannotSendRequest
 
 from twisted.internet import task, reactor
 from twisted.python import threadable; threadable.init(1)
@@ -345,7 +345,7 @@ def page(content, pagecallback=prompt):
                     # avoid extra blank line by skipping linefeed print
                     echo(linelist[i])
                 else:
-                    print(linelist[i])
+                    print((linelist[i]))
             linesleft -= lines2print
             linelist = linelist[lines2print:]
 
@@ -392,16 +392,16 @@ def pprinttable(rows):
         pattern = " | ".join(formats)
         hpattern = " | ".join(hformats)
         separator = "-+-".join(['-' * n for n in lens])
-        print separator
-        print hpattern % tuple(headers)
-        print separator
+        print(separator)
+        print(hpattern % tuple(headers))
+        print(separator)
         for line in rows:
-            print pattern % tuple(line)
+            print(pattern % tuple(line))
     elif len(rows) == 1:
         row = rows[0]
         hwidth = len(max(row._fields,key=lambda x: len(x)))
         for i in range(len(row)):
-            print "%*s = %s" % (hwidth,row._fields[i],row[i])
+            print("%*s = %s" % (hwidth,row._fields[i],row[i]))
 
 
 def printListInfo(result):
@@ -413,12 +413,12 @@ def printListInfo(result):
     if len(result['data']) == 0:
         return
 
-    header = result['data'][0].keys()
+    header = list(result['data'][0].keys())
     Row = namedtuple('Row', header)
     try:
-        pprinttable([Row(*(line.values())) for line in result['data']])
-    except Exception, e:
-        print str(e)
+        pprinttable([Row(*(list(line.values()))) for line in result['data']])
+    except Exception as e:
+        print(str(e))
 
 
 class bcolors:
@@ -512,7 +512,7 @@ class cookietransportrequest:
             self.cookies.append(cookie)
 
         if response.status != 200:
-            raise xmlrpclib.ProtocolError(host + handler, response.status,
+            raise xmlrpc.client.ProtocolError(host + handler, response.status,
                                           response.reason, response.msg.headers)
 
         payload = response.read()
@@ -528,16 +528,16 @@ class cookietransportrequest:
         If the URI type is https, return a CookieSafeTransport.
         If the type is http, return a CookieTransport.
         """
-        if urlparse.urlparse(uri, "http")[0] == "https":
+        if urllib.parse.urlparse(uri, "http")[0] == "https":
             return cookiesafetransport()
         else:
             return cookietransport()
 
 
-class cookietransport(cookietransportrequest, xmlrpclib.Transport):
+class cookietransport(cookietransportrequest, xmlrpc.client.Transport):
     pass
 
-class cookiesafetransport(cookietransportrequest, xmlrpclib.SafeTransport):
+class cookiesafetransport(cookietransportrequest, xmlrpc.client.SafeTransport):
     pass
 
 
@@ -635,7 +635,7 @@ def p2d():
 
 
 def completer(text, state):
-    CONSOLE_VARS.keys()
+    list(CONSOLE_VARS.keys())
     #
     possib = funcs
     #if module in funcs:
@@ -654,10 +654,10 @@ def prompt():
         input = ''
         while not input:
             try:
-                input = raw_input("]> ").strip()
+                input = input("]> ").strip()
             except (KeyboardInterrupt, EOFError) as e:
                 # Receive pipe-signal or EOFError
-                print ''
+                print('')
                 # Kill logsniffer
                 if LOGSNIFFER:
                     LOGSNIFFER.kill()
@@ -668,7 +668,7 @@ def prompt():
         except Exception:
             ex_type, ex, tb = sys.exc_info()
             #print ex_type
-            print ex
+            print(ex)
             #traceback.print_tb(tb)
             del tb
 
@@ -683,7 +683,7 @@ class RpcProxy:
         self.config = config
         tr = cookietransportrequest()
         self.url = config.mmc_agent_url
-        self.proxy = xmlrpclib.ServerProxy(self.url, tr.transport(self.url))
+        self.proxy = xmlrpc.client.ServerProxy(self.url, tr.transport(self.url))
         self.ldap_password = config.ldap_password
         self.auth()
 
@@ -718,7 +718,7 @@ class xmlrpcModule():
                 # Try reconnect
                 config = self.proxyHandler.config
                 self.proxyHandler = RpcProxy(config)
-                print "Lost connection, reconnecting ..."
+                print("Lost connection, reconnecting ...")
                 return
 
             # ============= PRINTING RESULT ======================
@@ -763,7 +763,7 @@ class xmlrpcModule():
                     if len(s.split('\n')) > (getheight() - 4):
                         textpager(s)
                     else:
-                        print s
+                        print(s)
     
             # =======================================================
 
@@ -865,8 +865,8 @@ if __name__ == "__main__" :
             SCRIPT_MODE = True
             exec(args.command, CONSOLE_VARS)
             sys.exit(0)
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             sys.exit(1)
 
     if args.file:
@@ -879,14 +879,14 @@ if __name__ == "__main__" :
             exec(f.read(), CONSOLE_VARS)
             sys.exit(0)
         except IOError:
-            print 'Error while reading script file'
-        except Exception, e:
-            print str(e)
+            print('Error while reading script file')
+        except Exception as e:
+            print(str(e))
             sys.exit(1)
         
 
-    print "Pulse2 console 0.3.1 (Fev 12 2014)"
-    print "Type p2d() for more information"
+    print("Pulse2 console 0.3.1 (Fev 12 2014)")
+    print("Type p2d() for more information")
 
     # Setting command completer
     readline.parse_and_bind("tab: complete")
@@ -913,5 +913,5 @@ if __name__ == "__main__" :
     try:
         reactor.run()
     except:
-        print 'Unknown error occured'
+        print('Unknown error occured')
 

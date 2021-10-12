@@ -25,7 +25,7 @@
 import os
 import sys
 import optparse
-import xmlrpclib
+import xmlrpc.client
 import time
 import random
 
@@ -177,7 +177,7 @@ def startService():
                 twisted.web.server.Site(launcher),
                 interface = bind
                 )
-    except Exception, e:
+    except Exception as e:
         logger.error('launcher %s: can\'t bind to %s:%d, reason is %s' % (name, bind, port, e))
         return 1
 
@@ -207,22 +207,22 @@ class Launcher(twisted.web.xmlrpc.XMLRPC):
 
     def _ebRender(self, failure):
         self.logger.error(failure)
-        if isinstance(failure.value, xmlrpclib.Fault):
+        if isinstance(failure.value, xmlrpc.client.Fault):
             return failure.value
-        return xmlrpclib.Fault(self.FAILURE, "Internal Error on launcher %s" % self.name)
+        return xmlrpc.client.Fault(self.FAILURE, "Internal Error on launcher %s" % self.name)
 
     def _cbRender(self, result, request):
-        args, func = xmlrpclib.loads(request.content.getvalue())
+        args, func = xmlrpc.client.loads(request.content.getvalue())
         if isinstance(result, Launcher):
             result = xmlrpcCleanup(result.result)
-        if not isinstance(result, xmlrpclib.Fault):
+        if not isinstance(result, xmlrpc.client.Fault):
             result = (result,)
         self.logger.debug('launcher %s: xmlrpc: %s%s => %s' % (self.name, func, (args), (result)))
         try:
-            s = xmlrpclib.dumps(result, methodresponse=1)
+            s = xmlrpc.client.dumps(result, methodresponse=1)
         except:
-            f = xmlrpclib.Fault(self.FAILURE, "can't serialize output")
-            s = xmlrpclib.dumps(f, methodresponse=1)
+            f = xmlrpc.client.Fault(self.FAILURE, "can't serialize output")
+            s = xmlrpc.client.dumps(f, methodresponse=1)
         request.setHeader("content-length", str(len(s)))
         request.write(s)
         request.finish()
@@ -232,7 +232,7 @@ class Launcher(twisted.web.xmlrpc.XMLRPC):
         override method of xmlrpc python twisted framework
         """
         headers = request.getAllHeaders()
-        args, functionPath = xmlrpclib.loads(request.content.read())
+        args, functionPath = xmlrpc.client.loads(request.content.read())
         # Twisted: deprecated private method '_getFunction' becomes
         #          public and named 'lookupProcedure'
         #          (changed since version 11.1)
@@ -403,15 +403,15 @@ def main():
     (options, args) = parser.parse_args()
 
     if not os.path.exists(options.config_file):
-        print "Config file '%s' does not exist." % options.config_file
+        print("Config file '%s' does not exist." % options.config_file)
         sys.exit(3)
 
     if not options.id:
-        print "The launcher id should be specified on the command line with --id option"
+        print("The launcher id should be specified on the command line with --id option")
         sys.exit(3)
 
     if not os.path.exists(options.log_config_file):
-        print "Logging config file '%s' does not exist." % options.config_file
+        print("Logging config file '%s' does not exist." % options.config_file)
         sys.exit(3)
 
     # start logger
@@ -425,7 +425,7 @@ def main():
         LauncherConfig().setup(options.config_file, options.id)
         LauncherConfig().setup_post_permission()
         LauncherConfig().check()
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         logger.error("Please fix the configuration file")
         sys.exit(1)

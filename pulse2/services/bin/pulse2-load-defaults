@@ -28,10 +28,10 @@ import os
 import sys
 import logging 
 
-from xmlrpclib import Fault, ProtocolError
+from xmlrpc.client import Fault, ProtocolError
 from socket import error as SocketError
 from optparse import OptionParser, OptionGroup
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 from mmc.client.sync import Proxy
 from mmc.site import mmcconfdir
@@ -154,7 +154,7 @@ class MMCProxy :
 
             log.debug("Create a mmc-agent proxy") 
 
-        except Exception, err :
+        except Exception as err :
             log.error("Error while connecting to mmc-agent : %s" % err)
             sys.exit(2)
 
@@ -214,17 +214,17 @@ class RPCClient :
 
         try :
             ret_msg = fnc(*args, **kwargs)
-        except Fault, err :
+        except Fault as err :
             log.error(err)
             sys.exit(2)
             
-        except SocketError, err :
+        except SocketError as err :
             err_code, err_msg = err.args
             log.error("%s: %s" % (err_code, err_msg))
             log.error("Service 'mmc-agent' isn't running ?")
             sys.exit(2)
 
-        except ProtocolError, err :
+        except ProtocolError as err :
             log.error(err)
             sys.exit(2)
 

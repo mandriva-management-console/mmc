@@ -147,18 +147,18 @@ def optimize_tables():
             logger.info("Table %s : optimisation done" % (table)) # FIXME: should check result ...
 
 def usage(argv):
-    print >> sys.stderr, 'Usage: %s --uri=<db_conn_string> --days=<days> [--force]' % argv[0]
-    print >> sys.stderr, 'Purge command older than <day> and whom members\' current state belong to %s' % ', '.join(STATES_TO_CLEANUP)
-    print >> sys.stderr, 'Where db_conn_string is a SQLAlchemy connection string, e.g. mysql://user:password@host/database'
-    print >> sys.stderr, 'Where days is a positive integer specifying from which age the commands should be purged, e.g. 30 for 30 days'
-    print >> sys.stderr, 'If --force flag is given, purge commands regardless their current state'
+    print('Usage: %s --uri=<db_conn_string> --days=<days> [--force]' % argv[0], file=sys.stderr)
+    print('Purge command older than <day> and whom members\' current state belong to %s' % ', '.join(STATES_TO_CLEANUP), file=sys.stderr)
+    print('Where db_conn_string is a SQLAlchemy connection string, e.g. mysql://user:password@host/database', file=sys.stderr)
+    print('Where days is a positive integer specifying from which age the commands should be purged, e.g. 30 for 30 days', file=sys.stderr)
+    print('If --force flag is given, purge commands regardless their current state', file=sys.stderr)
     return 1
 
 if __name__ == "__main__":
     try:
         opts, args = getopt.getopt(sys.argv[1:], "", ["uri=", "force", "days="])
-    except getopt.GetoptError, err:
-        print >> sys.stderr, err
+    except getopt.GetoptError as err:
+        print(err, file=sys.stderr)
         sys.exit(usage(sys.argv))
 
     days = 0
@@ -217,11 +217,11 @@ if __name__ == "__main__":
 
     creation_timestamp =  datetime.datetime.now() - datetime.timedelta(days)
     cids = query_commands_to_delete(commands, commands_on_host, creation_timestamp)
-    commands_to_delete = map(lambda x: x[0], cids)
+    commands_to_delete = [x[0] for x in cids]
 
     bcids = query_bundles_to_delete(commands, commands_on_host, creation_timestamp)
-    commands_to_delete.extend(map(lambda x: x[1], bcids))
-    tmp = map(lambda x: x[0], bcids)
+    commands_to_delete.extend([x[1] for x in bcids])
+    tmp = [x[0] for x in bcids]
     # Remove duplicates of bundle ids
     bundles_to_delete = []
     for bundle_id in tmp:
