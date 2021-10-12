@@ -26,7 +26,7 @@ import logging
 import re
 import tempfile
 import shutil
-import xmlrpclib
+import xmlrpc.client
 import os
 import os.path
 from twisted.internet import defer
@@ -34,7 +34,7 @@ from twisted.internet import defer
 # Other stuff
 from pulse2.launcher.config import LauncherConfig
 import pulse2.launcher.process_control
-SEPARATOR = u'·'
+SEPARATOR = '·'
 
 def wolClient(mac_addrs, target_bcast = None):
     """ Send a BCast WOL packet to mac_addrs """
@@ -64,7 +64,7 @@ def wolClient(mac_addrs, target_bcast = None):
             bcast = LauncherConfig().wol_bcast
             if target_bcast[i]:
                 bcast = target_bcast[i]
-            if not sorted.has_key(bcast):
+            if bcast not in sorted:
                 sorted[bcast] = []
             sorted[bcast].append(mac_addrs[i])
     for bcat in sorted:
@@ -158,7 +158,7 @@ def downloadFile(client, path, bwlimit, timeout):
                 f = file(fname)
                 data = f.read()
                 f.close()
-                ret = (rname, xmlrpclib.Binary(data))
+                ret = (rname, xmlrpc.client.Binary(data))
         shutil.rmtree(path)
         return ret
 

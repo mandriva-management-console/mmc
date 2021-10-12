@@ -32,7 +32,7 @@ class InputTests(unittest.TestCase):
 
     def test_MACValid(self):
         self.assertTrue(isMACAddress('00:11:aa:BB:22:33'))
-        self.assertTrue(isMACAddress(u'00:11:aa:BB:22:33'))
+        self.assertTrue(isMACAddress('00:11:aa:BB:22:33'))
 
     def test_MACNotValid(self):
         self.assertFalse(isMACAddress('00:11:aa:BB:22:zz'))
@@ -40,7 +40,7 @@ class InputTests(unittest.TestCase):
 
     def test_UUIDValid(self):
         self.assertTrue(isUUID('UUID1'))
-        self.assertTrue(isUUID(u'UUID1'))
+        self.assertTrue(isUUID('UUID1'))
         self.assertTrue(isUUID('1a10b1f4-bb6e-4798-b39e-bb8d090dd8b6'))
 
     def test_UUIDNotValid(self):
@@ -52,7 +52,7 @@ class InputTests(unittest.TestCase):
 
     def test_computerPathValid(self):
         self.assertEqual(splitComputerPath('hostname'), ('', '', 'hostname', ''))
-        self.assertEqual(splitComputerPath(u'123456'), ('', '', '123456', ''))
+        self.assertEqual(splitComputerPath('123456'), ('', '', '123456', ''))
         self.assertEqual(splitComputerPath('hostname.domain-example.net'), ('', '', 'hostname', 'domain-example.net'))
         self.assertEqual(splitComputerPath('profile:hostname'), ('profile', '', 'hostname', ''))
         self.assertEqual(splitComputerPath('profile:/hostname'), ('profile', '', 'hostname', ''))

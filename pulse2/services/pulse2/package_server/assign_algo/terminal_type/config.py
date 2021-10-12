@@ -58,18 +58,18 @@ class PluginInventoryAAConfig(InventoryDatabaseConfigSkel):
                 url = self.cp.get(section, 'mirror')
                 kind = self.cp.get(section, 'kind')
                 for type in types:
-                    if not self.type2url.has_key(type):
+                    if type not in self.type2url:
                         self.type2url[type] = {}
-                    if not self.type2url[type].has_key(kind):
+                    if kind not in self.type2url[type]:
                         self.type2url[type][kind] = {}
                     self.type2url[type][kind][index] = url
-        if len(self.type2url.keys()) == 0:
+        if len(list(self.type2url.keys())) == 0:
             raise Exception("Please put some associations in your config file")
 
         for type in self.type2url:
             for kind in self.type2url[type]:
                 sorted = []
-                keys = self.type2url[type][kind].keys()
+                keys = list(self.type2url[type][kind].keys())
                 keys.sort()
                 for index in keys:
                     sorted.append(self.type2url[type][kind][index])

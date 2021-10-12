@@ -4,7 +4,7 @@ def xml_fix(xml):
         '\xc2\xa0':  ' ',
     }
 
-    for key, value in bad_map.items():
+    for key, value in list(bad_map.items()):
         xml = xml.replace(key, value)
 
     return xml

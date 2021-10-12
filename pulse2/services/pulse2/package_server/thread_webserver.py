@@ -86,19 +86,19 @@ def initialize(config):
             server.register(p_api, mirror_params['mount_point'])
             services.append({'type':'package_api_put', 'mp':mirror_params['mount_point'], 'server':config.public_ip, 'port':config.port, 'proto':config.proto, 'src':mirror_params['src'], 'url':'%s://%s:%s%s'%(config.proto, config.public_ip, config.port, mirror_params['mount_point'])})
 
-    if config.user_package_api.has_key('mount_point'):
+    if 'mount_point' in config.user_package_api:
         mirror = UserPackageApi(services, config.user_package_api['mount_point'], config.up_assign_algo)
         server.register(mirror, config.user_package_api['mount_point'])
         services.append({'type':'user_package_api', 'mp':config.user_package_api['mount_point'], 'server':config.public_ip, 'port':config.port, 'proto':config.proto})
 
-    if config.mirror_api.has_key('mount_point'):
+    if 'mount_point' in config.mirror_api:
         mirror = MirrorApi(services, config.mirror_api['mount_point'], config.mm_assign_algo)
         server.register(mirror, config.mirror_api['mount_point'])
         services.append({'type':'mirror_api', 'mp':config.mirror_api['mount_point'], 'server':config.public_ip, 'port':config.port, 'proto':config.proto})
     else:
         logger.warn('package server initialized without mirror api')
 
-    if config.scheduler_api.has_key('mount_point'):
+    if 'mount_point' in config.scheduler_api:
         scheduler = SchedulerApi(config.scheduler_api['mount_point'], config.scheduler_api)
         server.register(scheduler, config.scheduler_api['mount_point'])
         services.append({'type':'scheduler_api', 'mp':config.scheduler_api['mount_point'], 'server':config.public_ip, 'port':config.port, 'proto':config.proto})
@@ -123,13 +123,13 @@ def initialize(config):
                 logger.error("PXE Proxy: Adress already in use: old LRS imaging-server still installed and not yet stopped")
                 logger.error("PXE proxy: Please verify your configuration and restart the service")
 
-            except Exception, e:
+            except Exception as e:
                 logger.exception("Imaging error: %s" % e)
                 logger.error("PXE imaging service initialization failed, exiting.")
             else :
                 logger.info("Package Server initialized with PXE imaging API") 
             
-        except Exception, e:
+        except Exception as e:
             logger.exception("Imaging error: %s" % e)
             logger.error("Error while initializing the imaging API")
             logger.error("Package Server will run WITHOUT the imaging API")
@@ -155,7 +155,7 @@ def initialize(config):
                 interface = config.bind
                 )
         logger.info('package server listening on %s:%d' % (config.bind, port))
-    except Exception, e:
+    except Exception as e:
         logger.error('can\'t bind to %s:%d' % (config.bind, port))
         logger.error(e)
         ret = False

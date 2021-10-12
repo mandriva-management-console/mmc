@@ -30,7 +30,7 @@ class debianUpdateHandler(linuxUpdateHandler):
         # uuid is pkgname/version
         pkg_name = uuid.split('/')[0]
         out, err, ec = self.runInShell("apt-cache show %s" % pkg_name)
-        print out
+        print(out)
    
     def getCandidateVersion(self, pkg):
         cmd = "LANG=C apt-cache policy %s|awk '/Candidate/ { print $2 }'" % pkg
@@ -137,30 +137,30 @@ class debianUpdateHandler(linuxUpdateHandler):
     def installUpdates(self, uuid_list):
         # Building package list
         pkg_list = [x.split('/') for x in uuid_list if '/' in x]
-        print pkg_list
+        print(pkg_list)
         packages_to_install = []
     
         for pkg, version in pkg_list:
             
             # Checking if package version (in repo) is the same
             if self.getCandidateVersion(pkg) != version:
-                print "Skipping %s, candidate version doesn't match" % pkg
+                print("Skipping %s, candidate version doesn't match" % pkg)
                 continue
             
             # Adding update to updatesToInstall list
-            print 'Adding "%s/%s" to install list' % (pkg, version)
+            print('Adding "%s/%s" to install list' % (pkg, version))
             packages_to_install.append(pkg)
     
         if not packages_to_install:
-            print "No updates to install, leaving."
+            print("No updates to install, leaving.")
             return
         
-        print "Installing updates ..."
+        print("Installing updates ...")
         
         # Running apt-get install
         install_cmd = "DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=yes apt-get -y --force-yes -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" install %s" % ' '.join(packages_to_install)
-        print install_cmd
+        print(install_cmd)
         out, err, ec = self.runInShell(install_cmd)
-        print out
+        print(out)
     
         return 0

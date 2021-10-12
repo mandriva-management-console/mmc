@@ -71,7 +71,7 @@ def create_graph(label_x, label_y, data_x, alldata_y, filename, title, start_dat
     left = WIDTH / 2  - font.text_width(newtitle)/2
     can.show(left, HEIGHT + DELTA, newtitle)
 
-    zip(data_x)
+    list(zip(data_x))
     int_to_date = lambda x: '/a60{}' + time.strftime("%H:%M", time.localtime(x))
 
     xaxis = axis.X(
@@ -101,10 +101,10 @@ def create_graph(label_x, label_y, data_x, alldata_y, filename, title, start_dat
 
     i = 0
     # Draw a line for each columns
-    for title, data_y in alldata_y.iteritems():
+    for title, data_y in alldata_y.items():
         plot = line_plot.T(
             label = title,
-            data = zip(data_x,data_y),
+            data = list(zip(data_x,data_y)),
             line_style = line_style.T(
                 color = colors[i],
                 width = 1
@@ -134,7 +134,7 @@ def read_logs(log_dir, start_date, stop_date):
         # TODO : better test
         if ".log" in file:
 
-            print "reading %s"%file
+            print("reading %s"%file)
             fh = open(os.path.join(log_dir,file))
 
             # Parse each line in the log file
@@ -155,23 +155,23 @@ def read_logs(log_dir, start_date, stop_date):
                         # Convert str to dict
                         dump = eval(stats)
 
-                        if dump.has_key('global'):
+                        if 'global' in dump:
 
-                            if not launchers.has_key(launcher):
+                            if launcher not in launchers:
                                 launchers[launcher] = {}
-                            if launchers[launcher].has_key(stamp):
+                            if stamp in launchers[launcher]:
                                 launchers[launcher][stamp] += int(dump['global']['running'])
                             else:
                                 launchers[launcher][stamp] = int(dump['global']['running'])
 
-                        if dump.has_key('by_group'):
+                        if 'by_group' in dump:
 
                             # For each group available
-                            for group in dump['by_group'].keys():
-                                if not groups.has_key(group):
+                            for group in list(dump['by_group'].keys()):
+                                if group not in groups:
                                     groups[group] = {}
                                 # If this group as already an entry for this time (from an other launcher), we add the new one
-                                if groups[group].has_key(stamp):
+                                if stamp in groups[group]:
                                     groups[group][stamp] += int(dump['by_group'][group]['running'])
                                 else:
                                     groups[group][stamp] = int(dump['by_group'][group]['running'])
@@ -200,11 +200,11 @@ if __name__ == "__main__":
     (groups, launchers) = read_logs( log_dir, start, stop)
 
     if groups:
-        group_list = groups.keys()
+        group_list = list(groups.keys())
 
         # Get all group hours
         for group in group_list:
-            group_hours += groups[group].keys()
+            group_hours += list(groups[group].keys())
             # deduplicate list
             group_hours = list(set(group_hours))
             group_hours.sort()
@@ -213,9 +213,9 @@ if __name__ == "__main__":
         for group in group_list:
 
             for hour in group_hours:
-                if not groups_actions.has_key(group):
+                if group not in groups_actions:
                     groups_actions[group] = []
-                if groups[group].has_key(hour):
+                if hour in groups[group]:
                     groups_actions[group].append(groups[group][hour])
                 else:
                     groups_actions[group].append(0)
@@ -225,11 +225,11 @@ if __name__ == "__main__":
 
 
     if launchers:
-        launcher_list = launchers.keys()
+        launcher_list = list(launchers.keys())
 
         # Get all launch hours
         for launch in launcher_list:
-            launch_hours += launchers[launch].keys()
+            launch_hours += list(launchers[launch].keys())
             # deduplicate list
             launch_hours = list(set(launch_hours))
             launch_hours.sort()
@@ -238,9 +238,9 @@ if __name__ == "__main__":
         for launch in launcher_list:
 
             for hour in launch_hours:
-                if not launch_actions.has_key(launch):
+                if launch not in launch_actions:
                     launch_actions[launch] = []
-                if launchers[launch].has_key(hour):
+                if hour in launchers[launch]:
                     launch_actions[launch].append(launchers[launch][hour])
                 else:
                     launch_actions[launch].append(0)

@@ -113,9 +113,9 @@ class ImagingDefaultMenuBuilder:
         m.setEtherCard(int(self.menu['ethercard']))
         if 'language' in self.menu:
             m.setLanguage(int(self.menu['language']))
-        for pos, entry in self.menu['bootservices'].items():
+        for pos, entry in list(self.menu['bootservices'].items()):
             m.addBootServiceEntry(int(pos), entry)
-        for pos, entry in self.menu['images'].items():
+        for pos, entry in list(self.menu['images'].items()):
             m.addImageEntry(int(pos), entry)
         self.logger.debug('Menu structure built successfully')
         return m
@@ -271,7 +271,7 @@ class ImagingMenu:
         """
         _reptable = {}
         _corresp = [
-            (u"a",  [0x00E3]),
+            ("a",  [0x00E3]),
             ]
         for repchar,codes in _corresp :
             for code in codes :
@@ -290,11 +290,11 @@ class ImagingMenu:
         """
         _reptable = self._fill_reptable()
         if isinstance(s, str):
-            s = unicode(s, "utf8", "replace")
+            s = str(s, "utf8", "replace")
         ret = []
         for c in s:
             ret.append(_reptable.get(ord(c) ,c))
-        return u"".join(ret)
+        return "".join(ret)
 
     def buildMenu(self):
         """
@@ -356,14 +356,14 @@ class ImagingMenu:
             self.diskless_opts.append('revoeth%d' % self.ethercard)
 
         # then write items
-        indices = self.menuitems.keys()
+        indices = list(self.menuitems.keys())
         indices.sort()
         for i in indices:
             output = self._applyReplacement(self.menuitems[i].getEntry(self.protocol))
             buf += '\n'
             buf += output
 
-        assert(type(buf) == unicode)
+        assert(type(buf) == str)
 
         # Clean brazilian characters who are not compatible
         # with MS-DOS encoding by delete accent marks
@@ -388,14 +388,14 @@ class ImagingMenu:
         def _write(self):
             try:
                 buf = self.buildMenu()
-            except Exception, e:
+            except Exception as e:
                 logging.getLogger().error(str(e))
 
             backupname = "%s.backup" % filename
             if os.path.exists(filename):
                 try:
                     os.rename(filename, backupname)
-                except Exception, e:  # can make a backup : give up !
+                except Exception as e:  # can make a backup : give up !
                     self.logger.error("While backuping boot menu %s as %s : %s" % (filename, backupname, e))
                     return False
 
@@ -403,16 +403,16 @@ class ImagingMenu:
                 fid = open(filename, 'w+b')
                 fid.write(buf)
                 fid.close()
-                for item in self.menuitems.values():
+                for item in list(self.menuitems.values()):
                     try:
                         item.write(self.config)
-                    except Exception, e:
+                    except Exception as e:
                         self.logger.error('An error occurred while writing boot menu entry "%s": %s' % (str(item), str(e)))
                 if self.mac:
                     self.logger.debug('Successfully wrote boot menu for computer MAC %s into file %s' % (self.mac, filename))
                 else:
                     self.logger.debug('Successfully wrote boot menu for unregistered computers into file %s' % filename)
-            except Exception, e:
+            except Exception as e:
                 if self.mac:
                     self.logger.error("While writing boot menu for %s : %s" % (self.mac, e))
                 else:
@@ -422,7 +422,7 @@ class ImagingMenu:
             if os.path.exists(backupname):
                 try:
                     os.unlink(backupname)
-                except Exception, e:
+                except Exception as e:
                     self.logger.warn("While removing backup %s of %s : %s" % (backupname, filename, e))
         # Retreive PXE Params
         pulse2.package_server.imaging.api.functions.Imaging().refreshPXEParams(_write, self)
@@ -533,7 +533,7 @@ class ImagingMenu:
         """
         if type(value) == str:
             value = value.decode('utf-8')
-        assert(type(value) == unicode)
+        assert(type(value) == str)
         self.splashimage = value
 
     def setMessage(self, value):
@@ -542,7 +542,7 @@ class ImagingMenu:
         """
         if type(value) == str:
             value = value.decode('utf-8')
-        assert(type(value) == unicode)
+        assert(type(value) == str)
         self.message = value
 
     def setLanguage(self, value):
@@ -594,8 +594,8 @@ class ImagingItem:
         self._convertEntry(entry)
         self.title = entry['name']  # the item title
         self.desc = entry['desc']  # the item desc
-        assert(type(self.title) == unicode)
-        assert(type(self.desc) == unicode)
+        assert(type(self.title) == str)
+        assert(type(self.desc) == str)
         self.uuid = None
 
     def __str__(self):
@@ -617,7 +617,7 @@ class ImagingItem:
         """
         Convert dictionary value of type str to unicode.
         """
-        for key, value in array.items():
+        for key, value in list(array.items()):
             if type(value) == str:
                 value = value.decode('utf-8')
             array[key] = value
@@ -647,7 +647,7 @@ class ImagingBootServiceItem(ImagingItem):
         """
         ImagingItem.__init__(self, entry)
         self.value = entry['value']  # the GRUB command line
-        assert(type(self.value) == unicode)
+        assert(type(self.value) == str)
 
     def getEntry(self, protocol, network = True):
         """
@@ -678,7 +678,7 @@ class ImagingBootServiceItem(ImagingItem):
             f.write(script_file[1])
             f.close()
             self.logger.info('File %s successfully created', os.path.join(postinst_scripts_folder, script_file[0]))
-        except Exception, e:
+        except Exception as e:
             self.logger.exception('Error while create sh file: %s', e)
 
         return True
@@ -699,7 +699,7 @@ class ImagingBootServiceItem(ImagingItem):
 
         try:
             os.unlink(os.path.join(postinst_scripts_folder, script_file))
-        except Exception, e:
+        except Exception as e:
             self.logger.exception("Error while delete sh file: %s", e)
 
 
@@ -714,7 +714,7 @@ class ImagingImageItem(ImagingItem):
     # TODO: for clonezilla backend it will be useful to clean some of unused params
 
     # Grub cmdlines
-    CMDLINE = u"kernel ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_KERNEL## ##PULSE2_KERNEL_OPTS## ##PULSE2_DISKLESS_OPTS## revosavedir=##PULSE2_MASTERS_DIR## revoinfodir=##PULSE2_COMPUTERS_DIR## revooptdir=##PULSE2_POSTINST_DIR## revobase=##PULSE2_BASE_DIR## ##PROTOCOL## revopost revomac=##MAC## revoimage=##PULSE2_IMAGE_UUID## \ninitrd ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_INITRD##\n"
+    CMDLINE = "kernel ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_KERNEL## ##PULSE2_KERNEL_OPTS## ##PULSE2_DISKLESS_OPTS## revosavedir=##PULSE2_MASTERS_DIR## revoinfodir=##PULSE2_COMPUTERS_DIR## revooptdir=##PULSE2_POSTINST_DIR## revobase=##PULSE2_BASE_DIR## ##PROTOCOL## revopost revomac=##MAC## revoimage=##PULSE2_IMAGE_UUID## \ninitrd ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_INITRD##\n"
 
     PROTOCOL = {
         'nfs'   : 'revorestorenfs',
@@ -730,7 +730,7 @@ class ImagingImageItem(ImagingItem):
         """
         ImagingItem.__init__(self, entry)
         self.uuid = entry['uuid']
-        assert(type(self.uuid) == unicode)
+        assert(type(self.uuid) == str)
         if 'post_install_script' in entry:
             assert(type(entry['post_install_script']) == list)
             self.post_install_script = entry['post_install_script']
@@ -739,7 +739,7 @@ class ImagingImageItem(ImagingItem):
 
         # Davos imaging client case
         if PackageServerConfig().imaging_api['diskless_folder'] == "davos":
-            self.CMDLINE = u"kernel ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_KERNEL## ##PULSE2_KERNEL_OPTS## ##PULSE2_DISKLESS_OPTS## ##PROTOCOL## image_uuid=##PULSE2_IMAGE_UUID## davos_action=RESTORE_IMAGE \ninitrd ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_INITRD##\n"
+            self.CMDLINE = "kernel ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_KERNEL## ##PULSE2_KERNEL_OPTS## ##PULSE2_DISKLESS_OPTS## ##PROTOCOL## image_uuid=##PULSE2_IMAGE_UUID## davos_action=RESTORE_IMAGE \ninitrd ##PULSE2_NETDEVICE##/##PULSE2_DISKLESS_DIR##/##PULSE2_DISKLESS_INITRD##\n"
 
 
     def getEntry(self, protocol, network = True):
@@ -771,7 +771,7 @@ class ImagingImageItem(ImagingItem):
             self.logger.debug('Deleting previous post-imaging directory: %s' % postinstdir)
             try:
                 shutil.rmtree(postinstdir)
-            except OSError, e:
+            except OSError as e:
                 self.logger.error("Can't delete post-imaging directory %s: %s" % (postinstdir, e))
                 raise
         # Then populate the post-imaging script directory if needed
@@ -779,7 +779,7 @@ class ImagingImageItem(ImagingItem):
             try:
                 os.mkdir(postinstdir)
                 self.logger.debug('Directory successfully created: %s' % postinstdir)
-            except OSError, e:
+            except OSError as e:
                 self.logger.error("Can't create post-imaging script folder %s: %s" % (postinstdir, e))
                 raise
 
@@ -800,10 +800,10 @@ class ImagingImageItem(ImagingItem):
                     f.close()
                     os.chmod(postinst, stat.S_IRUSR | stat.S_IXUSR)
                     self.logger.debug('Successfully wrote script: %s' % postinst)
-                except OSError, e:
+                except OSError as e:
                     self.logger.error("Can't update post-imaging script %s: %s" % (postinst, e))
                     raise
-                except Exception, e:
+                except Exception as e:
                     self.logger.error("Something wrong happened while writing post-imaging script %s: %s" % (postinst, e))
                 order += 1
         else:
@@ -844,7 +844,7 @@ def changeDefaultMenuItem(macaddress, value):
                 newlines += 'default %d\n' % value
             else:
                 newlines += line
-    except OSError, e:
+    except OSError as e:
         logger.error('Error while reading computer bootmenu file %s: %s' %
                           (filename, str(e)))
         logger.error('This computer default menu item can\'t be changed')
@@ -853,7 +853,7 @@ def changeDefaultMenuItem(macaddress, value):
         backupname = "%s.backup" % filename
         try:
             os.rename(filename, backupname)
-        except OSError, e:  # can make a backup : give up !
+        except OSError as e:  # can make a backup : give up !
             logger.error("While backuping boot menu %s as %s : %s"
                          % (filename, backupname, e))
             return False
@@ -863,14 +863,14 @@ def changeDefaultMenuItem(macaddress, value):
             fid.write(newlines)
             fid.close()
             logger.debug('Successfully wrote boot menu for computer MAC %s into file %s' % (macaddress, filename))
-        except IOError, e:
+        except IOError as e:
             logger.error("While writing boot menu for %s : %s"
                          % (macaddress, e))
             return False
         # Remove boot menu backup
         try:
             os.unlink(backupname)
-        except OSError, e:
+        except OSError as e:
             logger.warn("While removing backup %s of %s : %s"
                         % (backupname, filename, e))
         return True

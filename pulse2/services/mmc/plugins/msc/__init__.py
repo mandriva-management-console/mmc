@@ -432,7 +432,7 @@ class RpcProxy(RpcProxyI):
             logging.getLogger().info('%d command will be expired' % len(cmds))
 
             # for all cmd_ids, get start_date and expire them
-            for cmd_id, start_date in cmds.items():
+            for cmd_id, start_date in list(cmds.items()):
                 logging.getLogger().info('Expires command %d' % cmd_id)
                 end_date = time.strftime("%Y-%m-%d %H:%M:%S")
                 self.extend_command(cmd_id, start_date, end_date)
@@ -466,7 +466,7 @@ class RpcProxy(RpcProxyI):
 
             method = mmc.plugins.msc.client.scheduler.extend_command
 
-            for scheduler in schedulers.keys():
+            for scheduler in list(schedulers.keys()):
                 d_scheduler = method(scheduler, cmd_id, start_date, end_date)
                 dl.append(d_scheduler)
 
@@ -537,7 +537,7 @@ class RpcProxy(RpcProxyI):
 
         @return: True or False :-)
         """
-        if isinstance(uuids, basestring):
+        if isinstance(uuids, str):
             uuids = [uuids]
         return xmlrpcCleanup(MscDatabase().removePullTargets(uuids))
 
@@ -584,7 +584,7 @@ class RpcProxy(RpcProxyI):
         cache = {}
         for c in ret1:
             if c['gid']:
-                if cache.has_key("G%s"%(c['gid'])):
+                if "G%s"%(c['gid']) in cache:
                     c['target'] = cache["G%s"%(c['gid'])]
                 else:
                     group = DyngroupDatabase().get_group(ctx, c['gid'], True)
@@ -599,7 +599,7 @@ class RpcProxy(RpcProxyI):
                         c['target'] = group.name
                     cache["G%s"%(c['gid'])] = c['target']
             else:
-                if cache.has_key("M%s"%(c['uuid'])):
+                if "M%s"%(c['uuid']) in cache:
                     c['target'] = cache["M%s"%(c['uuid'])]
                 else:
                     if not ComputerLocationManager().doesUserHaveAccessToMachine(ctx, c['uuid']):
@@ -1065,7 +1065,7 @@ def convergence_reschedule(all=False):
                     phases = _get_convergence_phases(cmd_id, convergence_deploy_group_id)
                     _add_machines_to_convergence_command(ctx, cmd_id, new_machine_ids, convergence_deploy_group_id, phases=phases)
                 _update_convergence_dates(cmd_id)
-            except TypeError, e:
+            except TypeError as e:
                 logger.warn("Error while fetching deploy_group_id and user for command %s: %s" % (cmd_id, e))
     else:
         logger.info("Convergence cron: no convergence commands will be rescheduled")

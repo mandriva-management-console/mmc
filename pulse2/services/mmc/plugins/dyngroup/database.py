@@ -41,7 +41,7 @@ import pulse2.database.dyngroup
 from pulse2.database.dyngroup import Groups, Machines, Results, Users, Convergence, ProfilesData, ProfilesResults, ShareGroup
 # Imported last
 import re
-import cPickle
+import pickle
 
 logger = logging.getLogger()
 
@@ -61,9 +61,9 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         """
         get all machines defined by the given group name or id
         """
-        if params.has_key('gname'):
+        if 'gname' in params:
             return self.__getMachinesByGroupName(ctx, params['gname'])
-        if params.has_key('gid'):
+        if 'gid' in params:
             return self.__getMachines(ctx, params['gid'])
         return []
 
@@ -196,7 +196,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         ie : only the group you can have access!
         """
         user_id = self.__getOrCreateUser(ctx)
-        ug_ids = map(lambda x: x.id, self.__getUsers(getUserGroups(ctx.userid), 1, session)) # get all usergroups ids
+        ug_ids = [x.id for x in self.__getUsers(getUserGroups(ctx.userid), 1, session)] # get all usergroups ids
 
         group = session.query(Groups).select_from(self.groups.join(self.users, self.groups.c.FK_users == self.users.c.id).outerjoin(self.shareGroup, self.groups.c.id == self.shareGroup.c.FK_groups))
         if ctx.userid == 'root' or ro:
@@ -240,12 +240,12 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
             groups = groups.filter(filter_on)
 
         if ctx.userid == 'root' \
-                and params.has_key('localSidebar') \
+                and 'localSidebar' in params \
                 and params['localSidebar'] \
                 and root_user:
             groups = groups.filter(self.groups.c.FK_users == root_user.id)
 
-        if params.has_key('canShow'):
+        if 'canShow' in params:
             if params['canShow']:
                 groups = groups.filter(self.shareGroup.c.display_in_menu == 1)
             else:
@@ -652,7 +652,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
                        [self.shareGroup, True, self.groups.c.id==self.shareGroup.c.FK_groups]]
         filters = None
 
-        if ctx.userid<>'root':
+        if ctx.userid!='root':
             # Filter on user groups
             user_id = self.__getOrCreateUser(ctx)
             filters = [ self.users.c.login==ctx.userid, 
@@ -744,7 +744,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         query = queryManager.getQueryTree(query, bool)
         result = mmc.plugins.dyngroup.replyToQuery(ctx, query, bool, start, end, True)
         if type(result) == dict:
-            result = result.values()
+            result = list(result.values())
         session.close()
         return result
 
@@ -769,7 +769,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         if int(start) != 0 or int(end) != -1:
             result = result.offset(int(start)).limit(int(end) - int(start))
         if justId:
-            ret = map(lambda m:m.uuid, result.all())
+            ret = [m.uuid for m in result.all()]
         else:
             ret = result.all()
         session.close()
@@ -824,7 +824,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         connection = self.getDbConnection()
         trans = connection.begin()
         if type(uuids) == dict:
-            uuids = uuids.values()
+            uuids = list(uuids.values())
         if self.isprofile(ctx, id):
             if not self.__insert_into_machines_and_profilesresults(connection, uuids, group.id):
                 trans.rollback()
@@ -847,7 +847,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         group = self.get_group(ctx, id)
         connection = self.getDbConnection()
         trans = connection.begin()
-        uuids = [x["uuid"] for x in uuids.values()]
+        uuids = [x["uuid"] for x in list(uuids.values())]
         # Delete the selected machines from the Results table
         connection.execute(resultTable.delete(and_(resultTable.c.FK_groups == group.id, resultTable.c.FK_machines.in_(select([self.machines.c.id], self.machines.c.uuid.in_(uuids))))))
         # Update the Machines table
@@ -859,7 +859,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
     def get_deploy_group_id(self, session, gid, papi, package_id):
         query = session.query(Convergence).filter_by(
             parentGroupId = gid,
-            papi = cPickle.dumps(papi),
+            papi = pickle.dumps(papi),
             packageUUID = package_id
         )
         try:
@@ -887,21 +887,21 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         convergence.parentGroupId = parent_group_id
         convergence.deployGroupId = deploy_group_id
         convergence.doneGroupId = done_group_id
-        convergence.papi = cPickle.dumps(p_api) # cPickle.loads() to read datas
+        convergence.papi = pickle.dumps(p_api) # cPickle.loads() to read datas
         convergence.packageUUID = pid
         convergence.commandId = command_id
         convergence.active = active
-        convergence.cmdPhases = cPickle.dumps(cmdPhases)
+        convergence.cmdPhases = pickle.dumps(cmdPhases)
         session.add(convergence)
         session.flush()
         return True
 
     @DatabaseHelper._session
     def edit_convergence_datas(self, session, gid, papi, package_id, datas):
-        datas['cmdPhases'] = cPickle.dumps(datas['cmdPhases'])
+        datas['cmdPhases'] = pickle.dumps(datas['cmdPhases'])
         return session.query(Convergence).filter_by(
             parentGroupId = gid,
-            papi = cPickle.dumps(papi),
+            papi = pickle.dumps(papi),
             packageUUID = package_id
         ).update(datas)
 
@@ -917,8 +917,8 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
             self.logger.warn('Error while fetching convergence phases for command %s: %s' % (cmd_id, e))
         if ret:
             try:
-                return cPickle.loads(ret.cmdPhases)
-            except EOFError, e:
+                return pickle.loads(ret.cmdPhases)
+            except EOFError as e:
                 self.logger.warn('No phases found for command %s' % cmd_id)
         return {}
 
@@ -938,7 +938,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         query = session.query(Convergence).filter_by(parentGroupId = gid)
         ret = {}
         for line in query:
-            papi = cPickle.loads(line.papi)
+            papi = pickle.loads(line.papi)
             if not papi['mountpoint'] in ret:
                 ret[papi['mountpoint']] = {}
             ret[papi['mountpoint']][line.packageUUID] = line.active
@@ -972,7 +972,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
         
         return [{
             'gid': x[0],
-            'papi': cPickle.loads(x[1]),
+            'papi': pickle.loads(x[1]),
             'pid': x[2]} for x in query]
 
     @DatabaseHelper._session
@@ -996,7 +996,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
     def get_convergence_command_id(self, session, gid, papi, package_id):
         query = session.query(Convergence).filter_by(
             parentGroupId = gid,
-            papi = cPickle.dumps(papi),
+            papi = pickle.dumps(papi),
             packageUUID = package_id
         )
         try:
@@ -1010,7 +1010,7 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
     def get_convergence_phases(self, session, gid, papi, package_id):
         query = session.query(Convergence).filter_by(
             parentGroupId = gid,
-            papi = cPickle.dumps(papi),
+            papi = pickle.dumps(papi),
             packageUUID = package_id
         )
         try:
@@ -1019,15 +1019,15 @@ class DyngroupDatabase(pulse2.database.dyngroup.DyngroupDatabase):
             self.logger.warn("Error while fetching convergence command id for group %s (package UUID %s): %s" % (gid, package_id, e))
             return None
         try:
-            return cPickle.loads(ret.cmdPhases)
-        except EOFError, e:
+            return pickle.loads(ret.cmdPhases)
+        except EOFError as e:
             return False
 
     @DatabaseHelper._session
     def is_convergence_active(self, session, gid, papi, package_id):
         query = session.query(Convergence).filter_by(
             parentGroupId = gid,
-            papi = cPickle.dumps(papi),
+            papi = pickle.dumps(papi),
             packageUUID = package_id
         )
         try:

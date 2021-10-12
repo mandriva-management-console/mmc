@@ -66,7 +66,7 @@ class MscDatabase(msc.MscDatabase):
         if not target: # We can have this case with a convergence command without targets
             return SchedulerApi().getDefaultScheduler()
         elif type(target[0]) == list: # target = [[uuid, hostname], [uuid, target]]
-            return SchedulerApi().getSchedulers(map(lambda t: t[0], target))
+            return SchedulerApi().getSchedulers([t[0] for t in target])
         else: # target = [uuid, hostname]
             return SchedulerApi().getScheduler(target[0])
 
@@ -79,10 +79,10 @@ class MscDatabase(msc.MscDatabase):
         a_network = [0,0,0,0]
         for i in range(0,4):
             a_network[i] = int(a_ip[i]) & int(a_netmask[i])
-        a_notnetmask = map(lambda i: int(i) ^ 255, netmask.split('.'))
+        a_notnetmask = [int(i) ^ 255 for i in netmask.split('.')]
         for i in range(0,4):
             a_ip[i] = int(a_network[i]) | int(a_notnetmask[i])
-        return '.'.join(map(lambda x: str(x), a_ip))
+        return '.'.join([str(x) for x in a_ip])
 
 
     def prepareTarget(self, computer, group_id):
@@ -102,7 +102,7 @@ class MscDatabase(msc.MscDatabase):
         for i in range(len(computer[1]['macAddress'])):
             try:
                 bcastAddress = self.getBCast(ipAddresses[i], netmask[i])
-            except Exception, e:
+            except Exception as e:
                 self.logger.debug("Can't compute broadcast address for %s: %s" % (str(computer), str(e)))
                 bcastAddress = "255.255.255.255"
                 self.logger.debug("Using default broadcast address %s" % bcastAddress)
@@ -238,14 +238,14 @@ class MscDatabase(msc.MscDatabase):
             return -2
 
         def cbGetTargetsMirrors(schedulers, session):
-            args = map(lambda x: {"uuid" : x[0], "name": x[1]}, targets)
+            args = [{"uuid" : x[0], "name": x[1]} for x in targets]
             d1 = MirrorApi().getMirrors(args)
             d1.addCallback(cbGetTargetsFallbackMirrors, schedulers, session)
             d1.addErrback(lambda err: err)
             return d1
 
         def cbGetTargetsFallbackMirrors(mirrors, schedulers, session):
-            args = map(lambda x: {"uuid" : x[0], "name": x[1]}, targets)
+            args = [{"uuid" : x[0], "name": x[1]} for x in targets]
             d2 = MirrorApi().getFallbackMirrors(args)
             d2.addCallback(cbCreateTargets, mirrors, schedulers, session)
             d2.addErrback(lambda err: err)
@@ -342,7 +342,7 @@ class MscDatabase(msc.MscDatabase):
                         session.refresh(target)
 
                     try:
-                        candidates = filter(lambda(x): x['uuid'] == atarget["target_uuid"], cmd['proxies'])
+                        candidates = [x for x in cmd['proxies'] if x['uuid'] == atarget["target_uuid"]]
                         if len(candidates) == 1:
                             max_clients_per_proxy = candidates[0]['max_clients']
                             order_in_proxy = candidates[0]['priority']
@@ -361,7 +361,7 @@ class MscDatabase(msc.MscDatabase):
 
             session.execute(self.commands_on_host.insert(), coh_to_insert)
 
-            __cmd_ids = [[v for (k, v) in coh.items() if k=="fk_commands"] for coh in [c for c in coh_to_insert]]
+            __cmd_ids = [[v for (k, v) in list(coh.items()) if k=="fk_commands"] for coh in [c for c in coh_to_insert]]
             cmd_ids = []
             [cmd_ids.append(i) for i in __cmd_ids if not cmd_ids.count(i)]
 
@@ -475,14 +475,14 @@ class MscDatabase(msc.MscDatabase):
             return -2
 
         def cbGetTargetsMirrors(schedulers):
-            args = map(lambda x: {"uuid" : x[0], "name": x[1]}, targets)
+            args = [{"uuid" : x[0], "name": x[1]} for x in targets]
             d1 = MirrorApi().getMirrors(args)
             d1.addCallback(cbGetTargetsFallbackMirrors, schedulers)
             d1.addErrback(lambda err: err)
             return d1
 
         def cbGetTargetsFallbackMirrors(mirrors, schedulers):
-            args = map(lambda x: {"uuid" : x[0], "name": x[1]}, targets)
+            args = [{"uuid" : x[0], "name": x[1]} for x in targets]
             d2 = MirrorApi().getFallbackMirrors(args)
             d2.addCallback(cbCreateTargets, mirrors, schedulers)
             d2.addErrback(lambda err: err)
@@ -557,7 +557,7 @@ class MscDatabase(msc.MscDatabase):
                 order_in_proxy = None
                 max_clients_per_proxy = 0
                 try:
-                    candidates = filter(lambda(x): x['uuid'] == atarget["target_uuid"], proxies)
+                    candidates = [x for x in proxies if x['uuid'] == atarget["target_uuid"]]
                     if len(candidates) == 1:
                         max_clients_per_proxy = candidates[0]['max_clients']
                         order_in_proxy = candidates[0]['priority']
@@ -710,7 +710,7 @@ class MscDatabase(msc.MscDatabase):
         files = []
 
         cmd, patternActions = self.applyCmdPatterns(cmd)
-        is_quick_action = any([True for a in patternActions.values() if a=="enable"])
+        is_quick_action = any([True for a in list(patternActions.values()) if a=="enable"])
 
         # run a built-in script
         p1 = re.compile('^\/scripts\/')
@@ -759,7 +759,7 @@ class MscDatabase(msc.MscDatabase):
         conn = self.getDbConnection()
         trans = conn.begin()
         c_ids = select([self.commands.c.id], self.commands.c.fk_bundle == fk_bundle).execute()
-        c_ids = map(lambda x:x[0], c_ids)
+        c_ids = [x[0] for x in c_ids]
         self.commands_on_host.update(and_(self.commands_on_host.c.fk_commands.in_(c_ids), self.commands_on_host.c.current_state != 'done', self.commands_on_host.c.current_state != 'failed')).execute(current_state = "scheduled", next_launch_date = "0000-00-00 00:00:00")
         trans.commit()
 
@@ -770,7 +770,7 @@ class MscDatabase(msc.MscDatabase):
         conn = self.getDbConnection()
         trans = conn.begin()
         c_ids = select([self.commands.c.id], self.commands.c.fk_bundle == fk_bundle).execute()
-        c_ids = map(lambda x:x[0], c_ids)
+        c_ids = [x[0] for x in c_ids]
         self.commands_on_host.update(and_(self.commands_on_host.c.fk_commands.in_(c_ids), self.commands_on_host.c.current_state != 'done', self.commands_on_host.c.current_state != 'failed')).execute(current_state ="stopped", next_launch_date = "2031-12-31 23:59:59")
         self.commands_on_host.update(and_(self.commands_on_host.c.fk_commands.in_(c_ids), self.commands_on_host.c.uploaded == 'WORK_IN_PROGRESS')).execute(uploaded = "FAILED")
         self.commands_on_host.update(and_(self.commands_on_host.c.fk_commands.in_(c_ids), self.commands_on_host.c.executed == 'WORK_IN_PROGRESS')).execute(executed = "FAILED")
@@ -785,7 +785,7 @@ class MscDatabase(msc.MscDatabase):
         conn = self.getDbConnection()
         trans = conn.begin()
         c_ids = select([self.commands.c.id], self.commands.c.fk_bundle == fk_bundle).execute()
-        c_ids = map(lambda x:x[0], c_ids)
+        c_ids = [x[0] for x in c_ids]
         self.commands_on_host.update(and_(self.commands_on_host.c.fk_commands.in_(c_ids),\
                 self.commands_on_host.c.current_state != 'done',\
                 self.commands_on_host.c.current_state != 'failed',\
@@ -920,14 +920,14 @@ class MscDatabase(msc.MscDatabase):
             return -2
 
         def cbGetTargetsMirrors(schedulers):
-            args = map(lambda x: {"uuid" : x[0], "name": x[1]}, targets)
+            args = [{"uuid" : x[0], "name": x[1]} for x in targets]
             d1 = MirrorApi().getMirrors(args)
             d1.addCallback(cbGetTargetsFallbackMirrors, schedulers)
             d1.addErrback(lambda err: err)
             return d1
 
         def cbGetTargetsFallbackMirrors(mirrors, schedulers):
-            args = map(lambda x: {"uuid" : x[0], "name": x[1]}, targets)
+            args = [{"uuid" : x[0], "name": x[1]} for x in targets]
             d2 = MirrorApi().getFallbackMirrors(args)
             d2.addCallback(cbCreateTargets, mirrors, schedulers)
             d2.addErrback(lambda err: err)
@@ -985,7 +985,7 @@ class MscDatabase(msc.MscDatabase):
                 order_in_proxy = None
                 max_clients_per_proxy = 0
                 try:
-                    candidates = filter(lambda(x): x['uuid'] == atarget["target_uuid"], proxies)
+                    candidates = [x for x in proxies if x['uuid'] == atarget["target_uuid"]]
                     if len(candidates) == 1:
                         max_clients_per_proxy = candidates[0]['max_clients']
                         order_in_proxy = candidates[0]['priority']

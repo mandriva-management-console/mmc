@@ -53,18 +53,18 @@ class WSException(Exception):
 # RFC6455 - RFC 6455. The official WebSocket protocol standard. The protocol
 #           number is 13, but otherwise it is identical to HyBi-07.
 
-HYBI00, HYBI07, HYBI10, RFC6455 = range(4)
+HYBI00, HYBI07, HYBI10, RFC6455 = list(range(4))
 
 # States of the state machine. Because there are no reliable byte counts for
 # any of this, we don't use StatefulProtocol; instead, we use custom state
 # enumerations. Yay!
 
-REQUEST, NEGOTIATING, CHALLENGE, FRAMES = range(4)
+REQUEST, NEGOTIATING, CHALLENGE, FRAMES = list(range(4))
 
 # Control frame specifiers. Some versions of WS have control signals sent
 # in-band. Adorable, right?
 
-NORMAL, CLOSE, PING, PONG = range(4)
+NORMAL, CLOSE, PING, PONG = list(range(4))
 
 opcode_types = {
     0x0: NORMAL,
@@ -231,7 +231,7 @@ def make_hybi07_frame_dwim(buf):
     # TODO: eliminate magic numbers.
     if isinstance(buf, str):
         return make_hybi07_frame(buf, opcode=0x2)
-    elif isinstance(buf, unicode):
+    elif isinstance(buf, str):
         return make_hybi07_frame(buf.encode("utf-8"), opcode=0x1)
     else:
         raise TypeError("In binary support mode, frame data must be either str or unicode")
@@ -431,7 +431,7 @@ def WebSocketProtocolMaker(_auth_key):
 
             try:
                 frames, self.buf = parser(self.buf)
-            except WSException, wse:
+            except WSException as wse:
                 # Couldn't parse all the frames, something went wrong, let's bail.
                 self.close(wse.args[0])
                 return
@@ -510,7 +510,7 @@ def WebSocketProtocolMaker(_auth_key):
             elif "Sec-WebSocket-Protocol" in self.headers:
                 protocols = self.headers["Sec-WebSocket-Protocol"]
 
-            if isinstance(protocols, basestring):
+            if isinstance(protocols, str):
                 protocols = [p.strip() for p in protocols.split(',')]
 
                 for protocol in protocols:

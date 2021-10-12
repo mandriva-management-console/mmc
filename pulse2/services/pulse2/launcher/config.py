@@ -26,7 +26,7 @@ Pulse 2 launcher configuration class
 """
 
 # Misc
-import ConfigParser
+import configparser
 import re           # fo re.compil
 import pwd          # for getpwnam
 import grp          # for getgrpnam
@@ -65,7 +65,7 @@ class LauncherConfig(pulse2.utils.Singleton):
     # [daemon] section
     daemon_group = 0
     pid_path = "/var/run/pulse2"
-    umask = 0077
+    umask = 0o077
     daemon_user = 0
 
     # wrapper stuff
@@ -290,7 +290,7 @@ class LauncherConfig(pulse2.utils.Singleton):
         self.setoption('tcp_sproxy', 'create_web_proxy', 'create_web_proxy', 'bool')
         if self.cp.has_section("tcp_sproxy"):
             if self.cp.has_option("tcp_sproxy", "tcp_sproxy_port_range"):
-                range = map(lambda x: int(x), self.cp.get("tcp_sproxy", "tcp_sproxy_port_range").split('-'))
+                range = [int(x) for x in self.cp.get("tcp_sproxy", "tcp_sproxy_port_range").split('-')]
                 if len(range) != 2:
                     log.info("'tcp_sproxy_port_range' not formated as expected, using default value, please check your config file ")
                 else:
@@ -345,7 +345,7 @@ class LauncherConfig(pulse2.utils.Singleton):
                     }
                     if self.first_scheduler == None:
                         self.first_scheduler = section
-                except ConfigParser.NoOptionError, error:
+                except configparser.NoOptionError as error:
                     log.warn("launcher %s: section %s do not seems to be correct (%s), please fix the configuration file" % (self.name, section, error))
 
         # Parse "launcher_XXXX" sections
@@ -404,7 +404,7 @@ class LauncherConfig(pulse2.utils.Singleton):
                             log.warn("launcher %s: section %s, slots capped to %s instead of %s regarding the max FD (%s)" % (self.name, section, maxslots, self.launchers[section]['slots'], os.sysconf('SC_OPEN_MAX')))
                             self.launchers[section]['slots'] = maxslots
 
-                except ConfigParser.NoOptionError, e:
+                except configparser.NoOptionError as e:
                     log.warn("launcher %s: section %s do not seems to be correct (%s), please fix the configuration file" % (self.name, section, e))
 
         # check for a few binaries availability
@@ -470,7 +470,7 @@ class LauncherConfig(pulse2.utils.Singleton):
             if has_sshkey:
                 del self.ssh_keys['default']
                 if self.ssh_defaultkey == 'default':
-                    self.ssh_defaultkey = self.ssh_keys.keys()[0]
+                    self.ssh_defaultkey = list(self.ssh_keys.keys())[0]
                     log.warning("launcher %s: the default ssh key '%s' is not valid, set '%s' as default (you should specify it with ssh_defaultkey)" % (self.name, keyfile, self.ssh_defaultkey))
             else:
                 del self.ssh_keys['default']
@@ -497,7 +497,7 @@ class LauncherConfig(pulse2.utils.Singleton):
         Raise an error if the configuration is bad
         """
         paths = [self.launcher_path, self.ping_path, self.wrapper_path, self.wol_path]
-        sshkeys = self.ssh_keys.values()
+        sshkeys = list(self.ssh_keys.values())
         if len(sshkeys) == 0:
             log.error("Configuration error: no ssh key has been defined")
             raise Exception("Configuration error: no ssh key has been defined")

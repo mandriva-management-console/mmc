@@ -133,7 +133,7 @@ class PIDControl(object):
         self.logger.info("SSH Tunnel: closing the ssh tunel")
         try:
             self.daemon_proc.kill()
-        except Exception, e:
+        except Exception as e:
             self.logger.warn("SSH Tunnel: close failed: %s" % str(e))
 
         self.remove_pid_file()
@@ -313,7 +313,7 @@ class TunnelBuilder(object):
                        self.args)
             yield self._do_expire()
 
-        except Exception, e:
+        except Exception as e:
             self.logger.warn("SSH Tunnel: PID check failed: %s" % e)
 
 
@@ -372,7 +372,7 @@ class Forker(object):
 
         if isinstance(script, list):
             self.args = script
-        elif isinstance(script, str) or isinstance(script, unicode):
+        elif isinstance(script, str) or isinstance(script, str):
             self.args = script.split(" ")
 
         self.callback = callback

@@ -213,8 +213,8 @@ class MethodProxy(MscContainer):
                             (launcher, method_name, circuit.running_phase.name))
                 if len(args) == 3:
                     exitcode, _stdout, _stderr = args
-                    stdout = unicode(b64decode(_stdout),'utf-8', 'strict')
-                    stderr = unicode(b64decode(_stderr),'utf-8', 'strict')
+                    stdout = str(b64decode(_stdout),'utf-8', 'strict')
+                    stderr = str(b64decode(_stderr),'utf-8', 'strict')
                     result = method(circuit.running_phase, (exitcode, stdout, stderr))
                 else:
                     result = method(circuit.running_phase, args)
@@ -430,7 +430,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
         @return: list of the best launchers
         @rtype: list
         """
-        return [launcher for (launcher, networks) in self.launchers_networks.items()
+        return [launcher for (launcher, networks) in list(self.launchers_networks.items())
                          if network in networks]
 
 
@@ -467,7 +467,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
 
         for circuit in self._setup_check(incoming_circuits):
             if self.launchers_provider.single_mode :
-                launcher = self.config.launchers.keys()[0]
+                launcher = list(self.config.launchers.keys())[0]
                 circuit.launchers_provider = RemoteCallProxy(self.config.launchers_uri,
                                                              self.slots,
                                                              launcher)
@@ -479,7 +479,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                     self.logger.debug("Circuit #%s: assigned launcher <%s>" %
                             (circuit.id, launchers[0]))
                 else:
-                    launcher = self.config.launchers.keys()[0]
+                    launcher = list(self.config.launchers.keys())[0]
                     circuit.launchers_provider = RemoteCallProxy(self.config.launchers_uri,
                                                                  launcher)
                     self.logger.debug("Launcher pre-detect failed, assigning the first launcher '%s' to circuit #%s" %
@@ -520,7 +520,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
 
         grouped = self._select_balanced(new_circuits)
 
-        for group, total in grouped.items() :
+        for group, total in list(grouped.items()) :
             circuits_to_run = []
 
             count = 0
@@ -623,7 +623,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                 while True :
 
                     masked = dict((group, value + to_add[group])
-                                    for (group, value) in running_grps_stat.items()
+                                    for (group, value) in list(running_grps_stat.items())
                                     if group not in zero_blacklist)
                     # group having minimum circuits
                     min_key = min(masked, key=masked.get)
@@ -660,7 +660,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
         self._release(id, suspend_to_waitings)
         try:
             self.launch_next_waiting()
-        except Exception, e:
+        except Exception as e:
             self.logger.error("Next circuit launching failed: %s" % str(e))
 
     def _get_next_waiting(self, circuits, slightest_network):
@@ -717,7 +717,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
             running = self._analyze_groups(self.circuits)
             remaining = self._analyze_groups(self.get_valid_waitings())
 
-            for _ in xrange(self.nbr_groups):
+            for _ in range(self.nbr_groups):
                 # the least saturated network
                  slightest_group = min(running, key=running.get)
                  if remaining[slightest_group] > 0 :
@@ -749,7 +749,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                     self.started_track.add([circuit.id])
                     return True
             return False
-        except Exception, e:
+        except Exception as e:
             self.logger.error("\033[31mnext circuit exec failed: %s\033[0m" % str(e))
 
 
@@ -864,7 +864,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                 self.logger.info("Slots full: continue and waiting on next awake")
             return True
 
-        except Exception, e:
+        except Exception as e:
             self.logger.error("Mainloop execution failed: %s" % str(e))
             return True
 

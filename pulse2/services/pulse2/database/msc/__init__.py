@@ -146,7 +146,7 @@ class MscDatabase(DatabaseHelper):
                 self.metadata,
                 autoload = True
             )
-        except NoSuchTableError, e:
+        except NoSuchTableError as e:
             self.logger.error("Cant load the msc database : table '%s' does not exists"%(str(e.args[0])))
             return False
         return True
@@ -316,7 +316,7 @@ class MscDatabase(DatabaseHelper):
             else:
                 return False
 
-        except Exception, exc:
+        except Exception as exc:
             self.logger.error("Delete of bundle (id=%s) failed: %s" % (bundle_id, str(exc)))
             session.rollback()
             session.close()
@@ -349,7 +349,7 @@ class MscDatabase(DatabaseHelper):
                 session.close()
                 return False
 
-        except Exception, exc:
+        except Exception as exc:
             self.logger.error("Delete of command (id=%s) failed: %s" % (cmd_id, str(exc)))
             session.rollback()
             session.close()
@@ -380,7 +380,7 @@ class MscDatabase(DatabaseHelper):
                 return False
 
 
-        except Exception, exc:
+        except Exception as exc:
             self.logger.error("Delete of command on host(id=%s) failed: %s" % (coh_id, str(exc)))
             session.rollback()
             session.close()
@@ -640,7 +640,7 @@ class MscDatabase(DatabaseHelper):
         """
         conn = self.getDbConnection()
         c_ids = select([self.commands.c.id], self.commands.c.fk_bundle == fk_bundle).execute()
-        c_ids = map(lambda x:x[0], c_ids)
+        c_ids = [x[0] for x in c_ids]
         result = select([self.commands_on_host.c.id, self.commands_on_host.c.scheduler], self.commands_on_host.c.fk_commands.in_(c_ids)).execute()
         schedulers = {}
         for row in result:
@@ -746,7 +746,7 @@ class MscDatabase(DatabaseHelper):
     def getAllCommandsonhostCurrentstate(self, ctx): # TODO use ComputerLocationManager().doesUserHaveAccessToMachine
         session = create_session()
         ret = self.__queryAllCommandsonhostBy(session, ctx)
-        ret = ret.add_column(self.commands.c.max_connection_attempt).filter(self.commands_on_host.c.current_state <> ''). \
+        ret = ret.add_column(self.commands.c.max_connection_attempt).filter(self.commands_on_host.c.current_state != ''). \
                 group_by(self.commands_on_host.c.current_state). \
                 group_by(self.commands_on_host.c.attempts_left). \
                 group_by(self.commands.c.max_connection_attempt). \
@@ -883,7 +883,7 @@ class MscDatabase(DatabaseHelper):
             query = query.limit(int(max)-int(min))
             ret = query.all()
             session.close()
-            return map(lambda x: (x[0].toH(), x[1], x[2]), ret)
+            return [(x[0].toH(), x[1], x[2]) for x in ret]
         self.logger.warn("User %s does not have good permissions to access '%s'" % (ctx.userid, uuid))
         return []
 
@@ -1160,13 +1160,13 @@ class MscDatabase(DatabaseHelper):
             if max != -1 and max-1 < i:
                 break
             if i < min:
-                if fk_bundle != 'NULL' and fk_bundle != None and not defined.has_key(fk_bundle):
+                if fk_bundle != 'NULL' and fk_bundle != None and fk_bundle not in defined:
                     defined[fk_bundle] = id
                     i += 1
                 elif fk_bundle == 'NULL' or fk_bundle == None:
                     i += 1
                 continue
-            if fk_bundle != 'NULL' and fk_bundle != None and not defined.has_key(fk_bundle):
+            if fk_bundle != 'NULL' and fk_bundle != None and fk_bundle not in defined:
                 defined[fk_bundle] = id
                 ids.append(id)
                 i += 1
@@ -1177,7 +1177,7 @@ class MscDatabase(DatabaseHelper):
 
     def __displayLogReturn(self, ctx, list):
         # list is : cmd, cohid, cohstate
-        cohids = map(lambda x: x[1], list)
+        cohids = [x[1] for x in list]
         cohs = self.getCommandsOnHosts(ctx, cohids)
         ret = []
         for element in list:
@@ -1221,11 +1221,11 @@ class MscDatabase(DatabaseHelper):
             params = {}
         session = create_session()
         for i in ('b_id', 'cmd_id', 'coh_id', 'gid', 'uuid', 'filt'):
-            if not params.has_key(i) or params[i] == '':
+            if i not in params or params[i] == '':
                 params[i] = None
-        if not params.has_key('min'):
+        if 'min' not in params:
             params['min'] = 0
-        if not params.has_key('max'):
+        if 'max' not in params:
             params['max'] = -1
         #if not params.has_key('finished') or params['finished'] == '':
         #    params['finished'] = False
@@ -1292,7 +1292,7 @@ class MscDatabase(DatabaseHelper):
                 return size, self.__displayLogReturn(ctx, ret)
             else:                               # we want all informations about everything
                 ret = self.__displayLogsQuery(ctx, params, session).order_by(asc(params['order_by'])).all()
-                cmds = map(lambda c: (c.id, c.fk_bundle), ret)
+                cmds = [(c.id, c.fk_bundle) for c in ret]
 
                 size = []
                 size.extend(cmds)
@@ -1315,7 +1315,7 @@ class MscDatabase(DatabaseHelper):
         cohs = session.query(CommandsOnHost).add_column(self.commands_on_host.c.id).filter(self.commands_on_host.c.id.in_(coh_ids)).all()
         session.close()
         targets = self.getTargetsForCoh(ctx, coh_ids)
-        if ComputerLocationManager().doesUserHaveAccessToMachines(ctx, map(lambda t:t.target_uuid, targets), False):
+        if ComputerLocationManager().doesUserHaveAccessToMachines(ctx, [t.target_uuid for t in targets], False):
             ret = {}
             session = create_session()
             for e in cohs:
@@ -1360,7 +1360,7 @@ class MscDatabase(DatabaseHelper):
         session = create_session()
         ret = session.query(CommandsHistory).filter(self.commands_history.c.fk_commands_on_host == coh_id).all()
         session.close()
-        return map(lambda x: x.toH(), ret)
+        return [x.toH() for x in ret]
 
     def getBundle(self, ctx, fk_bundle):
         session = create_session()
@@ -1370,7 +1370,7 @@ class MscDatabase(DatabaseHelper):
             self.logger.info("Bundle '%s' cant be retrieved by '%s'"%(fk_bundle, ctx.userid))
             return [None, []]
         try:
-            cmds = map(lambda a:a.toH(), session.query(Commands).filter(self.commands.c.fk_bundle == fk_bundle).order_by(self.commands.c.order_in_bundle).all())
+            cmds = [a.toH() for a in session.query(Commands).filter(self.commands.c.fk_bundle == fk_bundle).order_by(self.commands.c.order_in_bundle).all()]
         except:
             self.logger.info("Commands for bundle '%s' cant be retrieved by '%s'"%(fk_bundle, ctx.userid))
             return [ret, []]
@@ -1385,7 +1385,7 @@ class MscDatabase(DatabaseHelper):
     def getCommands(self, session, ctx, cmd_id):
         if cmd_id == None or cmd_id == '':
             return False
-        a_targets = map(lambda target:target[0], self.getTargets(cmd_id, True))
+        a_targets = [target[0] for target in self.getTargets(cmd_id, True)]
         if ComputerLocationManager().doesUserHaveAccessToMachines(ctx, a_targets):
             def _update_command(command, phases):
                 """
@@ -1402,7 +1402,7 @@ class MscDatabase(DatabaseHelper):
                     'do_windows_update': 'windows_update',
                 }
                 #for step in ['do_wol', 'clean_on_success', 'do_inventory', 'do_reboot', 'do_halt']:
-                for step in __statuses.keys():
+                for step in list(__statuses.keys()):
                     setattr(command, step, __statuses[step] in phases and 'enable' or 'disable')
                 return command
 
@@ -1480,7 +1480,7 @@ class MscDatabase(DatabaseHelper):
         session = create_session()
         ret = session.query(CommandsOnHost).filter(self.commands_on_host.c.fk_commands == cmd_id).all()
         session.close()
-        return map(lambda c:c.id, ret)
+        return [c.id for c in ret]
 
     def getCommandOnGroupByState(self, ctx, cmd_id, state, min = 0, max = -1):
         session = create_session()
@@ -1488,7 +1488,7 @@ class MscDatabase(DatabaseHelper):
         ret = self.__filterOnStatus(ctx, query, state)
         session.close()
         if max != -1: ret = ret[min:max]
-        return map(lambda coh: {'coh_id':coh.id, 'uuid':coh.target_uuid, 'host':coh.host, 'start_date':coh.start_date, 'end_date':coh.end_date, 'current_state':coh.current_state}, ret)
+        return [{'coh_id':coh.id, 'uuid':coh.target_uuid, 'host':coh.host, 'start_date':coh.start_date, 'end_date':coh.end_date, 'current_state':coh.current_state} for coh in ret]
 
     def getCommandOnGroupStatus(self, ctx, cmd_id):# TODO use ComputerLocationManager().doesUserHaveAccessToMachine
         session = create_session()
@@ -1562,7 +1562,7 @@ class MscDatabase(DatabaseHelper):
         ret = self.__filterOnStatus(ctx, query, state)
         session.close()
         if max != -1: ret = ret[min:max]
-        return map(lambda coh: {'coh_id': coh.id, 'uuid':coh.target_uuid, 'host':coh.host, 'start_date':coh.start_date, 'end_date':coh.end_date, 'current_state':coh.current_state}, ret)
+        return [{'coh_id': coh.id, 'uuid':coh.target_uuid, 'host':coh.host, 'start_date':coh.start_date, 'end_date':coh.end_date, 'current_state':coh.current_state} for coh in ret]
 
     def getCommandOnBundleStatus(self, ctx, fk_bundle):
         session = create_session()
@@ -1576,7 +1576,7 @@ class MscDatabase(DatabaseHelper):
         return coh
 
     def __filterOnStatus(self, ctx, query, state):
-        query = map(lambda x: self.__putUUIDInCOH(x[0], x[1]), query)
+        query = [self.__putUUIDInCOH(x[0], x[1]) for x in query]
         ret = self.__getStatus(ctx, query, True)
         if state in ret:
             return ret[state]['total'][1]

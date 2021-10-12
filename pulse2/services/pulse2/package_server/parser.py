@@ -152,7 +152,7 @@ class PackageParserXML:
                 [],
                 associateinventory
             )
-        except Exception, e:
+        except Exception as e:
             logging.getLogger().error("parse_str failed")
             logging.getLogger().error(e)
             p = None
@@ -375,7 +375,7 @@ class PackageParserJSON:
                 sub_packages,
                 associateinventory
             )
-        except Exception, e:
+        except Exception as e:
             logging.getLogger().error("parse_str failed")
             logging.getLogger().error(e)
             p = None

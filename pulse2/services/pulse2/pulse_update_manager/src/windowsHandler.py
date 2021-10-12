@@ -1,5 +1,5 @@
 from win32com import client as w32comCl
-import _winreg
+import winreg
 
 ssDefault = 0
 ssManagedServer = 1
@@ -28,7 +28,7 @@ class windowsUpdateHandler(object):
         @rtype: list
         """
         result = []
-        for i in xrange(arr.Count):
+        for i in range(arr.Count):
             result.append(arr.Item(i))
         return result
 
@@ -43,12 +43,12 @@ class windowsUpdateHandler(object):
         """
         def setRegistryValue(root, key, param_name, newValue = None):
             root = getattr(_winreg, root)
-            handle = _winreg.OpenKey(root, key, 0, _winreg.KEY_READ | _winreg.KEY_WRITE) #_winreg.KEY_WOW64_32KEY
-            (value, type) = _winreg.QueryValueEx(handle, param_name)
+            handle = winreg.OpenKey(root, key, 0, winreg.KEY_READ | winreg.KEY_WRITE) #_winreg.KEY_WOW64_32KEY
+            (value, type) = winreg.QueryValueEx(handle, param_name)
             if newValue is not None:
-                _winreg.SetValueEx(handle, param_name, 0, type, newValue)
+                winreg.SetValueEx(handle, param_name, 0, type, newValue)
                 #_winreg.SetValue(root, key, param_name, 0, type, newValue)
-            (value, type) = _winreg.QueryValueEx(handle, param_name)
+            (value, type) = winreg.QueryValueEx(handle, param_name)
             return value
     
         # wu_state possible values
@@ -75,20 +75,20 @@ class windowsUpdateHandler(object):
         updates = self.fetchW32ComArray(searchResult.Updates)
     
         if not updates:
-            print "Update not found"
+            print("Update not found")
     
         update = updates[0]
     
         # Printing update info
-        print "======================================================"
-        print "Update ID \t\t: %s" % update.Identity.UpdateID
-        print "Title \t\t\t: %s" % update.Title
-        print "Kb Numbers \t\t: %s" % ' '.join(self.fetchW32ComArray(update.KBArticleIDs))
-        print "Type \t\t\t: %s" % update.Type
-        print "Need reboot \t\t: %s" % update.InstallationBehavior.RebootBehavior > 0
-        print "Request user input\t: %s" % update.InstallationBehavior.CanRequestUserInput
-        print "Info URL \t\t: %s" % self.fetchW32ComArray(update.MoreInfoUrls)[0]
-        print "Is installed \t\t: %s" % update.IsInstalled
+        print("======================================================")
+        print("Update ID \t\t: %s" % update.Identity.UpdateID)
+        print("Title \t\t\t: %s" % update.Title)
+        print("Kb Numbers \t\t: %s" % ' '.join(self.fetchW32ComArray(update.KBArticleIDs)))
+        print("Type \t\t\t: %s" % update.Type)
+        print("Need reboot \t\t: %s" % update.InstallationBehavior.RebootBehavior > 0)
+        print("Request user input\t: %s" % update.InstallationBehavior.CanRequestUserInput)
+        print("Info URL \t\t: %s" % self.fetchW32ComArray(update.MoreInfoUrls)[0])
+        print("Is installed \t\t: %s" % update.IsInstalled)
 
 
     def getAvaiableUpdates(self, online=True, returnResultList=False):
@@ -120,7 +120,7 @@ class windowsUpdateHandler(object):
         if returnResultList:
             return self.fetchW32ComArray(searchResult.Updates)
     
-        for i in xrange(searchResult.Updates.Count):
+        for i in range(searchResult.Updates.Count):
             update = searchResult.Updates.Item(i)
             # See Iupdate class: http://msdn.microsoft.com/en-us/library/windows/desktop/aa386099(v=vs.85).aspx
             _item = []
@@ -193,7 +193,7 @@ class windowsUpdateHandler(object):
     
             # If update need to interact with user, we skip it
             if update.InstallationBehavior.CanRequestUserInput:
-                print "The update %s needs user interaction, skipping it." % ' '.join(kbNumbers)
+                print("The update %s needs user interaction, skipping it." % ' '.join(kbNumbers))
                 continue
     
             # TODO: Check if installed or not
@@ -204,12 +204,12 @@ class windowsUpdateHandler(object):
                 update.AcceptEula()
     
             # Adding update to updatesToDownload list
-            print 'Adding "%s" to install list' % update.Identity.UpdateID
+            print('Adding "%s" to install list' % update.Identity.UpdateID)
             updatesToDownload.Add(update)
             selectedUpdates.append(update)
     
         if updatesToDownload.Count == 0:
-            print "No update to install"
+            print("No update to install")
             return
     
         # ================================================================
@@ -221,7 +221,7 @@ class windowsUpdateHandler(object):
         # Adding selected update to downloader instance
         downloader.Updates = updatesToDownload
         # Start download
-        print "Starting download ..."
+        print("Starting download ...")
         downloader.Download()
     
         # ================================================================
@@ -237,7 +237,7 @@ class windowsUpdateHandler(object):
         for update in selectedUpdates:
             # If update is not downloaded, skipping it
             if not update.IsDownloaded:
-                print 'Update "%s" was not downloaded' % update.Title
+                print('Update "%s" was not downloaded' % update.Title)
                 continue
     
             # Testing if update needs reboot
@@ -248,10 +248,10 @@ class windowsUpdateHandler(object):
             updatesToInstall.Add(update)
     
         if updatesToInstall.Count == 0:
-            print "No updates to install, leaving."
+            print("No updates to install, leaving.")
             return
     
-        print "Installing updates ..."
+        print("Installing updates ...")
     
         # Creating update installer instance
         installer = self.session.CreateUpdateInstaller()
@@ -262,18 +262,18 @@ class windowsUpdateHandler(object):
         installationResult = installer.Install()
     
         if installationResult.RebootRequired:
-            print "Rebooting computer is required."
+            print("Rebooting computer is required.")
     
         returnCode = installationResult.ResultCode
     
         if returnCode == 2 or returnCode == 3:
-            print "Installation success"
+            print("Installation success")
         elif returnCode == 4:
-            print "Installation failed"
+            print("Installation failed")
         elif returnCode == 5:
             "Installation aborted"
         else:
-            print "Unkown error (%d)" % returnCode
+            print("Unkown error (%d)" % returnCode)
     
         """
         installationResult.RebootRequired = True/False

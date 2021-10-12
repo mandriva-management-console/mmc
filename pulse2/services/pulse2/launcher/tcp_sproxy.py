@@ -38,7 +38,7 @@ import pulse2.launcher.process_control
 from pulse2.launcher.config import LauncherConfig
 from pulse2.network import NetUtils
 
-SEPARATOR = u'·' # FIXME: duplicate of what we found in remote_exec.py !!
+SEPARATOR = '·' # FIXME: duplicate of what we found in remote_exec.py !!
 
 class proxyProtocol(twisted.internet.protocol.ProcessProtocol):
     def processEnded(self, reason):
@@ -111,9 +111,9 @@ def establishProxy(client, requestor_ip, requested_port):
 
     # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
     if client['client_check']:
-        command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+        command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
     if client['server_check']:
-        command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+        command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
     if client['action']:
         command_list += ['--action', client['action']]
 
@@ -121,7 +121,7 @@ def establishProxy(client, requestor_ip, requested_port):
     twisted.internet.reactor.spawnProcess(
         proxy,
         command_list[0],
-        map(lambda(x): x.encode('utf-8', 'ignore'), command_list),
+        [x.encode('utf-8', 'ignore') for x in command_list],
         None, # env
         None, # path
         None, # uid
@@ -192,8 +192,8 @@ def allocate_port_couple():
     @rtype: list
     """
     ret_ports = []
-    port_range = range(LauncherConfig().tcp_sproxy_port_range_start + 1,
-                       LauncherConfig().tcp_sproxy_port_range_end + 1)
+    port_range = list(range(LauncherConfig().tcp_sproxy_port_range_start + 1,
+                       LauncherConfig().tcp_sproxy_port_range_end + 1))
 
     for port in port_range :
         if NetUtils.is_port_free(port):

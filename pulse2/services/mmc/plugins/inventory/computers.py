@@ -62,7 +62,7 @@ class InventoryComputers(ComputerI):
         machines = self.inventory.getMachineNetwork(ctx, filt)
         ret = []
         for m in machines:
-            ret.append(map(lambda i: i['IP'], m[1]))
+            ret.append([i['IP'] for i in m[1]])
         if len(ret) == 1:
             return ret[0]
         return ret
@@ -98,7 +98,7 @@ class InventoryComputers(ComputerI):
         return self.getRestrictedComputersList(ctx, 0, -1, filt)
 
     def __restrictLocationsOnImagingServerOrEntity(self, filt, ctx):
-        if filt.has_key('imaging_server') and filt['imaging_server'] != '':
+        if 'imaging_server' in filt and filt['imaging_server'] != '':
             # Get main imaging entity uuid
             self.logger.debug('Get main imaging entity UUID of imaging server %s' % filt['imaging_server'])
             main_imaging_entity_uuid = ComputerImagingManager().getImagingServerEntityUUID(filt['imaging_server'])
@@ -150,7 +150,7 @@ class InventoryComputers(ComputerI):
         filt['max'] = max
 
         if 'imaging_entities' in filt: # imaging group creation
-            machines_uuids = map(lambda m:m.uuid(), self.inventory.getMachinesOnly(ctx, filt))
+            machines_uuids = [m.uuid() for m in self.inventory.getMachinesOnly(ctx, filt)]
             # display only "imaging compliant" computers
             uuids = []
             networks = self.getComputersNetwork(ctx, {'uuids': machines_uuids})
@@ -168,12 +168,12 @@ class InventoryComputers(ComputerI):
             filt['uuids'] = uuids
 
         if justId:
-            return map(lambda m:m.uuid(), self.inventory.getMachinesOnly(ctx, filt))
+            return [m.uuid() for m in self.inventory.getMachinesOnly(ctx, filt)]
         elif toH:
-            return map(lambda m:m.toH(), self.inventory.getMachinesOnly(ctx, filt))
+            return [m.toH() for m in self.inventory.getMachinesOnly(ctx, filt)]
         else:
-            if filt.has_key('get'):
-                return map(lambda m:m.toCustom(filt['get']), self.inventory.getMachinesOnly(ctx, filt))
+            if 'get' in filt:
+                return [m.toCustom(filt['get']) for m in self.inventory.getMachinesOnly(ctx, filt)]
             else:
                 return self.inventory.getComputersOptimized(ctx, filt)
 
@@ -196,7 +196,7 @@ class InventoryComputers(ComputerI):
         mac = params['computermac']
         net = params['computernet']
         location = None
-        if params.has_key('location_uuid'):
+        if 'location_uuid' in params:
             location = params['location_uuid']
         ret = self.inventory.addMachine(name, ip, mac, net, comment, location)
         return ret

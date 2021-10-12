@@ -52,7 +52,7 @@ class InventoryDatabaseConfigSkel(DatabaseConfig):
             
         if table == None:
             return noms
-        if noms.has_key(table):
+        if table in noms:
             return noms[table]
         return None
 
@@ -113,15 +113,15 @@ class InventoryDatabaseConfig(InventoryDatabaseConfigSkel):
 
         if self.cp.has_section("computers"):
             if self.cp.has_option("computers", "display"):
-                self.display = map(lambda x: x.split('::'), self.cp.get("computers", "display").split('||'))
+                self.display = [x.split('::') for x in self.cp.get("computers", "display").split('||')]
 
 
             # Registry::Path::path||Registry::Value::srvcomment::Path==srvcomment
             if self.cp.has_option("computers", "content") and not self.cp.get("computers", "content") == '':
-                for c in map(lambda x: x.split('::'), self.cp.get("computers", "content").split('||')):
-                    if not self.content.has_key(c[0]):
+                for c in [x.split('::') for x in self.cp.get("computers", "content").split('||')]:
+                    if c[0] not in self.content:
                         self.content[c[0]] = []
-                    self.content[c[0]].append( map(lambda x: desArrayIfUnic(x.split('==')), c[1:]))
+                    self.content[c[0]].append( [desArrayIfUnic(x.split('==')) for x in c[1:]])
 
         if self.cp.has_section('querymanager'):
             if self.cp.has_option('querymanager', 'list'):

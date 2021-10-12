@@ -115,9 +115,9 @@ def remote_push(command_id, client, files_list, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -194,9 +194,9 @@ def remote_pull(command_id, client, files_list, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -221,7 +221,7 @@ def remote_pull(command_id, client, files_list, mode, wrapper_timeout):
         real_command  = ['rsync']
         real_command += client['proto_args']
 
-        real_command += ['%s@%s:"%s"' % (client['user'], client['proxy']['host'], ' '.join(map(lambda x: "%s/%s/'%s'" % (LauncherConfig().target_path, src_path, x), files_list)))]
+        real_command += ['%s@%s:"%s"' % (client['user'], client['proxy']['host'], ' '.join(["%s/%s/'%s'" % (LauncherConfig().target_path, src_path, x) for x in files_list]))]
         real_command += [target_path]
 
         # Build final command line
@@ -239,9 +239,9 @@ def remote_pull(command_id, client, files_list, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -300,7 +300,7 @@ def remote_delete(command_id, client, files_list, mode, wrapper_timeout):
             real_command += ['else']
 
         real_command += ['rm']
-        real_command += map(lambda(a): '"%s"' % os.path.join(target_path, a), files_list)
+        real_command += ['"%s"' % os.path.join(target_path, a) for a in files_list]
         real_command += ['&&', 'if', '!', 'rmdir', target_path, ';']
         real_command += ['then']
         # Use the dellater command if available
@@ -329,9 +329,9 @@ def remote_delete(command_id, client, files_list, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -390,9 +390,9 @@ def remote_exec(command_id, client, command, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -450,9 +450,9 @@ def remote_quickaction(command_id, client, command, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -517,9 +517,9 @@ def remote_direct(command_id, client, command, mode, max_log_size, wrapper_timeo
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -587,9 +587,9 @@ def remote_inventory(command_id, client, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -649,9 +649,9 @@ def remote_reboot(command_id, client, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -711,9 +711,9 @@ def remote_halt(command_id, client, mode, wrapper_timeout):
 
         # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
         if client['client_check']:
-            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+            command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
         if client['server_check']:
-            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+            command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
         if client['action']:
             command_list += ['--action', client['action']]
 
@@ -772,9 +772,9 @@ def from_remote_to_launcher(command_id, client, paths, targetpath, bwlimit, wrap
 
     # from {'a': 'b', 'c: 'd'} to 'a=b,c=d'
     if client['client_check']:
-        command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), client['client_check'].items()))]
+        command_list += ['--check-client-side', ','.join(map((lambda x: '='.join(x)), list(client['client_check'].items())))]
     if client['server_check']:
-        command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), client['server_check'].items()))]
+        command_list += ['--check-server-side', ','.join(map((lambda x: '='.join(x)), list(client['server_check'].items())))]
     if client['action']:
         command_list += ['--action', client['action']]
 
@@ -793,8 +793,8 @@ def __cb_sync_process_end(shprocess):
         Handle sync process termination
     """
     exitcode = shprocess.exit_code
-    stdout = unicode(shprocess.stdout, 'utf-8', 'strict')
-    stderr = unicode(shprocess.stderr, 'utf-8', 'strict')
+    stdout = str(shprocess.stdout, 'utf-8', 'strict')
+    stderr = str(shprocess.stderr, 'utf-8', 'strict')
     return exitcode, stdout, stderr
 
 def __cb_async_process_end(shprocess):

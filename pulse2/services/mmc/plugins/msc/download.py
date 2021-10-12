@@ -27,7 +27,7 @@ import glob
 import datetime
 import logging
 import time
-import xmlrpclib
+import xmlrpc.client
 
 from mmc.plugins.msc.config import MscConfig
 from mmc.plugins.msc.scheduler_api import SchedulerApi
@@ -177,12 +177,12 @@ class MscDownloadedFiles:
         for fname in os.listdir(self.storage):
             fp = os.path.join(self.storage, fname)
             statinfo = os.stat(fp)
-            if statinfo.st_ino == long(node):
+            if statinfo.st_ino == int(node):
                 uuid, timestamp, name = fname.split('-', 2)
                 f = file(fp)
                 data = f.read()
                 f.close()
-                ret = (name, xmlrpclib.Binary(data))
+                ret = (name, xmlrpc.client.Binary(data))
                 break
         return ret
 
@@ -217,7 +217,7 @@ class MscDownloadedFiles:
                     except ValueError:
                         pass
             # Sort file list by inverse chronological order
-            timestamps = tmp.keys()
+            timestamps = list(tmp.keys())
             timestamps.sort(reverse = True)
             for timestamp in timestamps:
                 ret.append(tmp[timestamp])

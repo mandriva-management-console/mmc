@@ -26,7 +26,7 @@ import logging
 import os
 import re
 import sys
-import urlparse
+import urllib.parse
 
 from pulse2.proxyssl.utilities import Singleton
 from pulse2.proxyssl.config import Pulse2InventoryProxyConfig
@@ -38,7 +38,7 @@ from twisted.web.server import NOT_DONE_YET
 from zlib import decompressobj, compressobj
 
 if os.name == 'nt':
-    from _winreg import * # pyflakes.ignore
+    from winreg import * # pyflakes.ignore
 
 
 def makeSSLContext(verifypeer, cacert, localcert, log = False):
@@ -106,14 +106,14 @@ class MyProxyRequest(proxy.ProxyRequest):
             self.uri = "https://" + self.uri
         else:
             self.uri = "http://" + self.uri
-        parsed = urlparse.urlparse(self.uri)
+        parsed = urllib.parse.urlparse(self.uri)
         protocol = parsed[0]
         host = parsed[1]
         port = self.ports[protocol]
         if ':' in host:
             host, port = host.split(':')
             port = int(port)
-        rest = urlparse.urlunparse(('', '') + parsed[2:])
+        rest = urllib.parse.urlunparse(('', '') + parsed[2:])
         if not rest:
             rest = rest + '/'
         class_ = self.protocols[protocol]
@@ -136,7 +136,7 @@ class MyProxyRequest(proxy.ProxyRequest):
                 if decomp.unused_data:
                     logger.warn("The zip content seems to be bad.")
                     logger.debug("The remaining bytes are : %s"%(decomp.unused_data))
-            except Exception, e:
+            except Exception as e:
                 logger.error("Failed during decompression.")
                 logger.error(str(e))
                 raise e
@@ -144,14 +144,14 @@ class MyProxyRequest(proxy.ProxyRequest):
             # Get the query type
             try:
                 query = re.search(r'<QUERY>([\w-]+)</QUERY>', sUnpack).group(1)
-            except AttributeError, e:
+            except AttributeError as e:
                 query = 'FAILS'
             
             # process on Inventory OCS XML file, 
             if query == 'INVENTORY' :
                 try:
                     if sys.platform[0:3] == "win":                          #It's here because I need Pulse2InventoryProxyConfig be initialited before improve packtage be initialat
-                        from improveWin import improveXML,getOcsDebugLog
+                        from .improveWin import improveXML,getOcsDebugLog
                     elif sys.platform == "mac":
                         from improveMac import improveXML,getOcsDebugLog # pyflakes.ignore
                     else:
@@ -176,7 +176,7 @@ class MyProxyRequest(proxy.ProxyRequest):
                 comp = compressobj()
                 s = comp.compress(sUnpack) + comp.flush() # default to Z_FINISH
                 logger.debug("\t\tcompressed length: " + str(len(s)))
-            except Exception, e:
+            except Exception as e:
                 logger.error("Failed during compression.")
                 logger.error(str(e))
                 raise e
@@ -191,7 +191,7 @@ class MyProxyRequest(proxy.ProxyRequest):
             try:
                 ctx = makeSSLContext(self.config.verifypeer, self.config.cert_file, self.config.key_file)
                 self.reactor.connectSSL(host, port, clientFactory, ctx)
-            except Exception, e:
+            except Exception as e:
                 logging.getLogger().error(str(e))
                 raise
         else:
@@ -217,7 +217,7 @@ class HttpInventoryProxySingleton(Singleton):
                 key = OpenKey(HKEY_LOCAL_MACHINE, self.config.flag[0])
                 hk_do_inv, typeval  = QueryValueEx(key, self.config.flag[1])
                 ret = hk_do_inv == 'yes'
-            except WindowsError, e:
+            except WindowsError as e:
                 self.logger.debug(str(e))
                 ret = False
             self.checked_flag = ret
@@ -233,7 +233,7 @@ class HttpInventoryProxySingleton(Singleton):
             SetValueEx(key, self.config.flag[1], 0, REG_SZ, "no")
             CloseKey(key)
             self.logger.debug("Registry key value set")
-        except Exception, e:
+        except Exception as e:
             self.logger.error("Can't change registry key value: %s", str(e))
             
         

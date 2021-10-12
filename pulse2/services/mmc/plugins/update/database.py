@@ -92,7 +92,7 @@ class updateDatabase(DatabaseHelper):
                     .update({'enabled': 0}, synchronize_session=False)
             session.commit()
             return True
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: %s" % str(e))
             return False
 
@@ -117,7 +117,7 @@ class updateDatabase(DatabaseHelper):
             session.commit()
             return True
 
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: %s" % str(e))
             return False
 
@@ -155,7 +155,7 @@ class updateDatabase(DatabaseHelper):
             session.commit()
             #session.flush()
             return True
-        except Exception, e:
+        except Exception as e:
             logger.error(str(e))
             return False
 
@@ -210,7 +210,7 @@ class updateDatabase(DatabaseHelper):
             # ==== END STATUS FILTERING ==================
 
             return query
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: %s" % str(e))
             return False
 
@@ -227,7 +227,7 @@ class updateDatabase(DatabaseHelper):
             session.commit()
             return True
 
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: %s" % str(e))
             return False
 
@@ -285,7 +285,7 @@ class updateDatabase(DatabaseHelper):
             for (target, update) in query:
                 result.append(update.toDict())
             return result
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: %s" % str(e))
             return False
 
@@ -320,7 +320,7 @@ class updateDatabase(DatabaseHelper):
                 )
 
         compiler = LiteralCompiler(dialect, statement)
-        print compiler.process(statement)
+        print(compiler.process(statement))
 
     @DatabaseHelper._session
     def get_eligible_updates_for_host(self, session, uuid):
@@ -368,7 +368,7 @@ class updateDatabase(DatabaseHelper):
 
             return result
 
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: %s" % str(e))
             return False
 
@@ -389,7 +389,7 @@ class updateDatabase(DatabaseHelper):
             session.commit()
             return True
 
-        except Exception, e:
+        except Exception as e:
             logger.error("DB Error: No entry found or duplicate entries")
             logger.error(str(e))
             return False

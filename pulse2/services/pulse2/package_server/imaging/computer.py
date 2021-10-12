@@ -103,7 +103,7 @@ class ImagingComputerConfiguration:
                 fid.write(self.exclude_opts)
                 fid.close()
                 self.logger.debug('Succeeded')
-            except Exception, e:
+            except Exception as e:
                 self.logger.error("While writing exclude file for %s : %s" % (self.computerUUID, e))
                 ret = False
         else:
@@ -113,7 +113,7 @@ class ImagingComputerConfiguration:
                 try:
                     os.unlink(filename)
                     self.logger.debug('Succeeded')
-                except Exception, e:
+                except Exception as e:
                     self.logger.error("While removing exclude file for %s : %s" % (self.computerUUID, e))
                     ret = False
             else:
@@ -139,7 +139,7 @@ class ImagingComputerConfiguration:
             fid.write(self.hostname)
             fid.close()
             self.logger.debug('Succeeded')
-        except Exception, e:
+        except Exception as e:
             self.logger.error("While writing hostname file for %s : %s" % (self.computerUUID, e))
             ret = False
         return ret

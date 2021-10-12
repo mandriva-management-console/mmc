@@ -51,7 +51,7 @@ class GlpiComputers(ComputerI):
 
         try:
             return self.glpi.getComputer(ctx, filt, empty_macs)
-        except Exception, e:
+        except Exception as e:
             if len(e.args) > 0 and e.args[0].startswith('NOPERM##'):
                 machine = e.args[0].replace('NOPERM##', '')
                 self.logger.warn("User %s does not have good permissions to access machine '%s'" % (ctx.userid, machine))
@@ -60,16 +60,16 @@ class GlpiComputers(ComputerI):
 
     def getComputersNetwork(self, ctx, params):
         if 'uuids' in params:
-            return self.glpi.getComputersList(ctx, {'uuid' : params['uuids'] }).values()
+            return list(self.glpi.getComputersList(ctx, {'uuid' : params['uuids'] }).values())
         elif 'uuid' in params:
-            return self.glpi.getComputersList(ctx, {'uuid' : params['uuid'] }).values()
-        return self.glpi.getComputersList(ctx, {}).values()
+            return list(self.glpi.getComputersList(ctx, {'uuid' : params['uuid'] }).values())
+        return list(self.glpi.getComputersList(ctx, {}).values())
 
     def getMachineMac(self, ctx, params):
         # format : { 'uuid' : ['mac1' ...], ... }
-        if params.has_key('uuids'):
+        if 'uuids' in params:
             return self.glpi.getMachinesMac(params['uuids'])
-        elif params.has_key('uuid'):
+        elif 'uuid' in params:
             return {params['uuid'] : self.glpi.getMachineMac(params['uuid'])}
 
     def getMachineIp(self, ctx, filt):
@@ -78,7 +78,7 @@ class GlpiComputers(ComputerI):
     def getMachineHostname(self, ctx, filt = None):
         machines = self.glpi.getRestrictedComputersList(ctx, 0, -1, filt)
         ret = []
-        for x, m in machines.values():
+        for x, m in list(machines.values()):
             if 'hostname' not in m:
                 if type(m['cn']) == list:
                     m['hostname'] = m['cn'][0]
@@ -118,7 +118,7 @@ class GlpiComputers(ComputerI):
         return self.glpi.getComputersList(ctx, filt)
 
     def __restrictLocationsOnImagingServerOrEntity(self, filt, location, ctx):
-        if filt.has_key('imaging_server') and filt['imaging_server'] != '':
+        if 'imaging_server' in filt and filt['imaging_server'] != '':
             # Get main imaging entity uuid
             self.logger.debug('Get main imaging entity UUID of imaging server %s' % filt['imaging_server'])
             main_imaging_entity_uuid = ComputerImagingManager().getImagingServerEntityUUID(filt['imaging_server'])
@@ -182,7 +182,7 @@ class GlpiComputers(ComputerI):
             computersList = self.glpi.getRestrictedComputersList(ctx, min, max, filt, advanced, justId, toH)
             # display only "imaging compliant" computers
             uuids = []
-            networks = self.getComputersNetwork(ctx, {'uuids': computersList.keys()})
+            networks = self.getComputersNetwork(ctx, {'uuids': list(computersList.keys())})
             for network in networks:
                 network = network[1]
                 # Check if computer has macAddress and ipHostNumber

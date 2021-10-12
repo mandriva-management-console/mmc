@@ -23,9 +23,9 @@
 import logging
 import os, shutil
 import requests, json, tempfile
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from contextlib import closing
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 from base64 import b64encode, b64decode
 from time import time
 from json import loads as parse_json
@@ -356,7 +356,7 @@ class DownloadAppstreamPackageList(object):
         appstream_url = PkgsConfig("pkgs").appstream_url
 
         #add non downloaded package to download package list
-        for pkg, details in getActivatedAppstreamPackages().iteritems():
+        for pkg, details in getActivatedAppstreamPackages().items():
 
             try:
                 # Creating requests session
@@ -378,12 +378,12 @@ class DownloadAppstreamPackageList(object):
                 #add package to download package list
                 self._add_appstream(pkg)
 
-            except Exception, e:
+            except Exception as e:
                 logger.error('Appstream: Error while fetching package %s' % pkg)
                 logger.error(str(e))
 
         #Download packages (copy dictionnary to be able to delete entry while iterate)
-        for pkg,state in self.getDownloadAppstreamPackages().copy().iteritems():
+        for pkg,state in self.getDownloadAppstreamPackages().copy().items():
             # download only wait package
             if state != "wait":
                 continue
@@ -416,7 +416,7 @@ class DownloadAppstreamPackageList(object):
                     # Downloading file
                     # thanks to http://stackoverflow.com/questions/11768214/python-download-a-file-over-an-ftp-server
                     logger.debug('Downloading %s from %s' % (filename, url))
-                    with closing(urllib2.urlopen(url)) as r:
+                    with closing(urllib.request.urlopen(url)) as r:
                         with open(package_dir+filename, 'wb') as f:
                             shutil.copyfileobj(r, f)
                     # TODO: if md5 is not null, do an md5 checksum of downloaded file
@@ -449,13 +449,13 @@ class DownloadAppstreamPackageList(object):
                 n_title = details['label'] + ' has been updated to version ' + info['version']
                 notificationManager().add('pkgs', n_title, '')
                 self._finish_appstream(pkg);
-            except Exception, e:
+            except Exception as e:
                 logger.error('Appstream: Error while fetching package to be downloaded %s' % pkg)
                 logger.error(str(e))
                # Removing package dir (if exists)
                 try:
                     shutil.rmtree(package_dir)
-                except Exception, e:
+                except Exception as e:
                     logger.error(str(e))
 
         self.update = False
@@ -496,7 +496,7 @@ def setAppstreamJSON(data):
         f.write(json.dumps(data))
         f.close()
         return True
-    except Exception, e:
+    except Exception as e:
         logging.getLogger().error('Cannot write appstream JSON')
         logging.getLogger().error(str(e))
         return False

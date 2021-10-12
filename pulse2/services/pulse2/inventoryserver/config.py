@@ -63,7 +63,7 @@ class Pulse2OcsserverConfigParser(InventoryDatabaseConfig):
 
     # daemon section
     pidfile = '/var/run/pulse2-inventory-server.pid'
-    umask = 0007
+    umask = 0o007
     daemon_user = 0
     daemon_group = 0
 
@@ -147,7 +147,7 @@ class Pulse2OcsserverConfigParser(InventoryDatabaseConfig):
 
             if len(self.hostname) == 3:
                 nom = self.getInventoryNoms()
-                if nom.has_key(self.hostname[0]):
+                if self.hostname[0] in nom:
                     self.hostname[2][0] = ('nom%s%s' % (self.hostname[0], self.hostname[2][0]), self.hostname[2][0])
 
         if self.cp.has_section("daemon"):
@@ -172,7 +172,7 @@ class Pulse2OcsserverConfigParser(InventoryDatabaseConfig):
                 for param in self.cp.options(section):
                     if re.compile('^param_[0-9]+$').match(param):
                          attrs, value = self.cp.get(section, param).split('##')
-                         params.append({'param':map(lambda x: x.split('::'), attrs.split('||')), 'value':value})
+                         params.append({'param':[x.split('::') for x in attrs.split('||')], 'value':value})
                 self.options[section] = {
                     'name':self.cp.get(section, 'NAME'),
                     'param':params

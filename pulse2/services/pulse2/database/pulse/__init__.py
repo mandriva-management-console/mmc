@@ -92,9 +92,9 @@ class Pulse2Database(DyngroupDatabaseHelper):
         for i in range(NB_DB_CONN_TRY):
             try:
                 ret = self.db.connect()
-            except DBAPIError, e:
+            except DBAPIError as e:
                 self.logger.error(e)
-            except Exception, e:
+            except Exception as e:
                 self.logger.error(e)
             if ret: break
         if not ret:
@@ -136,7 +136,7 @@ class Pulse2Database(DyngroupDatabaseHelper):
         session.close()
         ret = {}
         for pes, e_uuid in ret1:
-            if not ret.has_key(e_uuid):
+            if e_uuid not in ret:
                 ret[e_uuid] = []
             ret[e_uuid].append(pes)
         return ret

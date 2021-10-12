@@ -22,9 +22,7 @@ import sys
 import subprocess
 from abc import ABCMeta, abstractmethod
 
-class linuxUpdateHandler(object):
-    __metaclass__ = ABCMeta
-    
+class linuxUpdateHandler(object, metaclass=ABCMeta):
     platform = None
     
     def __init__(self, platform):

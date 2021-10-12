@@ -51,7 +51,7 @@ class PackageGetA(pulse2.apis.clients.package_get_api.PackageGetA):
             port = server['port']
             proto = server['protocol']
             bind = server['server']
-            if server.has_key('username') and server.has_key('password') and server['username'] != '':
+            if 'username' in server and 'password' in server and server['username'] != '':
                 login = "%s:%s@" % (server['username'], server['password'])
                 credentials = "%s:%s" % (server['username'], server['password'])
 
@@ -276,7 +276,7 @@ def prepareCommand(pinfos, params):
         )
 
     if pinfos['files'] != None:
-        ret['files'] = map(lambda hm: hm['id']+'##'+hm['path']+'/'+hm['name'], pinfos['files'])
+        ret['files'] = [hm['id']+'##'+hm['path']+'/'+hm['name'] for hm in pinfos['files']]
     else:
         ret['files'] = ''
     return ret
@@ -304,7 +304,7 @@ class SendPackageCommand:
         return self.deferred.callback(id_command)
 
     def send(self):
-        if (self.pid == None or self.pid == '') and self.params.has_key('launchAction'):
+        if (self.pid == None or self.pid == '') and 'launchAction' in self.params:
             # this is a QA passing by the advanced page
             idcmd = self.params['launchAction']
             result, qas = qa_list_files()
@@ -448,7 +448,7 @@ class GetPackagesFiltered:
             ret = self.sendResult()
 
     def sendResult(self, packages = []):
-        ret = map(lambda m: [m, 0, self.filt['packageapi']], packages)
+        ret = [[m, 0, self.filt['packageapi']] for m in packages]
         self.deferred.callback(ret)
 
     def onError(self, error):
@@ -495,7 +495,7 @@ class GetPackagesUuidFiltered:
     def getPackagesLoop(self, result = None):
         if result and not isinstance(result, failure.Failure):
             self.index = self.index + 1
-            self.packages.extend(map(lambda m: [m, self.index, self.p_api], result))
+            self.packages.extend([[m, self.index, self.p_api] for m in result])
         if self.package_apis:
             if type(self.package_apis) == list:
                 self.p_api = self.package_apis.pop()
@@ -564,7 +564,7 @@ class GetPackagesGroupFiltered:
             for i in range(len(mergedlist[0])): # all line must have the same size!
                 plists.insert(i, [])
                 try:
-                    map(lambda x: _p_apiuniq(plists[i], x[i]), mergedlist)
+                    list(map(lambda x: _p_apiuniq(plists[i], x[i]), mergedlist))
                 except IndexError:
                     logging.getLogger().error("Error with i=%d" %i)
             self.plists = plists
@@ -583,8 +583,8 @@ class GetPackagesGroupFiltered:
         if not self.p_apis and self.tmppackages:
             # Merge temporary results
             lp = self.tmppackages[0]
-            map(lambda p: _merge_list(lp, p), self.tmppackages)
-            self.packages.extend(map(lambda m: [m, self.index, self.p_api_first], lp))
+            list(map(lambda p: _merge_list(lp, p), self.tmppackages))
+            self.packages.extend([[m, self.index, self.p_api_first] for m in lp])
             self.tmppackages = []
         if self.plists and not self.p_apis:
             # Fill self.p_apis if empty

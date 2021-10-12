@@ -25,7 +25,7 @@
 Test module for the Pulse 2 Launcher
 """
 
-from xmlrpclib import ServerProxy
+from xmlrpc.client import ServerProxy
 from unittest import TestCase
 from os import chdir, popen, system, removedirs, remove, getcwd, mkdir, path
 from tempfile import mkdtemp
@@ -201,7 +201,7 @@ class class10stdTest(TestCase):
 
     def test1002get_process_exitcode(self):
         result=server.get_process_exitcode(3)
-        self.assertEquals(result, '')
+        self.assertEqual(result, '')
 
 class class11int_contTest(TestCase):
     """
@@ -423,9 +423,9 @@ if mode=="debug":
 
 
     if False in success:
-        print "One or more test are failed or have an unexpected error"
+        print("One or more test are failed or have an unexpected error")
     else:
-        print "All function work"
+        print("All function work")
 else:
 
     unittest.main()

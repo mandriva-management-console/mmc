@@ -37,33 +37,33 @@ if __name__ == '__main__':
         from windowsHandler import windowsUpdateHandler
         updateHandler = windowsUpdateHandler(platform)
     else:
-        print 'Unsupported operating system'
+        print('Unsupported operating system')
         sys.exit(1)
     
     # Disabling native update service
     # ugly try, except, but not really important to continue
     try:
         if not updateHandler.disableNativeUpdates():
-            print "Cannot disable Windows Update Service"
+            print("Cannot disable Windows Update Service")
     except:
-        print "Cannot disable Windows Update Service"
+        print("Cannot disable Windows Update Service")
     
     args = sys.argv
     
     if len(args) < 2:
-        print "pulse-update-manager 1.0.1"
-        print "Usage : \tpulse-update-manager [options] [update_list]"
-        print ""
-        print "Options:"
-        print "  -l, --list : List all updates available for this machine"
-        print "  --offline : List mode, list cached updates (offline mode)"
-        print "  --json : List mode, output in JSON format"
-        print "  -i, --install : Install specified updates (uuid or kb_number)"
-        print ""
-        print ""
-        print "Examples:"
-        print "  pulse-update-manager -l --offline --json"
-        print "  pulse-update-manager --install 2791765 2741517"
+        print("pulse-update-manager 1.0.1")
+        print("Usage : \tpulse-update-manager [options] [update_list]")
+        print("")
+        print("Options:")
+        print("  -l, --list : List all updates available for this machine")
+        print("  --offline : List mode, list cached updates (offline mode)")
+        print("  --json : List mode, output in JSON format")
+        print("  -i, --install : Install specified updates (uuid or kb_number)")
+        print("")
+        print("")
+        print("Examples:")
+        print("  pulse-update-manager -l --offline --json")
+        print("  pulse-update-manager --install 2791765 2741517")
         sys.exit(0)
     
     command = args[1]
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     # Specific update info
     if command == '-d' or command == '--detail':
         if (len(args) < 3):
-            print "You must specify update UUID"
+            print("You must specify update UUID")
             sys.exit(0)
         online = not ('--offline' in args)
         updateHandler.showUpdateInfo(args[2], online)
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     # Update listing switches
     if '--list' in args or '-l' in args:
         # Search all available updates
-        print "Searching for updates ..."
+        print("Searching for updates ...")
         #
         online = not ('--offline' in args)
     
@@ -91,9 +91,9 @@ if __name__ == '__main__':
     
         if '--json' in args:
             # Printing JSON
-            print "===JSON_BEGIN==="
-            print json.dumps(result_verbose)
-            print "===JSON_END==="
+            print("===JSON_BEGIN===")
+            print(json.dumps(result_verbose))
+            print("===JSON_END===")
         elif '--otherformat' in args:
             pass
         else:

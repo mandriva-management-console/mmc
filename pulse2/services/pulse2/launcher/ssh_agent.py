@@ -80,7 +80,7 @@ def addPrivKeyToSSHAgent(key_name):
     if key_name == None or key_name == '':
         key_name = LauncherConfig().ssh_defaultkey
 
-    if key_name not in LauncherConfig().ssh_keys.keys():
+    if key_name not in list(LauncherConfig().ssh_keys.keys()):
         return False
 
     return (os.system('ssh-add %s 2> /dev/null' % LauncherConfig().ssh_keys[key_name]) == 0)
@@ -93,7 +93,7 @@ def removePrivKeyFromSSHAgent(key_name):
     if key_name == None or key_name == '':
         key_name = LauncherConfig().ssh_defaultkey
 
-    if key_name not in LauncherConfig().ssh_keys.keys():
+    if key_name not in list(LauncherConfig().ssh_keys.keys()):
         return False
 
     return (os.system('ssh-add -d %s 2> /dev/null' % LauncherConfig().ssh_keys[key_name]) == 0)

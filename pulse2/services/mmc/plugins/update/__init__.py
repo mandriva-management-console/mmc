@@ -122,14 +122,14 @@ def create_update_commands():
         request = []
         equ_bool = []
 
-        for i in xrange(len(patterns)):
+        for i in range(len(patterns)):
             request.append(dyngroup_pattern % (i+1, patterns[i]))
             equ_bool.append(str(i+1))
 
         request = '||'.join(request)
         equ_bool = 'OR(%s)' % ','.join(equ_bool)
 
-        targets = ComputerManager().getComputersList(ctx, {'request':  request, 'equ_bool': equ_bool}).keys()
+        targets = list(ComputerManager().getComputersList(ctx, {'request':  request, 'equ_bool': equ_bool}).keys())
 
         # Fetching all targets
         for uuid in targets:

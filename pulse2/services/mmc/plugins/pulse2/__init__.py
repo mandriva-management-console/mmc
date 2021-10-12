@@ -68,7 +68,7 @@ def activate_2():
     config = Pulse2Config("pulse2")
     try:
         ComputerLocationManager().select(config.location)
-    except Exception, e:
+    except Exception as e:
         logging.getLogger().error(e)
         return False
     return True
@@ -92,7 +92,7 @@ def create_method(m):
         try:
             old_m = getattr(self, '_old_'+m)
             ret = old_m()
-        except DBAPIError, e:
+        except DBAPIError as e:
             reconnect = False
             if e.orig.args[0] == 2013 and not already_in_loop: # Lost connection to MySQL server during query error
                 logging.getLogger().warn("DBAPIError Lost connection")
@@ -107,7 +107,7 @@ def create_method(m):
                     try:
                         ret = new_m(True)
                         break
-                    except Exception, e:
+                    except Exception as e:
                         # Try again
                         continue
             if ret != NORESULT:
@@ -217,7 +217,7 @@ def updateDebianSourceList():
         repo_line = 'deb http://%s:a0@pulse.mandriva.org/pub/pulse2/server/debian wheezy %s.0\n' % (installation_uuid, pulse_version)
 
         lines = open('/etc/apt/sources.list', 'r').readlines()
-        for i in xrange(len(lines)):
+        for i in range(len(lines)):
             line = lines[i]
             # If there is already a pulse line, we overwrite it (skip comment line)
             if 'pulse.mandriva.org/pub/pulse2/server/debian' in line and not '#' in line:
@@ -232,7 +232,7 @@ def updateDebianSourceList():
         f.close()
     except IOError:
         logging.getLogger().error('Error while writing source.list file')
-    except Exception, e:
+    except Exception as e:
         logging.getLogger().exception(str(e))
 
 

@@ -63,8 +63,8 @@ def commandRunner(cmd, cbCommandEnd, env_={}):
         process.handler = twisted.internet.reactor.spawnProcess(
             process,
             cmd[0],
-            map(lambda(x): x.encode('utf-8', 'ignore'), cmd), env=env_, childFDs={ 1: 'r', 2: 'r' })
-    except OSError, e:
+            [x.encode('utf-8', 'ignore') for x in cmd], env=env_, childFDs={ 1: 'r', 2: 'r' })
+    except OSError as e:
         logging.getLogger().error('launcher %s: failed daemonization in commandRunner: %d (%s)' % (LauncherConfig().name, e.errno, e.strerror))
         return False
     logging.getLogger().debug('launcher %s: about to execute %s in commandRunner' % (LauncherConfig().name, ' '.join(cmd)))
@@ -94,8 +94,8 @@ def commandForker(cmd, cbCommandEnd, id, defer_results, callbackName, max_exec_t
         process.handler = twisted.internet.reactor.spawnProcess(
             process,
             cmd[0],
-            map(lambda(x): x.encode('utf-8', 'ignore'), cmd), env=env_, childFDs={ 1: 'r', 2: 'r' })
-    except OSError, e:
+            [x.encode('utf-8', 'ignore') for x in cmd], env=env_, childFDs={ 1: 'r', 2: 'r' })
+    except OSError as e:
         logging.getLogger().error('launcher %s: failed daemonization in commandForker: %d (%s)' % (LauncherConfig().name, e.errno, e.strerror))
         # do some cleanup
         return False
@@ -354,7 +354,7 @@ class ProcessList(Singleton):
         return None
 
     def existsProcess(self, id):
-        return id in self._processArr.keys()
+        return id in list(self._processArr.keys())
 
     def removeProcess(self, id):
         del self._processArr[id]
@@ -365,13 +365,13 @@ class ProcessList(Singleton):
         return self._processArr
 
     def getProcessIds(self):
-        return self.listProcesses().keys()
+        return list(self.listProcesses().keys())
 
     def getProcessCount(self):
         return len(self.listProcesses())
 
     def getProcessList(self):
-        return self.listProcesses().values()
+        return list(self.listProcesses().values())
 
     """ Zombies handling """
     def isZombie(self, id):
@@ -379,7 +379,7 @@ class ProcessList(Singleton):
 
     def getZombieIds(self):
         ret = []
-        for i in self.listProcesses().keys():
+        for i in list(self.listProcesses().keys()):
             if self.isZombie(i):
                 ret.append(i)
         return ret
@@ -393,7 +393,7 @@ class ProcessList(Singleton):
 
     def getRunningIds(self):
         ret = []
-        for i in self.listProcesses().keys():
+        for i in list(self.listProcesses().keys()):
             if self.isRunning(i):
                 ret.append(i)
         return ret

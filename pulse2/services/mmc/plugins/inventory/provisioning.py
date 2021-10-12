@@ -76,7 +76,7 @@ class InventoryProvisioner(ProvisionerI):
             try:
                 entities = self.config.profilesEntity[profile].split()
             except KeyError:
-                if self.config.profilesEntity.has_key("default"):
+                if "default" in self.config.profilesEntity:
                     entities = self.config.profilesEntity["default"].split()
                     self.logger.info("Set the default profile to user.")
                     profile = 'default'
@@ -108,7 +108,7 @@ class InventoryProvisioner(ProvisionerI):
                             tmp.extend(found)
                         except ImportError:
                             self.logger.error("The plugin '%s' can't be imported" % plugin)
-                        except Exception, e:
+                        except Exception as e:
                             self.logger.error("Error while using the plugin '%s'" % plugin)
                             self.logger.exception(e)
                     else:

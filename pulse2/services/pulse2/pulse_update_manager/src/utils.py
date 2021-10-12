@@ -35,12 +35,12 @@ def pprinttable(rows):
         pattern = " | ".join(formats)
         hpattern = " | ".join(hformats)
         separator = "-+-".join(['-' * n for n in lens])
-        print hpattern % tuple(headers)
-        print separator
+        print(hpattern % tuple(headers))
+        print(separator)
         for line in rows:
-            print pattern % tuple(line)
+            print(pattern % tuple(line))
     elif len(rows) == 1:
         row = rows[0]
         hwidth = len(max(row._fields,key=lambda x: len(x)))
         for i in range(len(row)):
-            print "%*s = %s" % (hwidth,row._fields[i],row[i])
+            print("%*s = %s" % (hwidth,row._fields[i],row[i]))

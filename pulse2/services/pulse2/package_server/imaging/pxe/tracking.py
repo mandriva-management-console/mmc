@@ -117,9 +117,7 @@ class EntryTracking(TrackingContainer):
             self.mark(mac)
 
 
-class MTFTPTracker(object):
-    __metaclass__ = SingletonN
-
+class MTFTPTracker(object, metaclass=SingletonN):
     GRP_TIMEOUT = 3600
 
     FIRST_DELAY = 10
@@ -156,6 +154,6 @@ class MTFTPTracker(object):
             logging.getLogger().debug("PXE Proxy: MTFTP Tracker file: %d for MAC: %s delay = %s" % (file, mac, str(wait)))
             return int(wait)
 
-        except Exception, e:
+        except Exception as e:
             logging.getLogger().warn("PXE Proxy: MTFTP Tracker failed: %s" % str(e))
 
