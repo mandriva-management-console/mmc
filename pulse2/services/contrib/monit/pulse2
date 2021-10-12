@@ -24,7 +24,7 @@
 
 import sys
 import getopt
-from xmlrpclib import ServerProxy, Error
+from xmlrpc.client import ServerProxy, Error
 import socket
 
 OK = 0
@@ -33,20 +33,20 @@ CRITICAL = 2
 UNKNOWN = 3
 
 def usage():
-    print "Nagios plugin to get Pulse 2 scheduler or launcher status."
-    print
-    print "Usage: pulse2-check -u http[s]://username:password@host:port"
-    print
-    print "Examples:"
-    print "$ check_pulse2 -u http://ip_scheduler:8000"
-    print "$ check_pulse2 -u http://ip_launcher:8001"
+    print("Nagios plugin to get Pulse 2 scheduler or launcher status.")
+    print()
+    print("Usage: pulse2-check -u http[s]://username:password@host:port")
+    print()
+    print("Examples:")
+    print("$ check_pulse2 -u http://ip_scheduler:8000")
+    print("$ check_pulse2 -u http://ip_launcher:8001")
     sys.exit(UNKNOWN)
 
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "u:")
-    except getopt.GetoptError, e:
-        print str(e)
+    except getopt.GetoptError as e:
+        print(str(e))
         usage()
         sys.exit(3)
 
@@ -64,22 +64,22 @@ def main():
 
     try:
         health = s.get_health()
-    except Error, e:
-        print str(e)
+    except Error as e:
+        print(str(e))
         sys.exit(3)
-    except socket.error, e:
+    except socket.error as e:
         code, msg = e.args
         if code == 111:
-            print msg
+            print(msg)
         else:
-            print str(e)
+            print(str(e))
         sys.exit(CRITICAL)
 
     if 'fd' in health and 'loadavg' in health and 'memory' in health:
-        print "OK"
+        print("OK")
         sys.exit(OK)
     else:
-        print "WARNING: " + str(health)
+        print("WARNING: " + str(health))
         sys.exit(WARNING)
 
 

@@ -31,14 +31,14 @@ from twisted.internet import reactor
 from twisted.internet.task import LoopingCall
 
 def usage():
-    print """\
+    print("""\
 This little tool asks to a Pulse 2 Package Server its packages list, and then
 tries to reach 100 concurrent package downloads.
 
 Usage: pserver-max-dl <url>
 
 Example: pserver-max-dl http://192.168.0.1:9990
-"""
+""")
     sys.exit(1)
 
 
@@ -64,7 +64,7 @@ class Benchmark:
 
     def startBenchLoop(self, packages):
         self.packages = packages
-        print "Starting download test"
+        print("Starting download test")
         LoopingCall(self.startBench).start(SLEEP)
 
     def startBench(self):
@@ -73,7 +73,7 @@ class Benchmark:
                 for f in pkg['files']:
                     fid = f['id']
                     self.inprogress += 1                    
-                    print "Current downloads in progress:", self.inprogress
+                    print("Current downloads in progress:", self.inprogress)
                     d = self.mirror.callRemote('getFileURI', fid).addCallbacks(self.startDl, self.dlError)
 
     def startDl(self, uri):
@@ -82,19 +82,19 @@ class Benchmark:
 
     def getDlValue(self, data):
         self.inprogress -= 1
-        print "Download done, %d download remaining" % self.inprogress
+        print("Download done, %d download remaining" % self.inprogress)
 
     def dlError(self, error):
-        print error
-        print "First error after %d concurrent downloads"  % self.inprogress
+        print(error)
+        print("First error after %d concurrent downloads"  % self.inprogress)
         self.inprogress -= 1
 
     def getPrintValue(self, value):
-        print repr(value)
+        print(repr(value))
         reactor.stop()
 
     def onError(self, error):
-        print 'error', error
+        print('error', error)
         reactor.stop()
 
 

@@ -32,14 +32,14 @@ from twisted.internet import reactor
 from twisted.internet.task import LoopingCall
 
 def usage():
-    print """\
+    print("""\
 This little tool asks to a Pulse Package Server its packages list every 5
 seconds.
 
 Usage: pserver-plist <url>
 
 Example: pserver-plist http://192.168.0.1:9990
-"""
+""")
     sys.exit(1)
 
 class Benchmark:
@@ -67,12 +67,12 @@ class Benchmark:
 
     def startBenchLoop(self, packages):
         if not packages:
-            print "Package server has no package"
+            print("Package server has no package")
         for pkg in packages:
-            print pkg['id']
+            print(pkg['id'])
 
     def onError(self, error):
-        print 'error', error
+        print('error', error)
         reactor.stop()
 
 if __name__ == '__main__':
