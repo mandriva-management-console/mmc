@@ -37,36 +37,35 @@ class Circuit (object):
     started = False
 
     def __init__(self, id):
-	self.id = id
+        self.id = id
 
 
     def run(self):
-	self.started = True
-	return True
+        self.started = True
+        return True
 
 
 class Test00_LoopingStart(unittest.TestCase):
 
     def setUp(self):
-	self.logger = logging.getLogger()
+        self.logger = logging.getLogger()
         self.dispatcher = type("MscDispatcher", 
 			      (object,),
 			      {"_circuits": []}
 			       )
-	self.circuits = []
-	for id in range(10):
-	    self.circuits.append(Circuit(id))
+        self.circuits = []
+        for id in range(10):
+            self.circuits.append(Circuit(id))
 
-	self.starter = LoopingStarter(self.dispatcher,
-	                              0.2)
+        self.starter = LoopingStarter(self.dispatcher, 0.2)
 
 
     def test01_start(self):
-	"""Start of looping start """
+        """Start of looping start """
             
-	return self.starter.run(self.circuits)
+        return self.starter.run(self.circuits)
 
     def test02_result(self):
-	"""Checks if all circuits has been started"""
+        """Checks if all circuits has been started"""
         result = all([c.started for c in self.dispatcher._circuits])
         self.assertTrue(result)

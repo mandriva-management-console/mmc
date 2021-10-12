@@ -270,9 +270,8 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                                           if c.id in ids
                                        ]
 	# already initialized circuits will be started
-        aicd = maybeDeferred(self._circuits_activate,
-			     already_initialized_circuits)
-	aicd.addCallback(self._run_all)
+        aicd = maybeDeferred(self._circuits_activate, already_initialized_circuits)
+        aicd.addCallback(self._run_all)
         aicd.addErrback(self._start_failed)
 
         already_initialized_ids = [c.id for c in already_initialized_circuits]
@@ -375,14 +374,14 @@ class MscDispatcher (MscQueryManager, MethodProxy):
 
 
     def _circuit_pre_setup(self, id):
-	"""
-	Circuit pre-setup step.
+        """
+        Circuit pre-setup step.
 
-	This method encapsuled as deferred avoids to go directly on the setup
-	without terminating all the operations in the Circuit's constructor,
-	especialy the creation oh CohQuery object needed for setup.
+        This method encapsuled as deferred avoids to go directly on the setup
+        without terminating all the operations in the Circuit's constructor,
+        especialy the creation oh CohQuery object needed for setup.
 
-	@param id: circuit id
+        @param id: circuit id
         @type id: int
 
         @return: initialized Circuit object
@@ -394,8 +393,8 @@ class MscDispatcher (MscQueryManager, MethodProxy):
 
 
     def _circuit_setup(self, circuit):
-	"""
-	Final circuit's setup step.
+        """
+        Final circuit's setup step.
 
         @param circuit: initialized Circuit object
         @type circuit: Circuit
@@ -416,7 +415,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
         @return: list of start results
         @rtype: list
         """
-	return self.loop_starter.run(circuits)
+        return self.loop_starter.run(circuits)
 
 
 
@@ -449,7 +448,7 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                 self.logger.warn("Circuit setup failed")
             if not isinstance(circuit, Circuit):
                 self.logger.warn("Circuit setup failed - not Circuit instance")
-		continue
+                continue
             yield circuit
 
 
@@ -687,11 +686,11 @@ class MscDispatcher (MscQueryManager, MethodProxy):
                     continue
 
                 # do not start a stopped circuit
-	        if id in self.stopped_track:
-	            circuit = self.get(id)
+                if id in self.stopped_track:
+                    circuit = self.get(id)
                     if circuit :
-	                circuit.release()
- 	            continue
+                        circuit.release()
+                    continue
 
                 circuit = self.get(id)
                 if circuit :
@@ -778,12 +777,12 @@ class MscDispatcher (MscQueryManager, MethodProxy):
 
 
     def remove_expired(self, reason):
-	"""Freezed circuits clean up"""
-	exp_ids = self.started_track.get_expired()
-	for id in exp_ids:
-	    circuit = self.get(id)
-	    if circuit:
-	        if circuit.status == CC_STATUS.ACTIVE:
+        """Freezed circuits clean up"""
+        exp_ids = self.started_track.get_expired()
+        for id in exp_ids:
+            circuit = self.get(id)
+            if circuit:
+                if circuit.status == CC_STATUS.ACTIVE:
                     self.logger.warn("Circuit #%s: EXIPRED -> REMOVED!" % id)
                     circuit.release()
                     self.started_track.remove(id)

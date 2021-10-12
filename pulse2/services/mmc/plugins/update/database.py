@@ -220,8 +220,8 @@ class updateDatabase(DatabaseHelper):
         """
         Set the global update status
         """
-	if not isinstance(update_id, list):
-	    update_id = [update_id]
+        if not isinstance(update_id, list):
+            update_id = [update_id]
         try:
             session.query(Update).filter(Update.id.in_(update_id)).update({'status': status}, synchronize_session = False)
             session.commit()
@@ -379,7 +379,7 @@ class updateDatabase(DatabaseHelper):
         Set the update status for the target host only
         (global update status will remain unchanged)
         """
-	if not isinstance(uuid, list):
+        if not isinstance(uuid, list):
             uuid = [uuid]
         try:
             session.query(Target)\

@@ -162,12 +162,12 @@ class PackageApiPut(PackageApiGet):
             del Common().inEdition[package['id']]
 
 	# Force packavge detection
-	Common().detectNewPackages()
-	Common()._createMD5File(pa.root, force_compute=True)
-	# Reload all package info
-	#desc = Common().desc
-	#Common().init(Common().config)
-	#Common().desc = desc
+        Common().detectNewPackages()
+        Common()._createMD5File(pa.root, force_compute=True)
+        # Reload all package info
+        #desc = Common().desc
+        #Common().init(Common().config)
+        #Common().desc = desc
 
         return (True, package['id'], confdir, pa.toH())
 

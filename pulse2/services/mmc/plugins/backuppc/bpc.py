@@ -66,9 +66,9 @@ def dictToURL(params):
     for k in list(params.keys()):
         if type(params[k]) == type([]):
             for val in params[k]:
-		if val is None:
-  		    s+= '&%s=' % k
-		else:
+                if val is None:
+                    s+= '&%s=' % k
+                else:
                     s+= '&%s=%s' % (k,val)
             del params[k]
     return urllib.parse.urlencode(params)+s
@@ -144,13 +144,13 @@ def getHTMLerr(html):
         logger.warning(d('.h1').text())
         return {'err':15,'errtext':d('.h1').text()}
     else:
-	if len(d('.editError')):
-	    errors = []
-	    for i in range(len(d('.editError'))):
-		errors.append(d('.editError').eq(i).text())
-	    error_text = '\n'.join(errors)
-	    logger.warning(error_text)
-	    return {'err':15,'errtext':error_text}
+        if len(d('.editError')):
+            errors = []
+            for i in range(len(d('.editError'))):
+                errors.append(d('.editError').eq(i).text())
+            error_text = '\n'.join(errors)
+            logger.warning(error_text)
+            return {'err':15,'errtext':error_text}
 
 
 # ==========================================================================
@@ -488,8 +488,8 @@ def get_host_config(host,backupserver=''):
     for i in range(len(inputs)):
         key = inputs.eq(i).attr('name')
         value = inputs.eq(i).val()
-	if value is None:
-	    continue
+        if value is None:
+            continue
         # Isolating host config params
         if 'v_zZ_' in key:
             host_config[key.replace('v_zZ_','')]= value
