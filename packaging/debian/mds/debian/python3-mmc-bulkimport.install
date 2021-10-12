@@ -1,2 +1,2 @@
-usr/lib/python3/*-packages/mmc/plugins/bulkimport
+usr/lib/python3.*/*-packages/mmc/plugins/bulkimport
 etc/mmc/plugins/bulkimport.ini

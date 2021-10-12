@@ -9,7 +9,7 @@ Homepage: http://mds.mandriva.org
 Package: python3-mmc-core
 Architecture: all
 Section: python
-Depends: ${misc:Depends}, ${python3:Depends}, python3-twisted-web
+Depends: ${misc:Depends}, ${python3:Depends}, python3-twisted
 Suggests: python3-sqlalchemy (>= 0.5), python3-mysqldb (>= 1.2.2-7)
 Description: Core shared dependency for MMC API
  Contains base functions used by MMC.
@@ -62,7 +62,7 @@ Description: Generate reports within MMC framework
 
 Package: mmc-agent
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-openssl | python3-pyopenssl, python3 | python3-multiprocessing, ldap-utils, python3-gobject (>= 2.21.4)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-openssl | python3-pyopenssl, python3 | python3-multiprocessing, ldap-utils
 Description: Mandriva Management Console Agent
  XMLRPC server of the MMC API.
 

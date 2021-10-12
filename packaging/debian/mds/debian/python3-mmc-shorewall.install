@@ -1,2 +1,2 @@
-usr/lib/python3/*-packages/mmc/plugins/shorewall
+usr/lib/python3.*/*-packages/mmc/plugins/shorewall
 etc/mmc/plugins/shorewall.ini
