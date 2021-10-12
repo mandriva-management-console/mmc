@@ -155,7 +155,7 @@ def downloadFile(client, path, bwlimit, timeout):
             # If there was one, build a binary string from its content
             if ret:
                 rname, fname = ret
-                f = file(fname)
+                f = open(fname)
                 data = f.read()
                 f.close()
                 ret = (rname, xmlrpc.client.Binary(data))

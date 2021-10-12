@@ -41,6 +41,9 @@ from mmc.plugins.msc.qaction import qa_list_files
 from pulse2.managers.group import ComputerGroupManager
 import pulse2.apis.clients.package_get_api
 
+def cmp(a, b):
+    return (a > b) - (a < b)
+
 class PackageGetA(pulse2.apis.clients.package_get_api.PackageGetA):
     def __init__(self, server, port = None, mountpoint = None, proto = 'http', login = ''):
         self.logger = logging.getLogger()

@@ -47,7 +47,7 @@ class EntitiesRules:
         Read the rules configuration file
         """
         self.logger.debug("Reading inventory rules file %s" % self.conf)
-        for line in file(self.conf):
+        for line in open(self.conf):
             if line.startswith('#') or not line.strip():
                 continue
             try:

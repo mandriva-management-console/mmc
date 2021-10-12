@@ -69,7 +69,7 @@ class MscDownloadProcess:
             # Write the received file
             fname = os.path.join(self.storage, '%s-%d-%s' % (self.uuid, timestamp, dlname))
             self.logger.debug("download_file: Writing %s with %d bytes" % (fname, len(data)))
-            fobj = file(fname, 'w+')
+            fobj = open(fname, 'w+')
             fobj.write(data)
             fobj.close()
         else:
@@ -88,7 +88,7 @@ class MscDownloadProcess:
         """
         timestamp = int(time.time())
         errorfile = os.path.join(self.storage, '%s-%d' % (self.uuid, timestamp)+ '.' + self.mscdlfiles.ERROREXT)
-        fobj = file(errorfile, 'w+')
+        fobj = open(errorfile, 'w+')
         fobj.close()
 
     def _cbDownloadCleanup(self, result):
@@ -110,7 +110,7 @@ class MscDownloadProcess:
             return twisted.internet.defer.fail(twisted.python.failure.Failure("scheduler %s does not exist" % (scheduler_name)))
 
         # Create the lock file
-        f = file(self.lockfile, 'w+')
+        f = open(self.lockfile, 'w+')
         f.close()        
         # Start download process
         d = getProxy(MscConfig().schedulers[scheduler_name]).callRemote(
@@ -179,7 +179,7 @@ class MscDownloadedFiles:
             statinfo = os.stat(fp)
             if statinfo.st_ino == int(node):
                 uuid, timestamp, name = fname.split('-', 2)
-                f = file(fp)
+                f = open(fp)
                 data = f.read()
                 f.close()
                 ret = (name, xmlrpc.client.Binary(data))

@@ -805,7 +805,7 @@ class Imaging(object, metaclass=SingletonN):
                             if shortname:
                                 self.logger.debug("Client %s (%s) default menu entry is %s" % (shortname, str(mac), order))
                             else:
-                                self.logger.debug("Unknown client (%s) default menu entry is %s" % (shortname, str(mac), order))
+                                self.logger.debug("Unknown client %s (%s) default menu entry is %s" % (shortname, str(mac), order))
                             return order
                 return d
         return ret

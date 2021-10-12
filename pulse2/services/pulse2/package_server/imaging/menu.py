@@ -788,7 +788,7 @@ class ImagingImageItem(ImagingItem):
                 postinst = os.path.join(postinstdir, self.POSTINST % order)
                 try:
                     # write header
-                    f = file(postinst, 'w+')
+                    f = open(postinst, 'w+')
                     f.write('#!/bin/sh\n')
                     f.write('\n')
                     f.write('. /opt/lib/libpostinst.sh')
@@ -835,7 +835,7 @@ def changeDefaultMenuItem(macaddress, value):
                  % macaddress)
     newlines = ''
     try:
-        for line in file(filename):
+        for line in open(filename):
             if line.startswith('default '):
                 if line == 'default %d\n' % value:
                     logger.debug('Default item is already set to %d, nothing to do.' % value)
@@ -859,7 +859,7 @@ def changeDefaultMenuItem(macaddress, value):
             return False
         # Write new boot menu
         try:
-            fid = file(filename, 'w+b')
+            fid = open(filename, 'w+b')
             fid.write(newlines)
             fid.close()
             logger.debug('Successfully wrote boot menu for computer MAC %s into file %s' % (macaddress, filename))

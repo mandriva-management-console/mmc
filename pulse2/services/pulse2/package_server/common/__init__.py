@@ -44,6 +44,9 @@ from pulse2.package_server.utilities import md5file
 from pulse2.package_server.common.serializer import PkgsRsyncStateSerializer
 from twisted.internet import reactor, task
 
+def cmp(a, b):
+    return (a > b) - (a < b)
+
 class Common(pulse2.utils.Singleton):
     """  Base class
     """
@@ -873,12 +876,12 @@ class Common(pulse2.utils.Singleton):
                     if name != self.CONFFILE:
                         try:
                             filepath = os.path.join(root, name)
-                            f = file(filepath, "rb")
+                            f = open(filepath, "rb")
                             md5sums.append([filepath[len(dirname)+1:], hashlib.md5(f.read()).hexdigest()])
                             f.close()
                         except IOError as e:
                             self.logger.warn("Error while reading %s: %s" % (filepath, e))
-            fmd5 = file(fmd5name, "w+b")
+            fmd5 = open(fmd5name, "w+b")
             md5sums.sort(lambda x, y: cmp(x[0], y[0]))
             for name, md5hash in md5sums:
                 fmd5.write("%s  %s\n" % (md5hash, name))

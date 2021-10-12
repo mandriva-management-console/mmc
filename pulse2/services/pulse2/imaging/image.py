@@ -108,7 +108,7 @@ class Pulse2Image:
 
         # All below this is shit
         try:
-            fd_grub_file = file(os.path.join(self.directory, PULSE2_IMAGING_GRUB_FNAME))
+            fd_grub_file = open(os.path.join(self.directory, PULSE2_IMAGING_GRUB_FNAME))
         except Exception as e:
             logging.getLogger().error("Pulse2Image : can't read %s : %s" % (fd_grub_file, e))
             raise e
