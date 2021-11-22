@@ -754,7 +754,7 @@ exit 0
     <para>The same hook, written in Python:</para>
 
     <screen>
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 

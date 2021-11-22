@@ -44,7 +44,7 @@ class ProcessSimulator(object):
 
     timeout = 0.5
     body = """
-#!/usr/bin/python
+#!/usr/bin/python3
 import sys
 import time
 
