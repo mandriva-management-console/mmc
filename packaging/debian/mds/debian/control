@@ -11,6 +11,8 @@ Package: python3-mmc-samba
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-pylibacl, acl, python3-mmc-base (>= 3.1.1), samba-common, python3-smbpasswd, python3-configobj
+Replaces: python-mmc-samba
+Conflicts: python-mmc-samba
 Description: Mandriva Management Console SAMBA plugin
  SAMBA management plugin for the MMC.
 
@@ -18,6 +20,8 @@ Package: python3-mmc-mail
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
+Replaces: python-mmc-mail
+Conflicts: python-mmc-mail
 Description: Mandriva Management Console base plugin
  Mail account management plugin for the MMC.
 
@@ -25,6 +29,8 @@ Package: python3-mmc-proxy
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), squidguard
+Replaces: python-mmc-proxy
+Conflicts: python-mmc-proxy
 Description: Mandriva Management Console proxy plugin
  Squidguard/Squid management plugin for the MMC.
 
@@ -32,6 +38,8 @@ Package: python3-mmc-network
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
+Replaces: python-mmc-network
+Conflicts: python-mmc-network
 Description: Mandriva Management Console network plugin
  DNS/DHCP management plugin for the MMC.
  .
@@ -41,6 +49,8 @@ Package: python3-mmc-sshlpk
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
+Replaces: python-mmc-sshlpk
+Conflicts: python-mmc-sshlpk
 Description: Mandriva Management Console sshlpk plugin
  OpenSSH LDAP Public Key management plugin for the MMC.
  .
@@ -53,6 +63,8 @@ Package: python3-mmc-bulkimport
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
+Replaces: python-mmc-bulkimport
+Conflicts: python-mmc-bulkimport
 Description: Mandriva Management Console bulkimport plugin
  Massive LDAP user import or update using CSV files.
 
@@ -60,6 +72,8 @@ Package: python3-mmc-userquota
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), quota
+Replaces: python-mmc-userquota
+Conflicts: python-mmc-userquota
 Description: Mandriva Management Console userquota plugin
  Disk and network quota management plugin for the MMC.
 
@@ -67,6 +81,8 @@ Package: python3-mmc-shorewall
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), shorewall
+Replaces: python-mmc-shorewall
+Conflicts: python-mmc-shorewall
 Description: Mandriva Management Console shorewall plugin
  Configure shorewall firewall within MMC interface.
 
@@ -74,6 +90,8 @@ Package: python3-mmc-squid
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1), squid3, sarg
+Replaces: python-mmc-squid
+Conflicts: python-mmc-squid
 Description: Mandriva Management Console squid plugin
  Configure squid proxy server within MMC interface.
 
@@ -81,6 +99,8 @@ Package: python3-mmc-radius
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
+Replaces: python-mmc-radius
+Conflicts: python-mmc-radius
 Description: Mandriva Management Console radius plugin
  Configure radius server within MMC interface.
 
@@ -88,6 +108,8 @@ Package: python3-mmc-samba4
 Section: python
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (>= 3.1.1)
+Replaces: python-mmc-samba4
+Conflicts: python-mmc-samba4
 Description: Mandriva Management Console samba4 plugin
  Configure Samba 4 server within MMC interface.
 
