@@ -10,6 +10,8 @@ Package: python3-mmc-core
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python3:Depends}, python3-twisted
+Replaces: python-mmc-core
+Conflicts: python-mmc-core
 Suggests: python3-sqlalchemy (>= 0.5), python3-mysqldb (>= 1.2.2-7)
 Description: Core shared dependency for MMC API
  Contains base functions used by MMC.
@@ -19,6 +21,8 @@ Architecture: all
 Section: python
 Pre-depends: python3-mmc-core (= ${source:Version})
 Depends: ${misc:Depends}, ${python3:Depends}, python3-ldap
+Replaces: python-mmc-base
+Conflicts: python-mmc-base
 Description: Mandriva Management Console base plugin
  Contains the base infrastructure for all MMC plugins:
   * support classes
@@ -28,6 +32,8 @@ Package: python3-mmc-ppolicy
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version})
+Replaces: python-mmc-ppolicy
+Conflicts: python-mmc-ppolicy
 Suggests: mmc-check-password
 Description: Mandriva Management Console password policy plugin
  Contains password policy plugin to enforce minimum password security in MMC.
@@ -36,6 +42,8 @@ Package: python3-mmc-dashboard
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-psutil (>= 0.6.1)
+Replaces: python-mmc-dashboard
+Conflicts: python-mmc-dashboard
 Description: Mandriva Management Console dashboard plugin
  Provides a simple dashboard in MMC.
 
@@ -43,6 +51,8 @@ Package: python3-mmc-services
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-systemd-dbus (>= 0.1), systemd
+Replaces: python-mmc-services
+Conflicts: python-mmc-services
 Description: Mandriva Management Console systemd services plugin
  Handles system services through systemd.
 
@@ -50,6 +60,8 @@ Package: python3-mmc-database
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-sqlalchemy (>= 0.7), python3-mysqldb 
+Replaces: python-mmc-database
+Conflicts: python-mmc-database
 Description: Mandriva Management Console database common files
  Allow the use of SQL databases within MMC framework.
 
@@ -57,6 +69,8 @@ Package: python3-mmc-report
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python3:Depends}, python3-mmc-base (= ${source:Version}), python3-mmc-database (= ${source:Version}), python3-pygal, python3-weasyprint, python3-xlwt
+Replaces: python-mmc-report
+Conflicts: python-mmc-report
 Description: Generate reports within MMC framework
  Module to generate reports for other modules.
 
