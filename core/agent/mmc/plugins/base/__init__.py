@@ -75,7 +75,7 @@ INI = mmcconfdir + "/plugins/base.ini"
 
 modList= None
 
-VERSION = "3.1.83"
+VERSION = "3.1.84"
 APIVERSION = "9:0:5"
 REVISION = scmRevision("$Rev$")
 
