@@ -1,3 +1,9 @@
+mds (2.5.90-1) unstable; urgency=medium
+
+  * Switch to Python3.
+
+ -- Adam Cecile <acecile@le-vert.net>  Mon, 22 Nov 2021 22:31:23 +0100
+
 mds (2.5.89+git20170929.d32132c-1) unstable; urgency=medium
 
   * New upstream release.
